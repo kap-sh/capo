@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.machinelearning#RDSDataSpec``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -148,4 +148,17 @@ def deserialize_aws_json_1_1(data: dict) -> RDSDataSpec:
         )
     else:
         raise DeserializationError("RDSDataSpec.security_group_ids required")
+    return out
+
+
+def redact_sensitive(value: RDSDataSpec) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "database_credentials" in value:
+        import capo_machine_learning.types.rds_database_credentials
+
+        out["database_credentials"] = (
+            capo_machine_learning.types.rds_database_credentials.redact_sensitive(
+                value["database_credentials"]
+            )
+        )
     return out

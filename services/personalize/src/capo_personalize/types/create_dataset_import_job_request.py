@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#CreateDatasetImportJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,4 +100,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDatasetImportJobRequest:
         )
     if data.get("publishAttributionMetricsToS3") is not None:
         out["publish_attribution_metrics_to_s3"] = data["publishAttributionMetricsToS3"]
+    return out
+
+
+def redact_sensitive(value: CreateDatasetImportJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_personalize.types.tags
+
+        out["tags"] = capo_personalize.types.tags.redact_sensitive(value["tags"])
     return out

@@ -24,7 +24,9 @@ from capo_managedblockchain._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -189,7 +191,9 @@ class AsyncManagedBlockchainClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncManagedBlockchainClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncManagedBlockchainClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncManagedBlockchainClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class AsyncManagedBlockchainClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -262,7 +268,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessor")
+        )
         input_: capo_managedblockchain.types.create_accessor_input.CreateAccessorInput = {
             "client_request_token": client_request_token,
             "accessor_type": accessor_type,
@@ -325,7 +333,19 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_managedblockchain.types.create_member_input.CreateMemberInput",
+        ) -> dict[str, Any]:
+            import capo_managedblockchain.types.create_member_input
+
+            return capo_managedblockchain.types.create_member_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMember", redact_input=_redact_input),
+        )
         input_: capo_managedblockchain.types.create_member_input.CreateMemberInput = {
             "client_request_token": client_request_token,
             "invitation_id": invitation_id,
@@ -398,7 +418,19 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_managedblockchain.types.create_network_input.CreateNetworkInput",
+        ) -> dict[str, Any]:
+            import capo_managedblockchain.types.create_network_input
+
+            return capo_managedblockchain.types.create_network_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNetwork", redact_input=_redact_input),
+        )
         input_: capo_managedblockchain.types.create_network_input.CreateNetworkInput = {
             "client_request_token": client_request_token,
             "name": name,
@@ -471,7 +503,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNode")
+        )
         input_: capo_managedblockchain.types.create_node_input.CreateNodeInput = {
             "client_request_token": client_request_token,
             "network_id": network_id,
@@ -539,7 +573,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProposal")
+        )
         input_: capo_managedblockchain.types.create_proposal_input.CreateProposalInput = {
             "client_request_token": client_request_token,
             "network_id": network_id,
@@ -594,7 +630,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessor")
+        )
         input_: capo_managedblockchain.types.delete_accessor_input.DeleteAccessorInput = {
             "accessor_id": accessor_id
         }
@@ -645,7 +683,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMember")
+        )
         input_: capo_managedblockchain.types.delete_member_input.DeleteMemberInput = {
             "network_id": network_id,
             "member_id": member_id,
@@ -701,7 +741,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNode")
+        )
         input_: capo_managedblockchain.types.delete_node_input.DeleteNodeInput = {
             "network_id": network_id,
             "node_id": node_id,
@@ -752,7 +794,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessor")
+        )
         input_: capo_managedblockchain.types.get_accessor_input.GetAccessorInput = {
             "accessor_id": accessor_id
         }
@@ -802,7 +846,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMember")
+        )
         input_: capo_managedblockchain.types.get_member_input.GetMemberInput = {
             "network_id": network_id,
             "member_id": member_id,
@@ -851,7 +897,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetwork")
+        )
         input_: capo_managedblockchain.types.get_network_input.GetNetworkInput = {
             "network_id": network_id
         }
@@ -905,7 +953,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNode")
+        )
         input_: capo_managedblockchain.types.get_node_input.GetNodeInput = {
             "network_id": network_id,
             "node_id": node_id,
@@ -958,7 +1008,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProposal")
+        )
         input_: capo_managedblockchain.types.get_proposal_input.GetProposalInput = {
             "network_id": network_id,
             "proposal_id": proposal_id,
@@ -1016,7 +1068,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessors")
+        )
         input_: capo_managedblockchain.types.list_accessors_input.ListAccessorsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1104,7 +1158,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvitations")
+        )
         input_: capo_managedblockchain.types.list_invitations_input.ListInvitationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1192,7 +1248,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMembers")
+        )
         input_: capo_managedblockchain.types.list_members_input.ListMembersInput = {
             "network_id": network_id
         }
@@ -1296,7 +1354,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworks")
+        )
         input_: capo_managedblockchain.types.list_networks_input.ListNetworksInput = {}
         if name is not None:
             input_["name"] = name
@@ -1396,7 +1456,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodes")
+        )
         input_: capo_managedblockchain.types.list_nodes_input.ListNodesInput = {
             "network_id": network_id
         }
@@ -1493,7 +1555,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProposals")
+        )
         input_: capo_managedblockchain.types.list_proposals_input.ListProposalsInput = {
             "network_id": network_id
         }
@@ -1579,7 +1643,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProposalVotes")
+        )
         input_: capo_managedblockchain.types.list_proposal_votes_input.ListProposalVotesInput = {
             "network_id": network_id,
             "proposal_id": proposal_id,
@@ -1658,7 +1724,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_managedblockchain.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1707,7 +1775,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectInvitation")
+        )
         input_: capo_managedblockchain.types.reject_invitation_input.RejectInvitationInput = {
             "invitation_id": invitation_id
         }
@@ -1757,7 +1827,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_managedblockchain.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1807,7 +1879,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_managedblockchain.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1862,7 +1936,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMember")
+        )
         input_: capo_managedblockchain.types.update_member_input.UpdateMemberInput = {
             "network_id": network_id,
             "member_id": member_id,
@@ -1923,7 +1999,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNode")
+        )
         input_: capo_managedblockchain.types.update_node_input.UpdateNodeInput = {
             "network_id": network_id,
             "node_id": node_id,
@@ -1983,7 +2061,9 @@ class AsyncManagedBlockchainClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VoteOnProposal")
+        )
         input_: capo_managedblockchain.types.vote_on_proposal_input.VoteOnProposalInput = {
             "network_id": network_id,
             "proposal_id": proposal_id,

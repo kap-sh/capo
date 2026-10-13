@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,9 @@ class AudienceExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAudienceExportJob")
+        )
         input_: capo_cleanroomsml.types.start_audience_export_job_request.StartAudienceExportJobRequest = {
             "name": name,
             "audience_generation_job_arn": audience_generation_job_arn,
@@ -133,7 +136,9 @@ class AudienceExportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAudienceExportJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_export_jobs_request.ListAudienceExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -196,7 +201,9 @@ class AsyncAudienceExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAudienceExportJob")
+        )
         input_: capo_cleanroomsml.types.start_audience_export_job_request.StartAudienceExportJobRequest = {
             "name": name,
             "audience_generation_job_arn": audience_generation_job_arn,
@@ -252,7 +259,9 @@ class AsyncAudienceExportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAudienceExportJobs")
+        )
         input_: capo_cleanroomsml.types.list_audience_export_jobs_request.ListAudienceExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

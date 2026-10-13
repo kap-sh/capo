@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class RepositoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_proton.types.create_repository_input.CreateRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -136,7 +139,9 @@ class RepositoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRepository")
+        )
         input_: capo_proton.types.get_repository_input.GetRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -187,7 +192,9 @@ class RepositoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_proton.types.delete_repository_input.DeleteRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -239,7 +246,9 @@ class RepositoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRepositories")
+        )
         input_: capo_proton.types.list_repositories_input.ListRepositoriesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -303,7 +312,9 @@ class AsyncRepositoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_proton.types.create_repository_input.CreateRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -359,7 +370,9 @@ class AsyncRepositoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRepository")
+        )
         input_: capo_proton.types.get_repository_input.GetRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -411,7 +424,9 @@ class AsyncRepositoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_proton.types.delete_repository_input.DeleteRepositoryInput = {
             "provider": provider,
             "name": name,
@@ -464,7 +479,9 @@ class AsyncRepositoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRepositories")
+        )
         input_: capo_proton.types.list_repositories_input.ListRepositoriesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

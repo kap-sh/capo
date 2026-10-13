@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mwaa_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,9 @@ class TaskInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTaskInstance")
+        )
         input_: capo_mwaa_serverless.types.get_task_instance_request.GetTaskInstanceRequest = {
             "workflow_arn": workflow_arn,
             "task_instance_id": task_instance_id,
@@ -129,7 +132,9 @@ class TaskInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTaskInstances")
+        )
         input_: capo_mwaa_serverless.types.list_task_instances_request.ListTaskInstancesRequest = {
             "workflow_arn": workflow_arn,
             "run_id": run_id,
@@ -194,7 +199,9 @@ class AsyncTaskInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTaskInstance")
+        )
         input_: capo_mwaa_serverless.types.get_task_instance_request.GetTaskInstanceRequest = {
             "workflow_arn": workflow_arn,
             "task_instance_id": task_instance_id,
@@ -250,7 +257,9 @@ class AsyncTaskInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTaskInstances")
+        )
         input_: capo_mwaa_serverless.types.list_task_instances_request.ListTaskInstancesRequest = {
             "workflow_arn": workflow_arn,
             "run_id": run_id,

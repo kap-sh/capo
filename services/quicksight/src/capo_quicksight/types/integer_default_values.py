@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#IntegerDefaultValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_json(data: dict) -> IntegerDefaultValues:
         out["static_values"] = (
             capo_quicksight.types.integer_default_value_list.deserialize_json(
                 data["StaticValues"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: IntegerDefaultValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static_values" in value:
+        import capo_quicksight.types.integer_default_value_list
+
+        out["static_values"] = (
+            capo_quicksight.types.integer_default_value_list.redact_sensitive(
+                value["static_values"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#SynchronizeGatewayTargetsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> SynchronizeGatewayTargetsResponse:
         out["targets"] = (
             capo_bedrock_agentcore_control.types.gateway_target_list.deserialize_json(
                 data["targets"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SynchronizeGatewayTargetsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "targets" in value:
+        import capo_bedrock_agentcore_control.types.gateway_target_list
+
+        out["targets"] = (
+            capo_bedrock_agentcore_control.types.gateway_target_list.redact_sensitive(
+                value["targets"]
             )
         )
     return out

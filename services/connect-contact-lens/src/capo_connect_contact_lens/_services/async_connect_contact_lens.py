@@ -24,7 +24,9 @@ from capo_connect_contact_lens._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -110,7 +112,9 @@ class AsyncConnectContactLensClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncConnectContactLensClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncConnectContactLensClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncConnectContactLensClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -118,8 +122,10 @@ class AsyncConnectContactLensClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -187,7 +193,9 @@ class AsyncConnectContactLensClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRealtimeContactAnalysisSegments")
+        )
         input_: capo_connect_contact_lens.types.list_realtime_contact_analysis_segments_request.ListRealtimeContactAnalysisSegmentsRequest = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id

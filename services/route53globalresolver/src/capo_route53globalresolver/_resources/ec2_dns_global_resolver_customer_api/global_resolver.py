@@ -8,6 +8,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,9 @@ class GlobalResolver:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.create_global_resolver_input.CreateGlobalResolverInput = {
             "name": name,
             "regions": regions,
@@ -162,7 +165,9 @@ class GlobalResolver:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.get_global_resolver_input.GetGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -229,7 +234,9 @@ class GlobalResolver:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.update_global_resolver_input.UpdateGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -287,7 +294,9 @@ class GlobalResolver:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.delete_global_resolver_input.DeleteGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -335,7 +344,9 @@ class GlobalResolver:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGlobalResolvers")
+        )
         input_: capo_route53globalresolver.types.list_global_resolvers_input.ListGlobalResolversInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -411,7 +422,9 @@ class AsyncGlobalResolver:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.create_global_resolver_input.CreateGlobalResolverInput = {
             "name": name,
             "regions": regions,
@@ -471,7 +484,9 @@ class AsyncGlobalResolver:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.get_global_resolver_input.GetGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -539,7 +554,9 @@ class AsyncGlobalResolver:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.update_global_resolver_input.UpdateGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -598,7 +615,9 @@ class AsyncGlobalResolver:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalResolver")
+        )
         input_: capo_route53globalresolver.types.delete_global_resolver_input.DeleteGlobalResolverInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -647,7 +666,9 @@ class AsyncGlobalResolver:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGlobalResolvers")
+        )
         input_: capo_route53globalresolver.types.list_global_resolvers_input.ListGlobalResolversInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

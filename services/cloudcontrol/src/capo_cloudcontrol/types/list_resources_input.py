@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#ListResourcesInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListResourcesInput:
         out["max_results"] = data["MaxResults"]
     if data.get("ResourceModel") is not None:
         out["resource_model"] = data["ResourceModel"]
+    return out
+
+
+def redact_sensitive(value: ListResourcesInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "resource_model" in value:
+        out["resource_model"] = "*** Sensitive Data Redacted ***"
     return out

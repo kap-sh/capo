@@ -25,7 +25,9 @@ from capo_signin._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -144,7 +146,9 @@ class AsyncSigninClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSigninClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSigninClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSigninClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -152,8 +156,10 @@ class AsyncSigninClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -206,7 +212,32 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_signin.types.create_o_auth2_token_request.CreateOAuth2TokenRequest",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_o_auth2_token_request
+
+            return capo_signin.types.create_o_auth2_token_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_signin.types.create_o_auth2_token_response.CreateOAuth2TokenResponse",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_o_auth2_token_response
+
+            return capo_signin.types.create_o_auth2_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOAuth2Token",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_signin.types.create_o_auth2_token_request.CreateOAuth2TokenRequest = {
             "token_input": token_input
         }
@@ -255,7 +286,19 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_signin.types.create_o_auth2_token_with_iam_response.CreateOAuth2TokenWithIAMResponse",
+        ) -> dict[str, Any]:
+            import capo_signin.types.create_o_auth2_token_with_iam_response
+
+            return capo_signin.types.create_o_auth2_token_with_iam_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOAuth2TokenWithIAM", redact_output=_redact_output),
+        )
         input_: capo_signin.types.create_o_auth2_token_with_iam_request.CreateOAuth2TokenWithIAMRequest = {
             "grant_type": grant_type,
             "resource": resource,
@@ -304,7 +347,10 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConsoleAuthorizationConfiguration"),
+        )
         input_: capo_signin.types.delete_console_authorization_configuration_input.DeleteConsoleAuthorizationConfigurationInput = {}
         if target_id is not None:
             input_["target_id"] = target_id
@@ -354,7 +400,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePermissionStatement")
+        )
         input_: capo_signin.types.delete_resource_permission_statement_input.DeleteResourcePermissionStatementInput = {
             "statement_id": statement_id
         }
@@ -405,7 +453,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConsoleAuthorizationConfiguration")
+        )
         input_: capo_signin.types.get_console_authorization_configuration_input.GetConsoleAuthorizationConfigurationInput = {}
         if target_id is not None:
             input_["target_id"] = target_id
@@ -446,7 +496,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_signin.types.get_resource_policy_input.GetResourcePolicyInput = {}
 
         response = await aexecute_pipeline(
@@ -495,7 +547,21 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_signin.types.introspect_o_auth2_token_with_iam_request.IntrospectOAuth2TokenWithIAMRequest",
+        ) -> dict[str, Any]:
+            import capo_signin.types.introspect_o_auth2_token_with_iam_request
+
+            return capo_signin.types.introspect_o_auth2_token_with_iam_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IntrospectOAuth2TokenWithIAM", redact_input=_redact_input
+            ),
+        )
         input_: capo_signin.types.introspect_o_auth2_token_with_iam_request.IntrospectOAuth2TokenWithIAMRequest = {
             "token": token
         }
@@ -549,7 +615,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcePermissionStatements")
+        )
         input_: capo_signin.types.list_resource_permission_statements_input.ListResourcePermissionStatementsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -623,7 +691,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConsoleAuthorizationConfiguration")
+        )
         input_: capo_signin.types.put_console_authorization_configuration_input.PutConsoleAuthorizationConfigurationInput = {}
         if target_id is not None:
             input_["target_id"] = target_id
@@ -692,7 +762,9 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePermissionStatement")
+        )
         input_: capo_signin.types.put_resource_permission_statement_input.PutResourcePermissionStatementInput = {}
         if source_vpc is not None:
             input_["source_vpc"] = source_vpc
@@ -754,7 +826,19 @@ class AsyncSigninClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_signin.types.revoke_o_auth2_token_with_iam_request.RevokeOAuth2TokenWithIAMRequest",
+        ) -> dict[str, Any]:
+            import capo_signin.types.revoke_o_auth2_token_with_iam_request
+
+            return capo_signin.types.revoke_o_auth2_token_with_iam_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RevokeOAuth2TokenWithIAM", redact_input=_redact_input),
+        )
         input_: capo_signin.types.revoke_o_auth2_token_with_iam_request.RevokeOAuth2TokenWithIAMRequest = {
             "token": token
         }

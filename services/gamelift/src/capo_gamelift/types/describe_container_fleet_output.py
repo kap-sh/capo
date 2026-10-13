@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#DescribeContainerFleetOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeContainerFleetOutput:
             capo_gamelift.types.container_fleet.deserialize_aws_json_1_1(
                 data["ContainerFleet"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeContainerFleetOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "container_fleet" in value:
+        import capo_gamelift.types.container_fleet
+
+        out["container_fleet"] = capo_gamelift.types.container_fleet.redact_sensitive(
+            value["container_fleet"]
         )
     return out

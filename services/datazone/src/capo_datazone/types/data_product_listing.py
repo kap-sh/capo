@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DataProductListing``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,5 +96,24 @@ def deserialize_json(data: dict) -> DataProductListing:
 
         out["items"] = capo_datazone.types.listing_summaries.deserialize_json(
             data["items"]
+        )
+    return out
+
+
+def redact_sensitive(value: DataProductListing) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "glossary_terms" in value:
+        import capo_datazone.types.detailed_glossary_terms
+
+        out["glossary_terms"] = (
+            capo_datazone.types.detailed_glossary_terms.redact_sensitive(
+                value["glossary_terms"]
+            )
+        )
+    if "items" in value:
+        import capo_datazone.types.listing_summaries
+
+        out["items"] = capo_datazone.types.listing_summaries.redact_sensitive(
+            value["items"]
         )
     return out

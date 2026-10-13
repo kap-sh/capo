@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#UpdateChannelParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -98,6 +98,27 @@ def deserialize_json(data: dict) -> UpdateChannelParameters:
         out["whats_app"] = (
             capo_endusermessaging.types.update_whats_app_parameters.deserialize_json(
                 data["whatsApp"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateChannelParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        import capo_endusermessaging.types.update_text_parameters
+
+        out["text"] = (
+            capo_endusermessaging.types.update_text_parameters.redact_sensitive(
+                value["text"]
+            )
+        )
+    if "voice" in value:
+        import capo_endusermessaging.types.update_voice_parameters
+
+        out["voice"] = (
+            capo_endusermessaging.types.update_voice_parameters.redact_sensitive(
+                value["voice"]
             )
         )
     return out

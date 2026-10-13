@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WeightPerAxleGroup``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,19 @@ def deserialize_json(data: dict) -> WeightPerAxleGroup:
         out["quint"] = data["Quint"]
     else:
         out["quint"] = 0
+    return out
+
+
+def redact_sensitive(value: WeightPerAxleGroup) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "single" in value:
+        out["single"] = "*** Sensitive Data Redacted ***"
+    if "tandem" in value:
+        out["tandem"] = "*** Sensitive Data Redacted ***"
+    if "triple" in value:
+        out["triple"] = "*** Sensitive Data Redacted ***"
+    if "quad" in value:
+        out["quad"] = "*** Sensitive Data Redacted ***"
+    if "quint" in value:
+        out["quint"] = "*** Sensitive Data Redacted ***"
     return out

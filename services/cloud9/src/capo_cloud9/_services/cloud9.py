@@ -21,10 +21,12 @@ from capo_cloud9._pagination import resolve_path as _resolve_path
 from capo_cloud9._services._aws_config import aws_config
 from capo_cloud9._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -150,7 +152,9 @@ class Cloud9Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[Cloud9ClientConfig] = None
+        self,
+        config_overrides: Optional[Cloud9ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: Cloud9ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class Cloud9Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -247,7 +253,19 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloud9.types.create_environment_ec2_request.CreateEnvironmentEC2Request",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.create_environment_ec2_request
+
+            return capo_cloud9.types.create_environment_ec2_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEnvironmentEC2", redact_input=_redact_input),
+        )
         input_: capo_cloud9.types.create_environment_ec2_request.CreateEnvironmentEC2Request = {
             "name": name,
             "instance_type": instance_type,
@@ -323,7 +341,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentMembership")
+        )
         input_: capo_cloud9.types.create_environment_membership_request.CreateEnvironmentMembershipRequest = {
             "environment_id": environment_id,
             "user_arn": user_arn,
@@ -379,7 +399,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_cloud9.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -435,7 +457,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentMembership")
+        )
         input_: capo_cloud9.types.delete_environment_membership_request.DeleteEnvironmentMembershipRequest = {
             "environment_id": environment_id,
             "user_arn": user_arn,
@@ -511,7 +535,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironmentMemberships")
+        )
         input_: capo_cloud9.types.describe_environment_memberships_request.DescribeEnvironmentMembershipsRequest = {}
         if user_arn is not None:
             input_["user_arn"] = user_arn
@@ -602,7 +628,19 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloud9.types.describe_environments_result.DescribeEnvironmentsResult",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.describe_environments_result
+
+            return capo_cloud9.types.describe_environments_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEnvironments", redact_output=_redact_output),
+        )
         input_: capo_cloud9.types.describe_environments_request.DescribeEnvironmentsRequest = {
             "environment_ids": environment_ids
         }
@@ -656,7 +694,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEnvironmentStatus")
+        )
         input_: capo_cloud9.types.describe_environment_status_request.DescribeEnvironmentStatusRequest = {
             "environment_id": environment_id
         }
@@ -712,7 +752,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_cloud9.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -780,7 +822,19 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloud9.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.list_tags_for_resource_response
+
+            return capo_cloud9.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_cloud9.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -828,7 +882,17 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloud9.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.tag_resource_request
+
+            return capo_cloud9.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_cloud9.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -877,7 +941,17 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloud9.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.untag_resource_request
+
+            return capo_cloud9.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_cloud9.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -942,7 +1016,17 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloud9.types.update_environment_request.UpdateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_cloud9.types.update_environment_request
+
+            return capo_cloud9.types.update_environment_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEnvironment", redact_input=_redact_input),
+        )
         input_: capo_cloud9.types.update_environment_request.UpdateEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1006,7 +1090,9 @@ class Cloud9Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentMembership")
+        )
         input_: capo_cloud9.types.update_environment_membership_request.UpdateEnvironmentMembershipRequest = {
             "environment_id": environment_id,
             "user_arn": user_arn,

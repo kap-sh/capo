@@ -22,7 +22,9 @@ from capo_dlm._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -139,7 +141,9 @@ class AsyncDLMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDLMClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDLMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDLMClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -147,8 +151,10 @@ class AsyncDLMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -242,7 +248,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLifecyclePolicy")
+        )
         input_: capo_dlm.types.create_lifecycle_policy_request.CreateLifecyclePolicyRequest = {}
         if execution_role_arn is not None:
             input_["execution_role_arn"] = execution_role_arn
@@ -312,7 +320,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecyclePolicy")
+        )
         input_: capo_dlm.types.delete_lifecycle_policy_request.DeleteLifecyclePolicyRequest = {
             "policy_id": policy_id
         }
@@ -379,7 +389,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicies")
+        )
         input_: capo_dlm.types.get_lifecycle_policies_request.GetLifecyclePoliciesRequest = {}
         if policy_ids is not None:
             input_["policy_ids"] = policy_ids
@@ -435,7 +447,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLifecyclePolicy")
+        )
         input_: capo_dlm.types.get_lifecycle_policy_request.GetLifecyclePolicyRequest = {
             "policy_id": policy_id
         }
@@ -481,7 +495,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_dlm.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -529,7 +545,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_dlm.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -579,7 +597,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_dlm.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -666,7 +686,9 @@ class AsyncDLMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLifecyclePolicy")
+        )
         input_: capo_dlm.types.update_lifecycle_policy_request.UpdateLifecyclePolicyRequest = {
             "policy_id": policy_id
         }

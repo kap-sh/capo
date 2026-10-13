@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#RedisSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,11 @@ def deserialize_aws_json_1_1(data: dict) -> RedisSettings:
         out["auth_password"] = data["AuthPassword"]
     if data.get("SslCaCertificateArn") is not None:
         out["ssl_ca_certificate_arn"] = data["SslCaCertificateArn"]
+    return out
+
+
+def redact_sensitive(value: RedisSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_password" in value:
+        out["auth_password"] = "*** Sensitive Data Redacted ***"
     return out

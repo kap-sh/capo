@@ -21,10 +21,12 @@ from capo_databrew._pagination import resolve_path as _resolve_path
 from capo_databrew._services._aws_config import aws_config
 from capo_databrew._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -244,7 +246,9 @@ class DataBrewClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DataBrewClientConfig] = None
+        self,
+        config_overrides: Optional[DataBrewClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DataBrewClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -252,8 +256,10 @@ class DataBrewClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -306,7 +312,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteRecipeVersion")
+        )
         input_: capo_databrew.types.batch_delete_recipe_version_request.BatchDeleteRecipeVersionRequest = {
             "name": name,
             "recipe_versions": recipe_versions,
@@ -363,7 +371,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
         input_: capo_databrew.types.create_dataset_request.CreateDatasetRequest = {
             "name": name,
             "input": input,
@@ -454,7 +464,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfileJob")
+        )
         input_: capo_databrew.types.create_profile_job_request.CreateProfileJobRequest = {
             "dataset_name": dataset_name,
             "name": name,
@@ -532,7 +544,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_databrew.types.create_project_request.CreateProjectRequest = {
             "dataset_name": dataset_name,
             "name": name,
@@ -592,7 +606,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecipe")
+        )
         input_: capo_databrew.types.create_recipe_request.CreateRecipeRequest = {
             "name": name,
             "steps": steps,
@@ -683,7 +699,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecipeJob")
+        )
         input_: capo_databrew.types.create_recipe_job_request.CreateRecipeJobRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -765,7 +783,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleset")
+        )
         input_: capo_databrew.types.create_ruleset_request.CreateRulesetRequest = {
             "name": name,
             "target_arn": target_arn,
@@ -822,7 +842,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchedule")
+        )
         input_: capo_databrew.types.create_schedule_request.CreateScheduleRequest = {
             "cron_expression": cron_expression,
             "name": name,
@@ -872,7 +894,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_databrew.types.delete_dataset_request.DeleteDatasetRequest = {
             "name": name
         }
@@ -917,7 +941,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_databrew.types.delete_job_request.DeleteJobRequest = {"name": name}
 
         response = execute_pipeline(
@@ -960,7 +986,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_databrew.types.delete_project_request.DeleteProjectRequest = {
             "name": name
         }
@@ -1009,7 +1037,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecipeVersion")
+        )
         input_: capo_databrew.types.delete_recipe_version_request.DeleteRecipeVersionRequest = {
             "name": name,
             "recipe_version": recipe_version,
@@ -1055,7 +1085,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleset")
+        )
         input_: capo_databrew.types.delete_ruleset_request.DeleteRulesetRequest = {
             "name": name
         }
@@ -1099,7 +1131,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchedule")
+        )
         input_: capo_databrew.types.delete_schedule_request.DeleteScheduleRequest = {
             "name": name
         }
@@ -1143,7 +1177,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_databrew.types.describe_dataset_request.DescribeDatasetRequest = {
             "name": name
         }
@@ -1187,7 +1223,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJob")
+        )
         input_: capo_databrew.types.describe_job_request.DescribeJobRequest = {
             "name": name
         }
@@ -1233,7 +1271,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobRun")
+        )
         input_: capo_databrew.types.describe_job_run_request.DescribeJobRunRequest = {
             "name": name,
             "run_id": run_id,
@@ -1278,7 +1318,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProject")
+        )
         input_: capo_databrew.types.describe_project_request.DescribeProjectRequest = {
             "name": name
         }
@@ -1326,7 +1368,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecipe")
+        )
         input_: capo_databrew.types.describe_recipe_request.DescribeRecipeRequest = {
             "name": name
         }
@@ -1372,7 +1416,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuleset")
+        )
         input_: capo_databrew.types.describe_ruleset_request.DescribeRulesetRequest = {
             "name": name
         }
@@ -1416,7 +1462,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchedule")
+        )
         input_: capo_databrew.types.describe_schedule_request.DescribeScheduleRequest = {
             "name": name
         }
@@ -1463,7 +1511,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_databrew.types.list_datasets_request.ListDatasetsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1538,7 +1588,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobRuns")
+        )
         input_: capo_databrew.types.list_job_runs_request.ListJobRunsRequest = {
             "name": name
         }
@@ -1618,7 +1670,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_databrew.types.list_jobs_request.ListJobsRequest = {}
         if dataset_name is not None:
             input_["dataset_name"] = dataset_name
@@ -1698,7 +1752,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_databrew.types.list_projects_request.ListProjectsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1774,7 +1830,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecipes")
+        )
         input_: capo_databrew.types.list_recipes_request.ListRecipesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1854,7 +1912,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecipeVersions")
+        )
         input_: capo_databrew.types.list_recipe_versions_request.ListRecipeVersionsRequest = {
             "name": name
         }
@@ -1933,7 +1993,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRulesets")
+        )
         input_: capo_databrew.types.list_rulesets_request.ListRulesetsRequest = {}
         if target_arn is not None:
             input_["target_arn"] = target_arn
@@ -2011,7 +2073,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchedules")
+        )
         input_: capo_databrew.types.list_schedules_request.ListSchedulesRequest = {}
         if job_name is not None:
             input_["job_name"] = job_name
@@ -2085,7 +2149,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_databrew.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2134,7 +2200,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishRecipe")
+        )
         input_: capo_databrew.types.publish_recipe_request.PublishRecipeRequest = {
             "name": name
         }
@@ -2191,7 +2259,19 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_databrew.types.send_project_session_action_request.SendProjectSessionActionRequest",
+        ) -> dict[str, Any]:
+            import capo_databrew.types.send_project_session_action_request
+
+            return capo_databrew.types.send_project_session_action_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendProjectSessionAction", redact_input=_redact_input),
+        )
         input_: capo_databrew.types.send_project_session_action_request.SendProjectSessionActionRequest = {
             "name": name
         }
@@ -2247,7 +2327,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJobRun")
+        )
         input_: capo_databrew.types.start_job_run_request.StartJobRunRequest = {
             "name": name
         }
@@ -2299,7 +2381,19 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_databrew.types.start_project_session_response.StartProjectSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_databrew.types.start_project_session_response
+
+            return capo_databrew.types.start_project_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartProjectSession", redact_output=_redact_output),
+        )
         input_: capo_databrew.types.start_project_session_request.StartProjectSessionRequest = {
             "name": name
         }
@@ -2347,7 +2441,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopJobRun")
+        )
         input_: capo_databrew.types.stop_job_run_request.StopJobRunRequest = {
             "name": name,
             "run_id": run_id,
@@ -2395,7 +2491,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_databrew.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2443,7 +2541,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_databrew.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2497,7 +2597,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_databrew.types.update_dataset_request.UpdateDatasetRequest = {
             "name": name,
             "input": input,
@@ -2580,7 +2682,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfileJob")
+        )
         input_: capo_databrew.types.update_profile_job_request.UpdateProfileJobRequest = {
             "name": name,
             "output_location": output_location,
@@ -2647,7 +2751,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_databrew.types.update_project_request.UpdateProjectRequest = {
             "role_arn": role_arn,
             "name": name,
@@ -2700,7 +2806,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecipe")
+        )
         input_: capo_databrew.types.update_recipe_request.UpdateRecipeRequest = {
             "name": name
         }
@@ -2779,7 +2887,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecipeJob")
+        )
         input_: capo_databrew.types.update_recipe_job_request.UpdateRecipeJobRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -2848,7 +2958,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuleset")
+        )
         input_: capo_databrew.types.update_ruleset_request.UpdateRulesetRequest = {
             "name": name,
             "rules": rules,
@@ -2900,7 +3012,9 @@ class DataBrewClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchedule")
+        )
         input_: capo_databrew.types.update_schedule_request.UpdateScheduleRequest = {
             "cron_expression": cron_expression,
             "name": name,

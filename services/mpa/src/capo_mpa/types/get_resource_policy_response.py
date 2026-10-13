@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#GetResourcePolicyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,11 @@ def deserialize_json(data: dict) -> GetResourcePolicyResponse:
         out["policy_document"] = data["PolicyDocument"]
     else:
         raise DeserializationError("GetResourcePolicyResponse.policy_document required")
+    return out
+
+
+def redact_sensitive(value: GetResourcePolicyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy_document" in value:
+        out["policy_document"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#TargetTrafficSplitEntries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_traffic_split_entry
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> TargetTrafficSplitEntries:
             )
         )
     return out
+
+
+def redact_sensitive(value: TargetTrafficSplitEntries) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.target_traffic_split_entry
+
+    return [
+        capo_bedrock_agentcore_control.types.target_traffic_split_entry.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

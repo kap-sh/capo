@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#WeightedRoute``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_json(data: dict) -> WeightedRoute:
         )
     else:
         raise DeserializationError("WeightedRoute.traffic_split required")
+    return out
+
+
+def redact_sensitive(value: WeightedRoute) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "traffic_split" in value:
+        import capo_bedrock_agentcore_control.types.target_traffic_split_entries
+
+        out["traffic_split"] = (
+            capo_bedrock_agentcore_control.types.target_traffic_split_entries.redact_sensitive(
+                value["traffic_split"]
+            )
+        )
     return out

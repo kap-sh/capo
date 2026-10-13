@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#InputContentBlock``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> InputContentBlock:
         import capo_bedrock_agentcore.types.body
 
         out["blob"] = capo_bedrock_agentcore.types.body.deserialize_json(data["blob"])
+    return out
+
+
+def redact_sensitive(value: InputContentBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "blob" in value:
+        out["blob"] = "*** Sensitive Data Redacted ***"
     return out

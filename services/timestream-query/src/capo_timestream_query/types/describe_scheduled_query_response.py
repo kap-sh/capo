@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreamquery#DescribeScheduledQueryResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeScheduledQueryResponse:
     else:
         raise DeserializationError(
             "DescribeScheduledQueryResponse.scheduled_query required"
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeScheduledQueryResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "scheduled_query" in value:
+        import capo_timestream_query.types.scheduled_query_description
+
+        out["scheduled_query"] = (
+            capo_timestream_query.types.scheduled_query_description.redact_sensitive(
+                value["scheduled_query"]
+            )
         )
     return out

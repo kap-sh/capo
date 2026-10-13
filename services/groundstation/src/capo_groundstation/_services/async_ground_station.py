@@ -43,7 +43,9 @@ from capo_groundstation._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -255,7 +257,9 @@ class AsyncGroundStationClient:
         self.satellite = AsyncSatellite(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGroundStationClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGroundStationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGroundStationClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -263,8 +267,10 @@ class AsyncGroundStationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -318,7 +324,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentTaskResponseUrl")
+        )
         input_: capo_groundstation.types.get_agent_task_response_url_request.GetAgentTaskResponseUrlRequest = {
             "agent_id": agent_id,
             "task_id": task_id,
@@ -367,7 +375,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMinuteUsage")
+        )
         input_: capo_groundstation.types.get_minute_usage_request.GetMinuteUsageRequest = {
             "month": month,
             "year": year,
@@ -414,7 +424,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_groundstation.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -462,7 +474,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_groundstation.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -511,7 +525,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_groundstation.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -562,7 +578,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterAgent")
+        )
         input_: capo_groundstation.types.register_agent_request.RegisterAgentRequest = {
             "discovery_data": discovery_data,
             "agent_details": agent_details,
@@ -611,7 +629,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgentConfiguration")
+        )
         input_: capo_groundstation.types.get_agent_configuration_request.GetAgentConfigurationRequest = {
             "agent_id": agent_id
         }
@@ -663,7 +683,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgentStatus")
+        )
         input_: capo_groundstation.types.update_agent_status_request.UpdateAgentStatusRequest = {
             "agent_id": agent_id,
             "task_id": task_id,
@@ -717,7 +739,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfig")
+        )
         input_: capo_groundstation.types.create_config_request.CreateConfigRequest = {
             "name": name,
             "config_data": config_data,
@@ -768,7 +792,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfig")
+        )
         input_: capo_groundstation.types.get_config_request.GetConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -821,7 +847,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfig")
+        )
         input_: capo_groundstation.types.update_config_request.UpdateConfigRequest = {
             "config_id": config_id,
             "name": name,
@@ -872,7 +900,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfig")
+        )
         input_: capo_groundstation.types.delete_config_request.DeleteConfigRequest = {
             "config_id": config_id,
             "config_type": config_type,
@@ -925,7 +955,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigs")
+        )
         input_: capo_groundstation.types.list_configs_request.ListConfigsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1015,7 +1047,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReserveContact")
+        )
         input_: capo_groundstation.types.reserve_contact_request.ReserveContactRequest = {
             "mission_profile_arn": mission_profile_arn,
             "start_time": start_time,
@@ -1070,7 +1104,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContact")
+        )
         input_: capo_groundstation.types.describe_contact_request.DescribeContactRequest = {
             "contact_id": contact_id
         }
@@ -1128,7 +1164,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContact")
+        )
         input_: capo_groundstation.types.update_contact_request.UpdateContactRequest = {
             "contact_id": contact_id
         }
@@ -1181,7 +1219,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelContact")
+        )
         input_: capo_groundstation.types.cancel_contact_request.CancelContactRequest = {
             "contact_id": contact_id
         }
@@ -1255,7 +1295,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContacts")
+        )
         input_: capo_groundstation.types.list_contacts_request.ListContactsRequest = {
             "status_list": status_list,
             "start_time": start_time,
@@ -1364,7 +1406,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContactVersion")
+        )
         input_: capo_groundstation.types.describe_contact_version_request.DescribeContactVersionRequest = {
             "contact_id": contact_id,
             "version_id": version_id,
@@ -1419,7 +1463,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactVersions")
+        )
         input_: capo_groundstation.types.list_contact_versions_request.ListContactVersionsRequest = {
             "contact_id": contact_id
         }
@@ -1506,7 +1552,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_request.CreateDataflowEndpointGroupRequest = {
             "endpoint_details": endpoint_details
         }
@@ -1562,7 +1610,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.get_dataflow_endpoint_group_request.GetDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -1608,7 +1658,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.delete_dataflow_endpoint_group_request.DeleteDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -1660,7 +1712,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataflowEndpointGroups")
+        )
         input_: capo_groundstation.types.list_dataflow_endpoint_groups_request.ListDataflowEndpointGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1744,7 +1798,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroupV2")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_v2_request.CreateDataflowEndpointGroupV2Request = {
             "endpoints": endpoints
         }
@@ -1818,7 +1874,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEphemeris")
+        )
         input_: capo_groundstation.types.create_ephemeris_request.CreateEphemerisRequest = {
             "name": name
         }
@@ -1880,7 +1938,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEphemeris")
+        )
         input_: capo_groundstation.types.describe_ephemeris_request.DescribeEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -1934,7 +1994,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEphemeris")
+        )
         input_: capo_groundstation.types.update_ephemeris_request.UpdateEphemerisRequest = {
             "ephemeris_id": ephemeris_id,
             "enabled": enabled,
@@ -1986,7 +2048,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEphemeris")
+        )
         input_: capo_groundstation.types.delete_ephemeris_request.DeleteEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -2052,7 +2116,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEphemerides")
+        )
         input_: capo_groundstation.types.list_ephemerides_request.ListEphemeridesRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -2156,7 +2222,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroundStations")
+        )
         input_: capo_groundstation.types.list_ground_stations_request.ListGroundStationsRequest = {}
         if satellite_id is not None:
             input_["satellite_id"] = satellite_id
@@ -2242,7 +2310,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAntennas")
+        )
         input_: capo_groundstation.types.list_antennas_request.ListAntennasRequest = {
             "ground_station_id": ground_station_id
         }
@@ -2334,7 +2404,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroundStationReservations")
+        )
         input_: capo_groundstation.types.list_ground_station_reservations_request.ListGroundStationReservationsRequest = {
             "ground_station_id": ground_station_id,
             "start_time": start_time,
@@ -2449,7 +2521,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMissionProfile")
+        )
         input_: capo_groundstation.types.create_mission_profile_request.CreateMissionProfileRequest = {
             "name": name,
             "minimum_viable_contact_duration_seconds": minimum_viable_contact_duration_seconds,
@@ -2514,7 +2588,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMissionProfile")
+        )
         input_: capo_groundstation.types.get_mission_profile_request.GetMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -2592,7 +2668,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMissionProfile")
+        )
         input_: capo_groundstation.types.update_mission_profile_request.UpdateMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -2664,7 +2742,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMissionProfile")
+        )
         input_: capo_groundstation.types.delete_mission_profile_request.DeleteMissionProfileRequest = {
             "mission_profile_id": mission_profile_id
         }
@@ -2716,7 +2796,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMissionProfiles")
+        )
         input_: capo_groundstation.types.list_mission_profiles_request.ListMissionProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2789,7 +2871,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSatellite")
+        )
         input_: capo_groundstation.types.get_satellite_request.GetSatelliteRequest = {
             "satellite_id": satellite_id
         }
@@ -2841,7 +2925,9 @@ class AsyncGroundStationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSatellites")
+        )
         input_: capo_groundstation.types.list_satellites_request.ListSatellitesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

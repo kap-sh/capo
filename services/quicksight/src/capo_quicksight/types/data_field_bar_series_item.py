@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataFieldBarSeriesItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_json(data: dict) -> DataFieldBarSeriesItem:
                 data["Settings"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DataFieldBarSeriesItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_value" in value:
+        out["field_value"] = "*** Sensitive Data Redacted ***"
     return out

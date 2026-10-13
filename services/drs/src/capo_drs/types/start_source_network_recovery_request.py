@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#StartSourceNetworkRecoveryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,19 @@ def deserialize_json(data: dict) -> StartSourceNetworkRecoveryRequest:
         import capo_drs.types.tags_map
 
         out["tags"] = capo_drs.types.tags_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: StartSourceNetworkRecoveryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_networks" in value:
+        import capo_drs.types.start_source_network_recovery_request_network_entries
+
+        out["source_networks"] = (
+            capo_drs.types.start_source_network_recovery_request_network_entries.redact_sensitive(
+                value["source_networks"]
+            )
+        )
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,10 +22,12 @@ from capo_fis._pagination import resolve_path as _resolve_path
 from capo_fis._services._aws_config import aws_config
 from capo_fis._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -198,7 +200,9 @@ class fisClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[fisClientConfig] = None
+        self,
+        config_overrides: Optional[fisClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: fisClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -206,8 +210,10 @@ class fisClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -285,7 +291,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExperimentTemplate")
+        )
         input_: capo_fis.types.create_experiment_template_request.CreateExperimentTemplateRequest = {
             "client_token": client_token,
             "description": description,
@@ -355,7 +363,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTargetAccountConfiguration")
+        )
         input_: capo_fis.types.create_target_account_configuration_request.CreateTargetAccountConfigurationRequest = {
             "experiment_template_id": experiment_template_id,
             "account_id": account_id,
@@ -406,7 +416,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExperimentTemplate")
+        )
         input_: capo_fis.types.delete_experiment_template_request.DeleteExperimentTemplateRequest = {
             "id": id
         }
@@ -452,7 +464,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTargetAccountConfiguration")
+        )
         input_: capo_fis.types.delete_target_account_configuration_request.DeleteTargetAccountConfigurationRequest = {
             "experiment_template_id": experiment_template_id,
             "account_id": account_id,
@@ -495,7 +509,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAction")
+        )
         input_: capo_fis.types.get_action_request.GetActionRequest = {"id": id}
 
         response = execute_pipeline(
@@ -537,7 +553,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExperiment")
+        )
         input_: capo_fis.types.get_experiment_request.GetExperimentRequest = {"id": id}
 
         response = execute_pipeline(
@@ -581,7 +599,10 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetExperimentTargetAccountConfiguration"),
+        )
         input_: capo_fis.types.get_experiment_target_account_configuration_request.GetExperimentTargetAccountConfigurationRequest = {
             "experiment_id": experiment_id,
             "account_id": account_id,
@@ -628,7 +649,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExperimentTemplate")
+        )
         input_: capo_fis.types.get_experiment_template_request.GetExperimentTemplateRequest = {
             "id": id
         }
@@ -671,7 +694,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSafetyLever")
+        )
         input_: capo_fis.types.get_safety_lever_request.GetSafetyLeverRequest = {
             "id": id
         }
@@ -717,7 +742,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTargetAccountConfiguration")
+        )
         input_: capo_fis.types.get_target_account_configuration_request.GetTargetAccountConfigurationRequest = {
             "experiment_template_id": experiment_template_id,
             "account_id": account_id,
@@ -764,7 +791,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTargetResourceType")
+        )
         input_: capo_fis.types.get_target_resource_type_request.GetTargetResourceTypeRequest = {
             "resource_type": resource_type
         }
@@ -811,7 +840,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActions")
+        )
         input_: capo_fis.types.list_actions_request.ListActionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -888,7 +919,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperimentResolvedTargets")
+        )
         input_: capo_fis.types.list_experiment_resolved_targets_request.ListExperimentResolvedTargetsRequest = {
             "experiment_id": experiment_id
         }
@@ -972,7 +1005,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperiments")
+        )
         input_: capo_fis.types.list_experiments_request.ListExperimentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1049,7 +1084,10 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListExperimentTargetAccountConfigurations"),
+        )
         input_: capo_fis.types.list_experiment_target_account_configurations_request.ListExperimentTargetAccountConfigurationsRequest = {
             "experiment_id": experiment_id
         }
@@ -1098,7 +1136,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperimentTemplates")
+        )
         input_: capo_fis.types.list_experiment_templates_request.ListExperimentTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1167,7 +1207,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_fis.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1217,7 +1259,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetAccountConfigurations")
+        )
         input_: capo_fis.types.list_target_account_configurations_request.ListTargetAccountConfigurationsRequest = {
             "experiment_template_id": experiment_template_id
         }
@@ -1293,7 +1337,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetResourceTypes")
+        )
         input_: capo_fis.types.list_target_resource_types_request.ListTargetResourceTypesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1372,7 +1418,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExperiment")
+        )
         input_: capo_fis.types.start_experiment_request.StartExperimentRequest = {
             "client_token": client_token,
             "experiment_template_id": experiment_template_id,
@@ -1421,7 +1469,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopExperiment")
+        )
         input_: capo_fis.types.stop_experiment_request.StopExperimentRequest = {
             "id": id
         }
@@ -1465,7 +1515,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_fis.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1510,7 +1562,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_fis.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1587,7 +1641,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExperimentTemplate")
+        )
         input_: capo_fis.types.update_experiment_template_request.UpdateExperimentTemplateRequest = {
             "id": id
         }
@@ -1650,7 +1706,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSafetyLeverState")
+        )
         input_: capo_fis.types.update_safety_lever_state_request.UpdateSafetyLeverStateRequest = {
             "id": id,
             "state": state,
@@ -1703,7 +1761,9 @@ class fisClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTargetAccountConfiguration")
+        )
         input_: capo_fis.types.update_target_account_configuration_request.UpdateTargetAccountConfigurationRequest = {
             "experiment_template_id": experiment_template_id,
             "account_id": account_id,

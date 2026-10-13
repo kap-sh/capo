@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ListAssetFiltersOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,15 @@ def deserialize_json(data: dict) -> ListAssetFiltersOutput:
         raise DeserializationError("ListAssetFiltersOutput.items required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAssetFiltersOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_datazone.types.asset_filters
+
+        out["items"] = capo_datazone.types.asset_filters.redact_sensitive(
+            value["items"]
+        )
     return out

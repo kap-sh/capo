@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmeetings#NotificationsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,15 @@ def deserialize_json(data: dict) -> NotificationsConfiguration:
         out["sns_topic_arn"] = data["SnsTopicArn"]
     if data.get("SqsQueueArn") is not None:
         out["sqs_queue_arn"] = data["SqsQueueArn"]
+    return out
+
+
+def redact_sensitive(value: NotificationsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "lambda_function_arn" in value:
+        out["lambda_function_arn"] = "*** Sensitive Data Redacted ***"
+    if "sns_topic_arn" in value:
+        out["sns_topic_arn"] = "*** Sensitive Data Redacted ***"
+    if "sqs_queue_arn" in value:
+        out["sqs_queue_arn"] = "*** Sensitive Data Redacted ***"
     return out

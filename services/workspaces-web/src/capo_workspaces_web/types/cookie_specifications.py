@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CookieSpecifications``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.cookie_specification
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> CookieSpecifications:
             capo_workspaces_web.types.cookie_specification.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: CookieSpecifications) -> list[Any]:
+    import capo_workspaces_web.types.cookie_specification
+
+    return [
+        capo_workspaces_web.types.cookie_specification.redact_sensitive(item)
+        for item in value
+    ]

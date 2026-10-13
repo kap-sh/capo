@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#UpdateFindingsFeedbackRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> UpdateFindingsFeedbackRequest:
         )
     if data.get("comments") is not None:
         out["comments"] = data["comments"]
+    return out
+
+
+def redact_sensitive(value: UpdateFindingsFeedbackRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comments" in value:
+        out["comments"] = "*** Sensitive Data Redacted ***"
     return out

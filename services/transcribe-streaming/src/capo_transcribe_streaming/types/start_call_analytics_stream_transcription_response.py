@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#StartCallAnalyticsStreamTranscriptionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,3 +100,14 @@ class StartCallAnalyticsStreamTranscriptionResponse(TypedDict, closed=True):
         "capo_transcribe_streaming.types.pii_entity_types.PiiEntityTypes"
     ]
     """<p>Lists the PII entity types you specified in your Call Analytics request.</p>"""
+
+
+def redact_sensitive(
+    value: StartCallAnalyticsStreamTranscriptionResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "call_analytics_transcript_result_stream" in value:
+        out["call_analytics_transcript_result_stream"] = (
+            "*** Streaming Data Redacted ***"
+        )
+    return out

@@ -21,10 +21,12 @@ from capo_detective._pagination import resolve_path as _resolve_path
 from capo_detective._services._aws_config import aws_config
 from capo_detective._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -173,7 +175,9 @@ class DetectiveClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DetectiveClientConfig] = None
+        self,
+        config_overrides: Optional[DetectiveClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DetectiveClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -181,8 +185,10 @@ class DetectiveClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -233,7 +239,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptInvitation")
+        )
         input_: capo_detective.types.accept_invitation_request.AcceptInvitationRequest = {
             "graph_arn": graph_arn
         }
@@ -281,7 +289,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetGraphMemberDatasources")
+        )
         input_: capo_detective.types.batch_get_graph_member_datasources_request.BatchGetGraphMemberDatasourcesRequest = {
             "graph_arn": graph_arn,
             "account_ids": account_ids,
@@ -328,7 +338,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetMembershipDatasources")
+        )
         input_: capo_detective.types.batch_get_membership_datasources_request.BatchGetMembershipDatasourcesRequest = {
             "graph_arns": graph_arns
         }
@@ -374,7 +386,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGraph")
+        )
         input_: capo_detective.types.create_graph_request.CreateGraphRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -429,7 +443,28 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_detective.types.create_members_request.CreateMembersRequest",
+        ) -> dict[str, Any]:
+            import capo_detective.types.create_members_request
+
+            return capo_detective.types.create_members_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_detective.types.create_members_response.CreateMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_detective.types.create_members_response
+
+            return capo_detective.types.create_members_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMembers",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_detective.types.create_members_request.CreateMembersRequest = {
             "graph_arn": graph_arn,
             "accounts": accounts,
@@ -478,7 +513,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGraph")
+        )
         input_: capo_detective.types.delete_graph_request.DeleteGraphRequest = {
             "graph_arn": graph_arn
         }
@@ -527,7 +564,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMembers")
+        )
         input_: capo_detective.types.delete_members_request.DeleteMembersRequest = {
             "graph_arn": graph_arn,
             "account_ids": account_ids,
@@ -574,7 +613,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConfiguration")
+        )
         input_: capo_detective.types.describe_organization_configuration_request.DescribeOrganizationConfigurationRequest = {
             "graph_arn": graph_arn
         }
@@ -610,7 +651,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableOrganizationAdminAccount")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -652,7 +695,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMembership")
+        )
         input_: capo_detective.types.disassociate_membership_request.DisassociateMembershipRequest = {
             "graph_arn": graph_arn
         }
@@ -696,7 +741,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableOrganizationAdminAccount")
+        )
         input_: capo_detective.types.enable_organization_admin_account_request.EnableOrganizationAdminAccountRequest = {
             "account_id": account_id
         }
@@ -745,7 +792,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInvestigation")
+        )
         input_: capo_detective.types.get_investigation_request.GetInvestigationRequest = {
             "graph_arn": graph_arn,
             "investigation_id": investigation_id,
@@ -794,7 +843,17 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_detective.types.get_members_response.GetMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_detective.types.get_members_response
+
+            return capo_detective.types.get_members_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMembers", redact_output=_redact_output),
+        )
         input_: capo_detective.types.get_members_request.GetMembersRequest = {
             "graph_arn": graph_arn,
             "account_ids": account_ids,
@@ -849,7 +908,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasourcePackages")
+        )
         input_: capo_detective.types.list_datasource_packages_request.ListDatasourcePackagesRequest = {
             "graph_arn": graph_arn
         }
@@ -929,7 +990,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGraphs")
+        )
         input_: capo_detective.types.list_graphs_request.ListGraphsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1013,7 +1076,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndicators")
+        )
         input_: capo_detective.types.list_indicators_request.ListIndicatorsRequest = {
             "graph_arn": graph_arn,
             "investigation_id": investigation_id,
@@ -1081,7 +1146,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvestigations")
+        )
         input_: capo_detective.types.list_investigations_request.ListInvestigationsRequest = {
             "graph_arn": graph_arn
         }
@@ -1140,7 +1207,19 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_detective.types.list_invitations_response.ListInvitationsResponse",
+        ) -> dict[str, Any]:
+            import capo_detective.types.list_invitations_response
+
+            return capo_detective.types.list_invitations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListInvitations", redact_output=_redact_output),
+        )
         input_: capo_detective.types.list_invitations_request.ListInvitationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1219,7 +1298,17 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_detective.types.list_members_response.ListMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_detective.types.list_members_response
+
+            return capo_detective.types.list_members_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListMembers", redact_output=_redact_output),
+        )
         input_: capo_detective.types.list_members_request.ListMembersRequest = {
             "graph_arn": graph_arn
         }
@@ -1300,7 +1389,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationAdminAccounts")
+        )
         input_: capo_detective.types.list_organization_admin_accounts_request.ListOrganizationAdminAccountsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1371,7 +1462,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_detective.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1416,7 +1509,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectInvitation")
+        )
         input_: capo_detective.types.reject_invitation_request.RejectInvitationRequest = {
             "graph_arn": graph_arn
         }
@@ -1469,7 +1564,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInvestigation")
+        )
         input_: capo_detective.types.start_investigation_request.StartInvestigationRequest = {
             "graph_arn": graph_arn,
             "entity_arn": entity_arn,
@@ -1520,7 +1617,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMonitoringMember")
+        )
         input_: capo_detective.types.start_monitoring_member_request.StartMonitoringMemberRequest = {
             "graph_arn": graph_arn,
             "account_id": account_id,
@@ -1569,7 +1668,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_detective.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1618,7 +1719,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_detective.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1666,7 +1769,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatasourcePackages")
+        )
         input_: capo_detective.types.update_datasource_packages_request.UpdateDatasourcePackagesRequest = {
             "graph_arn": graph_arn,
             "datasource_packages": datasource_packages,
@@ -1716,7 +1821,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInvestigationState")
+        )
         input_: capo_detective.types.update_investigation_state_request.UpdateInvestigationStateRequest = {
             "graph_arn": graph_arn,
             "investigation_id": investigation_id,
@@ -1764,7 +1871,9 @@ class DetectiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOrganizationConfiguration")
+        )
         input_: capo_detective.types.update_organization_configuration_request.UpdateOrganizationConfigurationRequest = {
             "graph_arn": graph_arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ebs#StartSnapshotResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_json(data: dict) -> StartSnapshotResponse:
         import capo_ebs.types.sse_type
 
         out["sse_type"] = capo_ebs.types.sse_type.deserialize_json(data["SseType"])
+    return out
+
+
+def redact_sensitive(value: StartSnapshotResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_arn" in value:
+        out["kms_key_arn"] = "*** Sensitive Data Redacted ***"
     return out

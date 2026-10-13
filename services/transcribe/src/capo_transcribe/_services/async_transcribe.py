@@ -24,7 +24,9 @@ from capo_transcribe._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -238,7 +240,9 @@ class AsyncTranscribeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncTranscribeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncTranscribeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncTranscribeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -246,8 +250,10 @@ class AsyncTranscribeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -306,7 +312,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCallAnalyticsCategory")
+        )
         input_: capo_transcribe.types.create_call_analytics_category_request.CreateCallAnalyticsCategoryRequest = {
             "category_name": category_name,
             "rules": rules,
@@ -370,7 +378,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLanguageModel")
+        )
         input_: capo_transcribe.types.create_language_model_request.CreateLanguageModelRequest = {
             "language_code": language_code,
             "base_model_name": base_model_name,
@@ -430,7 +440,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMedicalVocabulary")
+        )
         input_: capo_transcribe.types.create_medical_vocabulary_request.CreateMedicalVocabularyRequest = {
             "vocabulary_name": vocabulary_name,
             "language_code": language_code,
@@ -497,7 +509,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVocabulary")
+        )
         input_: capo_transcribe.types.create_vocabulary_request.CreateVocabularyRequest = {
             "vocabulary_name": vocabulary_name,
             "language_code": language_code,
@@ -571,7 +585,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVocabularyFilter")
+        )
         input_: capo_transcribe.types.create_vocabulary_filter_request.CreateVocabularyFilterRequest = {
             "vocabulary_filter_name": vocabulary_filter_name,
             "language_code": language_code,
@@ -629,7 +645,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCallAnalyticsCategory")
+        )
         input_: capo_transcribe.types.delete_call_analytics_category_request.DeleteCallAnalyticsCategoryRequest = {
             "category_name": category_name
         }
@@ -675,7 +693,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCallAnalyticsJob")
+        )
         input_: capo_transcribe.types.delete_call_analytics_job_request.DeleteCallAnalyticsJobRequest = {
             "call_analytics_job_name": call_analytics_job_name
         }
@@ -719,7 +739,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLanguageModel")
+        )
         input_: capo_transcribe.types.delete_language_model_request.DeleteLanguageModelRequest = {
             "model_name": model_name
         }
@@ -763,7 +785,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMedicalScribeJob")
+        )
         input_: capo_transcribe.types.delete_medical_scribe_job_request.DeleteMedicalScribeJobRequest = {
             "medical_scribe_job_name": medical_scribe_job_name
         }
@@ -807,7 +831,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMedicalTranscriptionJob")
+        )
         input_: capo_transcribe.types.delete_medical_transcription_job_request.DeleteMedicalTranscriptionJobRequest = {
             "medical_transcription_job_name": medical_transcription_job_name
         }
@@ -852,7 +878,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMedicalVocabulary")
+        )
         input_: capo_transcribe.types.delete_medical_vocabulary_request.DeleteMedicalVocabularyRequest = {
             "vocabulary_name": vocabulary_name
         }
@@ -896,7 +924,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTranscriptionJob")
+        )
         input_: capo_transcribe.types.delete_transcription_job_request.DeleteTranscriptionJobRequest = {
             "transcription_job_name": transcription_job_name
         }
@@ -941,7 +971,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVocabulary")
+        )
         input_: capo_transcribe.types.delete_vocabulary_request.DeleteVocabularyRequest = {
             "vocabulary_name": vocabulary_name
         }
@@ -986,7 +1018,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVocabularyFilter")
+        )
         input_: capo_transcribe.types.delete_vocabulary_filter_request.DeleteVocabularyFilterRequest = {
             "vocabulary_filter_name": vocabulary_filter_name
         }
@@ -1033,7 +1067,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLanguageModel")
+        )
         input_: capo_transcribe.types.describe_language_model_request.DescribeLanguageModelRequest = {
             "model_name": model_name
         }
@@ -1080,7 +1116,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCallAnalyticsCategory")
+        )
         input_: capo_transcribe.types.get_call_analytics_category_request.GetCallAnalyticsCategoryRequest = {
             "category_name": category_name
         }
@@ -1127,7 +1165,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCallAnalyticsJob")
+        )
         input_: capo_transcribe.types.get_call_analytics_job_request.GetCallAnalyticsJobRequest = {
             "call_analytics_job_name": call_analytics_job_name
         }
@@ -1174,7 +1214,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedicalScribeJob")
+        )
         input_: capo_transcribe.types.get_medical_scribe_job_request.GetMedicalScribeJobRequest = {
             "medical_scribe_job_name": medical_scribe_job_name
         }
@@ -1221,7 +1263,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedicalTranscriptionJob")
+        )
         input_: capo_transcribe.types.get_medical_transcription_job_request.GetMedicalTranscriptionJobRequest = {
             "medical_transcription_job_name": medical_transcription_job_name
         }
@@ -1268,7 +1312,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedicalVocabulary")
+        )
         input_: capo_transcribe.types.get_medical_vocabulary_request.GetMedicalVocabularyRequest = {
             "vocabulary_name": vocabulary_name
         }
@@ -1315,7 +1361,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTranscriptionJob")
+        )
         input_: capo_transcribe.types.get_transcription_job_request.GetTranscriptionJobRequest = {
             "transcription_job_name": transcription_job_name
         }
@@ -1362,7 +1410,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVocabulary")
+        )
         input_: capo_transcribe.types.get_vocabulary_request.GetVocabularyRequest = {
             "vocabulary_name": vocabulary_name
         }
@@ -1409,7 +1459,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVocabularyFilter")
+        )
         input_: capo_transcribe.types.get_vocabulary_filter_request.GetVocabularyFilterRequest = {
             "vocabulary_filter_name": vocabulary_filter_name
         }
@@ -1457,7 +1509,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCallAnalyticsCategories")
+        )
         input_: capo_transcribe.types.list_call_analytics_categories_request.ListCallAnalyticsCategoriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1534,7 +1588,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCallAnalyticsJobs")
+        )
         input_: capo_transcribe.types.list_call_analytics_jobs_request.ListCallAnalyticsJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -1623,7 +1679,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLanguageModels")
+        )
         input_: capo_transcribe.types.list_language_models_request.ListLanguageModelsRequest = {}
         if status_equals is not None:
             input_["status_equals"] = status_equals
@@ -1710,7 +1768,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMedicalScribeJobs")
+        )
         input_: capo_transcribe.types.list_medical_scribe_jobs_request.ListMedicalScribeJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -1799,7 +1859,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMedicalTranscriptionJobs")
+        )
         input_: capo_transcribe.types.list_medical_transcription_jobs_request.ListMedicalTranscriptionJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -1888,7 +1950,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMedicalVocabularies")
+        )
         input_: capo_transcribe.types.list_medical_vocabularies_request.ListMedicalVocabulariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1968,7 +2032,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_transcribe.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2024,7 +2090,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTranscriptionJobs")
+        )
         input_: capo_transcribe.types.list_transcription_jobs_request.ListTranscriptionJobsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -2113,7 +2181,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVocabularies")
+        )
         input_: capo_transcribe.types.list_vocabularies_request.ListVocabulariesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2198,7 +2268,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVocabularyFilters")
+        )
         input_: capo_transcribe.types.list_vocabulary_filters_request.ListVocabularyFiltersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2294,7 +2366,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCallAnalyticsJob")
+        )
         input_: capo_transcribe.types.start_call_analytics_job_request.StartCallAnalyticsJobRequest = {
             "call_analytics_job_name": call_analytics_job_name,
             "media": media,
@@ -2379,7 +2453,21 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transcribe.types.start_medical_scribe_job_request.StartMedicalScribeJobRequest",
+        ) -> dict[str, Any]:
+            import capo_transcribe.types.start_medical_scribe_job_request
+
+            return (
+                capo_transcribe.types.start_medical_scribe_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartMedicalScribeJob", redact_input=_redact_input),
+        )
         input_: capo_transcribe.types.start_medical_scribe_job_request.StartMedicalScribeJobRequest = {
             "medical_scribe_job_name": medical_scribe_job_name,
             "media": media,
@@ -2475,7 +2563,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMedicalTranscriptionJob")
+        )
         input_: capo_transcribe.types.start_medical_transcription_job_request.StartMedicalTranscriptionJobRequest = {
             "medical_transcription_job_name": medical_transcription_job_name,
             "language_code": language_code,
@@ -2605,7 +2695,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTranscriptionJob")
+        )
         input_: capo_transcribe.types.start_transcription_job_request.StartTranscriptionJobRequest = {
             "transcription_job_name": transcription_job_name,
             "media": media,
@@ -2692,7 +2784,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_transcribe.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2743,7 +2837,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_transcribe.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2796,7 +2892,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCallAnalyticsCategory")
+        )
         input_: capo_transcribe.types.update_call_analytics_category_request.UpdateCallAnalyticsCategoryRequest = {
             "category_name": category_name,
             "rules": rules,
@@ -2855,7 +2953,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLanguageModel")
+        )
         input_: capo_transcribe.types.update_language_model_request.UpdateLanguageModelRequest = {
             "model_name": model_name
         }
@@ -2911,7 +3011,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMedicalVocabulary")
+        )
         input_: capo_transcribe.types.update_medical_vocabulary_request.UpdateMedicalVocabularyRequest = {
             "vocabulary_name": vocabulary_name,
             "language_code": language_code,
@@ -2975,7 +3077,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVocabulary")
+        )
         input_: capo_transcribe.types.update_vocabulary_request.UpdateVocabularyRequest = {
             "vocabulary_name": vocabulary_name,
             "language_code": language_code,
@@ -3044,7 +3148,9 @@ class AsyncTranscribeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVocabularyFilter")
+        )
         input_: capo_transcribe.types.update_vocabulary_filter_request.UpdateVocabularyFilterRequest = {
             "vocabulary_filter_name": vocabulary_filter_name
         }

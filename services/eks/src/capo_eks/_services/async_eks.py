@@ -25,7 +25,9 @@ from capo_eks._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -329,7 +331,9 @@ class AsyncEKSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEKSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEKSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEKSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -337,8 +341,10 @@ class AsyncEKSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -395,7 +401,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateCertificateAuthority")
+        )
         input_: capo_eks.types.activate_certificate_authority_request.ActivateCertificateAuthorityRequest = {
             "cluster_name": cluster_name,
             "certificate_authority_id": certificate_authority_id,
@@ -454,7 +462,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAccessPolicy")
+        )
         input_: capo_eks.types.associate_access_policy_request.AssociateAccessPolicyRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -511,7 +521,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEncryptionConfig")
+        )
         input_: capo_eks.types.associate_encryption_config_request.AssociateEncryptionConfigRequest = {
             "cluster_name": cluster_name,
             "encryption_config": encryption_config,
@@ -571,7 +583,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateIdentityProviderConfig")
+        )
         input_: capo_eks.types.associate_identity_provider_config_request.AssociateIdentityProviderConfigRequest = {
             "cluster_name": cluster_name,
             "oidc": oidc,
@@ -632,7 +646,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelUpdate")
+        )
         input_: capo_eks.types.cancel_update_request.CancelUpdateRequest = {
             "name": name,
             "update_id": update_id,
@@ -697,7 +713,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessEntry")
+        )
         input_: capo_eks.types.create_access_entry_request.CreateAccessEntryRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -782,7 +800,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAddon")
+        )
         input_: capo_eks.types.create_addon_request.CreateAddonRequest = {
             "cluster_name": cluster_name,
             "addon_name": addon_name,
@@ -865,7 +885,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCapability")
+        )
         input_: capo_eks.types.create_capability_request.CreateCapabilityRequest = {
             "capability_name": capability_name,
             "cluster_name": cluster_name,
@@ -927,7 +949,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificateAuthority")
+        )
         input_: capo_eks.types.create_certificate_authority_request.CreateCertificateAuthorityRequest = {
             "cluster_name": cluster_name
         }
@@ -1058,7 +1082,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_eks.types.create_cluster_request.CreateClusterRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -1161,7 +1187,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEksAnywhereSubscription")
+        )
         input_: capo_eks.types.create_eks_anywhere_subscription_request.CreateEksAnywhereSubscriptionRequest = {
             "name": name,
             "term": term,
@@ -1236,7 +1264,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFargateProfile")
+        )
         input_: capo_eks.types.create_fargate_profile_request.CreateFargateProfileRequest = {
             "fargate_profile_name": fargate_profile_name,
             "cluster_name": cluster_name,
@@ -1347,7 +1377,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNodegroup")
+        )
         input_: capo_eks.types.create_nodegroup_request.CreateNodegroupRequest = {
             "cluster_name": cluster_name,
             "nodegroup_name": nodegroup_name,
@@ -1450,7 +1482,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePodIdentityAssociation")
+        )
         input_: capo_eks.types.create_pod_identity_association_request.CreatePodIdentityAssociationRequest = {
             "cluster_name": cluster_name,
             "namespace": namespace,
@@ -1512,7 +1546,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessEntry")
+        )
         input_: capo_eks.types.delete_access_entry_request.DeleteAccessEntryRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -1565,7 +1601,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAddon")
+        )
         input_: capo_eks.types.delete_addon_request.DeleteAddonRequest = {
             "cluster_name": cluster_name,
             "addon_name": addon_name,
@@ -1618,7 +1656,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapability")
+        )
         input_: capo_eks.types.delete_capability_request.DeleteCapabilityRequest = {
             "cluster_name": cluster_name,
             "capability_name": capability_name,
@@ -1671,7 +1711,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificateAuthority")
+        )
         input_: capo_eks.types.delete_certificate_authority_request.DeleteCertificateAuthorityRequest = {
             "cluster_name": cluster_name,
             "certificate_authority_id": certificate_authority_id,
@@ -1730,7 +1772,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_eks.types.delete_cluster_request.DeleteClusterRequest = {
             "name": name
         }
@@ -1777,7 +1821,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEksAnywhereSubscription")
+        )
         input_: capo_eks.types.delete_eks_anywhere_subscription_request.DeleteEksAnywhereSubscriptionRequest = {
             "id": id
         }
@@ -1826,7 +1872,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFargateProfile")
+        )
         input_: capo_eks.types.delete_fargate_profile_request.DeleteFargateProfileRequest = {
             "cluster_name": cluster_name,
             "fargate_profile_name": fargate_profile_name,
@@ -1878,7 +1926,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNodegroup")
+        )
         input_: capo_eks.types.delete_nodegroup_request.DeleteNodegroupRequest = {
             "cluster_name": cluster_name,
             "nodegroup_name": nodegroup_name,
@@ -1928,7 +1978,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePodIdentityAssociation")
+        )
         input_: capo_eks.types.delete_pod_identity_association_request.DeletePodIdentityAssociationRequest = {
             "cluster_name": cluster_name,
             "association_id": association_id,
@@ -1978,7 +2030,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterCluster")
+        )
         input_: capo_eks.types.deregister_cluster_request.DeregisterClusterRequest = {
             "name": name
         }
@@ -2026,7 +2080,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccessEntry")
+        )
         input_: capo_eks.types.describe_access_entry_request.DescribeAccessEntryRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -2077,7 +2133,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAddon")
+        )
         input_: capo_eks.types.describe_addon_request.DescribeAddonRequest = {
             "cluster_name": cluster_name,
             "addon_name": addon_name,
@@ -2126,7 +2184,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAddonConfiguration")
+        )
         input_: capo_eks.types.describe_addon_configuration_request.DescribeAddonConfigurationRequest = {
             "addon_name": addon_name,
             "addon_version": addon_version,
@@ -2189,7 +2249,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAddonVersions")
+        )
         input_: capo_eks.types.describe_addon_versions_request.DescribeAddonVersionsRequest = {}
         if kubernetes_version is not None:
             input_["kubernetes_version"] = kubernetes_version
@@ -2283,7 +2345,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCapability")
+        )
         input_: capo_eks.types.describe_capability_request.DescribeCapabilityRequest = {
             "cluster_name": cluster_name,
             "capability_name": capability_name,
@@ -2332,7 +2396,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificateAuthority")
+        )
         input_: capo_eks.types.describe_certificate_authority_request.DescribeCertificateAuthorityRequest = {
             "cluster_name": cluster_name,
             "certificate_authority_id": certificate_authority_id,
@@ -2386,7 +2452,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_eks.types.describe_cluster_request.DescribeClusterRequest = {
             "name": name
         }
@@ -2450,7 +2518,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterVersions")
+        )
         input_: capo_eks.types.describe_cluster_versions_request.DescribeClusterVersionsRequest = {}
         if cluster_type is not None:
             input_["cluster_type"] = cluster_type
@@ -2548,7 +2618,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEksAnywhereSubscription")
+        )
         input_: capo_eks.types.describe_eks_anywhere_subscription_request.DescribeEksAnywhereSubscriptionRequest = {
             "id": id
         }
@@ -2597,7 +2669,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFargateProfile")
+        )
         input_: capo_eks.types.describe_fargate_profile_request.DescribeFargateProfileRequest = {
             "cluster_name": cluster_name,
             "fargate_profile_name": fargate_profile_name,
@@ -2648,7 +2722,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityProviderConfig")
+        )
         input_: capo_eks.types.describe_identity_provider_config_request.DescribeIdentityProviderConfigRequest = {
             "cluster_name": cluster_name,
             "identity_provider_config": identity_provider_config,
@@ -2698,7 +2774,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInsight")
+        )
         input_: capo_eks.types.describe_insight_request.DescribeInsightRequest = {
             "cluster_name": cluster_name,
             "id": id,
@@ -2746,7 +2824,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInsightsRefresh")
+        )
         input_: capo_eks.types.describe_insights_refresh_request.DescribeInsightsRefreshRequest = {
             "cluster_name": cluster_name
         }
@@ -2796,7 +2876,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNodegroup")
+        )
         input_: capo_eks.types.describe_nodegroup_request.DescribeNodegroupRequest = {
             "cluster_name": cluster_name,
             "nodegroup_name": nodegroup_name,
@@ -2846,7 +2928,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePodIdentityAssociation")
+        )
         input_: capo_eks.types.describe_pod_identity_association_request.DescribePodIdentityAssociationRequest = {
             "cluster_name": cluster_name,
             "association_id": association_id,
@@ -2902,7 +2986,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUpdate")
+        )
         input_: capo_eks.types.describe_update_request.DescribeUpdateRequest = {
             "name": name,
             "update_id": update_id,
@@ -2959,7 +3045,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAccessPolicy")
+        )
         input_: capo_eks.types.disassociate_access_policy_request.DisassociateAccessPolicyRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -3015,7 +3103,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateIdentityProviderConfig")
+        )
         input_: capo_eks.types.disassociate_identity_provider_config_request.DisassociateIdentityProviderConfigRequest = {
             "cluster_name": cluster_name,
             "identity_provider_config": identity_provider_config,
@@ -3074,7 +3164,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessEntries")
+        )
         input_: capo_eks.types.list_access_entries_request.ListAccessEntriesRequest = {
             "cluster_name": cluster_name
         }
@@ -3155,7 +3247,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPolicies")
+        )
         input_: capo_eks.types.list_access_policies_request.ListAccessPoliciesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3234,7 +3328,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAddons")
+        )
         input_: capo_eks.types.list_addons_request.ListAddonsRequest = {
             "cluster_name": cluster_name
         }
@@ -3317,7 +3413,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedAccessPolicies")
+        )
         input_: capo_eks.types.list_associated_access_policies_request.ListAssociatedAccessPoliciesRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -3402,7 +3500,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCapabilities")
+        )
         input_: capo_eks.types.list_capabilities_request.ListCapabilitiesRequest = {
             "cluster_name": cluster_name
         }
@@ -3484,7 +3584,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificateAuthorities")
+        )
         input_: capo_eks.types.list_certificate_authorities_request.ListCertificateAuthoritiesRequest = {
             "cluster_name": cluster_name
         }
@@ -3574,7 +3676,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_eks.types.list_clusters_request.ListClustersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3660,7 +3764,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEksAnywhereSubscriptions")
+        )
         input_: capo_eks.types.list_eks_anywhere_subscriptions_request.ListEksAnywhereSubscriptionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3744,7 +3850,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFargateProfiles")
+        )
         input_: capo_eks.types.list_fargate_profiles_request.ListFargateProfilesRequest = {
             "cluster_name": cluster_name
         }
@@ -3827,7 +3935,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityProviderConfigs")
+        )
         input_: capo_eks.types.list_identity_provider_configs_request.ListIdentityProviderConfigsRequest = {
             "cluster_name": cluster_name
         }
@@ -3913,7 +4023,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInsights")
+        )
         input_: capo_eks.types.list_insights_request.ListInsightsRequest = {
             "cluster_name": cluster_name
         }
@@ -4000,7 +4112,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodegroups")
+        )
         input_: capo_eks.types.list_nodegroups_request.ListNodegroupsRequest = {
             "cluster_name": cluster_name
         }
@@ -4086,7 +4200,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPodIdentityAssociations")
+        )
         input_: capo_eks.types.list_pod_identity_associations_request.ListPodIdentityAssociationsRequest = {
             "cluster_name": cluster_name
         }
@@ -4174,7 +4290,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_eks.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4233,7 +4351,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUpdates")
+        )
         input_: capo_eks.types.list_updates_request.ListUpdatesRequest = {"name": name}
         if nodegroup_name is not None:
             input_["nodegroup_name"] = nodegroup_name
@@ -4329,7 +4449,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCluster")
+        )
         input_: capo_eks.types.register_cluster_request.RegisterClusterRequest = {
             "name": name,
             "connector_config": connector_config,
@@ -4382,7 +4504,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInsightsRefresh")
+        )
         input_: capo_eks.types.start_insights_refresh_request.StartInsightsRefreshRequest = {
             "cluster_name": cluster_name
         }
@@ -4429,7 +4553,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_eks.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4477,7 +4603,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_eks.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4533,7 +4661,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessEntry")
+        )
         input_: capo_eks.types.update_access_entry_request.UpdateAccessEntryRequest = {
             "cluster_name": cluster_name,
             "principal_arn": principal_arn,
@@ -4608,7 +4738,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAddon")
+        )
         input_: capo_eks.types.update_addon_request.UpdateAddonRequest = {
             "cluster_name": cluster_name,
             "addon_name": addon_name,
@@ -4684,7 +4816,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCapability")
+        )
         input_: capo_eks.types.update_capability_request.UpdateCapabilityRequest = {
             "cluster_name": cluster_name,
             "capability_name": capability_name,
@@ -4798,7 +4932,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterConfig")
+        )
         input_: capo_eks.types.update_cluster_config_request.UpdateClusterConfigRequest = {
             "name": name
         }
@@ -4890,7 +5026,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterVersion")
+        )
         input_: capo_eks.types.update_cluster_version_request.UpdateClusterVersionRequest = {
             "name": name,
             "version": version,
@@ -4950,7 +5088,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEksAnywhereSubscription")
+        )
         input_: capo_eks.types.update_eks_anywhere_subscription_request.UpdateEksAnywhereSubscriptionRequest = {
             "id": id,
             "auto_renew": auto_renew,
@@ -5033,7 +5173,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNodegroupConfig")
+        )
         input_: capo_eks.types.update_nodegroup_config_request.UpdateNodegroupConfigRequest = {
             "cluster_name": cluster_name,
             "nodegroup_name": nodegroup_name,
@@ -5112,7 +5254,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNodegroupVersion")
+        )
         input_: capo_eks.types.update_nodegroup_version_request.UpdateNodegroupVersionRequest = {
             "cluster_name": cluster_name,
             "nodegroup_name": nodegroup_name,
@@ -5185,7 +5329,9 @@ class AsyncEKSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePodIdentityAssociation")
+        )
         input_: capo_eks.types.update_pod_identity_association_request.UpdatePodIdentityAssociationRequest = {
             "cluster_name": cluster_name,
             "association_id": association_id,

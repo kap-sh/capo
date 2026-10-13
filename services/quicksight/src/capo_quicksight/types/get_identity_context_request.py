@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GetIdentityContextRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,15 @@ def deserialize_json(data: dict) -> GetIdentityContextRequest:
         )
     if data.get("ContextRegion") is not None:
         out["context_region"] = data["ContextRegion"]
+    return out
+
+
+def redact_sensitive(value: GetIdentityContextRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_identifier" in value:
+        import capo_quicksight.types.user_identifier
+
+        out["user_identifier"] = capo_quicksight.types.user_identifier.redact_sensitive(
+            value["user_identifier"]
+        )
     return out

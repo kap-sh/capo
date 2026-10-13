@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentity#LoginsMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cognito_identity.types.identity_provider_name
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> LoginsMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: LoginsMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

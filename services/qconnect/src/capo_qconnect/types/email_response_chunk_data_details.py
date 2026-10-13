@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#EmailResponseChunkDataDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_json(data: dict) -> EmailResponseChunkDataDetails:
         out["completion"] = data["completion"]
     if data.get("nextChunkToken") is not None:
         out["next_chunk_token"] = data["nextChunkToken"]
+    return out
+
+
+def redact_sensitive(value: EmailResponseChunkDataDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "completion" in value:
+        out["completion"] = "*** Sensitive Data Redacted ***"
     return out

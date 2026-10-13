@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#StorageConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -206,6 +206,35 @@ def deserialize_json(data: dict) -> StorageConfiguration:
         out["s3_vectors_configuration"] = (
             capo_bedrock_agent.types.s3_vectors_configuration.deserialize_json(
                 data["s3VectorsConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StorageConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "opensearch_managed_cluster_configuration" in value:
+        import capo_bedrock_agent.types.open_search_managed_cluster_configuration
+
+        out["opensearch_managed_cluster_configuration"] = (
+            capo_bedrock_agent.types.open_search_managed_cluster_configuration.redact_sensitive(
+                value["opensearch_managed_cluster_configuration"]
+            )
+        )
+    if "neptune_analytics_configuration" in value:
+        import capo_bedrock_agent.types.neptune_analytics_configuration
+
+        out["neptune_analytics_configuration"] = (
+            capo_bedrock_agent.types.neptune_analytics_configuration.redact_sensitive(
+                value["neptune_analytics_configuration"]
+            )
+        )
+    if "s3_vectors_configuration" in value:
+        import capo_bedrock_agent.types.s3_vectors_configuration
+
+        out["s3_vectors_configuration"] = (
+            capo_bedrock_agent.types.s3_vectors_configuration.redact_sensitive(
+                value["s3_vectors_configuration"]
             )
         )
     return out

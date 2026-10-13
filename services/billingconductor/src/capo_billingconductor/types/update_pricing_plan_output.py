@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#UpdatePricingPlanOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,13 @@ def deserialize_json(data: dict) -> UpdatePricingPlanOutput:
         out["last_modified_time"] = data["LastModifiedTime"]
     else:
         out["last_modified_time"] = 0
+    return out
+
+
+def redact_sensitive(value: UpdatePricingPlanOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

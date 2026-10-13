@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent_runtime._auth._signers
 import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExecutionFlowSnapshot")
+        )
         input_: capo_bedrock_agent_runtime.types.get_execution_flow_snapshot_request.GetExecutionFlowSnapshotRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -142,7 +145,9 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFlowExecution")
+        )
         input_: capo_bedrock_agent_runtime.types.get_flow_execution_request.GetFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -205,7 +210,19 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.list_flow_execution_events_response.ListFlowExecutionEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.list_flow_execution_events_response
+
+            return capo_bedrock_agent_runtime.types.list_flow_execution_events_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListFlowExecutionEvents", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent_runtime.types.list_flow_execution_events_request.ListFlowExecutionEventsRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -271,7 +288,9 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlowExecutions")
+        )
         input_: capo_bedrock_agent_runtime.types.list_flow_executions_request.ListFlowExecutionsRequest = {
             "flow_identifier": flow_identifier
         }
@@ -340,7 +359,19 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.start_flow_execution_request.StartFlowExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.start_flow_execution_request
+
+            return capo_bedrock_agent_runtime.types.start_flow_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartFlowExecution", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agent_runtime.types.start_flow_execution_request.StartFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -400,7 +431,9 @@ class FlowExecutionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFlowExecution")
+        )
         input_: capo_bedrock_agent_runtime.types.stop_flow_execution_request.StopFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -459,7 +492,9 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExecutionFlowSnapshot")
+        )
         input_: capo_bedrock_agent_runtime.types.get_execution_flow_snapshot_request.GetExecutionFlowSnapshotRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -513,7 +548,9 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFlowExecution")
+        )
         input_: capo_bedrock_agent_runtime.types.get_flow_execution_request.GetFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -577,7 +614,19 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.list_flow_execution_events_response.ListFlowExecutionEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.list_flow_execution_events_response
+
+            return capo_bedrock_agent_runtime.types.list_flow_execution_events_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListFlowExecutionEvents", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agent_runtime.types.list_flow_execution_events_request.ListFlowExecutionEventsRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -644,7 +693,9 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlowExecutions")
+        )
         input_: capo_bedrock_agent_runtime.types.list_flow_executions_request.ListFlowExecutionsRequest = {
             "flow_identifier": flow_identifier
         }
@@ -714,7 +765,19 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.start_flow_execution_request.StartFlowExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.start_flow_execution_request
+
+            return capo_bedrock_agent_runtime.types.start_flow_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartFlowExecution", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agent_runtime.types.start_flow_execution_request.StartFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,
@@ -775,7 +838,9 @@ class AsyncFlowExecutionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFlowExecution")
+        )
         input_: capo_bedrock_agent_runtime.types.stop_flow_execution_request.StopFlowExecutionRequest = {
             "flow_identifier": flow_identifier,
             "flow_alias_identifier": flow_alias_identifier,

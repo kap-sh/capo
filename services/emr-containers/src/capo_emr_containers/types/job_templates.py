@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#JobTemplates``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_emr_containers.types.job_template
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> JobTemplates:
             continue
         out.append(capo_emr_containers.types.job_template.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: JobTemplates) -> list[Any]:
+    import capo_emr_containers.types.job_template
+
+    return [
+        capo_emr_containers.types.job_template.redact_sensitive(item) for item in value
+    ]

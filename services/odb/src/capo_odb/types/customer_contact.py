@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#CustomerContact``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_aws_json_1_0(data: dict) -> CustomerContact:
     out: CustomerContact = {}  # type: ignore[typeddict-item]
     if data.get("email") is not None:
         out["email"] = data["email"]
+    return out
+
+
+def redact_sensitive(value: CustomerContact) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

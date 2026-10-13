@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#ValidationExceptionFieldList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_account.types.validation_exception_field
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ValidationExceptionFieldList:
             continue
         out.append(capo_account.types.validation_exception_field.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ValidationExceptionFieldList) -> list[Any]:
+    import capo_account.types.validation_exception_field
+
+    return [
+        capo_account.types.validation_exception_field.redact_sensitive(item)
+        for item in value
+    ]

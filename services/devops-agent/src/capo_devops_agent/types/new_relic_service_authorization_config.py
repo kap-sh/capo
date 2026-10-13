@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#NewRelicServiceAuthorizationConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -48,3 +48,16 @@ def deserialize_json(data: dict) -> NewRelicServiceAuthorizationConfig:
         raise DeserializationError(
             "NewRelicServiceAuthorizationConfig: no recognized variant key"
         )
+
+
+def redact_sensitive(value: NewRelicServiceAuthorizationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "apiKey" in value:
+        import capo_devops_agent.types.new_relic_api_key_config
+
+        out["apiKey"] = (
+            capo_devops_agent.types.new_relic_api_key_config.redact_sensitive(
+                value["apiKey"]
+            )
+        )
+    return out

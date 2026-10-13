@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailChecksContentBlockList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_runtime.types.guardrail_checks_content_block
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> GuardrailChecksContentBlockList:
             )
         )
     return out
+
+
+def redact_sensitive(value: GuardrailChecksContentBlockList) -> list[Any]:
+    import capo_bedrock_runtime.types.guardrail_checks_content_block
+
+    return [
+        capo_bedrock_runtime.types.guardrail_checks_content_block.redact_sensitive(item)
+        for item in value
+    ]

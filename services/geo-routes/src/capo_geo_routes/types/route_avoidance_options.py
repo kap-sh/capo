@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteAvoidanceOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -138,6 +138,51 @@ def deserialize_json(data: dict) -> RouteAvoidanceOptions:
         out["zone_categories"] = (
             capo_geo_routes.types.route_avoidance_zone_category_list.deserialize_json(
                 data["ZoneCategories"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteAvoidanceOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "areas" in value:
+        import capo_geo_routes.types.route_avoidance_area_list
+
+        out["areas"] = capo_geo_routes.types.route_avoidance_area_list.redact_sensitive(
+            value["areas"]
+        )
+    if "car_shuttle_trains" in value:
+        out["car_shuttle_trains"] = "*** Sensitive Data Redacted ***"
+    if "controlled_access_highways" in value:
+        out["controlled_access_highways"] = "*** Sensitive Data Redacted ***"
+    if "dirt_roads" in value:
+        out["dirt_roads"] = "*** Sensitive Data Redacted ***"
+    if "ferries" in value:
+        out["ferries"] = "*** Sensitive Data Redacted ***"
+    if "seasonal_closure" in value:
+        out["seasonal_closure"] = "*** Sensitive Data Redacted ***"
+    if "toll_roads" in value:
+        out["toll_roads"] = "*** Sensitive Data Redacted ***"
+    if "toll_transponders" in value:
+        out["toll_transponders"] = "*** Sensitive Data Redacted ***"
+    if "truck_road_types" in value:
+        import capo_geo_routes.types.truck_road_type_list
+
+        out["truck_road_types"] = (
+            capo_geo_routes.types.truck_road_type_list.redact_sensitive(
+                value["truck_road_types"]
+            )
+        )
+    if "tunnels" in value:
+        out["tunnels"] = "*** Sensitive Data Redacted ***"
+    if "u_turns" in value:
+        out["u_turns"] = "*** Sensitive Data Redacted ***"
+    if "zone_categories" in value:
+        import capo_geo_routes.types.route_avoidance_zone_category_list
+
+        out["zone_categories"] = (
+            capo_geo_routes.types.route_avoidance_zone_category_list.redact_sensitive(
+                value["zone_categories"]
             )
         )
     return out

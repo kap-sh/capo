@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#RegisterOidcConfigRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,11 @@ def deserialize_json(data: dict) -> RegisterOidcConfigRequest:
         out["sso_token_buffer_minutes"] = data["ssoTokenBufferMinutes"]
     if data.get("userId") is not None:
         out["user_id"] = data["userId"]
+    return out
+
+
+def redact_sensitive(value: RegisterOidcConfigRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret" in value:
+        out["secret"] = "*** Sensitive Data Redacted ***"
     return out

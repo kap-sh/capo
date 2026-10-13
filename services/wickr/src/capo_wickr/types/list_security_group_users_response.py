@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#ListSecurityGroupUsersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> ListSecurityGroupUsersResponse:
         raise DeserializationError("ListSecurityGroupUsersResponse.users required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSecurityGroupUsersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "users" in value:
+        import capo_wickr.types.users
+
+        out["users"] = capo_wickr.types.users.redact_sensitive(value["users"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#CreateSolutionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -114,4 +114,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateSolutionRequest:
         import capo_personalize.types.tags
 
         out["tags"] = capo_personalize.types.tags.deserialize_aws_json_1_1(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateSolutionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_personalize.types.tags
+
+        out["tags"] = capo_personalize.types.tags.redact_sensitive(value["tags"])
     return out

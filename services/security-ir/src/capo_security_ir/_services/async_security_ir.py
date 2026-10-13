@@ -30,7 +30,9 @@ from capo_security_ir._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -194,7 +196,9 @@ class AsyncSecurityIRClient:
         self.membership = AsyncMembership(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSecurityIRClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSecurityIRClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSecurityIRClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -202,8 +206,10 @@ class AsyncSecurityIRClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -265,7 +271,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_security_ir.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -324,7 +332,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_security_ir.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -384,7 +394,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_security_ir.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -470,7 +482,16 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.create_case_request.CreateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.create_case_request
+
+            return capo_security_ir.types.create_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCase", redact_input=_redact_input)
+        )
         input_: capo_security_ir.types.create_case_request.CreateCaseRequest = {
             "resolver_type": resolver_type,
             "title": title,
@@ -544,7 +565,16 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.get_case_response.GetCaseResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_case_response
+
+            return capo_security_ir.types.get_case_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCase", redact_output=_redact_output)
+        )
         input_: capo_security_ir.types.get_case_request.GetCaseRequest = {
             "case_id": case_id
         }
@@ -655,7 +685,16 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.update_case_request.UpdateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_case_request
+
+            return capo_security_ir.types.update_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCase", redact_input=_redact_input)
+        )
         input_: capo_security_ir.types.update_case_request.UpdateCaseRequest = {
             "case_id": case_id
         }
@@ -750,7 +789,17 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.list_cases_response.ListCasesResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.list_cases_response
+
+            return capo_security_ir.types.list_cases_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCases", redact_output=_redact_output),
+        )
         input_: capo_security_ir.types.list_cases_request.ListCasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -830,7 +879,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloseCase")
+        )
         input_: capo_security_ir.types.close_case_request.CloseCaseRequest = {
             "case_id": case_id
         }
@@ -893,7 +944,19 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.create_case_comment_request.CreateCaseCommentRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.create_case_comment_request
+
+            return capo_security_ir.types.create_case_comment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCaseComment", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.create_case_comment_request.CreateCaseCommentRequest = {
             "case_id": case_id,
             "body": body,
@@ -956,7 +1019,21 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.get_case_attachment_download_url_response.GetCaseAttachmentDownloadUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_case_attachment_download_url_response
+
+            return capo_security_ir.types.get_case_attachment_download_url_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCaseAttachmentDownloadUrl", redact_output=_redact_output
+            ),
+        )
         input_: capo_security_ir.types.get_case_attachment_download_url_request.GetCaseAttachmentDownloadUrlRequest = {
             "case_id": case_id,
             "attachment_id": attachment_id,
@@ -1020,7 +1097,32 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.get_case_attachment_upload_url_request.GetCaseAttachmentUploadUrlRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_case_attachment_upload_url_request
+
+            return capo_security_ir.types.get_case_attachment_upload_url_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_security_ir.types.get_case_attachment_upload_url_response.GetCaseAttachmentUploadUrlResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_case_attachment_upload_url_response
+
+            return capo_security_ir.types.get_case_attachment_upload_url_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCaseAttachmentUploadUrl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_security_ir.types.get_case_attachment_upload_url_request.GetCaseAttachmentUploadUrlRequest = {
             "case_id": case_id,
             "file_name": file_name,
@@ -1086,7 +1188,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCaseEdits")
+        )
         input_: capo_security_ir.types.list_case_edits_request.ListCaseEditsRequest = {
             "case_id": case_id
         }
@@ -1174,7 +1278,19 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.list_comments_response.ListCommentsResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.list_comments_response
+
+            return capo_security_ir.types.list_comments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListComments", redact_output=_redact_output),
+        )
         input_: capo_security_ir.types.list_comments_request.ListCommentsRequest = {
             "case_id": case_id
         }
@@ -1264,7 +1380,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvestigations")
+        )
         input_: capo_security_ir.types.list_investigations_request.ListInvestigationsRequest = {
             "case_id": case_id
         }
@@ -1361,7 +1479,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendFeedback")
+        )
         input_: capo_security_ir.types.send_feedback_request.SendFeedbackRequest = {
             "case_id": case_id,
             "result_id": result_id,
@@ -1428,7 +1548,32 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.update_case_comment_request.UpdateCaseCommentRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_case_comment_request
+
+            return capo_security_ir.types.update_case_comment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_security_ir.types.update_case_comment_response.UpdateCaseCommentResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_case_comment_response
+
+            return capo_security_ir.types.update_case_comment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCaseComment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_security_ir.types.update_case_comment_request.UpdateCaseCommentRequest = {
             "case_id": case_id,
             "comment_id": comment_id,
@@ -1489,7 +1634,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCaseStatus")
+        )
         input_: capo_security_ir.types.update_case_status_request.UpdateCaseStatusRequest = {
             "case_id": case_id,
             "case_status": case_status,
@@ -1549,7 +1696,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResolverType")
+        )
         input_: capo_security_ir.types.update_resolver_type_request.UpdateResolverTypeRequest = {
             "case_id": case_id,
             "resolver_type": resolver_type,
@@ -1619,7 +1768,19 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.create_membership_request.CreateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.create_membership_request
+
+            return capo_security_ir.types.create_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.create_membership_request.CreateMembershipRequest = {
             "membership_name": membership_name,
             "incident_response_team": incident_response_team,
@@ -1686,7 +1847,19 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_security_ir.types.get_membership_response.GetMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.get_membership_response
+
+            return capo_security_ir.types.get_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMembership", redact_output=_redact_output),
+        )
         input_: capo_security_ir.types.get_membership_request.GetMembershipRequest = {
             "membership_id": membership_id
         }
@@ -1761,7 +1934,19 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_security_ir.types.update_membership_request.UpdateMembershipRequest",
+        ) -> dict[str, Any]:
+            import capo_security_ir.types.update_membership_request
+
+            return capo_security_ir.types.update_membership_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMembership", redact_input=_redact_input),
+        )
         input_: capo_security_ir.types.update_membership_request.UpdateMembershipRequest = {
             "membership_id": membership_id
         }
@@ -1832,7 +2017,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_security_ir.types.list_memberships_request.ListMembershipsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1916,7 +2103,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetMemberAccountDetails")
+        )
         input_: capo_security_ir.types.batch_get_member_account_details_request.BatchGetMemberAccountDetailsRequest = {
             "membership_id": membership_id,
             "account_ids": account_ids,
@@ -1974,7 +2163,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMembership")
+        )
         input_: capo_security_ir.types.cancel_membership_request.CancelMembershipRequest = {
             "membership_id": membership_id
         }
@@ -2037,7 +2228,9 @@ class AsyncSecurityIRClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingMetrics")
+        )
         input_: capo_security_ir.types.get_finding_metrics_request.GetFindingMetricsRequest = {
             "membership_id": membership_id,
             "start_date": start_date,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#ListAutonomousDatabaseClonesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,18 @@ def deserialize_aws_json_1_0(data: dict) -> ListAutonomousDatabaseClonesOutput:
     else:
         raise DeserializationError(
             "ListAutonomousDatabaseClonesOutput.autonomous_database_clones required"
+        )
+    return out
+
+
+def redact_sensitive(value: ListAutonomousDatabaseClonesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "autonomous_database_clones" in value:
+        import capo_odb.types.autonomous_database_list
+
+        out["autonomous_database_clones"] = (
+            capo_odb.types.autonomous_database_list.redact_sensitive(
+                value["autonomous_database_clones"]
+            )
         )
     return out

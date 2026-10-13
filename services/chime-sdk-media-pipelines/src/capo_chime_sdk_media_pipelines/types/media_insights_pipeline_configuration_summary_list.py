@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaInsightsPipelineConfigurationSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> MediaInsightsPipelineConfigurationSummaryLis
             )
         )
     return out
+
+
+def redact_sensitive(value: MediaInsightsPipelineConfigurationSummaryList) -> list[Any]:
+    import capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_summary
+
+    return [
+        capo_chime_sdk_media_pipelines.types.media_insights_pipeline_configuration_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

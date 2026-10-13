@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#PlayerConnectionEndpointList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.player_connection_endpoint
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_1(data: list) -> PlayerConnectionEndpointList:
             )
         )
     return out
+
+
+def redact_sensitive(value: PlayerConnectionEndpointList) -> list[Any]:
+    import capo_gamelift.types.player_connection_endpoint
+
+    return [
+        capo_gamelift.types.player_connection_endpoint.redact_sensitive(item)
+        for item in value
+    ]

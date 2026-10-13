@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#LaunchTemplateVersion``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -134,5 +134,18 @@ def deserialize_ec2_query(el: Element) -> LaunchTemplateVersion:
 
         out["operator"] = capo_ec2.types.operator_response.deserialize_ec2_query(
             child_operator
+        )
+    return out
+
+
+def redact_sensitive(value: LaunchTemplateVersion) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_data" in value:
+        import capo_ec2.types.response_launch_template_data
+
+        out["launch_template_data"] = (
+            capo_ec2.types.response_launch_template_data.redact_sensitive(
+                value["launch_template_data"]
+            )
         )
     return out

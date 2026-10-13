@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedEvaluationCustomMetricConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -63,5 +63,18 @@ def deserialize_json(data: dict) -> AutomatedEvaluationCustomMetricConfig:
     else:
         raise DeserializationError(
             "AutomatedEvaluationCustomMetricConfig.evaluator_model_config required"
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedEvaluationCustomMetricConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_metrics" in value:
+        import capo_bedrock.types.automated_evaluation_custom_metrics
+
+        out["custom_metrics"] = (
+            capo_bedrock.types.automated_evaluation_custom_metrics.redact_sensitive(
+                value["custom_metrics"]
+            )
         )
     return out

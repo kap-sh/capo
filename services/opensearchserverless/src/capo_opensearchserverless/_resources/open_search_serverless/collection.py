@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,9 @@ class Collection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollection")
+        )
         input_: capo_opensearchserverless.types.create_collection_request.CreateCollectionRequest = {
             "name": name
         }
@@ -190,7 +193,9 @@ class Collection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollection")
+        )
         input_: capo_opensearchserverless.types.update_collection_request.UpdateCollectionRequest = {
             "id": id
         }
@@ -249,7 +254,9 @@ class Collection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollection")
+        )
         input_: capo_opensearchserverless.types.delete_collection_request.DeleteCollectionRequest = {
             "id": id
         }
@@ -302,7 +309,9 @@ class Collection:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollections")
+        )
         input_: capo_opensearchserverless.types.list_collections_request.ListCollectionsRequest = {}
         if collection_filters is not None:
             input_["collection_filters"] = collection_filters
@@ -391,7 +400,9 @@ class AsyncCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollection")
+        )
         input_: capo_opensearchserverless.types.create_collection_request.CreateCollectionRequest = {
             "name": name
         }
@@ -470,7 +481,9 @@ class AsyncCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollection")
+        )
         input_: capo_opensearchserverless.types.update_collection_request.UpdateCollectionRequest = {
             "id": id
         }
@@ -530,7 +543,9 @@ class AsyncCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollection")
+        )
         input_: capo_opensearchserverless.types.delete_collection_request.DeleteCollectionRequest = {
             "id": id
         }
@@ -584,7 +599,9 @@ class AsyncCollection:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollections")
+        )
         input_: capo_opensearchserverless.types.list_collections_request.ListCollectionsRequest = {}
         if collection_filters is not None:
             input_["collection_filters"] = collection_filters

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#ListOriginationNumbersResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,6 +47,19 @@ def deserialize_query(el: Element) -> ListOriginationNumbersResult:
         out["phone_numbers"] = (
             capo_sns.types.phone_number_information_list.deserialize_query(
                 child_phone_numbers
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListOriginationNumbersResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_numbers" in value:
+        import capo_sns.types.phone_number_information_list
+
+        out["phone_numbers"] = (
+            capo_sns.types.phone_number_information_list.redact_sensitive(
+                value["phone_numbers"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#ParticipantToken``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,4 +117,11 @@ def deserialize_json(data: dict) -> ParticipantToken:
                 data["expirationTime"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ParticipantToken) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

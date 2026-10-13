@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#RebootClusterResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_query(el: Element) -> RebootClusterResult:
         import capo_redshift.types.cluster
 
         out["cluster"] = capo_redshift.types.cluster.deserialize_query(child_cluster)
+    return out
+
+
+def redact_sensitive(value: RebootClusterResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cluster" in value:
+        import capo_redshift.types.cluster
+
+        out["cluster"] = capo_redshift.types.cluster.redact_sensitive(value["cluster"])
     return out

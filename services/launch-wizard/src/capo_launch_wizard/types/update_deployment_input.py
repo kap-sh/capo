@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.launchwizard#UpdateDeploymentInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,11 @@ def deserialize_json(data: dict) -> UpdateDeploymentInput:
         out["force"] = data["force"]
     else:
         out["force"] = False
+    return out
+
+
+def redact_sensitive(value: UpdateDeploymentInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "specifications" in value:
+        out["specifications"] = "*** Sensitive Data Redacted ***"
     return out

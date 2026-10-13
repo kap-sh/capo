@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#StartVerificationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,6 +46,19 @@ def deserialize_aws_json_1_0(data: dict) -> StartVerificationRequest:
         out["verification_details"] = (
             capo_partnercentral_account.types.verification_details.deserialize_aws_json_1_0(
                 data["VerificationDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartVerificationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "verification_details" in value:
+        import capo_partnercentral_account.types.verification_details
+
+        out["verification_details"] = (
+            capo_partnercentral_account.types.verification_details.redact_sensitive(
+                value["verification_details"]
             )
         )
     return out

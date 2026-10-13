@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GaugeChartOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,6 +111,19 @@ def deserialize_json(data: dict) -> GaugeChartOptions:
         out["primary_value_font_configuration"] = (
             capo_quicksight.types.font_configuration.deserialize_json(
                 data["PrimaryValueFontConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GaugeChartOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "comparison" in value:
+        import capo_quicksight.types.comparison_configuration
+
+        out["comparison"] = (
+            capo_quicksight.types.comparison_configuration.redact_sensitive(
+                value["comparison"]
             )
         )
     return out

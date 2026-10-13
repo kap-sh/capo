@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#UserList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime.types.user
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> UserList:
             continue
         out.append(capo_chime.types.user.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: UserList) -> list[Any]:
+    import capo_chime.types.user
+
+    return [capo_chime.types.user.redact_sensitive(item) for item in value]

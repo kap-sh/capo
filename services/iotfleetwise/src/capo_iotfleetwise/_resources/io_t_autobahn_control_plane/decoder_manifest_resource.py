@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -114,7 +115,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.create_decoder_manifest_request.CreateDecoderManifestRequest = {
             "name": name,
             "model_manifest_arn": model_manifest_arn,
@@ -172,7 +175,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.get_decoder_manifest_request.GetDecoderManifestRequest = {
             "name": name
         }
@@ -254,7 +259,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.update_decoder_manifest_request.UpdateDecoderManifestRequest = {
             "name": name
         }
@@ -319,7 +326,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.delete_decoder_manifest_request.DeleteDecoderManifestRequest = {
             "name": name
         }
@@ -373,7 +382,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifests")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifests_request.ListDecoderManifestsRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -431,7 +442,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.import_decoder_manifest_request.ImportDecoderManifestRequest = {
             "name": name,
             "network_file_definitions": network_file_definitions,
@@ -483,7 +496,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestNetworkInterfaces")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_network_interfaces_request.ListDecoderManifestNetworkInterfacesRequest = {
             "name": name
         }
@@ -538,7 +553,9 @@ class DecoderManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestSignals")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_signals_request.ListDecoderManifestSignalsRequest = {
             "name": name
         }
@@ -616,7 +633,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.create_decoder_manifest_request.CreateDecoderManifestRequest = {
             "name": name,
             "model_manifest_arn": model_manifest_arn,
@@ -675,7 +694,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.get_decoder_manifest_request.GetDecoderManifestRequest = {
             "name": name
         }
@@ -758,7 +779,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.update_decoder_manifest_request.UpdateDecoderManifestRequest = {
             "name": name
         }
@@ -824,7 +847,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.delete_decoder_manifest_request.DeleteDecoderManifestRequest = {
             "name": name
         }
@@ -879,7 +904,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifests")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifests_request.ListDecoderManifestsRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -938,7 +965,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ImportDecoderManifest")
+        )
         input_: capo_iotfleetwise.types.import_decoder_manifest_request.ImportDecoderManifestRequest = {
             "name": name,
             "network_file_definitions": network_file_definitions,
@@ -991,7 +1020,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestNetworkInterfaces")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_network_interfaces_request.ListDecoderManifestNetworkInterfacesRequest = {
             "name": name
         }
@@ -1047,7 +1078,9 @@ class AsyncDecoderManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDecoderManifestSignals")
+        )
         input_: capo_iotfleetwise.types.list_decoder_manifest_signals_request.ListDecoderManifestSignalsRequest = {
             "name": name
         }

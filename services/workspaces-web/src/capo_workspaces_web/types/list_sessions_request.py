@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#ListSessionsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def serialize_json(value: ListSessionsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListSessionsRequest:
     out: ListSessionsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListSessionsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

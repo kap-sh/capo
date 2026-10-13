@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_rolesanywhere._auth._signers
 import capo_rolesanywhere._auth._sigv4
 from capo_rolesanywhere._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,19 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_profile_request
+
+            return capo_rolesanywhere.types.create_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateProfile", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "role_arns": role_arns,
@@ -155,7 +168,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -216,7 +231,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_rolesanywhere.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -272,7 +289,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -318,7 +337,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -376,7 +397,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.delete_attribute_mapping_request.DeleteAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,
@@ -423,7 +446,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -467,7 +492,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -521,7 +548,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.put_attribute_mapping_request.PutAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,
@@ -591,7 +620,19 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_profile_request
+
+            return capo_rolesanywhere.types.create_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateProfile", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "role_arns": role_arns,
@@ -651,7 +692,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -713,7 +756,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_rolesanywhere.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -770,7 +815,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -817,7 +864,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -876,7 +925,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.delete_attribute_mapping_request.DeleteAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,
@@ -924,7 +975,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -969,7 +1022,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -1024,7 +1079,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.put_attribute_mapping_request.PutAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,

@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -125,7 +126,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBridge")
+        )
         input_: capo_mediaconnect.types.create_bridge_request.CreateBridgeRequest = {}
         if egress_gateway_bridge is not None:
             input_["egress_gateway_bridge"] = egress_gateway_bridge
@@ -186,7 +189,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeBridge")
+        )
         input_: capo_mediaconnect.types.describe_bridge_request.DescribeBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -247,7 +252,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridge")
+        )
         input_: capo_mediaconnect.types.update_bridge_request.UpdateBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -302,7 +309,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBridge")
+        )
         input_: capo_mediaconnect.types.delete_bridge_request.DeleteBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -353,7 +362,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBridges")
+        )
         input_: capo_mediaconnect.types.list_bridges_request.ListBridgesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn
@@ -410,7 +421,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddBridgeOutputs")
+        )
         input_: capo_mediaconnect.types.add_bridge_outputs_request.AddBridgeOutputsRequest = {
             "bridge_arn": bridge_arn
         }
@@ -465,7 +478,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddBridgeSources")
+        )
         input_: capo_mediaconnect.types.add_bridge_sources_request.AddBridgeSourcesRequest = {
             "bridge_arn": bridge_arn
         }
@@ -518,7 +533,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeOutput")
+        )
         input_: capo_mediaconnect.types.remove_bridge_output_request.RemoveBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -570,7 +587,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeSource")
+        )
         input_: capo_mediaconnect.types.remove_bridge_source_request.RemoveBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -626,7 +645,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeOutput")
+        )
         input_: capo_mediaconnect.types.update_bridge_output_request.UpdateBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -688,7 +709,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeSource")
+        )
         input_: capo_mediaconnect.types.update_bridge_source_request.UpdateBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -748,7 +771,9 @@ class BridgeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeState")
+        )
         input_: capo_mediaconnect.types.update_bridge_state_request.UpdateBridgeStateRequest = {
             "bridge_arn": bridge_arn
         }
@@ -827,7 +852,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBridge")
+        )
         input_: capo_mediaconnect.types.create_bridge_request.CreateBridgeRequest = {}
         if egress_gateway_bridge is not None:
             input_["egress_gateway_bridge"] = egress_gateway_bridge
@@ -889,7 +916,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeBridge")
+        )
         input_: capo_mediaconnect.types.describe_bridge_request.DescribeBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -951,7 +980,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridge")
+        )
         input_: capo_mediaconnect.types.update_bridge_request.UpdateBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1007,7 +1038,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBridge")
+        )
         input_: capo_mediaconnect.types.delete_bridge_request.DeleteBridgeRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1059,7 +1092,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBridges")
+        )
         input_: capo_mediaconnect.types.list_bridges_request.ListBridgesRequest = {}
         if filter_arn is not None:
             input_["filter_arn"] = filter_arn
@@ -1117,7 +1152,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddBridgeOutputs")
+        )
         input_: capo_mediaconnect.types.add_bridge_outputs_request.AddBridgeOutputsRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1173,7 +1210,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddBridgeSources")
+        )
         input_: capo_mediaconnect.types.add_bridge_sources_request.AddBridgeSourcesRequest = {
             "bridge_arn": bridge_arn
         }
@@ -1227,7 +1266,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeOutput")
+        )
         input_: capo_mediaconnect.types.remove_bridge_output_request.RemoveBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -1280,7 +1321,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveBridgeSource")
+        )
         input_: capo_mediaconnect.types.remove_bridge_source_request.RemoveBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -1337,7 +1380,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeOutput")
+        )
         input_: capo_mediaconnect.types.update_bridge_output_request.UpdateBridgeOutputRequest = {
             "bridge_arn": bridge_arn,
             "output_name": output_name,
@@ -1400,7 +1445,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeSource")
+        )
         input_: capo_mediaconnect.types.update_bridge_source_request.UpdateBridgeSourceRequest = {
             "bridge_arn": bridge_arn,
             "source_name": source_name,
@@ -1461,7 +1508,9 @@ class AsyncBridgeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBridgeState")
+        )
         input_: capo_mediaconnect.types.update_bridge_state_request.UpdateBridgeStateRequest = {
             "bridge_arn": bridge_arn
         }

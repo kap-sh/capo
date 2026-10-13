@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backupgateway#ImportHypervisorConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,4 +72,13 @@ def deserialize_aws_json_1_0(data: dict) -> ImportHypervisorConfigurationInput:
         out["tags"] = capo_backup_gateway.types.tags.deserialize_aws_json_1_0(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: ImportHypervisorConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

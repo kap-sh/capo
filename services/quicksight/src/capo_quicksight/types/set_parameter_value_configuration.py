@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SetParameterValueConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> SetParameterValueConfiguration:
         )
     else:
         raise DeserializationError("SetParameterValueConfiguration.value required")
+    return out
+
+
+def redact_sensitive(value: SetParameterValueConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_quicksight.types.destination_parameter_value_configuration
+
+        out["value"] = (
+            capo_quicksight.types.destination_parameter_value_configuration.redact_sensitive(
+                value["value"]
+            )
+        )
     return out

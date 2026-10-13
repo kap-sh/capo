@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_artifact._auth._signers
 import capo_artifact._auth._sigv4
 from capo_artifact._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,21 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.create_compliance_inquiry_request
+
+            return (
+                capo_artifact.types.create_compliance_inquiry_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateComplianceInquiry", redact_input=_redact_input),
+        )
         input_: capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest = {
             "name": name,
             "inquiry_content": inquiry_content,
@@ -171,7 +186,21 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_artifact.types.export_compliance_inquiry_response.ExportComplianceInquiryResponse",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.export_compliance_inquiry_response
+
+            return (
+                capo_artifact.types.export_compliance_inquiry_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ExportComplianceInquiry", redact_output=_redact_output),
+        )
         input_: capo_artifact.types.export_compliance_inquiry_request.ExportComplianceInquiryRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -228,7 +257,9 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetComplianceInquiryMetadata")
+        )
         input_: capo_artifact.types.get_compliance_inquiry_metadata_request.GetComplianceInquiryMetadataRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -287,7 +318,9 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiries")
+        )
         input_: capo_artifact.types.list_compliance_inquiries_request.ListComplianceInquiriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -350,7 +383,9 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiryQueries")
+        )
         input_: capo_artifact.types.list_compliance_inquiry_queries_request.ListComplianceInquiryQueriesRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -420,7 +455,21 @@ class ComplianceInquiryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.put_compliance_inquiry_feedback_request
+
+            return capo_artifact.types.put_compliance_inquiry_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutComplianceInquiryFeedback", redact_input=_redact_input
+            ),
+        )
         input_: capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest = {
             "compliance_inquiry_id": compliance_inquiry_id,
             "rating": rating,
@@ -503,7 +552,21 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.create_compliance_inquiry_request
+
+            return (
+                capo_artifact.types.create_compliance_inquiry_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateComplianceInquiry", redact_input=_redact_input),
+        )
         input_: capo_artifact.types.create_compliance_inquiry_request.CreateComplianceInquiryRequest = {
             "name": name,
             "inquiry_content": inquiry_content,
@@ -571,7 +634,21 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_artifact.types.export_compliance_inquiry_response.ExportComplianceInquiryResponse",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.export_compliance_inquiry_response
+
+            return (
+                capo_artifact.types.export_compliance_inquiry_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ExportComplianceInquiry", redact_output=_redact_output),
+        )
         input_: capo_artifact.types.export_compliance_inquiry_request.ExportComplianceInquiryRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -629,7 +706,9 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetComplianceInquiryMetadata")
+        )
         input_: capo_artifact.types.get_compliance_inquiry_metadata_request.GetComplianceInquiryMetadataRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -689,7 +768,9 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiries")
+        )
         input_: capo_artifact.types.list_compliance_inquiries_request.ListComplianceInquiriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -753,7 +834,9 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListComplianceInquiryQueries")
+        )
         input_: capo_artifact.types.list_compliance_inquiry_queries_request.ListComplianceInquiryQueriesRequest = {
             "compliance_inquiry_id": compliance_inquiry_id
         }
@@ -824,7 +907,21 @@ class AsyncComplianceInquiryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_artifact.types.put_compliance_inquiry_feedback_request
+
+            return capo_artifact.types.put_compliance_inquiry_feedback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutComplianceInquiryFeedback", redact_input=_redact_input
+            ),
+        )
         input_: capo_artifact.types.put_compliance_inquiry_feedback_request.PutComplianceInquiryFeedbackRequest = {
             "compliance_inquiry_id": compliance_inquiry_id,
             "rating": rating,

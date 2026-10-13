@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ListActorMessagesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> ListActorMessagesOutput:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListActorMessagesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_securityagent.types.actor_message_list
+
+        out["messages"] = capo_securityagent.types.actor_message_list.redact_sensitive(
+            value["messages"]
+        )
     return out

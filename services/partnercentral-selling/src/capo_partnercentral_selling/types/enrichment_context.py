@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#EnrichmentContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_aws_json_1_0(data: dict) -> EnrichmentContext:
         out["lead_insights"] = (
             capo_partnercentral_selling.types.lead_insights.deserialize_aws_json_1_0(
                 data["LeadInsights"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: EnrichmentContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "prospecting_result_aws" in value:
+        import capo_partnercentral_selling.types.invitation_prospecting_result_aws
+
+        out["prospecting_result_aws"] = (
+            capo_partnercentral_selling.types.invitation_prospecting_result_aws.redact_sensitive(
+                value["prospecting_result_aws"]
             )
         )
     return out

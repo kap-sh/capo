@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GetModelInvocationJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -262,4 +262,11 @@ def deserialize_json(data: dict) -> GetModelInvocationJobResponse:
         out["success_record_count"] = data["successRecordCount"]
     if data.get("errorRecordCount") is not None:
         out["error_record_count"] = data["errorRecordCount"]
+    return out
+
+
+def redact_sensitive(value: GetModelInvocationJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

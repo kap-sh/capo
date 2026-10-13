@@ -24,7 +24,9 @@ from capo_sagemaker_a2i_runtime._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -123,7 +125,9 @@ class AsyncSageMakerA2IRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSageMakerA2IRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSageMakerA2IRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSageMakerA2IRuntimeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -131,8 +135,10 @@ class AsyncSageMakerA2IRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -185,7 +191,9 @@ class AsyncSageMakerA2IRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.delete_human_loop_request.DeleteHumanLoopRequest = {
             "human_loop_name": human_loop_name
         }
@@ -232,7 +240,9 @@ class AsyncSageMakerA2IRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.describe_human_loop_request.DescribeHumanLoopRequest = {
             "human_loop_name": human_loop_name
         }
@@ -301,7 +311,9 @@ class AsyncSageMakerA2IRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHumanLoops")
+        )
         input_: capo_sagemaker_a2i_runtime.types.list_human_loops_request.ListHumanLoopsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -414,7 +426,9 @@ class AsyncSageMakerA2IRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.start_human_loop_request.StartHumanLoopRequest = {}
         if human_loop_name is not None:
             input_["human_loop_name"] = human_loop_name
@@ -469,7 +483,9 @@ class AsyncSageMakerA2IRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopHumanLoop")
+        )
         input_: capo_sagemaker_a2i_runtime.types.stop_human_loop_request.StopHumanLoopRequest = {}
         if human_loop_name is not None:
             input_["human_loop_name"] = human_loop_name

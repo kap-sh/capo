@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#User``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -169,4 +169,17 @@ def deserialize_json(data: dict) -> User:
         out["storage"] = capo_workdocs.types.user_storage_metadata.deserialize_json(
             data["Storage"]
         )
+    return out
+
+
+def redact_sensitive(value: User) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
     return out

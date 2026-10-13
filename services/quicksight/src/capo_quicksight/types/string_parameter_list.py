@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#StringParameterList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.string_parameter
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> StringParameterList:
             continue
         out.append(capo_quicksight.types.string_parameter.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: StringParameterList) -> list[Any]:
+    import capo_quicksight.types.string_parameter
+
+    return [
+        capo_quicksight.types.string_parameter.redact_sensitive(item) for item in value
+    ]

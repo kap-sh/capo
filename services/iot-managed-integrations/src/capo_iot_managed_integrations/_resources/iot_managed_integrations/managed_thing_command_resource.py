@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,19 @@ class ManagedThingCommandResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.send_managed_thing_command_request
+
+            return capo_iot_managed_integrations.types.send_managed_thing_command_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendManagedThingCommand", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest = {
             "managed_thing_id": managed_thing_id,
             "endpoints": endpoints,
@@ -150,7 +163,19 @@ class AsyncManagedThingCommandResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.send_managed_thing_command_request
+
+            return capo_iot_managed_integrations.types.send_managed_thing_command_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("SendManagedThingCommand", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest = {
             "managed_thing_id": managed_thing_id,
             "endpoints": endpoints,

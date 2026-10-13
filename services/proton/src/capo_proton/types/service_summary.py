@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ServiceSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,13 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceSummary:
         raise DeserializationError("ServiceSummary.status required")
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
+    return out
+
+
+def redact_sensitive(value: ServiceSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "status_message" in value:
+        out["status_message"] = "*** Sensitive Data Redacted ***"
     return out

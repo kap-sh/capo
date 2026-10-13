@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifybackend#CreateBackendAuthResourceConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -92,6 +92,19 @@ def deserialize_json(data: dict) -> CreateBackendAuthResourceConfig:
         out["user_pool_configs"] = (
             capo_amplifybackend.types.create_backend_auth_user_pool_config.deserialize_json(
                 data["userPoolConfigs"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBackendAuthResourceConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_pool_configs" in value:
+        import capo_amplifybackend.types.create_backend_auth_user_pool_config
+
+        out["user_pool_configs"] = (
+            capo_amplifybackend.types.create_backend_auth_user_pool_config.redact_sensitive(
+                value["user_pool_configs"]
             )
         )
     return out

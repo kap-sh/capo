@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteContinueStepDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,17 @@ def deserialize_json(data: dict) -> RouteContinueStepDetails:
         )
     else:
         raise DeserializationError("RouteContinueStepDetails.intersection required")
+    return out
+
+
+def redact_sensitive(value: RouteContinueStepDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "intersection" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["intersection"] = (
+            capo_geo_routes.types.localized_string_list.redact_sensitive(
+                value["intersection"]
+            )
+        )
     return out

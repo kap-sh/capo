@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SparkEmrPropertiesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -145,4 +145,13 @@ def deserialize_json(data: dict) -> SparkEmrPropertiesOutput:
                 data["managedEndpointCredentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SparkEmrPropertiesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
+    if "managed_endpoint_credentials" in value:
+        out["managed_endpoint_credentials"] = "*** Sensitive Data Redacted ***"
     return out

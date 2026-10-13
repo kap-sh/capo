@@ -22,7 +22,9 @@ from capo_ec2_instance_connect._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -111,7 +113,9 @@ class AsyncEC2InstanceConnectClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEC2InstanceConnectClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEC2InstanceConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEC2InstanceConnectClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -119,8 +123,10 @@ class AsyncEC2InstanceConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -187,7 +193,9 @@ class AsyncEC2InstanceConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendSerialConsoleSSHPublicKey")
+        )
         input_: capo_ec2_instance_connect.types.send_serial_console_ssh_public_key_request.SendSerialConsoleSSHPublicKeyRequest = {
             "instance_id": instance_id,
             "ssh_public_key": ssh_public_key,
@@ -254,7 +262,9 @@ class AsyncEC2InstanceConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendSSHPublicKey")
+        )
         input_: capo_ec2_instance_connect.types.send_ssh_public_key_request.SendSSHPublicKeyRequest = {
             "instance_id": instance_id,
             "instance_os_user": instance_os_user,

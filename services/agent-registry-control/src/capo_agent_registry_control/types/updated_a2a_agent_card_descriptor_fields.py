@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdatedA2aAgentCardDescriptorFields``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> UpdatedA2aAgentCardDescriptorFields:
         out["source"] = (
             capo_agent_registry_control.types.updated_descriptor_source.deserialize_json(
                 data["source"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatedA2aAgentCardDescriptorFields) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        import capo_agent_registry_control.types.updated_descriptor_data
+
+        out["data"] = (
+            capo_agent_registry_control.types.updated_descriptor_data.redact_sensitive(
+                value["data"]
             )
         )
     return out

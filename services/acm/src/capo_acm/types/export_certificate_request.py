@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acm#ExportCertificateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_aws_json_1_1(data: dict) -> ExportCertificateRequest:
         )
     else:
         raise DeserializationError("ExportCertificateRequest.passphrase required")
+    return out
+
+
+def redact_sensitive(value: ExportCertificateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "passphrase" in value:
+        out["passphrase"] = "*** Sensitive Data Redacted ***"
     return out

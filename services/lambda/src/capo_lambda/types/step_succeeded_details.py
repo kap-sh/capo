@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#StepSucceededDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> StepSucceededDetails:
         )
     else:
         raise DeserializationError("StepSucceededDetails.retry_details required")
+    return out
+
+
+def redact_sensitive(value: StepSucceededDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result" in value:
+        import capo_lambda.types.event_result
+
+        out["result"] = capo_lambda.types.event_result.redact_sensitive(value["result"])
     return out

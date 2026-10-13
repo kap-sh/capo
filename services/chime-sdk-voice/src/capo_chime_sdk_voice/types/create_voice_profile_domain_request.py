@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#CreateVoiceProfileDomainRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,23 @@ def deserialize_json(data: dict) -> CreateVoiceProfileDomainRequest:
         import capo_chime_sdk_voice.types.tag_list
 
         out["tags"] = capo_chime_sdk_voice.types.tag_list.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateVoiceProfileDomainRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "server_side_encryption_configuration" in value:
+        import capo_chime_sdk_voice.types.server_side_encryption_configuration
+
+        out["server_side_encryption_configuration"] = (
+            capo_chime_sdk_voice.types.server_side_encryption_configuration.redact_sensitive(
+                value["server_side_encryption_configuration"]
+            )
+        )
+    if "tags" in value:
+        import capo_chime_sdk_voice.types.tag_list
+
+        out["tags"] = capo_chime_sdk_voice.types.tag_list.redact_sensitive(
+            value["tags"]
+        )
     return out

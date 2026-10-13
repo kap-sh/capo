@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#PutEventsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> PutEventsRequest:
         )
     else:
         raise DeserializationError("PutEventsRequest.event_list required")
+    return out
+
+
+def redact_sensitive(value: PutEventsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
+    if "event_list" in value:
+        import capo_personalize_events.types.event_list
+
+        out["event_list"] = capo_personalize_events.types.event_list.redact_sensitive(
+            value["event_list"]
+        )
     return out

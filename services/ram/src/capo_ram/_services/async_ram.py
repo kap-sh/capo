@@ -24,7 +24,9 @@ from capo_ram._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -200,7 +202,9 @@ class AsyncRAMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRAMClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRAMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRAMClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class AsyncRAMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +276,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptResourceShareInvitation")
+        )
         input_: capo_ram.types.accept_resource_share_invitation_request.AcceptResourceShareInvitationRequest = {
             "resource_share_invitation_arn": resource_share_invitation_arn
         }
@@ -340,7 +348,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResourceShare")
+        )
         input_: capo_ram.types.associate_resource_share_request.AssociateResourceShareRequest = {
             "resource_share_arn": resource_share_arn
         }
@@ -406,7 +416,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResourceSharePermission")
+        )
         input_: capo_ram.types.associate_resource_share_permission_request.AssociateResourceSharePermissionRequest = {
             "resource_share_arn": resource_share_arn,
             "permission_arn": permission_arn,
@@ -474,7 +486,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePermission")
+        )
         input_: capo_ram.types.create_permission_request.CreatePermissionRequest = {
             "name": name,
             "resource_type": resource_type,
@@ -537,7 +551,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePermissionVersion")
+        )
         input_: capo_ram.types.create_permission_version_request.CreatePermissionVersionRequest = {
             "permission_arn": permission_arn,
             "policy_template": policy_template,
@@ -622,7 +638,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceShare")
+        )
         input_: capo_ram.types.create_resource_share_request.CreateResourceShareRequest = {
             "name": name
         }
@@ -690,7 +708,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermission")
+        )
         input_: capo_ram.types.delete_permission_request.DeletePermissionRequest = {
             "permission_arn": permission_arn
         }
@@ -747,7 +767,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermissionVersion")
+        )
         input_: capo_ram.types.delete_permission_version_request.DeletePermissionVersionRequest = {
             "permission_arn": permission_arn,
             "permission_version": permission_version,
@@ -805,7 +827,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceShare")
+        )
         input_: capo_ram.types.delete_resource_share_request.DeleteResourceShareRequest = {
             "resource_share_arn": resource_share_arn
         }
@@ -875,7 +899,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResourceShare")
+        )
         input_: capo_ram.types.disassociate_resource_share_request.DisassociateResourceShareRequest = {
             "resource_share_arn": resource_share_arn
         }
@@ -938,7 +964,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResourceSharePermission")
+        )
         input_: capo_ram.types.disassociate_resource_share_permission_request.DisassociateResourceSharePermissionRequest = {
             "resource_share_arn": resource_share_arn,
             "permission_arn": permission_arn,
@@ -981,7 +1009,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableSharingWithAwsOrganization")
+        )
         input_: capo_ram.types.enable_sharing_with_aws_organization_request.EnableSharingWithAwsOrganizationRequest = {}
 
         response = await aexecute_pipeline(
@@ -1030,7 +1060,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPermission")
+        )
         input_: capo_ram.types.get_permission_request.GetPermissionRequest = {
             "permission_arn": permission_arn
         }
@@ -1087,7 +1119,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicies")
+        )
         input_: capo_ram.types.get_resource_policies_request.GetResourcePoliciesRequest = {
             "resource_arns": resource_arns
         }
@@ -1182,7 +1216,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceShareAssociations")
+        )
         input_: capo_ram.types.get_resource_share_associations_request.GetResourceShareAssociationsRequest = {
             "association_type": association_type
         }
@@ -1288,7 +1324,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceShareInvitations")
+        )
         input_: capo_ram.types.get_resource_share_invitations_request.GetResourceShareInvitationsRequest = {}
         if resource_share_invitation_arns is not None:
             input_["resource_share_invitation_arns"] = resource_share_invitation_arns
@@ -1390,7 +1428,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceShares")
+        )
         input_: capo_ram.types.get_resource_shares_request.GetResourceSharesRequest = {
             "resource_owner": resource_owner
         }
@@ -1503,7 +1543,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPendingInvitationResources")
+        )
         input_: capo_ram.types.list_pending_invitation_resources_request.ListPendingInvitationResourcesRequest = {
             "resource_share_invitation_arn": resource_share_invitation_arn
         }
@@ -1600,7 +1642,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissionAssociations")
+        )
         input_: capo_ram.types.list_permission_associations_request.ListPermissionAssociationsRequest = {}
         if permission_arn is not None:
             input_["permission_arn"] = permission_arn
@@ -1705,7 +1749,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_ram.types.list_permissions_request.ListPermissionsRequest = {}
         if resource_type is not None:
             input_["resource_type"] = resource_type
@@ -1790,7 +1836,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissionVersions")
+        )
         input_: capo_ram.types.list_permission_versions_request.ListPermissionVersionsRequest = {
             "permission_arn": permission_arn
         }
@@ -1880,7 +1928,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrincipals")
+        )
         input_: capo_ram.types.list_principals_request.ListPrincipalsRequest = {
             "resource_owner": resource_owner
         }
@@ -1984,7 +2034,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReplacePermissionAssociationsWork")
+        )
         input_: capo_ram.types.list_replace_permission_associations_work_request.ListReplacePermissionAssociationsWorkRequest = {}
         if work_ids is not None:
             input_["work_ids"] = work_ids
@@ -2087,7 +2139,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResources")
+        )
         input_: capo_ram.types.list_resources_request.ListResourcesRequest = {
             "resource_owner": resource_owner
         }
@@ -2192,7 +2246,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSharePermissions")
+        )
         input_: capo_ram.types.list_resource_share_permissions_request.ListResourceSharePermissionsRequest = {
             "resource_share_arn": resource_share_arn
         }
@@ -2270,7 +2326,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceTypes")
+        )
         input_: capo_ram.types.list_resource_types_request.ListResourceTypesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2360,7 +2418,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceAssociations")
+        )
         input_: capo_ram.types.list_source_associations_request.ListSourceAssociationsRequest = {}
         if resource_share_arns is not None:
             input_["resource_share_arns"] = resource_share_arns
@@ -2458,7 +2518,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PromotePermissionCreatedFromPolicy")
+        )
         input_: capo_ram.types.promote_permission_created_from_policy_request.PromotePermissionCreatedFromPolicyRequest = {
             "permission_arn": permission_arn,
             "name": name,
@@ -2514,7 +2576,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PromoteResourceShareCreatedFromPolicy")
+        )
         input_: capo_ram.types.promote_resource_share_created_from_policy_request.PromoteResourceShareCreatedFromPolicyRequest = {
             "resource_share_arn": resource_share_arn
         }
@@ -2569,7 +2633,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectResourceShareInvitation")
+        )
         input_: capo_ram.types.reject_resource_share_invitation_request.RejectResourceShareInvitationRequest = {
             "resource_share_invitation_arn": resource_share_invitation_arn
         }
@@ -2628,7 +2694,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReplacePermissionAssociations")
+        )
         input_: capo_ram.types.replace_permission_associations_request.ReplacePermissionAssociationsRequest = {
             "from_permission_arn": from_permission_arn,
             "to_permission_arn": to_permission_arn,
@@ -2687,7 +2755,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetDefaultPermissionVersion")
+        )
         input_: capo_ram.types.set_default_permission_version_request.SetDefaultPermissionVersionRequest = {
             "permission_arn": permission_arn,
             "permission_version": permission_version,
@@ -2745,7 +2815,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ram.types.tag_resource_request.TagResourceRequest = {"tags": tags}
         if resource_share_arn is not None:
             input_["resource_share_arn"] = resource_share_arn
@@ -2799,7 +2871,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ram.types.untag_resource_request.UntagResourceRequest = {
             "tag_keys": tag_keys
         }
@@ -2861,7 +2935,9 @@ class AsyncRAMClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceShare")
+        )
         input_: capo_ram.types.update_resource_share_request.UpdateResourceShareRequest = {
             "resource_share_arn": resource_share_arn
         }

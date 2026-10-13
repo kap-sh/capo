@@ -24,10 +24,12 @@ from capo_observabilityadmin._resources.observability_admin.telemetry_pipeline_r
 from capo_observabilityadmin._services._aws_config import aws_config
 from capo_observabilityadmin._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -217,7 +219,9 @@ class ObservabilityAdminClient:
         self.telemetry_pipeline_resource = TelemetryPipelineResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[ObservabilityAdminClientConfig] = None
+        self,
+        config_overrides: Optional[ObservabilityAdminClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ObservabilityAdminClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -225,8 +229,10 @@ class ObservabilityAdminClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -286,7 +292,10 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCentralizationRuleForOrganization"),
+        )
         input_: capo_observabilityadmin.types.create_centralization_rule_for_organization_input.CreateCentralizationRuleForOrganizationInput = {
             "rule_name": rule_name,
             "rule": rule,
@@ -340,7 +349,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDatasetIntegration")
+        )
         input_: capo_observabilityadmin.types.create_dataset_integration_input.CreateDatasetIntegrationInput = {
             "role_arn": role_arn
         }
@@ -396,7 +407,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateS3TableIntegration")
+        )
         input_: capo_observabilityadmin.types.create_s3_table_integration_input.CreateS3TableIntegrationInput = {
             "encryption": encryption,
             "role_arn": role_arn,
@@ -453,7 +466,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTelemetryRule")
+        )
         input_: capo_observabilityadmin.types.create_telemetry_rule_input.CreateTelemetryRuleInput = {
             "rule_name": rule_name,
             "rule": rule,
@@ -510,7 +525,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTelemetryRuleForOrganization")
+        )
         input_: capo_observabilityadmin.types.create_telemetry_rule_for_organization_input.CreateTelemetryRuleForOrganizationInput = {
             "rule_name": rule_name,
             "rule": rule,
@@ -558,7 +575,10 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteCentralizationRuleForOrganization"),
+        )
         input_: capo_observabilityadmin.types.delete_centralization_rule_for_organization_input.DeleteCentralizationRuleForOrganizationInput = {
             "rule_identifier": rule_identifier
         }
@@ -603,7 +623,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetIntegration")
+        )
         input_: capo_observabilityadmin.types.delete_dataset_integration_input.DeleteDatasetIntegrationInput = {
             "arn": arn
         }
@@ -649,7 +671,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteS3TableIntegration")
+        )
         input_: capo_observabilityadmin.types.delete_s3_table_integration_input.DeleteS3TableIntegrationInput = {
             "arn": arn
         }
@@ -694,7 +718,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTelemetryRule")
+        )
         input_: capo_observabilityadmin.types.delete_telemetry_rule_input.DeleteTelemetryRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -739,7 +765,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTelemetryRuleForOrganization")
+        )
         input_: capo_observabilityadmin.types.delete_telemetry_rule_for_organization_input.DeleteTelemetryRuleForOrganizationInput = {
             "rule_identifier": rule_identifier
         }
@@ -786,7 +814,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCentralizationRuleForOrganization")
+        )
         input_: capo_observabilityadmin.types.get_centralization_rule_for_organization_input.GetCentralizationRuleForOrganizationInput = {
             "rule_identifier": rule_identifier
         }
@@ -833,7 +863,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatasetIntegration")
+        )
         input_: capo_observabilityadmin.types.get_dataset_integration_input.GetDatasetIntegrationInput = {
             "arn": arn
         }
@@ -880,7 +912,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetS3TableIntegration")
+        )
         input_: capo_observabilityadmin.types.get_s3_table_integration_input.GetS3TableIntegrationInput = {
             "arn": arn
         }
@@ -920,7 +954,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryEnrichmentStatus")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -956,7 +992,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryEvaluationStatus")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -993,7 +1031,10 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetTelemetryEvaluationStatusForOrganization"),
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1039,7 +1080,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryRule")
+        )
         input_: capo_observabilityadmin.types.get_telemetry_rule_input.GetTelemetryRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -1086,7 +1129,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryRuleForOrganization")
+        )
         input_: capo_observabilityadmin.types.get_telemetry_rule_for_organization_input.GetTelemetryRuleForOrganizationInput = {
             "rule_identifier": rule_identifier
         }
@@ -1142,7 +1187,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCentralizationRulesForOrganization")
+        )
         input_: capo_observabilityadmin.types.list_centralization_rules_for_organization_input.ListCentralizationRulesForOrganizationInput = {}
         if rule_name_prefix is not None:
             input_["rule_name_prefix"] = rule_name_prefix
@@ -1229,7 +1276,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetIntegrations")
+        )
         input_: capo_observabilityadmin.types.list_dataset_integrations_input.ListDatasetIntegrationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1324,7 +1373,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceTelemetry")
+        )
         input_: capo_observabilityadmin.types.list_resource_telemetry_input.ListResourceTelemetryInput = {}
         if resource_identifier_prefix is not None:
             input_["resource_identifier_prefix"] = resource_identifier_prefix
@@ -1447,7 +1498,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceTelemetryForOrganization")
+        )
         input_: capo_observabilityadmin.types.list_resource_telemetry_for_organization_input.ListResourceTelemetryForOrganizationInput = {}
         if account_identifiers is not None:
             input_["account_identifiers"] = account_identifiers
@@ -1556,7 +1609,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListS3TableIntegrations")
+        )
         input_: capo_observabilityadmin.types.list_s3_table_integrations_input.ListS3TableIntegrationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1632,7 +1687,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_observabilityadmin.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1686,7 +1743,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTelemetryRules")
+        )
         input_: capo_observabilityadmin.types.list_telemetry_rules_input.ListTelemetryRulesInput = {}
         if rule_name_prefix is not None:
             input_["rule_name_prefix"] = rule_name_prefix
@@ -1779,7 +1838,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTelemetryRulesForOrganization")
+        )
         input_: capo_observabilityadmin.types.list_telemetry_rules_for_organization_input.ListTelemetryRulesForOrganizationInput = {}
         if rule_name_prefix is not None:
             input_["rule_name_prefix"] = rule_name_prefix
@@ -1862,7 +1923,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTelemetryEnrichment")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1907,7 +1970,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTelemetryEvaluation")
+        )
         input_: capo_observabilityadmin.types.start_telemetry_evaluation_input.StartTelemetryEvaluationInput = {}
         if regions is not None:
             input_["regions"] = regions
@@ -1957,7 +2022,10 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartTelemetryEvaluationForOrganization"),
+        )
         input_: capo_observabilityadmin.types.start_telemetry_evaluation_for_organization_input.StartTelemetryEvaluationForOrganizationInput = {}
         if regions is not None:
             input_["regions"] = regions
@@ -1999,7 +2067,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTelemetryEnrichment")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2032,7 +2102,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTelemetryEvaluation")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2065,7 +2137,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTelemetryEvaluationForOrganization")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -2110,7 +2184,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_observabilityadmin.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2163,7 +2239,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.test_telemetry_pipeline_input.TestTelemetryPipelineInput = {
             "records": records,
             "configuration": configuration,
@@ -2213,7 +2291,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_observabilityadmin.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2264,7 +2344,10 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCentralizationRuleForOrganization"),
+        )
         input_: capo_observabilityadmin.types.update_centralization_rule_for_organization_input.UpdateCentralizationRuleForOrganizationInput = {
             "rule_identifier": rule_identifier,
             "rule": rule,
@@ -2314,7 +2397,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatasetIntegration")
+        )
         input_: capo_observabilityadmin.types.update_dataset_integration_input.UpdateDatasetIntegrationInput = {
             "arn": arn,
             "role_arn": role_arn,
@@ -2366,7 +2451,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTelemetryRule")
+        )
         input_: capo_observabilityadmin.types.update_telemetry_rule_input.UpdateTelemetryRuleInput = {
             "rule_identifier": rule_identifier,
             "rule": rule,
@@ -2417,7 +2504,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTelemetryRuleForOrganization")
+        )
         input_: capo_observabilityadmin.types.update_telemetry_rule_for_organization_input.UpdateTelemetryRuleForOrganizationInput = {
             "rule_identifier": rule_identifier,
             "rule": rule,
@@ -2464,7 +2553,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateTelemetryPipelineConfiguration")
+        )
         input_: capo_observabilityadmin.types.validate_telemetry_pipeline_configuration_input.ValidateTelemetryPipelineConfigurationInput = {
             "configuration": configuration
         }
@@ -2518,7 +2609,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.create_telemetry_pipeline_input.CreateTelemetryPipelineInput = {
             "name": name,
             "configuration": configuration,
@@ -2568,7 +2661,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.get_telemetry_pipeline_input.GetTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -2617,7 +2712,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.update_telemetry_pipeline_input.UpdateTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier,
             "configuration": configuration,
@@ -2666,7 +2763,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTelemetryPipeline")
+        )
         input_: capo_observabilityadmin.types.delete_telemetry_pipeline_input.DeleteTelemetryPipelineInput = {
             "pipeline_identifier": pipeline_identifier
         }
@@ -2718,7 +2817,9 @@ class ObservabilityAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTelemetryPipelines")
+        )
         input_: capo_observabilityadmin.types.list_telemetry_pipelines_input.ListTelemetryPipelinesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeOAuthClientApplicationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> DescribeOAuthClientApplicationResponse:
         )
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: DescribeOAuthClientApplicationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth_client_application" in value:
+        import capo_quicksight.types.o_auth_client_application
+
+        out["o_auth_client_application"] = (
+            capo_quicksight.types.o_auth_client_application.redact_sensitive(
+                value["o_auth_client_application"]
+            )
+        )
     return out

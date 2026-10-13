@@ -8,6 +8,7 @@ import capo_dsql._auth._sigv4
 from capo_dsql._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_dsql.types.create_cluster_input.CreateClusterInput = {}
         if deletion_protection_enabled is not None:
             input_["deletion_protection_enabled"] = deletion_protection_enabled
@@ -176,7 +179,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCluster")
+        )
         input_: capo_dsql.types.get_cluster_input.GetClusterInput = {
             "identifier": identifier
         }
@@ -243,7 +248,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_dsql.types.update_cluster_input.UpdateClusterInput = {
             "identifier": identifier
         }
@@ -307,7 +314,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_dsql.types.delete_cluster_input.DeleteClusterInput = {
             "identifier": identifier
         }
@@ -364,7 +373,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_dsql.types.list_clusters_input.ListClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -418,7 +429,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteClusterPolicy")
+        )
         input_: capo_dsql.types.delete_cluster_policy_input.DeleteClusterPolicyInput = {
             "identifier": identifier
         }
@@ -470,7 +483,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetClusterPolicy")
+        )
         input_: capo_dsql.types.get_cluster_policy_input.GetClusterPolicyInput = {
             "identifier": identifier
         }
@@ -522,7 +537,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVpcEndpointServiceName")
+        )
         input_: capo_dsql.types.get_vpc_endpoint_service_name_input.GetVpcEndpointServiceNameInput = {
             "identifier": identifier
         }
@@ -580,7 +597,9 @@ class Cluster:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutClusterPolicy")
+        )
         input_: capo_dsql.types.put_cluster_policy_input.PutClusterPolicyInput = {
             "identifier": identifier,
             "policy": policy,
@@ -669,7 +688,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_dsql.types.create_cluster_input.CreateClusterInput = {}
         if deletion_protection_enabled is not None:
             input_["deletion_protection_enabled"] = deletion_protection_enabled
@@ -737,7 +758,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCluster")
+        )
         input_: capo_dsql.types.get_cluster_input.GetClusterInput = {
             "identifier": identifier
         }
@@ -805,7 +828,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_dsql.types.update_cluster_input.UpdateClusterInput = {
             "identifier": identifier
         }
@@ -870,7 +895,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_dsql.types.delete_cluster_input.DeleteClusterInput = {
             "identifier": identifier
         }
@@ -928,7 +955,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_dsql.types.list_clusters_input.ListClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -983,7 +1012,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteClusterPolicy")
+        )
         input_: capo_dsql.types.delete_cluster_policy_input.DeleteClusterPolicyInput = {
             "identifier": identifier
         }
@@ -1036,7 +1067,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetClusterPolicy")
+        )
         input_: capo_dsql.types.get_cluster_policy_input.GetClusterPolicyInput = {
             "identifier": identifier
         }
@@ -1089,7 +1122,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVpcEndpointServiceName")
+        )
         input_: capo_dsql.types.get_vpc_endpoint_service_name_input.GetVpcEndpointServiceNameInput = {
             "identifier": identifier
         }
@@ -1148,7 +1183,9 @@ class AsyncCluster:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutClusterPolicy")
+        )
         input_: capo_dsql.types.put_cluster_policy_input.PutClusterPolicyInput = {
             "identifier": identifier,
             "policy": policy,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#ImportHostKeyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_aws_json_1_1(data: dict) -> ImportHostKeyRequest:
         import capo_transfer.types.tags
 
         out["tags"] = capo_transfer.types.tags.deserialize_aws_json_1_1(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: ImportHostKeyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "host_key_body" in value:
+        out["host_key_body"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,10 +22,12 @@ from capo_mediaconvert._pagination import resolve_path as _resolve_path
 from capo_mediaconvert._services._aws_config import aws_config
 from capo_mediaconvert._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -206,7 +208,9 @@ class MediaConvertClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MediaConvertClientConfig] = None
+        self,
+        config_overrides: Optional[MediaConvertClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MediaConvertClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -214,8 +218,10 @@ class MediaConvertClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +276,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCertificate")
+        )
         input_: capo_mediaconvert.types.associate_certificate_request.AssociateCertificateRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -319,7 +327,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_mediaconvert.types.cancel_job_request.CancelJobRequest = {"id": id}
 
         response = execute_pipeline(
@@ -412,7 +422,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_mediaconvert.types.create_job_request.CreateJobRequest = {}
         if acceleration_settings is not None:
             input_["acceleration_settings"] = acceleration_settings
@@ -520,7 +532,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJobTemplate")
+        )
         input_: capo_mediaconvert.types.create_job_template_request.CreateJobTemplateRequest = {}
         if acceleration_settings is not None:
             input_["acceleration_settings"] = acceleration_settings
@@ -599,7 +613,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePreset")
+        )
         input_: capo_mediaconvert.types.create_preset_request.CreatePresetRequest = {}
         if category is not None:
             input_["category"] = category
@@ -678,7 +694,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueue")
+        )
         input_: capo_mediaconvert.types.create_queue_request.CreateQueueRequest = {}
         if concurrent_jobs is not None:
             input_["concurrent_jobs"] = concurrent_jobs
@@ -743,7 +761,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceShare")
+        )
         input_: capo_mediaconvert.types.create_resource_share_request.CreateResourceShareRequest = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -796,7 +816,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJobTemplate")
+        )
         input_: capo_mediaconvert.types.delete_job_template_request.DeleteJobTemplateRequest = {
             "name": name
         }
@@ -839,7 +861,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_mediaconvert.types.delete_policy_request.DeletePolicyRequest = {}
 
         response = execute_pipeline(
@@ -886,7 +910,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePreset")
+        )
         input_: capo_mediaconvert.types.delete_preset_request.DeletePresetRequest = {
             "name": name
         }
@@ -935,7 +961,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
         input_: capo_mediaconvert.types.delete_queue_request.DeleteQueueRequest = {
             "name": name
         }
@@ -992,7 +1020,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoints")
+        )
         input_: capo_mediaconvert.types.describe_endpoints_request.DescribeEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1070,7 +1100,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCertificate")
+        )
         input_: capo_mediaconvert.types.disassociate_certificate_request.DisassociateCertificateRequest = {
             "arn": arn
         }
@@ -1119,7 +1151,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_mediaconvert.types.get_job_request.GetJobRequest = {"id": id}
 
         response = execute_pipeline(
@@ -1166,7 +1200,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobsQueryResults")
+        )
         input_: capo_mediaconvert.types.get_jobs_query_results_request.GetJobsQueryResultsRequest = {
             "id": id
         }
@@ -1215,7 +1251,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobTemplate")
+        )
         input_: capo_mediaconvert.types.get_job_template_request.GetJobTemplateRequest = {
             "name": name
         }
@@ -1258,7 +1296,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_mediaconvert.types.get_policy_request.GetPolicyRequest = {}
 
         response = execute_pipeline(
@@ -1305,7 +1345,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPreset")
+        )
         input_: capo_mediaconvert.types.get_preset_request.GetPresetRequest = {
             "name": name
         }
@@ -1354,7 +1396,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueue")
+        )
         input_: capo_mediaconvert.types.get_queue_request.GetQueueRequest = {
             "name": name
         }
@@ -1413,7 +1457,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_mediaconvert.types.list_jobs_request.ListJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1511,7 +1557,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobTemplates")
+        )
         input_: capo_mediaconvert.types.list_job_templates_request.ListJobTemplatesRequest = {}
         if category is not None:
             input_["category"] = category
@@ -1609,7 +1657,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPresets")
+        )
         input_: capo_mediaconvert.types.list_presets_request.ListPresetsRequest = {}
         if category is not None:
             input_["category"] = category
@@ -1703,7 +1753,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
         input_: capo_mediaconvert.types.list_queues_request.ListQueuesRequest = {}
         if list_by is not None:
             input_["list_by"] = list_by
@@ -1785,7 +1837,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediaconvert.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -1838,7 +1892,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVersions")
+        )
         input_: capo_mediaconvert.types.list_versions_request.ListVersionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1913,7 +1969,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Probe")
+        )
         input_: capo_mediaconvert.types.probe_request.ProbeRequest = {}
         if input_files is not None:
             input_["input_files"] = input_files
@@ -1962,7 +2020,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPolicy")
+        )
         input_: capo_mediaconvert.types.put_policy_request.PutPolicyRequest = {}
         if policy is not None:
             input_["policy"] = policy
@@ -2023,7 +2083,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchJobs")
+        )
         input_: capo_mediaconvert.types.search_jobs_request.SearchJobsRequest = {}
         if input_file is not None:
             input_["input_file"] = input_file
@@ -2123,7 +2185,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJobsQuery")
+        )
         input_: capo_mediaconvert.types.start_jobs_query_request.StartJobsQueryRequest = {}
         if filter_list is not None:
             input_["filter_list"] = filter_list
@@ -2182,7 +2246,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediaconvert.types.tag_resource_request.TagResourceRequest = {}
         if arn is not None:
             input_["arn"] = arn
@@ -2237,7 +2303,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediaconvert.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn
         }
@@ -2316,7 +2384,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobTemplate")
+        )
         input_: capo_mediaconvert.types.update_job_template_request.UpdateJobTemplateRequest = {
             "name": name
         }
@@ -2389,7 +2459,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePreset")
+        )
         input_: capo_mediaconvert.types.update_preset_request.UpdatePresetRequest = {
             "name": name
         }
@@ -2458,7 +2530,9 @@ class MediaConvertClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueue")
+        )
         input_: capo_mediaconvert.types.update_queue_request.UpdateQueueRequest = {
             "name": name
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#RegisteredMCPServerDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,11 @@ def deserialize_json(data: dict) -> RegisteredMCPServerDetails:
         out["description"] = data["description"]
     if data.get("apiKeyHeader") is not None:
         out["api_key_header"] = data["apiKeyHeader"]
+    return out
+
+
+def redact_sensitive(value: RegisteredMCPServerDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

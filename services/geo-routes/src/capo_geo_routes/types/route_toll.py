@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteToll``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,25 @@ def deserialize_json(data: dict) -> RouteToll:
         )
     else:
         raise DeserializationError("RouteToll.systems required")
+    return out
+
+
+def redact_sensitive(value: RouteToll) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "payment_sites" in value:
+        import capo_geo_routes.types.route_toll_payment_site_list
+
+        out["payment_sites"] = (
+            capo_geo_routes.types.route_toll_payment_site_list.redact_sensitive(
+                value["payment_sites"]
+            )
+        )
+    if "rates" in value:
+        import capo_geo_routes.types.route_toll_rate_list
+
+        out["rates"] = capo_geo_routes.types.route_toll_rate_list.redact_sensitive(
+            value["rates"]
+        )
     return out

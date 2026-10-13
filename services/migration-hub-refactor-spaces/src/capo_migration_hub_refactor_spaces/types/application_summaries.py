@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#ApplicationSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.application_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ApplicationSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: ApplicationSummaries) -> list[Any]:
+    import capo_migration_hub_refactor_spaces.types.application_summary
+
+    return [
+        capo_migration_hub_refactor_spaces.types.application_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

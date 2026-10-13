@@ -24,7 +24,9 @@ from capo_route53_recovery_readiness._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -180,6 +182,7 @@ class AsyncRoute53RecoveryReadinessClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncRoute53RecoveryReadinessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRoute53RecoveryReadinessClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -187,8 +190,10 @@ class AsyncRoute53RecoveryReadinessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -251,7 +256,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCell")
+        )
         input_: capo_route53_recovery_readiness.types.create_cell_request.CreateCellRequest = {}
         if cell_name is not None:
             input_["cell_name"] = cell_name
@@ -305,7 +312,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCrossAccountAuthorization")
+        )
         input_: capo_route53_recovery_readiness.types.create_cross_account_authorization_request.CreateCrossAccountAuthorizationRequest = {}
         if cross_account_authorization is not None:
             input_["cross_account_authorization"] = cross_account_authorization
@@ -360,7 +369,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReadinessCheck")
+        )
         input_: capo_route53_recovery_readiness.types.create_readiness_check_request.CreateReadinessCheckRequest = {}
         if readiness_check_name is not None:
             input_["readiness_check_name"] = readiness_check_name
@@ -419,7 +430,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecoveryGroup")
+        )
         input_: capo_route53_recovery_readiness.types.create_recovery_group_request.CreateRecoveryGroupRequest = {}
         if cells is not None:
             input_["cells"] = cells
@@ -483,7 +496,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceSet")
+        )
         input_: capo_route53_recovery_readiness.types.create_resource_set_request.CreateResourceSetRequest = {}
         if resource_set_name is not None:
             input_["resource_set_name"] = resource_set_name
@@ -535,7 +550,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCell")
+        )
         input_: capo_route53_recovery_readiness.types.delete_cell_request.DeleteCellRequest = {
             "cell_name": cell_name
         }
@@ -582,7 +599,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCrossAccountAuthorization")
+        )
         input_: capo_route53_recovery_readiness.types.delete_cross_account_authorization_request.DeleteCrossAccountAuthorizationRequest = {
             "cross_account_authorization": cross_account_authorization
         }
@@ -628,7 +647,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReadinessCheck")
+        )
         input_: capo_route53_recovery_readiness.types.delete_readiness_check_request.DeleteReadinessCheckRequest = {
             "readiness_check_name": readiness_check_name
         }
@@ -674,7 +695,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryGroup")
+        )
         input_: capo_route53_recovery_readiness.types.delete_recovery_group_request.DeleteRecoveryGroupRequest = {
             "recovery_group_name": recovery_group_name
         }
@@ -720,7 +743,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceSet")
+        )
         input_: capo_route53_recovery_readiness.types.delete_resource_set_request.DeleteResourceSetRequest = {
             "resource_set_name": resource_set_name
         }
@@ -776,7 +801,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArchitectureRecommendations")
+        )
         input_: capo_route53_recovery_readiness.types.get_architecture_recommendations_request.GetArchitectureRecommendationsRequest = {
             "recovery_group_name": recovery_group_name
         }
@@ -828,7 +855,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCell")
+        )
         input_: capo_route53_recovery_readiness.types.get_cell_request.GetCellRequest = {
             "cell_name": cell_name
         }
@@ -884,7 +913,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCellReadinessSummary")
+        )
         input_: capo_route53_recovery_readiness.types.get_cell_readiness_summary_request.GetCellReadinessSummaryRequest = {
             "cell_name": cell_name
         }
@@ -963,7 +994,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadinessCheck")
+        )
         input_: capo_route53_recovery_readiness.types.get_readiness_check_request.GetReadinessCheckRequest = {
             "readiness_check_name": readiness_check_name
         }
@@ -1021,7 +1054,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadinessCheckResourceStatus")
+        )
         input_: capo_route53_recovery_readiness.types.get_readiness_check_resource_status_request.GetReadinessCheckResourceStatusRequest = {
             "readiness_check_name": readiness_check_name,
             "resource_identifier": resource_identifier,
@@ -1111,7 +1146,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadinessCheckStatus")
+        )
         input_: capo_route53_recovery_readiness.types.get_readiness_check_status_request.GetReadinessCheckStatusRequest = {
             "readiness_check_name": readiness_check_name
         }
@@ -1190,7 +1227,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryGroup")
+        )
         input_: capo_route53_recovery_readiness.types.get_recovery_group_request.GetRecoveryGroupRequest = {
             "recovery_group_name": recovery_group_name
         }
@@ -1246,7 +1285,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryGroupReadinessSummary")
+        )
         input_: capo_route53_recovery_readiness.types.get_recovery_group_readiness_summary_request.GetRecoveryGroupReadinessSummaryRequest = {
             "recovery_group_name": recovery_group_name
         }
@@ -1325,7 +1366,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceSet")
+        )
         input_: capo_route53_recovery_readiness.types.get_resource_set_request.GetResourceSetRequest = {
             "resource_set_name": resource_set_name
         }
@@ -1378,7 +1421,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCells")
+        )
         input_: capo_route53_recovery_readiness.types.list_cells_request.ListCellsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1458,7 +1503,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrossAccountAuthorizations")
+        )
         input_: capo_route53_recovery_readiness.types.list_cross_account_authorizations_request.ListCrossAccountAuthorizationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1538,7 +1585,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadinessChecks")
+        )
         input_: capo_route53_recovery_readiness.types.list_readiness_checks_request.ListReadinessChecksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1618,7 +1667,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryGroups")
+        )
         input_: capo_route53_recovery_readiness.types.list_recovery_groups_request.ListRecoveryGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1698,7 +1749,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSets")
+        )
         input_: capo_route53_recovery_readiness.types.list_resource_sets_request.ListResourceSetsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1782,7 +1835,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_route53_recovery_readiness.types.list_rules_request.ListRulesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1861,7 +1916,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResources")
+        )
         input_: capo_route53_recovery_readiness.types.list_tags_for_resources_request.ListTagsForResourcesRequest = {
             "resource_arn": resource_arn
         }
@@ -1909,7 +1966,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_route53_recovery_readiness.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1959,7 +2018,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_route53_recovery_readiness.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2015,7 +2076,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCell")
+        )
         input_: capo_route53_recovery_readiness.types.update_cell_request.UpdateCellRequest = {
             "cell_name": cell_name
         }
@@ -2069,7 +2132,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReadinessCheck")
+        )
         input_: capo_route53_recovery_readiness.types.update_readiness_check_request.UpdateReadinessCheckRequest = {
             "readiness_check_name": readiness_check_name
         }
@@ -2123,7 +2188,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecoveryGroup")
+        )
         input_: capo_route53_recovery_readiness.types.update_recovery_group_request.UpdateRecoveryGroupRequest = {
             "recovery_group_name": recovery_group_name
         }
@@ -2181,7 +2248,9 @@ class AsyncRoute53RecoveryReadinessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceSet")
+        )
         input_: capo_route53_recovery_readiness.types.update_resource_set_request.UpdateResourceSetRequest = {
             "resource_set_name": resource_set_name
         }

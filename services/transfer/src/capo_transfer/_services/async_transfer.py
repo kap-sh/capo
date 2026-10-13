@@ -49,7 +49,9 @@ from capo_transfer._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -362,7 +364,9 @@ class AsyncTransferClient:
         self.workflow_resource = AsyncWorkflowResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncTransferClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncTransferClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncTransferClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -370,8 +374,10 @@ class AsyncTransferClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -446,7 +452,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccess")
+        )
         input_: capo_transfer.types.create_access_request.CreateAccessRequest = {
             "role": role,
             "server_id": server_id,
@@ -505,7 +513,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccess")
+        )
         input_: capo_transfer.types.delete_access_request.DeleteAccessRequest = {
             "server_id": server_id,
             "external_id": external_id,
@@ -554,7 +564,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHostKey")
+        )
         input_: capo_transfer.types.delete_host_key_request.DeleteHostKeyRequest = {
             "server_id": server_id,
             "host_key_id": host_key_id,
@@ -605,7 +617,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSshPublicKey")
+        )
         input_: capo_transfer.types.delete_ssh_public_key_request.DeleteSshPublicKeyRequest = {
             "server_id": server_id,
             "ssh_public_key_id": ssh_public_key_id,
@@ -656,7 +670,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccess")
+        )
         input_: capo_transfer.types.describe_access_request.DescribeAccessRequest = {
             "server_id": server_id,
             "external_id": external_id,
@@ -706,7 +722,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExecution")
+        )
         input_: capo_transfer.types.describe_execution_request.DescribeExecutionRequest = {
             "execution_id": execution_id,
             "workflow_id": workflow_id,
@@ -756,7 +774,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHostKey")
+        )
         input_: capo_transfer.types.describe_host_key_request.DescribeHostKeyRequest = {
             "server_id": server_id,
             "host_key_id": host_key_id,
@@ -804,7 +824,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSecurityPolicy")
+        )
         input_: capo_transfer.types.describe_security_policy_request.DescribeSecurityPolicyRequest = {
             "security_policy_name": security_policy_name
         }
@@ -861,7 +883,17 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.import_host_key_request.ImportHostKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.import_host_key_request
+
+            return capo_transfer.types.import_host_key_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportHostKey", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.import_host_key_request.ImportHostKeyRequest = {
             "server_id": server_id,
             "host_key_body": host_key_body,
@@ -921,7 +953,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportSshPublicKey")
+        )
         input_: capo_transfer.types.import_ssh_public_key_request.ImportSshPublicKeyRequest = {
             "server_id": server_id,
             "ssh_public_key_body": ssh_public_key_body,
@@ -975,7 +1009,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccesses")
+        )
         input_: capo_transfer.types.list_accesses_request.ListAccessesRequest = {
             "server_id": server_id
         }
@@ -1054,7 +1090,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_transfer.types.list_executions_request.ListExecutionsRequest = {
             "workflow_id": workflow_id
         }
@@ -1134,7 +1172,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFileTransferResults")
+        )
         input_: capo_transfer.types.list_file_transfer_results_request.ListFileTransferResultsRequest = {
             "connector_id": connector_id,
             "transfer_id": transfer_id,
@@ -1216,7 +1256,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHostKeys")
+        )
         input_: capo_transfer.types.list_host_keys_request.ListHostKeysRequest = {
             "server_id": server_id
         }
@@ -1269,7 +1311,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityPolicies")
+        )
         input_: capo_transfer.types.list_security_policies_request.ListSecurityPoliciesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1343,7 +1387,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_transfer.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -1425,7 +1471,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendWorkflowStepState")
+        )
         input_: capo_transfer.types.send_workflow_step_state_request.SendWorkflowStepStateRequest = {
             "workflow_id": workflow_id,
             "execution_id": execution_id,
@@ -1482,7 +1530,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDirectoryListing")
+        )
         input_: capo_transfer.types.start_directory_listing_request.StartDirectoryListingRequest = {
             "connector_id": connector_id,
             "remote_directory_path": remote_directory_path,
@@ -1550,7 +1600,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.start_file_transfer_request.StartFileTransferRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.start_file_transfer_request
+
+            return capo_transfer.types.start_file_transfer_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartFileTransfer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.start_file_transfer_request.StartFileTransferRequest = {
             "connector_id": connector_id
         }
@@ -1610,7 +1672,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRemoteDelete")
+        )
         input_: capo_transfer.types.start_remote_delete_request.StartRemoteDeleteRequest = {
             "connector_id": connector_id,
             "delete_path": delete_path,
@@ -1663,7 +1727,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRemoteMove")
+        )
         input_: capo_transfer.types.start_remote_move_request.StartRemoteMoveRequest = {
             "connector_id": connector_id,
             "source_path": source_path,
@@ -1711,7 +1777,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartServer")
+        )
         input_: capo_transfer.types.start_server_request.StartServerRequest = {
             "server_id": server_id
         }
@@ -1757,7 +1825,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopServer")
+        )
         input_: capo_transfer.types.stop_server_request.StopServerRequest = {
             "server_id": server_id
         }
@@ -1804,7 +1874,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_transfer.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -1852,7 +1924,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestConnection")
+        )
         input_: capo_transfer.types.test_connection_request.TestConnectionRequest = {
             "connector_id": connector_id
         }
@@ -1909,7 +1983,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.test_identity_provider_request.TestIdentityProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.test_identity_provider_request
+
+            return capo_transfer.types.test_identity_provider_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TestIdentityProvider", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.test_identity_provider_request.TestIdentityProviderRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -1963,7 +2049,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_transfer.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -2034,7 +2122,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccess")
+        )
         input_: capo_transfer.types.update_access_request.UpdateAccessRequest = {
             "server_id": server_id,
             "external_id": external_id,
@@ -2099,7 +2189,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateHostKey")
+        )
         input_: capo_transfer.types.update_host_key_request.UpdateHostKeyRequest = {
             "server_id": server_id,
             "host_key_id": host_key_id,
@@ -2180,7 +2272,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgreement")
+        )
         input_: capo_transfer.types.create_agreement_request.CreateAgreementRequest = {
             "server_id": server_id,
             "local_profile_id": local_profile_id,
@@ -2246,7 +2340,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAgreement")
+        )
         input_: capo_transfer.types.describe_agreement_request.DescribeAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -2326,7 +2422,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgreement")
+        )
         input_: capo_transfer.types.update_agreement_request.UpdateAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -2392,7 +2490,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgreement")
+        )
         input_: capo_transfer.types.delete_agreement_request.DeleteAgreementRequest = {
             "agreement_id": agreement_id,
             "server_id": server_id,
@@ -2445,7 +2545,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreements")
+        )
         input_: capo_transfer.types.list_agreements_request.ListAgreementsRequest = {
             "server_id": server_id
         }
@@ -2537,7 +2639,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.import_certificate_request.ImportCertificateRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.import_certificate_request
+
+            return capo_transfer.types.import_certificate_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportCertificate", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.import_certificate_request.ImportCertificateRequest = {
             "usage": usage,
             "certificate": certificate,
@@ -2599,7 +2713,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_transfer.types.describe_certificate_response.DescribeCertificateResponse",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.describe_certificate_response
+
+            return capo_transfer.types.describe_certificate_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCertificate", redact_output=_redact_output),
+        )
         input_: capo_transfer.types.describe_certificate_request.DescribeCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -2653,7 +2779,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCertificate")
+        )
         input_: capo_transfer.types.update_certificate_request.UpdateCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -2704,7 +2832,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificate")
+        )
         input_: capo_transfer.types.delete_certificate_request.DeleteCertificateRequest = {
             "certificate_id": certificate_id
         }
@@ -2754,7 +2884,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificates")
+        )
         input_: capo_transfer.types.list_certificates_request.ListCertificatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2852,7 +2984,17 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.create_connector_request.CreateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.create_connector_request
+
+            return capo_transfer.types.create_connector_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnector", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.create_connector_request.CreateConnectorRequest = {
             "access_role": access_role
         }
@@ -2915,7 +3057,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_transfer.types.describe_connector_response.DescribeConnectorResponse",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.describe_connector_response
+
+            return capo_transfer.types.describe_connector_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeConnector", redact_output=_redact_output),
+        )
         input_: capo_transfer.types.describe_connector_request.DescribeConnectorRequest = {
             "connector_id": connector_id
         }
@@ -2990,7 +3144,17 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.update_connector_request.UpdateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.update_connector_request
+
+            return capo_transfer.types.update_connector_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnector", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.update_connector_request.UpdateConnectorRequest = {
             "connector_id": connector_id
         }
@@ -3051,7 +3215,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_transfer.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_id": connector_id
         }
@@ -3101,7 +3267,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_transfer.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3180,7 +3348,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfile")
+        )
         input_: capo_transfer.types.create_profile_request.CreateProfileRequest = {
             "as2_id": as2_id,
             "profile_type": profile_type,
@@ -3232,7 +3402,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProfile")
+        )
         input_: capo_transfer.types.describe_profile_request.DescribeProfileRequest = {
             "profile_id": profile_id
         }
@@ -3284,7 +3456,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_transfer.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -3331,7 +3505,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_transfer.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -3383,7 +3559,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_transfer.types.list_profiles_request.ListProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3518,7 +3696,17 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.create_server_request.CreateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.create_server_request
+
+            return capo_transfer.types.create_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.create_server_request.CreateServerRequest = {}
         if certificate is not None:
             input_["certificate"] = certificate
@@ -3601,7 +3789,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServer")
+        )
         input_: capo_transfer.types.describe_server_request.DescribeServerRequest = {
             "server_id": server_id
         }
@@ -3708,7 +3898,17 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.update_server_request.UpdateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.update_server_request
+
+            return capo_transfer.types.update_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.update_server_request.UpdateServerRequest = {
             "server_id": server_id
         }
@@ -3788,7 +3988,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServer")
+        )
         input_: capo_transfer.types.delete_server_request.DeleteServerRequest = {
             "server_id": server_id
         }
@@ -3837,7 +4039,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServers")
+        )
         input_: capo_transfer.types.list_servers_request.ListServersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3936,7 +4140,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_transfer.types.create_user_request.CreateUserRequest = {
             "role": role,
             "server_id": server_id,
@@ -4001,7 +4207,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUser")
+        )
         input_: capo_transfer.types.describe_user_request.DescribeUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -4072,7 +4280,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_transfer.types.update_user_request.UpdateUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -4132,7 +4342,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_transfer.types.delete_user_request.DeleteUserRequest = {
             "server_id": server_id,
             "user_name": user_name,
@@ -4185,7 +4397,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsers")
+        )
         input_: capo_transfer.types.list_users_request.ListUsersRequest = {
             "server_id": server_id
         }
@@ -4260,7 +4474,21 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_transfer.types.describe_web_app_customization_response.DescribeWebAppCustomizationResponse",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.describe_web_app_customization_response
+
+            return capo_transfer.types.describe_web_app_customization_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeWebAppCustomization", redact_output=_redact_output
+            ),
+        )
         input_: capo_transfer.types.describe_web_app_customization_request.DescribeWebAppCustomizationRequest = {
             "web_app_id": web_app_id
         }
@@ -4319,7 +4547,19 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.update_web_app_customization_request.UpdateWebAppCustomizationRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.update_web_app_customization_request
+
+            return capo_transfer.types.update_web_app_customization_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWebAppCustomization", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.update_web_app_customization_request.UpdateWebAppCustomizationRequest = {
             "web_app_id": web_app_id
         }
@@ -4372,7 +4612,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebAppCustomization")
+        )
         input_: capo_transfer.types.delete_web_app_customization_request.DeleteWebAppCustomizationRequest = {
             "web_app_id": web_app_id
         }
@@ -4436,7 +4678,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebApp")
+        )
         input_: capo_transfer.types.create_web_app_request.CreateWebAppRequest = {
             "identity_provider_details": identity_provider_details
         }
@@ -4494,7 +4738,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWebApp")
+        )
         input_: capo_transfer.types.describe_web_app_request.DescribeWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -4557,7 +4803,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebApp")
+        )
         input_: capo_transfer.types.update_web_app_request.UpdateWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -4611,7 +4859,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebApp")
+        )
         input_: capo_transfer.types.delete_web_app_request.DeleteWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -4660,7 +4910,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebApps")
+        )
         input_: capo_transfer.types.list_web_apps_request.ListWebAppsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4746,7 +4998,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_transfer.types.create_workflow_request.CreateWorkflowRequest = {
             "steps": steps
         }
@@ -4801,7 +5055,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkflow")
+        )
         input_: capo_transfer.types.describe_workflow_request.DescribeWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -4847,7 +5103,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_transfer.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_id": workflow_id
         }
@@ -4896,7 +5154,9 @@ class AsyncTransferClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_transfer.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

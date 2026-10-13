@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#SSEKMSEncryption``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_xml(el: Element) -> SSEKMSEncryption:
         out["bucket_key_enabled"] = (
             child_bucket_key_enabled.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: SSEKMSEncryption) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_arn" in value:
+        out["kms_key_arn"] = "*** Sensitive Data Redacted ***"
     return out

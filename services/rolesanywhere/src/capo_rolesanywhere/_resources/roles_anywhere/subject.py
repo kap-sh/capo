@@ -7,6 +7,7 @@ import capo_rolesanywhere._auth._sigv4
 from capo_rolesanywhere._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -65,7 +66,9 @@ class Subject:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSubject")
+        )
         input_: capo_rolesanywhere.types.scalar_subject_request.ScalarSubjectRequest = {
             "subject_id": subject_id
         }
@@ -111,7 +114,9 @@ class Subject:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSubjects")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -163,7 +168,9 @@ class AsyncSubject:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSubject")
+        )
         input_: capo_rolesanywhere.types.scalar_subject_request.ScalarSubjectRequest = {
             "subject_id": subject_id
         }
@@ -210,7 +217,9 @@ class AsyncSubject:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSubjects")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

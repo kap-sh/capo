@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#StartProtectedQueryInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_json(data: dict) -> StartProtectedQueryInput:
         )
     if data.get("queryComputePayerAccountId") is not None:
         out["query_compute_payer_account_id"] = data["queryComputePayerAccountId"]
+    return out
+
+
+def redact_sensitive(value: StartProtectedQueryInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sql_parameters" in value:
+        out["sql_parameters"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#Attendee``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> Attendee:
         out["attendee_id"] = data["AttendeeId"]
     if data.get("JoinToken") is not None:
         out["join_token"] = data["JoinToken"]
+    return out
+
+
+def redact_sensitive(value: Attendee) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "join_token" in value:
+        out["join_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#UpdateTextParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,6 +46,21 @@ def deserialize_json(data: dict) -> UpdateTextParameters:
         out["destination_country_parameters"] = (
             capo_endusermessaging.types.update_destination_country_parameters.deserialize_json(
                 data["destinationCountryParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateTextParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_template_body" in value:
+        out["inline_template_body"] = "*** Sensitive Data Redacted ***"
+    if "destination_country_parameters" in value:
+        import capo_endusermessaging.types.update_destination_country_parameters
+
+        out["destination_country_parameters"] = (
+            capo_endusermessaging.types.update_destination_country_parameters.redact_sensitive(
+                value["destination_country_parameters"]
             )
         )
     return out

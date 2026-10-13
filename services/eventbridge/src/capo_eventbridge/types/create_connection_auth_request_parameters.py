@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#CreateConnectionAuthRequestParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,6 +121,43 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionAuthRequestParameter
         out["connectivity_parameters"] = (
             capo_eventbridge.types.connectivity_resource_parameters.deserialize_aws_json_1_1(
                 data["ConnectivityParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateConnectionAuthRequestParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_auth_parameters" in value:
+        import capo_eventbridge.types.create_connection_basic_auth_request_parameters
+
+        out["basic_auth_parameters"] = (
+            capo_eventbridge.types.create_connection_basic_auth_request_parameters.redact_sensitive(
+                value["basic_auth_parameters"]
+            )
+        )
+    if "o_auth_parameters" in value:
+        import capo_eventbridge.types.create_connection_o_auth_request_parameters
+
+        out["o_auth_parameters"] = (
+            capo_eventbridge.types.create_connection_o_auth_request_parameters.redact_sensitive(
+                value["o_auth_parameters"]
+            )
+        )
+    if "api_key_auth_parameters" in value:
+        import capo_eventbridge.types.create_connection_api_key_auth_request_parameters
+
+        out["api_key_auth_parameters"] = (
+            capo_eventbridge.types.create_connection_api_key_auth_request_parameters.redact_sensitive(
+                value["api_key_auth_parameters"]
+            )
+        )
+    if "invocation_http_parameters" in value:
+        import capo_eventbridge.types.connection_http_parameters
+
+        out["invocation_http_parameters"] = (
+            capo_eventbridge.types.connection_http_parameters.redact_sensitive(
+                value["invocation_http_parameters"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ApiKeyRestrictions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,5 +104,18 @@ def deserialize_json(data: dict) -> ApiKeyRestrictions:
 
         out["allow_apple_apps"] = capo_location.types.apple_app_list.deserialize_json(
             data["AllowAppleApps"]
+        )
+    return out
+
+
+def redact_sensitive(value: ApiKeyRestrictions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allow_referers" in value:
+        import capo_location.types.referer_pattern_list
+
+        out["allow_referers"] = (
+            capo_location.types.referer_pattern_list.redact_sensitive(
+                value["allow_referers"]
+            )
         )
     return out

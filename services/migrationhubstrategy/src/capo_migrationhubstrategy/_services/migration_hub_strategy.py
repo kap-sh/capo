@@ -21,10 +21,12 @@ from capo_migrationhubstrategy._pagination import resolve_path as _resolve_path
 from capo_migrationhubstrategy._services._aws_config import aws_config
 from capo_migrationhubstrategy._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -181,7 +183,9 @@ class MigrationHubStrategyClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MigrationHubStrategyClientConfig] = None
+        self,
+        config_overrides: Optional[MigrationHubStrategyClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MigrationHubStrategyClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -189,8 +193,10 @@ class MigrationHubStrategyClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -241,7 +247,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationComponentDetails")
+        )
         input_: capo_migrationhubstrategy.types.get_application_component_details_request.GetApplicationComponentDetailsRequest = {
             "application_component_id": application_component_id
         }
@@ -286,7 +294,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationComponentStrategies")
+        )
         input_: capo_migrationhubstrategy.types.get_application_component_strategies_request.GetApplicationComponentStrategiesRequest = {
             "application_component_id": application_component_id
         }
@@ -334,7 +344,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssessment")
+        )
         input_: capo_migrationhubstrategy.types.get_assessment_request.GetAssessmentRequest = {
             "id": id
         }
@@ -381,7 +393,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImportFileTask")
+        )
         input_: capo_migrationhubstrategy.types.get_import_file_task_request.GetImportFileTaskRequest = {
             "id": id
         }
@@ -421,7 +435,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLatestAssessmentId")
+        )
         input_: capo_migrationhubstrategy.types.get_latest_assessment_id_request.GetLatestAssessmentIdRequest = {}
 
         response = execute_pipeline(
@@ -459,7 +475,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPortfolioPreferences")
+        )
         input_: capo_migrationhubstrategy.types.get_portfolio_preferences_request.GetPortfolioPreferencesRequest = {}
 
         response = execute_pipeline(
@@ -496,7 +514,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPortfolioSummary")
+        )
         input_: capo_migrationhubstrategy.types.get_portfolio_summary_request.GetPortfolioSummaryRequest = {}
 
         response = execute_pipeline(
@@ -541,7 +561,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendationReportDetails")
+        )
         input_: capo_migrationhubstrategy.types.get_recommendation_report_details_request.GetRecommendationReportDetailsRequest = {
             "id": id
         }
@@ -596,7 +618,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServerDetails")
+        )
         input_: capo_migrationhubstrategy.types.get_server_details_request.GetServerDetailsRequest = {
             "server_id": server_id
         }
@@ -674,7 +698,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServerStrategies")
+        )
         input_: capo_migrationhubstrategy.types.get_server_strategies_request.GetServerStrategiesRequest = {
             "server_id": server_id
         }
@@ -733,7 +759,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalyzableServers")
+        )
         input_: capo_migrationhubstrategy.types.list_analyzable_servers_request.ListAnalyzableServersRequest = {}
         if sort is not None:
             input_["sort"] = sort
@@ -828,7 +856,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationComponents")
+        )
         input_: capo_migrationhubstrategy.types.list_application_components_request.ListApplicationComponentsRequest = {}
         if application_component_criteria is not None:
             input_["application_component_criteria"] = application_component_criteria
@@ -927,7 +957,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollectors")
+        )
         input_: capo_migrationhubstrategy.types.list_collectors_request.ListCollectorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1002,7 +1034,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportFileTask")
+        )
         input_: capo_migrationhubstrategy.types.list_import_file_task_request.ListImportFileTaskRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1089,7 +1123,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServers")
+        )
         input_: capo_migrationhubstrategy.types.list_servers_request.ListServersRequest = {}
         if server_criteria is not None:
             input_["server_criteria"] = server_criteria
@@ -1197,7 +1233,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPortfolioPreferences")
+        )
         input_: capo_migrationhubstrategy.types.put_portfolio_preferences_request.PutPortfolioPreferencesRequest = {}
         if prioritize_business_goals is not None:
             input_["prioritize_business_goals"] = prioritize_business_goals
@@ -1263,7 +1301,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAssessment")
+        )
         input_: capo_migrationhubstrategy.types.start_assessment_request.StartAssessmentRequest = {}
         if s3bucket_for_analysis_data is not None:
             input_["s3bucket_for_analysis_data"] = s3bucket_for_analysis_data
@@ -1330,7 +1370,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImportFileTask")
+        )
         input_: capo_migrationhubstrategy.types.start_import_file_task_request.StartImportFileTaskRequest = {
             "name": name,
             "s3_bucket": s3_bucket,
@@ -1391,7 +1433,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRecommendationReportGeneration")
+        )
         input_: capo_migrationhubstrategy.types.start_recommendation_report_generation_request.StartRecommendationReportGenerationRequest = {}
         if output_format is not None:
             input_["output_format"] = output_format
@@ -1439,7 +1483,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAssessment")
+        )
         input_: capo_migrationhubstrategy.types.stop_assessment_request.StopAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -1507,7 +1553,21 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_migrationhubstrategy.types.update_application_component_config_request.UpdateApplicationComponentConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_migrationhubstrategy.types.update_application_component_config_request
+
+            return capo_migrationhubstrategy.types.update_application_component_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateApplicationComponentConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_migrationhubstrategy.types.update_application_component_config_request.UpdateApplicationComponentConfigRequest = {
             "application_component_id": application_component_id
         }
@@ -1569,7 +1629,9 @@ class MigrationHubStrategyClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServerConfig")
+        )
         input_: capo_migrationhubstrategy.types.update_server_config_request.UpdateServerConfigRequest = {
             "server_id": server_id
         }

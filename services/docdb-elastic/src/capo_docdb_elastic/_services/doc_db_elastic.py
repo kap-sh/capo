@@ -22,10 +22,12 @@ from capo_docdb_elastic._pagination import resolve_path as _resolve_path
 from capo_docdb_elastic._services._aws_config import aws_config
 from capo_docdb_elastic._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -155,7 +157,9 @@ class DocDBElasticClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DocDBElasticClientConfig] = None
+        self,
+        config_overrides: Optional[DocDBElasticClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DocDBElasticClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -163,8 +167,10 @@ class DocDBElasticClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -224,7 +230,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyPendingMaintenanceAction")
+        )
         input_: capo_docdb_elastic.types.apply_pending_maintenance_action_input.ApplyPendingMaintenanceActionInput = {
             "resource_arn": resource_arn,
             "apply_action": apply_action,
@@ -291,7 +299,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyClusterSnapshot")
+        )
         input_: capo_docdb_elastic.types.copy_cluster_snapshot_input.CopyClusterSnapshotInput = {
             "snapshot_arn": snapshot_arn,
             "target_snapshot_name": target_snapshot_name,
@@ -376,7 +386,19 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_docdb_elastic.types.create_cluster_input.CreateClusterInput",
+        ) -> dict[str, Any]:
+            import capo_docdb_elastic.types.create_cluster_input
+
+            return capo_docdb_elastic.types.create_cluster_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCluster", redact_input=_redact_input),
+        )
         input_: capo_docdb_elastic.types.create_cluster_input.CreateClusterInput = {
             "cluster_name": cluster_name,
             "auth_type": auth_type,
@@ -453,7 +475,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterSnapshot")
+        )
         input_: capo_docdb_elastic.types.create_cluster_snapshot_input.CreateClusterSnapshotInput = {
             "cluster_arn": cluster_arn,
             "snapshot_name": snapshot_name,
@@ -504,7 +528,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_docdb_elastic.types.delete_cluster_input.DeleteClusterInput = {
             "cluster_arn": cluster_arn
         }
@@ -552,7 +578,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterSnapshot")
+        )
         input_: capo_docdb_elastic.types.delete_cluster_snapshot_input.DeleteClusterSnapshotInput = {
             "snapshot_arn": snapshot_arn
         }
@@ -599,7 +627,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCluster")
+        )
         input_: capo_docdb_elastic.types.get_cluster_input.GetClusterInput = {
             "cluster_arn": cluster_arn
         }
@@ -648,7 +678,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClusterSnapshot")
+        )
         input_: capo_docdb_elastic.types.get_cluster_snapshot_input.GetClusterSnapshotInput = {
             "snapshot_arn": snapshot_arn
         }
@@ -696,7 +728,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPendingMaintenanceAction")
+        )
         input_: capo_docdb_elastic.types.get_pending_maintenance_action_input.GetPendingMaintenanceActionInput = {
             "resource_arn": resource_arn
         }
@@ -746,7 +780,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_docdb_elastic.types.list_clusters_input.ListClustersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -825,7 +861,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterSnapshots")
+        )
         input_: capo_docdb_elastic.types.list_cluster_snapshots_input.ListClusterSnapshotsInput = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -908,7 +946,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPendingMaintenanceActions")
+        )
         input_: capo_docdb_elastic.types.list_pending_maintenance_actions_input.ListPendingMaintenanceActionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -979,7 +1019,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_docdb_elastic.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1044,7 +1086,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreClusterFromSnapshot")
+        )
         input_: capo_docdb_elastic.types.restore_cluster_from_snapshot_input.RestoreClusterFromSnapshotInput = {
             "cluster_name": cluster_name,
             "snapshot_arn": snapshot_arn,
@@ -1110,7 +1154,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCluster")
+        )
         input_: capo_docdb_elastic.types.start_cluster_input.StartClusterInput = {
             "cluster_arn": cluster_arn
         }
@@ -1163,7 +1209,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCluster")
+        )
         input_: capo_docdb_elastic.types.stop_cluster_input.StopClusterInput = {
             "cluster_arn": cluster_arn
         }
@@ -1211,7 +1259,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_docdb_elastic.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1260,7 +1310,9 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_docdb_elastic.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1335,7 +1387,19 @@ class DocDBElasticClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_docdb_elastic.types.update_cluster_input.UpdateClusterInput",
+        ) -> dict[str, Any]:
+            import capo_docdb_elastic.types.update_cluster_input
+
+            return capo_docdb_elastic.types.update_cluster_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCluster", redact_input=_redact_input),
+        )
         input_: capo_docdb_elastic.types.update_cluster_input.UpdateClusterInput = {
             "cluster_arn": cluster_arn
         }

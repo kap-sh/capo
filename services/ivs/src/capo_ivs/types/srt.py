@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#Srt``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> Srt:
         out["endpoint"] = data["endpoint"]
     if data.get("passphrase") is not None:
         out["passphrase"] = data["passphrase"]
+    return out
+
+
+def redact_sensitive(value: Srt) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "passphrase" in value:
+        out["passphrase"] = "*** Sensitive Data Redacted ***"
     return out

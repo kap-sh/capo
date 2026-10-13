@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#BodySectionConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.body_section_configuration
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> BodySectionConfigurationList:
             capo_quicksight.types.body_section_configuration.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BodySectionConfigurationList) -> list[Any]:
+    import capo_quicksight.types.body_section_configuration
+
+    return [
+        capo_quicksight.types.body_section_configuration.redact_sensitive(item)
+        for item in value
+    ]

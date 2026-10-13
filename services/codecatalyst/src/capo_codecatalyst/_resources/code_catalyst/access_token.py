@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_codecatalyst._auth._signers
 import capo_codecatalyst._auth._sigv4
 from capo_codecatalyst._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,21 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codecatalyst.types.create_access_token_response.CreateAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_codecatalyst.types.create_access_token_response
+
+            return (
+                capo_codecatalyst.types.create_access_token_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_codecatalyst.types.create_access_token_request.CreateAccessTokenRequest = {
             "name": name
         }
@@ -129,7 +144,9 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_codecatalyst.types.delete_access_token_request.DeleteAccessTokenRequest = {
             "id": id
         }
@@ -179,7 +196,9 @@ class AccessToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_codecatalyst.types.list_access_tokens_request.ListAccessTokensRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -239,7 +258,21 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codecatalyst.types.create_access_token_response.CreateAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_codecatalyst.types.create_access_token_response
+
+            return (
+                capo_codecatalyst.types.create_access_token_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAccessToken", redact_output=_redact_output),
+        )
         input_: capo_codecatalyst.types.create_access_token_request.CreateAccessTokenRequest = {
             "name": name
         }
@@ -292,7 +325,9 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAccessToken")
+        )
         input_: capo_codecatalyst.types.delete_access_token_request.DeleteAccessTokenRequest = {
             "id": id
         }
@@ -343,7 +378,9 @@ class AsyncAccessToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAccessTokens")
+        )
         input_: capo_codecatalyst.types.list_access_tokens_request.ListAccessTokensRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

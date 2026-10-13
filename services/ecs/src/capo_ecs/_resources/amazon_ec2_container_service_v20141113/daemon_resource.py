@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDaemon")
+        )
         input_: capo_ecs.types.create_daemon_request.CreateDaemonRequest = {
             "daemon_name": daemon_name,
             "daemon_task_definition_arn": daemon_task_definition_arn,
@@ -182,7 +185,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDaemon")
+        )
         input_: capo_ecs.types.delete_daemon_request.DeleteDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -237,7 +242,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemon")
+        )
         input_: capo_ecs.types.describe_daemon_request.DescribeDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -303,7 +310,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemonDeployments")
+        )
         input_: capo_ecs.types.list_daemon_deployments_request.ListDaemonDeploymentsRequest = {
             "daemon_arn": daemon_arn
         }
@@ -373,7 +382,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemons")
+        )
         input_: capo_ecs.types.list_daemons_request.ListDaemonsRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -454,7 +465,9 @@ class DaemonResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDaemon")
+        )
         input_: capo_ecs.types.update_daemon_request.UpdateDaemonRequest = {
             "daemon_arn": daemon_arn,
             "daemon_task_definition_arn": daemon_task_definition_arn,
@@ -551,7 +564,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDaemon")
+        )
         input_: capo_ecs.types.create_daemon_request.CreateDaemonRequest = {
             "daemon_name": daemon_name,
             "daemon_task_definition_arn": daemon_task_definition_arn,
@@ -626,7 +641,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDaemon")
+        )
         input_: capo_ecs.types.delete_daemon_request.DeleteDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -682,7 +699,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemon")
+        )
         input_: capo_ecs.types.describe_daemon_request.DescribeDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -749,7 +768,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemonDeployments")
+        )
         input_: capo_ecs.types.list_daemon_deployments_request.ListDaemonDeploymentsRequest = {
             "daemon_arn": daemon_arn
         }
@@ -820,7 +841,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemons")
+        )
         input_: capo_ecs.types.list_daemons_request.ListDaemonsRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -902,7 +925,9 @@ class AsyncDaemonResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDaemon")
+        )
         input_: capo_ecs.types.update_daemon_request.UpdateDaemonRequest = {
             "daemon_arn": daemon_arn,
             "daemon_task_definition_arn": daemon_task_definition_arn,

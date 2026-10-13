@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RetrievalOverrides``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> RetrievalOverrides:
         )
     if data.get("maxNumberOfResults") is not None:
         out["max_number_of_results"] = data["maxNumberOfResults"]
+    return out
+
+
+def redact_sensitive(value: RetrievalOverrides) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter" in value:
+        out["filter"] = "*** Sensitive Data Redacted ***"
     return out

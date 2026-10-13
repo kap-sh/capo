@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#LaunchTemplateVersionSet``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -42,3 +42,11 @@ def deserialize_ec2_query_flat(parent: Element, tag: str) -> LaunchTemplateVersi
     for child in parent.findall(tag):
         out.append(capo_ec2.types.launch_template_version.deserialize_ec2_query(child))
     return out
+
+
+def redact_sensitive(value: LaunchTemplateVersionSet) -> list[Any]:
+    import capo_ec2.types.launch_template_version
+
+    return [
+        capo_ec2.types.launch_template_version.redact_sensitive(item) for item in value
+    ]

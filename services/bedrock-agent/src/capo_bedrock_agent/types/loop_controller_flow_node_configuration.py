@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#LoopControllerFlowNodeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> LoopControllerFlowNodeConfiguration:
         out["max_iterations"] = data["maxIterations"]
     else:
         out["max_iterations"] = 10
+    return out
+
+
+def redact_sensitive(value: LoopControllerFlowNodeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "continue_condition" in value:
+        import capo_bedrock_agent.types.flow_condition
+
+        out["continue_condition"] = (
+            capo_bedrock_agent.types.flow_condition.redact_sensitive(
+                value["continue_condition"]
+            )
+        )
     return out

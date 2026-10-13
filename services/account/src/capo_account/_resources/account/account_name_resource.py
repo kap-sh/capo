@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_account._auth._signers
 import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -63,7 +64,17 @@ class AccountNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_account_name_request.PutAccountNameRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_account_name_request
+
+            return capo_account.types.put_account_name_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutAccountName", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_account_name_request.PutAccountNameRequest = {
             "account_name": account_name
         }
@@ -111,7 +122,19 @@ class AccountNameResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_account_information_response.GetAccountInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_account_information_response
+
+            return capo_account.types.get_account_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_account_information_request.GetAccountInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -163,7 +186,17 @@ class AsyncAccountNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_account_name_request.PutAccountNameRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_account_name_request
+
+            return capo_account.types.put_account_name_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutAccountName", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_account_name_request.PutAccountNameRequest = {
             "account_name": account_name
         }
@@ -212,7 +245,19 @@ class AsyncAccountNameResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_account_information_response.GetAccountInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_account_information_response
+
+            return capo_account.types.get_account_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_account_information_request.GetAccountInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id

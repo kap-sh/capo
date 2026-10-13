@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#ListCustomLineItemVersionsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListCustomLineItemVersionsOutput:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListCustomLineItemVersionsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_line_item_versions" in value:
+        import capo_billingconductor.types.custom_line_item_version_list
+
+        out["custom_line_item_versions"] = (
+            capo_billingconductor.types.custom_line_item_version_list.redact_sensitive(
+                value["custom_line_item_versions"]
+            )
+        )
     return out

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,26 @@ class Asset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_input.CreateAssetInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_input
+
+            return capo_datazone.types.create_asset_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_output.CreateAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_output
+
+            return capo_datazone.types.create_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAsset", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_asset_input.CreateAssetInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -179,7 +199,16 @@ class Asset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_asset_output.GetAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_asset_output
+
+            return capo_datazone.types.get_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAsset", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_asset_input.GetAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -233,7 +262,9 @@ class Asset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_datazone.types.delete_asset_input.DeleteAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -305,7 +336,32 @@ class Asset:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_input
+
+            return capo_datazone.types.create_asset_revision_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_revision_output.CreateAssetRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_output
+
+            return capo_datazone.types.create_asset_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssetRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -404,7 +460,26 @@ class AsyncAsset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_input.CreateAssetInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_input
+
+            return capo_datazone.types.create_asset_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_output.CreateAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_output
+
+            return capo_datazone.types.create_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAsset", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_datazone.types.create_asset_input.CreateAssetInput = {
             "name": name,
             "domain_identifier": domain_identifier,
@@ -475,7 +550,16 @@ class AsyncAsset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_asset_output.GetAssetOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_asset_output
+
+            return capo_datazone.types.get_asset_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAsset", redact_output=_redact_output)
+        )
         input_: capo_datazone.types.get_asset_input.GetAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -530,7 +614,9 @@ class AsyncAsset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_datazone.types.delete_asset_input.DeleteAssetInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -603,7 +689,32 @@ class AsyncAsset:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_input
+
+            return capo_datazone.types.create_asset_revision_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_asset_revision_output.CreateAssetRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_asset_revision_output
+
+            return capo_datazone.types.create_asset_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssetRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_asset_revision_input.CreateAssetRevisionInput = {
             "name": name,
             "domain_identifier": domain_identifier,

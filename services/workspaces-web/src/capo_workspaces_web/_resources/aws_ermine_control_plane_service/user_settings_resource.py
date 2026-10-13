@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -139,7 +140,21 @@ class UserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_settings_request
+
+            return (
+                capo_workspaces_web.types.create_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateUserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest = {
             "copy_allowed": copy_allowed,
             "paste_allowed": paste_allowed,
@@ -217,7 +232,21 @@ class UserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_user_settings_response.GetUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_user_settings_response
+
+            return (
+                capo_workspaces_web.types.get_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_user_settings_request.GetUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -316,7 +345,34 @@ class UserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_request
+
+            return (
+                capo_workspaces_web.types.update_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_user_settings_response.UpdateUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_response
+
+            return capo_workspaces_web.types.update_user_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -394,7 +450,9 @@ class UserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUserSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_settings_request.DeleteUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -448,7 +506,21 @@ class UserSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_user_settings_response.ListUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_user_settings_response
+
+            return (
+                capo_workspaces_web.types.list_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_user_settings_request.ListUserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -555,7 +627,21 @@ class AsyncUserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_settings_request
+
+            return (
+                capo_workspaces_web.types.create_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateUserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest = {
             "copy_allowed": copy_allowed,
             "paste_allowed": paste_allowed,
@@ -634,7 +720,21 @@ class AsyncUserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_user_settings_response.GetUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_user_settings_response
+
+            return (
+                capo_workspaces_web.types.get_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_user_settings_request.GetUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -734,7 +834,34 @@ class AsyncUserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_request
+
+            return (
+                capo_workspaces_web.types.update_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_user_settings_response.UpdateUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_response
+
+            return capo_workspaces_web.types.update_user_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -813,7 +940,9 @@ class AsyncUserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUserSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_settings_request.DeleteUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -868,7 +997,21 @@ class AsyncUserSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_user_settings_response.ListUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_user_settings_response
+
+            return (
+                capo_workspaces_web.types.list_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_user_settings_request.ListUserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

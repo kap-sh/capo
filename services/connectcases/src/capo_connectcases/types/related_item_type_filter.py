@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#RelatedItemTypeFilter``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -142,3 +142,12 @@ def deserialize_json(data: dict) -> RelatedItemTypeFilter:
         }
     else:
         raise DeserializationError("RelatedItemTypeFilter: no recognized variant key")
+
+
+def redact_sensitive(value: RelatedItemTypeFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sla" in value:
+        import capo_connectcases.types.sla_filter
+
+        out["sla"] = capo_connectcases.types.sla_filter.redact_sensitive(value["sla"])
+    return out

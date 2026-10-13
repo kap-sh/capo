@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanroomsml._auth._signers
 import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,19 @@ class MLInputChannel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.create_ml_input_channel_request
+
+            return capo_cleanroomsml.types.create_ml_input_channel_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMLInputChannel", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_associations": configured_model_algorithm_associations,
@@ -164,7 +177,21 @@ class MLInputChannel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_ml_input_channel_response.GetMLInputChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_ml_input_channel_response
+
+            return (
+                capo_cleanroomsml.types.get_ml_input_channel_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMLInputChannel", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_ml_input_channel_request.GetMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -212,7 +239,9 @@ class MLInputChannel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMLInputChannelData")
+        )
         input_: capo_cleanroomsml.types.delete_ml_input_channel_data_request.DeleteMLInputChannelDataRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -262,7 +291,9 @@ class MLInputChannel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMLInputChannels")
+        )
         input_: capo_cleanroomsml.types.list_ml_input_channels_request.ListMLInputChannelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -314,7 +345,9 @@ class MLInputChannel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationMLInputChannel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_ml_input_channel_request.GetCollaborationMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "collaboration_identifier": collaboration_identifier,
@@ -389,7 +422,19 @@ class AsyncMLInputChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.create_ml_input_channel_request
+
+            return capo_cleanroomsml.types.create_ml_input_channel_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMLInputChannel", redact_input=_redact_input),
+        )
         input_: capo_cleanroomsml.types.create_ml_input_channel_request.CreateMLInputChannelRequest = {
             "membership_identifier": membership_identifier,
             "configured_model_algorithm_associations": configured_model_algorithm_associations,
@@ -450,7 +495,21 @@ class AsyncMLInputChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanroomsml.types.get_ml_input_channel_response.GetMLInputChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_cleanroomsml.types.get_ml_input_channel_response
+
+            return (
+                capo_cleanroomsml.types.get_ml_input_channel_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMLInputChannel", redact_output=_redact_output),
+        )
         input_: capo_cleanroomsml.types.get_ml_input_channel_request.GetMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -499,7 +558,9 @@ class AsyncMLInputChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMLInputChannelData")
+        )
         input_: capo_cleanroomsml.types.delete_ml_input_channel_data_request.DeleteMLInputChannelDataRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "membership_identifier": membership_identifier,
@@ -550,7 +611,9 @@ class AsyncMLInputChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMLInputChannels")
+        )
         input_: capo_cleanroomsml.types.list_ml_input_channels_request.ListMLInputChannelsRequest = {
             "membership_identifier": membership_identifier
         }
@@ -603,7 +666,9 @@ class AsyncMLInputChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationMLInputChannel")
+        )
         input_: capo_cleanroomsml.types.get_collaboration_ml_input_channel_request.GetCollaborationMLInputChannelRequest = {
             "ml_input_channel_arn": ml_input_channel_arn,
             "collaboration_identifier": collaboration_identifier,

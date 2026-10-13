@@ -24,7 +24,9 @@ from capo_chime_sdk_messaging._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -231,7 +233,9 @@ class AsyncChimeSDKMessagingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncChimeSDKMessagingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncChimeSDKMessagingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncChimeSDKMessagingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -239,8 +243,10 @@ class AsyncChimeSDKMessagingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -299,7 +305,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateChannelFlow")
+        )
         input_: capo_chime_sdk_messaging.types.associate_channel_flow_request.AssociateChannelFlowRequest = {
             "channel_arn": channel_arn,
             "channel_flow_arn": channel_flow_arn,
@@ -364,7 +372,21 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.batch_create_channel_membership_response.BatchCreateChannelMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.batch_create_channel_membership_response
+
+            return capo_chime_sdk_messaging.types.batch_create_channel_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchCreateChannelMembership", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.batch_create_channel_membership_request.BatchCreateChannelMembershipRequest = {
             "channel_arn": channel_arn,
             "member_arns": member_arns,
@@ -428,7 +450,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.channel_flow_callback_request.ChannelFlowCallbackRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.channel_flow_callback_request
+
+            return capo_chime_sdk_messaging.types.channel_flow_callback_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ChannelFlowCallback", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.channel_flow_callback_request.ChannelFlowCallbackRequest = {
             "callback_id": callback_id,
             "channel_arn": channel_arn,
@@ -521,7 +555,21 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.create_channel_request.CreateChannelRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.create_channel_request
+
+            return (
+                capo_chime_sdk_messaging.types.create_channel_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannel", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.create_channel_request.CreateChannelRequest = {
             "app_instance_arn": app_instance_arn,
             "name": name,
@@ -597,7 +645,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.create_channel_ban_response.CreateChannelBanResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.create_channel_ban_response
+
+            return capo_chime_sdk_messaging.types.create_channel_ban_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannelBan", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.create_channel_ban_request.CreateChannelBanRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -658,7 +718,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.create_channel_flow_request.CreateChannelFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.create_channel_flow_request
+
+            return capo_chime_sdk_messaging.types.create_channel_flow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannelFlow", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.create_channel_flow_request.CreateChannelFlowRequest = {
             "app_instance_arn": app_instance_arn,
             "processors": processors,
@@ -725,7 +797,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.create_channel_membership_response.CreateChannelMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.create_channel_membership_response
+
+            return capo_chime_sdk_messaging.types.create_channel_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannelMembership", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.create_channel_membership_request.CreateChannelMembershipRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -785,7 +869,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.create_channel_moderator_response.CreateChannelModeratorResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.create_channel_moderator_response
+
+            return capo_chime_sdk_messaging.types.create_channel_moderator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannelModerator", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.create_channel_moderator_request.CreateChannelModeratorRequest = {
             "channel_arn": channel_arn,
             "channel_moderator_arn": channel_moderator_arn,
@@ -837,7 +933,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_request.DeleteChannelRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -889,7 +987,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelBan")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_ban_request.DeleteChannelBanRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -939,7 +1039,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelFlow")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_flow_request.DeleteChannelFlowRequest = {
             "channel_flow_arn": channel_flow_arn
         }
@@ -995,7 +1097,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelMembership")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_membership_request.DeleteChannelMembershipRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -1054,7 +1158,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelMessage")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_message_request.DeleteChannelMessageRequest = {
             "channel_arn": channel_arn,
             "message_id": message_id,
@@ -1109,7 +1215,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelModerator")
+        )
         input_: capo_chime_sdk_messaging.types.delete_channel_moderator_request.DeleteChannelModeratorRequest = {
             "channel_arn": channel_arn,
             "channel_moderator_arn": channel_moderator_arn,
@@ -1158,7 +1266,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessagingStreamingConfigurations")
+        )
         input_: capo_chime_sdk_messaging.types.delete_messaging_streaming_configurations_request.DeleteMessagingStreamingConfigurationsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1209,7 +1319,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_response.DescribeChannelResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannel", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_request.DescribeChannelRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -1264,7 +1386,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_ban_response.DescribeChannelBanResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_ban_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_ban_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannelBan", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_ban_request.DescribeChannelBanRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -1315,7 +1449,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_flow_response.DescribeChannelFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_flow_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannelFlow", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_flow_request.DescribeChannelFlowRequest = {
             "channel_flow_arn": channel_flow_arn
         }
@@ -1373,7 +1519,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_membership_response.DescribeChannelMembershipResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_membership_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_membership_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannelMembership", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_membership_request.DescribeChannelMembershipRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -1430,7 +1588,22 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_membership_for_app_instance_user_response.DescribeChannelMembershipForAppInstanceUserResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_membership_for_app_instance_user_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_membership_for_app_instance_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeChannelMembershipForAppInstanceUser",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_membership_for_app_instance_user_request.DescribeChannelMembershipForAppInstanceUserRequest = {
             "channel_arn": channel_arn,
             "app_instance_user_arn": app_instance_user_arn,
@@ -1485,7 +1658,22 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_moderated_by_app_instance_user_response.DescribeChannelModeratedByAppInstanceUserResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_moderated_by_app_instance_user_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_moderated_by_app_instance_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeChannelModeratedByAppInstanceUser",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_moderated_by_app_instance_user_request.DescribeChannelModeratedByAppInstanceUserRequest = {
             "channel_arn": channel_arn,
             "app_instance_user_arn": app_instance_user_arn,
@@ -1541,7 +1729,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.describe_channel_moderator_response.DescribeChannelModeratorResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.describe_channel_moderator_response
+
+            return capo_chime_sdk_messaging.types.describe_channel_moderator_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeChannelModerator", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.describe_channel_moderator_request.DescribeChannelModeratorRequest = {
             "channel_arn": channel_arn,
             "channel_moderator_arn": channel_moderator_arn,
@@ -1596,7 +1796,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateChannelFlow")
+        )
         input_: capo_chime_sdk_messaging.types.disassociate_channel_flow_request.DisassociateChannelFlowRequest = {
             "channel_arn": channel_arn,
             "channel_flow_arn": channel_flow_arn,
@@ -1651,7 +1853,21 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.get_channel_membership_preferences_response.GetChannelMembershipPreferencesResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.get_channel_membership_preferences_response
+
+            return capo_chime_sdk_messaging.types.get_channel_membership_preferences_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetChannelMembershipPreferences", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.get_channel_membership_preferences_request.GetChannelMembershipPreferencesRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -1711,7 +1927,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.get_channel_message_response.GetChannelMessageResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.get_channel_message_response
+
+            return capo_chime_sdk_messaging.types.get_channel_message_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetChannelMessage", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.get_channel_message_request.GetChannelMessageRequest = {
             "channel_arn": channel_arn,
             "message_id": message_id,
@@ -1772,7 +2000,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelMessageStatus")
+        )
         input_: capo_chime_sdk_messaging.types.get_channel_message_status_request.GetChannelMessageStatusRequest = {
             "channel_arn": channel_arn,
             "message_id": message_id,
@@ -1826,7 +2056,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMessagingSessionEndpoint")
+        )
         input_: capo_chime_sdk_messaging.types.get_messaging_session_endpoint_request.GetMessagingSessionEndpointRequest = {}
         if network_type is not None:
             input_["network_type"] = network_type
@@ -1876,7 +2108,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMessagingStreamingConfigurations")
+        )
         input_: capo_chime_sdk_messaging.types.get_messaging_streaming_configurations_request.GetMessagingStreamingConfigurationsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1935,7 +2169,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_bans_request.ListChannelBansRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_bans_request
+
+            return capo_chime_sdk_messaging.types.list_channel_bans_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_bans_response.ListChannelBansResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_bans_response
+
+            return capo_chime_sdk_messaging.types.list_channel_bans_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelBans",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_bans_request.ListChannelBansRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -2024,7 +2283,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_flows_request.ListChannelFlowsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_flows_request
+
+            return capo_chime_sdk_messaging.types.list_channel_flows_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_flows_response.ListChannelFlowsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_flows_response
+
+            return capo_chime_sdk_messaging.types.list_channel_flows_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelFlows",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_flows_request.ListChannelFlowsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -2120,7 +2404,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_memberships_request.ListChannelMembershipsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_memberships_request
+
+            return capo_chime_sdk_messaging.types.list_channel_memberships_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_memberships_response.ListChannelMembershipsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_memberships_response
+
+            return capo_chime_sdk_messaging.types.list_channel_memberships_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelMemberships",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_memberships_request.ListChannelMembershipsRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -2225,7 +2534,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_request.ListChannelMembershipsForAppInstanceUserRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_request
+
+            return capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_response.ListChannelMembershipsForAppInstanceUserResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_response
+
+            return capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelMembershipsForAppInstanceUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_memberships_for_app_instance_user_request.ListChannelMembershipsForAppInstanceUserRequest = {
             "chime_bearer": chime_bearer
         }
@@ -2335,7 +2669,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_messages_request.ListChannelMessagesRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_messages_request
+
+            return capo_chime_sdk_messaging.types.list_channel_messages_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_messages_response.ListChannelMessagesResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_messages_response
+
+            return capo_chime_sdk_messaging.types.list_channel_messages_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelMessages",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_messages_request.ListChannelMessagesRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -2450,7 +2809,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channel_moderators_request.ListChannelModeratorsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_moderators_request
+
+            return capo_chime_sdk_messaging.types.list_channel_moderators_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channel_moderators_response.ListChannelModeratorsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channel_moderators_response
+
+            return capo_chime_sdk_messaging.types.list_channel_moderators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelModerators",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channel_moderators_request.ListChannelModeratorsRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -2545,7 +2929,34 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channels_request.ListChannelsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_request
+
+            return (
+                capo_chime_sdk_messaging.types.list_channels_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channels_response.ListChannelsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_response
+
+            return (
+                capo_chime_sdk_messaging.types.list_channels_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannels", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channels_request.ListChannelsRequest = {
             "app_instance_arn": app_instance_arn,
             "chime_bearer": chime_bearer,
@@ -2640,7 +3051,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_request.ListChannelsAssociatedWithChannelFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_request
+
+            return capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_response.ListChannelsAssociatedWithChannelFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_response
+
+            return capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelsAssociatedWithChannelFlow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channels_associated_with_channel_flow_request.ListChannelsAssociatedWithChannelFlowRequest = {
             "channel_flow_arn": channel_flow_arn
         }
@@ -2730,7 +3166,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_request.ListChannelsModeratedByAppInstanceUserRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_request
+
+            return capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_response.ListChannelsModeratedByAppInstanceUserResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_response
+
+            return capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListChannelsModeratedByAppInstanceUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_channels_moderated_by_app_instance_user_request.ListChannelsModeratedByAppInstanceUserRequest = {
             "chime_bearer": chime_bearer
         }
@@ -2824,7 +3285,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.list_sub_channels_request.ListSubChannelsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_sub_channels_request
+
+            return capo_chime_sdk_messaging.types.list_sub_channels_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_sub_channels_response.ListSubChannelsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_sub_channels_response
+
+            return capo_chime_sdk_messaging.types.list_sub_channels_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListSubChannels",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.list_sub_channels_request.ListSubChannelsRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -2905,7 +3391,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.list_tags_for_resource_response
+
+            return capo_chime_sdk_messaging.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_messaging.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2963,7 +3461,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutChannelExpirationSettings")
+        )
         input_: capo_chime_sdk_messaging.types.put_channel_expiration_settings_request.PutChannelExpirationSettingsRequest = {
             "channel_arn": channel_arn
         }
@@ -3023,7 +3523,32 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.put_channel_membership_preferences_request.PutChannelMembershipPreferencesRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.put_channel_membership_preferences_request
+
+            return capo_chime_sdk_messaging.types.put_channel_membership_preferences_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.put_channel_membership_preferences_response.PutChannelMembershipPreferencesResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.put_channel_membership_preferences_response
+
+            return capo_chime_sdk_messaging.types.put_channel_membership_preferences_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutChannelMembershipPreferences",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.put_channel_membership_preferences_request.PutChannelMembershipPreferencesRequest = {
             "channel_arn": channel_arn,
             "member_arn": member_arn,
@@ -3079,7 +3604,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMessagingStreamingConfigurations")
+        )
         input_: capo_chime_sdk_messaging.types.put_messaging_streaming_configurations_request.PutMessagingStreamingConfigurationsRequest = {
             "app_instance_arn": app_instance_arn,
             "streaming_configurations": streaming_configurations,
@@ -3138,7 +3665,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RedactChannelMessage")
+        )
         input_: capo_chime_sdk_messaging.types.redact_channel_message_request.RedactChannelMessageRequest = {
             "channel_arn": channel_arn,
             "message_id": message_id,
@@ -3205,7 +3734,34 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.search_channels_request.SearchChannelsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.search_channels_request
+
+            return (
+                capo_chime_sdk_messaging.types.search_channels_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_messaging.types.search_channels_response.SearchChannelsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.search_channels_response
+
+            return capo_chime_sdk_messaging.types.search_channels_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchChannels",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_messaging.types.search_channels_request.SearchChannelsRequest = {
             "fields": fields
         }
@@ -3322,7 +3878,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.send_channel_message_request.SendChannelMessageRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.send_channel_message_request
+
+            return capo_chime_sdk_messaging.types.send_channel_message_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendChannelMessage", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.send_channel_message_request.SendChannelMessageRequest = {
             "channel_arn": channel_arn,
             "content": content,
@@ -3389,7 +3957,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.tag_resource_request
+
+            return capo_chime_sdk_messaging.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3439,7 +4019,21 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.untag_resource_request
+
+            return (
+                capo_chime_sdk_messaging.types.untag_resource_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3502,7 +4096,21 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.update_channel_request.UpdateChannelRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.update_channel_request
+
+            return (
+                capo_chime_sdk_messaging.types.update_channel_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannel", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.update_channel_request.UpdateChannelRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,
@@ -3563,7 +4171,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.update_channel_flow_request.UpdateChannelFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.update_channel_flow_request
+
+            return capo_chime_sdk_messaging.types.update_channel_flow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannelFlow", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.update_channel_flow_request.UpdateChannelFlowRequest = {
             "channel_flow_arn": channel_flow_arn,
             "processors": processors,
@@ -3631,7 +4251,19 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_messaging.types.update_channel_message_request.UpdateChannelMessageRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_messaging.types.update_channel_message_request
+
+            return capo_chime_sdk_messaging.types.update_channel_message_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannelMessage", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_messaging.types.update_channel_message_request.UpdateChannelMessageRequest = {
             "channel_arn": channel_arn,
             "message_id": message_id,
@@ -3692,7 +4324,9 @@ class AsyncChimeSDKMessagingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannelReadMarker")
+        )
         input_: capo_chime_sdk_messaging.types.update_channel_read_marker_request.UpdateChannelReadMarkerRequest = {
             "channel_arn": channel_arn,
             "chime_bearer": chime_bearer,

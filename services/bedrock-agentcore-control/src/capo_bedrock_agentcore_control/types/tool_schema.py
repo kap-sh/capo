@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ToolSchema``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,16 @@ def deserialize_json(data: dict) -> ToolSchema:
         }
     else:
         raise DeserializationError("ToolSchema: no recognized variant key")
+
+
+def redact_sensitive(value: ToolSchema) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inlinePayload" in value:
+        import capo_bedrock_agentcore_control.types.tool_definitions
+
+        out["inlinePayload"] = (
+            capo_bedrock_agentcore_control.types.tool_definitions.redact_sensitive(
+                value["inlinePayload"]
+            )
+        )
+    return out

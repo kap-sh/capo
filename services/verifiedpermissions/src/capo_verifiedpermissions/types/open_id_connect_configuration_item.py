@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#OpenIdConnectConfigurationItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,5 +79,28 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectConfigurationItem:
     else:
         raise DeserializationError(
             "OpenIdConnectConfigurationItem.token_selection required"
+        )
+    return out
+
+
+def redact_sensitive(value: OpenIdConnectConfigurationItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entity_id_prefix" in value:
+        out["entity_id_prefix"] = "*** Sensitive Data Redacted ***"
+    if "group_configuration" in value:
+        import capo_verifiedpermissions.types.open_id_connect_group_configuration_item
+
+        out["group_configuration"] = (
+            capo_verifiedpermissions.types.open_id_connect_group_configuration_item.redact_sensitive(
+                value["group_configuration"]
+            )
+        )
+    if "token_selection" in value:
+        import capo_verifiedpermissions.types.open_id_connect_token_selection_item
+
+        out["token_selection"] = (
+            capo_verifiedpermissions.types.open_id_connect_token_selection_item.redact_sensitive(
+                value["token_selection"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#TrustedCaCertificateList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_securityagent.types.trusted_ca_certificate
@@ -31,3 +31,7 @@ def deserialize_json(data: list) -> TrustedCaCertificateList:
             capo_securityagent.types.trusted_ca_certificate.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: TrustedCaCertificateList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

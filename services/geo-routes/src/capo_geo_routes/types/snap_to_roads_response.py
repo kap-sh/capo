@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#SnapToRoadsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,31 @@ def deserialize_json(data: dict) -> SnapToRoadsResponse:
         )
     else:
         raise DeserializationError("SnapToRoadsResponse.snapped_trace_points required")
+    return out
+
+
+def redact_sensitive(value: SnapToRoadsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "notices" in value:
+        import capo_geo_routes.types.road_snap_notice_list
+
+        out["notices"] = capo_geo_routes.types.road_snap_notice_list.redact_sensitive(
+            value["notices"]
+        )
+    if "snapped_geometry" in value:
+        import capo_geo_routes.types.road_snap_snapped_geometry
+
+        out["snapped_geometry"] = (
+            capo_geo_routes.types.road_snap_snapped_geometry.redact_sensitive(
+                value["snapped_geometry"]
+            )
+        )
+    if "snapped_trace_points" in value:
+        import capo_geo_routes.types.road_snap_snapped_trace_point_list
+
+        out["snapped_trace_points"] = (
+            capo_geo_routes.types.road_snap_snapped_trace_point_list.redact_sensitive(
+                value["snapped_trace_points"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#JobDriver``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> JobDriver:
         out["spark_sql_job_driver"] = (
             capo_emr_containers.types.spark_sql_job_driver.deserialize_json(
                 data["sparkSqlJobDriver"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: JobDriver) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "spark_submit_job_driver" in value:
+        import capo_emr_containers.types.spark_submit_job_driver
+
+        out["spark_submit_job_driver"] = (
+            capo_emr_containers.types.spark_submit_job_driver.redact_sensitive(
+                value["spark_submit_job_driver"]
+            )
+        )
+    if "spark_sql_job_driver" in value:
+        import capo_emr_containers.types.spark_sql_job_driver
+
+        out["spark_sql_job_driver"] = (
+            capo_emr_containers.types.spark_sql_job_driver.redact_sensitive(
+                value["spark_sql_job_driver"]
             )
         )
     return out

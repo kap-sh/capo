@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GetGuardrailResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -315,4 +315,63 @@ def deserialize_json(data: dict) -> GetGuardrailResponse:
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: GetGuardrailResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "topic_policy" in value:
+        import capo_bedrock.types.guardrail_topic_policy
+
+        out["topic_policy"] = (
+            capo_bedrock.types.guardrail_topic_policy.redact_sensitive(
+                value["topic_policy"]
+            )
+        )
+    if "content_policy" in value:
+        import capo_bedrock.types.guardrail_content_policy
+
+        out["content_policy"] = (
+            capo_bedrock.types.guardrail_content_policy.redact_sensitive(
+                value["content_policy"]
+            )
+        )
+    if "word_policy" in value:
+        import capo_bedrock.types.guardrail_word_policy
+
+        out["word_policy"] = capo_bedrock.types.guardrail_word_policy.redact_sensitive(
+            value["word_policy"]
+        )
+    if "contextual_grounding_policy" in value:
+        import capo_bedrock.types.guardrail_contextual_grounding_policy
+
+        out["contextual_grounding_policy"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_policy.redact_sensitive(
+                value["contextual_grounding_policy"]
+            )
+        )
+    if "status_reasons" in value:
+        import capo_bedrock.types.guardrail_status_reasons
+
+        out["status_reasons"] = (
+            capo_bedrock.types.guardrail_status_reasons.redact_sensitive(
+                value["status_reasons"]
+            )
+        )
+    if "failure_recommendations" in value:
+        import capo_bedrock.types.guardrail_failure_recommendations
+
+        out["failure_recommendations"] = (
+            capo_bedrock.types.guardrail_failure_recommendations.redact_sensitive(
+                value["failure_recommendations"]
+            )
+        )
+    if "blocked_input_messaging" in value:
+        out["blocked_input_messaging"] = "*** Sensitive Data Redacted ***"
+    if "blocked_outputs_messaging" in value:
+        out["blocked_outputs_messaging"] = "*** Sensitive Data Redacted ***"
     return out

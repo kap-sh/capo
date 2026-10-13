@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#PhysicalEndpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,4 +116,15 @@ def deserialize_json(data: dict) -> PhysicalEndpoint:
         )
     if data.get("stage") is not None:
         out["stage"] = data["stage"]
+    return out
+
+
+def redact_sensitive(value: PhysicalEndpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "glue_connection" in value:
+        import capo_datazone.types.glue_connection
+
+        out["glue_connection"] = capo_datazone.types.glue_connection.redact_sensitive(
+            value["glue_connection"]
+        )
     return out

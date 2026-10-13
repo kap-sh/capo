@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetResourceApiKeyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> GetResourceApiKeyRequest:
         raise DeserializationError(
             "GetResourceApiKeyRequest.resource_credential_provider_name required"
         )
+    return out
+
+
+def redact_sensitive(value: GetResourceApiKeyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workload_identity_token" in value:
+        out["workload_identity_token"] = "*** Sensitive Data Redacted ***"
     return out

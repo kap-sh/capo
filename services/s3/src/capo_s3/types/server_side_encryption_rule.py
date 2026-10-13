@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#ServerSideEncryptionRule``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,6 +73,19 @@ def deserialize_xml(el: Element) -> ServerSideEncryptionRule:
         out["blocked_encryption_types"] = (
             capo_s3.types.blocked_encryption_types.deserialize_xml(
                 child_blocked_encryption_types
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ServerSideEncryptionRule) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "apply_server_side_encryption_by_default" in value:
+        import capo_s3.types.server_side_encryption_by_default
+
+        out["apply_server_side_encryption_by_default"] = (
+            capo_s3.types.server_side_encryption_by_default.redact_sensitive(
+                value["apply_server_side_encryption_by_default"]
             )
         )
     return out

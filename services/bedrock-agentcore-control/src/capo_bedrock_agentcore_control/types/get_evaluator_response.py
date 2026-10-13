@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetEvaluatorResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -206,4 +206,19 @@ def deserialize_json(data: dict) -> GetEvaluatorResponse:
         out["locked_for_modification"] = data["lockedForModification"]
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: GetEvaluatorResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "evaluator_config" in value:
+        import capo_bedrock_agentcore_control.types.evaluator_config
+
+        out["evaluator_config"] = (
+            capo_bedrock_agentcore_control.types.evaluator_config.redact_sensitive(
+                value["evaluator_config"]
+            )
+        )
     return out

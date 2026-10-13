@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ClientCredentialsDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -46,3 +46,16 @@ def deserialize_json(data: dict) -> ClientCredentialsDetails:
         raise DeserializationError(
             "ClientCredentialsDetails: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ClientCredentialsDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ClientCredentialsGrantDetails" in value:
+        import capo_quicksight.types.client_credentials_grant_details
+
+        out["ClientCredentialsGrantDetails"] = (
+            capo_quicksight.types.client_credentials_grant_details.redact_sensitive(
+                value["ClientCredentialsGrantDetails"]
+            )
+        )
+    return out

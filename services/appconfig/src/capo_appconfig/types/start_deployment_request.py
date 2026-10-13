@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#StartDeploymentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_json(data: dict) -> StartDeploymentRequest:
         )
     if data.get("LatestDeploymentNumber") is not None:
         out["latest_deployment_number"] = data["LatestDeploymentNumber"]
+    return out
+
+
+def redact_sensitive(value: StartDeploymentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dynamic_extension_parameters" in value:
+        out["dynamic_extension_parameters"] = "*** Sensitive Data Redacted ***"
     return out

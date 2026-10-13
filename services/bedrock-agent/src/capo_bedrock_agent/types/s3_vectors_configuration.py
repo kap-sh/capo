@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#S3VectorsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,15 @@ def deserialize_json(data: dict) -> S3VectorsConfiguration:
         out["index_arn"] = data["indexArn"]
     if data.get("indexName") is not None:
         out["index_name"] = data["indexName"]
+    return out
+
+
+def redact_sensitive(value: S3VectorsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "vector_bucket_arn" in value:
+        out["vector_bucket_arn"] = "*** Sensitive Data Redacted ***"
+    if "index_arn" in value:
+        out["index_arn"] = "*** Sensitive Data Redacted ***"
+    if "index_name" in value:
+        out["index_name"] = "*** Sensitive Data Redacted ***"
     return out

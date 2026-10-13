@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#InitiateProviderRegistrationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_json(data: dict) -> InitiateProviderRegistrationInput:
         out["client_id"] = data["clientId"]
     if data.get("clientSecret") is not None:
         out["client_secret"] = data["clientSecret"]
+    return out
+
+
+def redact_sensitive(value: InitiateProviderRegistrationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

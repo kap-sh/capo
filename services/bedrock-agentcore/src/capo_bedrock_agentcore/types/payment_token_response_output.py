@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#PaymentTokenResponseOutput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,24 @@ def deserialize_json(data: dict) -> PaymentTokenResponseOutput:
         raise DeserializationError(
             "PaymentTokenResponseOutput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PaymentTokenResponseOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "coinbaseCdpTokenResponse" in value:
+        import capo_bedrock_agentcore.types.coinbase_cdp_token_response_output
+
+        out["coinbaseCdpTokenResponse"] = (
+            capo_bedrock_agentcore.types.coinbase_cdp_token_response_output.redact_sensitive(
+                value["coinbaseCdpTokenResponse"]
+            )
+        )
+    if "stripePrivyTokenResponse" in value:
+        import capo_bedrock_agentcore.types.stripe_privy_token_response_output
+
+        out["stripePrivyTokenResponse"] = (
+            capo_bedrock_agentcore.types.stripe_privy_token_response_output.redact_sensitive(
+                value["stripePrivyTokenResponse"]
+            )
+        )
+    return out

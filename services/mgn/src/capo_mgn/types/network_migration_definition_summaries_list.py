@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#NetworkMigrationDefinitionSummariesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mgn.types.network_migration_definition_summary
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> NetworkMigrationDefinitionSummariesList:
             capo_mgn.types.network_migration_definition_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: NetworkMigrationDefinitionSummariesList) -> list[Any]:
+    import capo_mgn.types.network_migration_definition_summary
+
+    return [
+        capo_mgn.types.network_migration_definition_summary.redact_sensitive(item)
+        for item in value
+    ]

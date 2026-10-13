@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CellValueSynonym``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> CellValueSynonym:
 
         out["synonyms"] = capo_quicksight.types.sensitive_string_list.deserialize_json(
             data["Synonyms"]
+        )
+    return out
+
+
+def redact_sensitive(value: CellValueSynonym) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cell_value" in value:
+        out["cell_value"] = "*** Sensitive Data Redacted ***"
+    if "synonyms" in value:
+        import capo_quicksight.types.sensitive_string_list
+
+        out["synonyms"] = capo_quicksight.types.sensitive_string_list.redact_sensitive(
+            value["synonyms"]
         )
     return out

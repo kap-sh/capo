@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -150,7 +151,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_omics.types.create_workflow_request.CreateWorkflowRequest = {
             "request_id": request_id
         }
@@ -248,7 +251,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_omics.types.get_workflow_request.GetWorkflowRequest = {"id": id}
         if type is not None:
             input_["type"] = type
@@ -314,7 +319,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_omics.types.update_workflow_request.UpdateWorkflowRequest = {
             "id": id
         }
@@ -372,7 +379,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_omics.types.delete_workflow_request.DeleteWorkflowRequest = {
             "id": id
         }
@@ -430,7 +439,9 @@ class WorkflowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_omics.types.list_workflows_request.ListWorkflowsRequest = {}
         if type is not None:
             input_["type"] = type
@@ -548,7 +559,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_omics.types.create_workflow_request.CreateWorkflowRequest = {
             "request_id": request_id
         }
@@ -647,7 +660,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_omics.types.get_workflow_request.GetWorkflowRequest = {"id": id}
         if type is not None:
             input_["type"] = type
@@ -714,7 +729,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_omics.types.update_workflow_request.UpdateWorkflowRequest = {
             "id": id
         }
@@ -773,7 +790,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_omics.types.delete_workflow_request.DeleteWorkflowRequest = {
             "id": id
         }
@@ -832,7 +851,9 @@ class AsyncWorkflowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_omics.types.list_workflows_request.ListWorkflowsRequest = {}
         if type is not None:
             input_["type"] = type

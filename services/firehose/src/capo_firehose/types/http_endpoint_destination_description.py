@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#HttpEndpointDestinationDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -209,6 +209,27 @@ def deserialize_aws_json_1_1(data: dict) -> HttpEndpointDestinationDescription:
         out["secrets_manager_configuration"] = (
             capo_firehose.types.secrets_manager_configuration.deserialize_aws_json_1_1(
                 data["SecretsManagerConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HttpEndpointDestinationDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoint_configuration" in value:
+        import capo_firehose.types.http_endpoint_description
+
+        out["endpoint_configuration"] = (
+            capo_firehose.types.http_endpoint_description.redact_sensitive(
+                value["endpoint_configuration"]
+            )
+        )
+    if "request_configuration" in value:
+        import capo_firehose.types.http_endpoint_request_configuration
+
+        out["request_configuration"] = (
+            capo_firehose.types.http_endpoint_request_configuration.redact_sensitive(
+                value["request_configuration"]
             )
         )
     return out

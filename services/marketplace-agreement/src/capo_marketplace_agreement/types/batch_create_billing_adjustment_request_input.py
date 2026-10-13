@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#BatchCreateBillingAdjustmentRequestInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_aws_json_1_0(data: dict) -> BatchCreateBillingAdjustmentRequestI
     else:
         raise DeserializationError(
             "BatchCreateBillingAdjustmentRequestInput.billing_adjustment_request_entries required"
+        )
+    return out
+
+
+def redact_sensitive(value: BatchCreateBillingAdjustmentRequestInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "billing_adjustment_request_entries" in value:
+        import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list
+
+        out["billing_adjustment_request_entries"] = (
+            capo_marketplace_agreement.types.batch_create_billing_adjustment_request_entry_list.redact_sensitive(
+                value["billing_adjustment_request_entries"]
+            )
         )
     return out

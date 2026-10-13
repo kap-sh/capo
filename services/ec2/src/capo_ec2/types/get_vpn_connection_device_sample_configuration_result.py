@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#GetVpnConnectionDeviceSampleConfigurationResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,5 +43,16 @@ def deserialize_ec2_query(
     if child_vpn_connection_device_sample_configuration is not None:
         out["vpn_connection_device_sample_configuration"] = str(
             child_vpn_connection_device_sample_configuration.text or ""
+        )
+    return out
+
+
+def redact_sensitive(
+    value: GetVpnConnectionDeviceSampleConfigurationResult,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "vpn_connection_device_sample_configuration" in value:
+        out["vpn_connection_device_sample_configuration"] = (
+            "*** Sensitive Data Redacted ***"
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#IpAccessSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,4 +117,15 @@ def deserialize_json(data: dict) -> IpAccessSettings:
                 data["additionalEncryptionContext"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: IpAccessSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_rules" in value:
+        out["ip_rules"] = "*** Sensitive Data Redacted ***"
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

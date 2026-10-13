@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -110,7 +111,21 @@ class DataProtectionSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_data_protection_settings_request
+
+            return capo_workspaces_web.types.create_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProtectionSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -170,7 +185,19 @@ class DataProtectionSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_data_protection_settings_response.GetDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_data_protection_settings_response
+
+            return capo_workspaces_web.types.get_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProtectionSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_data_protection_settings_request.GetDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -233,7 +260,32 @@ class DataProtectionSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_request
+
+            return capo_workspaces_web.types.update_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_data_protection_settings_response.UpdateDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_response
+
+            return capo_workspaces_web.types.update_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataProtectionSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -289,7 +341,9 @@ class DataProtectionSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataProtectionSettings")
+        )
         input_: capo_workspaces_web.types.delete_data_protection_settings_request.DeleteDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -341,7 +395,21 @@ class DataProtectionSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_data_protection_settings_response.ListDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_data_protection_settings_response
+
+            return capo_workspaces_web.types.list_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataProtectionSettings", redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_web.types.list_data_protection_settings_request.ListDataProtectionSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -422,7 +490,21 @@ class AsyncDataProtectionSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_data_protection_settings_request
+
+            return capo_workspaces_web.types.create_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProtectionSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -483,7 +565,19 @@ class AsyncDataProtectionSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_data_protection_settings_response.GetDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_data_protection_settings_response
+
+            return capo_workspaces_web.types.get_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProtectionSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_data_protection_settings_request.GetDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -547,7 +641,32 @@ class AsyncDataProtectionSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_request
+
+            return capo_workspaces_web.types.update_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_data_protection_settings_response.UpdateDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_response
+
+            return capo_workspaces_web.types.update_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataProtectionSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -604,7 +723,9 @@ class AsyncDataProtectionSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataProtectionSettings")
+        )
         input_: capo_workspaces_web.types.delete_data_protection_settings_request.DeleteDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -657,7 +778,21 @@ class AsyncDataProtectionSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_data_protection_settings_response.ListDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_data_protection_settings_response
+
+            return capo_workspaces_web.types.list_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataProtectionSettings", redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_web.types.list_data_protection_settings_request.ListDataProtectionSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

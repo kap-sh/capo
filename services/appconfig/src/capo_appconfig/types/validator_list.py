@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#ValidatorList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_appconfig.types.validator
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ValidatorList:
             continue
         out.append(capo_appconfig.types.validator.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ValidatorList) -> list[Any]:
+    import capo_appconfig.types.validator
+
+    return [capo_appconfig.types.validator.redact_sensitive(item) for item in value]

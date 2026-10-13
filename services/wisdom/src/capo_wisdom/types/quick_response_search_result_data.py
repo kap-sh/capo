@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QuickResponseSearchResultData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -249,4 +249,31 @@ def deserialize_json(data: dict) -> QuickResponseSearchResultData:
         import capo_wisdom.types.tags
 
         out["tags"] = capo_wisdom.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: QuickResponseSearchResultData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contents" in value:
+        import capo_wisdom.types.quick_response_contents
+
+        out["contents"] = capo_wisdom.types.quick_response_contents.redact_sensitive(
+            value["contents"]
+        )
+    if "grouping_configuration" in value:
+        import capo_wisdom.types.grouping_configuration
+
+        out["grouping_configuration"] = (
+            capo_wisdom.types.grouping_configuration.redact_sensitive(
+                value["grouping_configuration"]
+            )
+        )
+    if "channels" in value:
+        import capo_wisdom.types.channels
+
+        out["channels"] = capo_wisdom.types.channels.redact_sensitive(value["channels"])
+    if "attributes_not_interpolated" in value:
+        out["attributes_not_interpolated"] = "*** Sensitive Data Redacted ***"
+    if "attributes_interpolated" in value:
+        out["attributes_interpolated"] = "*** Sensitive Data Redacted ***"
     return out

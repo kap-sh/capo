@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PluginVisualFieldWells``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.plugin_visual_field_well
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> PluginVisualFieldWells:
             capo_quicksight.types.plugin_visual_field_well.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: PluginVisualFieldWells) -> list[Any]:
+    import capo_quicksight.types.plugin_visual_field_well
+
+    return [
+        capo_quicksight.types.plugin_visual_field_well.redact_sensitive(item)
+        for item in value
+    ]

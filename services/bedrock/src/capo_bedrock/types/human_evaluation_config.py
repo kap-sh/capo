@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#HumanEvaluationConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,5 +83,34 @@ def deserialize_json(data: dict) -> HumanEvaluationConfig:
     else:
         raise DeserializationError(
             "HumanEvaluationConfig.dataset_metric_configs required"
+        )
+    return out
+
+
+def redact_sensitive(value: HumanEvaluationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "human_workflow_config" in value:
+        import capo_bedrock.types.human_workflow_config
+
+        out["human_workflow_config"] = (
+            capo_bedrock.types.human_workflow_config.redact_sensitive(
+                value["human_workflow_config"]
+            )
+        )
+    if "custom_metrics" in value:
+        import capo_bedrock.types.human_evaluation_custom_metrics
+
+        out["custom_metrics"] = (
+            capo_bedrock.types.human_evaluation_custom_metrics.redact_sensitive(
+                value["custom_metrics"]
+            )
+        )
+    if "dataset_metric_configs" in value:
+        import capo_bedrock.types.evaluation_dataset_metric_configs
+
+        out["dataset_metric_configs"] = (
+            capo_bedrock.types.evaluation_dataset_metric_configs.redact_sensitive(
+                value["dataset_metric_configs"]
+            )
         )
     return out

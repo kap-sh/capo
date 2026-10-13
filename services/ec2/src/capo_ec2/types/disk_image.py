@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DiskImage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,13 @@ def deserialize_ec2_query(el: Element) -> DiskImage:
         import capo_ec2.types.volume_detail
 
         out["volume"] = capo_ec2.types.volume_detail.deserialize_ec2_query(child_volume)
+    return out
+
+
+def redact_sensitive(value: DiskImage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "image" in value:
+        import capo_ec2.types.disk_image_detail
+
+        out["image"] = capo_ec2.types.disk_image_detail.redact_sensitive(value["image"])
     return out

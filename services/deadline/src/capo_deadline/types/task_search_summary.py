@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#TaskSearchSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -163,4 +163,11 @@ def deserialize_json(data: dict) -> TaskSearchSummary:
         out["updated_by"] = data["updatedBy"]
     if data.get("latestSessionActionId") is not None:
         out["latest_session_action_id"] = data["latestSessionActionId"]
+    return out
+
+
+def redact_sensitive(value: TaskSearchSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

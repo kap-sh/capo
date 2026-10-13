@@ -31,10 +31,12 @@ from capo_sso_admin._resources.swb_external_service.application_grant_resource i
 from capo_sso_admin._services._aws_config import aws_config
 from capo_sso_admin._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -341,7 +343,9 @@ class SSOAdminClient:
         self.application_grant_resource = ApplicationGrantResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[SSOAdminClientConfig] = None
+        self,
+        config_overrides: Optional[SSOAdminClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SSOAdminClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -349,8 +353,10 @@ class SSOAdminClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -406,7 +412,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddRegion")
+        )
         input_: capo_sso_admin.types.add_region_request.AddRegionRequest = {
             "instance_arn": instance_arn,
             "region_name": region_name,
@@ -460,7 +468,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AttachCustomerManagedPolicyReferenceToPermissionSet"),
+        )
         input_: capo_sso_admin.types.attach_customer_managed_policy_reference_to_permission_set_request.AttachCustomerManagedPolicyReferenceToPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -515,7 +526,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachManagedPolicyToPermissionSet")
+        )
         input_: capo_sso_admin.types.attach_managed_policy_to_permission_set_request.AttachManagedPolicyToPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -576,7 +589,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccountAssignment")
+        )
         input_: capo_sso_admin.types.create_account_assignment_request.CreateAccountAssignmentRequest = {
             "instance_arn": instance_arn,
             "target_id": target_id,
@@ -648,7 +663,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_sso_admin.types.create_application_request.CreateApplicationRequest = {
             "instance_arn": instance_arn,
             "application_provider_arn": application_provider_arn,
@@ -714,7 +731,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplicationAssignment")
+        )
         input_: capo_sso_admin.types.create_application_assignment_request.CreateApplicationAssignmentRequest = {
             "application_arn": application_arn,
             "principal_id": principal_id,
@@ -768,7 +787,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstance")
+        )
         input_: capo_sso_admin.types.create_instance_request.CreateInstanceRequest = {}
         if name is not None:
             input_["name"] = name
@@ -823,7 +844,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateInstanceAccessControlAttributeConfiguration"),
+        )
         input_: capo_sso_admin.types.create_instance_access_control_attribute_configuration_request.CreateInstanceAccessControlAttributeConfigurationRequest = {
             "instance_arn": instance_arn,
             "instance_access_control_attribute_configuration": instance_access_control_attribute_configuration,
@@ -885,7 +909,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePermissionSet")
+        )
         input_: capo_sso_admin.types.create_permission_set_request.CreatePermissionSetRequest = {
             "name": name,
             "instance_arn": instance_arn,
@@ -952,7 +978,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrustedTokenIssuer")
+        )
         input_: capo_sso_admin.types.create_trusted_token_issuer_request.CreateTrustedTokenIssuerRequest = {
             "instance_arn": instance_arn,
             "name": name,
@@ -1018,7 +1046,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAssignment")
+        )
         input_: capo_sso_admin.types.delete_account_assignment_request.DeleteAccountAssignmentRequest = {
             "instance_arn": instance_arn,
             "target_id": target_id,
@@ -1071,7 +1101,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_sso_admin.types.delete_application_request.DeleteApplicationRequest = {
             "application_arn": application_arn
         }
@@ -1123,7 +1155,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAssignment")
+        )
         input_: capo_sso_admin.types.delete_application_assignment_request.DeleteApplicationAssignmentRequest = {
             "application_arn": application_arn,
             "principal_id": principal_id,
@@ -1175,7 +1209,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInlinePolicyFromPermissionSet")
+        )
         input_: capo_sso_admin.types.delete_inline_policy_from_permission_set_request.DeleteInlinePolicyFromPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -1223,7 +1259,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstance")
+        )
         input_: capo_sso_admin.types.delete_instance_request.DeleteInstanceRequest = {
             "instance_arn": instance_arn
         }
@@ -1271,7 +1309,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteInstanceAccessControlAttributeConfiguration"),
+        )
         input_: capo_sso_admin.types.delete_instance_access_control_attribute_configuration_request.DeleteInstanceAccessControlAttributeConfigurationRequest = {
             "instance_arn": instance_arn
         }
@@ -1321,7 +1362,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeletePermissionsBoundaryFromPermissionSet"),
+        )
         input_: capo_sso_admin.types.delete_permissions_boundary_from_permission_set_request.DeletePermissionsBoundaryFromPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -1372,7 +1416,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermissionSet")
+        )
         input_: capo_sso_admin.types.delete_permission_set_request.DeletePermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -1421,7 +1467,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrustedTokenIssuer")
+        )
         input_: capo_sso_admin.types.delete_trusted_token_issuer_request.DeleteTrustedTokenIssuerRequest = {
             "trusted_token_issuer_arn": trusted_token_issuer_arn
         }
@@ -1470,7 +1518,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAccountAssignmentCreationStatus"),
+        )
         input_: capo_sso_admin.types.describe_account_assignment_creation_status_request.DescribeAccountAssignmentCreationStatusRequest = {
             "instance_arn": instance_arn,
             "account_assignment_creation_request_id": account_assignment_creation_request_id,
@@ -1520,7 +1571,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAccountAssignmentDeletionStatus"),
+        )
         input_: capo_sso_admin.types.describe_account_assignment_deletion_status_request.DescribeAccountAssignmentDeletionStatusRequest = {
             "instance_arn": instance_arn,
             "account_assignment_deletion_request_id": account_assignment_deletion_request_id,
@@ -1570,7 +1624,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplication")
+        )
         input_: capo_sso_admin.types.describe_application_request.DescribeApplicationRequest = {
             "application_arn": application_arn
         }
@@ -1621,7 +1677,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationAssignment")
+        )
         input_: capo_sso_admin.types.describe_application_assignment_request.DescribeApplicationAssignmentRequest = {
             "application_arn": application_arn,
             "principal_id": principal_id,
@@ -1670,7 +1728,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationProvider")
+        )
         input_: capo_sso_admin.types.describe_application_provider_request.DescribeApplicationProviderRequest = {
             "application_provider_arn": application_provider_arn
         }
@@ -1716,7 +1776,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstance")
+        )
         input_: capo_sso_admin.types.describe_instance_request.DescribeInstanceRequest = {
             "instance_arn": instance_arn
         }
@@ -1763,7 +1825,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeInstanceAccessControlAttributeConfiguration"),
+        )
         input_: capo_sso_admin.types.describe_instance_access_control_attribute_configuration_request.DescribeInstanceAccessControlAttributeConfigurationRequest = {
             "instance_arn": instance_arn
         }
@@ -1812,7 +1877,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePermissionSet")
+        )
         input_: capo_sso_admin.types.describe_permission_set_request.DescribePermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -1862,7 +1929,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribePermissionSetProvisioningStatus"),
+        )
         input_: capo_sso_admin.types.describe_permission_set_provisioning_status_request.DescribePermissionSetProvisioningStatusRequest = {
             "instance_arn": instance_arn,
             "provision_permission_set_request_id": provision_permission_set_request_id,
@@ -1912,7 +1982,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegion")
+        )
         input_: capo_sso_admin.types.describe_region_request.DescribeRegionRequest = {
             "instance_arn": instance_arn,
             "region_name": region_name,
@@ -1960,7 +2032,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustedTokenIssuer")
+        )
         input_: capo_sso_admin.types.describe_trusted_token_issuer_request.DescribeTrustedTokenIssuerRequest = {
             "trusted_token_issuer_arn": trusted_token_issuer_arn
         }
@@ -2012,7 +2086,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DetachCustomerManagedPolicyReferenceFromPermissionSet"),
+        )
         input_: capo_sso_admin.types.detach_customer_managed_policy_reference_from_permission_set_request.DetachCustomerManagedPolicyReferenceFromPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -2066,7 +2143,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachManagedPolicyFromPermissionSet")
+        )
         input_: capo_sso_admin.types.detach_managed_policy_from_permission_set_request.DetachManagedPolicyFromPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -2115,7 +2194,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationAssignmentConfiguration")
+        )
         input_: capo_sso_admin.types.get_application_assignment_configuration_request.GetApplicationAssignmentConfigurationRequest = {
             "application_arn": application_arn
         }
@@ -2162,7 +2243,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationSessionConfiguration")
+        )
         input_: capo_sso_admin.types.get_application_session_configuration_request.GetApplicationSessionConfigurationRequest = {
             "application_arn": application_arn
         }
@@ -2211,7 +2294,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInlinePolicyForPermissionSet")
+        )
         input_: capo_sso_admin.types.get_inline_policy_for_permission_set_request.GetInlinePolicyForPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -2261,7 +2346,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPermissionsBoundaryForPermissionSet")
+        )
         input_: capo_sso_admin.types.get_permissions_boundary_for_permission_set_request.GetPermissionsBoundaryForPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -2317,7 +2404,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAssignmentCreationStatus")
+        )
         input_: capo_sso_admin.types.list_account_assignment_creation_status_request.ListAccountAssignmentCreationStatusRequest = {
             "instance_arn": instance_arn
         }
@@ -2405,7 +2494,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAssignmentDeletionStatus")
+        )
         input_: capo_sso_admin.types.list_account_assignment_deletion_status_request.ListAccountAssignmentDeletionStatusRequest = {
             "instance_arn": instance_arn
         }
@@ -2493,7 +2584,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAssignments")
+        )
         input_: capo_sso_admin.types.list_account_assignments_request.ListAccountAssignmentsRequest = {
             "instance_arn": instance_arn,
             "account_id": account_id,
@@ -2585,7 +2678,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAssignmentsForPrincipal")
+        )
         input_: capo_sso_admin.types.list_account_assignments_for_principal_request.ListAccountAssignmentsForPrincipalRequest = {
             "instance_arn": instance_arn,
             "principal_id": principal_id,
@@ -2681,7 +2776,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAccountsForProvisionedPermissionSet"),
+        )
         input_: capo_sso_admin.types.list_accounts_for_provisioned_permission_set_request.ListAccountsForProvisionedPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -2768,7 +2866,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationAssignments")
+        )
         input_: capo_sso_admin.types.list_application_assignments_request.ListApplicationAssignmentsRequest = {
             "application_arn": application_arn
         }
@@ -2854,7 +2954,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationAssignmentsForPrincipal")
+        )
         input_: capo_sso_admin.types.list_application_assignments_for_principal_request.ListApplicationAssignmentsForPrincipalRequest = {
             "instance_arn": instance_arn,
             "principal_id": principal_id,
@@ -2941,7 +3043,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationProviders")
+        )
         input_: capo_sso_admin.types.list_application_providers_request.ListApplicationProvidersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3018,7 +3122,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_sso_admin.types.list_applications_request.ListApplicationsRequest = {
             "instance_arn": instance_arn
         }
@@ -3104,7 +3210,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCustomerManagedPolicyReferencesInPermissionSet"),
+        )
         input_: capo_sso_admin.types.list_customer_managed_policy_references_in_permission_set_request.ListCustomerManagedPolicyReferencesInPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -3182,7 +3291,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_sso_admin.types.list_instances_request.ListInstancesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3258,7 +3369,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedPoliciesInPermissionSet")
+        )
         input_: capo_sso_admin.types.list_managed_policies_in_permission_set_request.ListManagedPoliciesInPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -3343,7 +3456,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissionSetProvisioningStatus")
+        )
         input_: capo_sso_admin.types.list_permission_set_provisioning_status_request.ListPermissionSetProvisioningStatusRequest = {
             "instance_arn": instance_arn
         }
@@ -3429,7 +3544,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissionSets")
+        )
         input_: capo_sso_admin.types.list_permission_sets_request.ListPermissionSetsRequest = {
             "instance_arn": instance_arn
         }
@@ -3513,7 +3630,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissionSetsProvisionedToAccount")
+        )
         input_: capo_sso_admin.types.list_permission_sets_provisioned_to_account_request.ListPermissionSetsProvisionedToAccountRequest = {
             "instance_arn": instance_arn,
             "account_id": account_id,
@@ -3599,7 +3718,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegions")
+        )
         input_: capo_sso_admin.types.list_regions_request.ListRegionsRequest = {
             "instance_arn": instance_arn
         }
@@ -3677,7 +3798,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_sso_admin.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3754,7 +3877,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrustedTokenIssuers")
+        )
         input_: capo_sso_admin.types.list_trusted_token_issuers_request.ListTrustedTokenIssuersRequest = {
             "instance_arn": instance_arn
         }
@@ -3835,7 +3960,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ProvisionPermissionSet")
+        )
         input_: capo_sso_admin.types.provision_permission_set_request.ProvisionPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -3889,7 +4016,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationAssignmentConfiguration")
+        )
         input_: capo_sso_admin.types.put_application_assignment_configuration_request.PutApplicationAssignmentConfigurationRequest = {
             "application_arn": application_arn,
             "assignment_required": assignment_required,
@@ -3942,7 +4071,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationSessionConfiguration")
+        )
         input_: capo_sso_admin.types.put_application_session_configuration_request.PutApplicationSessionConfigurationRequest = {
             "application_arn": application_arn
         }
@@ -3999,7 +4130,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInlinePolicyToPermissionSet")
+        )
         input_: capo_sso_admin.types.put_inline_policy_to_permission_set_request.PutInlinePolicyToPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -4053,7 +4186,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPermissionsBoundaryToPermissionSet")
+        )
         input_: capo_sso_admin.types.put_permissions_boundary_to_permission_set_request.PutPermissionsBoundaryToPermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -4105,7 +4240,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRegion")
+        )
         input_: capo_sso_admin.types.remove_region_request.RemoveRegionRequest = {
             "instance_arn": instance_arn,
             "region_name": region_name,
@@ -4159,7 +4296,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_sso_admin.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4214,7 +4353,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_sso_admin.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4279,7 +4420,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_sso_admin.types.update_application_request.UpdateApplicationRequest = {
             "application_arn": application_arn
         }
@@ -4343,7 +4486,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInstance")
+        )
         input_: capo_sso_admin.types.update_instance_request.UpdateInstanceRequest = {
             "instance_arn": instance_arn
         }
@@ -4399,7 +4544,10 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateInstanceAccessControlAttributeConfiguration"),
+        )
         input_: capo_sso_admin.types.update_instance_access_control_attribute_configuration_request.UpdateInstanceAccessControlAttributeConfigurationRequest = {
             "instance_arn": instance_arn,
             "instance_access_control_attribute_configuration": instance_access_control_attribute_configuration,
@@ -4458,7 +4606,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePermissionSet")
+        )
         input_: capo_sso_admin.types.update_permission_set_request.UpdatePermissionSetRequest = {
             "instance_arn": instance_arn,
             "permission_set_arn": permission_set_arn,
@@ -4521,7 +4671,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrustedTokenIssuer")
+        )
         input_: capo_sso_admin.types.update_trusted_token_issuer_request.UpdateTrustedTokenIssuerRequest = {
             "trusted_token_issuer_arn": trusted_token_issuer_arn
         }
@@ -4579,7 +4731,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.put_application_access_scope_request.PutApplicationAccessScopeRequest = {
             "scope": scope,
             "application_arn": application_arn,
@@ -4631,7 +4785,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.get_application_access_scope_request.GetApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -4680,7 +4836,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.delete_application_access_scope_request.DeleteApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -4732,7 +4890,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationAccessScopes")
+        )
         input_: capo_sso_admin.types.list_application_access_scopes_request.ListApplicationAccessScopesRequest = {
             "application_arn": application_arn
         }
@@ -4809,7 +4969,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.put_application_authentication_method_request.PutApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -4860,7 +5022,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.get_application_authentication_method_request.GetApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -4909,7 +5073,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAuthenticationMethod")
+        )
         input_: capo_sso_admin.types.delete_application_authentication_method_request.DeleteApplicationAuthenticationMethodRequest = {
             "application_arn": application_arn,
             "authentication_method_type": authentication_method_type,
@@ -4959,7 +5125,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationAuthenticationMethods")
+        )
         input_: capo_sso_admin.types.list_application_authentication_methods_request.ListApplicationAuthenticationMethodsRequest = {
             "application_arn": application_arn
         }
@@ -5032,7 +5200,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationGrant")
+        )
         input_: capo_sso_admin.types.put_application_grant_request.PutApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -5083,7 +5253,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationGrant")
+        )
         input_: capo_sso_admin.types.get_application_grant_request.GetApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -5132,7 +5304,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationGrant")
+        )
         input_: capo_sso_admin.types.delete_application_grant_request.DeleteApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -5182,7 +5356,9 @@ class SSOAdminClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationGrants")
+        )
         input_: capo_sso_admin.types.list_application_grants_request.ListApplicationGrantsRequest = {
             "application_arn": application_arn
         }

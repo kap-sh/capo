@@ -25,7 +25,9 @@ from capo_transcribe_streaming._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -143,7 +145,9 @@ class AsyncTranscribeStreamingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncTranscribeStreamingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncTranscribeStreamingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncTranscribeStreamingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -151,8 +155,10 @@ class AsyncTranscribeStreamingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -205,7 +211,9 @@ class AsyncTranscribeStreamingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedicalScribeStream")
+        )
         input_: capo_transcribe_streaming.types.get_medical_scribe_stream_request.GetMedicalScribeStreamRequest = {
             "session_id": session_id
         }
@@ -322,7 +330,32 @@ class AsyncTranscribeStreamingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transcribe_streaming.types.start_call_analytics_stream_transcription_request.StartCallAnalyticsStreamTranscriptionRequest",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_call_analytics_stream_transcription_request
+
+            return capo_transcribe_streaming.types.start_call_analytics_stream_transcription_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.StartCallAnalyticsStreamTranscriptionResponse",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response
+
+            return capo_transcribe_streaming.types.start_call_analytics_stream_transcription_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartCallAnalyticsStreamTranscription",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_transcribe_streaming.types.start_call_analytics_stream_transcription_request.StartCallAnalyticsStreamTranscriptionRequest = {
             "media_sample_rate_hertz": media_sample_rate_hertz,
             "media_encoding": media_encoding,
@@ -419,7 +452,32 @@ class AsyncTranscribeStreamingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transcribe_streaming.types.start_medical_scribe_stream_request.StartMedicalScribeStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_medical_scribe_stream_request
+
+            return capo_transcribe_streaming.types.start_medical_scribe_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_transcribe_streaming.types.start_medical_scribe_stream_response.StartMedicalScribeStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_medical_scribe_stream_response
+
+            return capo_transcribe_streaming.types.start_medical_scribe_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMedicalScribeStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_transcribe_streaming.types.start_medical_scribe_stream_request.StartMedicalScribeStreamRequest = {
             "language_code": language_code,
             "media_sample_rate_hertz": media_sample_rate_hertz,
@@ -508,7 +566,32 @@ class AsyncTranscribeStreamingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transcribe_streaming.types.start_medical_stream_transcription_request.StartMedicalStreamTranscriptionRequest",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_medical_stream_transcription_request
+
+            return capo_transcribe_streaming.types.start_medical_stream_transcription_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_transcribe_streaming.types.start_medical_stream_transcription_response.StartMedicalStreamTranscriptionResponse",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_medical_stream_transcription_response
+
+            return capo_transcribe_streaming.types.start_medical_stream_transcription_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMedicalStreamTranscription",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_transcribe_streaming.types.start_medical_stream_transcription_request.StartMedicalStreamTranscriptionRequest = {
             "language_code": language_code,
             "media_sample_rate_hertz": media_sample_rate_hertz,
@@ -668,7 +751,32 @@ class AsyncTranscribeStreamingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transcribe_streaming.types.start_stream_transcription_request.StartStreamTranscriptionRequest",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_stream_transcription_request
+
+            return capo_transcribe_streaming.types.start_stream_transcription_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_transcribe_streaming.types.start_stream_transcription_response.StartStreamTranscriptionResponse",
+        ) -> dict[str, Any]:
+            import capo_transcribe_streaming.types.start_stream_transcription_response
+
+            return capo_transcribe_streaming.types.start_stream_transcription_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartStreamTranscription",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_transcribe_streaming.types.start_stream_transcription_request.StartStreamTranscriptionRequest = {
             "media_sample_rate_hertz": media_sample_rate_hertz,
             "media_encoding": media_encoding,

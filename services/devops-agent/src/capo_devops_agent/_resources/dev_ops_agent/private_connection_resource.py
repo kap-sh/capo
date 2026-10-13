@@ -7,6 +7,7 @@ import capo_devops_agent._auth._sigv4
 from capo_devops_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivateConnection")
+        )
         input_: capo_devops_agent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "name": name,
             "mode": mode,
@@ -138,7 +141,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_devops_agent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "name": name
         }
@@ -189,7 +194,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_devops_agent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "name": name
         }
@@ -234,7 +241,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_devops_agent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
 
         response = execute_pipeline(
@@ -285,7 +294,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePrivateConnectionCertificate")
+        )
         input_: capo_devops_agent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "name": name,
             "certificate": certificate,
@@ -347,7 +358,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivateConnection")
+        )
         input_: capo_devops_agent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "name": name,
             "mode": mode,
@@ -402,7 +415,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_devops_agent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "name": name
         }
@@ -454,7 +469,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_devops_agent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "name": name
         }
@@ -500,7 +517,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_devops_agent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
 
         response = await aexecute_pipeline(
@@ -552,7 +571,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePrivateConnectionCertificate")
+        )
         input_: capo_devops_agent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "name": name,
             "certificate": certificate,

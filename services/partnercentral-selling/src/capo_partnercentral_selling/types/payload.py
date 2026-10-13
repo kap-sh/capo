@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#Payload``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,24 @@ def deserialize_aws_json_1_0(data: dict) -> Payload:
         }
     else:
         raise DeserializationError("Payload: no recognized variant key")
+
+
+def redact_sensitive(value: Payload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "OpportunityInvitation" in value:
+        import capo_partnercentral_selling.types.opportunity_invitation_payload
+
+        out["OpportunityInvitation"] = (
+            capo_partnercentral_selling.types.opportunity_invitation_payload.redact_sensitive(
+                value["OpportunityInvitation"]
+            )
+        )
+    if "LeadInvitation" in value:
+        import capo_partnercentral_selling.types.lead_invitation_payload
+
+        out["LeadInvitation"] = (
+            capo_partnercentral_selling.types.lead_invitation_payload.redact_sensitive(
+                value["LeadInvitation"]
+            )
+        )
+    return out

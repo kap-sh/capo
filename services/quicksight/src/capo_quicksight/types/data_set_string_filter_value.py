@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetStringFilterValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> DataSetStringFilterValue:
     out: DataSetStringFilterValue = {}  # type: ignore[typeddict-item]
     if data.get("StaticValue") is not None:
         out["static_value"] = data["StaticValue"]
+    return out
+
+
+def redact_sensitive(value: DataSetStringFilterValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static_value" in value:
+        out["static_value"] = "*** Sensitive Data Redacted ***"
     return out

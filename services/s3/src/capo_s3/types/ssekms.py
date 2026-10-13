@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#SSEKMS``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -29,4 +29,11 @@ def deserialize_xml(el: Element) -> SSEKMS:
         out["key_id"] = str(child_key_id.text or "")
     else:
         raise DeserializationError("SSEKMS.key_id required")
+    return out
+
+
+def redact_sensitive(value: SSEKMS) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_id" in value:
+        out["key_id"] = "*** Sensitive Data Redacted ***"
     return out

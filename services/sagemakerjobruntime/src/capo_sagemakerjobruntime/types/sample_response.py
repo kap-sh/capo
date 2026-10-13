@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerjobruntime#SampleResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> SampleResponse:
         )
     else:
         raise DeserializationError("SampleResponse.body required")
+    return out
+
+
+def redact_sensitive(value: SampleResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

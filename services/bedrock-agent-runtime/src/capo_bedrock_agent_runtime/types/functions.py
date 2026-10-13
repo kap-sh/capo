@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#Functions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.function_definition
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> Functions:
             capo_bedrock_agent_runtime.types.function_definition.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: Functions) -> list[Any]:
+    import capo_bedrock_agent_runtime.types.function_definition
+
+    return [
+        capo_bedrock_agent_runtime.types.function_definition.redact_sensitive(item)
+        for item in value
+    ]

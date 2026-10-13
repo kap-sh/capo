@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_channel._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -115,7 +116,9 @@ class ChannelHandshakeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.create_channel_handshake_request.CreateChannelHandshakeRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -208,7 +211,9 @@ class ChannelHandshakeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannelHandshakes")
+        )
         input_: capo_partnercentral_channel.types.list_channel_handshakes_request.ListChannelHandshakesRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -276,7 +281,9 @@ class ChannelHandshakeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.accept_channel_handshake_request.AcceptChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -331,7 +338,9 @@ class ChannelHandshakeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.cancel_channel_handshake_request.CancelChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -386,7 +395,9 @@ class ChannelHandshakeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.reject_channel_handshake_request.RejectChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -470,7 +481,9 @@ class AsyncChannelHandshakeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.create_channel_handshake_request.CreateChannelHandshakeRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -564,7 +577,9 @@ class AsyncChannelHandshakeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannelHandshakes")
+        )
         input_: capo_partnercentral_channel.types.list_channel_handshakes_request.ListChannelHandshakesRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -633,7 +648,9 @@ class AsyncChannelHandshakeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.accept_channel_handshake_request.AcceptChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -689,7 +706,9 @@ class AsyncChannelHandshakeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.cancel_channel_handshake_request.CancelChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -745,7 +764,9 @@ class AsyncChannelHandshakeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RejectChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.reject_channel_handshake_request.RejectChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,

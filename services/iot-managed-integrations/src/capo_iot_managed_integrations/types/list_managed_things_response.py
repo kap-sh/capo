@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#ListManagedThingsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListManagedThingsResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListManagedThingsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_iot_managed_integrations.types.managed_thing_list_definition
+
+        out["items"] = (
+            capo_iot_managed_integrations.types.managed_thing_list_definition.redact_sensitive(
+                value["items"]
+            )
+        )
     return out

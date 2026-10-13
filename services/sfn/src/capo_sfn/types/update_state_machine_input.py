@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#UpdateStateMachineInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateStateMachineInput:
                 data["encryptionConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateStateMachineInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
+    if "version_description" in value:
+        out["version_description"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#ExportsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mgn.types.export_task
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ExportsList:
             continue
         out.append(capo_mgn.types.export_task.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ExportsList) -> list[Any]:
+    import capo_mgn.types.export_task
+
+    return [capo_mgn.types.export_task.redact_sensitive(item) for item in value]

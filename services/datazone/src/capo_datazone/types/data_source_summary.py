@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DataSourceSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -207,4 +207,15 @@ def deserialize_json(data: dict) -> DataSourceSummary:
         )
     if data.get("description") is not None:
         out["description"] = data["description"]
+    return out
+
+
+def redact_sensitive(value: DataSourceSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "schedule" in value:
+        out["schedule"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

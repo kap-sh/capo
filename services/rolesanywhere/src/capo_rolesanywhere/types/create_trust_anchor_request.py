@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rolesanywhere#CreateTrustAnchorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,13 @@ def deserialize_json(data: dict) -> CreateTrustAnchorRequest:
                 data["notificationSettings"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateTrustAnchorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_rolesanywhere.types.tag_list
+
+        out["tags"] = capo_rolesanywhere.types.tag_list.redact_sensitive(value["tags"])
     return out

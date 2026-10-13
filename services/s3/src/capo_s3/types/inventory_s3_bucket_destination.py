@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#InventoryS3BucketDestination``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,5 +75,16 @@ def deserialize_xml(el: Element) -> InventoryS3BucketDestination:
 
         out["encryption"] = capo_s3.types.inventory_encryption.deserialize_xml(
             child_encryption
+        )
+    return out
+
+
+def redact_sensitive(value: InventoryS3BucketDestination) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "encryption" in value:
+        import capo_s3.types.inventory_encryption
+
+        out["encryption"] = capo_s3.types.inventory_encryption.redact_sensitive(
+            value["encryption"]
         )
     return out

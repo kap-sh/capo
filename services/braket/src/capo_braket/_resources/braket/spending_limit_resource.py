@@ -7,6 +7,7 @@ import capo_braket._auth._sigv4
 from capo_braket._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class SpendingLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSpendingLimit")
+        )
         input_: capo_braket.types.create_spending_limit_request.CreateSpendingLimitRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -141,7 +144,9 @@ class SpendingLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSpendingLimit")
+        )
         input_: capo_braket.types.update_spending_limit_request.UpdateSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn,
             "client_token": client_token,
@@ -193,7 +198,9 @@ class SpendingLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSpendingLimit")
+        )
         input_: capo_braket.types.delete_spending_limit_request.DeleteSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn
         }
@@ -247,7 +254,9 @@ class SpendingLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchSpendingLimits")
+        )
         input_: capo_braket.types.search_spending_limits_request.SearchSpendingLimitsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -312,7 +321,9 @@ class AsyncSpendingLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSpendingLimit")
+        )
         input_: capo_braket.types.create_spending_limit_request.CreateSpendingLimitRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -372,7 +383,9 @@ class AsyncSpendingLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSpendingLimit")
+        )
         input_: capo_braket.types.update_spending_limit_request.UpdateSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn,
             "client_token": client_token,
@@ -425,7 +438,9 @@ class AsyncSpendingLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSpendingLimit")
+        )
         input_: capo_braket.types.delete_spending_limit_request.DeleteSpendingLimitRequest = {
             "spending_limit_arn": spending_limit_arn
         }
@@ -480,7 +495,9 @@ class AsyncSpendingLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchSpendingLimits")
+        )
         input_: capo_braket.types.search_spending_limits_request.SearchSpendingLimitsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

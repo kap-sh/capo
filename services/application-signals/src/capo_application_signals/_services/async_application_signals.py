@@ -28,7 +28,9 @@ from capo_application_signals._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -218,7 +220,9 @@ class AsyncApplicationSignalsClient:
         self.service_level_objective_resource = AsyncServiceLevelObjectiveResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncApplicationSignalsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncApplicationSignalsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncApplicationSignalsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -226,8 +230,10 @@ class AsyncApplicationSignalsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -275,7 +281,10 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteInstrumentationConfigurations"),
+        )
         input_: capo_application_signals.types.batch_delete_instrumentation_configurations_request.BatchDeleteInstrumentationConfigurationsRequest = {
             "deletion_target": deletion_target
         }
@@ -322,7 +331,10 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetServiceLevelObjectiveBudgetReport"),
+        )
         input_: capo_application_signals.types.batch_get_service_level_objective_budget_report_input.BatchGetServiceLevelObjectiveBudgetReportInput = {
             "timestamp": timestamp,
             "slo_ids": slo_ids,
@@ -377,7 +389,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateExclusionWindows")
+        )
         input_: capo_application_signals.types.batch_update_exclusion_windows_input.BatchUpdateExclusionWindowsInput = {
             "slo_ids": slo_ids
         }
@@ -448,7 +462,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstrumentationConfiguration")
+        )
         input_: capo_application_signals.types.create_instrumentation_configuration_request.CreateInstrumentationConfigurationRequest = {
             "instrumentation_type": instrumentation_type,
             "service": service,
@@ -501,7 +517,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroupingConfiguration")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -552,7 +570,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstrumentationConfiguration")
+        )
         input_: capo_application_signals.types.delete_instrumentation_configuration_request.DeleteInstrumentationConfigurationRequest = {
             "instrumentation_type": instrumentation_type,
             "service": service,
@@ -610,7 +630,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstrumentationConfiguration")
+        )
         input_: capo_application_signals.types.get_instrumentation_configuration_request.GetInstrumentationConfigurationRequest = {
             "instrumentation_type": instrumentation_type,
             "service": service,
@@ -682,7 +704,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstrumentationConfigurationStatus")
+        )
         input_: capo_application_signals.types.get_instrumentation_configuration_status_request.GetInstrumentationConfigurationStatusRequest = {
             "instrumentation_type": instrumentation_type,
             "service": service,
@@ -786,7 +810,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetService")
+        )
         input_: capo_application_signals.types.get_service_input.GetServiceInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -851,7 +877,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAuditFindings")
+        )
         input_: capo_application_signals.types.list_audit_findings_input.ListAuditFindingsInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -918,7 +946,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntityEvents")
+        )
         input_: capo_application_signals.types.list_entity_events_input.ListEntityEventsInput = {
             "entity": entity,
             "start_time": start_time,
@@ -1009,7 +1039,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupingAttributeDefinitions")
+        )
         input_: capo_application_signals.types.list_grouping_attribute_definitions_input.ListGroupingAttributeDefinitionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1071,7 +1103,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstrumentationConfigurations")
+        )
         input_: capo_application_signals.types.list_instrumentation_configurations_request.ListInstrumentationConfigurationsRequest = {
             "service": service,
             "environment": environment,
@@ -1167,7 +1201,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceDependencies")
+        )
         input_: capo_application_signals.types.list_service_dependencies_input.ListServiceDependenciesInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1261,7 +1297,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceDependents")
+        )
         input_: capo_application_signals.types.list_service_dependents_input.ListServiceDependentsInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1352,7 +1390,10 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceLevelObjectiveExclusionWindows"),
+        )
         input_: capo_application_signals.types.list_service_level_objective_exclusion_windows_input.ListServiceLevelObjectiveExclusionWindowsInput = {
             "id": id
         }
@@ -1442,7 +1483,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceOperations")
+        )
         input_: capo_application_signals.types.list_service_operations_input.ListServiceOperationsInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1540,7 +1583,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_application_signals.types.list_services_input.ListServicesInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1649,7 +1694,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceStates")
+        )
         input_: capo_application_signals.types.list_service_states_input.ListServiceStatesInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -1744,7 +1791,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_application_signals.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1790,7 +1839,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGroupingConfiguration")
+        )
         input_: capo_application_signals.types.put_grouping_configuration_input.PutGroupingConfigurationInput = {
             "grouping_attribute_definitions": grouping_attribute_definitions
         }
@@ -1839,7 +1890,10 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ReportInstrumentationConfigurationStatus"),
+        )
         input_: capo_application_signals.types.report_instrumentation_configuration_status_request.ReportInstrumentationConfigurationStatusRequest = {
             "service": service,
             "environment": environment,
@@ -1881,7 +1935,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDiscovery")
+        )
         input_: capo_application_signals.types.start_discovery_input.StartDiscoveryInput = {}
 
         response = await aexecute_pipeline(
@@ -1927,7 +1983,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_application_signals.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1975,7 +2033,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_application_signals.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2048,7 +2108,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.create_service_level_objective_input.CreateServiceLevelObjectiveInput = {
             "name": name
         }
@@ -2110,7 +2172,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceLevelObjective")
+        )
         input_: capo_application_signals.types.get_service_level_objective_input.GetServiceLevelObjectiveInput = {
             "id": id
         }
@@ -2176,7 +2240,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceLevelObjective")
+        )
         input_: capo_application_signals.types.update_service_level_objective_input.UpdateServiceLevelObjectiveInput = {
             "id": id
         }
@@ -2234,7 +2300,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceLevelObjective")
+        )
         input_: capo_application_signals.types.delete_service_level_objective_input.DeleteServiceLevelObjectiveInput = {
             "id": id
         }
@@ -2311,7 +2379,9 @@ class AsyncApplicationSignalsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceLevelObjectives")
+        )
         input_: capo_application_signals.types.list_service_level_objectives_input.ListServiceLevelObjectivesInput = {}
         if key_attributes is not None:
             input_["key_attributes"] = key_attributes

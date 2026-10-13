@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#User``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -255,4 +255,29 @@ def deserialize_json(data: dict) -> User:
         )
     if data.get("LastModifiedRegion") is not None:
         out["last_modified_region"] = data["LastModifiedRegion"]
+    return out
+
+
+def redact_sensitive(value: User) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_info" in value:
+        import capo_connect.types.user_identity_info
+
+        out["identity_info"] = capo_connect.types.user_identity_info.redact_sensitive(
+            value["identity_info"]
+        )
+    if "phone_config" in value:
+        import capo_connect.types.user_phone_config
+
+        out["phone_config"] = capo_connect.types.user_phone_config.redact_sensitive(
+            value["phone_config"]
+        )
+    if "phone_number_configs" in value:
+        import capo_connect.types.phone_number_configs
+
+        out["phone_number_configs"] = (
+            capo_connect.types.phone_number_configs.redact_sensitive(
+                value["phone_number_configs"]
+            )
+        )
     return out

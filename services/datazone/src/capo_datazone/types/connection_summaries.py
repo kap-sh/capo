@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ConnectionSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.connection_summary
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> ConnectionSummaries:
             continue
         out.append(capo_datazone.types.connection_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ConnectionSummaries) -> list[Any]:
+    import capo_datazone.types.connection_summary
+
+    return [
+        capo_datazone.types.connection_summary.redact_sensitive(item) for item in value
+    ]

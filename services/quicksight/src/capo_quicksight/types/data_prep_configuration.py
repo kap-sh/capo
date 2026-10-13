@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataPrepConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -79,5 +79,18 @@ def deserialize_json(data: dict) -> DataPrepConfiguration:
     else:
         raise DeserializationError(
             "DataPrepConfiguration.destination_table_map required"
+        )
+    return out
+
+
+def redact_sensitive(value: DataPrepConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "transform_step_map" in value:
+        import capo_quicksight.types.transform_step_map
+
+        out["transform_step_map"] = (
+            capo_quicksight.types.transform_step_map.redact_sensitive(
+                value["transform_step_map"]
+            )
         )
     return out

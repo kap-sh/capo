@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#StartDashboardSnapshotJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,5 +83,26 @@ def deserialize_json(data: dict) -> StartDashboardSnapshotJobRequest:
     else:
         raise DeserializationError(
             "StartDashboardSnapshotJobRequest.snapshot_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: StartDashboardSnapshotJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_configuration" in value:
+        import capo_quicksight.types.snapshot_user_configuration
+
+        out["user_configuration"] = (
+            capo_quicksight.types.snapshot_user_configuration.redact_sensitive(
+                value["user_configuration"]
+            )
+        )
+    if "snapshot_configuration" in value:
+        import capo_quicksight.types.snapshot_configuration
+
+        out["snapshot_configuration"] = (
+            capo_quicksight.types.snapshot_configuration.redact_sensitive(
+                value["snapshot_configuration"]
+            )
         )
     return out

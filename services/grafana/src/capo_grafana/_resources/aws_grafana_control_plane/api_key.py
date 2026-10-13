@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_grafana._auth._signers
 import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,21 @@ class ApiKey:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_api_key_response.CreateWorkspaceApiKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_api_key_response
+
+            return (
+                capo_grafana.types.create_workspace_api_key_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkspaceApiKey", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.create_workspace_api_key_request.CreateWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "key_role": key_role,
@@ -126,7 +141,9 @@ class ApiKey:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceApiKey")
+        )
         input_: capo_grafana.types.delete_workspace_api_key_request.DeleteWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "workspace_id": workspace_id,
@@ -188,7 +205,21 @@ class AsyncApiKey:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_api_key_response.CreateWorkspaceApiKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_api_key_response
+
+            return (
+                capo_grafana.types.create_workspace_api_key_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkspaceApiKey", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.create_workspace_api_key_request.CreateWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "key_role": key_role,
@@ -242,7 +273,9 @@ class AsyncApiKey:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceApiKey")
+        )
         input_: capo_grafana.types.delete_workspace_api_key_request.DeleteWorkspaceApiKeyRequest = {
             "key_name": key_name,
             "workspace_id": workspace_id,

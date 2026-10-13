@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#LeadInvitationInteraction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> LeadInvitationInteraction:
         raise DeserializationError(
             "LeadInvitationInteraction.contact_business_title required"
         )
+    return out
+
+
+def redact_sensitive(value: LeadInvitationInteraction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contact_business_title" in value:
+        out["contact_business_title"] = "*** Sensitive Data Redacted ***"
     return out

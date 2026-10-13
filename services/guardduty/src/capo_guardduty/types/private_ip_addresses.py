@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#PrivateIpAddresses``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_guardduty.types.private_ip_address_details
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> PrivateIpAddresses:
             capo_guardduty.types.private_ip_address_details.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: PrivateIpAddresses) -> list[Any]:
+    import capo_guardduty.types.private_ip_address_details
+
+    return [
+        capo_guardduty.types.private_ip_address_details.redact_sensitive(item)
+        for item in value
+    ]

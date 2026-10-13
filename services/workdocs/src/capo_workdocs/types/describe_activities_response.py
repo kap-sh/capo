@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DescribeActivitiesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> DescribeActivitiesResponse:
         )
     if data.get("Marker") is not None:
         out["marker"] = data["Marker"]
+    return out
+
+
+def redact_sensitive(value: DescribeActivitiesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_activities" in value:
+        import capo_workdocs.types.user_activities
+
+        out["user_activities"] = capo_workdocs.types.user_activities.redact_sensitive(
+            value["user_activities"]
+        )
     return out

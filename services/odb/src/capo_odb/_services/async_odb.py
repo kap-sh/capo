@@ -52,7 +52,9 @@ from capo_odb._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -381,7 +383,9 @@ class AsyncodbClient:
         self.odb_peering_connection_resource = AsyncOdbPeeringConnectionResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncodbClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncodbClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncodbClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -389,8 +393,10 @@ class AsyncodbClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -444,7 +450,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptMarketplaceRegistration")
+        )
         input_: capo_odb.types.accept_marketplace_registration_input.AcceptMarketplaceRegistrationInput = {
             "marketplace_registration_token": marketplace_registration_token
         }
@@ -497,7 +505,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateIamRoleToResource")
+        )
         input_: capo_odb.types.associate_iam_role_to_resource_input.AssociateIamRoleToResourceInput = {
             "iam_role_arn": iam_role_arn,
             "aws_integration": aws_integration,
@@ -552,7 +562,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateIamRoleFromResource")
+        )
         input_: capo_odb.types.disassociate_iam_role_from_resource_input.DisassociateIamRoleFromResourceInput = {
             "iam_role_arn": iam_role_arn,
             "aws_integration": aws_integration,
@@ -595,7 +607,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOciOnboardingStatus")
+        )
         input_: capo_odb.types.get_oci_onboarding_status_input.GetOciOnboardingStatusInput = {}
 
         response = await aexecute_pipeline(
@@ -644,7 +658,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitializeService")
+        )
         input_: capo_odb.types.initialize_service_input.InitializeServiceInput = {}
         if oci_identity_domain is not None:
             input_["oci_identity_domain"] = oci_identity_domain
@@ -701,7 +717,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabaseCharacterSets")
+        )
         input_: capo_odb.types.list_autonomous_database_character_sets_input.ListAutonomousDatabaseCharacterSetsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -781,7 +799,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabaseVersions")
+        )
         input_: capo_odb.types.list_autonomous_database_versions_input.ListAutonomousDatabaseVersionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -863,7 +883,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbSystemShapes")
+        )
         input_: capo_odb.types.list_db_system_shapes_input.ListDbSystemShapesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -949,7 +971,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlexComponents")
+        )
         input_: capo_odb.types.list_flex_components_input.ListFlexComponentsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1033,7 +1057,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGiMinorVersions")
+        )
         input_: capo_odb.types.list_gi_minor_versions_input.ListGiMinorVersionsInput = {
             "gi_version": gi_version
         }
@@ -1123,7 +1149,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGiVersions")
+        )
         input_: capo_odb.types.list_gi_versions_input.ListGiVersionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1204,7 +1232,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSystemVersions")
+        )
         input_: capo_odb.types.list_system_versions_input.ListSystemVersionsInput = {
             "gi_version": gi_version,
             "shape": shape,
@@ -1278,7 +1308,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_odb.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1325,7 +1357,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_odb.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1372,7 +1406,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_odb.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1435,7 +1471,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.create_autonomous_database_backup_input.CreateAutonomousDatabaseBackupInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1492,7 +1530,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.get_autonomous_database_backup_input.GetAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -1543,7 +1583,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.update_autonomous_database_backup_input.UpdateAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -1594,7 +1636,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabaseBackup")
+        )
         input_: capo_odb.types.delete_autonomous_database_backup_input.DeleteAutonomousDatabaseBackupInput = {
             "autonomous_database_backup_id": autonomous_database_backup_id
         }
@@ -1654,7 +1698,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabaseBackups")
+        )
         input_: capo_odb.types.list_autonomous_database_backups_input.ListAutonomousDatabaseBackupsInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -1861,7 +1907,19 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_input
+
+            return capo_odb.types.create_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.create_autonomous_database_input.CreateAutonomousDatabaseInput = {}
         if odb_network_id is not None:
             input_["odb_network_id"] = odb_network_id
@@ -1998,7 +2056,19 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_autonomous_database_output.GetAutonomousDatabaseOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_autonomous_database_output
+
+            return capo_odb.types.get_autonomous_database_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAutonomousDatabase", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_autonomous_database_input.GetAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2173,7 +2243,19 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.update_autonomous_database_input
+
+            return capo_odb.types.update_autonomous_database_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutonomousDatabase", redact_input=_redact_input),
+        )
         input_: capo_odb.types.update_autonomous_database_input.UpdateAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2324,7 +2406,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAutonomousDatabase")
+        )
         input_: capo_odb.types.delete_autonomous_database_input.DeleteAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2375,7 +2459,19 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_databases_output.ListAutonomousDatabasesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_databases_output
+
+            return capo_odb.types.list_autonomous_databases_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAutonomousDatabases", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_autonomous_databases_input.ListAutonomousDatabasesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2462,7 +2558,34 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_input
+
+            return (
+                capo_odb.types.create_autonomous_database_wallet_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_odb.types.create_autonomous_database_wallet_output.CreateAutonomousDatabaseWalletOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_autonomous_database_wallet_output
+
+            return capo_odb.types.create_autonomous_database_wallet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAutonomousDatabaseWallet",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_odb.types.create_autonomous_database_wallet_input.CreateAutonomousDatabaseWalletInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2524,7 +2647,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverAutonomousDatabase")
+        )
         input_: capo_odb.types.failover_autonomous_database_input.FailoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2574,7 +2699,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutonomousDatabaseWalletDetails")
+        )
         input_: capo_odb.types.get_autonomous_database_wallet_details_input.GetAutonomousDatabaseWalletDetailsInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2626,7 +2753,23 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_autonomous_database_clones_output.ListAutonomousDatabaseClonesOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_autonomous_database_clones_output
+
+            return (
+                capo_odb.types.list_autonomous_database_clones_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAutonomousDatabaseClones", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_autonomous_database_clones_input.ListAutonomousDatabaseClonesInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2705,7 +2848,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutonomousDatabasePeers")
+        )
         input_: capo_odb.types.list_autonomous_database_peers_input.ListAutonomousDatabasePeersInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2783,7 +2928,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootAutonomousDatabase")
+        )
         input_: capo_odb.types.reboot_autonomous_database_input.RebootAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2836,7 +2983,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreAutonomousDatabase")
+        )
         input_: capo_odb.types.restore_autonomous_database_input.RestoreAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id,
             "timestamp": timestamp,
@@ -2886,7 +3035,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ShrinkAutonomousDatabase")
+        )
         input_: capo_odb.types.shrink_autonomous_database_input.ShrinkAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2937,7 +3088,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAutonomousDatabase")
+        )
         input_: capo_odb.types.start_autonomous_database_input.StartAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -2986,7 +3139,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAutonomousDatabase")
+        )
         input_: capo_odb.types.stop_autonomous_database_input.StopAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -3037,7 +3192,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwitchoverAutonomousDatabase")
+        )
         input_: capo_odb.types.switchover_autonomous_database_input.SwitchoverAutonomousDatabaseInput = {
             "autonomous_database_id": autonomous_database_id
         }
@@ -3125,7 +3282,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.create_cloud_autonomous_vm_cluster_input.CreateCloudAutonomousVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "odb_network_id": odb_network_id,
@@ -3200,7 +3359,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.get_cloud_autonomous_vm_cluster_input.GetCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -3248,7 +3409,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_autonomous_vm_cluster_input.DeleteCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -3302,7 +3465,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCloudAutonomousVmClusters")
+        )
         input_: capo_odb.types.list_cloud_autonomous_vm_clusters_input.ListCloudAutonomousVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3383,7 +3548,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutonomousVirtualMachines")
+        )
         input_: capo_odb.types.list_autonomous_virtual_machines_input.ListAutonomousVirtualMachinesInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -3491,7 +3658,21 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.create_cloud_exadata_infrastructure_input
+
+            return capo_odb.types.create_cloud_exadata_infrastructure_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCloudExadataInfrastructure", redact_input=_redact_input
+            ),
+        )
         input_: capo_odb.types.create_cloud_exadata_infrastructure_input.CreateCloudExadataInfrastructureInput = {
             "display_name": display_name,
             "shape": shape,
@@ -3561,7 +3742,23 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_exadata_infrastructure_output.GetCloudExadataInfrastructureOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_exadata_infrastructure_output
+
+            return (
+                capo_odb.types.get_cloud_exadata_infrastructure_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCloudExadataInfrastructure", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_input.GetCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -3613,7 +3810,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.update_cloud_exadata_infrastructure_input.UpdateCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -3664,7 +3863,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudExadataInfrastructure")
+        )
         input_: capo_odb.types.delete_cloud_exadata_infrastructure_input.DeleteCloudExadataInfrastructureInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -3713,7 +3914,21 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_exadata_infrastructures_output.ListCloudExadataInfrastructuresOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_exadata_infrastructures_output
+
+            return capo_odb.types.list_cloud_exadata_infrastructures_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCloudExadataInfrastructures", redact_output=_redact_output
+            ),
+        )
         input_: capo_odb.types.list_cloud_exadata_infrastructures_input.ListCloudExadataInfrastructuresInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3786,7 +4001,10 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudExadataInfrastructureUnallocatedResources"),
+        )
         input_: capo_odb.types.get_cloud_exadata_infrastructure_unallocated_resources_input.GetCloudExadataInfrastructureUnallocatedResourcesInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -3838,7 +4056,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbServer")
+        )
         input_: capo_odb.types.get_db_server_input.GetDbServerInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "db_server_id": db_server_id,
@@ -3891,7 +4111,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbServers")
+        )
         input_: capo_odb.types.list_db_servers_input.ListDbServersInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id
         }
@@ -4012,7 +4234,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudVmCluster")
+        )
         input_: capo_odb.types.create_cloud_vm_cluster_input.CreateCloudVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "cpu_core_count": cpu_core_count,
@@ -4095,7 +4319,17 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_vm_cluster_output.GetCloudVmClusterOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_vm_cluster_output
+
+            return capo_odb.types.get_cloud_vm_cluster_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudVmCluster", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_cloud_vm_cluster_input.GetCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -4143,7 +4377,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_vm_cluster_input.DeleteCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -4197,7 +4433,17 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_vm_clusters_output.ListCloudVmClustersOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_vm_clusters_output
+
+            return capo_odb.types.list_cloud_vm_clusters_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCloudVmClusters", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_cloud_vm_clusters_input.ListCloudVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4278,7 +4524,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbNode")
+        )
         input_: capo_odb.types.get_db_node_input.GetDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -4336,7 +4584,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbNodes")
+        )
         input_: capo_odb.types.list_db_nodes_input.ListDbNodesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4419,7 +4669,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootDbNode")
+        )
         input_: capo_odb.types.reboot_db_node_input.RebootDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -4475,7 +4727,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDbNode")
+        )
         input_: capo_odb.types.start_db_node_input.StartDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -4531,7 +4785,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDbNode")
+        )
         input_: capo_odb.types.stop_db_node_input.StopDbNodeInput = {
             "db_node_id": db_node_id
         }
@@ -4631,7 +4887,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExadbVmCluster")
+        )
         input_: capo_odb.types.create_exadb_vm_cluster_input.CreateExadbVmClusterInput = {
             "display_name": display_name,
             "enabled_ecpu_count": enabled_ecpu_count,
@@ -4710,7 +4968,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExadbVmCluster")
+        )
         input_: capo_odb.types.get_exadb_vm_cluster_input.GetExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -4783,7 +5043,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExadbVmCluster")
+        )
         input_: capo_odb.types.update_exadb_vm_cluster_input.UpdateExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -4854,7 +5116,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExadbVmCluster")
+        )
         input_: capo_odb.types.delete_exadb_vm_cluster_input.DeleteExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -4908,7 +5172,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExadbVmClusters")
+        )
         input_: capo_odb.types.list_exadb_vm_clusters_input.ListExadbVmClustersInput = {}
         if exascale_db_storage_vault_id is not None:
             input_["exascale_db_storage_vault_id"] = exascale_db_storage_vault_id
@@ -4989,7 +5255,10 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateVirtualMachinesToExadbVmCluster"),
+        )
         input_: capo_odb.types.associate_virtual_machines_to_exadb_vm_cluster_input.AssociateVirtualMachinesToExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "desired_node_count": desired_node_count,
@@ -5041,7 +5310,10 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateVirtualMachinesFromExadbVmCluster"),
+        )
         input_: capo_odb.types.disassociate_virtual_machines_from_exadb_vm_cluster_input.DisassociateVirtualMachinesFromExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "db_node_ids": db_node_ids,
@@ -5113,7 +5385,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.create_exascale_db_storage_vault_input.CreateExascaleDbStorageVaultInput = {
             "display_name": display_name,
             "high_capacity_database_storage_total_size_in_g_bs": high_capacity_database_storage_total_size_in_g_bs,
@@ -5183,7 +5457,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExascaleDbStorageVault")
+        )
         input_: capo_odb.types.get_exascale_db_storage_vault_input.GetExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -5246,7 +5522,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExascaleDbStorageVault")
+        )
         input_: capo_odb.types.update_exascale_db_storage_vault_input.UpdateExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -5311,7 +5589,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExascaleDbStorageVault")
+        )
         input_: capo_odb.types.delete_exascale_db_storage_vault_input.DeleteExascaleDbStorageVaultInput = {
             "exascale_db_storage_vault_id": exascale_db_storage_vault_id
         }
@@ -5360,7 +5640,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExascaleDbStorageVaults")
+        )
         input_: capo_odb.types.list_exascale_db_storage_vaults_input.ListExascaleDbStorageVaultsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5474,7 +5756,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOdbNetwork")
+        )
         input_: capo_odb.types.create_odb_network_input.CreateOdbNetworkInput = {
             "display_name": display_name,
             "client_subnet_cidr": client_subnet_cidr,
@@ -5556,7 +5840,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOdbNetwork")
+        )
         input_: capo_odb.types.get_odb_network_input.GetOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -5645,7 +5931,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOdbNetwork")
+        )
         input_: capo_odb.types.update_odb_network_input.UpdateOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -5723,7 +6011,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOdbNetwork")
+        )
         input_: capo_odb.types.delete_odb_network_input.DeleteOdbNetworkInput = {
             "odb_network_id": odb_network_id,
             "delete_associated_resources": delete_associated_resources,
@@ -5773,7 +6063,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOdbNetworks")
+        )
         input_: capo_odb.types.list_odb_networks_input.ListOdbNetworksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5865,7 +6157,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOdbPeeringConnection")
+        )
         input_: capo_odb.types.create_odb_peering_connection_input.CreateOdbPeeringConnectionInput = {
             "odb_network_id": odb_network_id,
             "peer_network_id": peer_network_id,
@@ -5927,7 +6221,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOdbPeeringConnection")
+        )
         input_: capo_odb.types.get_odb_peering_connection_input.GetOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -5988,7 +6284,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOdbPeeringConnection")
+        )
         input_: capo_odb.types.update_odb_peering_connection_input.UpdateOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -6044,7 +6342,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOdbPeeringConnection")
+        )
         input_: capo_odb.types.delete_odb_peering_connection_input.DeleteOdbPeeringConnectionInput = {
             "odb_peering_connection_id": odb_peering_connection_id
         }
@@ -6098,7 +6398,9 @@ class AsyncodbClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOdbPeeringConnections")
+        )
         input_: capo_odb.types.list_odb_peering_connections_input.ListOdbPeeringConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

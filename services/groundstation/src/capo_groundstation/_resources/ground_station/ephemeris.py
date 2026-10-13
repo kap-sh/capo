@@ -8,6 +8,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class Ephemeris:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEphemeris")
+        )
         input_: capo_groundstation.types.create_ephemeris_request.CreateEphemerisRequest = {
             "name": name
         }
@@ -160,7 +163,9 @@ class Ephemeris:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeEphemeris")
+        )
         input_: capo_groundstation.types.describe_ephemeris_request.DescribeEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -213,7 +218,9 @@ class Ephemeris:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEphemeris")
+        )
         input_: capo_groundstation.types.update_ephemeris_request.UpdateEphemerisRequest = {
             "ephemeris_id": ephemeris_id,
             "enabled": enabled,
@@ -264,7 +271,9 @@ class Ephemeris:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEphemeris")
+        )
         input_: capo_groundstation.types.delete_ephemeris_request.DeleteEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -329,7 +338,9 @@ class Ephemeris:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEphemerides")
+        )
         input_: capo_groundstation.types.list_ephemerides_request.ListEphemeridesRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -409,7 +420,9 @@ class AsyncEphemeris:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEphemeris")
+        )
         input_: capo_groundstation.types.create_ephemeris_request.CreateEphemerisRequest = {
             "name": name
         }
@@ -471,7 +484,9 @@ class AsyncEphemeris:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeEphemeris")
+        )
         input_: capo_groundstation.types.describe_ephemeris_request.DescribeEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -525,7 +540,9 @@ class AsyncEphemeris:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEphemeris")
+        )
         input_: capo_groundstation.types.update_ephemeris_request.UpdateEphemerisRequest = {
             "ephemeris_id": ephemeris_id,
             "enabled": enabled,
@@ -577,7 +594,9 @@ class AsyncEphemeris:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEphemeris")
+        )
         input_: capo_groundstation.types.delete_ephemeris_request.DeleteEphemerisRequest = {
             "ephemeris_id": ephemeris_id
         }
@@ -643,7 +662,9 @@ class AsyncEphemeris:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEphemerides")
+        )
         input_: capo_groundstation.types.list_ephemerides_request.ListEphemeridesRequest = {
             "start_time": start_time,
             "end_time": end_time,

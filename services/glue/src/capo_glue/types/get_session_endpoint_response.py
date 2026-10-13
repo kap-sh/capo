@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#GetSessionEndpointResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,15 @@ def deserialize_aws_json_1_1(data: dict) -> GetSessionEndpointResponse:
         )
     else:
         raise DeserializationError("GetSessionEndpointResponse.spark_connect required")
+    return out
+
+
+def redact_sensitive(value: GetSessionEndpointResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "spark_connect" in value:
+        import capo_glue.types.session_endpoint
+
+        out["spark_connect"] = capo_glue.types.session_endpoint.redact_sensitive(
+            value["spark_connect"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#DataSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,15 @@ def deserialize_json(data: dict) -> DataSummary:
         )
     else:
         raise DeserializationError("DataSummary.details required")
+    return out
+
+
+def redact_sensitive(value: DataSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "details" in value:
+        import capo_qconnect.types.data_details
+
+        out["details"] = capo_qconnect.types.data_details.redact_sensitive(
+            value["details"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#UspsZip``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> UspsZip:
                 data["ZipClassificationCode"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UspsZip) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "zip_classification_code" in value:
+        out["zip_classification_code"] = "*** Sensitive Data Redacted ***"
     return out

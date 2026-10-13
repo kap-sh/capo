@@ -21,10 +21,12 @@ from capo_tnb._pagination import resolve_path as _resolve_path
 from capo_tnb._services._aws_config import aws_config
 from capo_tnb._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -188,7 +190,9 @@ class tnbClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[tnbClientConfig] = None
+        self,
+        config_overrides: Optional[tnbClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: tnbClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -196,8 +200,10 @@ class tnbClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -253,7 +259,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSolNetworkOperation")
+        )
         input_: capo_tnb.types.cancel_sol_network_operation_input.CancelSolNetworkOperationInput = {
             "ns_lcm_op_occ_id": ns_lcm_op_occ_id
         }
@@ -305,7 +313,32 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.create_sol_function_package_input.CreateSolFunctionPackageInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_function_package_input
+
+            return capo_tnb.types.create_sol_function_package_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.create_sol_function_package_output.CreateSolFunctionPackageOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_function_package_output
+
+            return capo_tnb.types.create_sol_function_package_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSolFunctionPackage",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.create_sol_function_package_input.CreateSolFunctionPackageInput = {}
         if tags is not None:
             input_["tags"] = tags
@@ -364,7 +397,32 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.create_sol_network_instance_input.CreateSolNetworkInstanceInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_network_instance_input
+
+            return capo_tnb.types.create_sol_network_instance_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.create_sol_network_instance_output.CreateSolNetworkInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_network_instance_output
+
+            return capo_tnb.types.create_sol_network_instance_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSolNetworkInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.create_sol_network_instance_input.CreateSolNetworkInstanceInput = {
             "nsd_info_id": nsd_info_id,
             "ns_name": ns_name,
@@ -423,7 +481,32 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.create_sol_network_package_input.CreateSolNetworkPackageInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_network_package_input
+
+            return capo_tnb.types.create_sol_network_package_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.create_sol_network_package_output.CreateSolNetworkPackageOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.create_sol_network_package_output
+
+            return capo_tnb.types.create_sol_network_package_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSolNetworkPackage",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.create_sol_network_package_input.CreateSolNetworkPackageInput = {}
         if tags is not None:
             input_["tags"] = tags
@@ -473,7 +556,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSolFunctionPackage")
+        )
         input_: capo_tnb.types.delete_sol_function_package_input.DeleteSolFunctionPackageInput = {
             "vnf_pkg_id": vnf_pkg_id
         }
@@ -523,7 +608,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSolNetworkInstance")
+        )
         input_: capo_tnb.types.delete_sol_network_instance_input.DeleteSolNetworkInstanceInput = {
             "ns_instance_id": ns_instance_id
         }
@@ -573,7 +660,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSolNetworkPackage")
+        )
         input_: capo_tnb.types.delete_sol_network_package_input.DeleteSolNetworkPackageInput = {
             "nsd_info_id": nsd_info_id
         }
@@ -625,7 +714,19 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.get_sol_function_instance_output.GetSolFunctionInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.get_sol_function_instance_output
+
+            return capo_tnb.types.get_sol_function_instance_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSolFunctionInstance", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.get_sol_function_instance_input.GetSolFunctionInstanceInput = {
             "vnf_instance_id": vnf_instance_id
         }
@@ -677,7 +778,19 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.get_sol_function_package_output.GetSolFunctionPackageOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.get_sol_function_package_output
+
+            return capo_tnb.types.get_sol_function_package_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSolFunctionPackage", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.get_sol_function_package_input.GetSolFunctionPackageInput = {
             "vnf_pkg_id": vnf_pkg_id
         }
@@ -731,7 +844,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSolFunctionPackageContent")
+        )
         input_: capo_tnb.types.get_sol_function_package_content_input.GetSolFunctionPackageContentInput = {
             "vnf_pkg_id": vnf_pkg_id,
             "accept": accept,
@@ -786,7 +901,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSolFunctionPackageDescriptor")
+        )
         input_: capo_tnb.types.get_sol_function_package_descriptor_input.GetSolFunctionPackageDescriptorInput = {
             "vnf_pkg_id": vnf_pkg_id,
             "accept": accept,
@@ -839,7 +956,19 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.get_sol_network_instance_output.GetSolNetworkInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.get_sol_network_instance_output
+
+            return capo_tnb.types.get_sol_network_instance_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSolNetworkInstance", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.get_sol_network_instance_input.GetSolNetworkInstanceInput = {
             "ns_instance_id": ns_instance_id
         }
@@ -900,7 +1029,19 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.get_sol_network_operation_output.GetSolNetworkOperationOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.get_sol_network_operation_output
+
+            return capo_tnb.types.get_sol_network_operation_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSolNetworkOperation", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.get_sol_network_operation_input.GetSolNetworkOperationInput = {
             "ns_lcm_op_occ_id": ns_lcm_op_occ_id
         }
@@ -952,7 +1093,19 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.get_sol_network_package_output.GetSolNetworkPackageOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.get_sol_network_package_output
+
+            return capo_tnb.types.get_sol_network_package_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSolNetworkPackage", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.get_sol_network_package_input.GetSolNetworkPackageInput = {
             "nsd_info_id": nsd_info_id
         }
@@ -1006,7 +1159,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSolNetworkPackageContent")
+        )
         input_: capo_tnb.types.get_sol_network_package_content_input.GetSolNetworkPackageContentInput = {
             "nsd_info_id": nsd_info_id,
             "accept": accept,
@@ -1059,7 +1214,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSolNetworkPackageDescriptor")
+        )
         input_: capo_tnb.types.get_sol_network_package_descriptor_input.GetSolNetworkPackageDescriptorInput = {
             "nsd_info_id": nsd_info_id
         }
@@ -1121,7 +1278,36 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.instantiate_sol_network_instance_input.InstantiateSolNetworkInstanceInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.instantiate_sol_network_instance_input
+
+            return (
+                capo_tnb.types.instantiate_sol_network_instance_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.instantiate_sol_network_instance_output.InstantiateSolNetworkInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.instantiate_sol_network_instance_output
+
+            return (
+                capo_tnb.types.instantiate_sol_network_instance_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InstantiateSolNetworkInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.instantiate_sol_network_instance_input.InstantiateSolNetworkInstanceInput = {
             "ns_instance_id": ns_instance_id
         }
@@ -1183,7 +1369,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolFunctionInstances")
+        )
         input_: capo_tnb.types.list_sol_function_instances_input.ListSolFunctionInstancesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1267,7 +1455,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolFunctionPackages")
+        )
         input_: capo_tnb.types.list_sol_function_packages_input.ListSolFunctionPackagesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1348,7 +1538,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolNetworkInstances")
+        )
         input_: capo_tnb.types.list_sol_network_instances_input.ListSolNetworkInstancesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1435,7 +1627,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolNetworkOperations")
+        )
         input_: capo_tnb.types.list_sol_network_operations_input.ListSolNetworkOperationsInput = {}
         if ns_instance_id is not None:
             input_["ns_instance_id"] = ns_instance_id
@@ -1521,7 +1715,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolNetworkPackages")
+        )
         input_: capo_tnb.types.list_sol_network_packages_input.ListSolNetworkPackagesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1591,7 +1787,17 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_tnb.types.list_tags_for_resource_output.ListTagsForResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.list_tags_for_resource_output
+
+            return capo_tnb.types.list_tags_for_resource_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_tnb.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1649,7 +1855,23 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.put_sol_function_package_content_input.PutSolFunctionPackageContentInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.put_sol_function_package_content_input
+
+            return (
+                capo_tnb.types.put_sol_function_package_content_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSolFunctionPackageContent", redact_input=_redact_input
+            ),
+        )
         input_: capo_tnb.types.put_sol_function_package_content_input.PutSolFunctionPackageContentInput = {
             "vnf_pkg_id": vnf_pkg_id,
             "file": file,
@@ -1710,7 +1932,21 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.put_sol_network_package_content_input.PutSolNetworkPackageContentInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.put_sol_network_package_content_input
+
+            return (
+                capo_tnb.types.put_sol_network_package_content_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutSolNetworkPackageContent", redact_input=_redact_input),
+        )
         input_: capo_tnb.types.put_sol_network_package_content_input.PutSolNetworkPackageContentInput = {
             "nsd_info_id": nsd_info_id,
             "file": file,
@@ -1758,7 +1994,17 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.tag_resource_input.TagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.tag_resource_input
+
+            return capo_tnb.types.tag_resource_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_tnb.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1814,7 +2060,34 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.terminate_sol_network_instance_input.TerminateSolNetworkInstanceInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.terminate_sol_network_instance_input
+
+            return capo_tnb.types.terminate_sol_network_instance_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.terminate_sol_network_instance_output.TerminateSolNetworkInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.terminate_sol_network_instance_output
+
+            return (
+                capo_tnb.types.terminate_sol_network_instance_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateSolNetworkInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.terminate_sol_network_instance_input.TerminateSolNetworkInstanceInput = {
             "ns_instance_id": ns_instance_id
         }
@@ -1865,7 +2138,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_tnb.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1923,7 +2198,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSolFunctionPackage")
+        )
         input_: capo_tnb.types.update_sol_function_package_input.UpdateSolFunctionPackageInput = {
             "vnf_pkg_id": vnf_pkg_id,
             "operational_state": operational_state,
@@ -1992,7 +2269,32 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.update_sol_network_instance_input.UpdateSolNetworkInstanceInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.update_sol_network_instance_input
+
+            return capo_tnb.types.update_sol_network_instance_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_tnb.types.update_sol_network_instance_output.UpdateSolNetworkInstanceOutput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.update_sol_network_instance_output
+
+            return capo_tnb.types.update_sol_network_instance_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSolNetworkInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_tnb.types.update_sol_network_instance_input.UpdateSolNetworkInstanceInput = {
             "ns_instance_id": ns_instance_id,
             "update_type": update_type,
@@ -2058,7 +2360,9 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSolNetworkPackage")
+        )
         input_: capo_tnb.types.update_sol_network_package_input.UpdateSolNetworkPackageInput = {
             "nsd_info_id": nsd_info_id,
             "nsd_operational_state": nsd_operational_state,
@@ -2117,7 +2421,21 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.validate_sol_function_package_content_input.ValidateSolFunctionPackageContentInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.validate_sol_function_package_content_input
+
+            return capo_tnb.types.validate_sol_function_package_content_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ValidateSolFunctionPackageContent", redact_input=_redact_input
+            ),
+        )
         input_: capo_tnb.types.validate_sol_function_package_content_input.ValidateSolFunctionPackageContentInput = {
             "vnf_pkg_id": vnf_pkg_id,
             "file": file,
@@ -2178,7 +2496,21 @@ class tnbClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_tnb.types.validate_sol_network_package_content_input.ValidateSolNetworkPackageContentInput",
+        ) -> dict[str, Any]:
+            import capo_tnb.types.validate_sol_network_package_content_input
+
+            return capo_tnb.types.validate_sol_network_package_content_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ValidateSolNetworkPackageContent", redact_input=_redact_input
+            ),
+        )
         input_: capo_tnb.types.validate_sol_network_package_content_input.ValidateSolNetworkPackageContentInput = {
             "nsd_info_id": nsd_info_id,
             "file": file,

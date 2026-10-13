@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#StartChatContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -255,4 +255,11 @@ def deserialize_json(data: dict) -> StartChatContactRequest:
                 data["ChatStreamingConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: StartChatContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_id" in value:
+        out["customer_id"] = "*** Sensitive Data Redacted ***"
     return out

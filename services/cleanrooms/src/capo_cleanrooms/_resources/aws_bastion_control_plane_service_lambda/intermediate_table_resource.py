@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanrooms._auth._signers
 import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -117,7 +118,36 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_input
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_intermediate_table_output.CreateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateIntermediateTable",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -178,7 +208,19 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_intermediate_table_output.GetIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_intermediate_table_output
+
+            return capo_cleanrooms.types.get_intermediate_table_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_input.GetIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -238,7 +280,21 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_intermediate_table_output.UpdateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.update_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_input.UpdateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -295,7 +351,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTable")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_input.DeleteIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -349,7 +407,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTables")
+        )
         input_: capo_cleanrooms.types.list_intermediate_tables_input.ListIntermediateTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -408,7 +468,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_analysis_rule_input.CreateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -463,7 +525,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_analysis_rule_input.DeleteIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -516,7 +580,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_analysis_rule_input.GetIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -573,7 +639,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTableVersions")
+        )
         input_: capo_cleanrooms.types.list_intermediate_table_versions_input.ListIntermediateTableVersionsInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -639,7 +707,19 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.populate_intermediate_table_input
+
+            return capo_cleanrooms.types.populate_intermediate_table_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PopulateIntermediateTable", redact_input=_redact_input),
+        )
         input_: capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -700,7 +780,9 @@ class IntermediateTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_analysis_rule_input.UpdateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -772,7 +854,36 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_input
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_intermediate_table_output.CreateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateIntermediateTable",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -834,7 +945,19 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_intermediate_table_output.GetIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_intermediate_table_output
+
+            return capo_cleanrooms.types.get_intermediate_table_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_input.GetIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -895,7 +1018,21 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_intermediate_table_output.UpdateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.update_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_input.UpdateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -953,7 +1090,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTable")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_input.DeleteIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -1008,7 +1147,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTables")
+        )
         input_: capo_cleanrooms.types.list_intermediate_tables_input.ListIntermediateTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -1068,7 +1209,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_analysis_rule_input.CreateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -1124,7 +1267,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_analysis_rule_input.DeleteIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -1178,7 +1323,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_analysis_rule_input.GetIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -1236,7 +1383,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTableVersions")
+        )
         input_: capo_cleanrooms.types.list_intermediate_table_versions_input.ListIntermediateTableVersionsInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -1303,7 +1452,19 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.populate_intermediate_table_input
+
+            return capo_cleanrooms.types.populate_intermediate_table_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PopulateIntermediateTable", redact_input=_redact_input),
+        )
         input_: capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -1365,7 +1526,9 @@ class AsyncIntermediateTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_analysis_rule_input.UpdateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,

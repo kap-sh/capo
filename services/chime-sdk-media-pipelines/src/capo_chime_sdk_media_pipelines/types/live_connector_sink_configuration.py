@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#LiveConnectorSinkConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -61,5 +61,18 @@ def deserialize_json(data: dict) -> LiveConnectorSinkConfiguration:
     else:
         raise DeserializationError(
             "LiveConnectorSinkConfiguration.rtmp_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: LiveConnectorSinkConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rtmp_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.live_connector_rtmp_configuration
+
+        out["rtmp_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.live_connector_rtmp_configuration.redact_sensitive(
+                value["rtmp_configuration"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#Watcher``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> Watcher:
         out["name"] = data["name"]
     if data.get("jobTitle") is not None:
         out["job_title"] = data["jobTitle"]
+    return out
+
+
+def redact_sensitive(value: Watcher) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "job_title" in value:
+        out["job_title"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#GetLineageEventOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> GetLineageEventOutput:
         import capo_datazone.types.lineage_event
 
         out["event"] = capo_datazone.types.lineage_event.deserialize_json(data["event"])
+    return out
+
+
+def redact_sensitive(value: GetLineageEventOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "event" in value:
+        out["event"] = "*** Sensitive Data Redacted ***"
     return out

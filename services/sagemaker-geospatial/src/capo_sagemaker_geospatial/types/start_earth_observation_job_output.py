@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakergeospatial#StartEarthObservationJobOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -140,5 +140,18 @@ def deserialize_json(data: dict) -> StartEarthObservationJobOutput:
 
         out["tags"] = capo_sagemaker_geospatial.types.tags.deserialize_json(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: StartEarthObservationJobOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_config" in value:
+        import capo_sagemaker_geospatial.types.input_config_output
+
+        out["input_config"] = (
+            capo_sagemaker_geospatial.types.input_config_output.redact_sensitive(
+                value["input_config"]
+            )
         )
     return out

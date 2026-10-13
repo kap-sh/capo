@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class TrafficPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.create_traffic_policy_request.CreateTrafficPolicyRequest = {
             "traffic_policy_name": traffic_policy_name,
             "policy_statements": policy_statements,
@@ -156,7 +159,9 @@ class TrafficPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrafficPolicy")
+        )
         input_: capo_mailmanager.types.get_traffic_policy_request.GetTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -228,7 +233,9 @@ class TrafficPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.update_traffic_policy_request.UpdateTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -286,7 +293,9 @@ class TrafficPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrafficPolicy")
+        )
         input_: capo_mailmanager.types.delete_traffic_policy_request.DeleteTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -344,7 +353,9 @@ class TrafficPolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrafficPolicies")
+        )
         input_: capo_mailmanager.types.list_traffic_policies_request.ListTrafficPoliciesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -416,7 +427,9 @@ class AsyncTrafficPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.create_traffic_policy_request.CreateTrafficPolicyRequest = {
             "traffic_policy_name": traffic_policy_name,
             "policy_statements": policy_statements,
@@ -475,7 +488,9 @@ class AsyncTrafficPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTrafficPolicy")
+        )
         input_: capo_mailmanager.types.get_traffic_policy_request.GetTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -548,7 +563,9 @@ class AsyncTrafficPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTrafficPolicy")
+        )
         input_: capo_mailmanager.types.update_traffic_policy_request.UpdateTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -607,7 +624,9 @@ class AsyncTrafficPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTrafficPolicy")
+        )
         input_: capo_mailmanager.types.delete_traffic_policy_request.DeleteTrafficPolicyRequest = {
             "traffic_policy_id": traffic_policy_id
         }
@@ -666,7 +685,9 @@ class AsyncTrafficPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrafficPolicies")
+        )
         input_: capo_mailmanager.types.list_traffic_policies_request.ListTrafficPoliciesRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size

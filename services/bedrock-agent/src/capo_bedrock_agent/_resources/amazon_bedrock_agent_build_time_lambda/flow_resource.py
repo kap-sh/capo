@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,28 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_flow_request.CreateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_flow_request
+
+            return capo_bedrock_agent.types.create_flow_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_flow_response.CreateFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_flow_response
+
+            return capo_bedrock_agent.types.create_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFlow", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.create_flow_request.CreateFlowRequest = {
             "name": name,
             "execution_role_arn": execution_role_arn,
@@ -171,7 +193,16 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_flow_response.GetFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_flow_response
+
+            return capo_bedrock_agent.types.get_flow_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFlow", redact_output=_redact_output)
+        )
         input_: capo_bedrock_agent.types.get_flow_request.GetFlowRequest = {
             "flow_identifier": flow_identifier
         }
@@ -238,7 +269,28 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_flow_request.UpdateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_flow_request
+
+            return capo_bedrock_agent.types.update_flow_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_flow_response.UpdateFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_flow_response
+
+            return capo_bedrock_agent.types.update_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFlow", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.update_flow_request.UpdateFlowRequest = {
             "name": name,
             "execution_role_arn": execution_role_arn,
@@ -296,7 +348,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_bedrock_agent.types.delete_flow_request.DeleteFlowRequest = {
             "flow_identifier": flow_identifier
         }
@@ -346,7 +400,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_bedrock_agent.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -397,7 +453,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PrepareFlow")
+        )
         input_: capo_bedrock_agent.types.prepare_flow_request.PrepareFlowRequest = {
             "flow_identifier": flow_identifier
         }
@@ -471,7 +529,28 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.create_flow_request.CreateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_flow_request
+
+            return capo_bedrock_agent.types.create_flow_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.create_flow_response.CreateFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.create_flow_response
+
+            return capo_bedrock_agent.types.create_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFlow", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.create_flow_request.CreateFlowRequest = {
             "name": name,
             "execution_role_arn": execution_role_arn,
@@ -535,7 +614,16 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agent.types.get_flow_response.GetFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.get_flow_response
+
+            return capo_bedrock_agent.types.get_flow_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFlow", redact_output=_redact_output)
+        )
         input_: capo_bedrock_agent.types.get_flow_request.GetFlowRequest = {
             "flow_identifier": flow_identifier
         }
@@ -603,7 +691,28 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.update_flow_request.UpdateFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_flow_request
+
+            return capo_bedrock_agent.types.update_flow_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_agent.types.update_flow_response.UpdateFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.update_flow_response
+
+            return capo_bedrock_agent.types.update_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFlow", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent.types.update_flow_request.UpdateFlowRequest = {
             "name": name,
             "execution_role_arn": execution_role_arn,
@@ -662,7 +771,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_bedrock_agent.types.delete_flow_request.DeleteFlowRequest = {
             "flow_identifier": flow_identifier
         }
@@ -713,7 +824,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_bedrock_agent.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -765,7 +878,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PrepareFlow")
+        )
         input_: capo_bedrock_agent.types.prepare_flow_request.PrepareFlowRequest = {
             "flow_identifier": flow_identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SuggestQueryResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> SuggestQueryResult:
         out["query_type"] = capo_geo_places.types.query_type.deserialize_json(
             data["QueryType"]
         )
+    return out
+
+
+def redact_sensitive(value: SuggestQueryResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_id" in value:
+        out["query_id"] = "*** Sensitive Data Redacted ***"
     return out

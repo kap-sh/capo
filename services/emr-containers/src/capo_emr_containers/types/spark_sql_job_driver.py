@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#SparkSqlJobDriver``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> SparkSqlJobDriver:
         out["entry_point"] = data["entryPoint"]
     if data.get("sparkSqlParameters") is not None:
         out["spark_sql_parameters"] = data["sparkSqlParameters"]
+    return out
+
+
+def redact_sensitive(value: SparkSqlJobDriver) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entry_point" in value:
+        out["entry_point"] = "*** Sensitive Data Redacted ***"
+    if "spark_sql_parameters" in value:
+        out["spark_sql_parameters"] = "*** Sensitive Data Redacted ***"
     return out

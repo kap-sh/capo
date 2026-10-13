@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ListEnvironmentOutputsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_aws_json_1_0(data: dict) -> ListEnvironmentOutputsOutput:
         )
     else:
         raise DeserializationError("ListEnvironmentOutputsOutput.outputs required")
+    return out
+
+
+def redact_sensitive(value: ListEnvironmentOutputsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "outputs" in value:
+        import capo_proton.types.outputs_list
+
+        out["outputs"] = capo_proton.types.outputs_list.redact_sensitive(
+            value["outputs"]
+        )
     return out

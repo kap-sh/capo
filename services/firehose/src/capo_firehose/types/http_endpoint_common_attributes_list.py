@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#HttpEndpointCommonAttributesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_firehose.types.http_endpoint_common_attribute
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> HttpEndpointCommonAttributesList:
             )
         )
     return out
+
+
+def redact_sensitive(value: HttpEndpointCommonAttributesList) -> list[Any]:
+    import capo_firehose.types.http_endpoint_common_attribute
+
+    return [
+        capo_firehose.types.http_endpoint_common_attribute.redact_sensitive(item)
+        for item in value
+    ]

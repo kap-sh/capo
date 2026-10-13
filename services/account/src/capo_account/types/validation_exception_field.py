@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#ValidationExceptionField``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> ValidationExceptionField:
         out["message"] = data["message"]
     else:
         raise DeserializationError("ValidationExceptionField.message required")
+    return out
+
+
+def redact_sensitive(value: ValidationExceptionField) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

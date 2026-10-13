@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#SAPODataConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,27 @@ def deserialize_json(data: dict) -> SAPODataConnectorProfileCredentials:
         out["o_auth_credentials"] = (
             capo_appflow.types.o_auth_credentials.deserialize_json(
                 data["oAuthCredentials"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SAPODataConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_auth_credentials" in value:
+        import capo_appflow.types.basic_auth_credentials
+
+        out["basic_auth_credentials"] = (
+            capo_appflow.types.basic_auth_credentials.redact_sensitive(
+                value["basic_auth_credentials"]
+            )
+        )
+    if "o_auth_credentials" in value:
+        import capo_appflow.types.o_auth_credentials
+
+        out["o_auth_credentials"] = (
+            capo_appflow.types.o_auth_credentials.redact_sensitive(
+                value["o_auth_credentials"]
             )
         )
     return out

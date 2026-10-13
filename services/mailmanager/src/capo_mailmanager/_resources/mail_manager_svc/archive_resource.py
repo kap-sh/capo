@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class ArchiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateArchive")
+        )
         input_: capo_mailmanager.types.create_archive_request.CreateArchiveRequest = {
             "archive_name": archive_name
         }
@@ -147,7 +150,9 @@ class ArchiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetArchive")
+        )
         input_: capo_mailmanager.types.get_archive_request.GetArchiveRequest = {
             "archive_id": archive_id
         }
@@ -203,7 +208,9 @@ class ArchiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateArchive")
+        )
         input_: capo_mailmanager.types.update_archive_request.UpdateArchiveRequest = {
             "archive_id": archive_id
         }
@@ -253,7 +260,9 @@ class ArchiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteArchive")
+        )
         input_: capo_mailmanager.types.delete_archive_request.DeleteArchiveRequest = {
             "archive_id": archive_id
         }
@@ -302,7 +311,9 @@ class ArchiveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListArchives")
+        )
         input_: capo_mailmanager.types.list_archives_request.ListArchivesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -369,7 +380,9 @@ class AsyncArchiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateArchive")
+        )
         input_: capo_mailmanager.types.create_archive_request.CreateArchiveRequest = {
             "archive_name": archive_name
         }
@@ -425,7 +438,9 @@ class AsyncArchiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetArchive")
+        )
         input_: capo_mailmanager.types.get_archive_request.GetArchiveRequest = {
             "archive_id": archive_id
         }
@@ -482,7 +497,9 @@ class AsyncArchiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateArchive")
+        )
         input_: capo_mailmanager.types.update_archive_request.UpdateArchiveRequest = {
             "archive_id": archive_id
         }
@@ -533,7 +550,9 @@ class AsyncArchiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteArchive")
+        )
         input_: capo_mailmanager.types.delete_archive_request.DeleteArchiveRequest = {
             "archive_id": archive_id
         }
@@ -583,7 +602,9 @@ class AsyncArchiveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListArchives")
+        )
         input_: capo_mailmanager.types.list_archives_request.ListArchivesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

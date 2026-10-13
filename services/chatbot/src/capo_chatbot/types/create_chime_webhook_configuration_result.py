@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#CreateChimeWebhookConfigurationResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> CreateChimeWebhookConfigurationResult:
         out["webhook_configuration"] = (
             capo_chatbot.types.chime_webhook_configuration.deserialize_json(
                 data["WebhookConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateChimeWebhookConfigurationResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "webhook_configuration" in value:
+        import capo_chatbot.types.chime_webhook_configuration
+
+        out["webhook_configuration"] = (
+            capo_chatbot.types.chime_webhook_configuration.redact_sensitive(
+                value["webhook_configuration"]
             )
         )
     return out

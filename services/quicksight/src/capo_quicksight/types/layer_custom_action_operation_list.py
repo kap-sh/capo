@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#LayerCustomActionOperationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.layer_custom_action_operation
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> LayerCustomActionOperationList:
             capo_quicksight.types.layer_custom_action_operation.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: LayerCustomActionOperationList) -> list[Any]:
+    import capo_quicksight.types.layer_custom_action_operation
+
+    return [
+        capo_quicksight.types.layer_custom_action_operation.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitIntermediateStopAttributeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_transit_intermediate_stop_attribute
@@ -37,3 +37,7 @@ def deserialize_json(data: list) -> RouteTransitIntermediateStopAttributeList:
             )
         )
     return out
+
+
+def redact_sensitive(value: RouteTransitIntermediateStopAttributeList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

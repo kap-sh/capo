@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectparticipant#WebRTCConnection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,5 +46,16 @@ def deserialize_json(data: dict) -> WebRTCConnection:
 
         out["meeting"] = capo_connectparticipant.types.web_rtc_meeting.deserialize_json(
             data["Meeting"]
+        )
+    return out
+
+
+def redact_sensitive(value: WebRTCConnection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attendee" in value:
+        import capo_connectparticipant.types.attendee
+
+        out["attendee"] = capo_connectparticipant.types.attendee.redact_sensitive(
+            value["attendee"]
         )
     return out

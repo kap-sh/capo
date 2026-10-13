@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetAgentRuntimeEndpointRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -26,4 +26,11 @@ def serialize_json(value: GetAgentRuntimeEndpointRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetAgentRuntimeEndpointRequest:
     out: GetAgentRuntimeEndpointRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetAgentRuntimeEndpointRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoint_name" in value:
+        out["endpoint_name"] = "*** Sensitive Data Redacted ***"
     return out

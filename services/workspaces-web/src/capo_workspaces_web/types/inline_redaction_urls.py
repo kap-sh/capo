@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#InlineRedactionUrls``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.inline_redaction_url
@@ -17,3 +17,7 @@ def serialize_json(value: InlineRedactionUrls) -> list:
 
 def deserialize_json(data: list) -> InlineRedactionUrls:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: InlineRedactionUrls) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

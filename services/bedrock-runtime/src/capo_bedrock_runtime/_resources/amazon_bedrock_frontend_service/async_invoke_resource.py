@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_runtime._auth._signers
 import capo_bedrock_runtime._auth._sigv4
 from capo_bedrock_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,21 @@ class AsyncInvokeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.get_async_invoke_response.GetAsyncInvokeResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.get_async_invoke_response
+
+            return (
+                capo_bedrock_runtime.types.get_async_invoke_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAsyncInvoke", redact_output=_redact_output),
+        )
         input_: capo_bedrock_runtime.types.get_async_invoke_request.GetAsyncInvokeRequest = {
             "invocation_arn": invocation_arn
         }
@@ -151,7 +166,21 @@ class AsyncInvokeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.list_async_invokes_response.ListAsyncInvokesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.list_async_invokes_response
+
+            return (
+                capo_bedrock_runtime.types.list_async_invokes_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAsyncInvokes", redact_output=_redact_output),
+        )
         input_: capo_bedrock_runtime.types.list_async_invokes_request.ListAsyncInvokesRequest = {}
         if submit_time_after is not None:
             input_["submit_time_after"] = submit_time_after
@@ -223,7 +252,21 @@ class AsyncInvokeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.start_async_invoke_request.StartAsyncInvokeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.start_async_invoke_request
+
+            return (
+                capo_bedrock_runtime.types.start_async_invoke_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAsyncInvoke", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.start_async_invoke_request.StartAsyncInvokeRequest = {
             "model_id": model_id,
             "model_input": model_input,
@@ -282,7 +325,21 @@ class AsyncAsyncInvokeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.get_async_invoke_response.GetAsyncInvokeResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.get_async_invoke_response
+
+            return (
+                capo_bedrock_runtime.types.get_async_invoke_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAsyncInvoke", redact_output=_redact_output),
+        )
         input_: capo_bedrock_runtime.types.get_async_invoke_request.GetAsyncInvokeRequest = {
             "invocation_arn": invocation_arn
         }
@@ -353,7 +410,21 @@ class AsyncAsyncInvokeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.list_async_invokes_response.ListAsyncInvokesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.list_async_invokes_response
+
+            return (
+                capo_bedrock_runtime.types.list_async_invokes_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAsyncInvokes", redact_output=_redact_output),
+        )
         input_: capo_bedrock_runtime.types.list_async_invokes_request.ListAsyncInvokesRequest = {}
         if submit_time_after is not None:
             input_["submit_time_after"] = submit_time_after
@@ -426,7 +497,21 @@ class AsyncAsyncInvokeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.start_async_invoke_request.StartAsyncInvokeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.start_async_invoke_request
+
+            return (
+                capo_bedrock_runtime.types.start_async_invoke_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartAsyncInvoke", redact_input=_redact_input),
+        )
         input_: capo_bedrock_runtime.types.start_async_invoke_request.StartAsyncInvokeRequest = {
             "model_id": model_id,
             "model_input": model_input,

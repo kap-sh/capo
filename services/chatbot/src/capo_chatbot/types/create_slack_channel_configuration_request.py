@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#CreateSlackChannelConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -134,4 +134,11 @@ def deserialize_json(data: dict) -> CreateSlackChannelConfigurationRequest:
         import capo_chatbot.types.tags
 
         out["tags"] = capo_chatbot.types.tags.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateSlackChannelConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "slack_channel_name" in value:
+        out["slack_channel_name"] = "*** Sensitive Data Redacted ***"
     return out

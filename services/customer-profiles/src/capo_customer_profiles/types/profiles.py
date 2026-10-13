@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#Profiles``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.profile_query_result
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> Profiles:
             capo_customer_profiles.types.profile_query_result.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: Profiles) -> list[Any]:
+    import capo_customer_profiles.types.profile_query_result
+
+    return [
+        capo_customer_profiles.types.profile_query_result.redact_sensitive(item)
+        for item in value
+    ]

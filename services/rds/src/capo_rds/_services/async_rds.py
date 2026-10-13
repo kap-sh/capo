@@ -24,7 +24,9 @@ from capo_rds._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -530,7 +532,9 @@ class AsyncRDSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRDSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRDSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRDSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -538,8 +542,10 @@ class AsyncRDSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -600,7 +606,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddRoleToDBCluster")
+        )
         input_: capo_rds.types.add_role_to_db_cluster_message.AddRoleToDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -659,7 +667,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddRoleToDBInstance")
+        )
         input_: capo_rds.types.add_role_to_db_instance_message.AddRoleToDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -716,7 +726,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddSourceIdentifierToSubscription")
+        )
         input_: capo_rds.types.add_source_identifier_to_subscription_message.AddSourceIdentifierToSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -781,7 +793,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_rds.types.add_tags_to_resource_message.AddTagsToResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -839,7 +853,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyPendingMaintenanceAction")
+        )
         input_: capo_rds.types.apply_pending_maintenance_action_message.ApplyPendingMaintenanceActionMessage = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -904,7 +920,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeDBSecurityGroupIngress")
+        )
         input_: capo_rds.types.authorize_db_security_group_ingress_message.AuthorizeDBSecurityGroupIngressMessage = {}
         if db_security_group_name is not None:
             input_["db_security_group_name"] = db_security_group_name
@@ -965,7 +983,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BacktrackDBCluster")
+        )
         input_: capo_rds.types.backtrack_db_cluster_message.BacktrackDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -1022,7 +1042,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelExportTask")
+        )
         input_: capo_rds.types.cancel_export_task_message.CancelExportTaskMessage = {}
         if export_task_identifier is not None:
             input_["export_task_identifier"] = export_task_identifier
@@ -1085,7 +1107,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyDBClusterParameterGroup")
+        )
         input_: capo_rds.types.copy_db_cluster_parameter_group_message.CopyDBClusterParameterGroupMessage = {}
         if source_db_cluster_parameter_group_identifier is not None:
             input_["source_db_cluster_parameter_group_identifier"] = (
@@ -1167,7 +1191,19 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.copy_db_cluster_snapshot_message.CopyDBClusterSnapshotMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.copy_db_cluster_snapshot_message
+
+            return capo_rds.types.copy_db_cluster_snapshot_message.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CopyDBClusterSnapshot", redact_input=_redact_input),
+        )
         input_: capo_rds.types.copy_db_cluster_snapshot_message.CopyDBClusterSnapshotMessage = {}
         if source_db_cluster_snapshot_identifier is not None:
             input_["source_db_cluster_snapshot_identifier"] = (
@@ -1244,7 +1280,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyDBParameterGroup")
+        )
         input_: capo_rds.types.copy_db_parameter_group_message.CopyDBParameterGroupMessage = {}
         if source_db_parameter_group_identifier is not None:
             input_["source_db_parameter_group_identifier"] = (
@@ -1336,7 +1374,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.copy_db_snapshot_message.CopyDBSnapshotMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.copy_db_snapshot_message
+
+            return capo_rds.types.copy_db_snapshot_message.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CopyDBSnapshot", redact_input=_redact_input),
+        )
         input_: capo_rds.types.copy_db_snapshot_message.CopyDBSnapshotMessage = {}
         if source_db_snapshot_identifier is not None:
             input_["source_db_snapshot_identifier"] = source_db_snapshot_identifier
@@ -1415,7 +1463,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.copy_option_group_result.CopyOptionGroupResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.copy_option_group_result
+
+            return capo_rds.types.copy_option_group_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CopyOptionGroup", redact_output=_redact_output),
+        )
         input_: capo_rds.types.copy_option_group_message.CopyOptionGroupMessage = {}
         if source_option_group_identifier is not None:
             input_["source_option_group_identifier"] = source_option_group_identifier
@@ -1530,7 +1588,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBlueGreenDeployment")
+        )
         input_: capo_rds.types.create_blue_green_deployment_request.CreateBlueGreenDeploymentRequest = {}
         if blue_green_deployment_name is not None:
             input_["blue_green_deployment_name"] = blue_green_deployment_name
@@ -1639,7 +1699,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomDBEngineVersion")
+        )
         input_: capo_rds.types.create_custom_db_engine_version_message.CreateCustomDBEngineVersionMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -1936,7 +1998,28 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.create_db_cluster_message.CreateDBClusterMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_cluster_message
+
+            return capo_rds.types.create_db_cluster_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_rds.types.create_db_cluster_result.CreateDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_cluster_result
+
+            return capo_rds.types.create_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDBCluster",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.create_db_cluster_message.CreateDBClusterMessage = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -2127,7 +2210,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBClusterEndpoint")
+        )
         input_: capo_rds.types.create_db_cluster_endpoint_message.CreateDBClusterEndpointMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -2196,7 +2281,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBClusterParameterGroup")
+        )
         input_: capo_rds.types.create_db_cluster_parameter_group_message.CreateDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -2262,7 +2349,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBClusterSnapshot")
+        )
         input_: capo_rds.types.create_db_cluster_snapshot_message.CreateDBClusterSnapshotMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -2528,7 +2617,28 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.create_db_instance_message.CreateDBInstanceMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_instance_message
+
+            return capo_rds.types.create_db_instance_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_rds.types.create_db_instance_result.CreateDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_instance_result
+
+            return capo_rds.types.create_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDBInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.create_db_instance_message.CreateDBInstanceMessage = {}
         if db_name is not None:
             input_["db_name"] = db_name
@@ -2879,7 +2989,36 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.create_db_instance_read_replica_message.CreateDBInstanceReadReplicaMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_instance_read_replica_message
+
+            return (
+                capo_rds.types.create_db_instance_read_replica_message.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.create_db_instance_read_replica_result.CreateDBInstanceReadReplicaResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_db_instance_read_replica_result
+
+            return (
+                capo_rds.types.create_db_instance_read_replica_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDBInstanceReadReplica",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.create_db_instance_read_replica_message.CreateDBInstanceReadReplicaMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -3036,7 +3175,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBParameterGroup")
+        )
         input_: capo_rds.types.create_db_parameter_group_message.CreateDBParameterGroupMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -3124,7 +3265,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBProxy")
+        )
         input_: capo_rds.types.create_db_proxy_request.CreateDBProxyRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -3217,7 +3360,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBProxyEndpoint")
+        )
         input_: capo_rds.types.create_db_proxy_endpoint_request.CreateDBProxyEndpointRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -3285,7 +3430,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBSecurityGroup")
+        )
         input_: capo_rds.types.create_db_security_group_message.CreateDBSecurityGroupMessage = {}
         if db_security_group_name is not None:
             input_["db_security_group_name"] = db_security_group_name
@@ -3352,7 +3499,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBShardGroup")
+        )
         input_: capo_rds.types.create_db_shard_group_message.CreateDBShardGroupMessage = {}
         if db_shard_group_identifier is not None:
             input_["db_shard_group_identifier"] = db_shard_group_identifier
@@ -3420,7 +3569,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBSnapshot")
+        )
         input_: capo_rds.types.create_db_snapshot_message.CreateDBSnapshotMessage = {}
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
@@ -3486,7 +3637,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDBSubnetGroup")
+        )
         input_: capo_rds.types.create_db_subnet_group_message.CreateDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -3563,7 +3716,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventSubscription")
+        )
         input_: capo_rds.types.create_event_subscription_message.CreateEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -3652,7 +3807,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalCluster")
+        )
         input_: capo_rds.types.create_global_cluster_message.CreateGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -3740,7 +3897,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntegration")
+        )
         input_: capo_rds.types.create_integration_message.CreateIntegrationMessage = {}
         if source_arn is not None:
             input_["source_arn"] = source_arn
@@ -3813,7 +3972,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.create_option_group_result.CreateOptionGroupResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_option_group_result
+
+            return capo_rds.types.create_option_group_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOptionGroup", redact_output=_redact_output),
+        )
         input_: capo_rds.types.create_option_group_message.CreateOptionGroupMessage = {}
         if option_group_name is not None:
             input_["option_group_name"] = option_group_name
@@ -3888,7 +4057,30 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.create_tenant_database_message.CreateTenantDatabaseMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_tenant_database_message
+
+            return capo_rds.types.create_tenant_database_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.create_tenant_database_result.CreateTenantDatabaseResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.create_tenant_database_result
+
+            return capo_rds.types.create_tenant_database_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateTenantDatabase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.create_tenant_database_message.CreateTenantDatabaseMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -3965,7 +4157,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBlueGreenDeployment")
+        )
         input_: capo_rds.types.delete_blue_green_deployment_request.DeleteBlueGreenDeploymentRequest = {}
         if blue_green_deployment_identifier is not None:
             input_["blue_green_deployment_identifier"] = (
@@ -4016,7 +4210,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomDBEngineVersion")
+        )
         input_: capo_rds.types.delete_custom_db_engine_version_message.DeleteCustomDBEngineVersionMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -4083,7 +4279,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.delete_db_cluster_result.DeleteDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.delete_db_cluster_result
+
+            return capo_rds.types.delete_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDBCluster", redact_output=_redact_output),
+        )
         input_: capo_rds.types.delete_db_cluster_message.DeleteDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -4134,7 +4340,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterAutomatedBackup")
+        )
         input_: capo_rds.types.delete_db_cluster_automated_backup_message.DeleteDBClusterAutomatedBackupMessage = {}
         if db_cluster_resource_id is not None:
             input_["db_cluster_resource_id"] = db_cluster_resource_id
@@ -4186,7 +4394,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterEndpoint")
+        )
         input_: capo_rds.types.delete_db_cluster_endpoint_message.DeleteDBClusterEndpointMessage = {}
         if db_cluster_endpoint_identifier is not None:
             input_["db_cluster_endpoint_identifier"] = db_cluster_endpoint_identifier
@@ -4237,7 +4447,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterParameterGroup")
+        )
         input_: capo_rds.types.delete_db_cluster_parameter_group_message.DeleteDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -4289,7 +4501,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBClusterSnapshot")
+        )
         input_: capo_rds.types.delete_db_cluster_snapshot_message.DeleteDBClusterSnapshotMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -4353,7 +4567,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.delete_db_instance_result.DeleteDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.delete_db_instance_result
+
+            return capo_rds.types.delete_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDBInstance", redact_output=_redact_output),
+        )
         input_: capo_rds.types.delete_db_instance_message.DeleteDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -4414,7 +4638,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBInstanceAutomatedBackup")
+        )
         input_: capo_rds.types.delete_db_instance_automated_backup_message.DeleteDBInstanceAutomatedBackupMessage = {}
         if dbi_resource_id is not None:
             input_["dbi_resource_id"] = dbi_resource_id
@@ -4467,7 +4693,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBParameterGroup")
+        )
         input_: capo_rds.types.delete_db_parameter_group_message.DeleteDBParameterGroupMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -4512,7 +4740,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBProxy")
+        )
         input_: capo_rds.types.delete_db_proxy_request.DeleteDBProxyRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -4561,7 +4791,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBProxyEndpoint")
+        )
         input_: capo_rds.types.delete_db_proxy_endpoint_request.DeleteDBProxyEndpointRequest = {}
         if db_proxy_endpoint_name is not None:
             input_["db_proxy_endpoint_name"] = db_proxy_endpoint_name
@@ -4610,7 +4842,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBSecurityGroup")
+        )
         input_: capo_rds.types.delete_db_security_group_message.DeleteDBSecurityGroupMessage = {}
         if db_security_group_name is not None:
             input_["db_security_group_name"] = db_security_group_name
@@ -4656,7 +4890,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBShardGroup")
+        )
         input_: capo_rds.types.delete_db_shard_group_message.DeleteDBShardGroupMessage = {}
         if db_shard_group_identifier is not None:
             input_["db_shard_group_identifier"] = db_shard_group_identifier
@@ -4707,7 +4943,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBSnapshot")
+        )
         input_: capo_rds.types.delete_db_snapshot_message.DeleteDBSnapshotMessage = {}
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
@@ -4757,7 +4995,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDBSubnetGroup")
+        )
         input_: capo_rds.types.delete_db_subnet_group_message.DeleteDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -4810,7 +5050,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSubscription")
+        )
         input_: capo_rds.types.delete_event_subscription_message.DeleteEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -4863,7 +5105,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalCluster")
+        )
         input_: capo_rds.types.delete_global_cluster_message.DeleteGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -4915,7 +5159,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_rds.types.delete_integration_message.DeleteIntegrationMessage = {}
         if integration_identifier is not None:
             input_["integration_identifier"] = integration_identifier
@@ -4964,7 +5210,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOptionGroup")
+        )
         input_: capo_rds.types.delete_option_group_message.DeleteOptionGroupMessage = {}
         if option_group_name is not None:
             input_["option_group_name"] = option_group_name
@@ -5017,7 +5265,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.delete_tenant_database_result.DeleteTenantDatabaseResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.delete_tenant_database_result
+
+            return capo_rds.types.delete_tenant_database_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTenantDatabase", redact_output=_redact_output),
+        )
         input_: capo_rds.types.delete_tenant_database_message.DeleteTenantDatabaseMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -5082,7 +5340,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterDBProxyTargets")
+        )
         input_: capo_rds.types.deregister_db_proxy_targets_request.DeregisterDBProxyTargetsRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -5131,7 +5391,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAttributes")
+        )
         input_: capo_rds.types.describe_account_attributes_message.DescribeAccountAttributesMessage = {}
 
         response = await aexecute_pipeline(
@@ -5195,7 +5457,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBlueGreenDeployments")
+        )
         input_: capo_rds.types.describe_blue_green_deployments_request.DescribeBlueGreenDeploymentsRequest = {}
         if blue_green_deployment_identifier is not None:
             input_["blue_green_deployment_identifier"] = (
@@ -5286,7 +5550,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificates")
+        )
         input_: capo_rds.types.describe_certificates_message.DescribeCertificatesMessage = {}
         if certificate_identifier is not None:
             input_["certificate_identifier"] = certificate_identifier
@@ -5369,7 +5635,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterAutomatedBackups")
+        )
         input_: capo_rds.types.describe_db_cluster_automated_backups_message.DescribeDBClusterAutomatedBackupsMessage = {}
         if db_cluster_resource_id is not None:
             input_["db_cluster_resource_id"] = db_cluster_resource_id
@@ -5463,7 +5731,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterBacktracks")
+        )
         input_: capo_rds.types.describe_db_cluster_backtracks_message.DescribeDBClusterBacktracksMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -5560,7 +5830,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterEndpoints")
+        )
         input_: capo_rds.types.describe_db_cluster_endpoints_message.DescribeDBClusterEndpointsMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -5653,7 +5925,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterParameterGroups")
+        )
         input_: capo_rds.types.describe_db_cluster_parameter_groups_message.DescribeDBClusterParameterGroupsMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -5746,7 +6020,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterParameters")
+        )
         input_: capo_rds.types.describe_db_cluster_parameters_message.DescribeDBClusterParametersMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -5845,7 +6121,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.db_cluster_message.DBClusterMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.db_cluster_message
+
+            return capo_rds.types.db_cluster_message.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDBClusters", redact_output=_redact_output),
+        )
         input_: capo_rds.types.describe_db_clusters_message.DescribeDBClustersMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -5930,7 +6216,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterSnapshotAttributes")
+        )
         input_: capo_rds.types.describe_db_cluster_snapshot_attributes_message.DescribeDBClusterSnapshotAttributesMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -5996,7 +6284,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBClusterSnapshots")
+        )
         input_: capo_rds.types.describe_db_cluster_snapshots_message.DescribeDBClusterSnapshotsMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -6118,7 +6408,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBEngineVersions")
+        )
         input_: capo_rds.types.describe_db_engine_versions_message.DescribeDBEngineVersionsMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -6239,7 +6531,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBInstanceAutomatedBackups")
+        )
         input_: capo_rds.types.describe_db_instance_automated_backups_message.DescribeDBInstanceAutomatedBackupsMessage = {}
         if dbi_resource_id is not None:
             input_["dbi_resource_id"] = dbi_resource_id
@@ -6338,7 +6632,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.db_instance_message.DBInstanceMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.db_instance_message
+
+            return capo_rds.types.db_instance_message.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDBInstances", redact_output=_redact_output),
+        )
         input_: capo_rds.types.describe_db_instances_message.DescribeDBInstancesMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -6432,7 +6736,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBLogFiles")
+        )
         input_: capo_rds.types.describe_db_log_files_message.DescribeDBLogFilesMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -6526,7 +6832,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBMajorEngineVersions")
+        )
         input_: capo_rds.types.describe_db_major_engine_versions_request.DescribeDBMajorEngineVersionsRequest = {}
         if engine is not None:
             input_["engine"] = engine
@@ -6615,7 +6923,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBParameterGroups")
+        )
         input_: capo_rds.types.describe_db_parameter_groups_message.DescribeDBParameterGroupsMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -6704,7 +7014,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBParameters")
+        )
         input_: capo_rds.types.describe_db_parameters_message.DescribeDBParametersMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -6789,7 +7101,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBProxies")
+        )
         input_: capo_rds.types.describe_db_proxies_request.DescribeDBProxiesRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -6875,7 +7189,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBProxyEndpoints")
+        )
         input_: capo_rds.types.describe_db_proxy_endpoints_request.DescribeDBProxyEndpointsRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -6968,7 +7284,21 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.describe_db_proxy_target_groups_response.DescribeDBProxyTargetGroupsResponse",
+        ) -> dict[str, Any]:
+            import capo_rds.types.describe_db_proxy_target_groups_response
+
+            return capo_rds.types.describe_db_proxy_target_groups_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDBProxyTargetGroups", redact_output=_redact_output
+            ),
+        )
         input_: capo_rds.types.describe_db_proxy_target_groups_request.DescribeDBProxyTargetGroupsRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -7062,7 +7392,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBProxyTargets")
+        )
         input_: capo_rds.types.describe_db_proxy_targets_request.DescribeDBProxyTargetsRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -7152,7 +7484,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBRecommendations")
+        )
         input_: capo_rds.types.describe_db_recommendations_message.DescribeDBRecommendationsMessage = {}
         if last_updated_after is not None:
             input_["last_updated_after"] = last_updated_after
@@ -7247,7 +7581,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSecurityGroups")
+        )
         input_: capo_rds.types.describe_db_security_groups_message.DescribeDBSecurityGroupsMessage = {}
         if db_security_group_name is not None:
             input_["db_security_group_name"] = db_security_group_name
@@ -7333,7 +7669,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBShardGroups")
+        )
         input_: capo_rds.types.describe_db_shard_groups_message.DescribeDBShardGroupsMessage = {}
         if db_shard_group_identifier is not None:
             input_["db_shard_group_identifier"] = db_shard_group_identifier
@@ -7389,7 +7727,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSnapshotAttributes")
+        )
         input_: capo_rds.types.describe_db_snapshot_attributes_message.DescribeDBSnapshotAttributesMessage = {}
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
@@ -7455,7 +7795,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSnapshots")
+        )
         input_: capo_rds.types.describe_db_snapshots_message.DescribeDBSnapshotsMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -7562,7 +7904,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSnapshotTenantDatabases")
+        )
         input_: capo_rds.types.describe_db_snapshot_tenant_databases_message.DescribeDBSnapshotTenantDatabasesMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -7661,7 +8005,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDBSubnetGroups")
+        )
         input_: capo_rds.types.describe_db_subnet_groups_message.DescribeDBSubnetGroupsMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -7747,7 +8093,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineDefaultClusterParameters")
+        )
         input_: capo_rds.types.describe_engine_default_cluster_parameters_message.DescribeEngineDefaultClusterParametersMessage = {}
         if db_parameter_group_family is not None:
             input_["db_parameter_group_family"] = db_parameter_group_family
@@ -7833,7 +8181,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineDefaultParameters")
+        )
         input_: capo_rds.types.describe_engine_default_parameters_message.DescribeEngineDefaultParametersMessage = {}
         if db_parameter_group_family is not None:
             input_["db_parameter_group_family"] = db_parameter_group_family
@@ -7915,7 +8265,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventCategories")
+        )
         input_: capo_rds.types.describe_event_categories_message.DescribeEventCategoriesMessage = {}
         if source_type is not None:
             input_["source_type"] = source_type
@@ -7982,7 +8334,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_rds.types.describe_events_message.DescribeEventsMessage = {}
         if source_identifier is not None:
             input_["source_identifier"] = source_identifier
@@ -8091,7 +8445,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSubscriptions")
+        )
         input_: capo_rds.types.describe_event_subscriptions_message.DescribeEventSubscriptionsMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -8184,7 +8540,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExportTasks")
+        )
         input_: capo_rds.types.describe_export_tasks_message.DescribeExportTasksMessage = {}
         if export_task_identifier is not None:
             input_["export_task_identifier"] = export_task_identifier
@@ -8283,7 +8641,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalClusters")
+        )
         input_: capo_rds.types.describe_global_clusters_message.DescribeGlobalClustersMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -8374,7 +8734,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIntegrations")
+        )
         input_: capo_rds.types.describe_integrations_message.DescribeIntegrationsMessage = {}
         if integration_identifier is not None:
             input_["integration_identifier"] = integration_identifier
@@ -8464,7 +8826,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOptionGroupOptions")
+        )
         input_: capo_rds.types.describe_option_group_options_message.DescribeOptionGroupOptionsMessage = {}
         if engine_name is not None:
             input_["engine_name"] = engine_name
@@ -8557,7 +8921,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.option_groups.OptionGroups",
+        ) -> dict[str, Any]:
+            import capo_rds.types.option_groups
+
+            return capo_rds.types.option_groups.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeOptionGroups", redact_output=_redact_output),
+        )
         input_: capo_rds.types.describe_option_groups_message.DescribeOptionGroupsMessage = {}
         if option_group_name is not None:
             input_["option_group_name"] = option_group_name
@@ -8661,7 +9035,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrderableDBInstanceOptions")
+        )
         input_: capo_rds.types.describe_orderable_db_instance_options_message.DescribeOrderableDBInstanceOptionsMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -8768,7 +9144,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePendingMaintenanceActions")
+        )
         input_: capo_rds.types.describe_pending_maintenance_actions_message.DescribePendingMaintenanceActionsMessage = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -8871,7 +9249,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedDBInstances")
+        )
         input_: capo_rds.types.describe_reserved_db_instances_message.DescribeReservedDBInstancesMessage = {}
         if reserved_db_instance_id is not None:
             input_["reserved_db_instance_id"] = reserved_db_instance_id
@@ -9002,7 +9382,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedDBInstancesOfferings")
+        )
         input_: capo_rds.types.describe_reserved_db_instances_offerings_message.DescribeReservedDBInstancesOfferingsMessage = {}
         if reserved_db_instances_offering_id is not None:
             input_["reserved_db_instances_offering_id"] = (
@@ -9120,7 +9502,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessV2PlatformVersions")
+        )
         input_: capo_rds.types.describe_serverless_v2_platform_versions_message.DescribeServerlessV2PlatformVersionsMessage = {}
         if serverless_v2_platform_version is not None:
             input_["serverless_v2_platform_version"] = serverless_v2_platform_version
@@ -9220,7 +9604,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSourceRegions")
+        )
         input_: capo_rds.types.describe_source_regions_message.DescribeSourceRegionsMessage = {}
         if region_name is not None:
             input_["region_name"] = region_name
@@ -9303,7 +9689,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.tenant_databases_message.TenantDatabasesMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.tenant_databases_message
+
+            return capo_rds.types.tenant_databases_message.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTenantDatabases", redact_output=_redact_output),
+        )
         input_: capo_rds.types.describe_tenant_databases_message.DescribeTenantDatabasesMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -9389,7 +9785,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeValidDBInstanceModifications")
+        )
         input_: capo_rds.types.describe_valid_db_instance_modifications_message.DescribeValidDBInstanceModificationsMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -9434,7 +9832,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableHttpEndpoint")
+        )
         input_: capo_rds.types.disable_http_endpoint_request.DisableHttpEndpointRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -9492,7 +9892,19 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.download_db_log_file_portion_details.DownloadDBLogFilePortionDetails",
+        ) -> dict[str, Any]:
+            import capo_rds.types.download_db_log_file_portion_details
+
+            return capo_rds.types.download_db_log_file_portion_details.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DownloadDBLogFilePortion", redact_output=_redact_output),
+        )
         input_: capo_rds.types.download_db_log_file_portion_message.DownloadDBLogFilePortionMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -9566,7 +9978,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableHttpEndpoint")
+        )
         input_: capo_rds.types.enable_http_endpoint_request.EnableHttpEndpointRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -9620,7 +10034,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.failover_db_cluster_result.FailoverDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.failover_db_cluster_result
+
+            return capo_rds.types.failover_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("FailoverDBCluster", redact_output=_redact_output),
+        )
         input_: capo_rds.types.failover_db_cluster_message.FailoverDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -9681,7 +10105,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverGlobalCluster")
+        )
         input_: capo_rds.types.failover_global_cluster_message.FailoverGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -9747,7 +10173,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_rds.types.list_tags_for_resource_message.ListTagsForResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -9799,7 +10227,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyActivityStream")
+        )
         input_: capo_rds.types.modify_activity_stream_request.ModifyActivityStreamRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -9855,7 +10285,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCertificates")
+        )
         input_: capo_rds.types.modify_certificates_message.ModifyCertificatesMessage = {}
         if certificate_identifier is not None:
             input_["certificate_identifier"] = certificate_identifier
@@ -9917,7 +10349,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCurrentDBClusterCapacity")
+        )
         input_: capo_rds.types.modify_current_db_cluster_capacity_message.ModifyCurrentDBClusterCapacityMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -9976,7 +10410,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCustomDBEngineVersion")
+        )
         input_: capo_rds.types.modify_custom_db_engine_version_message.ModifyCustomDBEngineVersionMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -10197,7 +10633,28 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.modify_db_cluster_message.ModifyDBClusterMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_cluster_message
+
+            return capo_rds.types.modify_db_cluster_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_rds.types.modify_db_cluster_result.ModifyDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_cluster_result
+
+            return capo_rds.types.modify_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyDBCluster",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.modify_db_cluster_message.ModifyDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -10361,7 +10818,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBClusterEndpoint")
+        )
         input_: capo_rds.types.modify_db_cluster_endpoint_message.ModifyDBClusterEndpointMessage = {}
         if db_cluster_endpoint_identifier is not None:
             input_["db_cluster_endpoint_identifier"] = db_cluster_endpoint_identifier
@@ -10422,7 +10881,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBClusterParameterGroup")
+        )
         input_: capo_rds.types.modify_db_cluster_parameter_group_message.ModifyDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -10486,7 +10947,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBClusterSnapshotAttribute")
+        )
         input_: capo_rds.types.modify_db_cluster_snapshot_attribute_message.ModifyDBClusterSnapshotAttributeMessage = {}
         if db_cluster_snapshot_identifier is not None:
             input_["db_cluster_snapshot_identifier"] = db_cluster_snapshot_identifier
@@ -10763,7 +11226,28 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.modify_db_instance_message.ModifyDBInstanceMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_instance_message
+
+            return capo_rds.types.modify_db_instance_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_rds.types.modify_db_instance_result.ModifyDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_instance_result
+
+            return capo_rds.types.modify_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyDBInstance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.modify_db_instance_message.ModifyDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -10952,7 +11436,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBParameterGroup")
+        )
         input_: capo_rds.types.modify_db_parameter_group_message.ModifyDBParameterGroupMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -11024,7 +11510,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBProxy")
+        )
         input_: capo_rds.types.modify_db_proxy_request.ModifyDBProxyRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -11099,7 +11587,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBProxyEndpoint")
+        )
         input_: capo_rds.types.modify_db_proxy_endpoint_request.ModifyDBProxyEndpointRequest = {}
         if db_proxy_endpoint_name is not None:
             input_["db_proxy_endpoint_name"] = db_proxy_endpoint_name
@@ -11159,7 +11649,34 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.modify_db_proxy_target_group_request.ModifyDBProxyTargetGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_proxy_target_group_request
+
+            return capo_rds.types.modify_db_proxy_target_group_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.modify_db_proxy_target_group_response.ModifyDBProxyTargetGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_db_proxy_target_group_response
+
+            return (
+                capo_rds.types.modify_db_proxy_target_group_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyDBProxyTargetGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.modify_db_proxy_target_group_request.ModifyDBProxyTargetGroupRequest = {}
         if target_group_name is not None:
             input_["target_group_name"] = target_group_name
@@ -11216,7 +11733,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBRecommendation")
+        )
         input_: capo_rds.types.modify_db_recommendation_message.ModifyDBRecommendationMessage = {}
         if recommendation_id is not None:
             input_["recommendation_id"] = recommendation_id
@@ -11276,7 +11795,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBShardGroup")
+        )
         input_: capo_rds.types.modify_db_shard_group_message.ModifyDBShardGroupMessage = {}
         if db_shard_group_identifier is not None:
             input_["db_shard_group_identifier"] = db_shard_group_identifier
@@ -11338,7 +11859,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBSnapshot")
+        )
         input_: capo_rds.types.modify_db_snapshot_message.ModifyDBSnapshotMessage = {}
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
@@ -11408,7 +11931,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBSnapshotAttribute")
+        )
         input_: capo_rds.types.modify_db_snapshot_attribute_message.ModifyDBSnapshotAttributeMessage = {}
         if db_snapshot_identifier is not None:
             input_["db_snapshot_identifier"] = db_snapshot_identifier
@@ -11475,7 +12000,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDBSubnetGroup")
+        )
         input_: capo_rds.types.modify_db_subnet_group_message.ModifyDBSubnetGroupMessage = {}
         if db_subnet_group_name is not None:
             input_["db_subnet_group_name"] = db_subnet_group_name
@@ -11546,7 +12073,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEventSubscription")
+        )
         input_: capo_rds.types.modify_event_subscription_message.ModifyEventSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -11624,7 +12153,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyGlobalCluster")
+        )
         input_: capo_rds.types.modify_global_cluster_message.ModifyGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -11694,7 +12225,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyIntegration")
+        )
         input_: capo_rds.types.modify_integration_message.ModifyIntegrationMessage = {}
         if integration_identifier is not None:
             input_["integration_identifier"] = integration_identifier
@@ -11761,7 +12294,28 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.modify_option_group_message.ModifyOptionGroupMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_option_group_message
+
+            return capo_rds.types.modify_option_group_message.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_rds.types.modify_option_group_result.ModifyOptionGroupResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_option_group_result
+
+            return capo_rds.types.modify_option_group_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyOptionGroup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.modify_option_group_message.ModifyOptionGroupMessage = {}
         if option_group_name is not None:
             input_["option_group_name"] = option_group_name
@@ -11833,7 +12387,30 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.modify_tenant_database_message.ModifyTenantDatabaseMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_tenant_database_message
+
+            return capo_rds.types.modify_tenant_database_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.modify_tenant_database_result.ModifyTenantDatabaseResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.modify_tenant_database_result
+
+            return capo_rds.types.modify_tenant_database_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyTenantDatabase",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.modify_tenant_database_message.ModifyTenantDatabaseMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -11906,7 +12483,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.promote_read_replica_result.PromoteReadReplicaResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.promote_read_replica_result
+
+            return capo_rds.types.promote_read_replica_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PromoteReadReplica", redact_output=_redact_output),
+        )
         input_: capo_rds.types.promote_read_replica_message.PromoteReadReplicaMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -11957,7 +12544,23 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.promote_read_replica_db_cluster_result.PromoteReadReplicaDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.promote_read_replica_db_cluster_result
+
+            return (
+                capo_rds.types.promote_read_replica_db_cluster_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PromoteReadReplicaDBCluster", redact_output=_redact_output
+            ),
+        )
         input_: capo_rds.types.promote_read_replica_db_cluster_message.PromoteReadReplicaDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -12018,7 +12621,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseReservedDBInstancesOffering")
+        )
         input_: capo_rds.types.purchase_reserved_db_instances_offering_message.PurchaseReservedDBInstancesOfferingMessage = {}
         if reserved_db_instances_offering_id is not None:
             input_["reserved_db_instances_offering_id"] = (
@@ -12072,7 +12677,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.reboot_db_cluster_result.RebootDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.reboot_db_cluster_result
+
+            return capo_rds.types.reboot_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RebootDBCluster", redact_output=_redact_output),
+        )
         input_: capo_rds.types.reboot_db_cluster_message.RebootDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -12128,7 +12743,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.reboot_db_instance_result.RebootDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.reboot_db_instance_result
+
+            return capo_rds.types.reboot_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RebootDBInstance", redact_output=_redact_output),
+        )
         input_: capo_rds.types.reboot_db_instance_message.RebootDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -12175,7 +12800,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootDBShardGroup")
+        )
         input_: capo_rds.types.reboot_db_shard_group_message.RebootDBShardGroupMessage = {}
         if db_shard_group_identifier is not None:
             input_["db_shard_group_identifier"] = db_shard_group_identifier
@@ -12239,7 +12866,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDBProxyTargets")
+        )
         input_: capo_rds.types.register_db_proxy_targets_request.RegisterDBProxyTargetsRequest = {}
         if db_proxy_name is not None:
             input_["db_proxy_name"] = db_proxy_name
@@ -12304,7 +12933,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveFromGlobalCluster")
+        )
         input_: capo_rds.types.remove_from_global_cluster_message.RemoveFromGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -12360,7 +12991,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRoleFromDBCluster")
+        )
         input_: capo_rds.types.remove_role_from_db_cluster_message.RemoveRoleFromDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -12412,7 +13045,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveRoleFromDBInstance")
+        )
         input_: capo_rds.types.remove_role_from_db_instance_message.RemoveRoleFromDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -12469,7 +13104,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveSourceIdentifierFromSubscription")
+        )
         input_: capo_rds.types.remove_source_identifier_from_subscription_message.RemoveSourceIdentifierFromSubscriptionMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -12534,7 +13171,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_rds.types.remove_tags_from_resource_message.RemoveTagsFromResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -12593,7 +13232,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetDBClusterParameterGroup")
+        )
         input_: capo_rds.types.reset_db_cluster_parameter_group_message.ResetDBClusterParameterGroupMessage = {}
         if db_cluster_parameter_group_name is not None:
             input_["db_cluster_parameter_group_name"] = db_cluster_parameter_group_name
@@ -12652,7 +13293,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetDBParameterGroup")
+        )
         input_: capo_rds.types.reset_db_parameter_group_message.ResetDBParameterGroupMessage = {}
         if db_parameter_group_name is not None:
             input_["db_parameter_group_name"] = db_parameter_group_name
@@ -12826,7 +13469,32 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.restore_db_cluster_from_s3_message.RestoreDBClusterFromS3Message",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_cluster_from_s3_message
+
+            return capo_rds.types.restore_db_cluster_from_s3_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.restore_db_cluster_from_s3_result.RestoreDBClusterFromS3Result",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_cluster_from_s3_result
+
+            return capo_rds.types.restore_db_cluster_from_s3_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBClusterFromS3",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.restore_db_cluster_from_s3_message.RestoreDBClusterFromS3Message = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -13106,7 +13774,23 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.restore_db_cluster_from_snapshot_result.RestoreDBClusterFromSnapshotResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_cluster_from_snapshot_result
+
+            return (
+                capo_rds.types.restore_db_cluster_from_snapshot_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBClusterFromSnapshot", redact_output=_redact_output
+            ),
+        )
         input_: capo_rds.types.restore_db_cluster_from_snapshot_message.RestoreDBClusterFromSnapshotMessage = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -13387,7 +14071,21 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.restore_db_cluster_to_point_in_time_result.RestoreDBClusterToPointInTimeResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_cluster_to_point_in_time_result
+
+            return capo_rds.types.restore_db_cluster_to_point_in_time_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBClusterToPointInTime", redact_output=_redact_output
+            ),
+        )
         input_: capo_rds.types.restore_db_cluster_to_point_in_time_message.RestoreDBClusterToPointInTimeMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -13678,7 +14376,32 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.restore_db_instance_from_db_snapshot_message.RestoreDBInstanceFromDBSnapshotMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_from_db_snapshot_message
+
+            return capo_rds.types.restore_db_instance_from_db_snapshot_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.restore_db_instance_from_db_snapshot_result.RestoreDBInstanceFromDBSnapshotResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_from_db_snapshot_result
+
+            return capo_rds.types.restore_db_instance_from_db_snapshot_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBInstanceFromDBSnapshot",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.restore_db_instance_from_db_snapshot_message.RestoreDBInstanceFromDBSnapshotMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -13993,7 +14716,32 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.restore_db_instance_from_s3_message.RestoreDBInstanceFromS3Message",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_from_s3_message
+
+            return capo_rds.types.restore_db_instance_from_s3_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.restore_db_instance_from_s3_result.RestoreDBInstanceFromS3Result",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_from_s3_result
+
+            return capo_rds.types.restore_db_instance_from_s3_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBInstanceFromS3",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.restore_db_instance_from_s3_message.RestoreDBInstanceFromS3Message = {}
         if db_name is not None:
             input_["db_name"] = db_name
@@ -14319,7 +15067,32 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.restore_db_instance_to_point_in_time_message.RestoreDBInstanceToPointInTimeMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_to_point_in_time_message
+
+            return capo_rds.types.restore_db_instance_to_point_in_time_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_rds.types.restore_db_instance_to_point_in_time_result.RestoreDBInstanceToPointInTimeResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.restore_db_instance_to_point_in_time_result
+
+            return capo_rds.types.restore_db_instance_to_point_in_time_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RestoreDBInstanceToPointInTime",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_rds.types.restore_db_instance_to_point_in_time_message.RestoreDBInstanceToPointInTimeMessage = {}
         if source_db_instance_identifier is not None:
             input_["source_db_instance_identifier"] = source_db_instance_identifier
@@ -14485,7 +15258,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeDBSecurityGroupIngress")
+        )
         input_: capo_rds.types.revoke_db_security_group_ingress_message.RevokeDBSecurityGroupIngressMessage = {}
         if db_security_group_name is not None:
             input_["db_security_group_name"] = db_security_group_name
@@ -14560,7 +15335,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartActivityStream")
+        )
         input_: capo_rds.types.start_activity_stream_request.StartActivityStreamRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -14625,7 +15402,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.start_db_cluster_result.StartDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.start_db_cluster_result
+
+            return capo_rds.types.start_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDBCluster", redact_output=_redact_output),
+        )
         input_: capo_rds.types.start_db_cluster_message.StartDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -14686,7 +15473,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.start_db_instance_result.StartDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.start_db_instance_result
+
+            return capo_rds.types.start_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDBInstance", redact_output=_redact_output),
+        )
         input_: capo_rds.types.start_db_instance_message.StartDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -14753,7 +15550,21 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rds.types.start_db_instance_automated_backups_replication_message.StartDBInstanceAutomatedBackupsReplicationMessage",
+        ) -> dict[str, Any]:
+            import capo_rds.types.start_db_instance_automated_backups_replication_message
+
+            return capo_rds.types.start_db_instance_automated_backups_replication_message.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartDBInstanceAutomatedBackupsReplication", redact_input=_redact_input
+            ),
+        )
         input_: capo_rds.types.start_db_instance_automated_backups_replication_message.StartDBInstanceAutomatedBackupsReplicationMessage = {}
         if source_db_instance_arn is not None:
             input_["source_db_instance_arn"] = source_db_instance_arn
@@ -14830,7 +15641,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExportTask")
+        )
         input_: capo_rds.types.start_export_task_message.StartExportTaskMessage = {}
         if export_task_identifier is not None:
             input_["export_task_identifier"] = export_task_identifier
@@ -14900,7 +15713,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopActivityStream")
+        )
         input_: capo_rds.types.stop_activity_stream_request.StopActivityStreamRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -14955,7 +15770,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.stop_db_cluster_result.StopDBClusterResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.stop_db_cluster_result
+
+            return capo_rds.types.stop_db_cluster_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopDBCluster", redact_output=_redact_output),
+        )
         input_: capo_rds.types.stop_db_cluster_message.StopDBClusterMessage = {}
         if db_cluster_identifier is not None:
             input_["db_cluster_identifier"] = db_cluster_identifier
@@ -15011,7 +15836,17 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.stop_db_instance_result.StopDBInstanceResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.stop_db_instance_result
+
+            return capo_rds.types.stop_db_instance_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopDBInstance", redact_output=_redact_output),
+        )
         input_: capo_rds.types.stop_db_instance_message.StopDBInstanceMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier
@@ -15064,7 +15899,10 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopDBInstanceAutomatedBackupsReplication"),
+        )
         input_: capo_rds.types.stop_db_instance_automated_backups_replication_message.StopDBInstanceAutomatedBackupsReplicationMessage = {}
         if source_db_instance_arn is not None:
             input_["source_db_instance_arn"] = source_db_instance_arn
@@ -15125,7 +15963,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwitchoverBlueGreenDeployment")
+        )
         input_: capo_rds.types.switchover_blue_green_deployment_request.SwitchoverBlueGreenDeploymentRequest = {}
         if blue_green_deployment_identifier is not None:
             input_["blue_green_deployment_identifier"] = (
@@ -15184,7 +16024,9 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SwitchoverGlobalCluster")
+        )
         input_: capo_rds.types.switchover_global_cluster_message.SwitchoverGlobalClusterMessage = {}
         if global_cluster_identifier is not None:
             input_["global_cluster_identifier"] = global_cluster_identifier
@@ -15231,7 +16073,19 @@ class AsyncRDSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rds.types.switchover_read_replica_result.SwitchoverReadReplicaResult",
+        ) -> dict[str, Any]:
+            import capo_rds.types.switchover_read_replica_result
+
+            return capo_rds.types.switchover_read_replica_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SwitchoverReadReplica", redact_output=_redact_output),
+        )
         input_: capo_rds.types.switchover_read_replica_message.SwitchoverReadReplicaMessage = {}
         if db_instance_identifier is not None:
             input_["db_instance_identifier"] = db_instance_identifier

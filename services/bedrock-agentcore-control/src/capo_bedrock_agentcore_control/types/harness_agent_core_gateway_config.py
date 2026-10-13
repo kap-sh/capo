@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HarnessAgentCoreGatewayConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,6 +47,19 @@ def deserialize_json(data: dict) -> HarnessAgentCoreGatewayConfig:
         out["outbound_auth"] = (
             capo_bedrock_agentcore_control.types.harness_gateway_outbound_auth.deserialize_json(
                 data["outboundAuth"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HarnessAgentCoreGatewayConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "outbound_auth" in value:
+        import capo_bedrock_agentcore_control.types.harness_gateway_outbound_auth
+
+        out["outbound_auth"] = (
+            capo_bedrock_agentcore_control.types.harness_gateway_outbound_auth.redact_sensitive(
+                value["outbound_auth"]
             )
         )
     return out

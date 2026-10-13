@@ -25,7 +25,9 @@ from capo_geo_routes._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -174,7 +176,9 @@ class AsyncGeoRoutesClient:
         self.provider_resource = AsyncProviderResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGeoRoutesClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGeoRoutesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGeoRoutesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -182,8 +186,10 @@ class AsyncGeoRoutesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -298,7 +304,32 @@ class AsyncGeoRoutesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_routes.types.calculate_isolines_request.CalculateIsolinesRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_isolines_request
+
+            return capo_geo_routes.types.calculate_isolines_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_geo_routes.types.calculate_isolines_response.CalculateIsolinesResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_isolines_response
+
+            return capo_geo_routes.types.calculate_isolines_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateIsolines",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_geo_routes.types.calculate_isolines_request.CalculateIsolinesRequest = {
             "thresholds": thresholds
         }
@@ -423,7 +454,36 @@ class AsyncGeoRoutesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_routes.types.calculate_route_matrix_request.CalculateRouteMatrixRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_route_matrix_request
+
+            return (
+                capo_geo_routes.types.calculate_route_matrix_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_geo_routes.types.calculate_route_matrix_response.CalculateRouteMatrixResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_route_matrix_response
+
+            return (
+                capo_geo_routes.types.calculate_route_matrix_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRouteMatrix",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_geo_routes.types.calculate_route_matrix_request.CalculateRouteMatrixRequest = {
             "destinations": destinations,
             "origins": origins,
@@ -583,7 +643,32 @@ class AsyncGeoRoutesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_routes.types.calculate_routes_request.CalculateRoutesRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_routes_request
+
+            return capo_geo_routes.types.calculate_routes_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_geo_routes.types.calculate_routes_response.CalculateRoutesResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.calculate_routes_response
+
+            return capo_geo_routes.types.calculate_routes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRoutes",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_geo_routes.types.calculate_routes_request.CalculateRoutesRequest = {
             "destination": destination,
             "origin": origin,
@@ -729,7 +814,32 @@ class AsyncGeoRoutesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_routes.types.optimize_waypoints_request.OptimizeWaypointsRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.optimize_waypoints_request
+
+            return capo_geo_routes.types.optimize_waypoints_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_geo_routes.types.optimize_waypoints_response.OptimizeWaypointsResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.optimize_waypoints_response
+
+            return capo_geo_routes.types.optimize_waypoints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "OptimizeWaypoints",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_geo_routes.types.optimize_waypoints_request.OptimizeWaypointsRequest = {
             "origin": origin
         }
@@ -822,7 +932,26 @@ class AsyncGeoRoutesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_routes.types.snap_to_roads_request.SnapToRoadsRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.snap_to_roads_request
+
+            return capo_geo_routes.types.snap_to_roads_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_routes.types.snap_to_roads_response.SnapToRoadsResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_routes.types.snap_to_roads_response
+
+            return capo_geo_routes.types.snap_to_roads_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SnapToRoads", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_routes.types.snap_to_roads_request.SnapToRoadsRequest = {
             "trace_points": trace_points
         }

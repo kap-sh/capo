@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#DeleteVoiceConnectorTerminationCredentialsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,5 +42,20 @@ def deserialize_json(data: dict) -> DeleteVoiceConnectorTerminationCredentialsRe
     else:
         raise DeserializationError(
             "DeleteVoiceConnectorTerminationCredentialsRequest.usernames required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: DeleteVoiceConnectorTerminationCredentialsRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "usernames" in value:
+        import capo_chime_sdk_voice.types.sensitive_string_list
+
+        out["usernames"] = (
+            capo_chime_sdk_voice.types.sensitive_string_list.redact_sensitive(
+                value["usernames"]
+            )
         )
     return out

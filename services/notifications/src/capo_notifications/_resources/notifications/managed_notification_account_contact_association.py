@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,10 @@ class ManagedNotificationAccountContactAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.associate_managed_notification_account_contact_request.AssociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -127,7 +131,10 @@ class ManagedNotificationAccountContactAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_account_contact_request.DisassociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -187,7 +194,10 @@ class AsyncManagedNotificationAccountContactAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.associate_managed_notification_account_contact_request.AssociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -241,7 +251,10 @@ class AsyncManagedNotificationAccountContactAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAccountContact"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_account_contact_request.DisassociateManagedNotificationAccountContactRequest = {
             "contact_identifier": contact_identifier,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#StartSpeakerSearchTaskRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,13 @@ def deserialize_json(data: dict) -> StartSpeakerSearchTaskRequest:
         )
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
+    return out
+
+
+def redact_sensitive(value: StartSpeakerSearchTaskRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "voice_profile_domain_arn" in value:
+        out["voice_profile_domain_arn"] = "*** Sensitive Data Redacted ***"
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
     return out

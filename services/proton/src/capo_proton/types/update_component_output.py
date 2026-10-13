@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#UpdateComponentOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateComponentOutput:
         )
     else:
         raise DeserializationError("UpdateComponentOutput.component required")
+    return out
+
+
+def redact_sensitive(value: UpdateComponentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "component" in value:
+        import capo_proton.types.component
+
+        out["component"] = capo_proton.types.component.redact_sensitive(
+            value["component"]
+        )
     return out

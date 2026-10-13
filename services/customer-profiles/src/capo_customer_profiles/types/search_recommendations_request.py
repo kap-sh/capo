@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#SearchRecommendationsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -157,4 +157,19 @@ def deserialize_json(data: dict) -> SearchRecommendationsRequest:
         )
     if data.get("MaxRecommendations") is not None:
         out["max_recommendations"] = data["MaxRecommendations"]
+    return out
+
+
+def redact_sensitive(value: SearchRecommendationsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_values" in value:
+        out["key_values"] = "*** Sensitive Data Redacted ***"
+    if "recommender" in value:
+        import capo_customer_profiles.types.recommender
+
+        out["recommender"] = capo_customer_profiles.types.recommender.redact_sensitive(
+            value["recommender"]
+        )
+    if "context" in value:
+        out["context"] = "*** Sensitive Data Redacted ***"
     return out

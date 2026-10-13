@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#LayerVersionContentInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,11 @@ def deserialize_json(data: dict) -> LayerVersionContentInput:
         import capo_lambda.types.blob
 
         out["zip_file"] = capo_lambda.types.blob.deserialize_json(data["ZipFile"])
+    return out
+
+
+def redact_sensitive(value: LayerVersionContentInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "zip_file" in value:
+        out["zip_file"] = "*** Sensitive Data Redacted ***"
     return out

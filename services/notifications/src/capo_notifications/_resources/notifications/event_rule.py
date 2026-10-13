@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class EventRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventRule")
+        )
         input_: capo_notifications.types.create_event_rule_request.CreateEventRuleRequest = {
             "notification_configuration_arn": notification_configuration_arn,
             "source": source,
@@ -151,7 +154,9 @@ class EventRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventRule")
+        )
         input_: capo_notifications.types.update_event_rule_request.UpdateEventRuleRequest = {
             "arn": arn
         }
@@ -202,7 +207,9 @@ class EventRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventRule")
+        )
         input_: capo_notifications.types.get_event_rule_request.GetEventRuleRequest = {
             "arn": arn
         }
@@ -250,7 +257,9 @@ class EventRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventRule")
+        )
         input_: capo_notifications.types.delete_event_rule_request.DeleteEventRuleRequest = {
             "arn": arn
         }
@@ -301,7 +310,9 @@ class EventRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventRules")
+        )
         input_: capo_notifications.types.list_event_rules_request.ListEventRulesRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -370,7 +381,9 @@ class AsyncEventRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventRule")
+        )
         input_: capo_notifications.types.create_event_rule_request.CreateEventRuleRequest = {
             "notification_configuration_arn": notification_configuration_arn,
             "source": source,
@@ -430,7 +443,9 @@ class AsyncEventRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventRule")
+        )
         input_: capo_notifications.types.update_event_rule_request.UpdateEventRuleRequest = {
             "arn": arn
         }
@@ -482,7 +497,9 @@ class AsyncEventRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventRule")
+        )
         input_: capo_notifications.types.get_event_rule_request.GetEventRuleRequest = {
             "arn": arn
         }
@@ -531,7 +548,9 @@ class AsyncEventRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventRule")
+        )
         input_: capo_notifications.types.delete_event_rule_request.DeleteEventRuleRequest = {
             "arn": arn
         }
@@ -583,7 +602,9 @@ class AsyncEventRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventRules")
+        )
         input_: capo_notifications.types.list_event_rules_request.ListEventRulesRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }

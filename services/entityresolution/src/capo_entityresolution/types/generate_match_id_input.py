@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.entityresolution#GenerateMatchIdInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,5 +59,16 @@ def deserialize_json(data: dict) -> GenerateMatchIdInput:
             capo_entityresolution.types.processing_type.deserialize_json(
                 data["processingType"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GenerateMatchIdInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "records" in value:
+        import capo_entityresolution.types.record_list
+
+        out["records"] = capo_entityresolution.types.record_list.redact_sensitive(
+            value["records"]
         )
     return out

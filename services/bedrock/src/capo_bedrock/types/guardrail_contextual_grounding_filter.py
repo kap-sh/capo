@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailContextualGroundingFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,11 @@ def deserialize_json(data: dict) -> GuardrailContextualGroundingFilter:
         )
     if data.get("enabled") is not None:
         out["enabled"] = data["enabled"]
+    return out
+
+
+def redact_sensitive(value: GuardrailContextualGroundingFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action" in value:
+        out["action"] = "*** Sensitive Data Redacted ***"
     return out

@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class AnnotationImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAnnotationImportJob")
+        )
         input_: capo_omics.types.start_annotation_import_request.StartAnnotationImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -154,7 +157,9 @@ class AnnotationImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationImportJob")
+        )
         input_: capo_omics.types.get_annotation_import_request.GetAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -201,7 +206,9 @@ class AnnotationImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelAnnotationImportJob")
+        )
         input_: capo_omics.types.cancel_annotation_import_request.CancelAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -256,7 +263,9 @@ class AnnotationImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationImportJobs")
+        )
         input_: capo_omics.types.list_annotation_import_jobs_request.ListAnnotationImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -334,7 +343,9 @@ class AsyncAnnotationImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartAnnotationImportJob")
+        )
         input_: capo_omics.types.start_annotation_import_request.StartAnnotationImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -392,7 +403,9 @@ class AsyncAnnotationImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationImportJob")
+        )
         input_: capo_omics.types.get_annotation_import_request.GetAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -440,7 +453,9 @@ class AsyncAnnotationImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelAnnotationImportJob")
+        )
         input_: capo_omics.types.cancel_annotation_import_request.CancelAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -496,7 +511,9 @@ class AsyncAnnotationImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationImportJobs")
+        )
         input_: capo_omics.types.list_annotation_import_jobs_request.ListAnnotationImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#InlinePayload``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -69,3 +69,16 @@ def deserialize_json(data: dict) -> InlinePayload:
         }
     else:
         raise DeserializationError("InlinePayload: no recognized variant key")
+
+
+def redact_sensitive(value: InlinePayload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "upsertEntitiesInfo" in value:
+        import capo_bedrock_data_automation.types.upsert_entities_info
+
+        out["upsertEntitiesInfo"] = (
+            capo_bedrock_data_automation.types.upsert_entities_info.redact_sensitive(
+                value["upsertEntitiesInfo"]
+            )
+        )
+    return out

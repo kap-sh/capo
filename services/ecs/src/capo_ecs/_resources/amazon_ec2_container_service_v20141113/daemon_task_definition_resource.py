@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,9 @@ class DaemonTaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDaemonTaskDefinition")
+        )
         input_: capo_ecs.types.delete_daemon_task_definition_request.DeleteDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -129,7 +132,21 @@ class DaemonTaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_daemon_task_definition_response.DescribeDaemonTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_daemon_task_definition_response
+
+            return capo_ecs.types.describe_daemon_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDaemonTaskDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_daemon_task_definition_request.DescribeDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -197,7 +214,9 @@ class DaemonTaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemonTaskDefinitions")
+        )
         input_: capo_ecs.types.list_daemon_task_definitions_request.ListDaemonTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -280,7 +299,23 @@ class DaemonTaskDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_daemon_task_definition_request
+
+            return (
+                capo_ecs.types.register_daemon_task_definition_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterDaemonTaskDefinition", redact_input=_redact_input
+            ),
+        )
         input_: capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,
@@ -355,7 +390,9 @@ class AsyncDaemonTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDaemonTaskDefinition")
+        )
         input_: capo_ecs.types.delete_daemon_task_definition_request.DeleteDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -408,7 +445,21 @@ class AsyncDaemonTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_daemon_task_definition_response.DescribeDaemonTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_daemon_task_definition_response
+
+            return capo_ecs.types.describe_daemon_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDaemonTaskDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_daemon_task_definition_request.DescribeDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -477,7 +528,9 @@ class AsyncDaemonTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDaemonTaskDefinitions")
+        )
         input_: capo_ecs.types.list_daemon_task_definitions_request.ListDaemonTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -561,7 +614,23 @@ class AsyncDaemonTaskDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_daemon_task_definition_request
+
+            return (
+                capo_ecs.types.register_daemon_task_definition_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterDaemonTaskDefinition", redact_input=_redact_input
+            ),
+        )
         input_: capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,

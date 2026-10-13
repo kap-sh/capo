@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#UpdateSvmActiveDirectoryConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSvmActiveDirectoryConfiguratio
         )
     if data.get("NetBiosName") is not None:
         out["net_bios_name"] = data["NetBiosName"]
+    return out
+
+
+def redact_sensitive(value: UpdateSvmActiveDirectoryConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "self_managed_active_directory_configuration" in value:
+        import capo_fsx.types.self_managed_active_directory_configuration_updates
+
+        out["self_managed_active_directory_configuration"] = (
+            capo_fsx.types.self_managed_active_directory_configuration_updates.redact_sensitive(
+                value["self_managed_active_directory_configuration"]
+            )
+        )
     return out

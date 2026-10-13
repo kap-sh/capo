@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#PaymentProviderConfigurationInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -77,3 +77,24 @@ def deserialize_json(data: dict) -> PaymentProviderConfigurationInput:
         raise DeserializationError(
             "PaymentProviderConfigurationInput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PaymentProviderConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "coinbaseCdpConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.coinbase_cdp_configuration_input
+
+        out["coinbaseCdpConfiguration"] = (
+            capo_bedrock_agentcore_control.types.coinbase_cdp_configuration_input.redact_sensitive(
+                value["coinbaseCdpConfiguration"]
+            )
+        )
+    if "stripePrivyConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.stripe_privy_configuration_input
+
+        out["stripePrivyConfiguration"] = (
+            capo_bedrock_agentcore_control.types.stripe_privy_configuration_input.redact_sensitive(
+                value["stripePrivyConfiguration"]
+            )
+        )
+    return out

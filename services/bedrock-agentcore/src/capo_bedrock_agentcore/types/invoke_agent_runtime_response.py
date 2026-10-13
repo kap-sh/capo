@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#InvokeAgentRuntimeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,3 +33,10 @@ class InvokeAgentRuntimeResponse(TypedDict, closed=True):
         "capo_bedrock_agentcore.types.http_response_code.HttpResponseCode"
     ]
     """<p>The HTTP status code of the response. A status code of 200 indicates a successful operation. Other status codes indicate various error conditions.</p>"""
+
+
+def redact_sensitive(value: InvokeAgentRuntimeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "response" in value:
+        out["response"] = "*** Sensitive Data Redacted ***"
+    return out

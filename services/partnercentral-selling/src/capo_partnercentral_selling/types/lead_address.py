@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#LeadAddress``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_aws_json_1_0(data: dict) -> LeadAddress:
         out["state_or_region"] = data["StateOrRegion"]
     if data.get("CountryCode") is not None:
         out["country_code"] = data["CountryCode"]
+    return out
+
+
+def redact_sensitive(value: LeadAddress) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country_code" in value:
+        out["country_code"] = "*** Sensitive Data Redacted ***"
     return out

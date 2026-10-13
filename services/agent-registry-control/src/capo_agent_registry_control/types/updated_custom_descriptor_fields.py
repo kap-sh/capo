@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#UpdatedCustomDescriptorFields``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> UpdatedCustomDescriptorFields:
         out["data"] = (
             capo_agent_registry_control.types.updated_descriptor_data.deserialize_json(
                 data["data"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatedCustomDescriptorFields) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        import capo_agent_registry_control.types.updated_descriptor_data
+
+        out["data"] = (
+            capo_agent_registry_control.types.updated_descriptor_data.redact_sensitive(
+                value["data"]
             )
         )
     return out

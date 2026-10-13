@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#GetStreamSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetStreamSessionResponse:
 
         out["stream_session"] = capo_ivs.types.stream_session.deserialize_json(
             data["streamSession"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetStreamSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream_session" in value:
+        import capo_ivs.types.stream_session
+
+        out["stream_session"] = capo_ivs.types.stream_session.redact_sensitive(
+            value["stream_session"]
         )
     return out

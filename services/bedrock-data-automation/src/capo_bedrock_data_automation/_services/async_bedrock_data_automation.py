@@ -40,7 +40,9 @@ from capo_bedrock_data_automation._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -233,7 +235,9 @@ class AsyncBedrockDataAutomationClient:
         self.data_automation_project_resource = AsyncDataAutomationProjectResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBedrockDataAutomationClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBedrockDataAutomationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBedrockDataAutomationClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -241,8 +245,10 @@ class AsyncBedrockDataAutomationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -304,7 +310,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyBlueprintStage")
+        )
         input_: capo_bedrock_data_automation.types.copy_blueprint_stage_request.CopyBlueprintStageRequest = {
             "blueprint_arn": blueprint_arn,
             "source_stage": source_stage,
@@ -361,7 +369,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.create_blueprint_version_response.CreateBlueprintVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_version_response
+
+            return capo_bedrock_data_automation.types.create_blueprint_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBlueprintVersion", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.create_blueprint_version_request.CreateBlueprintVersionRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -416,7 +436,21 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_data_automation_library_entity_response.GetDataAutomationLibraryEntityResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_data_automation_library_entity_response
+
+            return capo_bedrock_data_automation.types.get_data_automation_library_entity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDataAutomationLibraryEntity", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_library_entity_request.GetDataAutomationLibraryEntityRequest = {
             "library_arn": library_arn,
             "entity_type": entity_type,
@@ -475,7 +509,21 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_data_automation_library_entities_response.ListDataAutomationLibraryEntitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_data_automation_library_entities_response
+
+            return capo_bedrock_data_automation.types.list_data_automation_library_entities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataAutomationLibraryEntities", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_library_entities_request.ListDataAutomationLibraryEntitiesRequest = {
             "library_arn": library_arn,
             "entity_type": entity_type,
@@ -554,7 +602,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bedrock_data_automation.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -601,7 +651,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bedrock_data_automation.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -648,7 +700,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bedrock_data_automation.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -710,7 +764,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvokeBlueprintOptimizationAsync")
+        )
         input_: capo_bedrock_data_automation.types.invoke_blueprint_optimization_async_request.InvokeBlueprintOptimizationAsyncRequest = {
             "blueprint": blueprint,
             "samples": samples,
@@ -765,7 +821,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlueprintOptimizationStatus")
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_optimization_status_request.GetBlueprintOptimizationStatusRequest = {
             "invocation_arn": invocation_arn
         }
@@ -823,7 +881,32 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_request
+
+            return capo_bedrock_data_automation.types.create_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.create_blueprint_response.CreateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_blueprint_response
+
+            return capo_bedrock_data_automation.types.create_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.create_blueprint_request.CreateBlueprintRequest = {
             "blueprint_name": blueprint_name,
             "type": type,
@@ -892,7 +975,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_blueprint_response.GetBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_blueprint_response
+
+            return capo_bedrock_data_automation.types.get_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBlueprint", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_request.GetBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -952,7 +1047,32 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_request
+
+            return capo_bedrock_data_automation.types.update_blueprint_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.update_blueprint_response.UpdateBlueprintResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_blueprint_response
+
+            return capo_bedrock_data_automation.types.update_blueprint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBlueprint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_data_automation.types.update_blueprint_request.UpdateBlueprintRequest = {
             "blueprint_arn": blueprint_arn,
             "schema": schema,
@@ -1009,7 +1129,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBlueprint")
+        )
         input_: capo_bedrock_data_automation.types.delete_blueprint_request.DeleteBlueprintRequest = {
             "blueprint_arn": blueprint_arn
         }
@@ -1073,7 +1195,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_blueprints_response.ListBlueprintsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_blueprints_response
+
+            return capo_bedrock_data_automation.types.list_blueprints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBlueprints", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.list_blueprints_request.ListBlueprintsRequest = {}
         if blueprint_arn is not None:
             input_["blueprint_arn"] = blueprint_arn
@@ -1192,7 +1326,21 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request
+
+            return capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeDataAutomationLibraryIngestionJob", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_data_automation.types.invoke_data_automation_library_ingestion_job_request.InvokeDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "input_configuration": input_configuration,
@@ -1253,7 +1401,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationLibraryIngestionJob")
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_library_ingestion_job_request.GetDataAutomationLibraryIngestionJobRequest = {
             "library_arn": library_arn,
             "job_arn": job_arn,
@@ -1309,7 +1459,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataAutomationLibraryIngestionJobs")
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_library_ingestion_jobs_request.ListDataAutomationLibraryIngestionJobsRequest = {
             "library_arn": library_arn
         }
@@ -1396,7 +1548,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_data_automation_library_request.CreateDataAutomationLibraryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_data_automation_library_request
+
+            return capo_bedrock_data_automation.types.create_data_automation_library_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataAutomationLibrary", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.create_data_automation_library_request.CreateDataAutomationLibraryRequest = {
             "library_name": library_name
         }
@@ -1453,7 +1617,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_data_automation_library_response.GetDataAutomationLibraryResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_data_automation_library_response
+
+            return capo_bedrock_data_automation.types.get_data_automation_library_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAutomationLibrary", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_library_request.GetDataAutomationLibraryRequest = {
             "library_arn": library_arn
         }
@@ -1508,7 +1684,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_data_automation_library_request.UpdateDataAutomationLibraryRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_data_automation_library_request
+
+            return capo_bedrock_data_automation.types.update_data_automation_library_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataAutomationLibrary", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.update_data_automation_library_request.UpdateDataAutomationLibraryRequest = {
             "library_arn": library_arn
         }
@@ -1562,7 +1750,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataAutomationLibrary")
+        )
         input_: capo_bedrock_data_automation.types.delete_data_automation_library_request.DeleteDataAutomationLibraryRequest = {
             "library_arn": library_arn
         }
@@ -1614,7 +1804,21 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_data_automation_libraries_response.ListDataAutomationLibrariesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_data_automation_libraries_response
+
+            return capo_bedrock_data_automation.types.list_data_automation_libraries_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataAutomationLibraries", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_libraries_request.ListDataAutomationLibrariesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1719,7 +1923,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.create_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.create_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.create_data_automation_project_request.CreateDataAutomationProjectRequest = {
             "project_name": project_name,
             "standard_output_configuration": standard_output_configuration,
@@ -1793,7 +2009,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.get_data_automation_project_response.GetDataAutomationProjectResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.get_data_automation_project_response
+
+            return capo_bedrock_data_automation.types.get_data_automation_project_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAutomationProject", redact_output=_redact_output),
+        )
         input_: capo_bedrock_data_automation.types.get_data_automation_project_request.GetDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -1864,7 +2092,19 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.update_data_automation_project_request
+
+            return capo_bedrock_data_automation.types.update_data_automation_project_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataAutomationProject", redact_input=_redact_input),
+        )
         input_: capo_bedrock_data_automation.types.update_data_automation_project_request.UpdateDataAutomationProjectRequest = {
             "project_arn": project_arn,
             "standard_output_configuration": standard_output_configuration,
@@ -1927,7 +2167,9 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataAutomationProject")
+        )
         input_: capo_bedrock_data_automation.types.delete_data_automation_project_request.DeleteDataAutomationProjectRequest = {
             "project_arn": project_arn
         }
@@ -1989,7 +2231,21 @@ class AsyncBedrockDataAutomationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_data_automation.types.list_data_automation_projects_response.ListDataAutomationProjectsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_data_automation.types.list_data_automation_projects_response
+
+            return capo_bedrock_data_automation.types.list_data_automation_projects_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataAutomationProjects", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_data_automation.types.list_data_automation_projects_request.ListDataAutomationProjectsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

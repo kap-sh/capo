@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePedestrianSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> RoutePedestrianSummary:
         out["travel_only"] = (
             capo_geo_routes.types.route_pedestrian_travel_only_summary.deserialize_json(
                 data["TravelOnly"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RoutePedestrianSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "overview" in value:
+        import capo_geo_routes.types.route_pedestrian_overview_summary
+
+        out["overview"] = (
+            capo_geo_routes.types.route_pedestrian_overview_summary.redact_sensitive(
+                value["overview"]
+            )
+        )
+    if "travel_only" in value:
+        import capo_geo_routes.types.route_pedestrian_travel_only_summary
+
+        out["travel_only"] = (
+            capo_geo_routes.types.route_pedestrian_travel_only_summary.redact_sensitive(
+                value["travel_only"]
             )
         )
     return out

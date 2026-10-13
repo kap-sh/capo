@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#PutSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,3 +29,10 @@ class PutSessionResponse(TypedDict, closed=True):
     """<p>The identifier of the session that received the data.</p>"""
     audio_stream: "capo_lex_runtime_v2.types.blob_stream.BlobStream"
     """<p>If the requested content type was audio, the audio version of the message to convey to the user.</p>"""
+
+
+def redact_sensitive(value: PutSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "audio_stream" in value:
+        out["audio_stream"] = "*** Streaming Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationAccessHoursEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> WaypointOptimizationAccessHoursEntry:
         raise DeserializationError(
             "WaypointOptimizationAccessHoursEntry.time_of_day required"
         )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationAccessHoursEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "day_of_week" in value:
+        out["day_of_week"] = "*** Sensitive Data Redacted ***"
+    if "time_of_day" in value:
+        out["time_of_day"] = "*** Sensitive Data Redacted ***"
     return out

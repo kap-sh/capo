@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ImportSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> ImportSource:
         }
     else:
         raise DeserializationError("ImportSource: no recognized variant key")
+
+
+def redact_sensitive(value: ImportSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "documents" in value:
+        import capo_securityagent.types.security_requirement_artifact_list
+
+        out["documents"] = (
+            capo_securityagent.types.security_requirement_artifact_list.redact_sensitive(
+                value["documents"]
+            )
+        )
+    return out

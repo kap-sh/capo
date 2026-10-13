@@ -8,6 +8,7 @@ import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,9 @@ class MigrationWorkflowTemplate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.create_template_request.CreateTemplateRequest = {
             "template_name": template_name,
             "template_source": template_source,
@@ -145,7 +148,9 @@ class MigrationWorkflowTemplate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_template_request.GetMigrationWorkflowTemplateRequest = {
             "id": id
         }
@@ -200,7 +205,9 @@ class MigrationWorkflowTemplate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.update_template_request.UpdateTemplateRequest = {
             "id": id
         }
@@ -254,7 +261,9 @@ class MigrationWorkflowTemplate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.delete_template_request.DeleteTemplateRequest = {
             "id": id
         }
@@ -309,7 +318,9 @@ class MigrationWorkflowTemplate:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflow_templates_request.ListMigrationWorkflowTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -376,7 +387,9 @@ class AsyncMigrationWorkflowTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.create_template_request.CreateTemplateRequest = {
             "template_name": template_name,
             "template_source": template_source,
@@ -431,7 +444,9 @@ class AsyncMigrationWorkflowTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.get_migration_workflow_template_request.GetMigrationWorkflowTemplateRequest = {
             "id": id
         }
@@ -487,7 +502,9 @@ class AsyncMigrationWorkflowTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.update_template_request.UpdateTemplateRequest = {
             "id": id
         }
@@ -542,7 +559,9 @@ class AsyncMigrationWorkflowTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_migrationhuborchestrator.types.delete_template_request.DeleteTemplateRequest = {
             "id": id
         }
@@ -598,7 +617,9 @@ class AsyncMigrationWorkflowTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_migrationhuborchestrator.types.list_migration_workflow_templates_request.ListMigrationWorkflowTemplatesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

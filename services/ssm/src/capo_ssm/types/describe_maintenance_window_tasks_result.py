@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#DescribeMaintenanceWindowTasksResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeMaintenanceWindowTasksResult
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeMaintenanceWindowTasksResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tasks" in value:
+        import capo_ssm.types.maintenance_window_task_list
+
+        out["tasks"] = capo_ssm.types.maintenance_window_task_list.redact_sensitive(
+            value["tasks"]
+        )
     return out

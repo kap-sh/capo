@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#OidcConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,11 @@ def deserialize_aws_json_1_1(data: dict) -> OidcConfig:
                 data["AuthenticationRequestExtraParams"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: OidcConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

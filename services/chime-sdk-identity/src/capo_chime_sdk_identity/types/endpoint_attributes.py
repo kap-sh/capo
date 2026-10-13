@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#EndpointAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_json(data: dict) -> EndpointAttributes:
         raise DeserializationError("EndpointAttributes.device_token required")
     if data.get("VoipDeviceToken") is not None:
         out["voip_device_token"] = data["VoipDeviceToken"]
+    return out
+
+
+def redact_sensitive(value: EndpointAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "device_token" in value:
+        out["device_token"] = "*** Sensitive Data Redacted ***"
+    if "voip_device_token" in value:
+        out["voip_device_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#StripePrivyTokenResponseOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,13 @@ def deserialize_json(data: dict) -> StripePrivyTokenResponseOutput:
         raise DeserializationError(
             "StripePrivyTokenResponseOutput.basic_auth_token required"
         )
+    return out
+
+
+def redact_sensitive(value: StripePrivyTokenResponseOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_signature" in value:
+        out["authorization_signature"] = "*** Sensitive Data Redacted ***"
+    if "basic_auth_token" in value:
+        out["basic_auth_token"] = "*** Sensitive Data Redacted ***"
     return out

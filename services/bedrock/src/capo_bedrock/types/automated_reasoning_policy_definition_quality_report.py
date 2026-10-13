@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyDefinitionQualityReport``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -156,5 +156,44 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDefinitionQualityRep
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyDefinitionQualityReport.disjoint_rule_sets required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyDefinitionQualityReport,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "unused_types" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_type_name_list
+
+        out["unused_types"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_type_name_list.redact_sensitive(
+                value["unused_types"]
+            )
+        )
+    if "unused_type_values" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_type_value_pair_list
+
+        out["unused_type_values"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_type_value_pair_list.redact_sensitive(
+                value["unused_type_values"]
+            )
+        )
+    if "unused_variables" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_variable_name_list
+
+        out["unused_variables"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_variable_name_list.redact_sensitive(
+                value["unused_variables"]
+            )
+        )
+    if "disjoint_rule_sets" in value:
+        import capo_bedrock.types.automated_reasoning_policy_disjoint_rule_set_list
+
+        out["disjoint_rule_sets"] = (
+            capo_bedrock.types.automated_reasoning_policy_disjoint_rule_set_list.redact_sensitive(
+                value["disjoint_rule_sets"]
+            )
         )
     return out

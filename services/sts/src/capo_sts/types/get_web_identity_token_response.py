@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#GetWebIdentityTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,11 @@ def deserialize_query(el: Element) -> GetWebIdentityTokenResponse:
         import capo_sts.types.date_type
 
         out["expiration"] = capo_sts.types.date_type.deserialize_query(child_expiration)
+    return out
+
+
+def redact_sensitive(value: GetWebIdentityTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "web_identity_token" in value:
+        out["web_identity_token"] = "*** Sensitive Data Redacted ***"
     return out

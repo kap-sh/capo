@@ -22,10 +22,12 @@ from capo_appintegrations._pagination import resolve_path as _resolve_path
 from capo_appintegrations._services._aws_config import aws_config
 from capo_appintegrations._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -190,7 +192,9 @@ class AppIntegrationsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AppIntegrationsClientConfig] = None
+        self,
+        config_overrides: Optional[AppIntegrationsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppIntegrationsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -198,8 +202,10 @@ class AppIntegrationsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -308,7 +314,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_appintegrations.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "namespace": namespace,
@@ -409,7 +417,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataIntegration")
+        )
         input_: capo_appintegrations.types.create_data_integration_request.CreateDataIntegrationRequest = {
             "name": name,
             "kms_key": kms_key,
@@ -494,7 +504,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataIntegrationAssociation")
+        )
         input_: capo_appintegrations.types.create_data_integration_association_request.CreateDataIntegrationAssociationRequest = {
             "data_integration_identifier": data_integration_identifier
         }
@@ -569,7 +581,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventIntegration")
+        )
         input_: capo_appintegrations.types.create_event_integration_request.CreateEventIntegrationRequest = {
             "name": name,
             "event_filter": event_filter,
@@ -633,7 +647,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_appintegrations.types.delete_application_request.DeleteApplicationRequest = {
             "arn": arn
         }
@@ -682,7 +698,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataIntegration")
+        )
         input_: capo_appintegrations.types.delete_data_integration_request.DeleteDataIntegrationRequest = {
             "data_integration_identifier": data_integration_identifier
         }
@@ -729,7 +747,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventIntegration")
+        )
         input_: capo_appintegrations.types.delete_event_integration_request.DeleteEventIntegrationRequest = {
             "name": name
         }
@@ -782,7 +802,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_appintegrations.types.get_application_request.GetApplicationRequest = {
             "arn": arn
         }
@@ -829,7 +851,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataIntegration")
+        )
         input_: capo_appintegrations.types.get_data_integration_request.GetDataIntegrationRequest = {
             "identifier": identifier
         }
@@ -876,7 +900,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventIntegration")
+        )
         input_: capo_appintegrations.types.get_event_integration_request.GetEventIntegrationRequest = {
             "name": name
         }
@@ -935,7 +961,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationAssociations")
+        )
         input_: capo_appintegrations.types.list_application_associations_request.ListApplicationAssociationsRequest = {
             "application_id": application_id
         }
@@ -1026,7 +1054,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_appintegrations.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1110,7 +1140,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataIntegrationAssociations")
+        )
         input_: capo_appintegrations.types.list_data_integration_associations_request.ListDataIntegrationAssociationsRequest = {
             "data_integration_identifier": data_integration_identifier
         }
@@ -1189,7 +1221,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataIntegrations")
+        )
         input_: capo_appintegrations.types.list_data_integrations_request.ListDataIntegrationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1267,7 +1301,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventIntegrationAssociations")
+        )
         input_: capo_appintegrations.types.list_event_integration_associations_request.ListEventIntegrationAssociationsRequest = {
             "event_integration_name": event_integration_name
         }
@@ -1346,7 +1382,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventIntegrations")
+        )
         input_: capo_appintegrations.types.list_event_integrations_request.ListEventIntegrationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1417,7 +1455,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appintegrations.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1465,7 +1505,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appintegrations.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1514,7 +1556,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appintegrations.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1616,7 +1660,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_appintegrations.types.update_application_request.UpdateApplicationRequest = {
             "arn": arn
         }
@@ -1693,7 +1739,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataIntegration")
+        )
         input_: capo_appintegrations.types.update_data_integration_request.UpdateDataIntegrationRequest = {
             "identifier": identifier
         }
@@ -1748,7 +1796,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataIntegrationAssociation")
+        )
         input_: capo_appintegrations.types.update_data_integration_association_request.UpdateDataIntegrationAssociationRequest = {
             "data_integration_identifier": data_integration_identifier,
             "data_integration_association_identifier": data_integration_association_identifier,
@@ -1801,7 +1851,9 @@ class AppIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventIntegration")
+        )
         input_: capo_appintegrations.types.update_event_integration_request.UpdateEventIntegrationRequest = {
             "name": name
         }

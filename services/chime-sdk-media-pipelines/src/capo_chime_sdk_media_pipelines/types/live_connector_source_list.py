@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#LiveConnectorSourceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_media_pipelines.types.live_connector_source_configuration
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> LiveConnectorSourceList:
             )
         )
     return out
+
+
+def redact_sensitive(value: LiveConnectorSourceList) -> list[Any]:
+    import capo_chime_sdk_media_pipelines.types.live_connector_source_configuration
+
+    return [
+        capo_chime_sdk_media_pipelines.types.live_connector_source_configuration.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

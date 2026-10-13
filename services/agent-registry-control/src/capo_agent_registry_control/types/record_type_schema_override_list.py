@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#RecordTypeSchemaOverrideList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_agent_registry_control.types.record_type_schema_override
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> RecordTypeSchemaOverrideList:
             )
         )
     return out
+
+
+def redact_sensitive(value: RecordTypeSchemaOverrideList) -> list[Any]:
+    import capo_agent_registry_control.types.record_type_schema_override
+
+    return [
+        capo_agent_registry_control.types.record_type_schema_override.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

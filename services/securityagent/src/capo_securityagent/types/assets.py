@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#Assets``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,6 +124,25 @@ def deserialize_json(data: dict) -> Assets:
         out["trusted_ca_certificates"] = (
             capo_securityagent.types.trusted_ca_certificate_list.deserialize_json(
                 data["trustedCaCertificates"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Assets) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "actors" in value:
+        import capo_securityagent.types.actor_list
+
+        out["actors"] = capo_securityagent.types.actor_list.redact_sensitive(
+            value["actors"]
+        )
+    if "trusted_ca_certificates" in value:
+        import capo_securityagent.types.trusted_ca_certificate_list
+
+        out["trusted_ca_certificates"] = (
+            capo_securityagent.types.trusted_ca_certificate_list.redact_sensitive(
+                value["trusted_ca_certificates"]
             )
         )
     return out

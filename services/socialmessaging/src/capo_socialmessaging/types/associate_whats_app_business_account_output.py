@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#AssociateWhatsAppBusinessAccountOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> AssociateWhatsAppBusinessAccountOutput:
         out["linked_whats_app_business_account_id"] = data[
             "linkedWhatsAppBusinessAccountId"
         ]
+    return out
+
+
+def redact_sensitive(value: AssociateWhatsAppBusinessAccountOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "signup_callback_result" in value:
+        import capo_socialmessaging.types.whats_app_signup_callback_result
+
+        out["signup_callback_result"] = (
+            capo_socialmessaging.types.whats_app_signup_callback_result.redact_sensitive(
+                value["signup_callback_result"]
+            )
+        )
     return out

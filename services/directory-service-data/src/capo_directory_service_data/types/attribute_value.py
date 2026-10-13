@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#AttributeValue``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -71,3 +71,16 @@ def deserialize_json(data: dict) -> AttributeValue:
         }
     else:
         raise DeserializationError("AttributeValue: no recognized variant key")
+
+
+def redact_sensitive(value: AttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "S" in value:
+        out["S"] = "*** Sensitive Data Redacted ***"
+    if "N" in value:
+        out["N"] = "*** Sensitive Data Redacted ***"
+    if "BOOL" in value:
+        out["BOOL"] = "*** Sensitive Data Redacted ***"
+    if "SS" in value:
+        out["SS"] = "*** Sensitive Data Redacted ***"
+    return out

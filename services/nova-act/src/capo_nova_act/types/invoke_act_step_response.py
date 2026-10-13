@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#InvokeActStepResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> InvokeActStepResponse:
         out["step_id"] = data["stepId"]
     else:
         raise DeserializationError("InvokeActStepResponse.step_id required")
+    return out
+
+
+def redact_sensitive(value: InvokeActStepResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "calls" in value:
+        import capo_nova_act.types.calls
+
+        out["calls"] = capo_nova_act.types.calls.redact_sensitive(value["calls"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreamwrite#CreateBatchLoadTaskRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateBatchLoadTaskRequest:
         )
     if data.get("RecordVersion") is not None:
         out["record_version"] = data["RecordVersion"]
+    return out
+
+
+def redact_sensitive(value: CreateBatchLoadTaskRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
     return out

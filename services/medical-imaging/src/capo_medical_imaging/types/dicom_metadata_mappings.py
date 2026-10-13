@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DicomMetadataMappings``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_medical_imaging.types.dicom_metadata_mapping
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> DicomMetadataMappings:
             capo_medical_imaging.types.dicom_metadata_mapping.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: DicomMetadataMappings) -> list[Any]:
+    import capo_medical_imaging.types.dicom_metadata_mapping
+
+    return [
+        capo_medical_imaging.types.dicom_metadata_mapping.redact_sensitive(item)
+        for item in value
+    ]

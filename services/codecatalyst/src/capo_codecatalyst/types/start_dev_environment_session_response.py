@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codecatalyst#StartDevEnvironmentSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,11 @@ def deserialize_json(data: dict) -> StartDevEnvironmentSessionResponse:
         out["id"] = data["id"]
     else:
         raise DeserializationError("StartDevEnvironmentSessionResponse.id required")
+    return out
+
+
+def redact_sensitive(value: StartDevEnvironmentSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_details" in value:
+        out["access_details"] = "*** Sensitive Data Redacted ***"
     return out

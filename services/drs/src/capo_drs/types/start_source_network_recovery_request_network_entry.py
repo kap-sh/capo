@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#StartSourceNetworkRecoveryRequestNetworkEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,13 @@ def deserialize_json(data: dict) -> StartSourceNetworkRecoveryRequestNetworkEntr
         )
     if data.get("cfnStackName") is not None:
         out["cfn_stack_name"] = data["cfnStackName"]
+    return out
+
+
+def redact_sensitive(
+    value: StartSourceNetworkRecoveryRequestNetworkEntry,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cfn_stack_name" in value:
+        out["cfn_stack_name"] = "*** Sensitive Data Redacted ***"
     return out

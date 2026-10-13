@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#DeleteWebAuthnCredentialRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> DeleteWebAuthnCredentialRequest:
         raise DeserializationError(
             "DeleteWebAuthnCredentialRequest.credential_id required"
         )
+    return out
+
+
+def redact_sensitive(value: DeleteWebAuthnCredentialRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

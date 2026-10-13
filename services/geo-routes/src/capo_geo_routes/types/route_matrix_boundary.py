@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixBoundary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,19 @@ def deserialize_json(data: dict) -> RouteMatrixBoundary:
         )
     if data.get("Unbounded") is not None:
         out["unbounded"] = data["Unbounded"]
+    return out
+
+
+def redact_sensitive(value: RouteMatrixBoundary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "geometry" in value:
+        import capo_geo_routes.types.route_matrix_boundary_geometry
+
+        out["geometry"] = (
+            capo_geo_routes.types.route_matrix_boundary_geometry.redact_sensitive(
+                value["geometry"]
+            )
+        )
+    if "unbounded" in value:
+        out["unbounded"] = "*** Sensitive Data Redacted ***"
     return out

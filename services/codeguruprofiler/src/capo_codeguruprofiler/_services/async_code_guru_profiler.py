@@ -28,7 +28,9 @@ from capo_codeguruprofiler._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -184,7 +186,9 @@ class AsyncCodeGuruProfilerClient:
         self.profiling_group = AsyncProfilingGroup(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCodeGuruProfilerClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCodeGuruProfilerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCodeGuruProfilerClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -192,8 +196,10 @@ class AsyncCodeGuruProfilerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -253,7 +259,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingsReportAccountSummary")
+        )
         input_: capo_codeguruprofiler.types.get_findings_report_account_summary_request.GetFindingsReportAccountSummaryRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -328,7 +336,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeguruprofiler.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -376,7 +386,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeguruprofiler.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -425,7 +437,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeguruprofiler.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -486,7 +500,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProfilingGroup")
+        )
         input_: capo_codeguruprofiler.types.create_profiling_group_request.CreateProfilingGroupRequest = {
             "profiling_group_name": profiling_group_name,
             "client_token": client_token,
@@ -540,7 +556,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProfilingGroup")
+        )
         input_: capo_codeguruprofiler.types.describe_profiling_group_request.DescribeProfilingGroupRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -590,7 +608,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfilingGroup")
+        )
         input_: capo_codeguruprofiler.types.update_profiling_group_request.UpdateProfilingGroupRequest = {
             "profiling_group_name": profiling_group_name,
             "agent_orchestration_config": agent_orchestration_config,
@@ -639,7 +659,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfilingGroup")
+        )
         input_: capo_codeguruprofiler.types.delete_profiling_group_request.DeleteProfilingGroupRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -692,7 +714,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfilingGroups")
+        )
         input_: capo_codeguruprofiler.types.list_profiling_groups_request.ListProfilingGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -772,7 +796,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddNotificationChannels")
+        )
         input_: capo_codeguruprofiler.types.add_notification_channels_request.AddNotificationChannelsRequest = {
             "profiling_group_name": profiling_group_name,
             "channels": channels,
@@ -834,7 +860,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFrameMetricData")
+        )
         input_: capo_codeguruprofiler.types.batch_get_frame_metric_data_request.BatchGetFrameMetricDataRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -897,7 +925,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureAgent")
+        )
         input_: capo_codeguruprofiler.types.configure_agent_request.ConfigureAgentRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -948,7 +978,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotificationConfiguration")
+        )
         input_: capo_codeguruprofiler.types.get_notification_configuration_request.GetNotificationConfigurationRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -994,7 +1026,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_codeguruprofiler.types.get_policy_request.GetPolicyRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -1051,7 +1085,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_codeguruprofiler.types.get_profile_request.GetProfileRequest = {
             "profiling_group_name": profiling_group_name
         }
@@ -1114,7 +1150,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendations")
+        )
         input_: capo_codeguruprofiler.types.get_recommendations_request.GetRecommendationsRequest = {
             "profiling_group_name": profiling_group_name,
             "start_time": start_time,
@@ -1179,7 +1217,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindingsReports")
+        )
         input_: capo_codeguruprofiler.types.list_findings_reports_request.ListFindingsReportsRequest = {
             "profiling_group_name": profiling_group_name,
             "start_time": start_time,
@@ -1281,7 +1321,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfileTimes")
+        )
         input_: capo_codeguruprofiler.types.list_profile_times_request.ListProfileTimesRequest = {
             "profiling_group_name": profiling_group_name,
             "start_time": start_time,
@@ -1380,7 +1422,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostAgentProfile")
+        )
         input_: capo_codeguruprofiler.types.post_agent_profile_request.PostAgentProfileRequest = {
             "profiling_group_name": profiling_group_name,
             "agent_profile": agent_profile,
@@ -1441,7 +1485,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPermission")
+        )
         input_: capo_codeguruprofiler.types.put_permission_request.PutPermissionRequest = {
             "profiling_group_name": profiling_group_name,
             "action_group": action_group,
@@ -1494,7 +1540,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveNotificationChannel")
+        )
         input_: capo_codeguruprofiler.types.remove_notification_channel_request.RemoveNotificationChannelRequest = {
             "profiling_group_name": profiling_group_name,
             "channel_id": channel_id,
@@ -1547,7 +1595,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_codeguruprofiler.types.remove_permission_request.RemovePermissionRequest = {
             "profiling_group_name": profiling_group_name,
             "action_group": action_group,
@@ -1602,7 +1652,9 @@ class AsyncCodeGuruProfilerClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitFeedback")
+        )
         input_: capo_codeguruprofiler.types.submit_feedback_request.SubmitFeedbackRequest = {
             "profiling_group_name": profiling_group_name,
             "anomaly_instance_id": anomaly_instance_id,

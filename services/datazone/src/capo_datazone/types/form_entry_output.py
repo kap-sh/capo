@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#FormEntryOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> FormEntryOutput:
         raise DeserializationError("FormEntryOutput.type_revision required")
     if data.get("required") is not None:
         out["required"] = data["required"]
+    return out
+
+
+def redact_sensitive(value: FormEntryOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "type_name" in value:
+        out["type_name"] = "*** Sensitive Data Redacted ***"
     return out

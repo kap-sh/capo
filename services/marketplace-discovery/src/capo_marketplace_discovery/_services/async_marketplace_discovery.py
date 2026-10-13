@@ -24,7 +24,9 @@ from capo_marketplace_discovery._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -137,7 +139,9 @@ class AsyncMarketplaceDiscoveryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMarketplaceDiscoveryClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMarketplaceDiscoveryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMarketplaceDiscoveryClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -145,8 +149,10 @@ class AsyncMarketplaceDiscoveryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -210,7 +216,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetListing")
+        )
         input_: capo_marketplace_discovery.types.get_listing_input.GetListingInput = {
             "listing_id": listing_id
         }
@@ -276,7 +284,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOffer")
+        )
         input_: capo_marketplace_discovery.types.get_offer_input.GetOfferInput = {
             "offer_id": offer_id
         }
@@ -339,7 +349,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOfferSet")
+        )
         input_: capo_marketplace_discovery.types.get_offer_set_input.GetOfferSetInput = {
             "offer_set_id": offer_set_id
         }
@@ -435,7 +447,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOfferTerms")
+        )
         input_: capo_marketplace_discovery.types.get_offer_terms_input.GetOfferTermsInput = {
             "offer_id": offer_id
         }
@@ -529,7 +543,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProduct")
+        )
         input_: capo_marketplace_discovery.types.get_product_input.GetProductInput = {
             "product_id": product_id
         }
@@ -628,7 +644,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFulfillmentOptions")
+        )
         input_: capo_marketplace_discovery.types.list_fulfillment_options_input.ListFulfillmentOptionsInput = {
             "product_id": product_id
         }
@@ -728,7 +746,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPurchaseOptions")
+        )
         input_: capo_marketplace_discovery.types.list_purchase_options_input.ListPurchaseOptionsInput = {}
         if locale is not None:
             input_["locale"] = locale
@@ -838,7 +858,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFacets")
+        )
         input_: capo_marketplace_discovery.types.search_facets_input.SearchFacetsInput = {}
         if locale is not None:
             input_["locale"] = locale
@@ -958,7 +980,9 @@ class AsyncMarketplaceDiscoveryClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchListings")
+        )
         input_: capo_marketplace_discovery.types.search_listings_input.SearchListingsInput = {}
         if locale is not None:
             input_["locale"] = locale

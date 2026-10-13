@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#MongoDbSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -177,4 +177,11 @@ def deserialize_aws_json_1_1(data: dict) -> MongoDbSettings:
         out["use_update_look_up"] = data["UseUpdateLookUp"]
     if data.get("ReplicateShardCollections") is not None:
         out["replicate_shard_collections"] = data["ReplicateShardCollections"]
+    return out
+
+
+def redact_sensitive(value: MongoDbSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

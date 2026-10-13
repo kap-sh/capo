@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AssetBundleImportJobDataSourceCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,13 @@ def deserialize_json(data: dict) -> AssetBundleImportJobDataSourceCredentials:
         )
     if data.get("SecretArn") is not None:
         out["secret_arn"] = data["SecretArn"]
+    return out
+
+
+def redact_sensitive(
+    value: AssetBundleImportJobDataSourceCredentials,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credential_pair" in value:
+        out["credential_pair"] = "*** Sensitive Data Redacted ***"
     return out

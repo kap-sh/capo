@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datasync#CreateLocationAzureBlobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -188,6 +188,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateLocationAzureBlobRequest:
         out["custom_secret_config"] = (
             capo_datasync.types.custom_secret_config.deserialize_aws_json_1_1(
                 data["CustomSecretConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateLocationAzureBlobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sas_configuration" in value:
+        import capo_datasync.types.azure_blob_sas_configuration
+
+        out["sas_configuration"] = (
+            capo_datasync.types.azure_blob_sas_configuration.redact_sensitive(
+                value["sas_configuration"]
             )
         )
     return out

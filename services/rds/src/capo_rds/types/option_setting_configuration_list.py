@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#OptionSettingConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_rds._protocol.xml import Element
 
@@ -55,3 +55,9 @@ def deserialize_query_flat(parent: Element, tag: str) -> OptionSettingConfigurat
     for child in parent.findall(tag):
         out.append(capo_rds.types.option_setting.deserialize_query(child))
     return out
+
+
+def redact_sensitive(value: OptionSettingConfigurationList) -> list[Any]:
+    import capo_rds.types.option_setting
+
+    return [capo_rds.types.option_setting.redact_sensitive(item) for item in value]

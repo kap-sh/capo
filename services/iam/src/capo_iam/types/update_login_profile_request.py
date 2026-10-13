@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#UpdateLoginProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_query(el: Element) -> UpdateLoginProfileRequest:
         out["password_reset_required"] = (
             child_password_reset_required.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: UpdateLoginProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

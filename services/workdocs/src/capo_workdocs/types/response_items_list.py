@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ResponseItemsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workdocs.types.response_item
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ResponseItemsList:
             continue
         out.append(capo_workdocs.types.response_item.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ResponseItemsList) -> list[Any]:
+    import capo_workdocs.types.response_item
+
+    return [capo_workdocs.types.response_item.redact_sensitive(item) for item in value]

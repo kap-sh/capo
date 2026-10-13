@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glacier#GetJobOutputOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,3 +25,10 @@ class GetJobOutputOutput(TypedDict, closed=True):
     """<p>The Content-Type depends on whether the job output is an archive or a vault inventory. For archive data, the Content-Type is application/octet-stream. For vault inventory, if you requested CSV format when you initiated the job, the Content-Type is text/csv. Otherwise, by default, vault inventory is returned as JSON, and the Content-Type is application/json.</p>"""
     archive_description: NotRequired["capo_glacier.types.string.string"]
     """<p>The description of an archive.</p>"""
+
+
+def redact_sensitive(value: GetJobOutputOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

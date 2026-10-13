@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#GetStepResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -263,4 +263,11 @@ def deserialize_json(data: dict) -> GetStepResponse:
         )
     if data.get("description") is not None:
         out["description"] = data["description"]
+    return out
+
+
+def redact_sensitive(value: GetStepResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

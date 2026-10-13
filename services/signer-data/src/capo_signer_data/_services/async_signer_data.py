@@ -23,7 +23,9 @@ from capo_signer_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -108,7 +110,9 @@ class AsyncSignerDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSignerDataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSignerDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSignerDataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -116,8 +120,10 @@ class AsyncSignerDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -184,7 +190,9 @@ class AsyncSignerDataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevocationStatus")
+        )
         input_: capo_signer_data.types.get_revocation_status_request.GetRevocationStatusRequest = {
             "signature_timestamp": signature_timestamp,
             "platform_id": platform_id,

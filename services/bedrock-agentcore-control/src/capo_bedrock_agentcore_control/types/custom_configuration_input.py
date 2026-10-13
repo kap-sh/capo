@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CustomConfigurationInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -137,3 +137,40 @@ def deserialize_json(data: dict) -> CustomConfigurationInput:
         raise DeserializationError(
             "CustomConfigurationInput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: CustomConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "semanticOverride" in value:
+        import capo_bedrock_agentcore_control.types.semantic_override_configuration_input
+
+        out["semanticOverride"] = (
+            capo_bedrock_agentcore_control.types.semantic_override_configuration_input.redact_sensitive(
+                value["semanticOverride"]
+            )
+        )
+    if "summaryOverride" in value:
+        import capo_bedrock_agentcore_control.types.summary_override_configuration_input
+
+        out["summaryOverride"] = (
+            capo_bedrock_agentcore_control.types.summary_override_configuration_input.redact_sensitive(
+                value["summaryOverride"]
+            )
+        )
+    if "userPreferenceOverride" in value:
+        import capo_bedrock_agentcore_control.types.user_preference_override_configuration_input
+
+        out["userPreferenceOverride"] = (
+            capo_bedrock_agentcore_control.types.user_preference_override_configuration_input.redact_sensitive(
+                value["userPreferenceOverride"]
+            )
+        )
+    if "episodicOverride" in value:
+        import capo_bedrock_agentcore_control.types.episodic_override_configuration_input
+
+        out["episodicOverride"] = (
+            capo_bedrock_agentcore_control.types.episodic_override_configuration_input.redact_sensitive(
+                value["episodicOverride"]
+            )
+        )
+    return out

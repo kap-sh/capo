@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#BatchGetProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_json(data: dict) -> BatchGetProfileResponse:
 
         out["profiles"] = capo_customer_profiles.types.profile_list.deserialize_json(
             data["Profiles"]
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profiles" in value:
+        import capo_customer_profiles.types.profile_list
+
+        out["profiles"] = capo_customer_profiles.types.profile_list.redact_sensitive(
+            value["profiles"]
         )
     return out

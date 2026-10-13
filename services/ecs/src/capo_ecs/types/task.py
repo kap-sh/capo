@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#Task``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -429,5 +429,16 @@ def deserialize_aws_json_1_1(data: dict) -> Task:
             capo_ecs.types.task_ephemeral_storage.deserialize_aws_json_1_1(
                 data["fargateEphemeralStorage"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: Task) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "overrides" in value:
+        import capo_ecs.types.task_override
+
+        out["overrides"] = capo_ecs.types.task_override.redact_sensitive(
+            value["overrides"]
         )
     return out

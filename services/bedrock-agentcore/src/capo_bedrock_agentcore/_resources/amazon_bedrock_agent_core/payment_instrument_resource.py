@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore._auth._signers
 import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,32 @@ class PaymentInstrumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_request
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_payment_instrument_response.CreatePaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePaymentInstrument",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -173,7 +199,19 @@ class PaymentInstrumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_payment_instrument_response.GetPaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.get_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPaymentInstrument", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_request.GetPaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_instrument_id": payment_instrument_id,
@@ -233,7 +271,9 @@ class PaymentInstrumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentInstrument")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_instrument_request.DeletePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -299,7 +339,9 @@ class PaymentInstrumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentInstruments")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_instruments_request.ListPaymentInstrumentsRequest = {
             "payment_manager_arn": payment_manager_arn
         }
@@ -370,7 +412,9 @@ class PaymentInstrumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentInstrumentBalance")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_balance_request.GetPaymentInstrumentBalanceRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -450,7 +494,32 @@ class AsyncPaymentInstrumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_request
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_payment_instrument_response.CreatePaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.create_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePaymentInstrument",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_payment_instrument_request.CreatePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -520,7 +589,19 @@ class AsyncPaymentInstrumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_payment_instrument_response.GetPaymentInstrumentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_payment_instrument_response
+
+            return capo_bedrock_agentcore.types.get_payment_instrument_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPaymentInstrument", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_request.GetPaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_instrument_id": payment_instrument_id,
@@ -581,7 +662,9 @@ class AsyncPaymentInstrumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentInstrument")
+        )
         input_: capo_bedrock_agentcore.types.delete_payment_instrument_request.DeletePaymentInstrumentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,
@@ -648,7 +731,9 @@ class AsyncPaymentInstrumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentInstruments")
+        )
         input_: capo_bedrock_agentcore.types.list_payment_instruments_request.ListPaymentInstrumentsRequest = {
             "payment_manager_arn": payment_manager_arn
         }
@@ -720,7 +805,9 @@ class AsyncPaymentInstrumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentInstrumentBalance")
+        )
         input_: capo_bedrock_agentcore.types.get_payment_instrument_balance_request.GetPaymentInstrumentBalanceRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_connector_id": payment_connector_id,

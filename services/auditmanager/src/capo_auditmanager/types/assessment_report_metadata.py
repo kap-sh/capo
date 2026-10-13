@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#AssessmentReportMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,15 @@ def deserialize_json(data: dict) -> AssessmentReportMetadata:
         out["creation_time"] = capo_auditmanager.types.timestamp.deserialize_json(
             data["creationTime"]
         )
+    return out
+
+
+def redact_sensitive(value: AssessmentReportMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "assessment_name" in value:
+        out["assessment_name"] = "*** Sensitive Data Redacted ***"
+    if "author" in value:
+        out["author"] = "*** Sensitive Data Redacted ***"
     return out

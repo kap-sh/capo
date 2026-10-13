@@ -8,6 +8,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class ManagedNotificationChildEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationChildEvent")
+        )
         input_: capo_notifications.types.get_managed_notification_child_event_request.GetManagedNotificationChildEventRequest = {
             "arn": arn
         }
@@ -142,7 +145,9 @@ class ManagedNotificationChildEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationChildEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_child_events_request.ListManagedNotificationChildEventsRequest = {
             "aggregate_managed_notification_event_arn": aggregate_managed_notification_event_arn
         }
@@ -211,7 +216,9 @@ class AsyncManagedNotificationChildEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationChildEvent")
+        )
         input_: capo_notifications.types.get_managed_notification_child_event_request.GetManagedNotificationChildEventRequest = {
             "arn": arn
         }
@@ -278,7 +285,9 @@ class AsyncManagedNotificationChildEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationChildEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_child_events_request.ListManagedNotificationChildEventsRequest = {
             "aggregate_managed_notification_event_arn": aggregate_managed_notification_event_arn
         }

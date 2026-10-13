@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#WriteGetObjectResponseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,3 +165,12 @@ class WriteGetObjectResponseRequest(TypedDict, closed=True):
     """<p>An ID used to reference a specific version of the object.</p>"""
     bucket_key_enabled: NotRequired["capo_s3.types.bucket_key_enabled.BucketKeyEnabled"]
     """<p> Indicates whether the object stored in Amazon S3 uses an S3 bucket key for server-side encryption with Amazon Web Services KMS (SSE-KMS).</p>"""
+
+
+def redact_sensitive(value: WriteGetObjectResponseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    return out

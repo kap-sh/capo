@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateSubscriptionRequestOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,5 +199,36 @@ def deserialize_json(data: dict) -> CreateSubscriptionRequestOutput:
 
         out["metadata_forms"] = capo_datazone.types.metadata_forms.deserialize_json(
             data["metadataForms"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateSubscriptionRequestOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "request_reason" in value:
+        out["request_reason"] = "*** Sensitive Data Redacted ***"
+    if "subscribed_principals" in value:
+        import capo_datazone.types.subscribed_principals
+
+        out["subscribed_principals"] = (
+            capo_datazone.types.subscribed_principals.redact_sensitive(
+                value["subscribed_principals"]
+            )
+        )
+    if "subscribed_listings" in value:
+        import capo_datazone.types.subscribed_listings
+
+        out["subscribed_listings"] = (
+            capo_datazone.types.subscribed_listings.redact_sensitive(
+                value["subscribed_listings"]
+            )
+        )
+    if "decision_comment" in value:
+        out["decision_comment"] = "*** Sensitive Data Redacted ***"
+    if "metadata_forms" in value:
+        import capo_datazone.types.metadata_forms
+
+        out["metadata_forms"] = capo_datazone.types.metadata_forms.redact_sensitive(
+            value["metadata_forms"]
         )
     return out

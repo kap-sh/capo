@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#MCPServerAuthorizationConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -136,3 +136,40 @@ def deserialize_json(data: dict) -> MCPServerAuthorizationConfig:
         raise DeserializationError(
             "MCPServerAuthorizationConfig: no recognized variant key"
         )
+
+
+def redact_sensitive(value: MCPServerAuthorizationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oAuthClientCredentials" in value:
+        import capo_devops_agent.types.mcp_server_o_auth_client_credentials_config
+
+        out["oAuthClientCredentials"] = (
+            capo_devops_agent.types.mcp_server_o_auth_client_credentials_config.redact_sensitive(
+                value["oAuthClientCredentials"]
+            )
+        )
+    if "oAuth3LO" in value:
+        import capo_devops_agent.types.mcp_server_o_auth3_lo_config
+
+        out["oAuth3LO"] = (
+            capo_devops_agent.types.mcp_server_o_auth3_lo_config.redact_sensitive(
+                value["oAuth3LO"]
+            )
+        )
+    if "apiKey" in value:
+        import capo_devops_agent.types.mcp_server_api_key_config
+
+        out["apiKey"] = (
+            capo_devops_agent.types.mcp_server_api_key_config.redact_sensitive(
+                value["apiKey"]
+            )
+        )
+    if "bearerToken" in value:
+        import capo_devops_agent.types.mcp_server_bearer_token_config
+
+        out["bearerToken"] = (
+            capo_devops_agent.types.mcp_server_bearer_token_config.redact_sensitive(
+                value["bearerToken"]
+            )
+        )
+    return out

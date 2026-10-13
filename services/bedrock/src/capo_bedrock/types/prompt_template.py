@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#PromptTemplate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> PromptTemplate:
     out: PromptTemplate = {}  # type: ignore[typeddict-item]
     if data.get("textPromptTemplate") is not None:
         out["text_prompt_template"] = data["textPromptTemplate"]
+    return out
+
+
+def redact_sensitive(value: PromptTemplate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_prompt_template" in value:
+        out["text_prompt_template"] = "*** Sensitive Data Redacted ***"
     return out

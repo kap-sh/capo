@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#GetInstanceAccessOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetInstanceAccessOutput:
             capo_gamelift.types.instance_access.deserialize_aws_json_1_1(
                 data["InstanceAccess"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetInstanceAccessOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_access" in value:
+        import capo_gamelift.types.instance_access
+
+        out["instance_access"] = capo_gamelift.types.instance_access.redact_sensitive(
+            value["instance_access"]
         )
     return out

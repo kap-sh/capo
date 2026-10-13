@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#DeregisterMemberFromAddressListRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_aws_json_1_0(data: dict) -> DeregisterMemberFromAddressListReque
         raise DeserializationError(
             "DeregisterMemberFromAddressListRequest.address required"
         )
+    return out
+
+
+def redact_sensitive(value: DeregisterMemberFromAddressListRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "address" in value:
+        out["address"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DataSourceRunActivities``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.data_source_run_activity
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> DataSourceRunActivities:
             continue
         out.append(capo_datazone.types.data_source_run_activity.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DataSourceRunActivities) -> list[Any]:
+    import capo_datazone.types.data_source_run_activity
+
+    return [
+        capo_datazone.types.data_source_run_activity.redact_sensitive(item)
+        for item in value
+    ]

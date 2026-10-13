@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#EncryptionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_json(data: dict) -> EncryptionConfiguration:
     out: EncryptionConfiguration = {}  # type: ignore[typeddict-item]
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
+    return out
+
+
+def redact_sensitive(value: EncryptionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_id" in value:
+        out["kms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

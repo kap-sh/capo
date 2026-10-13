@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ScatterPlotFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> ScatterPlotFieldWells:
         out["scatter_plot_unaggregated_field_wells"] = (
             capo_quicksight.types.scatter_plot_unaggregated_field_wells.deserialize_json(
                 data["ScatterPlotUnaggregatedFieldWells"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ScatterPlotFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "scatter_plot_categorically_aggregated_field_wells" in value:
+        import capo_quicksight.types.scatter_plot_categorically_aggregated_field_wells
+
+        out["scatter_plot_categorically_aggregated_field_wells"] = (
+            capo_quicksight.types.scatter_plot_categorically_aggregated_field_wells.redact_sensitive(
+                value["scatter_plot_categorically_aggregated_field_wells"]
+            )
+        )
+    if "scatter_plot_unaggregated_field_wells" in value:
+        import capo_quicksight.types.scatter_plot_unaggregated_field_wells
+
+        out["scatter_plot_unaggregated_field_wells"] = (
+            capo_quicksight.types.scatter_plot_unaggregated_field_wells.redact_sensitive(
+                value["scatter_plot_unaggregated_field_wells"]
             )
         )
     return out

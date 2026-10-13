@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.managedblockchain#MemberFrameworkConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> MemberFrameworkConfiguration:
         out["fabric"] = (
             capo_managedblockchain.types.member_fabric_configuration.deserialize_json(
                 data["Fabric"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MemberFrameworkConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fabric" in value:
+        import capo_managedblockchain.types.member_fabric_configuration
+
+        out["fabric"] = (
+            capo_managedblockchain.types.member_fabric_configuration.redact_sensitive(
+                value["fabric"]
             )
         )
     return out

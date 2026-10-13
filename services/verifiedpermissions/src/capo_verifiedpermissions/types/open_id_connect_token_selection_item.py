@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#OpenIdConnectTokenSelectionItem``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,24 @@ def deserialize_aws_json_1_0(data: dict) -> OpenIdConnectTokenSelectionItem:
         raise DeserializationError(
             "OpenIdConnectTokenSelectionItem: no recognized variant key"
         )
+
+
+def redact_sensitive(value: OpenIdConnectTokenSelectionItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accessTokenOnly" in value:
+        import capo_verifiedpermissions.types.open_id_connect_access_token_configuration_item
+
+        out["accessTokenOnly"] = (
+            capo_verifiedpermissions.types.open_id_connect_access_token_configuration_item.redact_sensitive(
+                value["accessTokenOnly"]
+            )
+        )
+    if "identityTokenOnly" in value:
+        import capo_verifiedpermissions.types.open_id_connect_identity_token_configuration_item
+
+        out["identityTokenOnly"] = (
+            capo_verifiedpermissions.types.open_id_connect_identity_token_configuration_item.redact_sensitive(
+                value["identityTokenOnly"]
+            )
+        )
+    return out

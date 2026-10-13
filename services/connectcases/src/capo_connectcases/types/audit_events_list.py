@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#AuditEventsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connectcases.types.audit_event
@@ -33,3 +33,14 @@ def deserialize_json(data: list) -> AuditEventsList:
             continue
         out.append(capo_connectcases.types.audit_event.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AuditEventsList) -> list[Any]:
+    import capo_connectcases.types.audit_event
+
+    return [
+        None
+        if item is None
+        else capo_connectcases.types.audit_event.redact_sensitive(item)
+        for item in value
+    ]

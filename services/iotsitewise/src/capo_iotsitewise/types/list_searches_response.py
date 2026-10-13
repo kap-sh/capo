@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ListSearchesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> ListSearchesResponse:
         raise DeserializationError("ListSearchesResponse.search_summaries required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSearchesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "search_summaries" in value:
+        import capo_iotsitewise.types.search_summaries
+
+        out["search_summaries"] = (
+            capo_iotsitewise.types.search_summaries.redact_sensitive(
+                value["search_summaries"]
+            )
+        )
     return out

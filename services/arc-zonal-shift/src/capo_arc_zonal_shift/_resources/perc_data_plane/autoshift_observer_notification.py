@@ -7,6 +7,7 @@ import capo_arc_zonal_shift._auth._sigv4
 from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -59,7 +60,9 @@ class AutoshiftObserverNotification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutoshiftObserverNotificationStatus")
+        )
         input_: capo_arc_zonal_shift.types.get_autoshift_observer_notification_status_request.GetAutoshiftObserverNotificationStatusRequest = {}
 
         response = execute_pipeline(
@@ -103,7 +106,10 @@ class AutoshiftObserverNotification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutoshiftObserverNotificationStatus"),
+        )
         input_: capo_arc_zonal_shift.types.update_autoshift_observer_notification_status_request.UpdateAutoshiftObserverNotificationStatusRequest = {
             "status": status
         }
@@ -148,7 +154,9 @@ class AsyncAutoshiftObserverNotification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAutoshiftObserverNotificationStatus")
+        )
         input_: capo_arc_zonal_shift.types.get_autoshift_observer_notification_status_request.GetAutoshiftObserverNotificationStatusRequest = {}
 
         response = await aexecute_pipeline(
@@ -193,7 +201,10 @@ class AsyncAutoshiftObserverNotification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutoshiftObserverNotificationStatus"),
+        )
         input_: capo_arc_zonal_shift.types.update_autoshift_observer_notification_status_request.UpdateAutoshiftObserverNotificationStatusRequest = {
             "status": status
         }

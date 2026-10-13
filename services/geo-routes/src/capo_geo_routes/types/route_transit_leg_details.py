@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitLegDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -320,4 +320,121 @@ def deserialize_json(data: dict) -> RouteTransitLegDetails:
         )
     else:
         raise DeserializationError("RouteTransitLegDetails.travel_steps required")
+    return out
+
+
+def redact_sensitive(value: RouteTransitLegDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "after_travel_steps" in value:
+        import capo_geo_routes.types.route_transit_after_travel_step_list
+
+        out["after_travel_steps"] = (
+            capo_geo_routes.types.route_transit_after_travel_step_list.redact_sensitive(
+                value["after_travel_steps"]
+            )
+        )
+    if "agency" in value:
+        import capo_geo_routes.types.route_transit_agency
+
+        out["agency"] = capo_geo_routes.types.route_transit_agency.redact_sensitive(
+            value["agency"]
+        )
+    if "arrival" in value:
+        import capo_geo_routes.types.route_transit_arrival
+
+        out["arrival"] = capo_geo_routes.types.route_transit_arrival.redact_sensitive(
+            value["arrival"]
+        )
+    if "attributions" in value:
+        import capo_geo_routes.types.route_attribution_list
+
+        out["attributions"] = (
+            capo_geo_routes.types.route_attribution_list.redact_sensitive(
+                value["attributions"]
+            )
+        )
+    if "before_travel_steps" in value:
+        import capo_geo_routes.types.route_transit_before_travel_step_list
+
+        out["before_travel_steps"] = (
+            capo_geo_routes.types.route_transit_before_travel_step_list.redact_sensitive(
+                value["before_travel_steps"]
+            )
+        )
+    if "booking_web_links" in value:
+        import capo_geo_routes.types.route_web_link_list
+
+        out["booking_web_links"] = (
+            capo_geo_routes.types.route_web_link_list.redact_sensitive(
+                value["booking_web_links"]
+            )
+        )
+    if "departure" in value:
+        import capo_geo_routes.types.route_transit_departure
+
+        out["departure"] = (
+            capo_geo_routes.types.route_transit_departure.redact_sensitive(
+                value["departure"]
+            )
+        )
+    if "incidents" in value:
+        import capo_geo_routes.types.route_transit_incident_list
+
+        out["incidents"] = (
+            capo_geo_routes.types.route_transit_incident_list.redact_sensitive(
+                value["incidents"]
+            )
+        )
+    if "intermediate_stops" in value:
+        import capo_geo_routes.types.route_transit_intermediate_stop_list
+
+        out["intermediate_stops"] = (
+            capo_geo_routes.types.route_transit_intermediate_stop_list.redact_sensitive(
+                value["intermediate_stops"]
+            )
+        )
+    if "next_departures" in value:
+        import capo_geo_routes.types.route_transit_next_departure_list
+
+        out["next_departures"] = (
+            capo_geo_routes.types.route_transit_next_departure_list.redact_sensitive(
+                value["next_departures"]
+            )
+        )
+    if "pass_through_waypoints" in value:
+        import capo_geo_routes.types.route_pass_through_waypoint_list
+
+        out["pass_through_waypoints"] = (
+            capo_geo_routes.types.route_pass_through_waypoint_list.redact_sensitive(
+                value["pass_through_waypoints"]
+            )
+        )
+    if "spans" in value:
+        import capo_geo_routes.types.route_transit_span_list
+
+        out["spans"] = capo_geo_routes.types.route_transit_span_list.redact_sensitive(
+            value["spans"]
+        )
+    if "summary" in value:
+        import capo_geo_routes.types.route_transit_summary
+
+        out["summary"] = capo_geo_routes.types.route_transit_summary.redact_sensitive(
+            value["summary"]
+        )
+    if "transport" in value:
+        import capo_geo_routes.types.route_transit_transport_mode_details
+
+        out["transport"] = (
+            capo_geo_routes.types.route_transit_transport_mode_details.redact_sensitive(
+                value["transport"]
+            )
+        )
+    if "travel_steps" in value:
+        import capo_geo_routes.types.route_transit_travel_step_list
+
+        out["travel_steps"] = (
+            capo_geo_routes.types.route_transit_travel_step_list.redact_sensitive(
+                value["travel_steps"]
+            )
+        )
     return out

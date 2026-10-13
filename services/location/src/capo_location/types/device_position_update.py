@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DevicePositionUpdate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,21 @@ def deserialize_json(data: dict) -> DevicePositionUpdate:
                 data["PositionProperties"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DevicePositionUpdate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sample_time" in value:
+        out["sample_time"] = "*** Sensitive Data Redacted ***"
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "accuracy" in value:
+        import capo_location.types.positional_accuracy
+
+        out["accuracy"] = capo_location.types.positional_accuracy.redact_sensitive(
+            value["accuracy"]
+        )
+    if "position_properties" in value:
+        out["position_properties"] = "*** Sensitive Data Redacted ***"
     return out

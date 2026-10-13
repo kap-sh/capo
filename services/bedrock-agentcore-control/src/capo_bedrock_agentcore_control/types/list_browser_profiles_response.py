@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ListBrowserProfilesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> ListBrowserProfilesResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListBrowserProfilesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profile_summaries" in value:
+        import capo_bedrock_agentcore_control.types.browser_profile_summaries
+
+        out["profile_summaries"] = (
+            capo_bedrock_agentcore_control.types.browser_profile_summaries.redact_sensitive(
+                value["profile_summaries"]
+            )
+        )
     return out

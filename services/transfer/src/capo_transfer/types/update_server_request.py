@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#UpdateServerRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -274,4 +274,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateServerRequest:
                 data["IdentityProviderType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateServerRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "host_key" in value:
+        out["host_key"] = "*** Sensitive Data Redacted ***"
     return out

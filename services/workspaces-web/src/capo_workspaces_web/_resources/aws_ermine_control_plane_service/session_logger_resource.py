@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -115,7 +116,19 @@ class SessionLoggerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_session_logger_request
+
+            return capo_workspaces_web.types.create_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateSessionLogger", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest = {
             "event_filter": event_filter,
             "log_configuration": log_configuration,
@@ -186,7 +199,21 @@ class SessionLoggerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_session_logger_response.GetSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_session_logger_response
+
+            return (
+                capo_workspaces_web.types.get_session_logger_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionLogger", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_session_logger_request.GetSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -255,7 +282,32 @@ class SessionLoggerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_request
+
+            return capo_workspaces_web.types.update_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_session_logger_response.UpdateSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_response
+
+            return capo_workspaces_web.types.update_session_logger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSessionLogger",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -314,7 +366,9 @@ class SessionLoggerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSessionLogger")
+        )
         input_: capo_workspaces_web.types.delete_session_logger_request.DeleteSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -376,7 +430,19 @@ class SessionLoggerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_session_loggers_response.ListSessionLoggersResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_session_loggers_response
+
+            return capo_workspaces_web.types.list_session_loggers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListSessionLoggers", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_session_loggers_request.ListSessionLoggersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -462,7 +528,19 @@ class AsyncSessionLoggerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_session_logger_request
+
+            return capo_workspaces_web.types.create_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateSessionLogger", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest = {
             "event_filter": event_filter,
             "log_configuration": log_configuration,
@@ -534,7 +612,21 @@ class AsyncSessionLoggerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_session_logger_response.GetSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_session_logger_response
+
+            return (
+                capo_workspaces_web.types.get_session_logger_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionLogger", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_session_logger_request.GetSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -604,7 +696,32 @@ class AsyncSessionLoggerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_request
+
+            return capo_workspaces_web.types.update_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_session_logger_response.UpdateSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_response
+
+            return capo_workspaces_web.types.update_session_logger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSessionLogger",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -664,7 +781,9 @@ class AsyncSessionLoggerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSessionLogger")
+        )
         input_: capo_workspaces_web.types.delete_session_logger_request.DeleteSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -727,7 +846,19 @@ class AsyncSessionLoggerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_session_loggers_response.ListSessionLoggersResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_session_loggers_response
+
+            return capo_workspaces_web.types.list_session_loggers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListSessionLoggers", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_session_loggers_request.ListSessionLoggersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

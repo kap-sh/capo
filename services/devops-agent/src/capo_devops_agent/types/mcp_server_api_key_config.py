@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#MCPServerAPIKeyConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> MCPServerAPIKeyConfig:
         out["api_key_header"] = data["apiKeyHeader"]
     else:
         raise DeserializationError("MCPServerAPIKeyConfig.api_key_header required")
+    return out
+
+
+def redact_sensitive(value: MCPServerAPIKeyConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key_value" in value:
+        out["api_key_value"] = "*** Sensitive Data Redacted ***"
     return out

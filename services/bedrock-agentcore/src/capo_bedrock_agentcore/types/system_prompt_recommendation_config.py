@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#SystemPromptRecommendationConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,6 +85,27 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationConfig:
         out["evaluation_config"] = (
             capo_bedrock_agentcore.types.recommendation_evaluation_config.deserialize_json(
                 data["evaluationConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SystemPromptRecommendationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "system_prompt" in value:
+        import capo_bedrock_agentcore.types.system_prompt_config
+
+        out["system_prompt"] = (
+            capo_bedrock_agentcore.types.system_prompt_config.redact_sensitive(
+                value["system_prompt"]
+            )
+        )
+    if "agent_traces" in value:
+        import capo_bedrock_agentcore.types.agent_traces_config
+
+        out["agent_traces"] = (
+            capo_bedrock_agentcore.types.agent_traces_config.redact_sensitive(
+                value["agent_traces"]
             )
         )
     return out

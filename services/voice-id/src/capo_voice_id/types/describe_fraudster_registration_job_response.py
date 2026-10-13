@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#DescribeFraudsterRegistrationJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,5 +38,16 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeFraudsterRegistrationJobResp
             capo_voice_id.types.fraudster_registration_job.deserialize_aws_json_1_0(
                 data["Job"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeFraudsterRegistrationJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job" in value:
+        import capo_voice_id.types.fraudster_registration_job
+
+        out["job"] = capo_voice_id.types.fraudster_registration_job.redact_sensitive(
+            value["job"]
         )
     return out

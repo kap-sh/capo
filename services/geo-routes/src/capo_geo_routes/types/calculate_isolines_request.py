@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#CalculateIsolinesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -301,6 +301,79 @@ def deserialize_json(data: dict) -> CalculateIsolinesRequest:
         out["travel_mode_options"] = (
             capo_geo_routes.types.isoline_travel_mode_options.deserialize_json(
                 data["TravelModeOptions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CalculateIsolinesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allow" in value:
+        import capo_geo_routes.types.isoline_allow_options
+
+        out["allow"] = capo_geo_routes.types.isoline_allow_options.redact_sensitive(
+            value["allow"]
+        )
+    if "arrival_time" in value:
+        out["arrival_time"] = "*** Sensitive Data Redacted ***"
+    if "avoid" in value:
+        import capo_geo_routes.types.isoline_avoidance_options
+
+        out["avoid"] = capo_geo_routes.types.isoline_avoidance_options.redact_sensitive(
+            value["avoid"]
+        )
+    if "depart_now" in value:
+        out["depart_now"] = "*** Sensitive Data Redacted ***"
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "destination" in value:
+        out["destination"] = "*** Sensitive Data Redacted ***"
+    if "destination_options" in value:
+        import capo_geo_routes.types.isoline_destination_options
+
+        out["destination_options"] = (
+            capo_geo_routes.types.isoline_destination_options.redact_sensitive(
+                value["destination_options"]
+            )
+        )
+    if "isoline_granularity" in value:
+        import capo_geo_routes.types.isoline_granularity_options
+
+        out["isoline_granularity"] = (
+            capo_geo_routes.types.isoline_granularity_options.redact_sensitive(
+                value["isoline_granularity"]
+            )
+        )
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "origin" in value:
+        out["origin"] = "*** Sensitive Data Redacted ***"
+    if "origin_options" in value:
+        import capo_geo_routes.types.isoline_origin_options
+
+        out["origin_options"] = (
+            capo_geo_routes.types.isoline_origin_options.redact_sensitive(
+                value["origin_options"]
+            )
+        )
+    if "thresholds" in value:
+        import capo_geo_routes.types.isoline_thresholds
+
+        out["thresholds"] = capo_geo_routes.types.isoline_thresholds.redact_sensitive(
+            value["thresholds"]
+        )
+    if "traffic" in value:
+        import capo_geo_routes.types.isoline_traffic_options
+
+        out["traffic"] = capo_geo_routes.types.isoline_traffic_options.redact_sensitive(
+            value["traffic"]
+        )
+    if "travel_mode_options" in value:
+        import capo_geo_routes.types.isoline_travel_mode_options
+
+        out["travel_mode_options"] = (
+            capo_geo_routes.types.isoline_travel_mode_options.redact_sensitive(
+                value["travel_mode_options"]
             )
         )
     return out

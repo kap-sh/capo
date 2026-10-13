@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AdminNames``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,5 +54,16 @@ def deserialize_json(data: dict) -> AdminNames:
             capo_geo_places.types.admin_names_preference.deserialize_json(
                 data["Preference"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: AdminNames) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "names" in value:
+        import capo_geo_places.types.translation_name_list
+
+        out["names"] = capo_geo_places.types.translation_name_list.redact_sensitive(
+            value["names"]
         )
     return out

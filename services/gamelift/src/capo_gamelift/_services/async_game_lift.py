@@ -24,7 +24,9 @@ from capo_gamelift._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -506,7 +508,9 @@ class AsyncGameLiftClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGameLiftClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGameLiftClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGameLiftClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -514,8 +518,10 @@ class AsyncGameLiftClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -578,7 +584,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.accept_match_input.AcceptMatchInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.accept_match_input
+
+            return capo_gamelift.types.accept_match_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AcceptMatch", redact_input=_redact_input),
+        )
         input_: capo_gamelift.types.accept_match_input.AcceptMatchInput = {}
         if ticket_id is not None:
             input_["ticket_id"] = ticket_id
@@ -645,7 +661,28 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.claim_game_server_input.ClaimGameServerInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.claim_game_server_input
+
+            return capo_gamelift.types.claim_game_server_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_gamelift.types.claim_game_server_output.ClaimGameServerOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.claim_game_server_output
+
+            return capo_gamelift.types.claim_game_server_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ClaimGameServer",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.claim_game_server_input.ClaimGameServerInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -712,7 +749,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_gamelift.types.create_alias_input.CreateAliasInput = {}
         if name is not None:
             input_["name"] = name
@@ -784,7 +823,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.create_build_output.CreateBuildOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_build_output
+
+            return capo_gamelift.types.create_build_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBuild", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.create_build_input.CreateBuildInput = {}
         if name is not None:
             input_["name"] = name
@@ -902,7 +951,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_container_fleet_input.CreateContainerFleetInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_container_fleet_input
+
+            return capo_gamelift.types.create_container_fleet_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_container_fleet_output.CreateContainerFleetOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_container_fleet_output
+
+            return capo_gamelift.types.create_container_fleet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateContainerFleet",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_container_fleet_input.CreateContainerFleetInput = {}
         if fleet_role_arn is not None:
             input_["fleet_role_arn"] = fleet_role_arn
@@ -1024,7 +1098,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_container_group_definition_input.CreateContainerGroupDefinitionInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_container_group_definition_input
+
+            return capo_gamelift.types.create_container_group_definition_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_container_group_definition_output.CreateContainerGroupDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_container_group_definition_output
+
+            return capo_gamelift.types.create_container_group_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateContainerGroupDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_container_group_definition_input.CreateContainerGroupDefinitionInput = {}
         if name is not None:
             input_["name"] = name
@@ -1182,7 +1281,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_fleet_input.CreateFleetInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_fleet_input
+
+            return capo_gamelift.types.create_fleet_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateFleet", redact_input=_redact_input),
+        )
         input_: capo_gamelift.types.create_fleet_input.CreateFleetInput = {}
         if name is not None:
             input_["name"] = name
@@ -1290,7 +1399,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleetLocations")
+        )
         input_: capo_gamelift.types.create_fleet_locations_input.CreateFleetLocationsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -1374,7 +1485,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGameServerGroup")
+        )
         input_: capo_gamelift.types.create_game_server_group_input.CreateGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -1482,7 +1595,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_game_session_input.CreateGameSessionInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_game_session_input
+
+            return capo_gamelift.types.create_game_session_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_game_session_output.CreateGameSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_game_session_output
+
+            return capo_gamelift.types.create_game_session_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGameSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_game_session_input.CreateGameSessionInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -1581,7 +1719,34 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_game_session_queue_input.CreateGameSessionQueueInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_game_session_queue_input
+
+            return capo_gamelift.types.create_game_session_queue_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_game_session_queue_output.CreateGameSessionQueueOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_game_session_queue_output
+
+            return (
+                capo_gamelift.types.create_game_session_queue_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGameSessionQueue",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_game_session_queue_input.CreateGameSessionQueueInput = {}
         if name is not None:
             input_["name"] = name
@@ -1651,7 +1816,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLocation")
+        )
         input_: capo_gamelift.types.create_location_input.CreateLocationInput = {}
         if location_name is not None:
             input_["location_name"] = location_name
@@ -1758,7 +1925,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_matchmaking_configuration_input.CreateMatchmakingConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_matchmaking_configuration_input
+
+            return capo_gamelift.types.create_matchmaking_configuration_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_matchmaking_configuration_output.CreateMatchmakingConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_matchmaking_configuration_output
+
+            return capo_gamelift.types.create_matchmaking_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMatchmakingConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_matchmaking_configuration_input.CreateMatchmakingConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -1840,7 +2032,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMatchmakingRuleSet")
+        )
         input_: capo_gamelift.types.create_matchmaking_rule_set_input.CreateMatchmakingRuleSetInput = {}
         if name is not None:
             input_["name"] = name
@@ -1900,7 +2094,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_player_session_input.CreatePlayerSessionInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_player_session_input
+
+            return capo_gamelift.types.create_player_session_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_player_session_output.CreatePlayerSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_player_session_output
+
+            return capo_gamelift.types.create_player_session_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePlayerSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_player_session_input.CreatePlayerSessionInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -1962,7 +2181,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.create_player_sessions_input.CreatePlayerSessionsInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_player_sessions_input
+
+            return capo_gamelift.types.create_player_sessions_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.create_player_sessions_output.CreatePlayerSessionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.create_player_sessions_output
+
+            return capo_gamelift.types.create_player_sessions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePlayerSessions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.create_player_sessions_input.CreatePlayerSessionsInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -2030,7 +2274,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScript")
+        )
         input_: capo_gamelift.types.create_script_input.CreateScriptInput = {}
         if name is not None:
             input_["name"] = name
@@ -2093,7 +2339,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcPeeringAuthorization")
+        )
         input_: capo_gamelift.types.create_vpc_peering_authorization_input.CreateVpcPeeringAuthorizationInput = {}
         if game_lift_aws_account_id is not None:
             input_["game_lift_aws_account_id"] = game_lift_aws_account_id
@@ -2150,7 +2398,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcPeeringConnection")
+        )
         input_: capo_gamelift.types.create_vpc_peering_connection_input.CreateVpcPeeringConnectionInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -2200,7 +2450,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_gamelift.types.delete_alias_input.DeleteAliasInput = {}
         if alias_id is not None:
             input_["alias_id"] = alias_id
@@ -2246,7 +2498,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBuild")
+        )
         input_: capo_gamelift.types.delete_build_input.DeleteBuildInput = {}
         if build_id is not None:
             input_["build_id"] = build_id
@@ -2295,7 +2549,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerFleet")
+        )
         input_: capo_gamelift.types.delete_container_fleet_input.DeleteContainerFleetInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -2354,7 +2610,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContainerGroupDefinition")
+        )
         input_: capo_gamelift.types.delete_container_group_definition_input.DeleteContainerGroupDefinitionInput = {}
         if name is not None:
             input_["name"] = name
@@ -2405,7 +2663,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_gamelift.types.delete_fleet_input.DeleteFleetInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -2455,7 +2715,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleetLocations")
+        )
         input_: capo_gamelift.types.delete_fleet_locations_input.DeleteFleetLocationsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -2510,7 +2772,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGameServerGroup")
+        )
         input_: capo_gamelift.types.delete_game_server_group_input.DeleteGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -2562,7 +2826,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGameSessionQueue")
+        )
         input_: capo_gamelift.types.delete_game_session_queue_input.DeleteGameSessionQueueInput = {}
         if name is not None:
             input_["name"] = name
@@ -2612,7 +2878,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLocation")
+        )
         input_: capo_gamelift.types.delete_location_input.DeleteLocationInput = {}
         if location_name is not None:
             input_["location_name"] = location_name
@@ -2662,7 +2930,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMatchmakingConfiguration")
+        )
         input_: capo_gamelift.types.delete_matchmaking_configuration_input.DeleteMatchmakingConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -2712,7 +2982,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMatchmakingRuleSet")
+        )
         input_: capo_gamelift.types.delete_matchmaking_rule_set_input.DeleteMatchmakingRuleSetInput = {}
         if name is not None:
             input_["name"] = name
@@ -2762,7 +3034,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScalingPolicy")
+        )
         input_: capo_gamelift.types.delete_scaling_policy_input.DeleteScalingPolicyInput = {}
         if name is not None:
             input_["name"] = name
@@ -2812,7 +3086,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScript")
+        )
         input_: capo_gamelift.types.delete_script_input.DeleteScriptInput = {}
         if script_id is not None:
             input_["script_id"] = script_id
@@ -2865,7 +3141,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcPeeringAuthorization")
+        )
         input_: capo_gamelift.types.delete_vpc_peering_authorization_input.DeleteVpcPeeringAuthorizationInput = {}
         if game_lift_aws_account_id is not None:
             input_["game_lift_aws_account_id"] = game_lift_aws_account_id
@@ -2918,7 +3196,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcPeeringConnection")
+        )
         input_: capo_gamelift.types.delete_vpc_peering_connection_input.DeleteVpcPeeringConnectionInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -2972,7 +3252,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterCompute")
+        )
         input_: capo_gamelift.types.deregister_compute_input.DeregisterComputeInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3025,7 +3307,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterGameServer")
+        )
         input_: capo_gamelift.types.deregister_game_server_input.DeregisterGameServerInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -3074,7 +3358,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlias")
+        )
         input_: capo_gamelift.types.describe_alias_input.DescribeAliasInput = {}
         if alias_id is not None:
             input_["alias_id"] = alias_id
@@ -3121,7 +3407,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBuild")
+        )
         input_: capo_gamelift.types.describe_build_input.DescribeBuildInput = {}
         if build_id is not None:
             input_["build_id"] = build_id
@@ -3173,7 +3461,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_compute_output.DescribeComputeOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_compute_output
+
+            return capo_gamelift.types.describe_compute_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCompute", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_compute_input.DescribeComputeInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3223,7 +3521,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_container_fleet_output.DescribeContainerFleetOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_container_fleet_output
+
+            return capo_gamelift.types.describe_container_fleet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeContainerFleet", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_container_fleet_input.DescribeContainerFleetInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3277,7 +3587,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_container_group_definition_output.DescribeContainerGroupDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_container_group_definition_output
+
+            return capo_gamelift.types.describe_container_group_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeContainerGroupDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.describe_container_group_definition_input.DescribeContainerGroupDefinitionInput = {}
         if name is not None:
             input_["name"] = name
@@ -3342,7 +3666,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_container_group_port_mappings_output.DescribeContainerGroupPortMappingsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_container_group_port_mappings_output
+
+            return capo_gamelift.types.describe_container_group_port_mappings_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeContainerGroupPortMappings", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.describe_container_group_port_mappings_input.DescribeContainerGroupPortMappingsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3403,7 +3741,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEC2InstanceLimits")
+        )
         input_: capo_gamelift.types.describe_ec2_instance_limits_input.DescribeEC2InstanceLimitsInput = {}
         if ec2_instance_type is not None:
             input_["ec2_instance_type"] = ec2_instance_type
@@ -3460,7 +3800,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetAttributes")
+        )
         input_: capo_gamelift.types.describe_fleet_attributes_input.DescribeFleetAttributesInput = {}
         if fleet_ids is not None:
             input_["fleet_ids"] = fleet_ids
@@ -3549,7 +3891,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetCapacity")
+        )
         input_: capo_gamelift.types.describe_fleet_capacity_input.DescribeFleetCapacityInput = {}
         if fleet_ids is not None:
             input_["fleet_ids"] = fleet_ids
@@ -3632,7 +3976,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetDeployment")
+        )
         input_: capo_gamelift.types.describe_fleet_deployment_input.DescribeFleetDeploymentInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3692,7 +4038,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_fleet_events_output.DescribeFleetEventsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_fleet_events_output
+
+            return capo_gamelift.types.describe_fleet_events_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFleetEvents", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_fleet_events_input.DescribeFleetEventsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3785,7 +4143,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetLocationAttributes")
+        )
         input_: capo_gamelift.types.describe_fleet_location_attributes_input.DescribeFleetLocationAttributesInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3868,7 +4228,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetLocationCapacity")
+        )
         input_: capo_gamelift.types.describe_fleet_location_capacity_input.DescribeFleetLocationCapacityInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3922,7 +4284,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetLocationUtilization")
+        )
         input_: capo_gamelift.types.describe_fleet_location_utilization_input.DescribeFleetLocationUtilizationInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -3976,7 +4340,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_fleet_port_settings_output.DescribeFleetPortSettingsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_fleet_port_settings_output
+
+            return capo_gamelift.types.describe_fleet_port_settings_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFleetPortSettings", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_fleet_port_settings_input.DescribeFleetPortSettingsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -4033,7 +4409,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetUtilization")
+        )
         input_: capo_gamelift.types.describe_fleet_utilization_input.DescribeFleetUtilizationInput = {}
         if fleet_ids is not None:
             input_["fleet_ids"] = fleet_ids
@@ -4117,7 +4495,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_game_server_output.DescribeGameServerOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_game_server_output
+
+            return capo_gamelift.types.describe_game_server_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGameServer", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_game_server_input.DescribeGameServerInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -4168,7 +4558,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGameServerGroup")
+        )
         input_: capo_gamelift.types.describe_game_server_group_input.DescribeGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -4227,7 +4619,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGameServerInstances")
+        )
         input_: capo_gamelift.types.describe_game_server_instances_input.DescribeGameServerInstancesInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -4333,7 +4727,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_game_session_details_output.DescribeGameSessionDetailsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_game_session_details_output
+
+            return capo_gamelift.types.describe_game_session_details_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGameSessionDetails", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.describe_game_session_details_input.DescribeGameSessionDetailsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -4433,7 +4841,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_game_session_placement_output.DescribeGameSessionPlacementOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_game_session_placement_output
+
+            return capo_gamelift.types.describe_game_session_placement_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGameSessionPlacement", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.describe_game_session_placement_input.DescribeGameSessionPlacementInput = {}
         if placement_id is not None:
             input_["placement_id"] = placement_id
@@ -4488,7 +4910,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_game_session_queues_output.DescribeGameSessionQueuesOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_game_session_queues_output
+
+            return capo_gamelift.types.describe_game_session_queues_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGameSessionQueues", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_game_session_queues_input.DescribeGameSessionQueuesInput = {}
         if names is not None:
             input_["names"] = names
@@ -4588,7 +5022,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_game_sessions_output.DescribeGameSessionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_game_sessions_output
+
+            return capo_gamelift.types.describe_game_sessions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGameSessions", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_game_sessions_input.DescribeGameSessionsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -4699,7 +5145,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_instances_output.DescribeInstancesOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_instances_output
+
+            return capo_gamelift.types.describe_instances_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeInstances", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_instances_input.DescribeInstancesInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -4786,7 +5244,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_matchmaking_output.DescribeMatchmakingOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_matchmaking_output
+
+            return capo_gamelift.types.describe_matchmaking_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMatchmaking", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.describe_matchmaking_input.DescribeMatchmakingInput = {}
         if ticket_ids is not None:
             input_["ticket_ids"] = ticket_ids
@@ -4844,7 +5314,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.describe_matchmaking_configurations_output.DescribeMatchmakingConfigurationsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_matchmaking_configurations_output
+
+            return capo_gamelift.types.describe_matchmaking_configurations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeMatchmakingConfigurations", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.describe_matchmaking_configurations_input.DescribeMatchmakingConfigurationsInput = {}
         if names is not None:
             input_["names"] = names
@@ -4936,7 +5420,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMatchmakingRuleSets")
+        )
         input_: capo_gamelift.types.describe_matchmaking_rule_sets_input.DescribeMatchmakingRuleSetsInput = {}
         if names is not None:
             input_["names"] = names
@@ -5032,7 +5518,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.describe_player_sessions_input.DescribePlayerSessionsInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_player_sessions_input
+
+            return capo_gamelift.types.describe_player_sessions_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.describe_player_sessions_output.DescribePlayerSessionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.describe_player_sessions_output
+
+            return capo_gamelift.types.describe_player_sessions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribePlayerSessions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.describe_player_sessions_input.DescribePlayerSessionsInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -5126,7 +5637,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRuntimeConfiguration")
+        )
         input_: capo_gamelift.types.describe_runtime_configuration_input.DescribeRuntimeConfigurationInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5188,7 +5701,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScalingPolicies")
+        )
         input_: capo_gamelift.types.describe_scaling_policies_input.DescribeScalingPoliciesInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5278,7 +5793,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScript")
+        )
         input_: capo_gamelift.types.describe_script_input.DescribeScriptInput = {}
         if script_id is not None:
             input_["script_id"] = script_id
@@ -5318,7 +5835,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcPeeringAuthorizations")
+        )
         input_: capo_gamelift.types.describe_vpc_peering_authorizations_input.DescribeVpcPeeringAuthorizationsInput = {}
 
         response = await aexecute_pipeline(
@@ -5363,7 +5882,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcPeeringConnections")
+        )
         input_: capo_gamelift.types.describe_vpc_peering_connections_input.DescribeVpcPeeringConnectionsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5415,7 +5936,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.get_compute_access_output.GetComputeAccessOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.get_compute_access_output
+
+            return capo_gamelift.types.get_compute_access_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetComputeAccess", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.get_compute_access_input.GetComputeAccessInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5469,7 +6002,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComputeAuthToken")
+        )
         input_: capo_gamelift.types.get_compute_auth_token_input.GetComputeAuthTokenInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5522,7 +6057,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGameSessionLogUrl")
+        )
         input_: capo_gamelift.types.get_game_session_log_url_input.GetGameSessionLogUrlInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -5571,7 +6108,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.get_instance_access_output.GetInstanceAccessOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.get_instance_access_output
+
+            return capo_gamelift.types.get_instance_access_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetInstanceAccess", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.get_instance_access_input.GetInstanceAccessInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5627,7 +6176,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.get_player_connection_details_input.GetPlayerConnectionDetailsInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.get_player_connection_details_input
+
+            return capo_gamelift.types.get_player_connection_details_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.get_player_connection_details_output.GetPlayerConnectionDetailsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.get_player_connection_details_output
+
+            return capo_gamelift.types.get_player_connection_details_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPlayerConnectionDetails",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.get_player_connection_details_input.GetPlayerConnectionDetailsInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -5685,7 +6259,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_gamelift.types.list_aliases_input.ListAliasesInput = {}
         if routing_strategy_type is not None:
             input_["routing_strategy_type"] = routing_strategy_type
@@ -5772,7 +6348,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuilds")
+        )
         input_: capo_gamelift.types.list_builds_input.ListBuildsInput = {}
         if status is not None:
             input_["status"] = status
@@ -5866,7 +6444,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.list_compute_output.ListComputeOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.list_compute_output
+
+            return capo_gamelift.types.list_compute_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCompute", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.list_compute_input.ListComputeInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -5968,7 +6556,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.list_container_fleets_output.ListContainerFleetsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.list_container_fleets_output
+
+            return capo_gamelift.types.list_container_fleets_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListContainerFleets", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.list_container_fleets_input.ListContainerFleetsInput = {}
         if container_group_definition_name is not None:
             input_["container_group_definition_name"] = container_group_definition_name
@@ -6056,7 +6656,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.list_container_group_definitions_output.ListContainerGroupDefinitionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.list_container_group_definitions_output
+
+            return capo_gamelift.types.list_container_group_definitions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListContainerGroupDefinitions", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.list_container_group_definitions_input.ListContainerGroupDefinitionsInput = {}
         if container_group_type is not None:
             input_["container_group_type"] = container_group_type
@@ -6147,7 +6761,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.list_container_group_definition_versions_output.ListContainerGroupDefinitionVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.list_container_group_definition_versions_output
+
+            return capo_gamelift.types.list_container_group_definition_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListContainerGroupDefinitionVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_gamelift.types.list_container_group_definition_versions_input.ListContainerGroupDefinitionVersionsInput = {}
         if name is not None:
             input_["name"] = name
@@ -6234,7 +6862,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleetDeployments")
+        )
         input_: capo_gamelift.types.list_fleet_deployments_input.ListFleetDeploymentsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -6320,7 +6950,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleets")
+        )
         input_: capo_gamelift.types.list_fleets_input.ListFleetsInput = {}
         if build_id is not None:
             input_["build_id"] = build_id
@@ -6407,7 +7039,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGameServerGroups")
+        )
         input_: capo_gamelift.types.list_game_server_groups_input.ListGameServerGroupsInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -6488,7 +7122,17 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.list_game_servers_output.ListGameServersOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.list_game_servers_output
+
+            return capo_gamelift.types.list_game_servers_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListGameServers", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.list_game_servers_input.ListGameServersInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -6579,7 +7223,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLocations")
+        )
         input_: capo_gamelift.types.list_locations_input.ListLocationsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6662,7 +7308,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScripts")
+        )
         input_: capo_gamelift.types.list_scripts_input.ListScriptsInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -6737,7 +7385,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_gamelift.types.list_tags_for_resource_request.ListTagsForResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -6813,7 +7463,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutScalingPolicy")
+        )
         input_: capo_gamelift.types.put_scaling_policy_input.PutScalingPolicyInput = {}
         if name is not None:
             input_["name"] = name
@@ -6895,7 +7547,28 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.register_compute_input.RegisterComputeInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.register_compute_input
+
+            return capo_gamelift.types.register_compute_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_gamelift.types.register_compute_output.RegisterComputeOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.register_compute_output
+
+            return capo_gamelift.types.register_compute_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterCompute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.register_compute_input.RegisterComputeInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -6971,7 +7644,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.register_game_server_input.RegisterGameServerInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.register_game_server_input
+
+            return capo_gamelift.types.register_game_server_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.register_game_server_output.RegisterGameServerOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.register_game_server_output
+
+            return capo_gamelift.types.register_game_server_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterGameServer",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.register_game_server_input.RegisterGameServerInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -7026,7 +7724,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.request_upload_credentials_output.RequestUploadCredentialsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.request_upload_credentials_output
+
+            return (
+                capo_gamelift.types.request_upload_credentials_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RequestUploadCredentials", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.request_upload_credentials_input.RequestUploadCredentialsInput = {}
         if build_id is not None:
             input_["build_id"] = build_id
@@ -7074,7 +7786,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResolveAlias")
+        )
         input_: capo_gamelift.types.resolve_alias_input.ResolveAliasInput = {}
         if alias_id is not None:
             input_["alias_id"] = alias_id
@@ -7127,7 +7841,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeGameServerGroup")
+        )
         input_: capo_gamelift.types.resume_game_server_group_input.ResumeGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -7198,7 +7914,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.search_game_sessions_output.SearchGameSessionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.search_game_sessions_output
+
+            return capo_gamelift.types.search_game_sessions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SearchGameSessions", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.search_game_sessions_input.SearchGameSessionsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -7305,7 +8033,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFleetActions")
+        )
         input_: capo_gamelift.types.start_fleet_actions_input.StartFleetActionsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -7391,7 +8121,34 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.start_game_session_placement_input.StartGameSessionPlacementInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_game_session_placement_input
+
+            return (
+                capo_gamelift.types.start_game_session_placement_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.start_game_session_placement_output.StartGameSessionPlacementOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_game_session_placement_output
+
+            return capo_gamelift.types.start_game_session_placement_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartGameSessionPlacement",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.start_game_session_placement_input.StartGameSessionPlacementInput = {}
         if placement_id is not None:
             input_["placement_id"] = placement_id
@@ -7466,7 +8223,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.start_match_backfill_input.StartMatchBackfillInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_match_backfill_input
+
+            return capo_gamelift.types.start_match_backfill_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.start_match_backfill_output.StartMatchBackfillOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_match_backfill_output
+
+            return capo_gamelift.types.start_match_backfill_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMatchBackfill",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.start_match_backfill_input.StartMatchBackfillInput = {}
         if ticket_id is not None:
             input_["ticket_id"] = ticket_id
@@ -7527,7 +8309,28 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.start_matchmaking_input.StartMatchmakingInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_matchmaking_input
+
+            return capo_gamelift.types.start_matchmaking_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_gamelift.types.start_matchmaking_output.StartMatchmakingOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.start_matchmaking_output
+
+            return capo_gamelift.types.start_matchmaking_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMatchmaking",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.start_matchmaking_input.StartMatchmakingInput = {}
         if ticket_id is not None:
             input_["ticket_id"] = ticket_id
@@ -7587,7 +8390,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopFleetActions")
+        )
         input_: capo_gamelift.types.stop_fleet_actions_input.StopFleetActionsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -7640,7 +8445,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.stop_game_session_placement_output.StopGameSessionPlacementOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.stop_game_session_placement_output
+
+            return (
+                capo_gamelift.types.stop_game_session_placement_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopGameSessionPlacement", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.stop_game_session_placement_input.StopGameSessionPlacementInput = {}
         if placement_id is not None:
             input_["placement_id"] = placement_id
@@ -7689,7 +8508,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMatchmaking")
+        )
         input_: capo_gamelift.types.stop_matchmaking_input.StopMatchmakingInput = {}
         if ticket_id is not None:
             input_["ticket_id"] = ticket_id
@@ -7742,7 +8563,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SuspendGameServerGroup")
+        )
         input_: capo_gamelift.types.suspend_game_server_group_input.SuspendGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -7796,7 +8619,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_gamelift.types.tag_resource_request.TagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -7853,7 +8678,19 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gamelift.types.terminate_game_session_output.TerminateGameSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.terminate_game_session_output
+
+            return capo_gamelift.types.terminate_game_session_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TerminateGameSession", redact_output=_redact_output),
+        )
         input_: capo_gamelift.types.terminate_game_session_input.TerminateGameSessionInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -7907,7 +8744,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_gamelift.types.untag_resource_request.UntagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -7968,7 +8807,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_gamelift.types.update_alias_input.UpdateAliasInput = {}
         if alias_id is not None:
             input_["alias_id"] = alias_id
@@ -8029,7 +8870,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBuild")
+        )
         input_: capo_gamelift.types.update_build_input.UpdateBuildInput = {}
         if build_id is not None:
             input_["build_id"] = build_id
@@ -8135,7 +8978,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_container_fleet_input.UpdateContainerFleetInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_container_fleet_input
+
+            return capo_gamelift.types.update_container_fleet_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_container_fleet_output.UpdateContainerFleetOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_container_fleet_output
+
+            return capo_gamelift.types.update_container_fleet_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateContainerFleet",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_container_fleet_input.UpdateContainerFleetInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -8258,7 +9126,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_container_group_definition_input.UpdateContainerGroupDefinitionInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_container_group_definition_input
+
+            return capo_gamelift.types.update_container_group_definition_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_container_group_definition_output.UpdateContainerGroupDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_container_group_definition_output
+
+            return capo_gamelift.types.update_container_group_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateContainerGroupDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_container_group_definition_input.UpdateContainerGroupDefinitionInput = {}
         if name is not None:
             input_["name"] = name
@@ -8352,7 +9245,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleetAttributes")
+        )
         input_: capo_gamelift.types.update_fleet_attributes_input.UpdateFleetAttributesInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -8433,7 +9328,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleetCapacity")
+        )
         input_: capo_gamelift.types.update_fleet_capacity_input.UpdateFleetCapacityInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -8501,7 +9398,21 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_fleet_port_settings_input.UpdateFleetPortSettingsInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_fleet_port_settings_input
+
+            return (
+                capo_gamelift.types.update_fleet_port_settings_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateFleetPortSettings", redact_input=_redact_input),
+        )
         input_: capo_gamelift.types.update_fleet_port_settings_input.UpdateFleetPortSettingsInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -8572,7 +9483,30 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_game_server_input.UpdateGameServerInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_server_input
+
+            return capo_gamelift.types.update_game_server_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_game_server_output.UpdateGameServerOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_server_output
+
+            return capo_gamelift.types.update_game_server_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGameServer",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_game_server_input.UpdateGameServerInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -8643,7 +9577,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGameServerGroup")
+        )
         input_: capo_gamelift.types.update_game_server_group_input.UpdateGameServerGroupInput = {}
         if game_server_group_name is not None:
             input_["game_server_group_name"] = game_server_group_name
@@ -8723,7 +9659,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_game_session_input.UpdateGameSessionInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_session_input
+
+            return capo_gamelift.types.update_game_session_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_game_session_output.UpdateGameSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_session_output
+
+            return capo_gamelift.types.update_game_session_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGameSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_game_session_input.UpdateGameSessionInput = {}
         if game_session_id is not None:
             input_["game_session_id"] = game_session_id
@@ -8810,7 +9771,34 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_game_session_queue_input.UpdateGameSessionQueueInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_session_queue_input
+
+            return capo_gamelift.types.update_game_session_queue_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_game_session_queue_output.UpdateGameSessionQueueOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_game_session_queue_output
+
+            return (
+                capo_gamelift.types.update_game_session_queue_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGameSessionQueue",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_game_session_queue_input.UpdateGameSessionQueueInput = {}
         if name is not None:
             input_["name"] = name
@@ -8925,7 +9913,32 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gamelift.types.update_matchmaking_configuration_input.UpdateMatchmakingConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_matchmaking_configuration_input
+
+            return capo_gamelift.types.update_matchmaking_configuration_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gamelift.types.update_matchmaking_configuration_output.UpdateMatchmakingConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_gamelift.types.update_matchmaking_configuration_output
+
+            return capo_gamelift.types.update_matchmaking_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMatchmakingConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gamelift.types.update_matchmaking_configuration_input.UpdateMatchmakingConfigurationInput = {}
         if name is not None:
             input_["name"] = name
@@ -9004,7 +10017,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuntimeConfiguration")
+        )
         input_: capo_gamelift.types.update_runtime_configuration_input.UpdateRuntimeConfigurationInput = {}
         if fleet_id is not None:
             input_["fleet_id"] = fleet_id
@@ -9067,7 +10082,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScript")
+        )
         input_: capo_gamelift.types.update_script_input.UpdateScriptInput = {}
         if script_id is not None:
             input_["script_id"] = script_id
@@ -9121,7 +10138,9 @@ class AsyncGameLiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateMatchmakingRuleSet")
+        )
         input_: capo_gamelift.types.validate_matchmaking_rule_set_input.ValidateMatchmakingRuleSetInput = {}
         if rule_set_body is not None:
             input_["rule_set_body"] = rule_set_body

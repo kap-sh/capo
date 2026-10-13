@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#GetSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,4 +109,29 @@ def deserialize_json(data: dict) -> GetSessionResponse:
                 data["activeContexts"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recent_intent_summary_view" in value:
+        import capo_lex_runtime_service.types.intent_summary_list
+
+        out["recent_intent_summary_view"] = (
+            capo_lex_runtime_service.types.intent_summary_list.redact_sensitive(
+                value["recent_intent_summary_view"]
+            )
+        )
+    if "session_attributes" in value:
+        out["session_attributes"] = "*** Sensitive Data Redacted ***"
+    if "dialog_action" in value:
+        import capo_lex_runtime_service.types.dialog_action
+
+        out["dialog_action"] = (
+            capo_lex_runtime_service.types.dialog_action.redact_sensitive(
+                value["dialog_action"]
+            )
+        )
+    if "active_contexts" in value:
+        out["active_contexts"] = "*** Sensitive Data Redacted ***"
     return out

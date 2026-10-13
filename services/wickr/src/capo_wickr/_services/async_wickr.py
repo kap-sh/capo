@@ -26,7 +26,9 @@ from capo_wickr._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -220,7 +222,9 @@ class AsyncWickrClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWickrClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWickrClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWickrClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -228,8 +232,10 @@ class AsyncWickrClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -297,7 +303,28 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.batch_create_user_request.BatchCreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.batch_create_user_request
+
+            return capo_wickr.types.batch_create_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wickr.types.batch_create_user_response.BatchCreateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.batch_create_user_response
+
+            return capo_wickr.types.batch_create_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchCreateUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wickr.types.batch_create_user_request.BatchCreateUserRequest = {
             "network_id": network_id,
             "users": users,
@@ -363,7 +390,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteUser")
+        )
         input_: capo_wickr.types.batch_delete_user_request.BatchDeleteUserRequest = {
             "network_id": network_id,
             "user_ids": user_ids,
@@ -431,7 +460,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchLookupUserUname")
+        )
         input_: capo_wickr.types.batch_lookup_user_uname_request.BatchLookupUserUnameRequest = {
             "network_id": network_id,
             "unames": unames,
@@ -500,7 +531,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchReinviteUser")
+        )
         input_: capo_wickr.types.batch_reinvite_user_request.BatchReinviteUserRequest = {
             "network_id": network_id,
             "user_ids": user_ids,
@@ -571,7 +604,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchResetDevicesForUser")
+        )
         input_: capo_wickr.types.batch_reset_devices_for_user_request.BatchResetDevicesForUserRequest = {
             "network_id": network_id,
             "user_id": user_id,
@@ -640,7 +675,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchToggleUserSuspendStatus")
+        )
         input_: capo_wickr.types.batch_toggle_user_suspend_status_request.BatchToggleUserSuspendStatusRequest = {
             "network_id": network_id,
             "suspend": suspend,
@@ -714,7 +751,16 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.create_bot_request.CreateBotRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.create_bot_request
+
+            return capo_wickr.types.create_bot_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBot", redact_input=_redact_input)
+        )
         input_: capo_wickr.types.create_bot_request.CreateBotRequest = {
             "network_id": network_id,
             "username": username,
@@ -777,7 +823,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataRetentionBot")
+        )
         input_: capo_wickr.types.create_data_retention_bot_request.CreateDataRetentionBotRequest = {
             "network_id": network_id
         }
@@ -832,7 +880,21 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wickr.types.create_data_retention_bot_challenge_response.CreateDataRetentionBotChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.create_data_retention_bot_challenge_response
+
+            return capo_wickr.types.create_data_retention_bot_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataRetentionBotChallenge", redact_output=_redact_output
+            ),
+        )
         input_: capo_wickr.types.create_data_retention_bot_challenge_request.CreateDataRetentionBotChallengeRequest = {
             "network_id": network_id
         }
@@ -901,7 +963,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNetwork")
+        )
         input_: capo_wickr.types.create_network_request.CreateNetworkRequest = {
             "network_name": network_name,
             "access_level": access_level,
@@ -970,7 +1034,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityGroup")
+        )
         input_: capo_wickr.types.create_security_group_request.CreateSecurityGroupRequest = {
             "network_id": network_id,
             "name": name,
@@ -1035,7 +1101,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBot")
+        )
         input_: capo_wickr.types.delete_bot_request.DeleteBotRequest = {
             "network_id": network_id,
             "bot_id": bot_id,
@@ -1091,7 +1159,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataRetentionBot")
+        )
         input_: capo_wickr.types.delete_data_retention_bot_request.DeleteDataRetentionBotRequest = {
             "network_id": network_id
         }
@@ -1151,7 +1221,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetwork")
+        )
         input_: capo_wickr.types.delete_network_request.DeleteNetworkRequest = {
             "network_id": network_id
         }
@@ -1214,7 +1286,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityGroup")
+        )
         input_: capo_wickr.types.delete_security_group_request.DeleteSecurityGroupRequest = {
             "network_id": network_id,
             "group_id": group_id,
@@ -1273,7 +1347,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBot")
+        )
         input_: capo_wickr.types.get_bot_request.GetBotRequest = {
             "network_id": network_id,
             "bot_id": bot_id,
@@ -1332,7 +1408,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBotsCount")
+        )
         input_: capo_wickr.types.get_bots_count_request.GetBotsCountRequest = {
             "network_id": network_id
         }
@@ -1390,7 +1468,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataRetentionBot")
+        )
         input_: capo_wickr.types.get_data_retention_bot_request.GetDataRetentionBotRequest = {
             "network_id": network_id
         }
@@ -1448,7 +1528,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGuestUserHistoryCount")
+        )
         input_: capo_wickr.types.get_guest_user_history_count_request.GetGuestUserHistoryCountRequest = {
             "network_id": network_id
         }
@@ -1506,7 +1588,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetwork")
+        )
         input_: capo_wickr.types.get_network_request.GetNetworkRequest = {
             "network_id": network_id
         }
@@ -1567,7 +1651,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkSettings")
+        )
         input_: capo_wickr.types.get_network_settings_request.GetNetworkSettingsRequest = {
             "network_id": network_id
         }
@@ -1643,7 +1729,26 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.get_oidc_info_request.GetOidcInfoRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.get_oidc_info_request
+
+            return capo_wickr.types.get_oidc_info_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wickr.types.get_oidc_info_response.GetOidcInfoResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.get_oidc_info_response
+
+            return capo_wickr.types.get_oidc_info_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOidcInfo", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_wickr.types.get_oidc_info_request.GetOidcInfoRequest = {
             "network_id": network_id
         }
@@ -1717,7 +1822,17 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wickr.types.get_opentdf_config_response.GetOpentdfConfigResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.get_opentdf_config_response
+
+            return capo_wickr.types.get_opentdf_config_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOpentdfConfig", redact_output=_redact_output),
+        )
         input_: capo_wickr.types.get_opentdf_config_request.GetOpentdfConfigRequest = {
             "network_id": network_id
         }
@@ -1777,7 +1892,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityGroup")
+        )
         input_: capo_wickr.types.get_security_group_request.GetSecurityGroupRequest = {
             "network_id": network_id,
             "group_id": group_id,
@@ -1848,7 +1965,16 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wickr.types.get_user_response.GetUserResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.get_user_response
+
+            return capo_wickr.types.get_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUser", redact_output=_redact_output)
+        )
         input_: capo_wickr.types.get_user_request.GetUserRequest = {
             "network_id": network_id,
             "user_id": user_id,
@@ -1911,7 +2037,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsersCount")
+        )
         input_: capo_wickr.types.get_users_count_request.GetUsersCountRequest = {
             "network_id": network_id
         }
@@ -1986,7 +2114,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBlockedGuestUsers")
+        )
         input_: capo_wickr.types.list_blocked_guest_users_request.ListBlockedGuestUsersRequest = {
             "network_id": network_id
         }
@@ -2107,7 +2237,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBots")
+        )
         input_: capo_wickr.types.list_bots_request.ListBotsRequest = {
             "network_id": network_id
         }
@@ -2233,7 +2365,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevicesForUser")
+        )
         input_: capo_wickr.types.list_devices_for_user_request.ListDevicesForUserRequest = {
             "network_id": network_id,
             "user_id": user_id,
@@ -2350,7 +2484,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGuestUsers")
+        )
         input_: capo_wickr.types.list_guest_users_request.ListGuestUsersRequest = {
             "network_id": network_id
         }
@@ -2462,7 +2598,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworks")
+        )
         input_: capo_wickr.types.list_networks_request.ListNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2563,7 +2701,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityGroups")
+        )
         input_: capo_wickr.types.list_security_groups_request.ListSecurityGroupsRequest = {
             "network_id": network_id
         }
@@ -2667,7 +2807,19 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_wickr.types.list_security_group_users_response.ListSecurityGroupUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.list_security_group_users_response
+
+            return capo_wickr.types.list_security_group_users_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSecurityGroupUsers", redact_output=_redact_output),
+        )
         input_: capo_wickr.types.list_security_group_users_request.ListSecurityGroupUsersRequest = {
             "network_id": network_id,
             "group_id": group_id,
@@ -2790,7 +2942,26 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.list_users_request
+
+            return capo_wickr.types.list_users_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wickr.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.list_users_response
+
+            return capo_wickr.types.list_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_wickr.types.list_users_request.ListUsersRequest = {
             "network_id": network_id
         }
@@ -2930,7 +3101,32 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.register_oidc_config_request.RegisterOidcConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.register_oidc_config_request
+
+            return capo_wickr.types.register_oidc_config_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wickr.types.register_oidc_config_response.RegisterOidcConfigResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.register_oidc_config_response
+
+            return capo_wickr.types.register_oidc_config_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterOidcConfig",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wickr.types.register_oidc_config_request.RegisterOidcConfigRequest = {
             "network_id": network_id,
             "company_id": company_id,
@@ -3014,7 +3210,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterOidcConfigTest")
+        )
         input_: capo_wickr.types.register_oidc_config_test_request.RegisterOidcConfigTestRequest = {
             "network_id": network_id,
             "issuer": issuer,
@@ -3097,7 +3295,32 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.register_opentdf_config_request.RegisterOpentdfConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.register_opentdf_config_request
+
+            return capo_wickr.types.register_opentdf_config_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_wickr.types.register_opentdf_config_response.RegisterOpentdfConfigResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.register_opentdf_config_response
+
+            return capo_wickr.types.register_opentdf_config_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterOpentdfConfig",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_wickr.types.register_opentdf_config_request.RegisterOpentdfConfigRequest = {
             "network_id": network_id,
             "client_id": client_id,
@@ -3171,7 +3394,16 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.update_bot_request.UpdateBotRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.update_bot_request
+
+            return capo_wickr.types.update_bot_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBot", redact_input=_redact_input)
+        )
         input_: capo_wickr.types.update_bot_request.UpdateBotRequest = {
             "network_id": network_id,
             "bot_id": bot_id,
@@ -3243,7 +3475,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataRetention")
+        )
         input_: capo_wickr.types.update_data_retention_request.UpdateDataRetentionRequest = {
             "network_id": network_id,
             "action_type": action_type,
@@ -3309,7 +3543,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGuestUser")
+        )
         input_: capo_wickr.types.update_guest_user_request.UpdateGuestUserRequest = {
             "network_id": network_id,
             "username_hash": username_hash,
@@ -3380,7 +3616,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetwork")
+        )
         input_: capo_wickr.types.update_network_request.UpdateNetworkRequest = {
             "network_id": network_id,
             "network_name": network_name,
@@ -3458,7 +3696,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkSettings")
+        )
         input_: capo_wickr.types.update_network_settings_request.UpdateNetworkSettingsRequest = {
             "network_id": network_id,
             "settings": settings,
@@ -3525,7 +3765,9 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityGroup")
+        )
         input_: capo_wickr.types.update_security_group_request.UpdateSecurityGroupRequest = {
             "network_id": network_id,
             "group_id": group_id,
@@ -3600,7 +3842,26 @@ class AsyncWickrClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_wickr.types.update_user_request.UpdateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.update_user_request
+
+            return capo_wickr.types.update_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_wickr.types.update_user_response.UpdateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_wickr.types.update_user_response
+
+            return capo_wickr.types.update_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_wickr.types.update_user_request.UpdateUserRequest = {
             "network_id": network_id,
             "user_id": user_id,

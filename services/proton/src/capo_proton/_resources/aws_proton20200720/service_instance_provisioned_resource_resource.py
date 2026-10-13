@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,10 @@ class ServiceInstanceProvisionedResourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceInstanceProvisionedResources"),
+        )
         input_: capo_proton.types.list_service_instance_provisioned_resources_input.ListServiceInstanceProvisionedResourcesInput = {
             "service_name": service_name,
             "service_instance_name": service_instance_name,
@@ -130,7 +134,10 @@ class AsyncServiceInstanceProvisionedResourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceInstanceProvisionedResources"),
+        )
         input_: capo_proton.types.list_service_instance_provisioned_resources_input.ListServiceInstanceProvisionedResourcesInput = {
             "service_name": service_name,
             "service_instance_name": service_instance_name,

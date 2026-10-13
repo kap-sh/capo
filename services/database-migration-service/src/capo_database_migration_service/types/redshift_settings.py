@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#RedshiftSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -267,4 +267,11 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftSettings:
         out["secrets_manager_secret_id"] = data["SecretsManagerSecretId"]
     if data.get("MapBooleanAsBoolean") is not None:
         out["map_boolean_as_boolean"] = data["MapBooleanAsBoolean"]
+    return out
+
+
+def redact_sensitive(value: RedshiftSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

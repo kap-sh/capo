@@ -25,7 +25,9 @@ from capo_guardduty._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -385,7 +387,9 @@ class AsyncGuardDutyClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGuardDutyClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGuardDutyClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGuardDutyClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -393,8 +397,10 @@ class AsyncGuardDutyClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -449,7 +455,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptAdministratorInvitation")
+        )
         input_: capo_guardduty.types.accept_administrator_invitation_request.AcceptAdministratorInvitationRequest = {
             "detector_id": detector_id
         }
@@ -502,7 +510,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptInvitation")
+        )
         input_: capo_guardduty.types.accept_invitation_request.AcceptInvitationRequest = {
             "detector_id": detector_id
         }
@@ -553,7 +563,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ArchiveFindings")
+        )
         input_: capo_guardduty.types.archive_findings_request.ArchiveFindingsRequest = {
             "detector_id": detector_id
         }
@@ -609,7 +621,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomDetectionRuleAssociation")
+        )
         input_: capo_guardduty.types.create_custom_detection_rule_association_request.CreateCustomDetectionRuleAssociationRequest = {}
         if rule_id is not None:
             input_["rule_id"] = rule_id
@@ -676,7 +690,10 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCustomDetectionRuleOrgConfiguration"),
+        )
         input_: capo_guardduty.types.create_custom_detection_rule_org_configuration_request.CreateCustomDetectionRuleOrgConfigurationRequest = {}
         if rule_id is not None:
             input_["rule_id"] = rule_id
@@ -746,7 +763,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDetector")
+        )
         input_: capo_guardduty.types.create_detector_request.CreateDetectorRequest = {}
         if enable is not None:
             input_["enable"] = enable
@@ -820,7 +839,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFilter")
+        )
         input_: capo_guardduty.types.create_filter_request.CreateFilterRequest = {
             "detector_id": detector_id
         }
@@ -889,7 +910,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInvestigation")
+        )
         input_: capo_guardduty.types.create_investigation_request.CreateInvestigationRequest = {
             "detector_id": detector_id
         }
@@ -956,7 +979,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIPSet")
+        )
         input_: capo_guardduty.types.create_ip_set_request.CreateIPSetRequest = {
             "detector_id": detector_id
         }
@@ -1030,7 +1055,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMalwareProtectionPlan")
+        )
         input_: capo_guardduty.types.create_malware_protection_plan_request.CreateMalwareProtectionPlanRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -1088,7 +1115,17 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_guardduty.types.create_members_request.CreateMembersRequest",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.create_members_request
+
+            return capo_guardduty.types.create_members_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMembers", redact_input=_redact_input),
+        )
         input_: capo_guardduty.types.create_members_request.CreateMembersRequest = {
             "detector_id": detector_id
         }
@@ -1147,7 +1184,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePublishingDestination")
+        )
         input_: capo_guardduty.types.create_publishing_destination_request.CreatePublishingDestinationRequest = {
             "detector_id": detector_id
         }
@@ -1205,7 +1244,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSampleFindings")
+        )
         input_: capo_guardduty.types.create_sample_findings_request.CreateSampleFindingsRequest = {
             "detector_id": detector_id
         }
@@ -1270,7 +1311,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThreatEntitySet")
+        )
         input_: capo_guardduty.types.create_threat_entity_set_request.CreateThreatEntitySetRequest = {
             "detector_id": detector_id
         }
@@ -1349,7 +1392,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThreatIntelSet")
+        )
         input_: capo_guardduty.types.create_threat_intel_set_request.CreateThreatIntelSetRequest = {
             "detector_id": detector_id
         }
@@ -1427,7 +1472,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrustedEntitySet")
+        )
         input_: capo_guardduty.types.create_trusted_entity_set_request.CreateTrustedEntitySetRequest = {
             "detector_id": detector_id
         }
@@ -1487,7 +1534,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeclineInvitations")
+        )
         input_: capo_guardduty.types.decline_invitations_request.DeclineInvitationsRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -1536,7 +1585,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomDetectionRuleAssociation")
+        )
         input_: capo_guardduty.types.delete_custom_detection_rule_association_request.DeleteCustomDetectionRuleAssociationRequest = {
             "rule_id": rule_id,
             "association_id": association_id,
@@ -1587,7 +1638,10 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteCustomDetectionRuleOrgConfiguration"),
+        )
         input_: capo_guardduty.types.delete_custom_detection_rule_org_configuration_request.DeleteCustomDetectionRuleOrgConfigurationRequest = {
             "rule_id": rule_id
         }
@@ -1634,7 +1688,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDetector")
+        )
         input_: capo_guardduty.types.delete_detector_request.DeleteDetectorRequest = {
             "detector_id": detector_id
         }
@@ -1681,7 +1737,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFilter")
+        )
         input_: capo_guardduty.types.delete_filter_request.DeleteFilterRequest = {
             "detector_id": detector_id,
             "filter_name": filter_name,
@@ -1727,7 +1785,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInvitations")
+        )
         input_: capo_guardduty.types.delete_invitations_request.DeleteInvitationsRequest = {}
         if account_ids is not None:
             input_["account_ids"] = account_ids
@@ -1774,7 +1834,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIPSet")
+        )
         input_: capo_guardduty.types.delete_ip_set_request.DeleteIPSetRequest = {
             "detector_id": detector_id,
             "ip_set_id": ip_set_id,
@@ -1820,7 +1882,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMalwareProtectionPlan")
+        )
         input_: capo_guardduty.types.delete_malware_protection_plan_request.DeleteMalwareProtectionPlanRequest = {
             "malware_protection_plan_id": malware_protection_plan_id
         }
@@ -1867,7 +1931,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMembers")
+        )
         input_: capo_guardduty.types.delete_members_request.DeleteMembersRequest = {
             "detector_id": detector_id
         }
@@ -1916,7 +1982,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePublishingDestination")
+        )
         input_: capo_guardduty.types.delete_publishing_destination_request.DeletePublishingDestinationRequest = {
             "detector_id": detector_id,
             "destination_id": destination_id,
@@ -1964,7 +2032,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThreatEntitySet")
+        )
         input_: capo_guardduty.types.delete_threat_entity_set_request.DeleteThreatEntitySetRequest = {
             "detector_id": detector_id,
             "threat_entity_set_id": threat_entity_set_id,
@@ -2012,7 +2082,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThreatIntelSet")
+        )
         input_: capo_guardduty.types.delete_threat_intel_set_request.DeleteThreatIntelSetRequest = {
             "detector_id": detector_id,
             "threat_intel_set_id": threat_intel_set_id,
@@ -2060,7 +2132,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrustedEntitySet")
+        )
         input_: capo_guardduty.types.delete_trusted_entity_set_request.DeleteTrustedEntitySetRequest = {
             "detector_id": detector_id,
             "trusted_entity_set_id": trusted_entity_set_id,
@@ -2120,7 +2194,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMalwareScans")
+        )
         input_: capo_guardduty.types.describe_malware_scans_request.DescribeMalwareScansRequest = {
             "detector_id": detector_id
         }
@@ -2210,7 +2286,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConfiguration")
+        )
         input_: capo_guardduty.types.describe_organization_configuration_request.DescribeOrganizationConfigurationRequest = {
             "detector_id": detector_id
         }
@@ -2282,7 +2360,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePublishingDestination")
+        )
         input_: capo_guardduty.types.describe_publishing_destination_request.DescribePublishingDestinationRequest = {
             "detector_id": detector_id,
             "destination_id": destination_id,
@@ -2328,7 +2408,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableOrganizationAdminAccount")
+        )
         input_: capo_guardduty.types.disable_organization_admin_account_request.DisableOrganizationAdminAccountRequest = {}
         if admin_account_id is not None:
             input_["admin_account_id"] = admin_account_id
@@ -2373,7 +2455,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFromAdministratorAccount")
+        )
         input_: capo_guardduty.types.disassociate_from_administrator_account_request.DisassociateFromAdministratorAccountRequest = {
             "detector_id": detector_id
         }
@@ -2418,7 +2502,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFromMasterAccount")
+        )
         input_: capo_guardduty.types.disassociate_from_master_account_request.DisassociateFromMasterAccountRequest = {
             "detector_id": detector_id
         }
@@ -2467,7 +2553,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMembers")
+        )
         input_: capo_guardduty.types.disassociate_members_request.DisassociateMembersRequest = {
             "detector_id": detector_id
         }
@@ -2514,7 +2602,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableOrganizationAdminAccount")
+        )
         input_: capo_guardduty.types.enable_organization_admin_account_request.EnableOrganizationAdminAccountRequest = {}
         if admin_account_id is not None:
             input_["admin_account_id"] = admin_account_id
@@ -2559,7 +2649,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdministratorAccount")
+        )
         input_: capo_guardduty.types.get_administrator_account_request.GetAdministratorAccountRequest = {
             "detector_id": detector_id
         }
@@ -2612,7 +2704,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoverageStatistics")
+        )
         input_: capo_guardduty.types.get_coverage_statistics_request.GetCoverageStatisticsRequest = {
             "detector_id": detector_id
         }
@@ -2663,7 +2757,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomDetectionRule")
+        )
         input_: capo_guardduty.types.get_custom_detection_rule_request.GetCustomDetectionRuleRequest = {
             "rule_id": rule_id
         }
@@ -2712,7 +2808,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomDetectionRuleAssociation")
+        )
         input_: capo_guardduty.types.get_custom_detection_rule_association_request.GetCustomDetectionRuleAssociationRequest = {
             "rule_id": rule_id,
             "association_id": association_id,
@@ -2762,7 +2860,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomDetectionRuleOrgConfiguration")
+        )
         input_: capo_guardduty.types.get_custom_detection_rule_org_configuration_request.GetCustomDetectionRuleOrgConfigurationRequest = {
             "rule_id": rule_id
         }
@@ -2809,7 +2909,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDetector")
+        )
         input_: capo_guardduty.types.get_detector_request.GetDetectorRequest = {
             "detector_id": detector_id
         }
@@ -2856,7 +2958,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFilter")
+        )
         input_: capo_guardduty.types.get_filter_request.GetFilterRequest = {
             "detector_id": detector_id,
             "filter_name": filter_name,
@@ -2908,7 +3012,17 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_guardduty.types.get_findings_response.GetFindingsResponse",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.get_findings_response
+
+            return capo_guardduty.types.get_findings_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetFindings", redact_output=_redact_output),
+        )
         input_: capo_guardduty.types.get_findings_request.GetFindingsRequest = {
             "detector_id": detector_id
         }
@@ -2973,7 +3087,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFindingsStatistics")
+        )
         input_: capo_guardduty.types.get_findings_statistics_request.GetFindingsStatisticsRequest = {
             "detector_id": detector_id
         }
@@ -3032,7 +3148,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInvestigation")
+        )
         input_: capo_guardduty.types.get_investigation_request.GetInvestigationRequest = {
             "detector_id": detector_id,
             "investigation_id": investigation_id,
@@ -3072,7 +3190,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInvitationsCount")
+        )
         input_: capo_guardduty.types.get_invitations_count_request.GetInvitationsCountRequest = {}
 
         response = await aexecute_pipeline(
@@ -3117,7 +3237,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIPSet")
+        )
         input_: capo_guardduty.types.get_ip_set_request.GetIPSetRequest = {
             "detector_id": detector_id,
             "ip_set_id": ip_set_id,
@@ -3165,7 +3287,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMalwareProtectionPlan")
+        )
         input_: capo_guardduty.types.get_malware_protection_plan_request.GetMalwareProtectionPlanRequest = {
             "malware_protection_plan_id": malware_protection_plan_id
         }
@@ -3211,7 +3335,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMalwareScan")
+        )
         input_: capo_guardduty.types.get_malware_scan_request.GetMalwareScanRequest = {
             "scan_id": scan_id
         }
@@ -3256,7 +3382,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMalwareScanSettings")
+        )
         input_: capo_guardduty.types.get_malware_scan_settings_request.GetMalwareScanSettingsRequest = {
             "detector_id": detector_id
         }
@@ -3301,7 +3429,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMasterAccount")
+        )
         input_: capo_guardduty.types.get_master_account_request.GetMasterAccountRequest = {
             "detector_id": detector_id
         }
@@ -3350,7 +3480,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMemberDetectors")
+        )
         input_: capo_guardduty.types.get_member_detectors_request.GetMemberDetectorsRequest = {
             "detector_id": detector_id
         }
@@ -3399,7 +3531,17 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_guardduty.types.get_members_response.GetMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.get_members_response
+
+            return capo_guardduty.types.get_members_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMembers", redact_output=_redact_output),
+        )
         input_: capo_guardduty.types.get_members_request.GetMembersRequest = {
             "detector_id": detector_id
         }
@@ -3440,7 +3582,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOrganizationStatistics")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -3484,7 +3628,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRemainingFreeTrialDays")
+        )
         input_: capo_guardduty.types.get_remaining_free_trial_days_request.GetRemainingFreeTrialDaysRequest = {
             "detector_id": detector_id,
             "account_ids": account_ids,
@@ -3534,7 +3680,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThreatEntitySet")
+        )
         input_: capo_guardduty.types.get_threat_entity_set_request.GetThreatEntitySetRequest = {
             "detector_id": detector_id,
             "threat_entity_set_id": threat_entity_set_id,
@@ -3582,7 +3730,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThreatIntelSet")
+        )
         input_: capo_guardduty.types.get_threat_intel_set_request.GetThreatIntelSetRequest = {
             "detector_id": detector_id,
             "threat_intel_set_id": threat_intel_set_id,
@@ -3630,7 +3780,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustedEntitySet")
+        )
         input_: capo_guardduty.types.get_trusted_entity_set_request.GetTrustedEntitySetRequest = {
             "detector_id": detector_id,
             "trusted_entity_set_id": trusted_entity_set_id,
@@ -3692,7 +3844,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUsageStatistics")
+        )
         input_: capo_guardduty.types.get_usage_statistics_request.GetUsageStatisticsRequest = {
             "detector_id": detector_id
         }
@@ -3786,7 +3940,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InviteMembers")
+        )
         input_: capo_guardduty.types.invite_members_request.InviteMembersRequest = {
             "detector_id": detector_id
         }
@@ -3849,7 +4005,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoverage")
+        )
         input_: capo_guardduty.types.list_coverage_request.ListCoverageRequest = {
             "detector_id": detector_id
         }
@@ -3942,7 +4100,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomDetectionRuleAssociations")
+        )
         input_: capo_guardduty.types.list_custom_detection_rule_associations_request.ListCustomDetectionRuleAssociationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4029,7 +4189,10 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCustomDetectionRuleOrgConfigurations"),
+        )
         input_: capo_guardduty.types.list_custom_detection_rule_org_configurations_request.ListCustomDetectionRuleOrgConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4114,7 +4277,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomDetectionRules")
+        )
         input_: capo_guardduty.types.list_custom_detection_rules_request.ListCustomDetectionRulesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4192,7 +4357,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDetectors")
+        )
         input_: capo_guardduty.types.list_detectors_request.ListDetectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4264,7 +4431,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFilters")
+        )
         input_: capo_guardduty.types.list_filters_request.ListFiltersRequest = {
             "detector_id": detector_id
         }
@@ -4348,7 +4517,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindings")
+        )
         input_: capo_guardduty.types.list_findings_request.ListFindingsRequest = {
             "detector_id": detector_id
         }
@@ -4441,7 +4612,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvestigations")
+        )
         input_: capo_guardduty.types.list_investigations_request.ListInvestigationsRequest = {
             "detector_id": detector_id
         }
@@ -4523,7 +4696,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvitations")
+        )
         input_: capo_guardduty.types.list_invitations_request.ListInvitationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4595,7 +4770,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIPSets")
+        )
         input_: capo_guardduty.types.list_ip_sets_request.ListIPSetsRequest = {
             "detector_id": detector_id
         }
@@ -4668,7 +4845,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMalwareProtectionPlans")
+        )
         input_: capo_guardduty.types.list_malware_protection_plans_request.ListMalwareProtectionPlansRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4723,7 +4902,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMalwareScans")
+        )
         input_: capo_guardduty.types.list_malware_scans_request.ListMalwareScansRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4809,7 +4990,17 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_guardduty.types.list_members_response.ListMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.list_members_response
+
+            return capo_guardduty.types.list_members_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListMembers", redact_output=_redact_output),
+        )
         input_: capo_guardduty.types.list_members_request.ListMembersRequest = {
             "detector_id": detector_id
         }
@@ -4887,7 +5078,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationAdminAccounts")
+        )
         input_: capo_guardduty.types.list_organization_admin_accounts_request.ListOrganizationAdminAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4959,7 +5152,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPublishingDestinations")
+        )
         input_: capo_guardduty.types.list_publishing_destinations_request.ListPublishingDestinationsRequest = {
             "detector_id": detector_id
         }
@@ -5030,7 +5225,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_guardduty.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5079,7 +5276,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreatEntitySets")
+        )
         input_: capo_guardduty.types.list_threat_entity_sets_request.ListThreatEntitySetsRequest = {
             "detector_id": detector_id
         }
@@ -5155,7 +5354,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreatIntelSets")
+        )
         input_: capo_guardduty.types.list_threat_intel_sets_request.ListThreatIntelSetsRequest = {
             "detector_id": detector_id
         }
@@ -5231,7 +5432,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrustedEntitySets")
+        )
         input_: capo_guardduty.types.list_trusted_entity_sets_request.ListTrustedEntitySetsRequest = {
             "detector_id": detector_id
         }
@@ -5306,7 +5509,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendObjectMalwareScan")
+        )
         input_: capo_guardduty.types.send_object_malware_scan_request.SendObjectMalwareScanRequest = {}
         if s3_object is not None:
             input_["s3_object"] = s3_object
@@ -5358,7 +5563,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMalwareScan")
+        )
         input_: capo_guardduty.types.start_malware_scan_request.StartMalwareScanRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -5410,7 +5617,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMonitoringMembers")
+        )
         input_: capo_guardduty.types.start_monitoring_members_request.StartMonitoringMembersRequest = {
             "detector_id": detector_id
         }
@@ -5459,7 +5668,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMonitoringMembers")
+        )
         input_: capo_guardduty.types.stop_monitoring_members_request.StopMonitoringMembersRequest = {
             "detector_id": detector_id
         }
@@ -5509,7 +5720,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_guardduty.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5557,7 +5770,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnarchiveFindings")
+        )
         input_: capo_guardduty.types.unarchive_findings_request.UnarchiveFindingsRequest = {
             "detector_id": detector_id
         }
@@ -5607,7 +5822,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_guardduty.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5661,7 +5878,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomDetectionRuleAssociation")
+        )
         input_: capo_guardduty.types.update_custom_detection_rule_association_request.UpdateCustomDetectionRuleAssociationRequest = {
             "rule_id": rule_id,
             "association_id": association_id,
@@ -5722,7 +5941,10 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCustomDetectionRuleOrgConfiguration"),
+        )
         input_: capo_guardduty.types.update_custom_detection_rule_org_configuration_request.UpdateCustomDetectionRuleOrgConfigurationRequest = {
             "rule_id": rule_id
         }
@@ -5787,7 +6009,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDetector")
+        )
         input_: capo_guardduty.types.update_detector_request.UpdateDetectorRequest = {
             "detector_id": detector_id
         }
@@ -5854,7 +6078,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFilter")
+        )
         input_: capo_guardduty.types.update_filter_request.UpdateFilterRequest = {
             "detector_id": detector_id,
             "filter_name": filter_name,
@@ -5916,7 +6142,21 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_guardduty.types.update_findings_feedback_request.UpdateFindingsFeedbackRequest",
+        ) -> dict[str, Any]:
+            import capo_guardduty.types.update_findings_feedback_request
+
+            return (
+                capo_guardduty.types.update_findings_feedback_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateFindingsFeedback", redact_input=_redact_input),
+        )
         input_: capo_guardduty.types.update_findings_feedback_request.UpdateFindingsFeedbackRequest = {
             "detector_id": detector_id
         }
@@ -5980,7 +6220,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIPSet")
+        )
         input_: capo_guardduty.types.update_ip_set_request.UpdateIPSetRequest = {
             "detector_id": detector_id,
             "ip_set_id": ip_set_id,
@@ -6044,7 +6286,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMalwareProtectionPlan")
+        )
         input_: capo_guardduty.types.update_malware_protection_plan_request.UpdateMalwareProtectionPlanRequest = {
             "malware_protection_plan_id": malware_protection_plan_id
         }
@@ -6103,7 +6347,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMalwareScanSettings")
+        )
         input_: capo_guardduty.types.update_malware_scan_settings_request.UpdateMalwareScanSettingsRequest = {
             "detector_id": detector_id
         }
@@ -6162,7 +6408,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMemberDetectors")
+        )
         input_: capo_guardduty.types.update_member_detectors_request.UpdateMemberDetectorsRequest = {
             "detector_id": detector_id
         }
@@ -6227,7 +6475,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOrganizationConfiguration")
+        )
         input_: capo_guardduty.types.update_organization_configuration_request.UpdateOrganizationConfigurationRequest = {
             "detector_id": detector_id
         }
@@ -6288,7 +6538,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePublishingDestination")
+        )
         input_: capo_guardduty.types.update_publishing_destination_request.UpdatePublishingDestinationRequest = {
             "detector_id": detector_id,
             "destination_id": destination_id,
@@ -6348,7 +6600,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThreatEntitySet")
+        )
         input_: capo_guardduty.types.update_threat_entity_set_request.UpdateThreatEntitySetRequest = {
             "detector_id": detector_id,
             "threat_entity_set_id": threat_entity_set_id,
@@ -6415,7 +6669,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThreatIntelSet")
+        )
         input_: capo_guardduty.types.update_threat_intel_set_request.UpdateThreatIntelSetRequest = {
             "detector_id": detector_id,
             "threat_intel_set_id": threat_intel_set_id,
@@ -6481,7 +6737,9 @@ class AsyncGuardDutyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrustedEntitySet")
+        )
         input_: capo_guardduty.types.update_trusted_entity_set_request.UpdateTrustedEntitySetRequest = {
             "detector_id": detector_id,
             "trusted_entity_set_id": trusted_entity_set_id,

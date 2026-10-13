@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SearchMessageTemplatesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> SearchMessageTemplatesResponse:
         raise DeserializationError("SearchMessageTemplatesResponse.results required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: SearchMessageTemplatesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_qconnect.types.message_template_search_results_list
+
+        out["results"] = (
+            capo_qconnect.types.message_template_search_results_list.redact_sensitive(
+                value["results"]
+            )
+        )
     return out

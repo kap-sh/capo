@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#SharedDirectories``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_directory_service.types.shared_directory
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> SharedDirectories:
             capo_directory_service.types.shared_directory.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: SharedDirectories) -> list[Any]:
+    import capo_directory_service.types.shared_directory
+
+    return [
+        capo_directory_service.types.shared_directory.redact_sensitive(item)
+        for item in value
+    ]

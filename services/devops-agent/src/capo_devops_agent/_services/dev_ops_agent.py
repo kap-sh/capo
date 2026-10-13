@@ -33,10 +33,12 @@ from capo_devops_agent._resources.dev_ops_agent.trigger_resource import TriggerR
 from capo_devops_agent._services._aws_config import aws_config
 from capo_devops_agent._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -314,7 +316,9 @@ class DevOpsAgentClient:
         self.trigger_resource = TriggerResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[DevOpsAgentClientConfig] = None
+        self,
+        config_overrides: Optional[DevOpsAgentClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DevOpsAgentClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -322,8 +326,10 @@ class DevOpsAgentClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -385,7 +391,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAsset")
+        )
         input_: capo_devops_agent.types.create_asset_request.CreateAssetRequest = {
             "agent_space_id": agent_space_id,
             "asset_type": asset_type,
@@ -453,7 +461,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssetFile")
+        )
         input_: capo_devops_agent.types.create_asset_file_request.CreateAssetFileRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -530,7 +540,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBacklogTask")
+        )
         input_: capo_devops_agent.types.create_backlog_task_request.CreateBacklogTaskRequest = {
             "agent_space_id": agent_space_id,
             "task_type": task_type,
@@ -595,7 +607,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChat")
+        )
         input_: capo_devops_agent.types.create_chat_request.CreateChatRequest = {
             "agent_space_id": agent_space_id
         }
@@ -660,7 +674,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrigger")
+        )
         input_: capo_devops_agent.types.create_trigger_request.CreateTriggerRequest = {
             "agent_space_id": agent_space_id,
             "type": type,
@@ -721,7 +737,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_devops_agent.types.delete_asset_request.DeleteAssetRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -777,7 +795,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssetFile")
+        )
         input_: capo_devops_agent.types.delete_asset_file_request.DeleteAssetFileRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -832,7 +852,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrigger")
+        )
         input_: capo_devops_agent.types.delete_trigger_request.DeleteTriggerRequest = {
             "agent_space_id": agent_space_id,
             "trigger_id": trigger_id,
@@ -878,7 +900,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountUsage")
+        )
         input_: capo_devops_agent.types.get_account_usage_input.GetAccountUsageInput = {}
 
         response = execute_pipeline(
@@ -931,7 +955,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAsset")
+        )
         input_: capo_devops_agent.types.get_asset_request.GetAssetRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -989,7 +1015,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetContent")
+        )
         input_: capo_devops_agent.types.get_asset_content_request.GetAssetContentRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -1049,7 +1077,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssetFile")
+        )
         input_: capo_devops_agent.types.get_asset_file_request.GetAssetFileRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -1106,7 +1136,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBacklogTask")
+        )
         input_: capo_devops_agent.types.get_backlog_task_request.GetBacklogTaskRequest = {
             "agent_space_id": agent_space_id,
             "task_id": task_id,
@@ -1164,7 +1196,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendation")
+        )
         input_: capo_devops_agent.types.get_recommendation_request.GetRecommendationRequest = {
             "agent_space_id": agent_space_id,
             "recommendation_id": recommendation_id,
@@ -1220,7 +1254,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrigger")
+        )
         input_: capo_devops_agent.types.get_trigger_request.GetTriggerRequest = {
             "agent_space_id": agent_space_id,
             "trigger_id": trigger_id,
@@ -1280,7 +1316,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetFiles")
+        )
         input_: capo_devops_agent.types.list_asset_files_request.ListAssetFilesRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -1375,7 +1413,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssets")
+        )
         input_: capo_devops_agent.types.list_assets_request.ListAssetsRequest = {
             "agent_space_id": agent_space_id
         }
@@ -1467,7 +1507,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetTypes")
+        )
         input_: capo_devops_agent.types.list_asset_types_request.ListAssetTypesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1549,7 +1591,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetVersions")
+        )
         input_: capo_devops_agent.types.list_asset_versions_request.ListAssetVersionsRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -1644,7 +1688,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBacklogTasks")
+        )
         input_: capo_devops_agent.types.list_backlog_tasks_request.ListBacklogTasksRequest = {
             "agent_space_id": agent_space_id
         }
@@ -1742,7 +1788,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChats")
+        )
         input_: capo_devops_agent.types.list_chats_request.ListChatsRequest = {
             "agent_space_id": agent_space_id
         }
@@ -1805,7 +1853,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_devops_agent.types.list_executions_request.ListExecutionsRequest = {
             "agent_space_id": agent_space_id,
             "task_id": task_id,
@@ -1894,7 +1944,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGoals")
+        )
         input_: capo_devops_agent.types.list_goals_request.ListGoalsRequest = {
             "agent_space_id": agent_space_id
         }
@@ -1990,7 +2042,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJournalRecords")
+        )
         input_: capo_devops_agent.types.list_journal_records_request.ListJournalRecordsRequest = {
             "agent_space_id": agent_space_id,
             "execution_id": execution_id,
@@ -2080,7 +2134,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPendingMessages")
+        )
         input_: capo_devops_agent.types.list_pending_messages_request.ListPendingMessagesRequest = {
             "agent_space_id": agent_space_id,
             "execution_id": execution_id,
@@ -2148,7 +2204,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_devops_agent.types.list_recommendations_request.ListRecommendationsRequest = {
             "agent_space_id": agent_space_id
         }
@@ -2211,7 +2269,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_devops_agent.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2268,7 +2328,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTriggers")
+        )
         input_: capo_devops_agent.types.list_triggers_request.ListTriggersRequest = {
             "agent_space_id": agent_space_id
         }
@@ -2365,7 +2427,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.send_message_response.SendMessageResponse",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.send_message_response
+
+            return capo_devops_agent.types.send_message_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendMessage", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.send_message_request.SendMessageRequest = {
             "agent_space_id": agent_space_id,
             "execution_id": execution_id,
@@ -2430,7 +2504,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_devops_agent.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2484,7 +2560,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_devops_agent.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2552,7 +2630,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApprovalAction")
+        )
         input_: capo_devops_agent.types.update_approval_action_request.UpdateApprovalActionRequest = {
             "agent_space_id": agent_space_id,
             "approval_id": approval_id,
@@ -2621,7 +2701,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAsset")
+        )
         input_: capo_devops_agent.types.update_asset_request.UpdateAssetRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -2692,7 +2774,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssetFile")
+        )
         input_: capo_devops_agent.types.update_asset_file_request.UpdateAssetFileRequest = {
             "agent_space_id": agent_space_id,
             "asset_id": asset_id,
@@ -2760,7 +2844,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBacklogTask")
+        )
         input_: capo_devops_agent.types.update_backlog_task_request.UpdateBacklogTaskRequest = {
             "agent_space_id": agent_space_id,
             "task_id": task_id,
@@ -2825,7 +2911,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGoal")
+        )
         input_: capo_devops_agent.types.update_goal_request.UpdateGoalRequest = {
             "agent_space_id": agent_space_id,
             "goal_id": goal_id,
@@ -2892,7 +2980,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecommendation")
+        )
         input_: capo_devops_agent.types.update_recommendation_request.UpdateRecommendationRequest = {
             "agent_space_id": agent_space_id,
             "recommendation_id": recommendation_id,
@@ -2957,7 +3047,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrigger")
+        )
         input_: capo_devops_agent.types.update_trigger_request.UpdateTriggerRequest = {
             "agent_space_id": agent_space_id,
             "trigger_id": trigger_id,
@@ -3028,7 +3120,32 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_input
+
+            return capo_devops_agent.types.create_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.create_agent_space_output.CreateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_output
+
+            return capo_devops_agent.types.create_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -3092,7 +3209,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_agent_space_output.GetAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_agent_space_output
+
+            return capo_devops_agent.types.get_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentSpace", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_agent_space_input.GetAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -3155,7 +3284,32 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_input
+
+            return capo_devops_agent.types.update_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.update_agent_space_output.UpdateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_output
+
+            return capo_devops_agent.types.update_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -3214,7 +3368,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_devops_agent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -3266,7 +3422,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableOperatorApp")
+        )
         input_: capo_devops_agent.types.disable_operator_app_input.DisableOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -3338,7 +3496,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.enable_operator_app_input
+
+            return capo_devops_agent.types.enable_operator_app_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EnableOperatorApp", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput = {
             "agent_space_id": agent_space_id,
             "auth_flow": auth_flow,
@@ -3401,7 +3571,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperatorApp")
+        )
         input_: capo_devops_agent.types.get_operator_app_input.GetOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -3456,7 +3628,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_operator_app_idp_config_input
+
+            return capo_devops_agent.types.update_operator_app_idp_config_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOperatorAppIdpConfig", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput = {
             "agent_space_id": agent_space_id
         }
@@ -3511,7 +3695,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_agent_spaces_output.ListAgentSpacesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_agent_spaces_output
+
+            return capo_devops_agent.types.list_agent_spaces_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentSpaces", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3593,7 +3789,32 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.associate_service_input.AssociateServiceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.associate_service_input
+
+            return capo_devops_agent.types.associate_service_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.associate_service_output.AssociateServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.associate_service_output
+
+            return capo_devops_agent.types.associate_service_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.associate_service_input.AssociateServiceInput = {
             "agent_space_id": agent_space_id,
             "service_id": service_id,
@@ -3650,7 +3871,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_association_output.GetAssociationOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_association_output
+
+            return capo_devops_agent.types.get_association_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAssociation", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_association_input.GetAssociationInput = {
             "agent_space_id": agent_space_id,
             "association_id": association_id,
@@ -3710,7 +3943,32 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_association_input.UpdateAssociationInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_association_input
+
+            return capo_devops_agent.types.update_association_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.update_association_output.UpdateAssociationOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_association_output
+
+            return capo_devops_agent.types.update_association_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.update_association_input.UpdateAssociationInput = {
             "agent_space_id": agent_space_id,
             "association_id": association_id,
@@ -3769,7 +4027,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateService")
+        )
         input_: capo_devops_agent.types.disassociate_service_input.DisassociateServiceInput = {
             "agent_space_id": agent_space_id,
             "association_id": association_id,
@@ -3823,7 +4083,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebhooks")
+        )
         input_: capo_devops_agent.types.list_webhooks_input.ListWebhooksInput = {
             "agent_space_id": agent_space_id,
             "association_id": association_id,
@@ -3881,7 +4143,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_associations_output.ListAssociationsOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_associations_output
+
+            return capo_devops_agent.types.list_associations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssociations", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_associations_input.ListAssociationsInput = {
             "agent_space_id": agent_space_id
         }
@@ -3963,7 +4237,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateAwsAssociations")
+        )
         input_: capo_devops_agent.types.validate_aws_associations_input.ValidateAwsAssociationsInput = {
             "agent_space_id": agent_space_id
         }
@@ -4018,7 +4294,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrivateConnection")
+        )
         input_: capo_devops_agent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "name": name,
             "mode": mode,
@@ -4072,7 +4350,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_devops_agent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "name": name
         }
@@ -4123,7 +4403,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_devops_agent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "name": name
         }
@@ -4168,7 +4450,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_devops_agent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
 
         response = execute_pipeline(
@@ -4219,7 +4503,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrivateConnectionCertificate")
+        )
         input_: capo_devops_agent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "name": name,
             "certificate": certificate,
@@ -4292,7 +4578,19 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.register_service_input.RegisterServiceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.register_service_input
+
+            return capo_devops_agent.types.register_service_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterService", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.register_service_input.RegisterServiceInput = {
             "service": service,
             "service_details": service_details,
@@ -4360,7 +4658,17 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_service_output.GetServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_service_output
+
+            return capo_devops_agent.types.get_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_service_input.GetServiceInput = {
             "service_id": service_id
         }
@@ -4411,7 +4719,9 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterService")
+        )
         input_: capo_devops_agent.types.deregister_service_input.DeregisterServiceInput = {
             "service_id": service_id
         }
@@ -4466,7 +4776,17 @@ class DevOpsAgentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_services_output.ListServicesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_services_output
+
+            return capo_devops_agent.types.list_services_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_services_input.ListServicesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

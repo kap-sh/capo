@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FreeFormLayoutConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,5 +78,18 @@ def deserialize_json(data: dict) -> FreeFormLayoutConfiguration:
 
         out["groups"] = capo_quicksight.types.sheet_layout_group_list.deserialize_json(
             data["Groups"]
+        )
+    return out
+
+
+def redact_sensitive(value: FreeFormLayoutConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "elements" in value:
+        import capo_quicksight.types.free_from_layout_element_list
+
+        out["elements"] = (
+            capo_quicksight.types.free_from_layout_element_list.redact_sensitive(
+                value["elements"]
+            )
         )
     return out

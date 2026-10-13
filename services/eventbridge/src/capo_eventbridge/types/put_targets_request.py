@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#PutTargetsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,15 @@ def deserialize_aws_json_1_1(data: dict) -> PutTargetsRequest:
         )
     else:
         raise DeserializationError("PutTargetsRequest.targets required")
+    return out
+
+
+def redact_sensitive(value: PutTargetsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "targets" in value:
+        import capo_eventbridge.types.target_list
+
+        out["targets"] = capo_eventbridge.types.target_list.redact_sensitive(
+            value["targets"]
+        )
     return out

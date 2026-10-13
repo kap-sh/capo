@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#UpdateFunctionConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -274,5 +274,16 @@ def deserialize_json(data: dict) -> UpdateFunctionConfigurationRequest:
 
         out["durable_config"] = capo_lambda.types.durable_config.deserialize_json(
             data["DurableConfig"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateFunctionConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_lambda.types.environment
+
+        out["environment"] = capo_lambda.types.environment.redact_sensitive(
+            value["environment"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#PortalList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_web.types.portal_summary
@@ -27,3 +27,12 @@ def deserialize_json(data: list) -> PortalList:
             continue
         out.append(capo_workspaces_web.types.portal_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PortalList) -> list[Any]:
+    import capo_workspaces_web.types.portal_summary
+
+    return [
+        capo_workspaces_web.types.portal_summary.redact_sensitive(item)
+        for item in value
+    ]

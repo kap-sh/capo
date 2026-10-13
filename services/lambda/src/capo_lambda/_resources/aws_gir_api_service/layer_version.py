@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda._auth._signers
 import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayerVersions")
+        )
         input_: capo_lambda.types.list_layer_versions_request.ListLayerVersionsRequest = {
             "layer_name": layer_name
         }
@@ -182,7 +185,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddLayerVersionPermission")
+        )
         input_: capo_lambda.types.add_layer_version_permission_request.AddLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -242,7 +247,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLayerVersion")
+        )
         input_: capo_lambda.types.delete_layer_version_request.DeleteLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -297,7 +304,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersion")
+        )
         input_: capo_lambda.types.get_layer_version_request.GetLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -350,7 +359,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionByArn")
+        )
         input_: capo_lambda.types.get_layer_version_by_arn_request.GetLayerVersionByArnRequest = {
             "arn": arn
         }
@@ -398,7 +409,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionPolicy")
+        )
         input_: capo_lambda.types.get_layer_version_policy_request.GetLayerVersionPolicyRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -466,7 +479,19 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.publish_layer_version_request
+
+            return capo_lambda.types.publish_layer_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PublishLayerVersion", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest = {
             "layer_name": layer_name,
             "content": content,
@@ -532,7 +557,9 @@ class LayerVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveLayerVersionPermission")
+        )
         input_: capo_lambda.types.remove_layer_version_permission_request.RemoveLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -606,7 +633,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayerVersions")
+        )
         input_: capo_lambda.types.list_layer_versions_request.ListLayerVersionsRequest = {
             "layer_name": layer_name
         }
@@ -684,7 +713,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddLayerVersionPermission")
+        )
         input_: capo_lambda.types.add_layer_version_permission_request.AddLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -745,7 +776,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLayerVersion")
+        )
         input_: capo_lambda.types.delete_layer_version_request.DeleteLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -801,7 +834,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersion")
+        )
         input_: capo_lambda.types.get_layer_version_request.GetLayerVersionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -855,7 +890,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionByArn")
+        )
         input_: capo_lambda.types.get_layer_version_by_arn_request.GetLayerVersionByArnRequest = {
             "arn": arn
         }
@@ -904,7 +941,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayerVersionPolicy")
+        )
         input_: capo_lambda.types.get_layer_version_policy_request.GetLayerVersionPolicyRequest = {
             "layer_name": layer_name,
             "version_number": version_number,
@@ -973,7 +1012,19 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.publish_layer_version_request
+
+            return capo_lambda.types.publish_layer_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PublishLayerVersion", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.publish_layer_version_request.PublishLayerVersionRequest = {
             "layer_name": layer_name,
             "content": content,
@@ -1040,7 +1091,9 @@ class AsyncLayerVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveLayerVersionPermission")
+        )
         input_: capo_lambda.types.remove_layer_version_permission_request.RemoveLayerVersionPermissionRequest = {
             "layer_name": layer_name,
             "version_number": version_number,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#RegisteredServicesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.registered_service
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> RegisteredServicesList:
             continue
         out.append(capo_devops_agent.types.registered_service.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RegisteredServicesList) -> list[Any]:
+    import capo_devops_agent.types.registered_service
+
+    return [
+        capo_devops_agent.types.registered_service.redact_sensitive(item)
+        for item in value
+    ]

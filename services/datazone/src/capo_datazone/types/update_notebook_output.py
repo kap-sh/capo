@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UpdateNotebookOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -265,5 +265,28 @@ def deserialize_json(data: dict) -> UpdateNotebookOutput:
 
         out["git_metadata"] = capo_datazone.types.git_metadata.deserialize_json(
             data["gitMetadata"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateNotebookOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        import capo_datazone.types.metadata
+
+        out["metadata"] = capo_datazone.types.metadata.redact_sensitive(
+            value["metadata"]
+        )
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
+    if "git_metadata" in value:
+        import capo_datazone.types.git_metadata
+
+        out["git_metadata"] = capo_datazone.types.git_metadata.redact_sensitive(
+            value["git_metadata"]
         )
     return out

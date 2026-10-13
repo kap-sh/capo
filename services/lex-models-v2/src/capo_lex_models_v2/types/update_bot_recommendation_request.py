@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexmodelsv2#UpdateBotRecommendationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,5 +52,18 @@ def deserialize_json(data: dict) -> UpdateBotRecommendationRequest:
     else:
         raise DeserializationError(
             "UpdateBotRecommendationRequest.encryption_setting required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateBotRecommendationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "encryption_setting" in value:
+        import capo_lex_models_v2.types.encryption_setting
+
+        out["encryption_setting"] = (
+            capo_lex_models_v2.types.encryption_setting.redact_sensitive(
+                value["encryption_setting"]
+            )
         )
     return out

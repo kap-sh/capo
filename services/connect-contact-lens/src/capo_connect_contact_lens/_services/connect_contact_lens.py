@@ -21,10 +21,12 @@ from capo_connect_contact_lens._pagination import resolve_path as _resolve_path
 from capo_connect_contact_lens._services._aws_config import aws_config
 from capo_connect_contact_lens._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -110,7 +112,9 @@ class ConnectContactLensClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ConnectContactLensClientConfig] = None
+        self,
+        config_overrides: Optional[ConnectContactLensClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ConnectContactLensClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -118,8 +122,10 @@ class ConnectContactLensClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -186,7 +192,9 @@ class ConnectContactLensClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRealtimeContactAnalysisSegments")
+        )
         input_: capo_connect_contact_lens.types.list_realtime_contact_analysis_segments_request.ListRealtimeContactAnalysisSegmentsRequest = {}
         if instance_id is not None:
             input_["instance_id"] = instance_id

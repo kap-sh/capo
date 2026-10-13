@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,19 @@ class ComponentOutputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_component_outputs_output.ListComponentOutputsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_component_outputs_output
+
+            return capo_proton.types.list_component_outputs_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListComponentOutputs", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_component_outputs_input.ListComponentOutputsInput = {
             "component_name": component_name
         }
@@ -132,7 +145,19 @@ class AsyncComponentOutputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_component_outputs_output.ListComponentOutputsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_component_outputs_output
+
+            return capo_proton.types.list_component_outputs_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListComponentOutputs", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_component_outputs_input.ListComponentOutputsInput = {
             "component_name": component_name
         }

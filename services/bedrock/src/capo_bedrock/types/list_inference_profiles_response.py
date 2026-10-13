@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#ListInferenceProfilesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListInferenceProfilesResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListInferenceProfilesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inference_profile_summaries" in value:
+        import capo_bedrock.types.inference_profile_summaries
+
+        out["inference_profile_summaries"] = (
+            capo_bedrock.types.inference_profile_summaries.redact_sensitive(
+                value["inference_profile_summaries"]
+            )
+        )
     return out

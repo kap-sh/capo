@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#SystemContentBlock``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -76,3 +76,16 @@ def deserialize_json(data: dict) -> SystemContentBlock:
         }
     else:
         raise DeserializationError("SystemContentBlock: no recognized variant key")
+
+
+def redact_sensitive(value: SystemContentBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "guardContent" in value:
+        import capo_bedrock_runtime.types.guardrail_converse_content_block
+
+        out["guardContent"] = (
+            capo_bedrock_runtime.types.guardrail_converse_content_block.redact_sensitive(
+                value["guardContent"]
+            )
+        )
+    return out

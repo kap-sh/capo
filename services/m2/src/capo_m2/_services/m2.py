@@ -28,10 +28,12 @@ from capo_m2._resources.aws_supernova_control_plane_service.environment import (
 from capo_m2._services._aws_config import aws_config
 from capo_m2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -231,7 +233,9 @@ class m2Client:
         self.environment = Environment(self)
 
     def operation_options(
-        self, config_overrides: Optional[m2ClientConfig] = None
+        self,
+        config_overrides: Optional[m2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: m2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -239,8 +243,10 @@ class m2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -285,7 +291,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSignedBluinsightsUrl")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -332,7 +340,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEngineVersions")
+        )
         input_: capo_m2.types.list_engine_versions_request.ListEngineVersionsRequest = {}
         if engine_type is not None:
             input_["engine_type"] = engine_type
@@ -406,7 +416,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_m2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -456,7 +468,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_m2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -506,7 +520,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_m2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -571,7 +587,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_m2.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "engine_type": engine_type,
@@ -631,7 +649,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_m2.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -687,7 +707,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_m2.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id,
             "current_application_version": current_application_version,
@@ -739,7 +761,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_m2.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -791,7 +815,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_m2.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -876,7 +902,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelBatchJobExecution")
+        )
         input_: capo_m2.types.cancel_batch_job_execution_request.CancelBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -934,7 +962,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSetExportTask")
+        )
         input_: capo_m2.types.create_data_set_export_task_request.CreateDataSetExportTaskRequest = {
             "application_id": application_id,
             "export_config": export_config,
@@ -993,7 +1023,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSetImportTask")
+        )
         input_: capo_m2.types.create_data_set_import_task_request.CreateDataSetImportTaskRequest = {
             "application_id": application_id,
             "import_config": import_config,
@@ -1052,7 +1084,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_m2.types.create_deployment_request.CreateDeploymentRequest = {
             "environment_id": environment_id,
             "application_id": application_id,
@@ -1107,7 +1141,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationFromEnvironment")
+        )
         input_: capo_m2.types.delete_application_from_environment_request.DeleteApplicationFromEnvironmentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -1157,7 +1193,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationVersion")
+        )
         input_: capo_m2.types.get_application_version_request.GetApplicationVersionRequest = {
             "application_id": application_id,
             "application_version": application_version,
@@ -1207,7 +1245,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBatchJobExecution")
+        )
         input_: capo_m2.types.get_batch_job_execution_request.GetBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -1260,7 +1300,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSetDetails")
+        )
         input_: capo_m2.types.get_data_set_details_request.GetDataSetDetailsRequest = {
             "application_id": application_id,
             "data_set_name": data_set_name,
@@ -1310,7 +1352,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSetExportTask")
+        )
         input_: capo_m2.types.get_data_set_export_task_request.GetDataSetExportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -1360,7 +1404,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSetImportTask")
+        )
         input_: capo_m2.types.get_data_set_import_task_request.GetDataSetImportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -1410,7 +1456,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_m2.types.get_deployment_request.GetDeploymentRequest = {
             "deployment_id": deployment_id,
             "application_id": application_id,
@@ -1462,7 +1510,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationVersions")
+        )
         input_: capo_m2.types.list_application_versions_request.ListApplicationVersionsRequest = {
             "application_id": application_id
         }
@@ -1544,7 +1594,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchJobDefinitions")
+        )
         input_: capo_m2.types.list_batch_job_definitions_request.ListBatchJobDefinitionsRequest = {
             "application_id": application_id
         }
@@ -1638,7 +1690,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchJobExecutions")
+        )
         input_: capo_m2.types.list_batch_job_executions_request.ListBatchJobExecutionsRequest = {
             "application_id": application_id
         }
@@ -1741,7 +1795,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchJobRestartPoints")
+        )
         input_: capo_m2.types.list_batch_job_restart_points_request.ListBatchJobRestartPointsRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -1795,7 +1851,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSetExportHistory")
+        )
         input_: capo_m2.types.list_data_set_export_history_request.ListDataSetExportHistoryRequest = {
             "application_id": application_id
         }
@@ -1873,7 +1931,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSetImportHistory")
+        )
         input_: capo_m2.types.list_data_set_import_history_request.ListDataSetImportHistoryRequest = {
             "application_id": application_id
         }
@@ -1958,7 +2018,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSets")
+        )
         input_: capo_m2.types.list_data_sets_request.ListDataSetsRequest = {
             "application_id": application_id
         }
@@ -2044,7 +2106,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_m2.types.list_deployments_request.ListDeploymentsRequest = {
             "application_id": application_id
         }
@@ -2119,7 +2183,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_m2.types.start_application_request.StartApplicationRequest = {
             "application_id": application_id
         }
@@ -2177,7 +2243,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBatchJob")
+        )
         input_: capo_m2.types.start_batch_job_request.StartBatchJobRequest = {
             "application_id": application_id,
             "batch_job_identifier": batch_job_identifier,
@@ -2232,7 +2300,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_m2.types.stop_application_request.StopApplicationRequest = {
             "application_id": application_id
         }
@@ -2318,7 +2388,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironment")
+        )
         input_: capo_m2.types.create_environment_request.CreateEnvironmentRequest = {
             "name": name,
             "instance_type": instance_type,
@@ -2392,7 +2464,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_m2.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -2455,7 +2529,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_m2.types.update_environment_request.UpdateEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -2514,7 +2590,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_m2.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -2566,7 +2644,9 @@ class m2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_m2.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

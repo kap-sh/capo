@@ -24,7 +24,9 @@ from capo_workspaces._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -402,7 +404,9 @@ class AsyncWorkSpacesClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWorkSpacesClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWorkSpacesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWorkSpacesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -410,8 +414,10 @@ class AsyncWorkSpacesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -467,7 +473,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptAccountLinkInvitation")
+        )
         input_: capo_workspaces.types.accept_account_link_invitation_request.AcceptAccountLinkInvitationRequest = {
             "link_id": link_id
         }
@@ -520,7 +528,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateConnectionAlias")
+        )
         input_: capo_workspaces.types.associate_connection_alias_request.AssociateConnectionAliasRequest = {
             "alias_id": alias_id,
             "resource_id": resource_id,
@@ -572,7 +582,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateIpGroups")
+        )
         input_: capo_workspaces.types.associate_ip_groups_request.AssociateIpGroupsRequest = {
             "directory_id": directory_id,
             "group_ids": group_ids,
@@ -628,7 +640,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWorkspaceApplication")
+        )
         input_: capo_workspaces.types.associate_workspace_application_request.AssociateWorkspaceApplicationRequest = {
             "workspace_id": workspace_id,
             "application_id": application_id,
@@ -679,7 +693,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeIpRules")
+        )
         input_: capo_workspaces.types.authorize_ip_rules_request.AuthorizeIpRulesRequest = {
             "group_id": group_id,
             "user_rules": user_rules,
@@ -740,7 +756,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyWorkspaceImage")
+        )
         input_: capo_workspaces.types.copy_workspace_image_request.CopyWorkspaceImageRequest = {
             "name": name,
             "source_image_id": source_image_id,
@@ -795,7 +813,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccountLinkInvitation")
+        )
         input_: capo_workspaces.types.create_account_link_invitation_request.CreateAccountLinkInvitationRequest = {
             "target_account_id": target_account_id
         }
@@ -849,7 +869,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectClientAddIn")
+        )
         input_: capo_workspaces.types.create_connect_client_add_in_request.CreateConnectClientAddInRequest = {
             "resource_id": resource_id,
             "name": name,
@@ -902,7 +924,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectionAlias")
+        )
         input_: capo_workspaces.types.create_connection_alias_request.CreateConnectionAliasRequest = {
             "connection_string": connection_string
         }
@@ -958,7 +982,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIpGroup")
+        )
         input_: capo_workspaces.types.create_ip_group_request.CreateIpGroupRequest = {
             "group_name": group_name
         }
@@ -1014,7 +1040,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStandbyWorkspaces")
+        )
         input_: capo_workspaces.types.create_standby_workspaces_request.CreateStandbyWorkspacesRequest = {
             "primary_region": primary_region,
             "standby_workspaces": standby_workspaces,
@@ -1063,7 +1091,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_workspaces.types.create_tags_request.CreateTagsRequest = {
             "resource_id": resource_id,
             "tags": tags,
@@ -1120,7 +1150,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUpdatedWorkspaceImage")
+        )
         input_: capo_workspaces.types.create_updated_workspace_image_request.CreateUpdatedWorkspaceImageRequest = {
             "name": name,
             "description": description,
@@ -1182,7 +1214,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaceBundle")
+        )
         input_: capo_workspaces.types.create_workspace_bundle_request.CreateWorkspaceBundleRequest = {
             "bundle_name": bundle_name,
             "bundle_description": bundle_description,
@@ -1248,7 +1282,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaceImage")
+        )
         input_: capo_workspaces.types.create_workspace_image_request.CreateWorkspaceImageRequest = {
             "name": name,
             "description": description,
@@ -1297,7 +1333,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaces")
+        )
         input_: capo_workspaces.types.create_workspaces_request.CreateWorkspacesRequest = {
             "workspaces": workspaces
         }
@@ -1370,7 +1408,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkspacesPool")
+        )
         input_: capo_workspaces.types.create_workspaces_pool_request.CreateWorkspacesPoolRequest = {
             "pool_name": pool_name,
             "description": description,
@@ -1432,7 +1472,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountLinkInvitation")
+        )
         input_: capo_workspaces.types.delete_account_link_invitation_request.DeleteAccountLinkInvitationRequest = {
             "link_id": link_id
         }
@@ -1484,7 +1526,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClientBranding")
+        )
         input_: capo_workspaces.types.delete_client_branding_request.DeleteClientBrandingRequest = {
             "resource_id": resource_id,
             "platforms": platforms,
@@ -1533,7 +1577,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectClientAddIn")
+        )
         input_: capo_workspaces.types.delete_connect_client_add_in_request.DeleteConnectClientAddInRequest = {
             "add_in_id": add_in_id,
             "resource_id": resource_id,
@@ -1583,7 +1629,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectionAlias")
+        )
         input_: capo_workspaces.types.delete_connection_alias_request.DeleteConnectionAliasRequest = {
             "alias_id": alias_id
         }
@@ -1630,7 +1678,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIpGroup")
+        )
         input_: capo_workspaces.types.delete_ip_group_request.DeleteIpGroupRequest = {
             "group_id": group_id
         }
@@ -1677,7 +1727,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_workspaces.types.delete_tags_request.DeleteTagsRequest = {
             "resource_id": resource_id,
             "tag_keys": tag_keys,
@@ -1725,7 +1777,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceBundle")
+        )
         input_: capo_workspaces.types.delete_workspace_bundle_request.DeleteWorkspaceBundleRequest = {}
         if bundle_id is not None:
             input_["bundle_id"] = bundle_id
@@ -1773,7 +1827,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceImage")
+        )
         input_: capo_workspaces.types.delete_workspace_image_request.DeleteWorkspaceImageRequest = {
             "image_id": image_id
         }
@@ -1824,7 +1880,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeployWorkspaceApplications")
+        )
         input_: capo_workspaces.types.deploy_workspace_applications_request.DeployWorkspaceApplicationsRequest = {
             "workspace_id": workspace_id
         }
@@ -1874,7 +1932,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterWorkspaceDirectory")
+        )
         input_: capo_workspaces.types.deregister_workspace_directory_request.DeregisterWorkspaceDirectoryRequest = {
             "directory_id": directory_id
         }
@@ -1912,7 +1972,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccount")
+        )
         input_: capo_workspaces.types.describe_account_request.DescribeAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -1956,7 +2018,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountModifications")
+        )
         input_: capo_workspaces.types.describe_account_modifications_request.DescribeAccountModificationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2011,7 +2075,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationAssociations")
+        )
         input_: capo_workspaces.types.describe_application_associations_request.DescribeApplicationAssociationsRequest = {
             "application_id": application_id,
             "associated_resource_types": associated_resource_types,
@@ -2114,7 +2180,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplications")
+        )
         input_: capo_workspaces.types.describe_applications_request.DescribeApplicationsRequest = {}
         if application_ids is not None:
             input_["application_ids"] = application_ids
@@ -2216,7 +2284,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBundleAssociations")
+        )
         input_: capo_workspaces.types.describe_bundle_associations_request.DescribeBundleAssociationsRequest = {
             "bundle_id": bundle_id,
             "associated_resource_types": associated_resource_types,
@@ -2263,7 +2333,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClientBranding")
+        )
         input_: capo_workspaces.types.describe_client_branding_request.DescribeClientBrandingRequest = {
             "resource_id": resource_id
         }
@@ -2309,7 +2381,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClientProperties")
+        )
         input_: capo_workspaces.types.describe_client_properties_request.DescribeClientPropertiesRequest = {
             "resource_ids": resource_ids
         }
@@ -2361,7 +2435,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectClientAddIns")
+        )
         input_: capo_workspaces.types.describe_connect_client_add_ins_request.DescribeConnectClientAddInsRequest = {
             "resource_id": resource_id
         }
@@ -2423,7 +2499,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectionAliases")
+        )
         input_: capo_workspaces.types.describe_connection_aliases_request.DescribeConnectionAliasesRequest = {}
         if alias_ids is not None:
             input_["alias_ids"] = alias_ids
@@ -2482,7 +2560,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectionAliasPermissions")
+        )
         input_: capo_workspaces.types.describe_connection_alias_permissions_request.DescribeConnectionAliasPermissionsRequest = {
             "alias_id": alias_id
         }
@@ -2531,7 +2611,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomWorkspaceImageImport")
+        )
         input_: capo_workspaces.types.describe_custom_workspace_image_import_request.DescribeCustomWorkspaceImageImportRequest = {
             "image_id": image_id
         }
@@ -2580,7 +2662,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageAssociations")
+        )
         input_: capo_workspaces.types.describe_image_associations_request.DescribeImageAssociationsRequest = {
             "image_id": image_id,
             "associated_resource_types": associated_resource_types,
@@ -2634,7 +2718,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIpGroups")
+        )
         input_: capo_workspaces.types.describe_ip_groups_request.DescribeIpGroupsRequest = {}
         if group_ids is not None:
             input_["group_ids"] = group_ids
@@ -2682,7 +2768,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_workspaces.types.describe_tags_request.DescribeTagsRequest = {
             "resource_id": resource_id
         }
@@ -2731,7 +2819,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceAssociations")
+        )
         input_: capo_workspaces.types.describe_workspace_associations_request.DescribeWorkspaceAssociationsRequest = {
             "workspace_id": workspace_id,
             "associated_resource_types": associated_resource_types,
@@ -2784,7 +2874,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceBundles")
+        )
         input_: capo_workspaces.types.describe_workspace_bundles_request.DescribeWorkspaceBundlesRequest = {}
         if bundle_ids is not None:
             input_["bundle_ids"] = bundle_ids
@@ -2875,7 +2967,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceDirectories")
+        )
         input_: capo_workspaces.types.describe_workspace_directories_request.DescribeWorkspaceDirectoriesRequest = {}
         if directory_ids is not None:
             input_["directory_ids"] = directory_ids
@@ -2970,7 +3064,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceImagePermissions")
+        )
         input_: capo_workspaces.types.describe_workspace_image_permissions_request.DescribeWorkspaceImagePermissionsRequest = {
             "image_id": image_id
         }
@@ -3028,7 +3124,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceImages")
+        )
         input_: capo_workspaces.types.describe_workspace_images_request.DescribeWorkspaceImagesRequest = {}
         if image_ids is not None:
             input_["image_ids"] = image_ids
@@ -3097,7 +3195,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaces")
+        )
         input_: capo_workspaces.types.describe_workspaces_request.DescribeWorkspacesRequest = {}
         if workspace_ids is not None:
             input_["workspace_ids"] = workspace_ids
@@ -3196,7 +3296,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspacesConnectionStatus")
+        )
         input_: capo_workspaces.types.describe_workspaces_connection_status_request.DescribeWorkspacesConnectionStatusRequest = {}
         if workspace_ids is not None:
             input_["workspace_ids"] = workspace_ids
@@ -3244,7 +3346,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceSnapshots")
+        )
         input_: capo_workspaces.types.describe_workspace_snapshots_request.DescribeWorkspaceSnapshotsRequest = {
             "workspace_id": workspace_id
         }
@@ -3302,7 +3406,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspacesPools")
+        )
         input_: capo_workspaces.types.describe_workspaces_pools_request.DescribeWorkspacesPoolsRequest = {}
         if pool_ids is not None:
             input_["pool_ids"] = pool_ids
@@ -3364,7 +3470,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspacesPoolSessions")
+        )
         input_: capo_workspaces.types.describe_workspaces_pool_sessions_request.DescribeWorkspacesPoolSessionsRequest = {
             "pool_id": pool_id
         }
@@ -3418,7 +3526,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateConnectionAlias")
+        )
         input_: capo_workspaces.types.disassociate_connection_alias_request.DisassociateConnectionAliasRequest = {
             "alias_id": alias_id
         }
@@ -3470,7 +3580,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateIpGroups")
+        )
         input_: capo_workspaces.types.disassociate_ip_groups_request.DisassociateIpGroupsRequest = {
             "directory_id": directory_id,
             "group_ids": group_ids,
@@ -3521,7 +3633,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWorkspaceApplication")
+        )
         input_: capo_workspaces.types.disassociate_workspace_application_request.DisassociateWorkspaceApplicationRequest = {
             "workspace_id": workspace_id,
             "application_id": application_id,
@@ -3573,7 +3687,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountLink")
+        )
         input_: capo_workspaces.types.get_account_link_request.GetAccountLinkRequest = {}
         if link_id is not None:
             input_["link_id"] = link_id
@@ -3648,7 +3764,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportClientBranding")
+        )
         input_: capo_workspaces.types.import_client_branding_request.ImportClientBrandingRequest = {
             "resource_id": resource_id
         }
@@ -3725,7 +3843,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportCustomWorkspaceImage")
+        )
         input_: capo_workspaces.types.import_custom_workspace_image_request.ImportCustomWorkspaceImageRequest = {
             "image_name": image_name,
             "image_description": image_description,
@@ -3797,7 +3917,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportWorkspaceImage")
+        )
         input_: capo_workspaces.types.import_workspace_image_request.ImportWorkspaceImageRequest = {
             "ec2_image_id": ec2_image_id,
             "ingestion_process": ingestion_process,
@@ -3858,7 +3980,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountLinks")
+        )
         input_: capo_workspaces.types.list_account_links_request.ListAccountLinksRequest = {}
         if link_status_filter is not None:
             input_["link_status_filter"] = link_status_filter
@@ -3942,7 +4066,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableManagementCidrRanges")
+        )
         input_: capo_workspaces.types.list_available_management_cidr_ranges_request.ListAvailableManagementCidrRangesRequest = {
             "management_cidr_range_constraint": management_cidr_range_constraint
         }
@@ -3997,7 +4123,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MigrateWorkspace")
+        )
         input_: capo_workspaces.types.migrate_workspace_request.MigrateWorkspaceRequest = {
             "source_workspace_id": source_workspace_id,
             "bundle_id": bundle_id,
@@ -4052,7 +4180,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyAccount")
+        )
         input_: capo_workspaces.types.modify_account_request.ModifyAccountRequest = {}
         if dedicated_tenancy_support is not None:
             input_["dedicated_tenancy_support"] = dedicated_tenancy_support
@@ -4111,7 +4241,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCertificateBasedAuthProperties")
+        )
         input_: capo_workspaces.types.modify_certificate_based_auth_properties_request.ModifyCertificateBasedAuthPropertiesRequest = {
             "resource_id": resource_id
         }
@@ -4166,7 +4298,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyClientProperties")
+        )
         input_: capo_workspaces.types.modify_client_properties_request.ModifyClientPropertiesRequest = {
             "resource_id": resource_id,
             "client_properties": client_properties,
@@ -4215,7 +4349,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEndpointEncryptionMode")
+        )
         input_: capo_workspaces.types.modify_endpoint_encryption_mode_request.ModifyEndpointEncryptionModeRequest = {
             "directory_id": directory_id,
             "endpoint_encryption_mode": endpoint_encryption_mode,
@@ -4273,7 +4409,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifySamlProperties")
+        )
         input_: capo_workspaces.types.modify_saml_properties_request.ModifySamlPropertiesRequest = {
             "resource_id": resource_id
         }
@@ -4326,7 +4464,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifySelfservicePermissions")
+        )
         input_: capo_workspaces.types.modify_selfservice_permissions_request.ModifySelfservicePermissionsRequest = {
             "resource_id": resource_id,
             "selfservice_permissions": selfservice_permissions,
@@ -4378,7 +4518,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyStreamingProperties")
+        )
         input_: capo_workspaces.types.modify_streaming_properties_request.ModifyStreamingPropertiesRequest = {
             "resource_id": resource_id
         }
@@ -4430,7 +4572,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyWorkspaceAccessProperties")
+        )
         input_: capo_workspaces.types.modify_workspace_access_properties_request.ModifyWorkspaceAccessPropertiesRequest = {
             "resource_id": resource_id,
             "workspace_access_properties": workspace_access_properties,
@@ -4480,7 +4624,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyWorkspaceCreationProperties")
+        )
         input_: capo_workspaces.types.modify_workspace_creation_properties_request.ModifyWorkspaceCreationPropertiesRequest = {
             "resource_id": resource_id,
             "workspace_creation_properties": workspace_creation_properties,
@@ -4539,7 +4685,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyWorkspaceProperties")
+        )
         input_: capo_workspaces.types.modify_workspace_properties_request.ModifyWorkspacePropertiesRequest = {
             "workspace_id": workspace_id
         }
@@ -4594,7 +4742,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyWorkspaceState")
+        )
         input_: capo_workspaces.types.modify_workspace_state_request.ModifyWorkspaceStateRequest = {
             "workspace_id": workspace_id,
             "workspace_state": workspace_state,
@@ -4639,7 +4789,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootWorkspaces")
+        )
         input_: capo_workspaces.types.reboot_workspaces_request.RebootWorkspacesRequest = {
             "reboot_workspace_requests": reboot_workspace_requests
         }
@@ -4683,7 +4835,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebuildWorkspaces")
+        )
         input_: capo_workspaces.types.rebuild_workspaces_request.RebuildWorkspacesRequest = {
             "rebuild_workspace_requests": rebuild_workspace_requests
         }
@@ -4771,7 +4925,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterWorkspaceDirectory")
+        )
         input_: capo_workspaces.types.register_workspace_directory_request.RegisterWorkspaceDirectoryRequest = {}
         if directory_id is not None:
             input_["directory_id"] = directory_id
@@ -4843,7 +4999,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectAccountLinkInvitation")
+        )
         input_: capo_workspaces.types.reject_account_link_invitation_request.RejectAccountLinkInvitationRequest = {
             "link_id": link_id
         }
@@ -4892,7 +5050,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreWorkspace")
+        )
         input_: capo_workspaces.types.restore_workspace_request.RestoreWorkspaceRequest = {
             "workspace_id": workspace_id
         }
@@ -4941,7 +5101,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeIpRules")
+        )
         input_: capo_workspaces.types.revoke_ip_rules_request.RevokeIpRulesRequest = {
             "group_id": group_id,
             "user_rules": user_rules,
@@ -4985,7 +5147,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkspaces")
+        )
         input_: capo_workspaces.types.start_workspaces_request.StartWorkspacesRequest = {
             "start_workspace_requests": start_workspace_requests
         }
@@ -5035,7 +5199,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartWorkspacesPool")
+        )
         input_: capo_workspaces.types.start_workspaces_pool_request.StartWorkspacesPoolRequest = {
             "pool_id": pool_id
         }
@@ -5078,7 +5244,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopWorkspaces")
+        )
         input_: capo_workspaces.types.stop_workspaces_request.StopWorkspacesRequest = {
             "stop_workspace_requests": stop_workspace_requests
         }
@@ -5126,7 +5294,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopWorkspacesPool")
+        )
         input_: capo_workspaces.types.stop_workspaces_pool_request.StopWorkspacesPoolRequest = {
             "pool_id": pool_id
         }
@@ -5169,7 +5339,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateWorkspaces")
+        )
         input_: capo_workspaces.types.terminate_workspaces_request.TerminateWorkspacesRequest = {
             "terminate_workspace_requests": terminate_workspace_requests
         }
@@ -5217,7 +5389,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateWorkspacesPool")
+        )
         input_: capo_workspaces.types.terminate_workspaces_pool_request.TerminateWorkspacesPoolRequest = {
             "pool_id": pool_id
         }
@@ -5265,7 +5439,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateWorkspacesPoolSession")
+        )
         input_: capo_workspaces.types.terminate_workspaces_pool_session_request.TerminateWorkspacesPoolSessionRequest = {
             "session_id": session_id
         }
@@ -5317,7 +5493,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectClientAddIn")
+        )
         input_: capo_workspaces.types.update_connect_client_add_in_request.UpdateConnectClientAddInRequest = {
             "add_in_id": add_in_id,
             "resource_id": resource_id,
@@ -5374,7 +5552,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionAliasPermission")
+        )
         input_: capo_workspaces.types.update_connection_alias_permission_request.UpdateConnectionAliasPermissionRequest = {
             "alias_id": alias_id,
             "connection_alias_permission": connection_alias_permission,
@@ -5425,7 +5605,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRulesOfIpGroup")
+        )
         input_: capo_workspaces.types.update_rules_of_ip_group_request.UpdateRulesOfIpGroupRequest = {
             "group_id": group_id,
             "user_rules": user_rules,
@@ -5478,7 +5660,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceBundle")
+        )
         input_: capo_workspaces.types.update_workspace_bundle_request.UpdateWorkspaceBundleRequest = {}
         if bundle_id is not None:
             input_["bundle_id"] = bundle_id
@@ -5532,7 +5716,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceImagePermission")
+        )
         input_: capo_workspaces.types.update_workspace_image_permission_request.UpdateWorkspaceImagePermissionRequest = {
             "image_id": image_id,
             "allow_copy_image": allow_copy_image,
@@ -5608,7 +5794,9 @@ class AsyncWorkSpacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspacesPool")
+        )
         input_: capo_workspaces.types.update_workspaces_pool_request.UpdateWorkspacesPoolRequest = {
             "pool_id": pool_id
         }

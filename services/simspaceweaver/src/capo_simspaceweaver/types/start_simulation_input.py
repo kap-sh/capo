@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.simspaceweaver#StartSimulationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,4 +107,11 @@ def deserialize_json(data: dict) -> StartSimulationInput:
                 data["SnapshotS3Location"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: StartSimulationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
     return out

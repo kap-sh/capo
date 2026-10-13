@@ -24,7 +24,9 @@ from capo_connectcampaignsv2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -183,7 +185,9 @@ class AsyncConnectCampaignsV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncConnectCampaignsV2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncConnectCampaignsV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncConnectCampaignsV2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -191,8 +195,10 @@ class AsyncConnectCampaignsV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -269,7 +275,21 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcampaignsv2.types.create_campaign_request.CreateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcampaignsv2.types.create_campaign_request
+
+            return (
+                capo_connectcampaignsv2.types.create_campaign_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCampaign", redact_input=_redact_input),
+        )
         input_: capo_connectcampaignsv2.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "connect_instance_id": connect_instance_id,
@@ -330,7 +350,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_connectcampaignsv2.types.delete_campaign_request.DeleteCampaignRequest = {
             "id": id
         }
@@ -374,7 +396,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaignChannelSubtypeConfig")
+        )
         input_: capo_connectcampaignsv2.types.delete_campaign_channel_subtype_config_request.DeleteCampaignChannelSubtypeConfigRequest = {
             "id": id,
             "channel_subtype": channel_subtype,
@@ -420,7 +444,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaignCommunicationLimits")
+        )
         input_: capo_connectcampaignsv2.types.delete_campaign_communication_limits_request.DeleteCampaignCommunicationLimitsRequest = {
             "id": id,
             "config": config,
@@ -466,7 +492,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaignCommunicationTime")
+        )
         input_: capo_connectcampaignsv2.types.delete_campaign_communication_time_request.DeleteCampaignCommunicationTimeRequest = {
             "id": id,
             "config": config,
@@ -511,7 +539,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaignEntryLimits")
+        )
         input_: capo_connectcampaignsv2.types.delete_campaign_entry_limits_request.DeleteCampaignEntryLimitsRequest = {
             "id": id
         }
@@ -558,7 +588,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectInstanceConfig")
+        )
         input_: capo_connectcampaignsv2.types.delete_connect_instance_config_request.DeleteConnectInstanceConfigRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -604,7 +636,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectInstanceIntegration")
+        )
         input_: capo_connectcampaignsv2.types.delete_connect_instance_integration_request.DeleteConnectInstanceIntegrationRequest = {
             "connect_instance_id": connect_instance_id,
             "integration_identifier": integration_identifier,
@@ -648,7 +682,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceOnboardingJob")
+        )
         input_: capo_connectcampaignsv2.types.delete_instance_onboarding_job_request.DeleteInstanceOnboardingJobRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -692,7 +728,19 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectcampaignsv2.types.describe_campaign_response.DescribeCampaignResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcampaignsv2.types.describe_campaign_response
+
+            return capo_connectcampaignsv2.types.describe_campaign_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCampaign", redact_output=_redact_output),
+        )
         input_: capo_connectcampaignsv2.types.describe_campaign_request.DescribeCampaignRequest = {
             "id": id
         }
@@ -737,7 +785,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignState")
+        )
         input_: capo_connectcampaignsv2.types.get_campaign_state_request.GetCampaignStateRequest = {
             "id": id
         }
@@ -781,7 +831,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignStateBatch")
+        )
         input_: capo_connectcampaignsv2.types.get_campaign_state_batch_request.GetCampaignStateBatchRequest = {
             "campaign_ids": campaign_ids
         }
@@ -825,7 +877,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectInstanceConfig")
+        )
         input_: capo_connectcampaignsv2.types.get_connect_instance_config_request.GetConnectInstanceConfigRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -869,7 +923,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceCommunicationLimits")
+        )
         input_: capo_connectcampaignsv2.types.get_instance_communication_limits_request.GetInstanceCommunicationLimitsRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -913,7 +969,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceOnboardingJobStatus")
+        )
         input_: capo_connectcampaignsv2.types.get_instance_onboarding_job_status_request.GetInstanceOnboardingJobStatusRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -964,7 +1022,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_connectcampaignsv2.types.list_campaigns_request.ListCampaignsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1050,7 +1110,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectInstanceIntegrations")
+        )
         input_: capo_connectcampaignsv2.types.list_connect_instance_integrations_request.ListConnectInstanceIntegrationsRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -1126,7 +1188,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_connectcampaignsv2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -1171,7 +1235,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PauseCampaign")
+        )
         input_: capo_connectcampaignsv2.types.pause_campaign_request.PauseCampaignRequest = {
             "id": id
         }
@@ -1216,7 +1282,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConnectInstanceIntegration")
+        )
         input_: capo_connectcampaignsv2.types.put_connect_instance_integration_request.PutConnectInstanceIntegrationRequest = {
             "connect_instance_id": connect_instance_id,
             "integration_config": integration_config,
@@ -1261,7 +1329,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInstanceCommunicationLimits")
+        )
         input_: capo_connectcampaignsv2.types.put_instance_communication_limits_request.PutInstanceCommunicationLimitsRequest = {
             "connect_instance_id": connect_instance_id,
             "communication_limits_config": communication_limits_config,
@@ -1310,7 +1380,19 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcampaignsv2.types.put_outbound_request_batch_request.PutOutboundRequestBatchRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcampaignsv2.types.put_outbound_request_batch_request
+
+            return capo_connectcampaignsv2.types.put_outbound_request_batch_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutOutboundRequestBatch", redact_input=_redact_input),
+        )
         input_: capo_connectcampaignsv2.types.put_outbound_request_batch_request.PutOutboundRequestBatchRequest = {
             "id": id,
             "outbound_requests": outbound_requests,
@@ -1359,7 +1441,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutProfileOutboundRequestBatch")
+        )
         input_: capo_connectcampaignsv2.types.put_profile_outbound_request_batch_request.PutProfileOutboundRequestBatchRequest = {
             "id": id,
             "profile_outbound_requests": profile_outbound_requests,
@@ -1405,7 +1489,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeCampaign")
+        )
         input_: capo_connectcampaignsv2.types.resume_campaign_request.ResumeCampaignRequest = {
             "id": id
         }
@@ -1450,7 +1536,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCampaign")
+        )
         input_: capo_connectcampaignsv2.types.start_campaign_request.StartCampaignRequest = {
             "id": id
         }
@@ -1497,7 +1585,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInstanceOnboardingJob")
+        )
         input_: capo_connectcampaignsv2.types.start_instance_onboarding_job_request.StartInstanceOnboardingJobRequest = {
             "connect_instance_id": connect_instance_id,
             "encryption_config": encryption_config,
@@ -1543,7 +1633,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCampaign")
+        )
         input_: capo_connectcampaignsv2.types.stop_campaign_request.StopCampaignRequest = {
             "id": id
         }
@@ -1587,7 +1679,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_connectcampaignsv2.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -1632,7 +1726,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_connectcampaignsv2.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -1677,7 +1773,21 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcampaignsv2.types.update_campaign_channel_subtype_config_request.UpdateCampaignChannelSubtypeConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcampaignsv2.types.update_campaign_channel_subtype_config_request
+
+            return capo_connectcampaignsv2.types.update_campaign_channel_subtype_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCampaignChannelSubtypeConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_channel_subtype_config_request.UpdateCampaignChannelSubtypeConfigRequest = {
             "id": id,
             "channel_subtype_config": channel_subtype_config,
@@ -1723,7 +1833,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignCommunicationLimits")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_communication_limits_request.UpdateCampaignCommunicationLimitsRequest = {
             "id": id,
             "communication_limits_override": communication_limits_override,
@@ -1769,7 +1881,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignCommunicationTime")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_communication_time_request.UpdateCampaignCommunicationTimeRequest = {
             "id": id,
             "communication_time_config": communication_time_config,
@@ -1815,7 +1929,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignEntryLimits")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_entry_limits_request.UpdateCampaignEntryLimitsRequest = {
             "id": id,
             "entry_limits_config": entry_limits_config,
@@ -1861,7 +1977,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignFlowAssociation")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_flow_association_request.UpdateCampaignFlowAssociationRequest = {
             "id": id,
             "connect_campaign_flow_arn": connect_campaign_flow_arn,
@@ -1906,7 +2024,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignName")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_name_request.UpdateCampaignNameRequest = {
             "id": id,
             "name": name,
@@ -1952,7 +2072,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignSchedule")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_schedule_request.UpdateCampaignScheduleRequest = {
             "id": id,
             "schedule": schedule,
@@ -1998,7 +2120,9 @@ class AsyncConnectCampaignsV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignSource")
+        )
         input_: capo_connectcampaignsv2.types.update_campaign_source_request.UpdateCampaignSourceRequest = {
             "id": id,
             "source": source,

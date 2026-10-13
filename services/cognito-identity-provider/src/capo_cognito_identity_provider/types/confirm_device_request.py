@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#ConfirmDeviceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConfirmDeviceRequest:
         )
     if data.get("DeviceName") is not None:
         out["device_name"] = data["DeviceName"]
+    return out
+
+
+def redact_sensitive(value: ConfirmDeviceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CoinbaseCdpConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -126,4 +126,13 @@ def deserialize_json(data: dict) -> CoinbaseCdpConfigurationInput:
                 data["walletSecretConfig"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CoinbaseCdpConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key_secret" in value:
+        out["api_key_secret"] = "*** Sensitive Data Redacted ***"
+    if "wallet_secret" in value:
+        out["wallet_secret"] = "*** Sensitive Data Redacted ***"
     return out

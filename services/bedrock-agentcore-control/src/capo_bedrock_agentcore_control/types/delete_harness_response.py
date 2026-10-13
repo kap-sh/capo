@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#DeleteHarnessResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> DeleteHarnessResponse:
 
         out["harness"] = capo_bedrock_agentcore_control.types.harness.deserialize_json(
             data["harness"]
+        )
+    return out
+
+
+def redact_sensitive(value: DeleteHarnessResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "harness" in value:
+        import capo_bedrock_agentcore_control.types.harness
+
+        out["harness"] = capo_bedrock_agentcore_control.types.harness.redact_sensitive(
+            value["harness"]
         )
     return out

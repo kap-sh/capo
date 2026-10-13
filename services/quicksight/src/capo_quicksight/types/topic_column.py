@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicColumn``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -267,4 +267,33 @@ def deserialize_json(data: dict) -> TopicColumn:
         )
     if data.get("NonAdditive") is not None:
         out["non_additive"] = data["NonAdditive"]
+    return out
+
+
+def redact_sensitive(value: TopicColumn) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "column_friendly_name" in value:
+        out["column_friendly_name"] = "*** Sensitive Data Redacted ***"
+    if "column_description" in value:
+        out["column_description"] = "*** Sensitive Data Redacted ***"
+    if "column_synonyms" in value:
+        import capo_quicksight.types.synonyms
+
+        out["column_synonyms"] = capo_quicksight.types.synonyms.redact_sensitive(
+            value["column_synonyms"]
+        )
+    if "semantic_type" in value:
+        import capo_quicksight.types.semantic_type
+
+        out["semantic_type"] = capo_quicksight.types.semantic_type.redact_sensitive(
+            value["semantic_type"]
+        )
+    if "cell_value_synonyms" in value:
+        import capo_quicksight.types.cell_value_synonyms
+
+        out["cell_value_synonyms"] = (
+            capo_quicksight.types.cell_value_synonyms.redact_sensitive(
+                value["cell_value_synonyms"]
+            )
+        )
     return out

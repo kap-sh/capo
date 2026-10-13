@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#SnapshotDetailList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -38,3 +38,9 @@ def deserialize_ec2_query_flat(parent: Element, tag: str) -> SnapshotDetailList:
     for child in parent.findall(tag):
         out.append(capo_ec2.types.snapshot_detail.deserialize_ec2_query(child))
     return out
+
+
+def redact_sensitive(value: SnapshotDetailList) -> list[Any]:
+    import capo_ec2.types.snapshot_detail
+
+    return [capo_ec2.types.snapshot_detail.redact_sensitive(item) for item in value]

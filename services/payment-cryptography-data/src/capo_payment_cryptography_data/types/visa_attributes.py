@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#VisaAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,6 +103,21 @@ def deserialize_json(data: dict) -> VisaAttributes:
         out["current_pin_attributes"] = (
             capo_payment_cryptography_data.types.current_pin_attributes.deserialize_json(
                 data["CurrentPinAttributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: VisaAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "current_pin_attributes" in value:
+        import capo_payment_cryptography_data.types.current_pin_attributes
+
+        out["current_pin_attributes"] = (
+            capo_payment_cryptography_data.types.current_pin_attributes.redact_sensitive(
+                value["current_pin_attributes"]
             )
         )
     return out

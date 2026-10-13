@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#OAuthClientCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,15 @@ def deserialize_json(data: dict) -> OAuthClientCredentials:
         out["client_secret"] = data["ClientSecret"]
     if data.get("Username") is not None:
         out["username"] = data["Username"]
+    return out
+
+
+def redact_sensitive(value: OAuthClientCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

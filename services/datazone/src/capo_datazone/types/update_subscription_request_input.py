@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UpdateSubscriptionRequestInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> UpdateSubscriptionRequestInput:
         raise DeserializationError(
             "UpdateSubscriptionRequestInput.request_reason required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdateSubscriptionRequestInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "request_reason" in value:
+        out["request_reason"] = "*** Sensitive Data Redacted ***"
     return out

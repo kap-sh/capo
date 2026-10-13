@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#UpdateMaintenanceWindowTargetResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,4 +70,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateMaintenanceWindowTargetResult:
         out["name"] = data["Name"]
     if data.get("Description") is not None:
         out["description"] = data["Description"]
+    return out
+
+
+def redact_sensitive(value: UpdateMaintenanceWindowTargetResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner_information" in value:
+        out["owner_information"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

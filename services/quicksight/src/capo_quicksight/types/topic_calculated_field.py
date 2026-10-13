@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicCalculatedField``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -272,4 +272,37 @@ def deserialize_json(data: dict) -> TopicCalculatedField:
         )
     if data.get("NonAdditive") is not None:
         out["non_additive"] = data["NonAdditive"]
+    return out
+
+
+def redact_sensitive(value: TopicCalculatedField) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "calculated_field_name" in value:
+        out["calculated_field_name"] = "*** Sensitive Data Redacted ***"
+    if "calculated_field_description" in value:
+        out["calculated_field_description"] = "*** Sensitive Data Redacted ***"
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
+    if "calculated_field_synonyms" in value:
+        import capo_quicksight.types.synonyms
+
+        out["calculated_field_synonyms"] = (
+            capo_quicksight.types.synonyms.redact_sensitive(
+                value["calculated_field_synonyms"]
+            )
+        )
+    if "semantic_type" in value:
+        import capo_quicksight.types.semantic_type
+
+        out["semantic_type"] = capo_quicksight.types.semantic_type.redact_sensitive(
+            value["semantic_type"]
+        )
+    if "cell_value_synonyms" in value:
+        import capo_quicksight.types.cell_value_synonyms
+
+        out["cell_value_synonyms"] = (
+            capo_quicksight.types.cell_value_synonyms.redact_sensitive(
+                value["cell_value_synonyms"]
+            )
+        )
     return out

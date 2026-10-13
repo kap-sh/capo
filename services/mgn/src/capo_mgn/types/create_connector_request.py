@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#CreateConnectorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,11 @@ def deserialize_json(data: dict) -> CreateConnectorRequest:
                 data["ssmCommandConfig"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateConnectorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,23 @@ def deserialize_json(data: dict) -> RouteTollOptions:
                 data["VehicleCategory"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RouteTollOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "all_transponders" in value:
+        out["all_transponders"] = "*** Sensitive Data Redacted ***"
+    if "all_vignettes" in value:
+        out["all_vignettes"] = "*** Sensitive Data Redacted ***"
+    if "emission_type" in value:
+        import capo_geo_routes.types.route_emission_type
+
+        out["emission_type"] = (
+            capo_geo_routes.types.route_emission_type.redact_sensitive(
+                value["emission_type"]
+            )
+        )
+    if "vehicle_category" in value:
+        out["vehicle_category"] = "*** Sensitive Data Redacted ***"
     return out

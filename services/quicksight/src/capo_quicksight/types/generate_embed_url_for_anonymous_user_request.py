@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GenerateEmbedUrlForAnonymousUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -113,5 +113,16 @@ def deserialize_json(data: dict) -> GenerateEmbedUrlForAnonymousUserRequest:
 
         out["allowed_domains"] = capo_quicksight.types.string_list.deserialize_json(
             data["AllowedDomains"]
+        )
+    return out
+
+
+def redact_sensitive(value: GenerateEmbedUrlForAnonymousUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_tags" in value:
+        import capo_quicksight.types.session_tag_list
+
+        out["session_tags"] = capo_quicksight.types.session_tag_list.redact_sensitive(
+            value["session_tags"]
         )
     return out

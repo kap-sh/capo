@@ -7,6 +7,7 @@ import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,9 @@ class EnvironmentBlueprintConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.put_environment_blueprint_configuration_input.PutEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -183,7 +186,9 @@ class EnvironmentBlueprintConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.get_environment_blueprint_configuration_input.GetEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -233,7 +238,10 @@ class EnvironmentBlueprintConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironmentBlueprintConfiguration"),
+        )
         input_: capo_datazone.types.delete_environment_blueprint_configuration_input.DeleteEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -288,7 +296,9 @@ class EnvironmentBlueprintConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentBlueprintConfigurations")
+        )
         input_: capo_datazone.types.list_environment_blueprint_configurations_input.ListEnvironmentBlueprintConfigurationsInput = {
             "domain_identifier": domain_identifier
         }
@@ -377,7 +387,9 @@ class AsyncEnvironmentBlueprintConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.put_environment_blueprint_configuration_input.PutEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -450,7 +462,9 @@ class AsyncEnvironmentBlueprintConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironmentBlueprintConfiguration")
+        )
         input_: capo_datazone.types.get_environment_blueprint_configuration_input.GetEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -501,7 +515,10 @@ class AsyncEnvironmentBlueprintConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironmentBlueprintConfiguration"),
+        )
         input_: capo_datazone.types.delete_environment_blueprint_configuration_input.DeleteEnvironmentBlueprintConfigurationInput = {
             "domain_identifier": domain_identifier,
             "environment_blueprint_identifier": environment_blueprint_identifier,
@@ -557,7 +574,9 @@ class AsyncEnvironmentBlueprintConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentBlueprintConfigurations")
+        )
         input_: capo_datazone.types.list_environment_blueprint_configurations_input.ListEnvironmentBlueprintConfigurationsInput = {
             "domain_identifier": domain_identifier
         }

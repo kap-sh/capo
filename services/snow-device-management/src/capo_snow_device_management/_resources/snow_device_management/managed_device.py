@@ -7,6 +7,7 @@ import capo_snow_device_management._auth._sigv4
 from capo_snow_device_management._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -79,7 +80,9 @@ class ManagedDevice:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDevice")
+        )
         input_: capo_snow_device_management.types.describe_device_input.DescribeDeviceInput = {
             "managed_device_id": managed_device_id
         }
@@ -133,7 +136,9 @@ class ManagedDevice:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_snow_device_management.types.list_devices_input.ListDevicesInput = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -186,7 +191,9 @@ class ManagedDevice:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDeviceEc2Instances")
+        )
         input_: capo_snow_device_management.types.describe_device_ec2_input.DescribeDeviceEc2Input = {
             "managed_device_id": managed_device_id,
             "instance_ids": instance_ids,
@@ -244,7 +251,9 @@ class ManagedDevice:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeviceResources")
+        )
         input_: capo_snow_device_management.types.list_device_resources_input.ListDeviceResourcesInput = {
             "managed_device_id": managed_device_id
         }
@@ -305,7 +314,9 @@ class AsyncManagedDevice:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDevice")
+        )
         input_: capo_snow_device_management.types.describe_device_input.DescribeDeviceInput = {
             "managed_device_id": managed_device_id
         }
@@ -360,7 +371,9 @@ class AsyncManagedDevice:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_snow_device_management.types.list_devices_input.ListDevicesInput = {}
         if job_id is not None:
             input_["job_id"] = job_id
@@ -414,7 +427,9 @@ class AsyncManagedDevice:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDeviceEc2Instances")
+        )
         input_: capo_snow_device_management.types.describe_device_ec2_input.DescribeDeviceEc2Input = {
             "managed_device_id": managed_device_id,
             "instance_ids": instance_ids,
@@ -473,7 +488,9 @@ class AsyncManagedDevice:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeviceResources")
+        )
         input_: capo_snow_device_management.types.list_device_resources_input.ListDeviceResourcesInput = {
             "managed_device_id": managed_device_id
         }

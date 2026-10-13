@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,19 @@ class BrowserProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_browser_profile_request.CreateBrowserProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_browser_profile_request
+
+            return capo_bedrock_agentcore_control.types.create_browser_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowserProfile", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_browser_profile_request.CreateBrowserProfileRequest = {
             "name": name
         }
@@ -144,7 +157,19 @@ class BrowserProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_browser_profile_response.GetBrowserProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_browser_profile_response
+
+            return capo_bedrock_agentcore_control.types.get_browser_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowserProfile", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_browser_profile_request.GetBrowserProfileRequest = {
             "profile_id": profile_id
         }
@@ -196,7 +221,9 @@ class BrowserProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowserProfile")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_browser_profile_request.DeleteBrowserProfileRequest = {
             "profile_id": profile_id
         }
@@ -255,7 +282,19 @@ class BrowserProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_browser_profiles_response.ListBrowserProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_browser_profiles_response
+
+            return capo_bedrock_agentcore_control.types.list_browser_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBrowserProfiles", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_browser_profiles_request.ListBrowserProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -323,7 +362,19 @@ class AsyncBrowserProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_browser_profile_request.CreateBrowserProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_browser_profile_request
+
+            return capo_bedrock_agentcore_control.types.create_browser_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowserProfile", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_browser_profile_request.CreateBrowserProfileRequest = {
             "name": name
         }
@@ -378,7 +429,19 @@ class AsyncBrowserProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_browser_profile_response.GetBrowserProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_browser_profile_response
+
+            return capo_bedrock_agentcore_control.types.get_browser_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowserProfile", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_browser_profile_request.GetBrowserProfileRequest = {
             "profile_id": profile_id
         }
@@ -431,7 +494,9 @@ class AsyncBrowserProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowserProfile")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_browser_profile_request.DeleteBrowserProfileRequest = {
             "profile_id": profile_id
         }
@@ -491,7 +556,19 @@ class AsyncBrowserProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_browser_profiles_response.ListBrowserProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_browser_profiles_response
+
+            return capo_bedrock_agentcore_control.types.list_browser_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBrowserProfiles", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_browser_profiles_request.ListBrowserProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -125,7 +126,32 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.create_partner_request.CreatePartnerRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_partner_request
+
+            return capo_partnercentral_account.types.create_partner_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.create_partner_response.CreatePartnerResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_partner_response
+
+            return capo_partnercentral_account.types.create_partner_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePartner",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.create_partner_request.CreatePartnerRequest = {
             "catalog": catalog,
             "legal_name": legal_name,
@@ -183,7 +209,21 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_partner_response.GetPartnerResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_partner_response
+
+            return (
+                capo_partnercentral_account.types.get_partner_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPartner", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_partner_request.GetPartnerRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -236,7 +276,19 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.list_partners_response.ListPartnersResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.list_partners_response
+
+            return capo_partnercentral_account.types.list_partners_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPartners", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.list_partners_request.ListPartnersRequest = {
             "catalog": catalog
         }
@@ -296,7 +348,22 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.AssociateAwsTrainingCertificationEmailDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request
+
+            return capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateAwsTrainingCertificationEmailDomain",
+                redact_input=_redact_input,
+            ),
+        )
         input_: capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.AssociateAwsTrainingCertificationEmailDomainRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -358,7 +425,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.cancel_profile_update_task_request.CancelProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -418,7 +487,10 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateAwsTrainingCertificationEmailDomain"),
+        )
         input_: capo_partnercentral_account.types.disassociate_aws_training_certification_email_domain_request.DisassociateAwsTrainingCertificationEmailDomainRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -472,7 +544,19 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_alliance_lead_contact_response.GetAllianceLeadContactResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_alliance_lead_contact_response
+
+            return capo_partnercentral_account.types.get_alliance_lead_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAllianceLeadContact", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_alliance_lead_contact_request.GetAllianceLeadContactRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -522,7 +606,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.get_profile_update_task_request.GetProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -572,7 +658,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfileVisibility")
+        )
         input_: capo_partnercentral_account.types.get_profile_visibility_request.GetProfileVisibilityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -622,7 +710,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsAssociationDetails")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_association_details_request.GetQualificationsAssociationDetailsRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -672,7 +762,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsAssociationTask")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_association_task_request.GetQualificationsAssociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -722,7 +814,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsDisassociationTask")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_disassociation_task_request.GetQualificationsDisassociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -778,7 +872,32 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.put_alliance_lead_contact_request.PutAllianceLeadContactRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.put_alliance_lead_contact_request
+
+            return capo_partnercentral_account.types.put_alliance_lead_contact_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.put_alliance_lead_contact_response.PutAllianceLeadContactResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.put_alliance_lead_contact_response
+
+            return capo_partnercentral_account.types.put_alliance_lead_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutAllianceLeadContact",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.put_alliance_lead_contact_request.PutAllianceLeadContactRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -834,7 +953,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutProfileVisibility")
+        )
         input_: capo_partnercentral_account.types.put_profile_visibility_request.PutProfileVisibilityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -893,7 +1014,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.start_profile_update_task_request.StartProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -954,7 +1077,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQualificationsAssociationTask")
+        )
         input_: capo_partnercentral_account.types.start_qualifications_association_task_request.StartQualificationsAssociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1015,7 +1140,9 @@ class Partner:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQualificationsDisassociationTask")
+        )
         input_: capo_partnercentral_account.types.start_qualifications_disassociation_task_request.StartQualificationsDisassociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1087,7 +1214,32 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.create_partner_request.CreatePartnerRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_partner_request
+
+            return capo_partnercentral_account.types.create_partner_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.create_partner_response.CreatePartnerResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.create_partner_response
+
+            return capo_partnercentral_account.types.create_partner_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePartner",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.create_partner_request.CreatePartnerRequest = {
             "catalog": catalog,
             "legal_name": legal_name,
@@ -1146,7 +1298,21 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_partner_response.GetPartnerResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_partner_response
+
+            return (
+                capo_partnercentral_account.types.get_partner_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPartner", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_partner_request.GetPartnerRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1200,7 +1366,19 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.list_partners_response.ListPartnersResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.list_partners_response
+
+            return capo_partnercentral_account.types.list_partners_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPartners", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.list_partners_request.ListPartnersRequest = {
             "catalog": catalog
         }
@@ -1261,7 +1439,22 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.AssociateAwsTrainingCertificationEmailDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request
+
+            return capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateAwsTrainingCertificationEmailDomain",
+                redact_input=_redact_input,
+            ),
+        )
         input_: capo_partnercentral_account.types.associate_aws_training_certification_email_domain_request.AssociateAwsTrainingCertificationEmailDomainRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1324,7 +1517,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.cancel_profile_update_task_request.CancelProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1385,7 +1580,10 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateAwsTrainingCertificationEmailDomain"),
+        )
         input_: capo_partnercentral_account.types.disassociate_aws_training_certification_email_domain_request.DisassociateAwsTrainingCertificationEmailDomainRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1440,7 +1638,19 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_alliance_lead_contact_response.GetAllianceLeadContactResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_alliance_lead_contact_response
+
+            return capo_partnercentral_account.types.get_alliance_lead_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAllianceLeadContact", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_alliance_lead_contact_request.GetAllianceLeadContactRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1491,7 +1701,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.get_profile_update_task_request.GetProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1542,7 +1754,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProfileVisibility")
+        )
         input_: capo_partnercentral_account.types.get_profile_visibility_request.GetProfileVisibilityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1593,7 +1807,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsAssociationDetails")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_association_details_request.GetQualificationsAssociationDetailsRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1644,7 +1860,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsAssociationTask")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_association_task_request.GetQualificationsAssociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1695,7 +1913,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQualificationsDisassociationTask")
+        )
         input_: capo_partnercentral_account.types.get_qualifications_disassociation_task_request.GetQualificationsDisassociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1752,7 +1972,32 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_account.types.put_alliance_lead_contact_request.PutAllianceLeadContactRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.put_alliance_lead_contact_request
+
+            return capo_partnercentral_account.types.put_alliance_lead_contact_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_account.types.put_alliance_lead_contact_response.PutAllianceLeadContactResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.put_alliance_lead_contact_response
+
+            return capo_partnercentral_account.types.put_alliance_lead_contact_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutAllianceLeadContact",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_account.types.put_alliance_lead_contact_request.PutAllianceLeadContactRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1809,7 +2054,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutProfileVisibility")
+        )
         input_: capo_partnercentral_account.types.put_profile_visibility_request.PutProfileVisibilityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1869,7 +2116,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartProfileUpdateTask")
+        )
         input_: capo_partnercentral_account.types.start_profile_update_task_request.StartProfileUpdateTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1931,7 +2180,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQualificationsAssociationTask")
+        )
         input_: capo_partnercentral_account.types.start_qualifications_association_task_request.StartQualificationsAssociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1993,7 +2244,9 @@ class AsyncPartner:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartQualificationsDisassociationTask")
+        )
         input_: capo_partnercentral_account.types.start_qualifications_disassociation_task_request.StartQualificationsDisassociationTaskRequest = {
             "catalog": catalog,
             "identifier": identifier,

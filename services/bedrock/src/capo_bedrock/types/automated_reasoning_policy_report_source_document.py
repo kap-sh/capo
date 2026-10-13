@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyReportSourceDocument``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -93,5 +93,30 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyReportSourceDocument
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyReportSourceDocument.document_content required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyReportSourceDocument,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document_name" in value:
+        out["document_name"] = "*** Sensitive Data Redacted ***"
+    if "atomic_statements" in value:
+        import capo_bedrock.types.automated_reasoning_policy_atomic_statement_list
+
+        out["atomic_statements"] = (
+            capo_bedrock.types.automated_reasoning_policy_atomic_statement_list.redact_sensitive(
+                value["atomic_statements"]
+            )
+        )
+    if "document_content" in value:
+        import capo_bedrock.types.automated_reasoning_policy_annotated_chunk_list
+
+        out["document_content"] = (
+            capo_bedrock.types.automated_reasoning_policy_annotated_chunk_list.redact_sensitive(
+                value["document_content"]
+            )
         )
     return out

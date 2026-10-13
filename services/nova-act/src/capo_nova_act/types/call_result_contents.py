@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#CallResultContents``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_nova_act.types.call_result_content
@@ -29,3 +29,7 @@ def deserialize_json(data: list) -> CallResultContents:
             continue
         out.append(capo_nova_act.types.call_result_content.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: CallResultContents) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

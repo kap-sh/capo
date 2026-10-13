@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#VpnTunnelOptionsSpecification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -313,4 +313,11 @@ def deserialize_ec2_query(el: Element) -> VpnTunnelOptionsSpecification:
         out["enable_tunnel_lifecycle_control"] = (
             child_enable_tunnel_lifecycle_control.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: VpnTunnelOptionsSpecification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pre_shared_key" in value:
+        out["pre_shared_key"] = "*** Sensitive Data Redacted ***"
     return out

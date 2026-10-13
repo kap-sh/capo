@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.acm#AcmeAccountList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_acm.types.acme_account_summary
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> AcmeAccountList:
             continue
         out.append(capo_acm.types.acme_account_summary.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: AcmeAccountList) -> list[Any]:
+    import capo_acm.types.acme_account_summary
+
+    return [
+        capo_acm.types.acme_account_summary.redact_sensitive(item) for item in value
+    ]

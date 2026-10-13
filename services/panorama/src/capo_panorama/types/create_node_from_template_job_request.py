@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.panorama#CreateNodeFromTemplateJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,5 +107,18 @@ def deserialize_json(data: dict) -> CreateNodeFromTemplateJobRequest:
 
         out["job_tags"] = capo_panorama.types.job_tags_list.deserialize_json(
             data["JobTags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateNodeFromTemplateJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template_parameters" in value:
+        import capo_panorama.types.template_parameters_map
+
+        out["template_parameters"] = (
+            capo_panorama.types.template_parameters_map.redact_sensitive(
+                value["template_parameters"]
+            )
         )
     return out

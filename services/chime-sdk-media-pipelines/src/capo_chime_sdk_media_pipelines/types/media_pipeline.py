@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaPipeline``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,6 +121,51 @@ def deserialize_json(data: dict) -> MediaPipeline:
         out["media_stream_pipeline"] = (
             capo_chime_sdk_media_pipelines.types.media_stream_pipeline.deserialize_json(
                 data["MediaStreamPipeline"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MediaPipeline) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_capture_pipeline" in value:
+        import capo_chime_sdk_media_pipelines.types.media_capture_pipeline
+
+        out["media_capture_pipeline"] = (
+            capo_chime_sdk_media_pipelines.types.media_capture_pipeline.redact_sensitive(
+                value["media_capture_pipeline"]
+            )
+        )
+    if "media_live_connector_pipeline" in value:
+        import capo_chime_sdk_media_pipelines.types.media_live_connector_pipeline
+
+        out["media_live_connector_pipeline"] = (
+            capo_chime_sdk_media_pipelines.types.media_live_connector_pipeline.redact_sensitive(
+                value["media_live_connector_pipeline"]
+            )
+        )
+    if "media_concatenation_pipeline" in value:
+        import capo_chime_sdk_media_pipelines.types.media_concatenation_pipeline
+
+        out["media_concatenation_pipeline"] = (
+            capo_chime_sdk_media_pipelines.types.media_concatenation_pipeline.redact_sensitive(
+                value["media_concatenation_pipeline"]
+            )
+        )
+    if "media_insights_pipeline" in value:
+        import capo_chime_sdk_media_pipelines.types.media_insights_pipeline
+
+        out["media_insights_pipeline"] = (
+            capo_chime_sdk_media_pipelines.types.media_insights_pipeline.redact_sensitive(
+                value["media_insights_pipeline"]
+            )
+        )
+    if "media_stream_pipeline" in value:
+        import capo_chime_sdk_media_pipelines.types.media_stream_pipeline
+
+        out["media_stream_pipeline"] = (
+            capo_chime_sdk_media_pipelines.types.media_stream_pipeline.redact_sensitive(
+                value["media_stream_pipeline"]
             )
         )
     return out

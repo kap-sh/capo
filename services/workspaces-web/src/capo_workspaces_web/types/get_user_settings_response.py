@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#GetUserSettingsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetUserSettingsResponse:
 
         out["user_settings"] = capo_workspaces_web.types.user_settings.deserialize_json(
             data["userSettings"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetUserSettingsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_settings" in value:
+        import capo_workspaces_web.types.user_settings
+
+        out["user_settings"] = capo_workspaces_web.types.user_settings.redact_sensitive(
+            value["user_settings"]
         )
     return out

@@ -7,6 +7,7 @@ import capo_s3tables._auth._sigv4
 from capo_s3tables._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,9 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateNamespace")
+        )
         input_: capo_s3tables.types.create_namespace_request.CreateNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -124,7 +127,9 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_s3tables.types.delete_namespace_request.DeleteNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -176,7 +181,9 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNamespace")
+        )
         input_: capo_s3tables.types.get_namespace_request.GetNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -234,7 +241,9 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNamespaces")
+        )
         input_: capo_s3tables.types.list_namespaces_request.ListNamespacesRequest = {
             "table_bucket_arn": table_bucket_arn
         }
@@ -296,7 +305,9 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateNamespace")
+        )
         input_: capo_s3tables.types.create_namespace_request.CreateNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -346,7 +357,9 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_s3tables.types.delete_namespace_request.DeleteNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -399,7 +412,9 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNamespace")
+        )
         input_: capo_s3tables.types.get_namespace_request.GetNamespaceRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -458,7 +473,9 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNamespaces")
+        )
         input_: capo_s3tables.types.list_namespaces_request.ListNamespacesRequest = {
             "table_bucket_arn": table_bucket_arn
         }

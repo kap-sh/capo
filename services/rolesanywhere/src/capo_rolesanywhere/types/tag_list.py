@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rolesanywhere#TagList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_rolesanywhere.types.tag
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> TagList:
             continue
         out.append(capo_rolesanywhere.types.tag.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TagList) -> list[Any]:
+    import capo_rolesanywhere.types.tag
+
+    return [capo_rolesanywhere.types.tag.redact_sensitive(item) for item in value]

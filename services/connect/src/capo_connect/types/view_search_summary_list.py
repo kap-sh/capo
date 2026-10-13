@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#ViewSearchSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connect.types.view
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> ViewSearchSummaryList:
             continue
         out.append(capo_connect.types.view.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ViewSearchSummaryList) -> list[Any]:
+    import capo_connect.types.view
+
+    return [capo_connect.types.view.redact_sensitive(item) for item in value]

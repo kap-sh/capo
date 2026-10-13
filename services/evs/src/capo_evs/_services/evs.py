@@ -25,10 +25,12 @@ from capo_evs._resources.amazon_elastic_v_mware_service.environment_resource imp
 from capo_evs._services._aws_config import aws_config
 from capo_evs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -194,7 +196,9 @@ class evsClient:
         self.environment_resource = EnvironmentResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[evsClientConfig] = None
+        self,
+        config_overrides: Optional[evsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: evsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -202,8 +206,10 @@ class evsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -248,7 +254,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_evs.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = execute_pipeline(
@@ -284,7 +292,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVersions")
+        )
         input_: capo_evs.types.get_versions_request.GetVersionsRequest = {}
 
         response = execute_pipeline(
@@ -325,7 +335,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_evs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -370,7 +382,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSettings")
+        )
         input_: capo_evs.types.put_account_settings_request.PutAccountSettingsRequest = {
             "settings": settings
         }
@@ -418,7 +432,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_evs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -465,7 +481,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_evs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -547,7 +565,28 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_evs.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_request
+
+            return capo_evs.types.create_environment_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_evs.types.create_environment_response.CreateEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.create_environment_response
+
+            return capo_evs.types.create_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_evs.types.create_environment_request.CreateEnvironmentRequest = {
             "vpc_id": vpc_id,
             "service_access_subnet_id": service_access_subnet_id,
@@ -616,7 +655,17 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.get_environment_response.GetEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.get_environment_response
+
+            return capo_evs.types.get_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -662,7 +711,17 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_evs.types.delete_environment_response.DeleteEnvironmentResponse",
+        ) -> dict[str, Any]:
+            import capo_evs.types.delete_environment_response
+
+            return capo_evs.types.delete_environment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironment", redact_output=_redact_output),
+        )
         input_: capo_evs.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -714,7 +773,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_evs.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -794,7 +855,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEipToVlan")
+        )
         input_: capo_evs.types.associate_eip_to_vlan_request.AssociateEipToVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -852,7 +915,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_evs.types.create_entitlement_request.CreateEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -911,7 +976,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentConnector")
+        )
         input_: capo_evs.types.create_environment_connector_request.CreateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "type": type,
@@ -969,7 +1036,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironmentHost")
+        )
         input_: capo_evs.types.create_environment_host_request.CreateEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host": host,
@@ -1028,7 +1097,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_evs.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1083,7 +1154,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentConnector")
+        )
         input_: capo_evs.types.delete_environment_connector_request.DeleteEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1137,7 +1210,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironmentHost")
+        )
         input_: capo_evs.types.delete_environment_host_request.DeleteEnvironmentHostRequest = {
             "environment_id": environment_id,
             "host_name": host_name,
@@ -1192,7 +1267,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEipFromVlan")
+        )
         input_: capo_evs.types.disassociate_eip_from_vlan_request.DisassociateEipFromVlanRequest = {
             "environment_id": environment_id,
             "vlan_name": vlan_name,
@@ -1244,7 +1321,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDepotUrl")
+        )
         input_: capo_evs.types.get_depot_url_request.GetDepotUrlRequest = {
             "environment_id": environment_id
         }
@@ -1294,7 +1373,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentConnectors")
+        )
         input_: capo_evs.types.list_environment_connectors_request.ListEnvironmentConnectorsRequest = {
             "environment_id": environment_id
         }
@@ -1369,7 +1450,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentHosts")
+        )
         input_: capo_evs.types.list_environment_hosts_request.ListEnvironmentHostsRequest = {
             "environment_id": environment_id
         }
@@ -1444,7 +1527,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentVlans")
+        )
         input_: capo_evs.types.list_environment_vlans_request.ListEnvironmentVlansRequest = {
             "environment_id": environment_id
         }
@@ -1523,7 +1608,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVmEntitlements")
+        )
         input_: capo_evs.types.list_vm_entitlements_request.ListVmEntitlementsRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,
@@ -1611,7 +1698,9 @@ class evsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironmentConnector")
+        )
         input_: capo_evs.types.update_environment_connector_request.UpdateEnvironmentConnectorRequest = {
             "environment_id": environment_id,
             "connector_id": connector_id,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyMutation``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -222,3 +222,72 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyMutation:
         raise DeserializationError(
             "AutomatedReasoningPolicyMutation: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyMutation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "addType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_type_mutation
+
+        out["addType"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_type_mutation.redact_sensitive(
+                value["addType"]
+            )
+        )
+    if "updateType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_type_mutation
+
+        out["updateType"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_type_mutation.redact_sensitive(
+                value["updateType"]
+            )
+        )
+    if "deleteType" in value:
+        import capo_bedrock.types.automated_reasoning_policy_delete_type_mutation
+
+        out["deleteType"] = (
+            capo_bedrock.types.automated_reasoning_policy_delete_type_mutation.redact_sensitive(
+                value["deleteType"]
+            )
+        )
+    if "addVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_variable_mutation
+
+        out["addVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_variable_mutation.redact_sensitive(
+                value["addVariable"]
+            )
+        )
+    if "updateVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_variable_mutation
+
+        out["updateVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_variable_mutation.redact_sensitive(
+                value["updateVariable"]
+            )
+        )
+    if "deleteVariable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_delete_variable_mutation
+
+        out["deleteVariable"] = (
+            capo_bedrock.types.automated_reasoning_policy_delete_variable_mutation.redact_sensitive(
+                value["deleteVariable"]
+            )
+        )
+    if "addRule" in value:
+        import capo_bedrock.types.automated_reasoning_policy_add_rule_mutation
+
+        out["addRule"] = (
+            capo_bedrock.types.automated_reasoning_policy_add_rule_mutation.redact_sensitive(
+                value["addRule"]
+            )
+        )
+    if "updateRule" in value:
+        import capo_bedrock.types.automated_reasoning_policy_update_rule_mutation
+
+        out["updateRule"] = (
+            capo_bedrock.types.automated_reasoning_policy_update_rule_mutation.redact_sensitive(
+                value["updateRule"]
+            )
+        )
+    return out

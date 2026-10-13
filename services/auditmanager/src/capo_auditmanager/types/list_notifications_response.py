@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#ListNotificationsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> ListNotificationsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListNotificationsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "notifications" in value:
+        import capo_auditmanager.types.notifications
+
+        out["notifications"] = capo_auditmanager.types.notifications.redact_sensitive(
+            value["notifications"]
+        )
     return out

@@ -8,6 +8,7 @@ import capo_network_security_manager._auth._sigv4
 from capo_network_security_manager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -123,7 +124,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_network_security_manager.types.create_deployment_input.CreateDeploymentInput = {
             "deployment_name": deployment_name,
             "deployment_configuration": deployment_configuration,
@@ -190,7 +193,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_network_security_manager.types.get_deployment_input.GetDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -269,7 +274,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDeployment")
+        )
         input_: capo_network_security_manager.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_identifier": deployment_identifier,
             "update_token": update_token,
@@ -333,7 +340,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_network_security_manager.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -395,7 +404,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_network_security_manager.types.list_deployments_input.ListDeploymentsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -460,7 +471,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentSnapshot")
+        )
         input_: capo_network_security_manager.types.create_deployment_snapshot_input.CreateDeploymentSnapshotInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -526,7 +539,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeploymentSnapshots")
+        )
         input_: capo_network_security_manager.types.list_deployment_snapshots_input.ListDeploymentSnapshotsInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -595,7 +610,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceSynchronizationStatuses")
+        )
         input_: capo_network_security_manager.types.list_resource_synchronization_statuses_input.ListResourceSynchronizationStatusesInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -683,7 +700,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_network_security_manager.types.create_deployment_input.CreateDeploymentInput = {
             "deployment_name": deployment_name,
             "deployment_configuration": deployment_configuration,
@@ -751,7 +770,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_network_security_manager.types.get_deployment_input.GetDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -831,7 +852,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDeployment")
+        )
         input_: capo_network_security_manager.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_identifier": deployment_identifier,
             "update_token": update_token,
@@ -896,7 +919,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_network_security_manager.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -959,7 +984,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_network_security_manager.types.list_deployments_input.ListDeploymentsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1025,7 +1052,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentSnapshot")
+        )
         input_: capo_network_security_manager.types.create_deployment_snapshot_input.CreateDeploymentSnapshotInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1092,7 +1121,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeploymentSnapshots")
+        )
         input_: capo_network_security_manager.types.list_deployment_snapshots_input.ListDeploymentSnapshotsInput = {
             "deployment_identifier": deployment_identifier
         }
@@ -1162,7 +1193,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceSynchronizationStatuses")
+        )
         input_: capo_network_security_manager.types.list_resource_synchronization_statuses_input.ListResourceSynchronizationStatusesInput = {
             "deployment_identifier": deployment_identifier
         }

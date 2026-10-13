@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#MicrovmImageVersionSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.microvm_image_version_summary
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> MicrovmImageVersionSummaryList:
             )
         )
     return out
+
+
+def redact_sensitive(value: MicrovmImageVersionSummaryList) -> list[Any]:
+    import capo_lambda_microvms.types.microvm_image_version_summary
+
+    return [
+        capo_lambda_microvms.types.microvm_image_version_summary.redact_sensitive(item)
+        for item in value
+    ]

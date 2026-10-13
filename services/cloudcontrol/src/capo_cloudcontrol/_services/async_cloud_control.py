@@ -25,7 +25,9 @@ from capo_cloudcontrol._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -135,7 +137,9 @@ class AsyncCloudControlClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudControlClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudControlClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudControlClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -143,8 +147,10 @@ class AsyncCloudControlClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -195,7 +201,21 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudcontrol.types.cancel_resource_request_output.CancelResourceRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.cancel_resource_request_output
+
+            return (
+                capo_cloudcontrol.types.cancel_resource_request_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CancelResourceRequest", redact_output=_redact_output),
+        )
         input_: capo_cloudcontrol.types.cancel_resource_request_input.CancelResourceRequestInput = {
             "request_token": request_token
         }
@@ -269,7 +289,32 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudcontrol.types.create_resource_input.CreateResourceInput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.create_resource_input
+
+            return capo_cloudcontrol.types.create_resource_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cloudcontrol.types.create_resource_output.CreateResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.create_resource_output
+
+            return capo_cloudcontrol.types.create_resource_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateResource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cloudcontrol.types.create_resource_input.CreateResourceInput = {
             "type_name": type_name,
             "desired_state": desired_state,
@@ -351,7 +396,19 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudcontrol.types.delete_resource_output.DeleteResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.delete_resource_output
+
+            return capo_cloudcontrol.types.delete_resource_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteResource", redact_output=_redact_output),
+        )
         input_: capo_cloudcontrol.types.delete_resource_input.DeleteResourceInput = {
             "type_name": type_name,
             "identifier": identifier,
@@ -427,7 +484,17 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudcontrol.types.get_resource_output.GetResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.get_resource_output
+
+            return capo_cloudcontrol.types.get_resource_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResource", redact_output=_redact_output),
+        )
         input_: capo_cloudcontrol.types.get_resource_input.GetResourceInput = {
             "type_name": type_name,
             "identifier": identifier,
@@ -476,7 +543,19 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudcontrol.types.get_resource_request_status_output.GetResourceRequestStatusOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.get_resource_request_status_output
+
+            return capo_cloudcontrol.types.get_resource_request_status_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResourceRequestStatus", redact_output=_redact_output),
+        )
         input_: capo_cloudcontrol.types.get_resource_request_status_input.GetResourceRequestStatusInput = {
             "request_token": request_token
         }
@@ -525,7 +604,21 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudcontrol.types.list_resource_requests_output.ListResourceRequestsOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.list_resource_requests_output
+
+            return (
+                capo_cloudcontrol.types.list_resource_requests_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListResourceRequests", redact_output=_redact_output),
+        )
         input_: capo_cloudcontrol.types.list_resource_requests_input.ListResourceRequestsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -630,7 +723,30 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudcontrol.types.list_resources_input.ListResourcesInput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.list_resources_input
+
+            return capo_cloudcontrol.types.list_resources_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_cloudcontrol.types.list_resources_output.ListResourcesOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.list_resources_output
+
+            return capo_cloudcontrol.types.list_resources_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListResources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cloudcontrol.types.list_resources_input.ListResourcesInput = {
             "type_name": type_name
         }
@@ -751,7 +867,32 @@ class AsyncCloudControlClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudcontrol.types.update_resource_input.UpdateResourceInput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.update_resource_input
+
+            return capo_cloudcontrol.types.update_resource_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cloudcontrol.types.update_resource_output.UpdateResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudcontrol.types.update_resource_output
+
+            return capo_cloudcontrol.types.update_resource_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateResource",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cloudcontrol.types.update_resource_input.UpdateResourceInput = {
             "type_name": type_name,
             "identifier": identifier,

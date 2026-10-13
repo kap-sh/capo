@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#CreateFolderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> CreateFolderRequest:
         out["parent_folder_id"] = data["ParentFolderId"]
     else:
         raise DeserializationError("CreateFolderRequest.parent_folder_id required")
+    return out
+
+
+def redact_sensitive(value: CreateFolderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

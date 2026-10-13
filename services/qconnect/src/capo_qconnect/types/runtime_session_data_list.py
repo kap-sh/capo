@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RuntimeSessionDataList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.runtime_session_data
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> RuntimeSessionDataList:
             continue
         out.append(capo_qconnect.types.runtime_session_data.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RuntimeSessionDataList) -> list[Any]:
+    import capo_qconnect.types.runtime_session_data
+
+    return [
+        capo_qconnect.types.runtime_session_data.redact_sensitive(item)
+        for item in value
+    ]

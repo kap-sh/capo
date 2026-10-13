@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#NodeInputSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> NodeInputSource:
         out["expression"] = data["expression"]
     else:
         raise DeserializationError("NodeInputSource.expression required")
+    return out
+
+
+def redact_sensitive(value: NodeInputSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

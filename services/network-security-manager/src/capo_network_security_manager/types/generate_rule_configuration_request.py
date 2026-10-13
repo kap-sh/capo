@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#GenerateRuleConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -108,4 +108,11 @@ def deserialize_json(data: dict) -> GenerateRuleConfigurationRequest:
         out["current_configuration"] = data["currentConfiguration"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: GenerateRuleConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "prompt" in value:
+        out["prompt"] = "*** Sensitive Data Redacted ***"
     return out

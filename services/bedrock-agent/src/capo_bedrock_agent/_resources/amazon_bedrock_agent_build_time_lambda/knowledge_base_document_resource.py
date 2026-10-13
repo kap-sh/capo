@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent._auth._signers
 import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class KnowledgeBaseDocumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.delete_knowledge_base_documents_request.DeleteKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -144,7 +147,9 @@ class KnowledgeBaseDocumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.get_knowledge_base_documents_request.GetKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -202,7 +207,21 @@ class KnowledgeBaseDocumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.ingest_knowledge_base_documents_request.IngestKnowledgeBaseDocumentsRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.ingest_knowledge_base_documents_request
+
+            return capo_bedrock_agent.types.ingest_knowledge_base_documents_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IngestKnowledgeBaseDocuments", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agent.types.ingest_knowledge_base_documents_request.IngestKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -261,7 +280,9 @@ class KnowledgeBaseDocumentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.list_knowledge_base_documents_request.ListKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -328,7 +349,9 @@ class AsyncKnowledgeBaseDocumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.delete_knowledge_base_documents_request.DeleteKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -386,7 +409,9 @@ class AsyncKnowledgeBaseDocumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.get_knowledge_base_documents_request.GetKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -445,7 +470,21 @@ class AsyncKnowledgeBaseDocumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent.types.ingest_knowledge_base_documents_request.IngestKnowledgeBaseDocumentsRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent.types.ingest_knowledge_base_documents_request
+
+            return capo_bedrock_agent.types.ingest_knowledge_base_documents_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IngestKnowledgeBaseDocuments", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agent.types.ingest_knowledge_base_documents_request.IngestKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -505,7 +544,9 @@ class AsyncKnowledgeBaseDocumentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListKnowledgeBaseDocuments")
+        )
         input_: capo_bedrock_agent.types.list_knowledge_base_documents_request.ListKnowledgeBaseDocumentsRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetRecommendationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -177,4 +177,25 @@ def deserialize_json(data: dict) -> GetRecommendationResponse:
         )
     if data.get("kmsKeyArn") is not None:
         out["kms_key_arn"] = data["kmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: GetRecommendationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommendation_config" in value:
+        import capo_bedrock_agentcore.types.recommendation_config
+
+        out["recommendation_config"] = (
+            capo_bedrock_agentcore.types.recommendation_config.redact_sensitive(
+                value["recommendation_config"]
+            )
+        )
+    if "recommendation_result" in value:
+        import capo_bedrock_agentcore.types.recommendation_result
+
+        out["recommendation_result"] = (
+            capo_bedrock_agentcore.types.recommendation_result.redact_sensitive(
+                value["recommendation_result"]
+            )
+        )
     return out

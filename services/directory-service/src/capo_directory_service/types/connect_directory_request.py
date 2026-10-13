@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#ConnectDirectoryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,4 +124,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectDirectoryRequest:
                 data["NetworkType"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ConnectDirectoryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#NetworkConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> NetworkConfiguration:
         out["awsvpc_configuration"] = (
             capo_pipes.types.aws_vpc_configuration.deserialize_json(
                 data["awsvpcConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: NetworkConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "awsvpc_configuration" in value:
+        import capo_pipes.types.aws_vpc_configuration
+
+        out["awsvpc_configuration"] = (
+            capo_pipes.types.aws_vpc_configuration.redact_sensitive(
+                value["awsvpc_configuration"]
             )
         )
     return out

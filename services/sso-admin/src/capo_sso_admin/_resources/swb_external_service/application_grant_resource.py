@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_sso_admin._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class ApplicationGrantResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationGrant")
+        )
         input_: capo_sso_admin.types.put_application_grant_request.PutApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -122,7 +125,9 @@ class ApplicationGrantResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationGrant")
+        )
         input_: capo_sso_admin.types.get_application_grant_request.GetApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -171,7 +176,9 @@ class ApplicationGrantResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationGrant")
+        )
         input_: capo_sso_admin.types.delete_application_grant_request.DeleteApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -221,7 +228,9 @@ class ApplicationGrantResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationGrants")
+        )
         input_: capo_sso_admin.types.list_application_grants_request.ListApplicationGrantsRequest = {
             "application_arn": application_arn
         }
@@ -279,7 +288,9 @@ class AsyncApplicationGrantResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationGrant")
+        )
         input_: capo_sso_admin.types.put_application_grant_request.PutApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -331,7 +342,9 @@ class AsyncApplicationGrantResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationGrant")
+        )
         input_: capo_sso_admin.types.get_application_grant_request.GetApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -381,7 +394,9 @@ class AsyncApplicationGrantResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationGrant")
+        )
         input_: capo_sso_admin.types.delete_application_grant_request.DeleteApplicationGrantRequest = {
             "application_arn": application_arn,
             "grant_type": grant_type,
@@ -432,7 +447,9 @@ class AsyncApplicationGrantResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationGrants")
+        )
         input_: capo_sso_admin.types.list_application_grants_request.ListApplicationGrantsRequest = {
             "application_arn": application_arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#TaskRunSessionActionDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,11 @@ def deserialize_json(data: dict) -> TaskRunSessionActionDefinition:
         )
     else:
         raise DeserializationError("TaskRunSessionActionDefinition.parameters required")
+    return out
+
+
+def redact_sensitive(value: TaskRunSessionActionDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

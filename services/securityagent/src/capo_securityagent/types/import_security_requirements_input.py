@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ImportSecurityRequirementsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> ImportSecurityRequirementsInput:
         )
     else:
         raise DeserializationError("ImportSecurityRequirementsInput.input required")
+    return out
+
+
+def redact_sensitive(value: ImportSecurityRequirementsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_securityagent.types.import_source
+
+        out["input"] = capo_securityagent.types.import_source.redact_sensitive(
+            value["input"]
+        )
     return out

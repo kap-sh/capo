@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptFlowNodeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,6 +61,19 @@ def deserialize_json(data: dict) -> PromptFlowNodeConfiguration:
         out["guardrail_configuration"] = (
             capo_bedrock_agent.types.guardrail_configuration.deserialize_json(
                 data["guardrailConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PromptFlowNodeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_configuration" in value:
+        import capo_bedrock_agent.types.prompt_flow_node_source_configuration
+
+        out["source_configuration"] = (
+            capo_bedrock_agent.types.prompt_flow_node_source_configuration.redact_sensitive(
+                value["source_configuration"]
             )
         )
     return out

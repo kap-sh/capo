@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CalculateRouteMatrixResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,31 @@ def deserialize_json(data: dict) -> CalculateRouteMatrixResponse:
         )
     else:
         raise DeserializationError("CalculateRouteMatrixResponse.summary required")
+    return out
+
+
+def redact_sensitive(value: CalculateRouteMatrixResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "route_matrix" in value:
+        import capo_location.types.route_matrix
+
+        out["route_matrix"] = capo_location.types.route_matrix.redact_sensitive(
+            value["route_matrix"]
+        )
+    if "snapped_departure_positions" in value:
+        import capo_location.types.position_list
+
+        out["snapped_departure_positions"] = (
+            capo_location.types.position_list.redact_sensitive(
+                value["snapped_departure_positions"]
+            )
+        )
+    if "snapped_destination_positions" in value:
+        import capo_location.types.position_list
+
+        out["snapped_destination_positions"] = (
+            capo_location.types.position_list.redact_sensitive(
+                value["snapped_destination_positions"]
+            )
+        )
     return out

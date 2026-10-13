@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#SendNotifyCodeVerificationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,4 +142,21 @@ def deserialize_json(data: dict) -> SendNotifyCodeVerificationInput:
         )
     if data.get("referenceId") is not None:
         out["reference_id"] = data["referenceId"]
+    return out
+
+
+def redact_sensitive(value: SendNotifyCodeVerificationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_identity" in value:
+        out["destination_identity"] = "*** Sensitive Data Redacted ***"
+    if "override_channel_parameters" in value:
+        import capo_endusermessaging.types.channel_parameters
+
+        out["override_channel_parameters"] = (
+            capo_endusermessaging.types.channel_parameters.redact_sensitive(
+                value["override_channel_parameters"]
+            )
+        )
+    if "context" in value:
+        out["context"] = "*** Sensitive Data Redacted ***"
     return out

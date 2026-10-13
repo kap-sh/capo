@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#UpdateFileSystemOntapConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,4 +139,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateFileSystemOntapConfiguration:
         out["ha_pairs"] = data["HAPairs"]
     if data.get("EndpointIpv6AddressRange") is not None:
         out["endpoint_ipv6_address_range"] = data["EndpointIpv6AddressRange"]
+    return out
+
+
+def redact_sensitive(value: UpdateFileSystemOntapConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fsx_admin_password" in value:
+        out["fsx_admin_password"] = "*** Sensitive Data Redacted ***"
     return out

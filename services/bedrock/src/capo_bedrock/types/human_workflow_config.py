@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#HumanWorkflowConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> HumanWorkflowConfig:
         raise DeserializationError("HumanWorkflowConfig.flow_definition_arn required")
     if data.get("instructions") is not None:
         out["instructions"] = data["instructions"]
+    return out
+
+
+def redact_sensitive(value: HumanWorkflowConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instructions" in value:
+        out["instructions"] = "*** Sensitive Data Redacted ***"
     return out

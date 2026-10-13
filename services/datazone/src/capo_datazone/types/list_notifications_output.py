@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ListNotificationsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> ListNotificationsOutput:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListNotificationsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "notifications" in value:
+        import capo_datazone.types.notifications_list
+
+        out["notifications"] = capo_datazone.types.notifications_list.redact_sensitive(
+            value["notifications"]
+        )
     return out

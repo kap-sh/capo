@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UpdateGlossaryTermInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,4 +87,15 @@ def deserialize_json(data: dict) -> UpdateGlossaryTermInput:
         out["status"] = capo_datazone.types.glossary_term_status.deserialize_json(
             data["status"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateGlossaryTermInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "short_description" in value:
+        out["short_description"] = "*** Sensitive Data Redacted ***"
+    if "long_description" in value:
+        out["long_description"] = "*** Sensitive Data Redacted ***"
     return out

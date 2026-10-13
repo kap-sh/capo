@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistry#SearchDiscoverableRegistryRecordsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,13 @@ def deserialize_json(data: dict) -> SearchDiscoverableRegistryRecordsRequest:
         out["max_results"] = 10
     if data.get("filters") is not None:
         out["filters"] = data["filters"]
+    return out
+
+
+def redact_sensitive(value: SearchDiscoverableRegistryRecordsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "search_query" in value:
+        out["search_query"] = "*** Sensitive Data Redacted ***"
+    if "filters" in value:
+        out["filters"] = "*** Sensitive Data Redacted ***"
     return out

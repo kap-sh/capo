@@ -21,10 +21,12 @@ from capo_appconfig._pagination import resolve_path as _resolve_path
 from capo_appconfig._services._aws_config import aws_config
 from capo_appconfig._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -242,7 +244,9 @@ class AppConfigClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AppConfigClientConfig] = None
+        self,
+        config_overrides: Optional[AppConfigClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppConfigClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -250,8 +254,10 @@ class AppConfigClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -310,7 +316,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_appconfig.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -388,7 +396,30 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.create_configuration_profile_request.CreateConfigurationProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.create_configuration_profile_request
+
+            return capo_appconfig.types.create_configuration_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appconfig.types.configuration_profile.ConfigurationProfile",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.configuration_profile
+
+            return capo_appconfig.types.configuration_profile.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConfigurationProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appconfig.types.create_configuration_profile_request.CreateConfigurationProfileRequest = {
             "application_id": application_id,
             "name": name,
@@ -469,7 +500,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentStrategy")
+        )
         input_: capo_appconfig.types.create_deployment_strategy_request.CreateDeploymentStrategyRequest = {
             "name": name,
             "deployment_duration_in_minutes": deployment_duration_in_minutes,
@@ -539,7 +572,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEnvironment")
+        )
         input_: capo_appconfig.types.create_environment_request.CreateEnvironmentRequest = {
             "application_id": application_id,
             "name": name,
@@ -625,7 +660,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExperimentDefinition")
+        )
         input_: capo_appconfig.types.create_experiment_definition_request.CreateExperimentDefinitionRequest = {
             "application_identifier": application_identifier,
             "name": name,
@@ -694,7 +731,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExtension")
+        )
         input_: capo_appconfig.types.create_extension_request.CreateExtensionRequest = {
             "name": name,
             "actions": actions,
@@ -761,7 +800,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExtensionAssociation")
+        )
         input_: capo_appconfig.types.create_extension_association_request.CreateExtensionAssociationRequest = {
             "extension_identifier": extension_identifier,
             "resource_identifier": resource_identifier,
@@ -836,7 +877,32 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.create_hosted_configuration_version_request.CreateHostedConfigurationVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.create_hosted_configuration_version_request
+
+            return capo_appconfig.types.create_hosted_configuration_version_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appconfig.types.hosted_configuration_version.HostedConfigurationVersion",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.hosted_configuration_version
+
+            return capo_appconfig.types.hosted_configuration_version.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateHostedConfigurationVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appconfig.types.create_hosted_configuration_version_request.CreateHostedConfigurationVersionRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -895,7 +961,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_appconfig.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -951,7 +1019,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationProfile")
+        )
         input_: capo_appconfig.types.delete_configuration_profile_request.DeleteConfigurationProfileRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -1003,7 +1073,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeploymentStrategy")
+        )
         input_: capo_appconfig.types.delete_deployment_strategy_request.DeleteDeploymentStrategyRequest = {
             "deployment_strategy_id": deployment_strategy_id
         }
@@ -1059,7 +1131,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_appconfig.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id,
             "application_id": application_id,
@@ -1116,7 +1190,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExperimentDefinition")
+        )
         input_: capo_appconfig.types.delete_experiment_definition_request.DeleteExperimentDefinitionRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -1164,7 +1240,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExtension")
+        )
         input_: capo_appconfig.types.delete_extension_request.DeleteExtensionRequest = {
             "extension_identifier": extension_identifier
         }
@@ -1209,7 +1287,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExtensionAssociation")
+        )
         input_: capo_appconfig.types.delete_extension_association_request.DeleteExtensionAssociationRequest = {
             "extension_association_id": extension_association_id
         }
@@ -1262,7 +1342,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHostedConfigurationVersion")
+        )
         input_: capo_appconfig.types.delete_hosted_configuration_version_request.DeleteHostedConfigurationVersionRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -1300,7 +1382,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1346,7 +1430,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_appconfig.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -1405,7 +1491,17 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appconfig.types.configuration.Configuration",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.configuration
+
+            return capo_appconfig.types.configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConfiguration", redact_output=_redact_output),
+        )
         input_: capo_appconfig.types.get_configuration_request.GetConfigurationRequest = {
             "application": application,
             "environment": environment,
@@ -1463,7 +1559,17 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appconfig.types.configuration_profile.ConfigurationProfile",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.configuration_profile
+
+            return capo_appconfig.types.configuration_profile.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConfigurationProfile", redact_output=_redact_output),
+        )
         input_: capo_appconfig.types.get_configuration_profile_request.GetConfigurationProfileRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -1511,7 +1617,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_appconfig.types.get_deployment_request.GetDeploymentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -1564,7 +1672,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentStrategy")
+        )
         input_: capo_appconfig.types.get_deployment_strategy_request.GetDeploymentStrategyRequest = {
             "deployment_strategy_id": deployment_strategy_id
         }
@@ -1615,7 +1725,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_appconfig.types.get_environment_request.GetEnvironmentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -1669,7 +1781,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExperimentDefinition")
+        )
         input_: capo_appconfig.types.get_experiment_definition_request.GetExperimentDefinitionRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -1723,7 +1837,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExperimentRun")
+        )
         input_: capo_appconfig.types.get_experiment_run_request.GetExperimentRunRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -1770,7 +1886,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExtension")
+        )
         input_: capo_appconfig.types.get_extension_request.GetExtensionRequest = {
             "extension_identifier": extension_identifier
         }
@@ -1817,7 +1935,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExtensionAssociation")
+        )
         input_: capo_appconfig.types.get_extension_association_request.GetExtensionAssociationRequest = {
             "extension_association_id": extension_association_id
         }
@@ -1872,7 +1992,21 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appconfig.types.hosted_configuration_version.HostedConfigurationVersion",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.hosted_configuration_version
+
+            return capo_appconfig.types.hosted_configuration_version.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetHostedConfigurationVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_appconfig.types.get_hosted_configuration_version_request.GetHostedConfigurationVersionRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -1924,7 +2058,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_appconfig.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2006,7 +2142,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationProfiles")
+        )
         input_: capo_appconfig.types.list_configuration_profiles_request.ListConfigurationProfilesRequest = {
             "application_id": application_id
         }
@@ -2088,7 +2226,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_appconfig.types.list_deployments_request.ListDeploymentsRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -2170,7 +2310,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentStrategies")
+        )
         input_: capo_appconfig.types.list_deployment_strategies_request.ListDeploymentStrategiesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2246,7 +2388,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_appconfig.types.list_environments_request.ListEnvironmentsRequest = {
             "application_id": application_id
         }
@@ -2342,7 +2486,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperimentDefinitions")
+        )
         input_: capo_appconfig.types.list_experiment_definitions_request.ListExperimentDefinitionsRequest = {}
         if application_identifier is not None:
             input_["application_identifier"] = application_identifier
@@ -2450,7 +2596,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperimentRunEvents")
+        )
         input_: capo_appconfig.types.list_experiment_run_events_request.ListExperimentRunEventsRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -2542,7 +2690,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperimentRuns")
+        )
         input_: capo_appconfig.types.list_experiment_runs_request.ListExperimentRunsRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -2634,7 +2784,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExtensionAssociations")
+        )
         input_: capo_appconfig.types.list_extension_associations_request.ListExtensionAssociationsRequest = {}
         if resource_identifier is not None:
             input_["resource_identifier"] = resource_identifier
@@ -2719,7 +2871,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExtensions")
+        )
         input_: capo_appconfig.types.list_extensions_request.ListExtensionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2807,7 +2961,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListHostedConfigurationVersions")
+        )
         input_: capo_appconfig.types.list_hosted_configuration_versions_request.ListHostedConfigurationVersionsRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -2890,7 +3046,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appconfig.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2958,7 +3116,19 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.start_deployment_request.StartDeploymentRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.start_deployment_request
+
+            return capo_appconfig.types.start_deployment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDeployment", redact_input=_redact_input),
+        )
         input_: capo_appconfig.types.start_deployment_request.StartDeploymentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -3040,7 +3210,19 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.start_experiment_run_request.StartExperimentRunRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.start_experiment_run_request
+
+            return capo_appconfig.types.start_experiment_run_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartExperimentRun", redact_input=_redact_input),
+        )
         input_: capo_appconfig.types.start_experiment_run_request.StartExperimentRunRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -3106,7 +3288,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDeployment")
+        )
         input_: capo_appconfig.types.stop_deployment_request.StopDeploymentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -3172,7 +3356,19 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.stop_experiment_run_request.StopExperimentRunRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.stop_experiment_run_request
+
+            return capo_appconfig.types.stop_experiment_run_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopExperimentRun", redact_input=_redact_input),
+        )
         input_: capo_appconfig.types.stop_experiment_run_request.StopExperimentRunRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -3229,7 +3425,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appconfig.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3281,7 +3479,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appconfig.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3330,7 +3530,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_appconfig.types.update_account_settings_request.UpdateAccountSettingsRequest = {}
         if deletion_protection is not None:
             input_["deletion_protection"] = deletion_protection
@@ -3385,7 +3587,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_appconfig.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -3456,7 +3660,30 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.update_configuration_profile_request.UpdateConfigurationProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.update_configuration_profile_request
+
+            return capo_appconfig.types.update_configuration_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_appconfig.types.configuration_profile.ConfigurationProfile",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.configuration_profile
+
+            return capo_appconfig.types.configuration_profile.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateConfigurationProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_appconfig.types.update_configuration_profile_request.UpdateConfigurationProfileRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,
@@ -3535,7 +3762,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeploymentStrategy")
+        )
         input_: capo_appconfig.types.update_deployment_strategy_request.UpdateDeploymentStrategyRequest = {
             "deployment_strategy_id": deployment_strategy_id
         }
@@ -3602,7 +3831,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_appconfig.types.update_environment_request.UpdateEnvironmentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -3681,7 +3912,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExperimentDefinition")
+        )
         input_: capo_appconfig.types.update_experiment_definition_request.UpdateExperimentDefinitionRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -3762,7 +3995,19 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appconfig.types.update_experiment_run_request.UpdateExperimentRunRequest",
+        ) -> dict[str, Any]:
+            import capo_appconfig.types.update_experiment_run_request
+
+            return capo_appconfig.types.update_experiment_run_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateExperimentRun", redact_input=_redact_input),
+        )
         input_: capo_appconfig.types.update_experiment_run_request.UpdateExperimentRunRequest = {
             "application_identifier": application_identifier,
             "experiment_definition_identifier": experiment_definition_identifier,
@@ -3824,7 +4069,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExtension")
+        )
         input_: capo_appconfig.types.update_extension_request.UpdateExtensionRequest = {
             "extension_identifier": extension_identifier
         }
@@ -3881,7 +4128,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExtensionAssociation")
+        )
         input_: capo_appconfig.types.update_extension_association_request.UpdateExtensionAssociationRequest = {
             "extension_association_id": extension_association_id
         }
@@ -3936,7 +4185,9 @@ class AppConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateConfiguration")
+        )
         input_: capo_appconfig.types.validate_configuration_request.ValidateConfigurationRequest = {
             "application_id": application_id,
             "configuration_profile_id": configuration_profile_id,

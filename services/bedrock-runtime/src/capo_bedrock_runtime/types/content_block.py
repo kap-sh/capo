@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ContentBlock``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -321,3 +321,38 @@ def deserialize_json(data: dict) -> ContentBlock:
         }
     else:
         raise DeserializationError("ContentBlock: no recognized variant key")
+
+
+def redact_sensitive(value: ContentBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "image" in value:
+        import capo_bedrock_runtime.types.image_block
+
+        out["image"] = capo_bedrock_runtime.types.image_block.redact_sensitive(
+            value["image"]
+        )
+    if "audio" in value:
+        import capo_bedrock_runtime.types.audio_block
+
+        out["audio"] = capo_bedrock_runtime.types.audio_block.redact_sensitive(
+            value["audio"]
+        )
+    if "toolResult" in value:
+        import capo_bedrock_runtime.types.tool_result_block
+
+        out["toolResult"] = (
+            capo_bedrock_runtime.types.tool_result_block.redact_sensitive(
+                value["toolResult"]
+            )
+        )
+    if "guardContent" in value:
+        import capo_bedrock_runtime.types.guardrail_converse_content_block
+
+        out["guardContent"] = (
+            capo_bedrock_runtime.types.guardrail_converse_content_block.redact_sensitive(
+                value["guardContent"]
+            )
+        )
+    if "reasoningContent" in value:
+        out["reasoningContent"] = "*** Sensitive Data Redacted ***"
+    return out

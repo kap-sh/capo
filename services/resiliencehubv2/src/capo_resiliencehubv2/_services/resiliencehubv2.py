@@ -38,10 +38,12 @@ from capo_resiliencehubv2._resources.ngrh_service_core.iam_system_resource impor
 from capo_resiliencehubv2._services._aws_config import aws_config
 from capo_resiliencehubv2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -358,7 +360,9 @@ class resiliencehubv2Client:
         self.iam_system_resource = IamSystemResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[resiliencehubv2ClientConfig] = None
+        self,
+        config_overrides: Optional[resiliencehubv2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: resiliencehubv2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -366,8 +370,10 @@ class resiliencehubv2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -425,7 +431,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAssertion")
+        )
         input_: capo_resiliencehubv2.types.create_assertion_request.CreateAssertionRequest = {
             "service_arn": service_arn,
             "text": text,
@@ -478,7 +486,21 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.create_input_source_request.CreateInputSourceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_input_source_request
+
+            return (
+                capo_resiliencehubv2.types.create_input_source_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateInputSource", redact_input=_redact_input),
+        )
         input_: capo_resiliencehubv2.types.create_input_source_request.CreateInputSourceRequest = {
             "service_arn": service_arn,
             "resource_configuration": resource_configuration,
@@ -555,7 +577,30 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.create_policy_request.CreatePolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_policy_request
+
+            return capo_resiliencehubv2.types.create_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.create_policy_response.CreatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_policy_response
+
+            return capo_resiliencehubv2.types.create_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehubv2.types.create_policy_request.CreatePolicyRequest = {
             "name": name
         }
@@ -626,7 +671,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReport")
+        )
         input_: capo_resiliencehubv2.types.create_report_request.CreateReportRequest = {
             "service_arn": service_arn,
             "report_type": report_type,
@@ -700,7 +747,32 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.create_service_request.CreateServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_service_request
+
+            return capo_resiliencehubv2.types.create_service_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.create_service_response.CreateServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_service_response
+
+            return capo_resiliencehubv2.types.create_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_resiliencehubv2.types.create_service_request.CreateServiceRequest = {
             "name": name,
             "regions": regions,
@@ -775,7 +847,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceFunction")
+        )
         input_: capo_resiliencehubv2.types.create_service_function_request.CreateServiceFunctionRequest = {
             "name": name,
             "service_arn": service_arn,
@@ -832,7 +906,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceFunctionResources")
+        )
         input_: capo_resiliencehubv2.types.create_service_function_resources_request.CreateServiceFunctionResourcesRequest = {
             "service_arn": service_arn,
             "service_function_id": service_function_id,
@@ -891,7 +967,30 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.create_system_request.CreateSystemRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_system_request
+
+            return capo_resiliencehubv2.types.create_system_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.create_system_response.CreateSystemResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.create_system_response
+
+            return capo_resiliencehubv2.types.create_system_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateSystem", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehubv2.types.create_system_request.CreateSystemRequest = {
             "name": name
         }
@@ -967,7 +1066,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTest")
+        )
         input_: capo_resiliencehubv2.types.create_test_request.CreateTestRequest = {
             "service_arn": service_arn,
             "test_template_arn": test_template_arn,
@@ -1029,7 +1130,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserJourney")
+        )
         input_: capo_resiliencehubv2.types.create_user_journey_request.CreateUserJourneyRequest = {
             "system_arn": system_arn,
             "name": name,
@@ -1084,7 +1187,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssertion")
+        )
         input_: capo_resiliencehubv2.types.delete_assertion_request.DeleteAssertionRequest = {
             "service_arn": service_arn,
             "assertion_id": assertion_id,
@@ -1132,7 +1237,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInputSource")
+        )
         input_: capo_resiliencehubv2.types.delete_input_source_request.DeleteInputSourceRequest = {
             "service_arn": service_arn,
             "input_source_id": input_source_id,
@@ -1177,7 +1284,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_resiliencehubv2.types.delete_policy_request.DeletePolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1221,7 +1330,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_resiliencehubv2.types.delete_service_request.DeleteServiceRequest = {
             "service_arn": service_arn
         }
@@ -1269,7 +1380,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceFunction")
+        )
         input_: capo_resiliencehubv2.types.delete_service_function_request.DeleteServiceFunctionRequest = {
             "service_arn": service_arn,
             "service_function_id": service_function_id,
@@ -1320,7 +1433,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceFunctionResources")
+        )
         input_: capo_resiliencehubv2.types.delete_service_function_resources_request.DeleteServiceFunctionResourcesRequest = {
             "service_arn": service_arn,
             "service_function_id": service_function_id,
@@ -1366,7 +1481,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSystem")
+        )
         input_: capo_resiliencehubv2.types.delete_system_request.DeleteSystemRequest = {
             "system_arn": system_arn
         }
@@ -1415,7 +1532,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTest")
+        )
         input_: capo_resiliencehubv2.types.delete_test_request.DeleteTestRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -1467,7 +1586,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTestSources")
+        )
         input_: capo_resiliencehubv2.types.delete_test_sources_request.DeleteTestSourcesRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -1517,7 +1638,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserJourney")
+        )
         input_: capo_resiliencehubv2.types.delete_user_journey_request.DeleteUserJourneyRequest = {
             "system_arn": system_arn,
             "user_journey_id": user_journey_id,
@@ -1562,7 +1685,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDependencyInsights")
+        )
         input_: capo_resiliencehubv2.types.get_dependency_insights_request.GetDependencyInsightsRequest = {
             "service_arn": service_arn
         }
@@ -1609,7 +1734,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFailureModeFinding")
+        )
         input_: capo_resiliencehubv2.types.get_failure_mode_finding_request.GetFailureModeFindingRequest = {
             "finding_id": finding_id,
             "service_arn": service_arn,
@@ -1653,7 +1780,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.get_policy_response.GetPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.get_policy_response
+
+            return capo_resiliencehubv2.types.get_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicy", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.get_policy_request.GetPolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -1696,7 +1835,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.get_service_response.GetServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.get_service_response
+
+            return capo_resiliencehubv2.types.get_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.get_service_request.GetServiceRequest = {
             "service_arn": service_arn
         }
@@ -1739,7 +1890,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.get_system_response.GetSystemResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.get_system_response
+
+            return capo_resiliencehubv2.types.get_system_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSystem", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.get_system_request.GetSystemRequest = {
             "system_arn": system_arn
         }
@@ -1787,7 +1950,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTest")
+        )
         input_: capo_resiliencehubv2.types.get_test_request.GetTestRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -1836,7 +2001,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTestRun")
+        )
         input_: capo_resiliencehubv2.types.get_test_run_request.GetTestRunRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -1885,7 +2052,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTestTemplate")
+        )
         input_: capo_resiliencehubv2.types.get_test_template_request.GetTestTemplateRequest = {
             "test_template_arn": test_template_arn
         }
@@ -1932,7 +2101,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserJourney")
+        )
         input_: capo_resiliencehubv2.types.get_user_journey_request.GetUserJourneyRequest = {
             "system_arn": system_arn,
             "user_journey_id": user_journey_id,
@@ -1991,7 +2162,30 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.import_app_request.ImportAppRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.import_app_request
+
+            return capo_resiliencehubv2.types.import_app_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.import_app_response.ImportAppResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.import_app_response
+
+            return capo_resiliencehubv2.types.import_app_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ImportApp", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehubv2.types.import_app_request.ImportAppRequest = {
             "v1_app_arn": v1_app_arn
         }
@@ -2067,7 +2261,30 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.import_policy_request.ImportPolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.import_policy_request
+
+            return capo_resiliencehubv2.types.import_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.import_policy_response.ImportPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.import_policy_response
+
+            return capo_resiliencehubv2.types.import_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ImportPolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resiliencehubv2.types.import_policy_request.ImportPolicyRequest = {
             "v1_policy_arn": v1_policy_arn
         }
@@ -2137,7 +2354,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssertions")
+        )
         input_: capo_resiliencehubv2.types.list_assertions_request.ListAssertionsRequest = {
             "service_arn": service_arn
         }
@@ -2231,7 +2450,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDependencies")
+        )
         input_: capo_resiliencehubv2.types.list_dependencies_request.ListDependenciesRequest = {}
         if service_arn is not None:
             input_["service_arn"] = service_arn
@@ -2337,7 +2558,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFailureModeAssessments")
+        )
         input_: capo_resiliencehubv2.types.list_failure_mode_assessments_request.ListFailureModeAssessmentsRequest = {
             "service_arn": service_arn
         }
@@ -2451,7 +2674,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFailureModeFindings")
+        )
         input_: capo_resiliencehubv2.types.list_failure_mode_findings_request.ListFailureModeFindingsRequest = {
             "service_arn": service_arn
         }
@@ -2551,7 +2776,21 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.list_input_sources_response.ListInputSourcesResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.list_input_sources_response
+
+            return (
+                capo_resiliencehubv2.types.list_input_sources_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListInputSources", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.list_input_sources_request.ListInputSourcesRequest = {
             "service_arn": service_arn
         }
@@ -2635,7 +2874,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_resiliencehubv2.types.list_policies_request.ListPoliciesRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -2721,7 +2962,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyEvents")
+        )
         input_: capo_resiliencehubv2.types.list_policy_events_request.ListPolicyEventsRequest = {
             "policy_arn": policy_arn
         }
@@ -2822,7 +3065,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReports")
+        )
         input_: capo_resiliencehubv2.types.list_reports_request.ListReportsRequest = {}
         if service_arn is not None:
             input_["service_arn"] = service_arn
@@ -2915,7 +3160,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResolvedTestRunTargetResources")
+        )
         input_: capo_resiliencehubv2.types.list_resolved_test_run_target_resources_request.ListResolvedTestRunTargetResourcesRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -3008,7 +3255,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResources")
+        )
         input_: capo_resiliencehubv2.types.list_resources_request.ListResourcesRequest = {
             "service_arn": service_arn
         }
@@ -3114,7 +3363,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceEvents")
+        )
         input_: capo_resiliencehubv2.types.list_service_events_request.ListServiceEventsRequest = {
             "service_arn": service_arn
         }
@@ -3204,7 +3455,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceFunctions")
+        )
         input_: capo_resiliencehubv2.types.list_service_functions_request.ListServiceFunctionsRequest = {
             "service_arn": service_arn
         }
@@ -3294,7 +3547,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_resiliencehubv2.types.list_services_request.ListServicesRequest = {}
         if system_arn is not None:
             input_["system_arn"] = system_arn
@@ -3393,7 +3648,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceTopologyEdges")
+        )
         input_: capo_resiliencehubv2.types.list_service_topology_edges_request.ListServiceTopologyEdgesRequest = {
             "service_arn": service_arn
         }
@@ -3479,7 +3736,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSystemEvents")
+        )
         input_: capo_resiliencehubv2.types.list_system_events_request.ListSystemEventsRequest = {
             "system_arn": system_arn
         }
@@ -3571,7 +3830,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSystems")
+        )
         input_: capo_resiliencehubv2.types.list_systems_request.ListSystemsRequest = {}
         if ou_id is not None:
             input_["ou_id"] = ou_id
@@ -3644,7 +3905,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.list_tags_for_resource_response
+
+            return capo_resiliencehubv2.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3696,7 +3969,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRunDependencies")
+        )
         input_: capo_resiliencehubv2.types.list_test_run_dependencies_request.ListTestRunDependenciesRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -3784,7 +4059,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRunEvents")
+        )
         input_: capo_resiliencehubv2.types.list_test_run_events_request.ListTestRunEventsRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -3876,7 +4153,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRuns")
+        )
         input_: capo_resiliencehubv2.types.list_test_runs_request.ListTestRunsRequest = {
             "service_arn": service_arn
         }
@@ -3963,7 +4242,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRunSourceEvents")
+        )
         input_: capo_resiliencehubv2.types.list_test_run_source_events_request.ListTestRunSourceEventsRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -4056,7 +4337,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestRunSources")
+        )
         input_: capo_resiliencehubv2.types.list_test_run_sources_request.ListTestRunSourcesRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -4144,7 +4427,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTests")
+        )
         input_: capo_resiliencehubv2.types.list_tests_request.ListTestsRequest = {
             "service_arn": service_arn
         }
@@ -4231,7 +4516,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestSources")
+        )
         input_: capo_resiliencehubv2.types.list_test_sources_request.ListTestSourcesRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -4308,7 +4595,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTestTemplates")
+        )
         input_: capo_resiliencehubv2.types.list_test_templates_request.ListTestTemplatesRequest = {}
 
         response = execute_pipeline(
@@ -4353,7 +4642,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserJourneys")
+        )
         input_: capo_resiliencehubv2.types.list_user_journeys_request.ListUserJourneysRequest = {
             "system_arn": system_arn
         }
@@ -4434,7 +4725,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTestSources")
+        )
         input_: capo_resiliencehubv2.types.put_test_sources_request.PutTestSourcesRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -4484,7 +4777,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDependencyInsights")
+        )
         input_: capo_resiliencehubv2.types.start_dependency_insights_request.StartDependencyInsightsRequest = {
             "service_arn": service_arn
         }
@@ -4535,7 +4830,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFailureModeAssessment")
+        )
         input_: capo_resiliencehubv2.types.start_failure_mode_assessment_request.StartFailureModeAssessmentRequest = {
             "service_arn": service_arn
         }
@@ -4587,7 +4884,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTestRun")
+        )
         input_: capo_resiliencehubv2.types.start_test_run_request.StartTestRunRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -4637,7 +4936,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTestRun")
+        )
         input_: capo_resiliencehubv2.types.stop_test_run_request.StopTestRunRequest = {
             "test_run_id": test_run_id,
             "service_arn": service_arn,
@@ -4683,7 +4984,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.tag_resource_request
+
+            return capo_resiliencehubv2.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_resiliencehubv2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4732,7 +5045,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resiliencehubv2.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.untag_resource_request
+
+            return capo_resiliencehubv2.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_resiliencehubv2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4785,7 +5110,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAssertion")
+        )
         input_: capo_resiliencehubv2.types.update_assertion_request.UpdateAssertionRequest = {
             "service_arn": service_arn,
             "assertion_id": assertion_id,
@@ -4844,7 +5171,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDependency")
+        )
         input_: capo_resiliencehubv2.types.update_dependency_request.UpdateDependencyRequest = {
             "service_arn": service_arn,
             "dependency_id": dependency_id,
@@ -4901,7 +5230,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFailureModeFinding")
+        )
         input_: capo_resiliencehubv2.types.update_failure_mode_finding_request.UpdateFailureModeFindingRequest = {
             "finding_id": finding_id,
             "status": status,
@@ -4972,7 +5303,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.update_policy_response.UpdatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.update_policy_response
+
+            return capo_resiliencehubv2.types.update_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePolicy", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.update_policy_request.UpdatePolicyRequest = {
             "policy_arn": policy_arn
         }
@@ -5051,7 +5394,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.update_service_response.UpdateServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.update_service_response
+
+            return capo_resiliencehubv2.types.update_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateService", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.update_service_request.UpdateServiceRequest = {
             "service_arn": service_arn
         }
@@ -5121,7 +5476,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceFunction")
+        )
         input_: capo_resiliencehubv2.types.update_service_function_request.UpdateServiceFunctionRequest = {
             "service_arn": service_arn,
             "service_function_id": service_function_id,
@@ -5179,7 +5536,19 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resiliencehubv2.types.update_system_response.UpdateSystemResponse",
+        ) -> dict[str, Any]:
+            import capo_resiliencehubv2.types.update_system_response
+
+            return capo_resiliencehubv2.types.update_system_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSystem", redact_output=_redact_output),
+        )
         input_: capo_resiliencehubv2.types.update_system_request.UpdateSystemRequest = {
             "system_arn": system_arn
         }
@@ -5248,7 +5617,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTest")
+        )
         input_: capo_resiliencehubv2.types.update_test_request.UpdateTestRequest = {
             "test_id": test_id,
             "service_arn": service_arn,
@@ -5310,7 +5681,9 @@ class resiliencehubv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserJourney")
+        )
         input_: capo_resiliencehubv2.types.update_user_journey_request.UpdateUserJourneyRequest = {
             "system_arn": system_arn,
             "user_journey_id": user_journey_id,

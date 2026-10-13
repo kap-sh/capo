@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,32 @@ class EnvironmentTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_template_version_input.CreateEnvironmentTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_version_input
+
+            return capo_proton.types.create_environment_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_template_version_output.CreateEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_version_output
+
+            return capo_proton.types.create_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_template_version_input.CreateEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "source": source,
@@ -153,7 +179,21 @@ class EnvironmentTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_template_version_output.GetEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_template_version_output
+
+            return capo_proton.types.get_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetEnvironmentTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.get_environment_template_version_input.GetEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -213,7 +253,32 @@ class EnvironmentTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_template_version_input.UpdateEnvironmentTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_version_input
+
+            return capo_proton.types.update_environment_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_template_version_output.UpdateEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_version_output
+
+            return capo_proton.types.update_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_template_version_input.UpdateEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -271,7 +336,21 @@ class EnvironmentTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_template_version_output.DeleteEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_template_version_output
+
+            return capo_proton.types.delete_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteEnvironmentTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.delete_environment_template_version_input.DeleteEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -330,7 +409,21 @@ class EnvironmentTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_template_versions_output.ListEnvironmentTemplateVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_template_versions_output
+
+            return capo_proton.types.list_environment_template_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEnvironmentTemplateVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.list_environment_template_versions_input.ListEnvironmentTemplateVersionsInput = {
             "template_name": template_name
         }
@@ -403,7 +496,32 @@ class AsyncEnvironmentTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_template_version_input.CreateEnvironmentTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_version_input
+
+            return capo_proton.types.create_environment_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_template_version_output.CreateEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_version_output
+
+            return capo_proton.types.create_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_template_version_input.CreateEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "source": source,
@@ -465,7 +583,21 @@ class AsyncEnvironmentTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_template_version_output.GetEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_template_version_output
+
+            return capo_proton.types.get_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetEnvironmentTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.get_environment_template_version_input.GetEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -526,7 +658,32 @@ class AsyncEnvironmentTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_template_version_input.UpdateEnvironmentTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_version_input
+
+            return capo_proton.types.update_environment_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_template_version_output.UpdateEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_version_output
+
+            return capo_proton.types.update_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_template_version_input.UpdateEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -585,7 +742,21 @@ class AsyncEnvironmentTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_template_version_output.DeleteEnvironmentTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_template_version_output
+
+            return capo_proton.types.delete_environment_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteEnvironmentTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.delete_environment_template_version_input.DeleteEnvironmentTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -645,7 +816,21 @@ class AsyncEnvironmentTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_template_versions_output.ListEnvironmentTemplateVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_template_versions_output
+
+            return capo_proton.types.list_environment_template_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEnvironmentTemplateVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.list_environment_template_versions_input.ListEnvironmentTemplateVersionsInput = {
             "template_name": template_name
         }

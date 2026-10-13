@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DashboardVersionDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -230,5 +230,54 @@ def deserialize_json(data: dict) -> DashboardVersionDefinition:
 
         out["static_files"] = capo_quicksight.types.static_file_list.deserialize_json(
             data["StaticFiles"]
+        )
+    return out
+
+
+def redact_sensitive(value: DashboardVersionDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sheets" in value:
+        import capo_quicksight.types.sheet_definition_list
+
+        out["sheets"] = capo_quicksight.types.sheet_definition_list.redact_sensitive(
+            value["sheets"]
+        )
+    if "tooltip_sheets" in value:
+        import capo_quicksight.types.tooltip_sheet_definition_list
+
+        out["tooltip_sheets"] = (
+            capo_quicksight.types.tooltip_sheet_definition_list.redact_sensitive(
+                value["tooltip_sheets"]
+            )
+        )
+    if "calculated_fields" in value:
+        import capo_quicksight.types.calculated_fields
+
+        out["calculated_fields"] = (
+            capo_quicksight.types.calculated_fields.redact_sensitive(
+                value["calculated_fields"]
+            )
+        )
+    if "parameter_declarations" in value:
+        import capo_quicksight.types.parameter_declaration_list
+
+        out["parameter_declarations"] = (
+            capo_quicksight.types.parameter_declaration_list.redact_sensitive(
+                value["parameter_declarations"]
+            )
+        )
+    if "filter_groups" in value:
+        import capo_quicksight.types.filter_group_list
+
+        out["filter_groups"] = capo_quicksight.types.filter_group_list.redact_sensitive(
+            value["filter_groups"]
+        )
+    if "column_configurations" in value:
+        import capo_quicksight.types.column_configuration_list
+
+        out["column_configurations"] = (
+            capo_quicksight.types.column_configuration_list.redact_sensitive(
+                value["column_configurations"]
+            )
         )
     return out

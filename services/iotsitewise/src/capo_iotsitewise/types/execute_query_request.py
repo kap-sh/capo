@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ExecuteQueryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_json(data: dict) -> ExecuteQueryRequest:
         out["max_results"] = data["maxResults"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: ExecuteQueryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_statement" in value:
+        out["query_statement"] = "*** Sensitive Data Redacted ***"
     return out

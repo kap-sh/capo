@@ -7,6 +7,7 @@ import capo_s3vectors._auth._sigv4
 from capo_s3vectors._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVectorBucket")
+        )
         input_: capo_s3vectors.types.create_vector_bucket_input.CreateVectorBucketInput = {
             "vector_bucket_name": vector_bucket_name
         }
@@ -157,7 +160,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorBucket")
+        )
         input_: capo_s3vectors.types.delete_vector_bucket_input.DeleteVectorBucketInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -214,7 +219,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.delete_vector_bucket_policy_input.DeleteVectorBucketPolicyInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -271,7 +278,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorBucket")
+        )
         input_: capo_s3vectors.types.get_vector_bucket_input.GetVectorBucketInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -328,7 +337,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.get_vector_bucket_policy_input.GetVectorBucketPolicyInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -388,7 +399,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVectorBuckets")
+        )
         input_: capo_s3vectors.types.list_vector_buckets_input.ListVectorBucketsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -449,7 +462,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutVectorBucketDefaultIndexMode")
+        )
         input_: capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput = {
             "default_index_mode": default_index_mode
         }
@@ -510,7 +525,9 @@ class VectorBucketResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.put_vector_bucket_policy_input.PutVectorBucketPolicyInput = {
             "policy": policy
         }
@@ -576,7 +593,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVectorBucket")
+        )
         input_: capo_s3vectors.types.create_vector_bucket_input.CreateVectorBucketInput = {
             "vector_bucket_name": vector_bucket_name
         }
@@ -637,7 +656,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorBucket")
+        )
         input_: capo_s3vectors.types.delete_vector_bucket_input.DeleteVectorBucketInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -695,7 +716,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.delete_vector_bucket_policy_input.DeleteVectorBucketPolicyInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -753,7 +776,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorBucket")
+        )
         input_: capo_s3vectors.types.get_vector_bucket_input.GetVectorBucketInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -811,7 +836,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.get_vector_bucket_policy_input.GetVectorBucketPolicyInput = {}
         if vector_bucket_name is not None:
             input_["vector_bucket_name"] = vector_bucket_name
@@ -872,7 +899,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVectorBuckets")
+        )
         input_: capo_s3vectors.types.list_vector_buckets_input.ListVectorBucketsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -934,7 +963,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutVectorBucketDefaultIndexMode")
+        )
         input_: capo_s3vectors.types.put_vector_bucket_default_index_mode_input.PutVectorBucketDefaultIndexModeInput = {
             "default_index_mode": default_index_mode
         }
@@ -996,7 +1027,9 @@ class AsyncVectorBucketResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutVectorBucketPolicy")
+        )
         input_: capo_s3vectors.types.put_vector_bucket_policy_input.PutVectorBucketPolicyInput = {
             "policy": policy
         }

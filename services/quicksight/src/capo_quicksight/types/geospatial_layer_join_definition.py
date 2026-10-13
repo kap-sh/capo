@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeospatialLayerJoinDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,6 +64,27 @@ def deserialize_json(data: dict) -> GeospatialLayerJoinDefinition:
         out["color_field"] = (
             capo_quicksight.types.geospatial_layer_color_field.deserialize_json(
                 data["ColorField"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeospatialLayerJoinDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dataset_key_field" in value:
+        import capo_quicksight.types.unaggregated_field
+
+        out["dataset_key_field"] = (
+            capo_quicksight.types.unaggregated_field.redact_sensitive(
+                value["dataset_key_field"]
+            )
+        )
+    if "color_field" in value:
+        import capo_quicksight.types.geospatial_layer_color_field
+
+        out["color_field"] = (
+            capo_quicksight.types.geospatial_layer_color_field.redact_sensitive(
+                value["color_field"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#ConditionBasedCollectionScheme``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionBasedCollectionScheme:
         )
     if data.get("conditionLanguageVersion") is not None:
         out["condition_language_version"] = data["conditionLanguageVersion"]
+    return out
+
+
+def redact_sensitive(value: ConditionBasedCollectionScheme) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

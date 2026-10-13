@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_grafana._auth._signers
 import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,19 @@ class License:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.associate_license_response.AssociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.associate_license_response
+
+            return capo_grafana.types.associate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.associate_license_request.AssociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,
@@ -122,7 +135,19 @@ class License:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.disassociate_license_response.DisassociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.disassociate_license_response
+
+            return capo_grafana.types.disassociate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.disassociate_license_request.DisassociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,
@@ -180,7 +205,19 @@ class AsyncLicense:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.associate_license_response.AssociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.associate_license_response
+
+            return capo_grafana.types.associate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.associate_license_request.AssociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,
@@ -233,7 +270,19 @@ class AsyncLicense:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.disassociate_license_response.DisassociateLicenseResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.disassociate_license_response
+
+            return capo_grafana.types.disassociate_license_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateLicense", redact_output=_redact_output),
+        )
         input_: capo_grafana.types.disassociate_license_request.DisassociateLicenseRequest = {
             "workspace_id": workspace_id,
             "license_type": license_type,

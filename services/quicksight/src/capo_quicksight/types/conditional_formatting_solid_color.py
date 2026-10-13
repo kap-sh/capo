@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ConditionalFormattingSolidColor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> ConditionalFormattingSolidColor:
         )
     if data.get("Color") is not None:
         out["color"] = data["Color"]
+    return out
+
+
+def redact_sensitive(value: ConditionalFormattingSolidColor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -148,7 +149,17 @@ class ServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.create_server_request.CreateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.create_server_request
+
+            return capo_transfer.types.create_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.create_server_request.CreateServerRequest = {}
         if certificate is not None:
             input_["certificate"] = certificate
@@ -230,7 +241,9 @@ class ServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServer")
+        )
         input_: capo_transfer.types.describe_server_request.DescribeServerRequest = {
             "server_id": server_id
         }
@@ -336,7 +349,17 @@ class ServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.update_server_request.UpdateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.update_server_request
+
+            return capo_transfer.types.update_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.update_server_request.UpdateServerRequest = {
             "server_id": server_id
         }
@@ -415,7 +438,9 @@ class ServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServer")
+        )
         input_: capo_transfer.types.delete_server_request.DeleteServerRequest = {
             "server_id": server_id
         }
@@ -463,7 +488,9 @@ class ServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServers")
+        )
         input_: capo_transfer.types.list_servers_request.ListServersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -578,7 +605,17 @@ class AsyncServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.create_server_request.CreateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.create_server_request
+
+            return capo_transfer.types.create_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.create_server_request.CreateServerRequest = {}
         if certificate is not None:
             input_["certificate"] = certificate
@@ -661,7 +698,9 @@ class AsyncServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeServer")
+        )
         input_: capo_transfer.types.describe_server_request.DescribeServerRequest = {
             "server_id": server_id
         }
@@ -768,7 +807,17 @@ class AsyncServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_transfer.types.update_server_request.UpdateServerRequest",
+        ) -> dict[str, Any]:
+            import capo_transfer.types.update_server_request
+
+            return capo_transfer.types.update_server_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateServer", redact_input=_redact_input),
+        )
         input_: capo_transfer.types.update_server_request.UpdateServerRequest = {
             "server_id": server_id
         }
@@ -848,7 +897,9 @@ class AsyncServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServer")
+        )
         input_: capo_transfer.types.delete_server_request.DeleteServerRequest = {
             "server_id": server_id
         }
@@ -897,7 +948,9 @@ class AsyncServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServers")
+        )
         input_: capo_transfer.types.list_servers_request.ListServersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#UpdateDomainLayoutRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,13 @@ def deserialize_json(data: dict) -> UpdateDomainLayoutRequest:
         )
     if data.get("Layout") is not None:
         out["layout"] = data["Layout"]
+    return out
+
+
+def redact_sensitive(value: UpdateDomainLayoutRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "layout" in value:
+        out["layout"] = "*** Sensitive Data Redacted ***"
     return out

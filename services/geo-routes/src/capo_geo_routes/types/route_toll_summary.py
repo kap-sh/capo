@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,5 +34,16 @@ def deserialize_json(data: dict) -> RouteTollSummary:
 
         out["total"] = capo_geo_routes.types.route_toll_price_summary.deserialize_json(
             data["Total"]
+        )
+    return out
+
+
+def redact_sensitive(value: RouteTollSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "total" in value:
+        import capo_geo_routes.types.route_toll_price_summary
+
+        out["total"] = capo_geo_routes.types.route_toll_price_summary.redact_sensitive(
+            value["total"]
         )
     return out

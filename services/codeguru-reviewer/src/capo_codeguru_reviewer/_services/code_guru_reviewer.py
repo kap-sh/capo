@@ -22,10 +22,12 @@ from capo_codeguru_reviewer._pagination import resolve_path as _resolve_path
 from capo_codeguru_reviewer._services._aws_config import aws_config
 from capo_codeguru_reviewer._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -159,7 +161,9 @@ class CodeGuruReviewerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodeGuruReviewerClientConfig] = None
+        self,
+        config_overrides: Optional[CodeGuruReviewerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodeGuruReviewerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -167,8 +171,10 @@ class CodeGuruReviewerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -231,7 +237,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateRepository")
+        )
         input_: capo_codeguru_reviewer.types.associate_repository_request.AssociateRepositoryRequest = {
             "repository": repository
         }
@@ -294,7 +302,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCodeReview")
+        )
         input_: capo_codeguru_reviewer.types.create_code_review_request.CreateCodeReviewRequest = {
             "name": name,
             "repository_association_arn": repository_association_arn,
@@ -346,7 +356,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCodeReview")
+        )
         input_: capo_codeguru_reviewer.types.describe_code_review_request.DescribeCodeReviewRequest = {
             "code_review_arn": code_review_arn
         }
@@ -397,7 +409,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecommendationFeedback")
+        )
         input_: capo_codeguru_reviewer.types.describe_recommendation_feedback_request.DescribeRecommendationFeedbackRequest = {
             "code_review_arn": code_review_arn,
             "recommendation_id": recommendation_id,
@@ -447,7 +461,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRepositoryAssociation")
+        )
         input_: capo_codeguru_reviewer.types.describe_repository_association_request.DescribeRepositoryAssociationRequest = {
             "association_arn": association_arn
         }
@@ -495,7 +511,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateRepository")
+        )
         input_: capo_codeguru_reviewer.types.disassociate_repository_request.DisassociateRepositoryRequest = {
             "association_arn": association_arn
         }
@@ -559,7 +577,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeReviews")
+        )
         input_: capo_codeguru_reviewer.types.list_code_reviews_request.ListCodeReviewsRequest = {
             "type": type
         }
@@ -665,7 +685,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendationFeedback")
+        )
         input_: capo_codeguru_reviewer.types.list_recommendation_feedback_request.ListRecommendationFeedbackRequest = {
             "code_review_arn": code_review_arn
         }
@@ -759,7 +781,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_codeguru_reviewer.types.list_recommendations_request.ListRecommendationsRequest = {
             "code_review_arn": code_review_arn
         }
@@ -851,7 +875,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositoryAssociations")
+        )
         input_: capo_codeguru_reviewer.types.list_repository_associations_request.ListRepositoryAssociationsRequest = {}
         if provider_types is not None:
             input_["provider_types"] = provider_types
@@ -943,7 +969,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codeguru_reviewer.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -994,7 +1022,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecommendationFeedback")
+        )
         input_: capo_codeguru_reviewer.types.put_recommendation_feedback_request.PutRecommendationFeedbackRequest = {
             "code_review_arn": code_review_arn,
             "recommendation_id": recommendation_id,
@@ -1043,7 +1073,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codeguru_reviewer.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1091,7 +1123,9 @@ class CodeGuruReviewerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codeguru_reviewer.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchevents#CreateConnectionApiKeyAuthRequestParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateConnectionApiKeyAuthRequestPar
         raise DeserializationError(
             "CreateConnectionApiKeyAuthRequestParameters.api_key_value required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: CreateConnectionApiKeyAuthRequestParameters,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_key_value" in value:
+        out["api_key_value"] = "*** Sensitive Data Redacted ***"
     return out

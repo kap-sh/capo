@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#SearchResourcesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,4 +123,13 @@ def deserialize_json(data: dict) -> SearchResourcesRequest:
         out["limit"] = data["Limit"]
     if data.get("Marker") is not None:
         out["marker"] = data["Marker"]
+    return out
+
+
+def redact_sensitive(value: SearchResourcesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#SpeakerEnrollmentJobSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_voice_id.types.speaker_enrollment_job_summary
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> SpeakerEnrollmentJobSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: SpeakerEnrollmentJobSummaries) -> list[Any]:
+    import capo_voice_id.types.speaker_enrollment_job_summary
+
+    return [
+        capo_voice_id.types.speaker_enrollment_job_summary.redact_sensitive(item)
+        for item in value
+    ]

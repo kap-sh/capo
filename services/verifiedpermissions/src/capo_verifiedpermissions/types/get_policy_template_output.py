@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#GetPolicyTemplateOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,13 @@ def deserialize_aws_json_1_0(data: dict) -> GetPolicyTemplateOutput:
         raise DeserializationError("GetPolicyTemplateOutput.last_updated_date required")
     if data.get("name") is not None:
         out["name"] = data["name"]
+    return out
+
+
+def redact_sensitive(value: GetPolicyTemplateOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "statement" in value:
+        out["statement"] = "*** Sensitive Data Redacted ***"
     return out

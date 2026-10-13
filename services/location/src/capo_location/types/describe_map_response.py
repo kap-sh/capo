@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DescribeMapResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -116,4 +116,19 @@ def deserialize_json(data: dict) -> DescribeMapResponse:
         )
     else:
         raise DeserializationError("DescribeMapResponse.update_time required")
+    return out
+
+
+def redact_sensitive(value: DescribeMapResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_location.types.map_configuration
+
+        out["configuration"] = capo_location.types.map_configuration.redact_sensitive(
+            value["configuration"]
+        )
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
     return out

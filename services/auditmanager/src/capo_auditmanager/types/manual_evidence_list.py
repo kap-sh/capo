@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#ManualEvidenceList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_auditmanager.types.manual_evidence
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> ManualEvidenceList:
             continue
         out.append(capo_auditmanager.types.manual_evidence.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ManualEvidenceList) -> list[Any]:
+    import capo_auditmanager.types.manual_evidence
+
+    return [
+        capo_auditmanager.types.manual_evidence.redact_sensitive(item) for item in value
+    ]

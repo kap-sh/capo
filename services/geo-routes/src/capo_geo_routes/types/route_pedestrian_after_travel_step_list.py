@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePedestrianAfterTravelStepList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_pedestrian_after_travel_step
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> RoutePedestrianAfterTravelStepList:
             )
         )
     return out
+
+
+def redact_sensitive(value: RoutePedestrianAfterTravelStepList) -> list[Any]:
+    import capo_geo_routes.types.route_pedestrian_after_travel_step
+
+    return [
+        capo_geo_routes.types.route_pedestrian_after_travel_step.redact_sensitive(item)
+        for item in value
+    ]

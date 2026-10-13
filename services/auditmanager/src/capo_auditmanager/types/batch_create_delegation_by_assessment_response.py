@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#BatchCreateDelegationByAssessmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,19 @@ def deserialize_json(data: dict) -> BatchCreateDelegationByAssessmentResponse:
                 data["errors"]
             )
         )
+    return out
+
+
+def redact_sensitive(
+    value: BatchCreateDelegationByAssessmentResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "delegations" in value:
+        import capo_auditmanager.types.delegations
+
+        out["delegations"] = capo_auditmanager.types.delegations.redact_sensitive(
+            value["delegations"]
+        )
+    if "errors" in value:
+        out["errors"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_partnercentral_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_connection_response.GetConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_connection_response
+
+            return capo_partnercentral_account.types.get_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_connection_request.GetConnectionRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -140,7 +153,9 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_partnercentral_account.types.list_connections_request.ListConnectionsRequest = {
             "catalog": catalog
         }
@@ -204,7 +219,19 @@ class ConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.cancel_connection_response.CancelConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.cancel_connection_response
+
+            return capo_partnercentral_account.types.cancel_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CancelConnection", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.cancel_connection_request.CancelConnectionRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -263,7 +290,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.get_connection_response.GetConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.get_connection_response
+
+            return capo_partnercentral_account.types.get_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetConnection", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.get_connection_request.GetConnectionRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -327,7 +366,9 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnections")
+        )
         input_: capo_partnercentral_account.types.list_connections_request.ListConnectionsRequest = {
             "catalog": catalog
         }
@@ -392,7 +433,19 @@ class AsyncConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_account.types.cancel_connection_response.CancelConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_account.types.cancel_connection_response
+
+            return capo_partnercentral_account.types.cancel_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CancelConnection", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_account.types.cancel_connection_request.CancelConnectionRequest = {
             "catalog": catalog,
             "identifier": identifier,

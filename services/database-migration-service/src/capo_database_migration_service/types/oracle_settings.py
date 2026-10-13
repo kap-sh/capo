@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#OracleSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -417,4 +417,15 @@ def deserialize_aws_json_1_1(data: dict) -> OracleSettings:
                 data["AuthenticationMethod"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: OracleSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "asm_password" in value:
+        out["asm_password"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "security_db_encryption" in value:
+        out["security_db_encryption"] = "*** Sensitive Data Redacted ***"
     return out

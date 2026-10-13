@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyAddVariableMutation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,20 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyAddVariableMutation:
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyAddVariableMutation.variable required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyAddVariableMutation,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "variable" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_variable
+
+        out["variable"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_variable.redact_sensitive(
+                value["variable"]
+            )
         )
     return out

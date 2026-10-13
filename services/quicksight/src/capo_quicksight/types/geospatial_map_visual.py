@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeospatialMapVisual``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,6 +159,27 @@ def deserialize_json(data: dict) -> GeospatialMapVisual:
         out["geocoding_preferences"] = (
             capo_quicksight.types.geocode_preference_list.deserialize_json(
                 data["GeocodingPreferences"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeospatialMapVisual) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "chart_configuration" in value:
+        import capo_quicksight.types.geospatial_map_configuration
+
+        out["chart_configuration"] = (
+            capo_quicksight.types.geospatial_map_configuration.redact_sensitive(
+                value["chart_configuration"]
+            )
+        )
+    if "actions" in value:
+        import capo_quicksight.types.visual_custom_action_list
+
+        out["actions"] = (
+            capo_quicksight.types.visual_custom_action_list.redact_sensitive(
+                value["actions"]
             )
         )
     return out

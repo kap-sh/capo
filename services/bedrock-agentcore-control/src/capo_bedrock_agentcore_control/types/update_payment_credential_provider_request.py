@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#UpdatePaymentCredentialProviderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -73,5 +73,18 @@ def deserialize_json(data: dict) -> UpdatePaymentCredentialProviderRequest:
     else:
         raise DeserializationError(
             "UpdatePaymentCredentialProviderRequest.provider_configuration_input required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatePaymentCredentialProviderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "provider_configuration_input" in value:
+        import capo_bedrock_agentcore_control.types.payment_provider_configuration_input
+
+        out["provider_configuration_input"] = (
+            capo_bedrock_agentcore_control.types.payment_provider_configuration_input.redact_sensitive(
+                value["provider_configuration_input"]
+            )
         )
     return out

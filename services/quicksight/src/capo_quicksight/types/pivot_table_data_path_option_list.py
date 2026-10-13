@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableDataPathOptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.pivot_table_data_path_option
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> PivotTableDataPathOptionList:
             capo_quicksight.types.pivot_table_data_path_option.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: PivotTableDataPathOptionList) -> list[Any]:
+    import capo_quicksight.types.pivot_table_data_path_option
+
+    return [
+        capo_quicksight.types.pivot_table_data_path_option.redact_sensitive(item)
+        for item in value
+    ]

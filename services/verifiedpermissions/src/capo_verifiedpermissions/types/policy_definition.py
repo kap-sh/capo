@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#PolicyDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,24 @@ def deserialize_aws_json_1_0(data: dict) -> PolicyDefinition:
         }
     else:
         raise DeserializationError("PolicyDefinition: no recognized variant key")
+
+
+def redact_sensitive(value: PolicyDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static" in value:
+        import capo_verifiedpermissions.types.static_policy_definition
+
+        out["static"] = (
+            capo_verifiedpermissions.types.static_policy_definition.redact_sensitive(
+                value["static"]
+            )
+        )
+    if "templateLinked" in value:
+        import capo_verifiedpermissions.types.template_linked_policy_definition
+
+        out["templateLinked"] = (
+            capo_verifiedpermissions.types.template_linked_policy_definition.redact_sensitive(
+                value["templateLinked"]
+            )
+        )
+    return out

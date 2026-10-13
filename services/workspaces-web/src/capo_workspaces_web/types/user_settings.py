@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UserSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -201,4 +201,19 @@ def deserialize_json(data: dict) -> UserSettings:
         )
     if data.get("webAuthnAllowed") is not None:
         out["web_authn_allowed"] = data["webAuthnAllowed"]
+    return out
+
+
+def redact_sensitive(value: UserSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cookie_synchronization_configuration" in value:
+        out["cookie_synchronization_configuration"] = "*** Sensitive Data Redacted ***"
+    if "branding_configuration" in value:
+        import capo_workspaces_web.types.branding_configuration
+
+        out["branding_configuration"] = (
+            capo_workspaces_web.types.branding_configuration.redact_sensitive(
+                value["branding_configuration"]
+            )
+        )
     return out

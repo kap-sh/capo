@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FreeFromLayoutElementList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.free_form_layout_element
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> FreeFromLayoutElementList:
             capo_quicksight.types.free_form_layout_element.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: FreeFromLayoutElementList) -> list[Any]:
+    import capo_quicksight.types.free_form_layout_element
+
+    return [
+        capo_quicksight.types.free_form_layout_element.redact_sensitive(item)
+        for item in value
+    ]

@@ -25,7 +25,9 @@ from capo_finspace_data._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -208,7 +210,9 @@ class AsyncfinspacedataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncfinspacedataClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncfinspacedataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncfinspacedataClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -216,8 +220,10 @@ class AsyncfinspacedataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -278,7 +284,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateUserToPermissionGroup")
+        )
         input_: capo_finspace_data.types.associate_user_to_permission_group_request.AssociateUserToPermissionGroupRequest = {
             "permission_group_id": permission_group_id,
             "user_id": user_id,
@@ -342,7 +350,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChangeset")
+        )
         input_: capo_finspace_data.types.create_changeset_request.CreateChangesetRequest = {
             "dataset_id": dataset_id,
             "change_type": change_type,
@@ -420,7 +430,19 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace_data.types.create_dataset_request.CreateDatasetRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.create_dataset_request
+
+            return capo_finspace_data.types.create_dataset_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataset", redact_input=_redact_input),
+        )
         input_: capo_finspace_data.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_title": dataset_title,
             "kind": kind,
@@ -502,7 +524,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataView")
+        )
         input_: capo_finspace_data.types.create_data_view_request.CreateDataViewRequest = {
             "dataset_id": dataset_id,
             "destination_type_params": destination_type_params,
@@ -573,7 +597,19 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace_data.types.create_permission_group_request.CreatePermissionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.create_permission_group_request
+
+            return capo_finspace_data.types.create_permission_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePermissionGroup", redact_input=_redact_input),
+        )
         input_: capo_finspace_data.types.create_permission_group_request.CreatePermissionGroupRequest = {
             "name": name,
             "application_permissions": application_permissions,
@@ -644,7 +680,16 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace_data.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.create_user_request
+
+            return capo_finspace_data.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_finspace_data.types.create_user_request.CreateUserRequest = {
             "email_address": email_address,
             "type": type,
@@ -710,7 +755,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_finspace_data.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -767,7 +814,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermissionGroup")
+        )
         input_: capo_finspace_data.types.delete_permission_group_request.DeletePermissionGroupRequest = {
             "permission_group_id": permission_group_id
         }
@@ -823,7 +872,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableUser")
+        )
         input_: capo_finspace_data.types.disable_user_request.DisableUserRequest = {
             "user_id": user_id
         }
@@ -881,7 +932,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateUserFromPermissionGroup")
+        )
         input_: capo_finspace_data.types.disassociate_user_from_permission_group_request.DisassociateUserFromPermissionGroupRequest = {
             "permission_group_id": permission_group_id,
             "user_id": user_id,
@@ -939,7 +992,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableUser")
+        )
         input_: capo_finspace_data.types.enable_user_request.EnableUserRequest = {
             "user_id": user_id
         }
@@ -993,7 +1048,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChangeset")
+        )
         input_: capo_finspace_data.types.get_changeset_request.GetChangesetRequest = {
             "dataset_id": dataset_id,
             "changeset_id": changeset_id,
@@ -1043,7 +1100,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataset")
+        )
         input_: capo_finspace_data.types.get_dataset_request.GetDatasetRequest = {
             "dataset_id": dataset_id
         }
@@ -1093,7 +1152,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataView")
+        )
         input_: capo_finspace_data.types.get_data_view_request.GetDataViewRequest = {
             "data_view_id": data_view_id,
             "dataset_id": dataset_id,
@@ -1144,7 +1205,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.get_external_data_view_access_details_response.GetExternalDataViewAccessDetailsResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.get_external_data_view_access_details_response
+
+            return capo_finspace_data.types.get_external_data_view_access_details_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetExternalDataViewAccessDetails", redact_output=_redact_output
+            ),
+        )
         input_: capo_finspace_data.types.get_external_data_view_access_details_request.GetExternalDataViewAccessDetailsRequest = {
             "data_view_id": data_view_id,
             "dataset_id": dataset_id,
@@ -1193,7 +1268,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.get_permission_group_response.GetPermissionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.get_permission_group_response
+
+            return (
+                capo_finspace_data.types.get_permission_group_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPermissionGroup", redact_output=_redact_output),
+        )
         input_: capo_finspace_data.types.get_permission_group_request.GetPermissionGroupRequest = {
             "permission_group_id": permission_group_id
         }
@@ -1244,7 +1333,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.get_programmatic_access_credentials_response.GetProgrammaticAccessCredentialsResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.get_programmatic_access_credentials_response
+
+            return capo_finspace_data.types.get_programmatic_access_credentials_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetProgrammaticAccessCredentials", redact_output=_redact_output
+            ),
+        )
         input_: capo_finspace_data.types.get_programmatic_access_credentials_request.GetProgrammaticAccessCredentialsRequest = {
             "environment_id": environment_id
         }
@@ -1294,7 +1397,16 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.get_user_response.GetUserResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.get_user_response
+
+            return capo_finspace_data.types.get_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUser", redact_output=_redact_output)
+        )
         input_: capo_finspace_data.types.get_user_request.GetUserRequest = {
             "user_id": user_id
         }
@@ -1343,7 +1455,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkingLocation")
+        )
         input_: capo_finspace_data.types.get_working_location_request.GetWorkingLocationRequest = {}
         if location_type is not None:
             input_["location_type"] = location_type
@@ -1400,7 +1514,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChangesets")
+        )
         input_: capo_finspace_data.types.list_changesets_request.ListChangesetsRequest = {
             "dataset_id": dataset_id
         }
@@ -1485,7 +1601,19 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.list_datasets_response.ListDatasetsResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.list_datasets_response
+
+            return capo_finspace_data.types.list_datasets_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDatasets", redact_output=_redact_output),
+        )
         input_: capo_finspace_data.types.list_datasets_request.ListDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1568,7 +1696,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataViews")
+        )
         input_: capo_finspace_data.types.list_data_views_request.ListDataViewsRequest = {
             "dataset_id": dataset_id
         }
@@ -1650,7 +1780,19 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.list_permission_groups_response.ListPermissionGroupsResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.list_permission_groups_response
+
+            return capo_finspace_data.types.list_permission_groups_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPermissionGroups", redact_output=_redact_output),
+        )
         input_: capo_finspace_data.types.list_permission_groups_request.ListPermissionGroupsRequest = {
             "max_results": max_results
         }
@@ -1729,7 +1871,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.list_permission_groups_by_user_response.ListPermissionGroupsByUserResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.list_permission_groups_by_user_response
+
+            return capo_finspace_data.types.list_permission_groups_by_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListPermissionGroupsByUser", redact_output=_redact_output
+            ),
+        )
         input_: capo_finspace_data.types.list_permission_groups_by_user_request.ListPermissionGroupsByUserRequest = {
             "user_id": user_id,
             "max_results": max_results,
@@ -1783,7 +1939,17 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.list_users_response
+
+            return capo_finspace_data.types.list_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUsers", redact_output=_redact_output),
+        )
         input_: capo_finspace_data.types.list_users_request.ListUsersRequest = {
             "max_results": max_results
         }
@@ -1862,7 +2028,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.list_users_by_permission_group_response.ListUsersByPermissionGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.list_users_by_permission_group_response
+
+            return capo_finspace_data.types.list_users_by_permission_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsersByPermissionGroup", redact_output=_redact_output
+            ),
+        )
         input_: capo_finspace_data.types.list_users_by_permission_group_request.ListUsersByPermissionGroupRequest = {
             "permission_group_id": permission_group_id,
             "max_results": max_results,
@@ -1918,7 +2098,21 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace_data.types.reset_user_password_response.ResetUserPasswordResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.reset_user_password_response
+
+            return (
+                capo_finspace_data.types.reset_user_password_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResetUserPassword", redact_output=_redact_output),
+        )
         input_: capo_finspace_data.types.reset_user_password_request.ResetUserPasswordRequest = {
             "user_id": user_id
         }
@@ -1980,7 +2174,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChangeset")
+        )
         input_: capo_finspace_data.types.update_changeset_request.UpdateChangesetRequest = {
             "dataset_id": dataset_id,
             "changeset_id": changeset_id,
@@ -2053,7 +2249,9 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_finspace_data.types.update_dataset_request.UpdateDatasetRequest = {
             "dataset_id": dataset_id,
             "dataset_title": dataset_title,
@@ -2129,7 +2327,19 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace_data.types.update_permission_group_request.UpdatePermissionGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.update_permission_group_request
+
+            return capo_finspace_data.types.update_permission_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePermissionGroup", redact_input=_redact_input),
+        )
         input_: capo_finspace_data.types.update_permission_group_request.UpdatePermissionGroupRequest = {
             "permission_group_id": permission_group_id
         }
@@ -2203,7 +2413,16 @@ class AsyncfinspacedataClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace_data.types.update_user_request.UpdateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace_data.types.update_user_request
+
+            return capo_finspace_data.types.update_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser", redact_input=_redact_input)
+        )
         input_: capo_finspace_data.types.update_user_request.UpdateUserRequest = {
             "user_id": user_id
         }

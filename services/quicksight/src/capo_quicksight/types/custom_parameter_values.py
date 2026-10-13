@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomParameterValues``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,43 @@ def deserialize_json(data: dict) -> CustomParameterValues:
         out["date_time_values"] = (
             capo_quicksight.types.date_time_default_value_list.deserialize_json(
                 data["DateTimeValues"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CustomParameterValues) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "string_values" in value:
+        import capo_quicksight.types.string_default_value_list
+
+        out["string_values"] = (
+            capo_quicksight.types.string_default_value_list.redact_sensitive(
+                value["string_values"]
+            )
+        )
+    if "integer_values" in value:
+        import capo_quicksight.types.integer_default_value_list
+
+        out["integer_values"] = (
+            capo_quicksight.types.integer_default_value_list.redact_sensitive(
+                value["integer_values"]
+            )
+        )
+    if "decimal_values" in value:
+        import capo_quicksight.types.decimal_default_value_list
+
+        out["decimal_values"] = (
+            capo_quicksight.types.decimal_default_value_list.redact_sensitive(
+                value["decimal_values"]
+            )
+        )
+    if "date_time_values" in value:
+        import capo_quicksight.types.date_time_default_value_list
+
+        out["date_time_values"] = (
+            capo_quicksight.types.date_time_default_value_list.redact_sensitive(
+                value["date_time_values"]
             )
         )
     return out

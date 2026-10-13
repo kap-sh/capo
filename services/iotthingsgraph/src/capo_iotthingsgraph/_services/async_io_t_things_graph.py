@@ -24,7 +24,9 @@ from capo_iotthingsgraph._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -209,7 +211,9 @@ class AsyncIoTThingsGraphClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIoTThingsGraphClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIoTThingsGraphClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIoTThingsGraphClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -217,8 +221,10 @@ class AsyncIoTThingsGraphClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -275,7 +281,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEntityToThing")
+        )
         input_: capo_iotthingsgraph.types.associate_entity_to_thing_request.AssociateEntityToThingRequest = {
             "thing_name": thing_name,
             "entity_id": entity_id,
@@ -330,7 +338,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlowTemplate")
+        )
         input_: capo_iotthingsgraph.types.create_flow_template_request.CreateFlowTemplateRequest = {
             "definition": definition
         }
@@ -398,7 +408,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSystemInstance")
+        )
         input_: capo_iotthingsgraph.types.create_system_instance_request.CreateSystemInstanceRequest = {
             "definition": definition,
             "target": target,
@@ -460,7 +472,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSystemTemplate")
+        )
         input_: capo_iotthingsgraph.types.create_system_template_request.CreateSystemTemplateRequest = {
             "definition": definition
         }
@@ -509,7 +523,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlowTemplate")
+        )
         input_: capo_iotthingsgraph.types.delete_flow_template_request.DeleteFlowTemplateRequest = {
             "id": id
         }
@@ -548,7 +564,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNamespace")
+        )
         input_: capo_iotthingsgraph.types.delete_namespace_request.DeleteNamespaceRequest = {}
 
         response = await aexecute_pipeline(
@@ -593,7 +611,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSystemInstance")
+        )
         input_: capo_iotthingsgraph.types.delete_system_instance_request.DeleteSystemInstanceRequest = {}
         if id is not None:
             input_["id"] = id
@@ -640,7 +660,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSystemTemplate")
+        )
         input_: capo_iotthingsgraph.types.delete_system_template_request.DeleteSystemTemplateRequest = {
             "id": id
         }
@@ -688,7 +710,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeploySystemInstance")
+        )
         input_: capo_iotthingsgraph.types.deploy_system_instance_request.DeploySystemInstanceRequest = {}
         if id is not None:
             input_["id"] = id
@@ -735,7 +759,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateFlowTemplate")
+        )
         input_: capo_iotthingsgraph.types.deprecate_flow_template_request.DeprecateFlowTemplateRequest = {
             "id": id
         }
@@ -782,7 +808,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateSystemTemplate")
+        )
         input_: capo_iotthingsgraph.types.deprecate_system_template_request.DeprecateSystemTemplateRequest = {
             "id": id
         }
@@ -831,7 +859,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNamespace")
+        )
         input_: capo_iotthingsgraph.types.describe_namespace_request.DescribeNamespaceRequest = {}
         if namespace_name is not None:
             input_["namespace_name"] = namespace_name
@@ -880,7 +910,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DissociateEntityFromThing")
+        )
         input_: capo_iotthingsgraph.types.dissociate_entity_from_thing_request.DissociateEntityFromThingRequest = {
             "thing_name": thing_name,
             "entity_type": entity_type,
@@ -930,7 +962,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEntities")
+        )
         input_: capo_iotthingsgraph.types.get_entities_request.GetEntitiesRequest = {
             "ids": ids
         }
@@ -981,7 +1015,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFlowTemplate")
+        )
         input_: capo_iotthingsgraph.types.get_flow_template_request.GetFlowTemplateRequest = {
             "id": id
         }
@@ -1036,7 +1072,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFlowTemplateRevisions")
+        )
         input_: capo_iotthingsgraph.types.get_flow_template_revisions_request.GetFlowTemplateRevisionsRequest = {
             "id": id
         }
@@ -1105,7 +1143,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNamespaceDeletionStatus")
+        )
         input_: capo_iotthingsgraph.types.get_namespace_deletion_status_request.GetNamespaceDeletionStatusRequest = {}
 
         response = await aexecute_pipeline(
@@ -1150,7 +1190,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemInstance")
+        )
         input_: capo_iotthingsgraph.types.get_system_instance_request.GetSystemInstanceRequest = {
             "id": id
         }
@@ -1199,7 +1241,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemTemplate")
+        )
         input_: capo_iotthingsgraph.types.get_system_template_request.GetSystemTemplateRequest = {
             "id": id
         }
@@ -1254,7 +1298,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSystemTemplateRevisions")
+        )
         input_: capo_iotthingsgraph.types.get_system_template_revisions_request.GetSystemTemplateRevisionsRequest = {
             "id": id
         }
@@ -1330,7 +1376,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUploadStatus")
+        )
         input_: capo_iotthingsgraph.types.get_upload_status_request.GetUploadStatusRequest = {
             "upload_id": upload_id
         }
@@ -1383,7 +1431,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlowExecutionMessages")
+        )
         input_: capo_iotthingsgraph.types.list_flow_execution_messages_request.ListFlowExecutionMessagesRequest = {
             "flow_execution_id": flow_execution_id
         }
@@ -1465,7 +1515,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iotthingsgraph.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1552,7 +1604,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchEntities")
+        )
         input_: capo_iotthingsgraph.types.search_entities_request.SearchEntitiesRequest = {
             "entity_types": entity_types
         }
@@ -1654,7 +1708,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFlowExecutions")
+        )
         input_: capo_iotthingsgraph.types.search_flow_executions_request.SearchFlowExecutionsRequest = {
             "system_instance_id": system_instance_id
         }
@@ -1751,7 +1807,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFlowTemplates")
+        )
         input_: capo_iotthingsgraph.types.search_flow_templates_request.SearchFlowTemplatesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1836,7 +1894,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSystemInstances")
+        )
         input_: capo_iotthingsgraph.types.search_system_instances_request.SearchSystemInstancesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1921,7 +1981,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSystemTemplates")
+        )
         input_: capo_iotthingsgraph.types.search_system_templates_request.SearchSystemTemplatesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2007,7 +2069,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchThings")
+        )
         input_: capo_iotthingsgraph.types.search_things_request.SearchThingsRequest = {
             "entity_id": entity_id
         }
@@ -2089,7 +2153,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iotthingsgraph.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2138,7 +2204,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UndeploySystemInstance")
+        )
         input_: capo_iotthingsgraph.types.undeploy_system_instance_request.UndeploySystemInstanceRequest = {}
         if id is not None:
             input_["id"] = id
@@ -2187,7 +2255,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iotthingsgraph.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2241,7 +2311,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlowTemplate")
+        )
         input_: capo_iotthingsgraph.types.update_flow_template_request.UpdateFlowTemplateRequest = {
             "id": id,
             "definition": definition,
@@ -2297,7 +2369,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSystemTemplate")
+        )
         input_: capo_iotthingsgraph.types.update_system_template_request.UpdateSystemTemplateRequest = {
             "id": id,
             "definition": definition,
@@ -2356,7 +2430,9 @@ class AsyncIoTThingsGraphClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UploadEntityDefinitions")
+        )
         input_: capo_iotthingsgraph.types.upload_entity_definitions_request.UploadEntityDefinitionsRequest = {}
         if document is not None:
             input_["document"] = document

@@ -7,6 +7,7 @@ import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class RegionOptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableRegion")
+        )
         input_: capo_account.types.disable_region_request.DisableRegionRequest = {
             "region_name": region_name
         }
@@ -118,7 +121,9 @@ class RegionOptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableRegion")
+        )
         input_: capo_account.types.enable_region_request.EnableRegionRequest = {
             "region_name": region_name
         }
@@ -168,7 +173,9 @@ class RegionOptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRegionOptStatus")
+        )
         input_: capo_account.types.get_region_opt_status_request.GetRegionOptStatusRequest = {
             "region_name": region_name
         }
@@ -224,7 +231,9 @@ class RegionOptResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRegions")
+        )
         input_: capo_account.types.list_regions_request.ListRegionsRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -283,7 +292,9 @@ class AsyncRegionOptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableRegion")
+        )
         input_: capo_account.types.disable_region_request.DisableRegionRequest = {
             "region_name": region_name
         }
@@ -333,7 +344,9 @@ class AsyncRegionOptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableRegion")
+        )
         input_: capo_account.types.enable_region_request.EnableRegionRequest = {
             "region_name": region_name
         }
@@ -384,7 +397,9 @@ class AsyncRegionOptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRegionOptStatus")
+        )
         input_: capo_account.types.get_region_opt_status_request.GetRegionOptStatusRequest = {
             "region_name": region_name
         }
@@ -441,7 +456,9 @@ class AsyncRegionOptResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRegions")
+        )
         input_: capo_account.types.list_regions_request.ListRegionsRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id

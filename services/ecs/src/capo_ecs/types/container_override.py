@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ContainerOverride``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,11 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerOverride:
                 data["resourceRequirements"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ContainerOverride) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        out["environment"] = "*** Sensitive Data Redacted ***"
     return out

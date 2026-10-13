@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#GetMessageInsightsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,5 +70,20 @@ def deserialize_json(data: dict) -> GetMessageInsightsResponse:
 
         out["insights"] = capo_sesv2.types.email_insights_list.deserialize_json(
             data["Insights"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetMessageInsightsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_email_address" in value:
+        out["from_email_address"] = "*** Sensitive Data Redacted ***"
+    if "subject" in value:
+        out["subject"] = "*** Sensitive Data Redacted ***"
+    if "insights" in value:
+        import capo_sesv2.types.email_insights_list
+
+        out["insights"] = capo_sesv2.types.email_insights_list.redact_sensitive(
+            value["insights"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#AssumeRoleWithWebIdentityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,4 +117,11 @@ def deserialize_query(el: Element) -> AssumeRoleWithWebIdentityRequest:
         out["minimum_session_token_size"] = int(
             child_minimum_session_token_size.text or ""
         )
+    return out
+
+
+def redact_sensitive(value: AssumeRoleWithWebIdentityRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "web_identity_token" in value:
+        out["web_identity_token"] = "*** Sensitive Data Redacted ***"
     return out

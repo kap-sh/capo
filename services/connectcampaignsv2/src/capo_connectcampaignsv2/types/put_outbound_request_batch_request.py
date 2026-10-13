@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#PutOutboundRequestBatchRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,5 +44,18 @@ def deserialize_json(data: dict) -> PutOutboundRequestBatchRequest:
     else:
         raise DeserializationError(
             "PutOutboundRequestBatchRequest.outbound_requests required"
+        )
+    return out
+
+
+def redact_sensitive(value: PutOutboundRequestBatchRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "outbound_requests" in value:
+        import capo_connectcampaignsv2.types.outbound_request_list
+
+        out["outbound_requests"] = (
+            capo_connectcampaignsv2.types.outbound_request_list.redact_sensitive(
+                value["outbound_requests"]
+            )
         )
     return out

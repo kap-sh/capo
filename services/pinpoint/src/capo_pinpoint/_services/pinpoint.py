@@ -19,10 +19,12 @@ from capo_pinpoint._auth._zapros_handler import AuthMiddleware
 from capo_pinpoint._services._aws_config import aws_config
 from capo_pinpoint._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -385,7 +387,9 @@ class PinpointClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PinpointClientConfig] = None
+        self,
+        config_overrides: Optional[PinpointClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PinpointClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -393,8 +397,10 @@ class PinpointClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -448,7 +454,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApp")
+        )
         input_: capo_pinpoint.types.create_app_request.CreateAppRequest = {}
         if create_application_request is not None:
             input_["create_application_request"] = create_application_request
@@ -500,7 +508,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCampaign")
+        )
         input_: capo_pinpoint.types.create_campaign_request.CreateCampaignRequest = {
             "application_id": application_id
         }
@@ -554,7 +564,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEmailTemplate")
+        )
         input_: capo_pinpoint.types.create_email_template_request.CreateEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -608,7 +620,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExportJob")
+        )
         input_: capo_pinpoint.types.create_export_job_request.CreateExportJobRequest = {
             "application_id": application_id
         }
@@ -662,7 +676,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImportJob")
+        )
         input_: capo_pinpoint.types.create_import_job_request.CreateImportJobRequest = {
             "application_id": application_id
         }
@@ -714,7 +730,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInAppTemplate")
+        )
         input_: capo_pinpoint.types.create_in_app_template_request.CreateInAppTemplateRequest = {
             "template_name": template_name
         }
@@ -768,7 +786,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJourney")
+        )
         input_: capo_pinpoint.types.create_journey_request.CreateJourneyRequest = {
             "application_id": application_id
         }
@@ -820,7 +840,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePushTemplate")
+        )
         input_: capo_pinpoint.types.create_push_template_request.CreatePushTemplateRequest = {
             "template_name": template_name
         }
@@ -872,7 +894,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRecommenderConfiguration")
+        )
         input_: capo_pinpoint.types.create_recommender_configuration_request.CreateRecommenderConfigurationRequest = {}
         if create_recommender_configuration is not None:
             input_["create_recommender_configuration"] = (
@@ -926,7 +950,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSegment")
+        )
         input_: capo_pinpoint.types.create_segment_request.CreateSegmentRequest = {
             "application_id": application_id
         }
@@ -978,7 +1004,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSmsTemplate")
+        )
         input_: capo_pinpoint.types.create_sms_template_request.CreateSmsTemplateRequest = {
             "template_name": template_name
         }
@@ -1032,7 +1060,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVoiceTemplate")
+        )
         input_: capo_pinpoint.types.create_voice_template_request.CreateVoiceTemplateRequest = {
             "template_name": template_name
         }
@@ -1083,7 +1113,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAdmChannel")
+        )
         input_: capo_pinpoint.types.delete_adm_channel_request.DeleteAdmChannelRequest = {
             "application_id": application_id
         }
@@ -1132,7 +1164,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApnsChannel")
+        )
         input_: capo_pinpoint.types.delete_apns_channel_request.DeleteApnsChannelRequest = {
             "application_id": application_id
         }
@@ -1181,7 +1215,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApnsSandboxChannel")
+        )
         input_: capo_pinpoint.types.delete_apns_sandbox_channel_request.DeleteApnsSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -1230,7 +1266,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApnsVoipChannel")
+        )
         input_: capo_pinpoint.types.delete_apns_voip_channel_request.DeleteApnsVoipChannelRequest = {
             "application_id": application_id
         }
@@ -1279,7 +1317,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApnsVoipSandboxChannel")
+        )
         input_: capo_pinpoint.types.delete_apns_voip_sandbox_channel_request.DeleteApnsVoipSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -1328,7 +1368,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApp")
+        )
         input_: capo_pinpoint.types.delete_app_request.DeleteAppRequest = {
             "application_id": application_id
         }
@@ -1377,7 +1419,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBaiduChannel")
+        )
         input_: capo_pinpoint.types.delete_baidu_channel_request.DeleteBaiduChannelRequest = {
             "application_id": application_id
         }
@@ -1428,7 +1472,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_pinpoint.types.delete_campaign_request.DeleteCampaignRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -1478,7 +1524,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailChannel")
+        )
         input_: capo_pinpoint.types.delete_email_channel_request.DeleteEmailChannelRequest = {
             "application_id": application_id
         }
@@ -1531,7 +1579,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEmailTemplate")
+        )
         input_: capo_pinpoint.types.delete_email_template_request.DeleteEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -1584,7 +1634,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpoint")
+        )
         input_: capo_pinpoint.types.delete_endpoint_request.DeleteEndpointRequest = {
             "application_id": application_id,
             "endpoint_id": endpoint_id,
@@ -1634,7 +1686,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventStream")
+        )
         input_: capo_pinpoint.types.delete_event_stream_request.DeleteEventStreamRequest = {
             "application_id": application_id
         }
@@ -1683,7 +1737,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGcmChannel")
+        )
         input_: capo_pinpoint.types.delete_gcm_channel_request.DeleteGcmChannelRequest = {
             "application_id": application_id
         }
@@ -1734,7 +1790,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInAppTemplate")
+        )
         input_: capo_pinpoint.types.delete_in_app_template_request.DeleteInAppTemplateRequest = {
             "template_name": template_name
         }
@@ -1787,7 +1845,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJourney")
+        )
         input_: capo_pinpoint.types.delete_journey_request.DeleteJourneyRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -1839,7 +1899,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePushTemplate")
+        )
         input_: capo_pinpoint.types.delete_push_template_request.DeletePushTemplateRequest = {
             "template_name": template_name
         }
@@ -1890,7 +1952,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommenderConfiguration")
+        )
         input_: capo_pinpoint.types.delete_recommender_configuration_request.DeleteRecommenderConfigurationRequest = {
             "recommender_id": recommender_id
         }
@@ -1941,7 +2005,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSegment")
+        )
         input_: capo_pinpoint.types.delete_segment_request.DeleteSegmentRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -1991,7 +2057,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSmsChannel")
+        )
         input_: capo_pinpoint.types.delete_sms_channel_request.DeleteSmsChannelRequest = {
             "application_id": application_id
         }
@@ -2042,7 +2110,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSmsTemplate")
+        )
         input_: capo_pinpoint.types.delete_sms_template_request.DeleteSmsTemplateRequest = {
             "template_name": template_name
         }
@@ -2097,7 +2167,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserEndpoints")
+        )
         input_: capo_pinpoint.types.delete_user_endpoints_request.DeleteUserEndpointsRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -2147,7 +2219,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVoiceChannel")
+        )
         input_: capo_pinpoint.types.delete_voice_channel_request.DeleteVoiceChannelRequest = {
             "application_id": application_id
         }
@@ -2200,7 +2274,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVoiceTemplate")
+        )
         input_: capo_pinpoint.types.delete_voice_template_request.DeleteVoiceTemplateRequest = {
             "template_name": template_name
         }
@@ -2251,7 +2327,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdmChannel")
+        )
         input_: capo_pinpoint.types.get_adm_channel_request.GetAdmChannelRequest = {
             "application_id": application_id
         }
@@ -2300,7 +2378,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApnsChannel")
+        )
         input_: capo_pinpoint.types.get_apns_channel_request.GetApnsChannelRequest = {
             "application_id": application_id
         }
@@ -2349,7 +2429,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApnsSandboxChannel")
+        )
         input_: capo_pinpoint.types.get_apns_sandbox_channel_request.GetApnsSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -2400,7 +2482,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApnsVoipChannel")
+        )
         input_: capo_pinpoint.types.get_apns_voip_channel_request.GetApnsVoipChannelRequest = {
             "application_id": application_id
         }
@@ -2449,7 +2533,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApnsVoipSandboxChannel")
+        )
         input_: capo_pinpoint.types.get_apns_voip_sandbox_channel_request.GetApnsVoipSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -2494,7 +2580,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApp")
+        )
         input_: capo_pinpoint.types.get_app_request.GetAppRequest = {
             "application_id": application_id
         }
@@ -2557,7 +2645,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationDateRangeKpi")
+        )
         input_: capo_pinpoint.types.get_application_date_range_kpi_request.GetApplicationDateRangeKpiRequest = {
             "application_id": application_id,
             "kpi_name": kpi_name,
@@ -2615,7 +2705,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationSettings")
+        )
         input_: capo_pinpoint.types.get_application_settings_request.GetApplicationSettingsRequest = {
             "application_id": application_id
         }
@@ -2664,7 +2756,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApps")
+        )
         input_: capo_pinpoint.types.get_apps_request.GetAppsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -2715,7 +2809,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBaiduChannel")
+        )
         input_: capo_pinpoint.types.get_baidu_channel_request.GetBaiduChannelRequest = {
             "application_id": application_id
         }
@@ -2766,7 +2862,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaign")
+        )
         input_: capo_pinpoint.types.get_campaign_request.GetCampaignRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -2822,7 +2920,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignActivities")
+        )
         input_: capo_pinpoint.types.get_campaign_activities_request.GetCampaignActivitiesRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -2892,7 +2992,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignDateRangeKpi")
+        )
         input_: capo_pinpoint.types.get_campaign_date_range_kpi_request.GetCampaignDateRangeKpiRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -2955,7 +3057,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaigns")
+        )
         input_: capo_pinpoint.types.get_campaigns_request.GetCampaignsRequest = {
             "application_id": application_id
         }
@@ -3012,7 +3116,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignVersion")
+        )
         input_: capo_pinpoint.types.get_campaign_version_request.GetCampaignVersionRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -3071,7 +3177,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignVersions")
+        )
         input_: capo_pinpoint.types.get_campaign_versions_request.GetCampaignVersionsRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -3125,7 +3233,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannels")
+        )
         input_: capo_pinpoint.types.get_channels_request.GetChannelsRequest = {
             "application_id": application_id
         }
@@ -3174,7 +3284,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailChannel")
+        )
         input_: capo_pinpoint.types.get_email_channel_request.GetEmailChannelRequest = {
             "application_id": application_id
         }
@@ -3225,7 +3337,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEmailTemplate")
+        )
         input_: capo_pinpoint.types.get_email_template_request.GetEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -3278,7 +3392,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEndpoint")
+        )
         input_: capo_pinpoint.types.get_endpoint_request.GetEndpointRequest = {
             "application_id": application_id,
             "endpoint_id": endpoint_id,
@@ -3328,7 +3444,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventStream")
+        )
         input_: capo_pinpoint.types.get_event_stream_request.GetEventStreamRequest = {
             "application_id": application_id
         }
@@ -3379,7 +3497,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExportJob")
+        )
         input_: capo_pinpoint.types.get_export_job_request.GetExportJobRequest = {
             "application_id": application_id,
             "job_id": job_id,
@@ -3433,7 +3553,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExportJobs")
+        )
         input_: capo_pinpoint.types.get_export_jobs_request.GetExportJobsRequest = {
             "application_id": application_id
         }
@@ -3486,7 +3608,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGcmChannel")
+        )
         input_: capo_pinpoint.types.get_gcm_channel_request.GetGcmChannelRequest = {
             "application_id": application_id
         }
@@ -3537,7 +3661,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImportJob")
+        )
         input_: capo_pinpoint.types.get_import_job_request.GetImportJobRequest = {
             "application_id": application_id,
             "job_id": job_id,
@@ -3591,7 +3717,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImportJobs")
+        )
         input_: capo_pinpoint.types.get_import_jobs_request.GetImportJobsRequest = {
             "application_id": application_id
         }
@@ -3646,7 +3774,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInAppMessages")
+        )
         input_: capo_pinpoint.types.get_in_app_messages_request.GetInAppMessagesRequest = {
             "application_id": application_id,
             "endpoint_id": endpoint_id,
@@ -3698,7 +3828,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInAppTemplate")
+        )
         input_: capo_pinpoint.types.get_in_app_template_request.GetInAppTemplateRequest = {
             "template_name": template_name
         }
@@ -3751,7 +3883,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourney")
+        )
         input_: capo_pinpoint.types.get_journey_request.GetJourneyRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -3817,7 +3951,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyDateRangeKpi")
+        )
         input_: capo_pinpoint.types.get_journey_date_range_kpi_request.GetJourneyDateRangeKpiRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -3884,7 +4020,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyExecutionActivityMetrics")
+        )
         input_: capo_pinpoint.types.get_journey_execution_activity_metrics_request.GetJourneyExecutionActivityMetricsRequest = {
             "application_id": application_id,
             "journey_activity_id": journey_activity_id,
@@ -3945,7 +4083,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyExecutionMetrics")
+        )
         input_: capo_pinpoint.types.get_journey_execution_metrics_request.GetJourneyExecutionMetricsRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -4015,7 +4155,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyRunExecutionActivityMetrics")
+        )
         input_: capo_pinpoint.types.get_journey_run_execution_activity_metrics_request.GetJourneyRunExecutionActivityMetricsRequest = {
             "application_id": application_id,
             "journey_activity_id": journey_activity_id,
@@ -4085,7 +4227,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyRunExecutionMetrics")
+        )
         input_: capo_pinpoint.types.get_journey_run_execution_metrics_request.GetJourneyRunExecutionMetricsRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -4152,7 +4296,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJourneyRuns")
+        )
         input_: capo_pinpoint.types.get_journey_runs_request.GetJourneyRunsRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -4208,7 +4354,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPushTemplate")
+        )
         input_: capo_pinpoint.types.get_push_template_request.GetPushTemplateRequest = {
             "template_name": template_name
         }
@@ -4259,7 +4407,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommenderConfiguration")
+        )
         input_: capo_pinpoint.types.get_recommender_configuration_request.GetRecommenderConfigurationRequest = {
             "recommender_id": recommender_id
         }
@@ -4310,7 +4460,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommenderConfigurations")
+        )
         input_: capo_pinpoint.types.get_recommender_configurations_request.GetRecommenderConfigurationsRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -4363,7 +4515,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegment")
+        )
         input_: capo_pinpoint.types.get_segment_request.GetSegmentRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -4419,7 +4573,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentExportJobs")
+        )
         input_: capo_pinpoint.types.get_segment_export_jobs_request.GetSegmentExportJobsRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -4479,7 +4635,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentImportJobs")
+        )
         input_: capo_pinpoint.types.get_segment_import_jobs_request.GetSegmentImportJobsRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -4537,7 +4695,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegments")
+        )
         input_: capo_pinpoint.types.get_segments_request.GetSegmentsRequest = {
             "application_id": application_id
         }
@@ -4594,7 +4754,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentVersion")
+        )
         input_: capo_pinpoint.types.get_segment_version_request.GetSegmentVersionRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -4651,7 +4813,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSegmentVersions")
+        )
         input_: capo_pinpoint.types.get_segment_versions_request.GetSegmentVersionsRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -4705,7 +4869,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSmsChannel")
+        )
         input_: capo_pinpoint.types.get_sms_channel_request.GetSmsChannelRequest = {
             "application_id": application_id
         }
@@ -4756,7 +4922,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSmsTemplate")
+        )
         input_: capo_pinpoint.types.get_sms_template_request.GetSmsTemplateRequest = {
             "template_name": template_name
         }
@@ -4809,7 +4977,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserEndpoints")
+        )
         input_: capo_pinpoint.types.get_user_endpoints_request.GetUserEndpointsRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -4859,7 +5029,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVoiceChannel")
+        )
         input_: capo_pinpoint.types.get_voice_channel_request.GetVoiceChannelRequest = {
             "application_id": application_id
         }
@@ -4910,7 +5082,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVoiceTemplate")
+        )
         input_: capo_pinpoint.types.get_voice_template_request.GetVoiceTemplateRequest = {
             "template_name": template_name
         }
@@ -4965,7 +5139,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJourneys")
+        )
         input_: capo_pinpoint.types.list_journeys_request.ListJourneysRequest = {
             "application_id": application_id
         }
@@ -5011,7 +5187,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pinpoint.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5064,7 +5242,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_pinpoint.types.list_templates_request.ListTemplatesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5125,7 +5305,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateVersions")
+        )
         input_: capo_pinpoint.types.list_template_versions_request.ListTemplateVersionsRequest = {
             "template_name": template_name,
             "template_type": template_type,
@@ -5180,7 +5362,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PhoneNumberValidate")
+        )
         input_: capo_pinpoint.types.phone_number_validate_request.PhoneNumberValidateRequest = {}
         if number_validate_request is not None:
             input_["number_validate_request"] = number_validate_request
@@ -5232,7 +5416,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEvents")
+        )
         input_: capo_pinpoint.types.put_events_request.PutEventsRequest = {
             "application_id": application_id
         }
@@ -5286,7 +5472,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEventStream")
+        )
         input_: capo_pinpoint.types.put_event_stream_request.PutEventStreamRequest = {
             "application_id": application_id
         }
@@ -5342,7 +5530,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAttributes")
+        )
         input_: capo_pinpoint.types.remove_attributes_request.RemoveAttributesRequest = {
             "application_id": application_id,
             "attribute_type": attribute_type,
@@ -5397,7 +5587,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendMessages")
+        )
         input_: capo_pinpoint.types.send_messages_request.SendMessagesRequest = {
             "application_id": application_id
         }
@@ -5451,7 +5643,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendOTPMessage")
+        )
         input_: capo_pinpoint.types.send_otp_message_request.SendOTPMessageRequest = {
             "application_id": application_id
         }
@@ -5507,7 +5701,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendUsersMessages")
+        )
         input_: capo_pinpoint.types.send_users_messages_request.SendUsersMessagesRequest = {
             "application_id": application_id
         }
@@ -5550,7 +5746,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pinpoint.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5594,7 +5792,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pinpoint.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5648,7 +5848,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAdmChannel")
+        )
         input_: capo_pinpoint.types.update_adm_channel_request.UpdateAdmChannelRequest = {
             "application_id": application_id
         }
@@ -5702,7 +5904,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApnsChannel")
+        )
         input_: capo_pinpoint.types.update_apns_channel_request.UpdateApnsChannelRequest = {
             "application_id": application_id
         }
@@ -5756,7 +5960,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApnsSandboxChannel")
+        )
         input_: capo_pinpoint.types.update_apns_sandbox_channel_request.UpdateApnsSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -5810,7 +6016,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApnsVoipChannel")
+        )
         input_: capo_pinpoint.types.update_apns_voip_channel_request.UpdateApnsVoipChannelRequest = {
             "application_id": application_id
         }
@@ -5864,7 +6072,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApnsVoipSandboxChannel")
+        )
         input_: capo_pinpoint.types.update_apns_voip_sandbox_channel_request.UpdateApnsVoipSandboxChannelRequest = {
             "application_id": application_id
         }
@@ -5920,7 +6130,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplicationSettings")
+        )
         input_: capo_pinpoint.types.update_application_settings_request.UpdateApplicationSettingsRequest = {
             "application_id": application_id
         }
@@ -5976,7 +6188,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBaiduChannel")
+        )
         input_: capo_pinpoint.types.update_baidu_channel_request.UpdateBaiduChannelRequest = {
             "application_id": application_id
         }
@@ -6032,7 +6246,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaign")
+        )
         input_: capo_pinpoint.types.update_campaign_request.UpdateCampaignRequest = {
             "application_id": application_id,
             "campaign_id": campaign_id,
@@ -6087,7 +6303,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEmailChannel")
+        )
         input_: capo_pinpoint.types.update_email_channel_request.UpdateEmailChannelRequest = {
             "application_id": application_id
         }
@@ -6147,7 +6365,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEmailTemplate")
+        )
         input_: capo_pinpoint.types.update_email_template_request.UpdateEmailTemplateRequest = {
             "template_name": template_name
         }
@@ -6207,7 +6427,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpoint")
+        )
         input_: capo_pinpoint.types.update_endpoint_request.UpdateEndpointRequest = {
             "application_id": application_id,
             "endpoint_id": endpoint_id,
@@ -6262,7 +6484,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointsBatch")
+        )
         input_: capo_pinpoint.types.update_endpoints_batch_request.UpdateEndpointsBatchRequest = {
             "application_id": application_id
         }
@@ -6316,7 +6540,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGcmChannel")
+        )
         input_: capo_pinpoint.types.update_gcm_channel_request.UpdateGcmChannelRequest = {
             "application_id": application_id
         }
@@ -6374,7 +6600,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInAppTemplate")
+        )
         input_: capo_pinpoint.types.update_in_app_template_request.UpdateInAppTemplateRequest = {
             "template_name": template_name
         }
@@ -6435,7 +6663,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJourney")
+        )
         input_: capo_pinpoint.types.update_journey_request.UpdateJourneyRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -6492,7 +6722,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJourneyState")
+        )
         input_: capo_pinpoint.types.update_journey_state_request.UpdateJourneyStateRequest = {
             "application_id": application_id,
             "journey_id": journey_id,
@@ -6551,7 +6783,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePushTemplate")
+        )
         input_: capo_pinpoint.types.update_push_template_request.UpdatePushTemplateRequest = {
             "template_name": template_name
         }
@@ -6611,7 +6845,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecommenderConfiguration")
+        )
         input_: capo_pinpoint.types.update_recommender_configuration_request.UpdateRecommenderConfigurationRequest = {
             "recommender_id": recommender_id
         }
@@ -6669,7 +6905,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSegment")
+        )
         input_: capo_pinpoint.types.update_segment_request.UpdateSegmentRequest = {
             "application_id": application_id,
             "segment_id": segment_id,
@@ -6724,7 +6962,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSmsChannel")
+        )
         input_: capo_pinpoint.types.update_sms_channel_request.UpdateSmsChannelRequest = {
             "application_id": application_id
         }
@@ -6782,7 +7022,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSmsTemplate")
+        )
         input_: capo_pinpoint.types.update_sms_template_request.UpdateSmsTemplateRequest = {
             "template_name": template_name
         }
@@ -6842,7 +7084,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplateActiveVersion")
+        )
         input_: capo_pinpoint.types.update_template_active_version_request.UpdateTemplateActiveVersionRequest = {
             "template_name": template_name,
             "template_type": template_type,
@@ -6897,7 +7141,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVoiceChannel")
+        )
         input_: capo_pinpoint.types.update_voice_channel_request.UpdateVoiceChannelRequest = {
             "application_id": application_id
         }
@@ -6957,7 +7203,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVoiceTemplate")
+        )
         input_: capo_pinpoint.types.update_voice_template_request.UpdateVoiceTemplateRequest = {
             "template_name": template_name
         }
@@ -7015,7 +7263,9 @@ class PinpointClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyOTPMessage")
+        )
         input_: capo_pinpoint.types.verify_otp_message_request.VerifyOTPMessageRequest = {
             "application_id": application_id
         }

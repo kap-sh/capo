@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ChainedInvokeStartedDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,13 @@ def deserialize_json(data: dict) -> ChainedInvokeStartedDetails:
         out["executed_version"] = data["ExecutedVersion"]
     if data.get("DurableExecutionArn") is not None:
         out["durable_execution_arn"] = data["DurableExecutionArn"]
+    return out
+
+
+def redact_sensitive(value: ChainedInvokeStartedDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_lambda.types.event_input
+
+        out["input"] = capo_lambda.types.event_input.redact_sensitive(value["input"])
     return out

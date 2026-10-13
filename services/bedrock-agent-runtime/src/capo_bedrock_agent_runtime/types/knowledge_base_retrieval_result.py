@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#KnowledgeBaseRetrievalResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,4 +103,15 @@ def deserialize_json(data: dict) -> KnowledgeBaseRetrievalResult:
         )
     if data.get("documentId") is not None:
         out["document_id"] = data["documentId"]
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseRetrievalResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
+    if "location" in value:
+        out["location"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

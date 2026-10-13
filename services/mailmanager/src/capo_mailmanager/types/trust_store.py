@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#TrustStore``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_aws_json_1_0(data: dict) -> TrustStore:
         out["crl_content"] = data["CrlContent"]
     if data.get("KmsKeyArn") is not None:
         out["kms_key_arn"] = data["KmsKeyArn"]
+    return out
+
+
+def redact_sensitive(value: TrustStore) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ca_content" in value:
+        out["ca_content"] = "*** Sensitive Data Redacted ***"
+    if "crl_content" in value:
+        out["crl_content"] = "*** Sensitive Data Redacted ***"
     return out

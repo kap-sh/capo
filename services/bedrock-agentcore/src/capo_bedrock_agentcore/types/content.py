@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#Content``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -30,3 +30,10 @@ def deserialize_json(data: dict) -> Content:
         return {"text": data["text"]}
     else:
         raise DeserializationError("Content: no recognized variant key")
+
+
+def redact_sensitive(value: Content) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    return out

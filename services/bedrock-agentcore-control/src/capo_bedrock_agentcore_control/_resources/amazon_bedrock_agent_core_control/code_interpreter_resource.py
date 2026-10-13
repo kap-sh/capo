@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -109,7 +110,19 @@ class CodeInterpreterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_code_interpreter_request.CreateCodeInterpreterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_code_interpreter_request
+
+            return capo_bedrock_agentcore_control.types.create_code_interpreter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCodeInterpreter", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_code_interpreter_request.CreateCodeInterpreterRequest = {
             "name": name,
             "network_configuration": network_configuration,
@@ -170,7 +183,19 @@ class CodeInterpreterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_code_interpreter_response.GetCodeInterpreterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_code_interpreter_response
+
+            return capo_bedrock_agentcore_control.types.get_code_interpreter_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCodeInterpreter", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_code_interpreter_request.GetCodeInterpreterRequest = {
             "code_interpreter_id": code_interpreter_id
         }
@@ -223,7 +248,9 @@ class CodeInterpreterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCodeInterpreter")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_code_interpreter_request.DeleteCodeInterpreterRequest = {
             "code_interpreter_id": code_interpreter_id
         }
@@ -282,7 +309,19 @@ class CodeInterpreterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_code_interpreters_response.ListCodeInterpretersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_code_interpreters_response
+
+            return capo_bedrock_agentcore_control.types.list_code_interpreters_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCodeInterpreters", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_code_interpreters_request.ListCodeInterpretersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -364,7 +403,19 @@ class AsyncCodeInterpreterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_code_interpreter_request.CreateCodeInterpreterRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_code_interpreter_request
+
+            return capo_bedrock_agentcore_control.types.create_code_interpreter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateCodeInterpreter", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_code_interpreter_request.CreateCodeInterpreterRequest = {
             "name": name,
             "network_configuration": network_configuration,
@@ -426,7 +477,19 @@ class AsyncCodeInterpreterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_code_interpreter_response.GetCodeInterpreterResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_code_interpreter_response
+
+            return capo_bedrock_agentcore_control.types.get_code_interpreter_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCodeInterpreter", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_code_interpreter_request.GetCodeInterpreterRequest = {
             "code_interpreter_id": code_interpreter_id
         }
@@ -480,7 +543,9 @@ class AsyncCodeInterpreterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCodeInterpreter")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_code_interpreter_request.DeleteCodeInterpreterRequest = {
             "code_interpreter_id": code_interpreter_id
         }
@@ -540,7 +605,19 @@ class AsyncCodeInterpreterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_code_interpreters_response.ListCodeInterpretersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_code_interpreters_response
+
+            return capo_bedrock_agentcore_control.types.list_code_interpreters_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCodeInterpreters", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_code_interpreters_request.ListCodeInterpretersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetAgentRuntimeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -388,4 +388,13 @@ def deserialize_json(data: dict) -> GetAgentRuntimeResponse:
         )
     if data.get("platformVersion") is not None:
         out["platform_version"] = data["platformVersion"]
+    return out
+
+
+def redact_sensitive(value: GetAgentRuntimeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "environment_variables" in value:
+        out["environment_variables"] = "*** Sensitive Data Redacted ***"
     return out

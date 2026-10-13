@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyAnnotatedContent``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -48,3 +48,16 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyAnnotatedContent:
         raise DeserializationError(
             "AutomatedReasoningPolicyAnnotatedContent: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyAnnotatedContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "line" in value:
+        import capo_bedrock.types.automated_reasoning_policy_annotated_line
+
+        out["line"] = (
+            capo_bedrock.types.automated_reasoning_policy_annotated_line.redact_sensitive(
+                value["line"]
+            )
+        )
+    return out

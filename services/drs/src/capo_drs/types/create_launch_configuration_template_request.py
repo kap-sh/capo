@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#CreateLaunchConfigurationTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,4 +100,11 @@ def deserialize_json(data: dict) -> CreateLaunchConfigurationTemplateRequest:
         out["launch_into_source_instance"] = data["launchIntoSourceInstance"]
     if data.get("recoveryMode") is not None:
         out["recovery_mode"] = data["recoveryMode"]
+    return out
+
+
+def redact_sensitive(value: CreateLaunchConfigurationTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#ListSMSSandboxPhoneNumbersResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,17 @@ def deserialize_query(el: Element) -> ListSMSSandboxPhoneNumbersResult:
     child_next_token = el.find("NextToken")
     if child_next_token is not None:
         out["next_token"] = str(child_next_token.text or "")
+    return out
+
+
+def redact_sensitive(value: ListSMSSandboxPhoneNumbersResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_numbers" in value:
+        import capo_sns.types.sms_sandbox_phone_number_list
+
+        out["phone_numbers"] = (
+            capo_sns.types.sms_sandbox_phone_number_list.redact_sensitive(
+                value["phone_numbers"]
+            )
+        )
     return out

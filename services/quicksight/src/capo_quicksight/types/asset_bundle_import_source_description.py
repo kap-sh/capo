@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AssetBundleImportSourceDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> AssetBundleImportSourceDescription:
         out["body"] = data["Body"]
     if data.get("S3Uri") is not None:
         out["s3_uri"] = data["S3Uri"]
+    return out
+
+
+def redact_sensitive(value: AssetBundleImportSourceDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

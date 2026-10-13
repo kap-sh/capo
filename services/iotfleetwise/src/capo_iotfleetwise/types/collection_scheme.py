@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#CollectionScheme``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,16 @@ def deserialize_aws_json_1_0(data: dict) -> CollectionScheme:
         }
     else:
         raise DeserializationError("CollectionScheme: no recognized variant key")
+
+
+def redact_sensitive(value: CollectionScheme) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "conditionBasedCollectionScheme" in value:
+        import capo_iotfleetwise.types.condition_based_collection_scheme
+
+        out["conditionBasedCollectionScheme"] = (
+            capo_iotfleetwise.types.condition_based_collection_scheme.redact_sensitive(
+                value["conditionBasedCollectionScheme"]
+            )
+        )
+    return out

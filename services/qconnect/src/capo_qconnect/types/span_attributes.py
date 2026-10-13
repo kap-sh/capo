@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -343,6 +343,31 @@ def deserialize_json(data: dict) -> SpanAttributes:
         out["guardrail_assessments"] = (
             capo_qconnect.types.span_guardrail_assessment_list.deserialize_json(
                 data["guardrailAssessments"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SpanAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_messages" in value:
+        import capo_qconnect.types.span_message_list
+
+        out["input_messages"] = capo_qconnect.types.span_message_list.redact_sensitive(
+            value["input_messages"]
+        )
+    if "output_messages" in value:
+        import capo_qconnect.types.span_message_list
+
+        out["output_messages"] = capo_qconnect.types.span_message_list.redact_sensitive(
+            value["output_messages"]
+        )
+    if "system_instructions" in value:
+        import capo_qconnect.types.span_message_value_list
+
+        out["system_instructions"] = (
+            capo_qconnect.types.span_message_value_list.redact_sensitive(
+                value["system_instructions"]
             )
         )
     return out

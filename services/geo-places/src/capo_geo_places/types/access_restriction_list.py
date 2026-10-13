@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#AccessRestrictionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.access_restriction
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> AccessRestrictionList:
             continue
         out.append(capo_geo_places.types.access_restriction.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AccessRestrictionList) -> list[Any]:
+    import capo_geo_places.types.access_restriction
+
+    return [
+        capo_geo_places.types.access_restriction.redact_sensitive(item)
+        for item in value
+    ]

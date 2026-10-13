@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteWebLink``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,17 @@ def deserialize_json(data: dict) -> RouteWebLink:
         )
     if data.get("Url") is not None:
         out["url"] = data["Url"]
+    return out
+
+
+def redact_sensitive(value: RouteWebLink) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "anchor_text" in value:
+        out["anchor_text"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "device_type" in value:
+        out["device_type"] = "*** Sensitive Data Redacted ***"
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

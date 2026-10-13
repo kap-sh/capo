@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#SearchGroupsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,17 @@ def deserialize_json(data: dict) -> SearchGroupsResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: SearchGroupsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "groups" in value:
+        import capo_directory_service_data.types.group_list
+
+        out["groups"] = capo_directory_service_data.types.group_list.redact_sensitive(
+            value["groups"]
+        )
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
     return out

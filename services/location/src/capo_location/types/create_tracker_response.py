@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CreateTrackerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> CreateTrackerResponse:
         )
     else:
         raise DeserializationError("CreateTrackerResponse.create_time required")
+    return out
+
+
+def redact_sensitive(value: CreateTrackerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
     return out

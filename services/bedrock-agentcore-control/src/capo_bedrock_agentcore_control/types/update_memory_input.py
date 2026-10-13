@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#UpdateMemoryInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,6 +136,21 @@ def deserialize_json(data: dict) -> UpdateMemoryInput:
         out["stream_delivery_resources"] = (
             capo_bedrock_agentcore_control.types.stream_delivery_resources.deserialize_json(
                 data["streamDeliveryResources"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateMemoryInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "memory_strategies" in value:
+        import capo_bedrock_agentcore_control.types.modify_memory_strategies
+
+        out["memory_strategies"] = (
+            capo_bedrock_agentcore_control.types.modify_memory_strategies.redact_sensitive(
+                value["memory_strategies"]
             )
         )
     return out

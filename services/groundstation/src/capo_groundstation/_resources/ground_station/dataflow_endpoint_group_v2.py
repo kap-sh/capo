@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class DataflowEndpointGroupV2:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroupV2")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_v2_request.CreateDataflowEndpointGroupV2Request = {
             "endpoints": endpoints
         }
@@ -148,7 +151,9 @@ class AsyncDataflowEndpointGroupV2:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroupV2")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_v2_request.CreateDataflowEndpointGroupV2Request = {
             "endpoints": endpoints
         }

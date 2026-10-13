@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeFlowRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,4 +80,15 @@ def deserialize_json(data: dict) -> InvokeFlowRequest:
         )
     if data.get("executionId") is not None:
         out["execution_id"] = data["executionId"]
+    return out
+
+
+def redact_sensitive(value: InvokeFlowRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inputs" in value:
+        import capo_bedrock_agent_runtime.types.flow_inputs
+
+        out["inputs"] = capo_bedrock_agent_runtime.types.flow_inputs.redact_sensitive(
+            value["inputs"]
+        )
     return out

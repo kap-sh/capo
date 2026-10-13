@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SuggestedMessageDataDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> SuggestedMessageDataDetails:
         out["message_text"] = data["messageText"]
     else:
         raise DeserializationError("SuggestedMessageDataDetails.message_text required")
+    return out
+
+
+def redact_sensitive(value: SuggestedMessageDataDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_text" in value:
+        out["message_text"] = "*** Sensitive Data Redacted ***"
     return out

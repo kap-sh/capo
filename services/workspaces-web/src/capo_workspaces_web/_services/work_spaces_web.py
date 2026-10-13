@@ -52,10 +52,12 @@ from capo_workspaces_web._resources.aws_ermine_control_plane_service.user_settin
 from capo_workspaces_web._services._aws_config import aws_config
 from capo_workspaces_web._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -347,7 +349,9 @@ class WorkSpacesWebClient:
         self.user_settings_resource = UserSettingsResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[WorkSpacesWebClientConfig] = None
+        self,
+        config_overrides: Optional[WorkSpacesWebClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: WorkSpacesWebClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -355,8 +359,10 @@ class WorkSpacesWebClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -411,7 +417,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExpireSession")
+        )
         input_: capo_workspaces_web.types.expire_session_request.ExpireSessionRequest = {
             "portal_id": portal_id,
             "session_id": session_id,
@@ -461,7 +469,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_session_response
+
+            return capo_workspaces_web.types.get_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_session_request.GetSessionRequest = {
             "portal_id": portal_id,
             "session_id": session_id,
@@ -529,7 +549,30 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.list_sessions_request.ListSessionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_sessions_request
+
+            return capo_workspaces_web.types.list_sessions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_sessions_response.ListSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_sessions_response
+
+            return capo_workspaces_web.types.list_sessions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListSessions", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_web.types.list_sessions_request.ListSessionsRequest = {
             "portal_id": portal_id
         }
@@ -627,7 +670,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_tags_for_resource_response
+
+            return capo_workspaces_web.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -681,7 +736,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.tag_resource_request
+
+            return capo_workspaces_web.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -734,7 +801,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.untag_resource_request
+
+            return capo_workspaces_web.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -804,7 +883,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_browser_settings_request
+
+            return capo_workspaces_web.types.create_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_browser_settings_request.CreateBrowserSettingsRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -862,7 +953,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_browser_settings_response.GetBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_browser_settings_response
+
+            return capo_workspaces_web.types.get_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_browser_settings_request.GetBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -921,7 +1024,32 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_request
+
+            return capo_workspaces_web.types.update_browser_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_browser_settings_response.UpdateBrowserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_browser_settings_response
+
+            return capo_workspaces_web.types.update_browser_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBrowserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_browser_settings_request.UpdateBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -975,7 +1103,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBrowserSettings")
+        )
         input_: capo_workspaces_web.types.delete_browser_settings_request.DeleteBrowserSettingsRequest = {
             "browser_settings_arn": browser_settings_arn
         }
@@ -1027,7 +1157,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBrowserSettings")
+        )
         input_: capo_workspaces_web.types.list_browser_settings_request.ListBrowserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1125,7 +1257,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_data_protection_settings_request
+
+            return capo_workspaces_web.types.create_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProtectionSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_data_protection_settings_request.CreateDataProtectionSettingsRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -1185,7 +1331,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_data_protection_settings_response.GetDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_data_protection_settings_response
+
+            return capo_workspaces_web.types.get_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProtectionSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_data_protection_settings_request.GetDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -1248,7 +1406,32 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_request
+
+            return capo_workspaces_web.types.update_data_protection_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_data_protection_settings_response.UpdateDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_data_protection_settings_response
+
+            return capo_workspaces_web.types.update_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataProtectionSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_data_protection_settings_request.UpdateDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -1304,7 +1487,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataProtectionSettings")
+        )
         input_: capo_workspaces_web.types.delete_data_protection_settings_request.DeleteDataProtectionSettingsRequest = {
             "data_protection_settings_arn": data_protection_settings_arn
         }
@@ -1356,7 +1541,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_data_protection_settings_response.ListDataProtectionSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_data_protection_settings_response
+
+            return capo_workspaces_web.types.list_data_protection_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDataProtectionSettings", redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_web.types.list_data_protection_settings_request.ListDataProtectionSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1444,7 +1643,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_identity_provider_request.CreateIdentityProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_identity_provider_request
+
+            return capo_workspaces_web.types.create_identity_provider_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIdentityProvider", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_identity_provider_request.CreateIdentityProviderRequest = {
             "portal_arn": portal_arn,
             "identity_provider_name": identity_provider_name,
@@ -1499,7 +1710,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_identity_provider_response.GetIdentityProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_identity_provider_response
+
+            return capo_workspaces_web.types.get_identity_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIdentityProvider", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_identity_provider_request.GetIdentityProviderRequest = {
             "identity_provider_arn": identity_provider_arn
         }
@@ -1562,7 +1785,32 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_identity_provider_request.UpdateIdentityProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_identity_provider_request
+
+            return capo_workspaces_web.types.update_identity_provider_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_identity_provider_response.UpdateIdentityProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_identity_provider_response
+
+            return capo_workspaces_web.types.update_identity_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateIdentityProvider",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_identity_provider_request.UpdateIdentityProviderRequest = {
             "identity_provider_arn": identity_provider_arn
         }
@@ -1618,7 +1866,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentityProvider")
+        )
         input_: capo_workspaces_web.types.delete_identity_provider_request.DeleteIdentityProviderRequest = {
             "identity_provider_arn": identity_provider_arn
         }
@@ -1672,7 +1922,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_identity_providers_response.ListIdentityProvidersResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_identity_providers_response
+
+            return capo_workspaces_web.types.list_identity_providers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListIdentityProviders", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_identity_providers_request.ListIdentityProvidersRequest = {
             "portal_arn": portal_arn
         }
@@ -1771,7 +2033,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_ip_access_settings_request
+
+            return capo_workspaces_web.types.create_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIpAccessSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest = {
             "ip_rules": ip_rules
         }
@@ -1831,7 +2105,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_ip_access_settings_response.GetIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_ip_access_settings_response
+
+            return capo_workspaces_web.types.get_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_ip_access_settings_request.GetIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -1892,7 +2178,32 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_request
+
+            return capo_workspaces_web.types.update_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_ip_access_settings_response.UpdateIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_response
+
+            return capo_workspaces_web.types.update_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateIpAccessSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -1948,7 +2259,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIpAccessSettings")
+        )
         input_: capo_workspaces_web.types.delete_ip_access_settings_request.DeleteIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -2000,7 +2313,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_ip_access_settings_response.ListIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_ip_access_settings_response
+
+            return capo_workspaces_web.types.list_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_ip_access_settings_request.ListIpAccessSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2083,7 +2408,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_network_settings_request
+
+            return capo_workspaces_web.types.create_network_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNetworkSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -2137,7 +2474,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkSettings")
+        )
         input_: capo_workspaces_web.types.get_network_settings_request.GetNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -2198,7 +2537,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkSettings")
+        )
         input_: capo_workspaces_web.types.update_network_settings_request.UpdateNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -2254,7 +2595,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkSettings")
+        )
         input_: capo_workspaces_web.types.delete_network_settings_request.DeleteNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -2306,7 +2649,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkSettings")
+        )
         input_: capo_workspaces_web.types.list_network_settings_request.ListNetworkSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2412,7 +2757,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_portal_request.CreatePortalRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_portal_request
+
+            return capo_workspaces_web.types.create_portal_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePortal", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_portal_request.CreatePortalRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -2476,7 +2833,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_portal_response.GetPortalResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_portal_response
+
+            return capo_workspaces_web.types.get_portal_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPortal", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_portal_request.GetPortalRequest = {
             "portal_arn": portal_arn
         }
@@ -2545,7 +2914,30 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_portal_request.UpdatePortalRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_portal_request
+
+            return capo_workspaces_web.types.update_portal_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_portal_response.UpdatePortalResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_portal_response
+
+            return capo_workspaces_web.types.update_portal_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePortal", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workspaces_web.types.update_portal_request.UpdatePortalRequest = {
             "portal_arn": portal_arn
         }
@@ -2602,7 +2994,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePortal")
+        )
         input_: capo_workspaces_web.types.delete_portal_request.DeletePortalRequest = {
             "portal_arn": portal_arn
         }
@@ -2654,7 +3048,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_portals_response.ListPortalsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_portals_response
+
+            return capo_workspaces_web.types.list_portals_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPortals", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_portals_request.ListPortalsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2731,7 +3137,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateBrowserSettings")
+        )
         input_: capo_workspaces_web.types.associate_browser_settings_request.AssociateBrowserSettingsRequest = {
             "portal_arn": portal_arn,
             "browser_settings_arn": browser_settings_arn,
@@ -2782,7 +3190,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDataProtectionSettings")
+        )
         input_: capo_workspaces_web.types.associate_data_protection_settings_request.AssociateDataProtectionSettingsRequest = {
             "portal_arn": portal_arn,
             "data_protection_settings_arn": data_protection_settings_arn,
@@ -2833,7 +3243,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateIpAccessSettings")
+        )
         input_: capo_workspaces_web.types.associate_ip_access_settings_request.AssociateIpAccessSettingsRequest = {
             "portal_arn": portal_arn,
             "ip_access_settings_arn": ip_access_settings_arn,
@@ -2884,7 +3296,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateNetworkSettings")
+        )
         input_: capo_workspaces_web.types.associate_network_settings_request.AssociateNetworkSettingsRequest = {
             "portal_arn": portal_arn,
             "network_settings_arn": network_settings_arn,
@@ -2941,7 +3355,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSessionLogger")
+        )
         input_: capo_workspaces_web.types.associate_session_logger_request.AssociateSessionLoggerRequest = {
             "portal_arn": portal_arn,
             "session_logger_arn": session_logger_arn,
@@ -2992,7 +3408,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTrustStore")
+        )
         input_: capo_workspaces_web.types.associate_trust_store_request.AssociateTrustStoreRequest = {
             "portal_arn": portal_arn,
             "trust_store_arn": trust_store_arn,
@@ -3043,7 +3461,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.associate_user_access_logging_settings_request.AssociateUserAccessLoggingSettingsRequest = {
             "portal_arn": portal_arn,
             "user_access_logging_settings_arn": user_access_logging_settings_arn,
@@ -3094,7 +3514,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateUserSettings")
+        )
         input_: capo_workspaces_web.types.associate_user_settings_request.AssociateUserSettingsRequest = {
             "portal_arn": portal_arn,
             "user_settings_arn": user_settings_arn,
@@ -3143,7 +3565,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateBrowserSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_browser_settings_request.DisassociateBrowserSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3191,7 +3615,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDataProtectionSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_data_protection_settings_request.DisassociateDataProtectionSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3239,7 +3665,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateIpAccessSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_ip_access_settings_request.DisassociateIpAccessSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3287,7 +3715,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateNetworkSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_network_settings_request.DisassociateNetworkSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3340,7 +3770,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSessionLogger")
+        )
         input_: capo_workspaces_web.types.disassociate_session_logger_request.DisassociateSessionLoggerRequest = {
             "portal_arn": portal_arn
         }
@@ -3388,7 +3820,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateTrustStore")
+        )
         input_: capo_workspaces_web.types.disassociate_trust_store_request.DisassociateTrustStoreRequest = {
             "portal_arn": portal_arn
         }
@@ -3436,7 +3870,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_user_access_logging_settings_request.DisassociateUserAccessLoggingSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3484,7 +3920,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateUserSettings")
+        )
         input_: capo_workspaces_web.types.disassociate_user_settings_request.DisassociateUserSettingsRequest = {
             "portal_arn": portal_arn
         }
@@ -3531,7 +3969,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPortalServiceProviderMetadata")
+        )
         input_: capo_workspaces_web.types.get_portal_service_provider_metadata_request.GetPortalServiceProviderMetadataRequest = {
             "portal_arn": portal_arn
         }
@@ -3609,7 +4049,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_session_logger_request
+
+            return capo_workspaces_web.types.create_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSessionLogger", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_session_logger_request.CreateSessionLoggerRequest = {
             "event_filter": event_filter,
             "log_configuration": log_configuration,
@@ -3680,7 +4132,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_session_logger_response.GetSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_session_logger_response
+
+            return (
+                capo_workspaces_web.types.get_session_logger_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSessionLogger", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_session_logger_request.GetSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -3749,7 +4215,32 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_request
+
+            return capo_workspaces_web.types.update_session_logger_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_session_logger_response.UpdateSessionLoggerResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_session_logger_response
+
+            return capo_workspaces_web.types.update_session_logger_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSessionLogger",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_session_logger_request.UpdateSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -3808,7 +4299,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSessionLogger")
+        )
         input_: capo_workspaces_web.types.delete_session_logger_request.DeleteSessionLoggerRequest = {
             "session_logger_arn": session_logger_arn
         }
@@ -3870,7 +4363,19 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_session_loggers_response.ListSessionLoggersResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_session_loggers_response
+
+            return capo_workspaces_web.types.list_session_loggers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSessionLoggers", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_session_loggers_request.ListSessionLoggersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3953,7 +4458,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_trust_store_request
+
+            return (
+                capo_workspaces_web.types.create_trust_store_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustStore", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_trust_store_request.CreateTrustStoreRequest = {
             "certificate_list": certificate_list
         }
@@ -4005,7 +4524,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustStore")
+        )
         input_: capo_workspaces_web.types.get_trust_store_request.GetTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -4067,7 +4588,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrustStore")
+        )
         input_: capo_workspaces_web.types.update_trust_store_request.UpdateTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -4123,7 +4646,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrustStore")
+        )
         input_: capo_workspaces_web.types.delete_trust_store_request.DeleteTrustStoreRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -4175,7 +4700,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrustStores")
+        )
         input_: capo_workspaces_web.types.list_trust_stores_request.ListTrustStoresRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4249,7 +4776,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustStoreCertificate")
+        )
         input_: capo_workspaces_web.types.get_trust_store_certificate_request.GetTrustStoreCertificateRequest = {
             "trust_store_arn": trust_store_arn,
             "thumbprint": thumbprint,
@@ -4305,7 +4834,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrustStoreCertificates")
+        )
         input_: capo_workspaces_web.types.list_trust_store_certificates_request.ListTrustStoreCertificatesRequest = {
             "trust_store_arn": trust_store_arn
         }
@@ -4388,7 +4919,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_access_logging_settings_request
+
+            return capo_workspaces_web.types.create_user_access_logging_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateUserAccessLoggingSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest = {
             "kinesis_stream_arn": kinesis_stream_arn
         }
@@ -4440,7 +4985,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.get_user_access_logging_settings_request.GetUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -4495,7 +5042,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.update_user_access_logging_settings_request.UpdateUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -4547,7 +5096,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_access_logging_settings_request.DeleteUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -4599,7 +5150,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.list_user_access_logging_settings_request.ListUserAccessLoggingSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4723,7 +5276,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_settings_request
+
+            return (
+                capo_workspaces_web.types.create_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateUserSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_user_settings_request.CreateUserSettingsRequest = {
             "copy_allowed": copy_allowed,
             "paste_allowed": paste_allowed,
@@ -4801,7 +5368,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_user_settings_response.GetUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_user_settings_response
+
+            return (
+                capo_workspaces_web.types.get_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_user_settings_request.GetUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -4900,7 +5481,34 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_request
+
+            return (
+                capo_workspaces_web.types.update_user_settings_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_user_settings_response.UpdateUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_user_settings_response
+
+            return capo_workspaces_web.types.update_user_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUserSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_user_settings_request.UpdateUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -4978,7 +5586,9 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_settings_request.DeleteUserSettingsRequest = {
             "user_settings_arn": user_settings_arn
         }
@@ -5032,7 +5642,21 @@ class WorkSpacesWebClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_user_settings_response.ListUserSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_user_settings_response
+
+            return (
+                capo_workspaces_web.types.list_user_settings_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListUserSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_user_settings_request.ListUserSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

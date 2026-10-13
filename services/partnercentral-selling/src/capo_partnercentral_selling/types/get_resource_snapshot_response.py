@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#GetResourceSnapshotResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -157,6 +157,29 @@ def deserialize_aws_json_1_0(data: dict) -> GetResourceSnapshotResponse:
         out["target_member_accounts"] = (
             capo_partnercentral_selling.types.aws_account_id_or_alias_list.deserialize_aws_json_1_0(
                 data["TargetMemberAccounts"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetResourceSnapshotResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "created_by" in value:
+        out["created_by"] = "*** Sensitive Data Redacted ***"
+    if "payload" in value:
+        import capo_partnercentral_selling.types.resource_snapshot_payload
+
+        out["payload"] = (
+            capo_partnercentral_selling.types.resource_snapshot_payload.redact_sensitive(
+                value["payload"]
+            )
+        )
+    if "target_member_accounts" in value:
+        import capo_partnercentral_selling.types.aws_account_id_or_alias_list
+
+        out["target_member_accounts"] = (
+            capo_partnercentral_selling.types.aws_account_id_or_alias_list.redact_sensitive(
+                value["target_member_accounts"]
             )
         )
     return out

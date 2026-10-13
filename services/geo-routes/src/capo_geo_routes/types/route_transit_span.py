@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitSpan``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,23 @@ def deserialize_json(data: dict) -> RouteTransitSpan:
         )
     if data.get("Region") is not None:
         out["region"] = data["Region"]
+    return out
+
+
+def redact_sensitive(value: RouteTransitSpan) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "names" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["names"] = capo_geo_routes.types.localized_string_list.redact_sensitive(
+            value["names"]
+        )
+    if "region" in value:
+        out["region"] = "*** Sensitive Data Redacted ***"
     return out

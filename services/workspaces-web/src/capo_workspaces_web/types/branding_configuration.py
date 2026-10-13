@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#BrandingConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -106,4 +106,11 @@ def deserialize_json(data: dict) -> BrandingConfiguration:
         raise DeserializationError("BrandingConfiguration.color_theme required")
     if data.get("termsOfService") is not None:
         out["terms_of_service"] = data["termsOfService"]
+    return out
+
+
+def redact_sensitive(value: BrandingConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "terms_of_service" in value:
+        out["terms_of_service"] = "*** Sensitive Data Redacted ***"
     return out

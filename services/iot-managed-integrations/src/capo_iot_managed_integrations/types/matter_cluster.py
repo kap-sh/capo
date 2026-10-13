@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#MatterCluster``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,6 +74,29 @@ def deserialize_json(data: dict) -> MatterCluster:
         out["events"] = (
             capo_iot_managed_integrations.types.matter_events.deserialize_json(
                 data["events"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MatterCluster) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
+    if "commands" in value:
+        import capo_iot_managed_integrations.types.matter_commands
+
+        out["commands"] = (
+            capo_iot_managed_integrations.types.matter_commands.redact_sensitive(
+                value["commands"]
+            )
+        )
+    if "events" in value:
+        import capo_iot_managed_integrations.types.matter_events
+
+        out["events"] = (
+            capo_iot_managed_integrations.types.matter_events.redact_sensitive(
+                value["events"]
             )
         )
     return out

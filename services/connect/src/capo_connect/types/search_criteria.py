@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#SearchCriteria``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -266,5 +266,36 @@ def deserialize_json(data: dict) -> SearchCriteria:
 
         out["ai_agents"] = capo_connect.types.ai_agents_criteria.deserialize_json(
             data["AiAgents"]
+        )
+    return out
+
+
+def redact_sensitive(value: SearchCriteria) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        import capo_connect.types.name_criteria
+
+        out["name"] = capo_connect.types.name_criteria.redact_sensitive(value["name"])
+    if "contact_analysis" in value:
+        import capo_connect.types.contact_analysis
+
+        out["contact_analysis"] = capo_connect.types.contact_analysis.redact_sensitive(
+            value["contact_analysis"]
+        )
+    if "searchable_contact_attributes" in value:
+        import capo_connect.types.searchable_contact_attributes
+
+        out["searchable_contact_attributes"] = (
+            capo_connect.types.searchable_contact_attributes.redact_sensitive(
+                value["searchable_contact_attributes"]
+            )
+        )
+    if "searchable_segment_attributes" in value:
+        import capo_connect.types.searchable_segment_attributes
+
+        out["searchable_segment_attributes"] = (
+            capo_connect.types.searchable_segment_attributes.redact_sensitive(
+                value["searchable_segment_attributes"]
+            )
         )
     return out

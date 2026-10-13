@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#StaticRoute``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> StaticRoute:
         out["target_name"] = data["targetName"]
     else:
         raise DeserializationError("StaticRoute.target_name required")
+    return out
+
+
+def redact_sensitive(value: StaticRoute) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_name" in value:
+        out["target_name"] = "*** Sensitive Data Redacted ***"
     return out

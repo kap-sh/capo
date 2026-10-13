@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SessionTagList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.session_tag
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> SessionTagList:
             continue
         out.append(capo_quicksight.types.session_tag.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SessionTagList) -> list[Any]:
+    import capo_quicksight.types.session_tag
+
+    return [capo_quicksight.types.session_tag.redact_sensitive(item) for item in value]

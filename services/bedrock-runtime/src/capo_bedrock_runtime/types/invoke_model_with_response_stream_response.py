@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#InvokeModelWithResponseStreamResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -24,3 +24,10 @@ class InvokeModelWithResponseStreamResponse(TypedDict, closed=True):
         "capo_bedrock_runtime.types.service_tier_type.ServiceTierType"
     ]
     """<p>Specifies the processing tier type used for serving the request.</p>"""
+
+
+def redact_sensitive(value: InvokeModelWithResponseStreamResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

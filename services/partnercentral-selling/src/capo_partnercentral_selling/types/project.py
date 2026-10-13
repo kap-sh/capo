@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#Project``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -215,4 +215,23 @@ def deserialize_aws_json_1_0(data: dict) -> Project:
                 data["AwsPartition"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Project) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expected_customer_spend" in value:
+        import capo_partnercentral_selling.types.expected_customer_spend_list
+
+        out["expected_customer_spend"] = (
+            capo_partnercentral_selling.types.expected_customer_spend_list.redact_sensitive(
+                value["expected_customer_spend"]
+            )
+        )
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "customer_business_problem" in value:
+        out["customer_business_problem"] = "*** Sensitive Data Redacted ***"
+    if "other_solution_description" in value:
+        out["other_solution_description"] = "*** Sensitive Data Redacted ***"
     return out

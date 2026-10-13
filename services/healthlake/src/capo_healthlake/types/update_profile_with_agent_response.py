@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#UpdateProfileWithAgentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -51,5 +51,18 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateProfileWithAgentResponse:
     else:
         raise DeserializationError(
             "UpdateProfileWithAgentResponse.conversation_id required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateProfileWithAgentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "agent_response" in value:
+        import capo_healthlake.types.agent_output_message
+
+        out["agent_response"] = (
+            capo_healthlake.types.agent_output_message.redact_sensitive(
+                value["agent_response"]
+            )
         )
     return out

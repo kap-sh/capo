@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#AgentRecommendationSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_wellarchitected.types.agent_recommendation_summary
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> AgentRecommendationSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: AgentRecommendationSummaries) -> list[Any]:
+    import capo_wellarchitected.types.agent_recommendation_summary
+
+    return [
+        capo_wellarchitected.types.agent_recommendation_summary.redact_sensitive(item)
+        for item in value
+    ]

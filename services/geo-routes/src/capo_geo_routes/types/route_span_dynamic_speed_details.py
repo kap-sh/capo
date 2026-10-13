@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteSpanDynamicSpeedDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -61,4 +61,15 @@ def deserialize_json(data: dict) -> RouteSpanDynamicSpeedDetails:
         out["typical_speed"] = float(data["TypicalSpeed"])
     else:
         out["typical_speed"] = 0
+    return out
+
+
+def redact_sensitive(value: RouteSpanDynamicSpeedDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "best_case_speed" in value:
+        out["best_case_speed"] = "*** Sensitive Data Redacted ***"
+    if "turn_duration" in value:
+        out["turn_duration"] = "*** Sensitive Data Redacted ***"
+    if "typical_speed" in value:
+        out["typical_speed"] = "*** Sensitive Data Redacted ***"
     return out

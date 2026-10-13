@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#ConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -413,6 +413,155 @@ def deserialize_json(data: dict) -> ConnectorProfileCredentials:
         out["pardot"] = (
             capo_appflow.types.pardot_connector_profile_credentials.deserialize_json(
                 data["Pardot"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "amplitude" in value:
+        import capo_appflow.types.amplitude_connector_profile_credentials
+
+        out["amplitude"] = (
+            capo_appflow.types.amplitude_connector_profile_credentials.redact_sensitive(
+                value["amplitude"]
+            )
+        )
+    if "datadog" in value:
+        import capo_appflow.types.datadog_connector_profile_credentials
+
+        out["datadog"] = (
+            capo_appflow.types.datadog_connector_profile_credentials.redact_sensitive(
+                value["datadog"]
+            )
+        )
+    if "google_analytics" in value:
+        import capo_appflow.types.google_analytics_connector_profile_credentials
+
+        out["google_analytics"] = (
+            capo_appflow.types.google_analytics_connector_profile_credentials.redact_sensitive(
+                value["google_analytics"]
+            )
+        )
+    if "honeycode" in value:
+        import capo_appflow.types.honeycode_connector_profile_credentials
+
+        out["honeycode"] = (
+            capo_appflow.types.honeycode_connector_profile_credentials.redact_sensitive(
+                value["honeycode"]
+            )
+        )
+    if "infor_nexus" in value:
+        import capo_appflow.types.infor_nexus_connector_profile_credentials
+
+        out["infor_nexus"] = (
+            capo_appflow.types.infor_nexus_connector_profile_credentials.redact_sensitive(
+                value["infor_nexus"]
+            )
+        )
+    if "marketo" in value:
+        import capo_appflow.types.marketo_connector_profile_credentials
+
+        out["marketo"] = (
+            capo_appflow.types.marketo_connector_profile_credentials.redact_sensitive(
+                value["marketo"]
+            )
+        )
+    if "redshift" in value:
+        import capo_appflow.types.redshift_connector_profile_credentials
+
+        out["redshift"] = (
+            capo_appflow.types.redshift_connector_profile_credentials.redact_sensitive(
+                value["redshift"]
+            )
+        )
+    if "salesforce" in value:
+        import capo_appflow.types.salesforce_connector_profile_credentials
+
+        out["salesforce"] = (
+            capo_appflow.types.salesforce_connector_profile_credentials.redact_sensitive(
+                value["salesforce"]
+            )
+        )
+    if "service_now" in value:
+        import capo_appflow.types.service_now_connector_profile_credentials
+
+        out["service_now"] = (
+            capo_appflow.types.service_now_connector_profile_credentials.redact_sensitive(
+                value["service_now"]
+            )
+        )
+    if "singular" in value:
+        import capo_appflow.types.singular_connector_profile_credentials
+
+        out["singular"] = (
+            capo_appflow.types.singular_connector_profile_credentials.redact_sensitive(
+                value["singular"]
+            )
+        )
+    if "slack" in value:
+        import capo_appflow.types.slack_connector_profile_credentials
+
+        out["slack"] = (
+            capo_appflow.types.slack_connector_profile_credentials.redact_sensitive(
+                value["slack"]
+            )
+        )
+    if "snowflake" in value:
+        import capo_appflow.types.snowflake_connector_profile_credentials
+
+        out["snowflake"] = (
+            capo_appflow.types.snowflake_connector_profile_credentials.redact_sensitive(
+                value["snowflake"]
+            )
+        )
+    if "trendmicro" in value:
+        import capo_appflow.types.trendmicro_connector_profile_credentials
+
+        out["trendmicro"] = (
+            capo_appflow.types.trendmicro_connector_profile_credentials.redact_sensitive(
+                value["trendmicro"]
+            )
+        )
+    if "veeva" in value:
+        import capo_appflow.types.veeva_connector_profile_credentials
+
+        out["veeva"] = (
+            capo_appflow.types.veeva_connector_profile_credentials.redact_sensitive(
+                value["veeva"]
+            )
+        )
+    if "zendesk" in value:
+        import capo_appflow.types.zendesk_connector_profile_credentials
+
+        out["zendesk"] = (
+            capo_appflow.types.zendesk_connector_profile_credentials.redact_sensitive(
+                value["zendesk"]
+            )
+        )
+    if "sapo_data" in value:
+        import capo_appflow.types.sapo_data_connector_profile_credentials
+
+        out["sapo_data"] = (
+            capo_appflow.types.sapo_data_connector_profile_credentials.redact_sensitive(
+                value["sapo_data"]
+            )
+        )
+    if "custom_connector" in value:
+        import capo_appflow.types.custom_connector_profile_credentials
+
+        out["custom_connector"] = (
+            capo_appflow.types.custom_connector_profile_credentials.redact_sensitive(
+                value["custom_connector"]
+            )
+        )
+    if "pardot" in value:
+        import capo_appflow.types.pardot_connector_profile_credentials
+
+        out["pardot"] = (
+            capo_appflow.types.pardot_connector_profile_credentials.redact_sensitive(
+                value["pardot"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ListQuickResponsesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,17 @@ def deserialize_json(data: dict) -> ListQuickResponsesResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListQuickResponsesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "quick_response_summaries" in value:
+        import capo_qconnect.types.quick_response_summary_list
+
+        out["quick_response_summaries"] = (
+            capo_qconnect.types.quick_response_summary_list.redact_sensitive(
+                value["quick_response_summaries"]
+            )
+        )
     return out

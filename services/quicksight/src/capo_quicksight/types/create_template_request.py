@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CreateTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,6 +135,19 @@ def deserialize_json(data: dict) -> CreateTemplateRequest:
         out["validation_strategy"] = (
             capo_quicksight.types.validation_strategy.deserialize_json(
                 data["ValidationStrategy"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        import capo_quicksight.types.template_version_definition
+
+        out["definition"] = (
+            capo_quicksight.types.template_version_definition.redact_sensitive(
+                value["definition"]
             )
         )
     return out

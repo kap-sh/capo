@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ExecutionDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_json(data: dict) -> ExecutionDetails:
     out: ExecutionDetails = {}  # type: ignore[typeddict-item]
     if data.get("InputPayload") is not None:
         out["input_payload"] = data["InputPayload"]
+    return out
+
+
+def redact_sensitive(value: ExecutionDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_payload" in value:
+        out["input_payload"] = "*** Sensitive Data Redacted ***"
     return out

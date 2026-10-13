@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DescribeSpotFleetRequestsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,6 +49,19 @@ def deserialize_ec2_query(el: Element) -> DescribeSpotFleetRequestsResponse:
         out["spot_fleet_request_configs"] = (
             capo_ec2.types.spot_fleet_request_config_set.deserialize_ec2_query(
                 child_spot_fleet_request_configs
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeSpotFleetRequestsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "spot_fleet_request_configs" in value:
+        import capo_ec2.types.spot_fleet_request_config_set
+
+        out["spot_fleet_request_configs"] = (
+            capo_ec2.types.spot_fleet_request_config_set.redact_sensitive(
+                value["spot_fleet_request_configs"]
             )
         )
     return out

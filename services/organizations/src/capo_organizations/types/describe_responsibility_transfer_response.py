@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#DescribeResponsibilityTransferResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeResponsibilityTransferRespon
         out["responsibility_transfer"] = (
             capo_organizations.types.responsibility_transfer.deserialize_aws_json_1_1(
                 data["ResponsibilityTransfer"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeResponsibilityTransferResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "responsibility_transfer" in value:
+        import capo_organizations.types.responsibility_transfer
+
+        out["responsibility_transfer"] = (
+            capo_organizations.types.responsibility_transfer.redact_sensitive(
+                value["responsibility_transfer"]
             )
         )
     return out

@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class CloudAutonomousVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.create_cloud_autonomous_vm_cluster_input.CreateCloudAutonomousVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "odb_network_id": odb_network_id,
@@ -187,7 +190,9 @@ class CloudAutonomousVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.get_cloud_autonomous_vm_cluster_input.GetCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -234,7 +239,9 @@ class CloudAutonomousVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_autonomous_vm_cluster_input.DeleteCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -287,7 +294,9 @@ class CloudAutonomousVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCloudAutonomousVmClusters")
+        )
         input_: capo_odb.types.list_cloud_autonomous_vm_clusters_input.ListCloudAutonomousVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -342,7 +351,9 @@ class CloudAutonomousVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousVirtualMachines")
+        )
         input_: capo_odb.types.list_autonomous_virtual_machines_input.ListAutonomousVirtualMachinesInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -437,7 +448,9 @@ class AsyncCloudAutonomousVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.create_cloud_autonomous_vm_cluster_input.CreateCloudAutonomousVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "odb_network_id": odb_network_id,
@@ -512,7 +525,9 @@ class AsyncCloudAutonomousVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.get_cloud_autonomous_vm_cluster_input.GetCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -560,7 +575,9 @@ class AsyncCloudAutonomousVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudAutonomousVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_autonomous_vm_cluster_input.DeleteCloudAutonomousVmClusterInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }
@@ -614,7 +631,9 @@ class AsyncCloudAutonomousVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCloudAutonomousVmClusters")
+        )
         input_: capo_odb.types.list_cloud_autonomous_vm_clusters_input.ListCloudAutonomousVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -670,7 +689,9 @@ class AsyncCloudAutonomousVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAutonomousVirtualMachines")
+        )
         input_: capo_odb.types.list_autonomous_virtual_machines_input.ListAutonomousVirtualMachinesInput = {
             "cloud_autonomous_vm_cluster_id": cloud_autonomous_vm_cluster_id
         }

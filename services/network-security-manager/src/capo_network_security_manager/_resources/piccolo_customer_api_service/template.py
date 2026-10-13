@@ -8,6 +8,7 @@ import capo_network_security_manager._auth._sigv4
 from capo_network_security_manager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -116,7 +117,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_network_security_manager.types.create_template_input.CreateTemplateInput = {
             "template_name": template_name,
             "associated_rule_list": associated_rule_list,
@@ -180,7 +183,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_network_security_manager.types.get_template_input.GetTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -251,7 +256,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_network_security_manager.types.update_template_input.UpdateTemplateInput = {
             "template_identifier": template_identifier,
             "update_token": update_token,
@@ -311,7 +318,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_network_security_manager.types.delete_template_input.DeleteTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -375,7 +384,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_network_security_manager.types.list_templates_input.ListTemplatesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -440,7 +451,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateSnapshot")
+        )
         input_: capo_network_security_manager.types.create_template_snapshot_input.CreateTemplateSnapshotInput = {
             "template_identifier": template_identifier
         }
@@ -506,7 +519,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateSnapshots")
+        )
         input_: capo_network_security_manager.types.list_template_snapshots_input.ListTemplateSnapshotsInput = {
             "template_identifier": template_identifier
         }
@@ -590,7 +605,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_network_security_manager.types.create_template_input.CreateTemplateInput = {
             "template_name": template_name,
             "associated_rule_list": associated_rule_list,
@@ -655,7 +672,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_network_security_manager.types.get_template_input.GetTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -727,7 +746,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_network_security_manager.types.update_template_input.UpdateTemplateInput = {
             "template_identifier": template_identifier,
             "update_token": update_token,
@@ -788,7 +809,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_network_security_manager.types.delete_template_input.DeleteTemplateInput = {
             "template_identifier": template_identifier
         }
@@ -853,7 +876,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_network_security_manager.types.list_templates_input.ListTemplatesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -919,7 +944,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplateSnapshot")
+        )
         input_: capo_network_security_manager.types.create_template_snapshot_input.CreateTemplateSnapshotInput = {
             "template_identifier": template_identifier
         }
@@ -986,7 +1013,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateSnapshots")
+        )
         input_: capo_network_security_manager.types.list_template_snapshots_input.ListTemplateSnapshotsInput = {
             "template_identifier": template_identifier
         }

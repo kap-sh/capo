@@ -22,10 +22,12 @@ from capo_timestream_write._pagination import resolve_path as _resolve_path
 from capo_timestream_write._services._aws_config import aws_config
 from capo_timestream_write._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -162,7 +164,9 @@ class TimestreamWriteClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[TimestreamWriteClientConfig] = None
+        self,
+        config_overrides: Optional[TimestreamWriteClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TimestreamWriteClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -170,8 +174,10 @@ class TimestreamWriteClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +249,19 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_write.types.create_batch_load_task_request.CreateBatchLoadTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_timestream_write.types.create_batch_load_task_request
+
+            return capo_timestream_write.types.create_batch_load_task_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBatchLoadTask", redact_input=_redact_input),
+        )
         input_: capo_timestream_write.types.create_batch_load_task_request.CreateBatchLoadTaskRequest = {
             "data_source_configuration": data_source_configuration,
             "report_configuration": report_configuration,
@@ -308,7 +326,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDatabase")
+        )
         input_: capo_timestream_write.types.create_database_request.CreateDatabaseRequest = {
             "database_name": database_name
         }
@@ -376,7 +396,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTable")
+        )
         input_: capo_timestream_write.types.create_table_request.CreateTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -431,7 +453,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatabase")
+        )
         input_: capo_timestream_write.types.delete_database_request.DeleteDatabaseRequest = {
             "database_name": database_name
         }
@@ -479,7 +503,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTable")
+        )
         input_: capo_timestream_write.types.delete_table_request.DeleteTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -527,7 +553,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBatchLoadTask")
+        )
         input_: capo_timestream_write.types.describe_batch_load_task_request.DescribeBatchLoadTaskRequest = {
             "task_id": task_id
         }
@@ -575,7 +603,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatabase")
+        )
         input_: capo_timestream_write.types.describe_database_request.DescribeDatabaseRequest = {
             "database_name": database_name
         }
@@ -614,7 +644,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpoints")
+        )
         input_: capo_timestream_write.types.describe_endpoints_request.DescribeEndpointsRequest = {}
 
         response = execute_pipeline(
@@ -662,7 +694,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTable")
+        )
         input_: capo_timestream_write.types.describe_table_request.DescribeTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -718,7 +752,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchLoadTasks")
+        )
         input_: capo_timestream_write.types.list_batch_load_tasks_request.ListBatchLoadTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -798,7 +834,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatabases")
+        )
         input_: capo_timestream_write.types.list_databases_request.ListDatabasesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -877,7 +915,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTables")
+        )
         input_: capo_timestream_write.types.list_tables_request.ListTablesRequest = {}
         if database_name is not None:
             input_["database_name"] = database_name
@@ -954,7 +994,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_timestream_write.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1002,7 +1044,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeBatchLoadTask")
+        )
         input_: capo_timestream_write.types.resume_batch_load_task_request.ResumeBatchLoadTaskRequest = {
             "task_id": task_id
         }
@@ -1051,7 +1095,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_timestream_write.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1101,7 +1147,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_timestream_write.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1153,7 +1201,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatabase")
+        )
         input_: capo_timestream_write.types.update_database_request.UpdateDatabaseRequest = {
             "database_name": database_name,
             "kms_key_id": kms_key_id,
@@ -1214,7 +1264,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTable")
+        )
         input_: capo_timestream_write.types.update_table_request.UpdateTableRequest = {
             "database_name": database_name,
             "table_name": table_name,
@@ -1276,7 +1328,9 @@ class TimestreamWriteClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("WriteRecords")
+        )
         input_: capo_timestream_write.types.write_records_request.WriteRecordsRequest = {
             "database_name": database_name,
             "table_name": table_name,

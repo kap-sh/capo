@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationFailedConstraintList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.waypoint_optimization_failed_constraint
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> WaypointOptimizationFailedConstraintList:
             )
         )
     return out
+
+
+def redact_sensitive(value: WaypointOptimizationFailedConstraintList) -> list[Any]:
+    import capo_geo_routes.types.waypoint_optimization_failed_constraint
+
+    return [
+        capo_geo_routes.types.waypoint_optimization_failed_constraint.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

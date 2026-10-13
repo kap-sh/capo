@@ -20,10 +20,12 @@ from capo_savingsplans._auth._zapros_handler import AuthMiddleware
 from capo_savingsplans._services._aws_config import aws_config
 from capo_savingsplans._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -155,7 +157,9 @@ class savingsplansClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[savingsplansClientConfig] = None
+        self,
+        config_overrides: Optional[savingsplansClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: savingsplansClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -163,8 +167,10 @@ class savingsplansClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -232,7 +238,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSavingsPlan")
+        )
         input_: capo_savingsplans.types.create_savings_plan_request.CreateSavingsPlanRequest = {
             "savings_plan_offering_id": savings_plan_offering_id,
             "commitment": commitment,
@@ -288,7 +296,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueuedSavingsPlan")
+        )
         input_: capo_savingsplans.types.delete_queued_savings_plan_request.DeleteQueuedSavingsPlanRequest = {
             "savings_plan_id": savings_plan_id
         }
@@ -343,7 +353,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSavingsPlanRates")
+        )
         input_: capo_savingsplans.types.describe_savings_plan_rates_request.DescribeSavingsPlanRatesRequest = {
             "savings_plan_id": savings_plan_id
         }
@@ -413,7 +425,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSavingsPlans")
+        )
         input_: capo_savingsplans.types.describe_savings_plans_request.DescribeSavingsPlansRequest = {}
         if savings_plan_arns is not None:
             input_["savings_plan_arns"] = savings_plan_arns
@@ -503,7 +517,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSavingsPlansOfferingRates")
+        )
         input_: capo_savingsplans.types.describe_savings_plans_offering_rates_request.DescribeSavingsPlansOfferingRatesRequest = {}
         if savings_plan_offering_ids is not None:
             input_["savings_plan_offering_ids"] = savings_plan_offering_ids
@@ -611,7 +627,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSavingsPlansOfferings")
+        )
         input_: capo_savingsplans.types.describe_savings_plans_offerings_request.DescribeSavingsPlansOfferingsRequest = {}
         if offering_ids is not None:
             input_["offering_ids"] = offering_ids
@@ -680,7 +698,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_savingsplans.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -732,7 +752,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReturnSavingsPlan")
+        )
         input_: capo_savingsplans.types.return_savings_plan_request.ReturnSavingsPlanRequest = {
             "savings_plan_id": savings_plan_id
         }
@@ -783,7 +805,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_savingsplans.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -831,7 +855,9 @@ class savingsplansClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_savingsplans.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

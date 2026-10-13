@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#KeyPair``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_ec2_query(el: Element) -> KeyPair:
     child_key_material = el.find("keyMaterial")
     if child_key_material is not None:
         out["key_material"] = str(child_key_material.text or "")
+    return out
+
+
+def redact_sensitive(value: KeyPair) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_material" in value:
+        out["key_material"] = "*** Sensitive Data Redacted ***"
     return out

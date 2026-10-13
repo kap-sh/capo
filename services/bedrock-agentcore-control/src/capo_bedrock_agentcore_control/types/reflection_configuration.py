@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ReflectionConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -69,3 +69,24 @@ def deserialize_json(data: dict) -> ReflectionConfiguration:
         }
     else:
         raise DeserializationError("ReflectionConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: ReflectionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customReflectionConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.custom_reflection_configuration
+
+        out["customReflectionConfiguration"] = (
+            capo_bedrock_agentcore_control.types.custom_reflection_configuration.redact_sensitive(
+                value["customReflectionConfiguration"]
+            )
+        )
+    if "episodicReflectionConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.episodic_reflection_configuration
+
+        out["episodicReflectionConfiguration"] = (
+            capo_bedrock_agentcore_control.types.episodic_reflection_configuration.redact_sensitive(
+                value["episodicReflectionConfiguration"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AssetBundleImportJobOverrideParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -226,6 +226,19 @@ def deserialize_json(data: dict) -> AssetBundleImportJobOverrideParameters:
         out["topics_v2"] = (
             capo_quicksight.types.asset_bundle_import_job_topic_v2_override_parameters_list.deserialize_json(
                 data["TopicsV2"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AssetBundleImportJobOverrideParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_sources" in value:
+        import capo_quicksight.types.asset_bundle_import_job_data_source_override_parameters_list
+
+        out["data_sources"] = (
+            capo_quicksight.types.asset_bundle_import_job_data_source_override_parameters_list.redact_sensitive(
+                value["data_sources"]
             )
         )
     return out

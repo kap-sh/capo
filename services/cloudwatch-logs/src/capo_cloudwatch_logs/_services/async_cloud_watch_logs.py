@@ -25,7 +25,9 @@ from capo_cloudwatch_logs._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -480,7 +482,9 @@ class AsyncCloudWatchLogsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudWatchLogsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudWatchLogsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudWatchLogsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -488,8 +492,10 @@ class AsyncCloudWatchLogsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -548,7 +554,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateKmsKey")
+        )
         input_: capo_cloudwatch_logs.types.associate_kms_key_request.AssociateKmsKeyRequest = {
             "kms_key_id": kms_key_id
         }
@@ -602,7 +610,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSourceToS3TableIntegration")
+        )
         input_: capo_cloudwatch_logs.types.associate_source_to_s3_table_integration_request.AssociateSourceToS3TableIntegrationRequest = {
             "integration_arn": integration_arn,
             "data_source": data_source,
@@ -648,7 +658,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelExportTask")
+        )
         input_: capo_cloudwatch_logs.types.cancel_export_task_request.CancelExportTaskRequest = {
             "task_id": task_id
         }
@@ -696,7 +708,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelImportTask")
+        )
         input_: capo_cloudwatch_logs.types.cancel_import_task_request.CancelImportTaskRequest = {
             "import_id": import_id
         }
@@ -762,7 +776,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDelivery")
+        )
         input_: capo_cloudwatch_logs.types.create_delivery_request.CreateDeliveryRequest = {
             "delivery_source_name": delivery_source_name,
             "delivery_destination_arn": delivery_destination_arn,
@@ -838,7 +854,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExportTask")
+        )
         input_: capo_cloudwatch_logs.types.create_export_task_request.CreateExportTaskRequest = {
             "log_group_name": log_group_name,
             "from": from_,
@@ -903,7 +921,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateImportTask")
+        )
         input_: capo_cloudwatch_logs.types.create_import_task_request.CreateImportTaskRequest = {
             "import_source_arn": import_source_arn,
             "import_role_arn": import_role_arn,
@@ -976,7 +996,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLogAnomalyDetector")
+        )
         input_: capo_cloudwatch_logs.types.create_log_anomaly_detector_request.CreateLogAnomalyDetectorRequest = {
             "log_group_arn_list": log_group_arn_list
         }
@@ -1046,7 +1068,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLogGroup")
+        )
         input_: capo_cloudwatch_logs.types.create_log_group_request.CreateLogGroupRequest = {
             "log_group_name": log_group_name
         }
@@ -1101,7 +1125,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLogStream")
+        )
         input_: capo_cloudwatch_logs.types.create_log_stream_request.CreateLogStreamRequest = {
             "log_group_name": log_group_name,
             "log_stream_name": log_stream_name,
@@ -1163,7 +1189,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLookupTable")
+        )
         input_: capo_cloudwatch_logs.types.create_lookup_table_request.CreateLookupTableRequest = {
             "lookup_table_name": lookup_table_name
         }
@@ -1269,7 +1297,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduledQuery")
+        )
         input_: capo_cloudwatch_logs.types.create_scheduled_query_request.CreateScheduledQueryRequest = {
             "name": name,
             "query_language": query_language,
@@ -1340,7 +1370,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountPolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_account_policy_request.DeleteAccountPolicyRequest = {
             "policy_name": policy_name,
             "policy_type": policy_type,
@@ -1386,7 +1418,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataProtectionPolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_data_protection_policy_request.DeleteDataProtectionPolicyRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -1433,7 +1467,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDelivery")
+        )
         input_: capo_cloudwatch_logs.types.delete_delivery_request.DeleteDeliveryRequest = {
             "id": id
         }
@@ -1480,7 +1516,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeliveryDestination")
+        )
         input_: capo_cloudwatch_logs.types.delete_delivery_destination_request.DeleteDeliveryDestinationRequest = {
             "name": name
         }
@@ -1525,7 +1563,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeliveryDestinationPolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_delivery_destination_policy_request.DeleteDeliveryDestinationPolicyRequest = {
             "delivery_destination_name": delivery_destination_name
         }
@@ -1572,7 +1612,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeliverySource")
+        )
         input_: capo_cloudwatch_logs.types.delete_delivery_source_request.DeleteDeliverySourceRequest = {
             "name": name
         }
@@ -1617,7 +1659,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDestination")
+        )
         input_: capo_cloudwatch_logs.types.delete_destination_request.DeleteDestinationRequest = {
             "destination_name": destination_name
         }
@@ -1665,7 +1709,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndexPolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_index_policy_request.DeleteIndexPolicyRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -1714,7 +1760,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_cloudwatch_logs.types.delete_integration_request.DeleteIntegrationRequest = {
             "integration_name": integration_name
         }
@@ -1761,7 +1809,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLogAnomalyDetector")
+        )
         input_: capo_cloudwatch_logs.types.delete_log_anomaly_detector_request.DeleteLogAnomalyDetectorRequest = {
             "anomaly_detector_arn": anomaly_detector_arn
         }
@@ -1807,7 +1857,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLogGroup")
+        )
         input_: capo_cloudwatch_logs.types.delete_log_group_request.DeleteLogGroupRequest = {
             "log_group_name": log_group_name
         }
@@ -1855,7 +1907,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLogStream")
+        )
         input_: capo_cloudwatch_logs.types.delete_log_stream_request.DeleteLogStreamRequest = {
             "log_group_name": log_group_name,
             "log_stream_name": log_stream_name,
@@ -1901,7 +1955,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLookupTable")
+        )
         input_: capo_cloudwatch_logs.types.delete_lookup_table_request.DeleteLookupTableRequest = {
             "lookup_table_arn": lookup_table_arn
         }
@@ -1948,7 +2004,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricFilter")
+        )
         input_: capo_cloudwatch_logs.types.delete_metric_filter_request.DeleteMetricFilterRequest = {
             "log_group_name": log_group_name,
             "filter_name": filter_name,
@@ -1995,7 +2053,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueryDefinition")
+        )
         input_: capo_cloudwatch_logs.types.delete_query_definition_request.DeleteQueryDefinitionRequest = {
             "query_definition_id": query_definition_id
         }
@@ -2048,7 +2108,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {}
         if policy_name is not None:
             input_["policy_name"] = policy_name
@@ -2097,7 +2159,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRetentionPolicy")
+        )
         input_: capo_cloudwatch_logs.types.delete_retention_policy_request.DeleteRetentionPolicyRequest = {
             "log_group_name": log_group_name
         }
@@ -2145,7 +2209,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledQuery")
+        )
         input_: capo_cloudwatch_logs.types.delete_scheduled_query_request.DeleteScheduledQueryRequest = {
             "identifier": identifier
         }
@@ -2192,7 +2258,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriptionFilter")
+        )
         input_: capo_cloudwatch_logs.types.delete_subscription_filter_request.DeleteSubscriptionFilterRequest = {
             "log_group_name": log_group_name,
             "filter_name": filter_name,
@@ -2245,7 +2313,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSyslogConfiguration")
+        )
         input_: capo_cloudwatch_logs.types.delete_syslog_configuration_request.DeleteSyslogConfigurationRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -2293,7 +2363,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTransformer")
+        )
         input_: capo_cloudwatch_logs.types.delete_transformer_request.DeleteTransformerRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -2350,7 +2422,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountPolicies")
+        )
         input_: capo_cloudwatch_logs.types.describe_account_policies_request.DescribeAccountPoliciesRequest = {
             "policy_type": policy_type
         }
@@ -2418,7 +2492,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationTemplates")
+        )
         input_: capo_cloudwatch_logs.types.describe_configuration_templates_request.DescribeConfigurationTemplatesRequest = {}
         if service is not None:
             input_["service"] = service
@@ -2513,7 +2589,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeliveries")
+        )
         input_: capo_cloudwatch_logs.types.describe_deliveries_request.DescribeDeliveriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2588,7 +2666,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeliveryDestinations")
+        )
         input_: capo_cloudwatch_logs.types.describe_delivery_destinations_request.DescribeDeliveryDestinationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2663,7 +2743,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeliverySources")
+        )
         input_: capo_cloudwatch_logs.types.describe_delivery_sources_request.DescribeDeliverySourcesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2741,7 +2823,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDestinations")
+        )
         input_: capo_cloudwatch_logs.types.describe_destinations_request.DescribeDestinationsRequest = {}
         if destination_name_prefix is not None:
             input_["destination_name_prefix"] = destination_name_prefix
@@ -2829,7 +2913,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExportTasks")
+        )
         input_: capo_cloudwatch_logs.types.describe_export_tasks_request.DescribeExportTasksRequest = {}
         if task_id is not None:
             input_["task_id"] = task_id
@@ -2888,7 +2974,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFieldIndexes")
+        )
         input_: capo_cloudwatch_logs.types.describe_field_indexes_request.DescribeFieldIndexesRequest = {
             "log_group_identifiers": log_group_identifiers
         }
@@ -2950,7 +3038,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImportTaskBatches")
+        )
         input_: capo_cloudwatch_logs.types.describe_import_task_batches_request.DescribeImportTaskBatchesRequest = {
             "import_id": import_id
         }
@@ -3016,7 +3106,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImportTasks")
+        )
         input_: capo_cloudwatch_logs.types.describe_import_tasks_request.DescribeImportTasksRequest = {}
         if import_id is not None:
             input_["import_id"] = import_id
@@ -3073,7 +3165,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIndexPolicies")
+        )
         input_: capo_cloudwatch_logs.types.describe_index_policies_request.DescribeIndexPoliciesRequest = {
             "log_group_identifiers": log_group_identifiers
         }
@@ -3148,7 +3242,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLogGroups")
+        )
         input_: capo_cloudwatch_logs.types.describe_log_groups_request.DescribeLogGroupsRequest = {}
         if account_identifiers is not None:
             input_["account_identifiers"] = account_identifiers
@@ -3275,7 +3371,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLogStreams")
+        )
         input_: capo_cloudwatch_logs.types.describe_log_streams_request.DescribeLogStreamsRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -3381,7 +3479,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLookupTables")
+        )
         input_: capo_cloudwatch_logs.types.describe_lookup_tables_request.DescribeLookupTablesRequest = {}
         if lookup_table_name_prefix is not None:
             input_["lookup_table_name_prefix"] = lookup_table_name_prefix
@@ -3451,7 +3551,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetricFilters")
+        )
         input_: capo_cloudwatch_logs.types.describe_metric_filters_request.DescribeMetricFiltersRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -3559,7 +3661,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQueries")
+        )
         input_: capo_cloudwatch_logs.types.describe_queries_request.DescribeQueriesRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -3623,7 +3727,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQueryDefinitions")
+        )
         input_: capo_cloudwatch_logs.types.describe_query_definitions_request.DescribeQueryDefinitionsRequest = {}
         if query_language is not None:
             input_["query_language"] = query_language
@@ -3683,7 +3789,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicies")
+        )
         input_: capo_cloudwatch_logs.types.describe_resource_policies_request.DescribeResourcePoliciesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3745,7 +3853,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSubscriptionFilters")
+        )
         input_: capo_cloudwatch_logs.types.describe_subscription_filters_request.DescribeSubscriptionFiltersRequest = {
             "log_group_name": log_group_name
         }
@@ -3831,7 +3941,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateKmsKey")
+        )
         input_: capo_cloudwatch_logs.types.disassociate_kms_key_request.DisassociateKmsKeyRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -3881,7 +3993,10 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateSourceFromS3TableIntegration"),
+        )
         input_: capo_cloudwatch_logs.types.disassociate_source_from_s3_table_integration_request.DisassociateSourceFromS3TableIntegrationRequest = {
             "identifier": identifier
         }
@@ -3965,7 +4080,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FilterLogEvents")
+        )
         input_: capo_cloudwatch_logs.types.filter_log_events_request.FilterLogEventsRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -4087,7 +4204,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataProtectionPolicy")
+        )
         input_: capo_cloudwatch_logs.types.get_data_protection_policy_request.GetDataProtectionPolicyRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -4135,7 +4254,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDelivery")
+        )
         input_: capo_cloudwatch_logs.types.get_delivery_request.GetDeliveryRequest = {
             "id": id
         }
@@ -4183,7 +4304,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliveryDestination")
+        )
         input_: capo_cloudwatch_logs.types.get_delivery_destination_request.GetDeliveryDestinationRequest = {
             "name": name
         }
@@ -4229,7 +4352,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliveryDestinationPolicy")
+        )
         input_: capo_cloudwatch_logs.types.get_delivery_destination_policy_request.GetDeliveryDestinationPolicyRequest = {
             "delivery_destination_name": delivery_destination_name
         }
@@ -4277,7 +4402,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeliverySource")
+        )
         input_: capo_cloudwatch_logs.types.get_delivery_source_request.GetDeliverySourceRequest = {
             "name": name
         }
@@ -4323,7 +4450,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_cloudwatch_logs.types.get_integration_request.GetIntegrationRequest = {
             "integration_name": integration_name
         }
@@ -4370,7 +4499,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogAnomalyDetector")
+        )
         input_: capo_cloudwatch_logs.types.get_log_anomaly_detector_request.GetLogAnomalyDetectorRequest = {
             "anomaly_detector_arn": anomaly_detector_arn
         }
@@ -4438,7 +4569,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogEvents")
+        )
         input_: capo_cloudwatch_logs.types.get_log_events_request.GetLogEventsRequest = {
             "log_stream_name": log_stream_name
         }
@@ -4544,7 +4677,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogFields")
+        )
         input_: capo_cloudwatch_logs.types.get_log_fields_request.GetLogFieldsRequest = {
             "data_source_name": data_source_name,
             "data_source_type": data_source_type,
@@ -4600,7 +4735,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogGroupFields")
+        )
         input_: capo_cloudwatch_logs.types.get_log_group_fields_request.GetLogGroupFieldsRequest = {}
         if log_group_name is not None:
             input_["log_group_name"] = log_group_name
@@ -4654,7 +4791,19 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudwatch_logs.types.get_log_object_response.GetLogObjectResponse",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch_logs.types.get_log_object_response
+
+            return capo_cloudwatch_logs.types.get_log_object_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLogObject", redact_output=_redact_output),
+        )
         input_: capo_cloudwatch_logs.types.get_log_object_request.GetLogObjectRequest = {
             "log_object_pointer": log_object_pointer
         }
@@ -4704,7 +4853,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLogRecord")
+        )
         input_: capo_cloudwatch_logs.types.get_log_record_request.GetLogRecordRequest = {
             "log_record_pointer": log_record_pointer
         }
@@ -4753,7 +4904,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLookupTable")
+        )
         input_: capo_cloudwatch_logs.types.get_lookup_table_request.GetLookupTableRequest = {
             "lookup_table_arn": lookup_table_arn
         }
@@ -4809,7 +4962,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResults")
+        )
         input_: capo_cloudwatch_logs.types.get_query_results_request.GetQueryResultsRequest = {
             "query_id": query_id
         }
@@ -4861,7 +5016,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScheduledQuery")
+        )
         input_: capo_cloudwatch_logs.types.get_scheduled_query_request.GetScheduledQueryRequest = {
             "identifier": identifier
         }
@@ -4922,7 +5079,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScheduledQueryHistory")
+        )
         input_: capo_cloudwatch_logs.types.get_scheduled_query_history_request.GetScheduledQueryHistoryRequest = {
             "identifier": identifier,
             "start_time": start_time,
@@ -5005,7 +5164,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStorageTierPolicy")
+        )
         input_: capo_cloudwatch_logs.types.get_storage_tier_policy_request.GetStorageTierPolicyRequest = {}
 
         response = await aexecute_pipeline(
@@ -5050,7 +5211,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransformer")
+        )
         input_: capo_cloudwatch_logs.types.get_transformer_request.GetTransformerRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -5121,7 +5284,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAggregateLogGroupSummaries")
+        )
         input_: capo_cloudwatch_logs.types.list_aggregate_log_group_summaries_request.ListAggregateLogGroupSummariesRequest = {
             "group_by": group_by
         }
@@ -5238,7 +5403,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnomalies")
+        )
         input_: capo_cloudwatch_logs.types.list_anomalies_request.ListAnomaliesRequest = {}
         if anomaly_detector_arn is not None:
             input_["anomaly_detector_arn"] = anomaly_detector_arn
@@ -5332,7 +5499,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_cloudwatch_logs.types.list_integrations_request.ListIntegrationsRequest = {}
         if integration_name_prefix is not None:
             input_["integration_name_prefix"] = integration_name_prefix
@@ -5390,7 +5559,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogAnomalyDetectors")
+        )
         input_: capo_cloudwatch_logs.types.list_log_anomaly_detectors_request.ListLogAnomalyDetectorsRequest = {}
         if filter_log_group_arn is not None:
             input_["filter_log_group_arn"] = filter_log_group_arn
@@ -5495,7 +5666,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogGroups")
+        )
         input_: capo_cloudwatch_logs.types.list_log_groups_request.ListLogGroupsRequest = {}
         if log_group_name_pattern is not None:
             input_["log_group_name_pattern"] = log_group_name_pattern
@@ -5563,7 +5736,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogGroupsForQuery")
+        )
         input_: capo_cloudwatch_logs.types.list_log_groups_for_query_request.ListLogGroupsForQueryRequest = {
             "query_id": query_id
         }
@@ -5650,7 +5825,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledQueries")
+        )
         input_: capo_cloudwatch_logs.types.list_scheduled_queries_request.ListScheduledQueriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5740,7 +5917,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourcesForS3TableIntegration")
+        )
         input_: capo_cloudwatch_logs.types.list_sources_for_s3_table_integration_request.ListSourcesForS3TableIntegrationRequest = {
             "integration_arn": integration_arn
         }
@@ -5830,7 +6009,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSyslogConfigurations")
+        )
         input_: capo_cloudwatch_logs.types.list_syslog_configurations_request.ListSyslogConfigurationsRequest = {}
         if log_group_identifier is not None:
             input_["log_group_identifier"] = log_group_identifier
@@ -5882,7 +6063,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cloudwatch_logs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5927,7 +6110,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsLogGroup")
+        )
         input_: capo_cloudwatch_logs.types.list_tags_log_group_request.ListTagsLogGroupRequest = {
             "log_group_name": log_group_name
         }
@@ -5984,7 +6169,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_account_policy_request.PutAccountPolicyRequest = {
             "policy_name": policy_name,
             "policy_document": policy_document,
@@ -6039,7 +6226,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBearerTokenAuthentication")
+        )
         input_: capo_cloudwatch_logs.types.put_bearer_token_authentication_request.PutBearerTokenAuthenticationRequest = {
             "log_group_identifier": log_group_identifier,
             "bearer_token_authentication_enabled": bearer_token_authentication_enabled,
@@ -6090,7 +6279,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDataProtectionPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_data_protection_policy_request.PutDataProtectionPolicyRequest = {
             "log_group_identifier": log_group_identifier,
             "policy_document": policy_document,
@@ -6156,7 +6347,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliveryDestination")
+        )
         input_: capo_cloudwatch_logs.types.put_delivery_destination_request.PutDeliveryDestinationRequest = {
             "name": name
         }
@@ -6217,7 +6410,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliveryDestinationPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_delivery_destination_policy_request.PutDeliveryDestinationPolicyRequest = {
             "delivery_destination_name": delivery_destination_name,
             "delivery_destination_policy": delivery_destination_policy,
@@ -6277,7 +6472,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliverySource")
+        )
         input_: capo_cloudwatch_logs.types.put_delivery_source_request.PutDeliverySourceRequest = {
             "name": name,
             "resource_arn": resource_arn,
@@ -6335,7 +6532,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDestination")
+        )
         input_: capo_cloudwatch_logs.types.put_destination_request.PutDestinationRequest = {
             "destination_name": destination_name,
             "target_arn": target_arn,
@@ -6389,7 +6588,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDestinationPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_destination_policy_request.PutDestinationPolicyRequest = {
             "destination_name": destination_name,
             "access_policy": access_policy,
@@ -6442,7 +6643,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIndexPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_index_policy_request.PutIndexPolicyRequest = {
             "log_group_identifier": log_group_identifier,
             "policy_document": policy_document,
@@ -6494,7 +6697,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIntegration")
+        )
         input_: capo_cloudwatch_logs.types.put_integration_request.PutIntegrationRequest = {
             "integration_name": integration_name,
             "resource_config": resource_config,
@@ -6555,7 +6760,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLogEvents")
+        )
         input_: capo_cloudwatch_logs.types.put_log_events_request.PutLogEventsRequest = {
             "log_group_name": log_group_name,
             "log_stream_name": log_stream_name,
@@ -6610,7 +6817,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLogGroupDeletionProtection")
+        )
         input_: capo_cloudwatch_logs.types.put_log_group_deletion_protection_request.PutLogGroupDeletionProtectionRequest = {
             "log_group_identifier": log_group_identifier,
             "deletion_protection_enabled": deletion_protection_enabled,
@@ -6676,7 +6885,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetricFilter")
+        )
         input_: capo_cloudwatch_logs.types.put_metric_filter_request.PutMetricFilterRequest = {
             "log_group_name": log_group_name,
             "filter_name": filter_name,
@@ -6754,7 +6965,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutQueryDefinition")
+        )
         input_: capo_cloudwatch_logs.types.put_query_definition_request.PutQueryDefinitionRequest = {
             "name": name,
             "query_string": query_string,
@@ -6826,7 +7039,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_resource_policy_request.PutResourcePolicyRequest = {}
         if policy_name is not None:
             input_["policy_name"] = policy_name
@@ -6878,7 +7093,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRetentionPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_retention_policy_request.PutRetentionPolicyRequest = {
             "log_group_name": log_group_name,
             "retention_in_days": retention_in_days,
@@ -6927,7 +7144,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutStorageTierPolicy")
+        )
         input_: capo_cloudwatch_logs.types.put_storage_tier_policy_request.PutStorageTierPolicyRequest = {
             "storage_tier": storage_tier
         }
@@ -6998,7 +7217,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSubscriptionFilter")
+        )
         input_: capo_cloudwatch_logs.types.put_subscription_filter_request.PutSubscriptionFilterRequest = {
             "log_group_name": log_group_name,
             "filter_name": filter_name,
@@ -7063,7 +7284,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSyslogConfiguration")
+        )
         input_: capo_cloudwatch_logs.types.put_syslog_configuration_request.PutSyslogConfigurationRequest = {
             "log_group_identifier": log_group_identifier
         }
@@ -7114,7 +7337,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTransformer")
+        )
         input_: capo_cloudwatch_logs.types.put_transformer_request.PutTransformerRequest = {
             "log_group_identifier": log_group_identifier,
             "transformer_config": transformer_config,
@@ -7175,7 +7400,19 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudwatch_logs.types.start_live_tail_response.StartLiveTailResponse",
+        ) -> dict[str, Any]:
+            import capo_cloudwatch_logs.types.start_live_tail_response
+
+            return capo_cloudwatch_logs.types.start_live_tail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartLiveTail", redact_output=_redact_output),
+        )
         input_: capo_cloudwatch_logs.types.start_live_tail_request.StartLiveTailRequest = {
             "log_group_identifiers": log_group_identifiers
         }
@@ -7252,7 +7489,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQuery")
+        )
         input_: capo_cloudwatch_logs.types.start_query_request.StartQueryRequest = {
             "start_time": start_time,
             "end_time": end_time,
@@ -7310,7 +7549,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopQuery")
+        )
         input_: capo_cloudwatch_logs.types.stop_query_request.StopQueryRequest = {
             "query_id": query_id
         }
@@ -7355,7 +7596,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagLogGroup")
+        )
         input_: capo_cloudwatch_logs.types.tag_log_group_request.TagLogGroupRequest = {
             "log_group_name": log_group_name,
             "tags": tags,
@@ -7403,7 +7646,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cloudwatch_logs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -7450,7 +7695,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestMetricFilter")
+        )
         input_: capo_cloudwatch_logs.types.test_metric_filter_request.TestMetricFilterRequest = {
             "filter_pattern": filter_pattern,
             "log_event_messages": log_event_messages,
@@ -7499,7 +7746,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestTransformer")
+        )
         input_: capo_cloudwatch_logs.types.test_transformer_request.TestTransformerRequest = {
             "transformer_config": transformer_config,
             "log_event_messages": log_event_messages,
@@ -7544,7 +7793,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagLogGroup")
+        )
         input_: capo_cloudwatch_logs.types.untag_log_group_request.UntagLogGroupRequest = {
             "log_group_name": log_group_name,
             "tags": tags,
@@ -7591,7 +7842,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cloudwatch_logs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -7651,7 +7904,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnomaly")
+        )
         input_: capo_cloudwatch_logs.types.update_anomaly_request.UpdateAnomalyRequest = {
             "anomaly_detector_arn": anomaly_detector_arn
         }
@@ -7722,7 +7977,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeliveryConfiguration")
+        )
         input_: capo_cloudwatch_logs.types.update_delivery_configuration_request.UpdateDeliveryConfigurationRequest = {
             "id": id
         }
@@ -7786,7 +8043,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLogAnomalyDetector")
+        )
         input_: capo_cloudwatch_logs.types.update_log_anomaly_detector_request.UpdateLogAnomalyDetectorRequest = {
             "anomaly_detector_arn": anomaly_detector_arn,
             "enabled": enabled,
@@ -7851,7 +8110,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLookupTable")
+        )
         input_: capo_cloudwatch_logs.types.update_lookup_table_request.UpdateLookupTableRequest = {
             "lookup_table_arn": lookup_table_arn
         }
@@ -7952,7 +8213,9 @@ class AsyncCloudWatchLogsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledQuery")
+        )
         input_: capo_cloudwatch_logs.types.update_scheduled_query_request.UpdateScheduledQueryRequest = {
             "identifier": identifier,
             "query_language": query_language,

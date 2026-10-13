@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#SoftwareRevenue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,17 @@ def deserialize_aws_json_1_0(data: dict) -> SoftwareRevenue:
         out["effective_date"] = data["EffectiveDate"]
     if data.get("ExpirationDate") is not None:
         out["expiration_date"] = data["ExpirationDate"]
+    return out
+
+
+def redact_sensitive(value: SoftwareRevenue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_partnercentral_selling.types.monetary_value
+
+        out["value"] = (
+            capo_partnercentral_selling.types.monetary_value.redact_sensitive(
+                value["value"]
+            )
+        )
     return out

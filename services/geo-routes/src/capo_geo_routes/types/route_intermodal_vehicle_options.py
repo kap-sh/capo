@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteIntermodalVehicleOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,6 +78,35 @@ def deserialize_json(data: dict) -> RouteIntermodalVehicleOptions:
         out["excluded_modes"] = (
             capo_geo_routes.types.route_vehicle_mode_list.deserialize_json(
                 data["ExcludedModes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteIntermodalVehicleOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allowed_modes" in value:
+        import capo_geo_routes.types.route_vehicle_mode_list
+
+        out["allowed_modes"] = (
+            capo_geo_routes.types.route_vehicle_mode_list.redact_sensitive(
+                value["allowed_modes"]
+            )
+        )
+    if "enabled_for" in value:
+        import capo_geo_routes.types.route_intermodal_enabled_legs_list
+
+        out["enabled_for"] = (
+            capo_geo_routes.types.route_intermodal_enabled_legs_list.redact_sensitive(
+                value["enabled_for"]
+            )
+        )
+    if "excluded_modes" in value:
+        import capo_geo_routes.types.route_vehicle_mode_list
+
+        out["excluded_modes"] = (
+            capo_geo_routes.types.route_vehicle_mode_list.redact_sensitive(
+                value["excluded_modes"]
             )
         )
     return out

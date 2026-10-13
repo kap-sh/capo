@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#LegGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> LegGeometry:
 
         out["line_string"] = capo_location.types.line_string.deserialize_json(
             data["LineString"]
+        )
+    return out
+
+
+def redact_sensitive(value: LegGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "line_string" in value:
+        import capo_location.types.line_string
+
+        out["line_string"] = capo_location.types.line_string.redact_sensitive(
+            value["line_string"]
         )
     return out

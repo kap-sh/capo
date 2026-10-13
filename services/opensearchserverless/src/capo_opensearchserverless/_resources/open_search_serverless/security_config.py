@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -102,7 +103,9 @@ class SecurityConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.create_security_config_request.CreateSecurityConfigRequest = {
             "type": type,
             "name": name,
@@ -159,7 +162,9 @@ class SecurityConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.get_security_config_request.GetSecurityConfigRequest = {
             "id": id
         }
@@ -227,7 +232,9 @@ class SecurityConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.update_security_config_request.UpdateSecurityConfigRequest = {
             "id": id,
             "config_version": config_version,
@@ -291,7 +298,9 @@ class SecurityConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.delete_security_config_request.DeleteSecurityConfigRequest = {
             "id": id
         }
@@ -342,7 +351,9 @@ class SecurityConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityConfigs")
+        )
         input_: capo_opensearchserverless.types.list_security_configs_request.ListSecurityConfigsRequest = {
             "type": type
         }
@@ -420,7 +431,9 @@ class AsyncSecurityConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.create_security_config_request.CreateSecurityConfigRequest = {
             "type": type,
             "name": name,
@@ -478,7 +491,9 @@ class AsyncSecurityConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.get_security_config_request.GetSecurityConfigRequest = {
             "id": id
         }
@@ -547,7 +562,9 @@ class AsyncSecurityConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.update_security_config_request.UpdateSecurityConfigRequest = {
             "id": id,
             "config_version": config_version,
@@ -612,7 +629,9 @@ class AsyncSecurityConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.delete_security_config_request.DeleteSecurityConfigRequest = {
             "id": id
         }
@@ -664,7 +683,9 @@ class AsyncSecurityConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityConfigs")
+        )
         input_: capo_opensearchserverless.types.list_security_configs_request.ListSecurityConfigsRequest = {
             "type": type
         }

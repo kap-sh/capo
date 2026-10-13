@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_connectcases._auth._signers
 import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_connectcases.types.create_domain_request.CreateDomainRequest = {
             "name": name
         }
@@ -132,7 +135,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_connectcases.types.get_domain_request.GetDomainRequest = {
             "domain_id": domain_id
         }
@@ -180,7 +185,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_connectcases.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -228,7 +235,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_connectcases.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -277,7 +286,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.get_case_event_configuration_request.GetCaseEventConfigurationRequest = {
             "domain_id": domain_id
         }
@@ -327,7 +338,9 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.put_case_event_configuration_request.PutCaseEventConfigurationRequest = {
             "domain_id": domain_id,
             "event_bridge": event_bridge,
@@ -387,7 +400,32 @@ class Domain:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_request
+
+            return capo_connectcases.types.search_all_related_items_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connectcases.types.search_all_related_items_response.SearchAllRelatedItemsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_response
+
+            return capo_connectcases.types.search_all_related_items_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchAllRelatedItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest = {
             "domain_id": domain_id
         }
@@ -449,7 +487,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_connectcases.types.create_domain_request.CreateDomainRequest = {
             "name": name
         }
@@ -497,7 +537,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_connectcases.types.get_domain_request.GetDomainRequest = {
             "domain_id": domain_id
         }
@@ -546,7 +588,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_connectcases.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -595,7 +639,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_connectcases.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -645,7 +691,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.get_case_event_configuration_request.GetCaseEventConfigurationRequest = {
             "domain_id": domain_id
         }
@@ -696,7 +744,9 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.put_case_event_configuration_request.PutCaseEventConfigurationRequest = {
             "domain_id": domain_id,
             "event_bridge": event_bridge,
@@ -757,7 +807,32 @@ class AsyncDomain:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_request
+
+            return capo_connectcases.types.search_all_related_items_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connectcases.types.search_all_related_items_response.SearchAllRelatedItemsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_response
+
+            return capo_connectcases.types.search_all_related_items_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchAllRelatedItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest = {
             "domain_id": domain_id
         }

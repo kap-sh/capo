@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#EmailHeaders``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.email_header
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> EmailHeaders:
             continue
         out.append(capo_qconnect.types.email_header.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: EmailHeaders) -> list[Any]:
+    import capo_qconnect.types.email_header
+
+    return [capo_qconnect.types.email_header.redact_sensitive(item) for item in value]

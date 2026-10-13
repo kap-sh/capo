@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -58,7 +59,10 @@ class LoggingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteModelInvocationLoggingConfiguration"),
+        )
         input_: capo_bedrock.types.delete_model_invocation_logging_configuration_request.DeleteModelInvocationLoggingConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -95,7 +99,9 @@ class LoggingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.get_model_invocation_logging_configuration_request.GetModelInvocationLoggingConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -139,7 +145,9 @@ class LoggingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.put_model_invocation_logging_configuration_request.PutModelInvocationLoggingConfigurationRequest = {
             "logging_config": logging_config
         }
@@ -184,7 +192,10 @@ class AsyncLoggingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteModelInvocationLoggingConfiguration"),
+        )
         input_: capo_bedrock.types.delete_model_invocation_logging_configuration_request.DeleteModelInvocationLoggingConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -222,7 +233,9 @@ class AsyncLoggingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.get_model_invocation_logging_configuration_request.GetModelInvocationLoggingConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -267,7 +280,9 @@ class AsyncLoggingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutModelInvocationLoggingConfiguration")
+        )
         input_: capo_bedrock.types.put_model_invocation_logging_configuration_request.PutModelInvocationLoggingConfigurationRequest = {
             "logging_config": logging_config
         }

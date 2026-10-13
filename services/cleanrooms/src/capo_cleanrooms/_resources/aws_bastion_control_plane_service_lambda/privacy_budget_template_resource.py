@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class PrivacyBudgetTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.create_privacy_budget_template_input.CreatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -149,7 +152,9 @@ class PrivacyBudgetTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_privacy_budget_template_input.GetPrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -206,7 +211,9 @@ class PrivacyBudgetTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.update_privacy_budget_template_input.UpdatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -259,7 +266,9 @@ class PrivacyBudgetTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.delete_privacy_budget_template_input.DeletePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -313,7 +322,9 @@ class PrivacyBudgetTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgetTemplates")
+        )
         input_: capo_cleanrooms.types.list_privacy_budget_templates_input.ListPrivacyBudgetTemplatesInput = {
             "membership_identifier": membership_identifier
         }
@@ -382,7 +393,9 @@ class AsyncPrivacyBudgetTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.create_privacy_budget_template_input.CreatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -438,7 +451,9 @@ class AsyncPrivacyBudgetTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_privacy_budget_template_input.GetPrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -496,7 +511,9 @@ class AsyncPrivacyBudgetTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.update_privacy_budget_template_input.UpdatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -550,7 +567,9 @@ class AsyncPrivacyBudgetTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.delete_privacy_budget_template_input.DeletePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -605,7 +624,9 @@ class AsyncPrivacyBudgetTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgetTemplates")
+        )
         input_: capo_cleanrooms.types.list_privacy_budget_templates_input.ListPrivacyBudgetTemplatesInput = {
             "membership_identifier": membership_identifier
         }

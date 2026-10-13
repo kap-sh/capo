@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TableVisual``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -140,4 +140,33 @@ def deserialize_json(data: dict) -> TableVisual:
         )
     if data.get("VisualContentAltText") is not None:
         out["visual_content_alt_text"] = data["VisualContentAltText"]
+    return out
+
+
+def redact_sensitive(value: TableVisual) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "chart_configuration" in value:
+        import capo_quicksight.types.table_configuration
+
+        out["chart_configuration"] = (
+            capo_quicksight.types.table_configuration.redact_sensitive(
+                value["chart_configuration"]
+            )
+        )
+    if "conditional_formatting" in value:
+        import capo_quicksight.types.table_conditional_formatting
+
+        out["conditional_formatting"] = (
+            capo_quicksight.types.table_conditional_formatting.redact_sensitive(
+                value["conditional_formatting"]
+            )
+        )
+    if "actions" in value:
+        import capo_quicksight.types.visual_custom_action_list
+
+        out["actions"] = (
+            capo_quicksight.types.visual_custom_action_list.redact_sensitive(
+                value["actions"]
+            )
+        )
     return out

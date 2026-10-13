@@ -25,7 +25,9 @@ from capo_ssm_contacts._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -230,7 +232,9 @@ class AsyncSSMContactsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSSMContactsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSSMContactsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSSMContactsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -238,8 +242,10 @@ class AsyncSSMContactsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -307,7 +313,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptPage")
+        )
         input_: capo_ssm_contacts.types.accept_page_request.AcceptPageRequest = {
             "page_id": page_id,
             "accept_type": accept_type,
@@ -365,7 +373,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateContactChannel")
+        )
         input_: capo_ssm_contacts.types.activate_contact_channel_request.ActivateContactChannelRequest = {
             "contact_channel_id": contact_channel_id,
             "activation_code": activation_code,
@@ -430,7 +440,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContact")
+        )
         input_: capo_ssm_contacts.types.create_contact_request.CreateContactRequest = {
             "alias": alias,
             "type": type,
@@ -502,7 +514,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateContactChannel")
+        )
         input_: capo_ssm_contacts.types.create_contact_channel_request.CreateContactChannelRequest = {
             "contact_id": contact_id,
             "name": name,
@@ -573,7 +587,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRotation")
+        )
         input_: capo_ssm_contacts.types.create_rotation_request.CreateRotationRequest = {
             "name": name,
             "contact_ids": contact_ids,
@@ -641,7 +657,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRotationOverride")
+        )
         input_: capo_ssm_contacts.types.create_rotation_override_request.CreateRotationOverrideRequest = {
             "rotation_id": rotation_id,
             "new_contact_ids": new_contact_ids,
@@ -694,7 +712,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateContactChannel")
+        )
         input_: capo_ssm_contacts.types.deactivate_contact_channel_request.DeactivateContactChannelRequest = {
             "contact_channel_id": contact_channel_id
         }
@@ -743,7 +763,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContact")
+        )
         input_: capo_ssm_contacts.types.delete_contact_request.DeleteContactRequest = {
             "contact_id": contact_id
         }
@@ -791,7 +813,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteContactChannel")
+        )
         input_: capo_ssm_contacts.types.delete_contact_channel_request.DeleteContactChannelRequest = {
             "contact_channel_id": contact_channel_id
         }
@@ -840,7 +864,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRotation")
+        )
         input_: capo_ssm_contacts.types.delete_rotation_request.DeleteRotationRequest = {
             "rotation_id": rotation_id
         }
@@ -890,7 +916,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRotationOverride")
+        )
         input_: capo_ssm_contacts.types.delete_rotation_override_request.DeleteRotationOverrideRequest = {
             "rotation_id": rotation_id,
             "rotation_override_id": rotation_override_id,
@@ -940,7 +968,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngagement")
+        )
         input_: capo_ssm_contacts.types.describe_engagement_request.DescribeEngagementRequest = {
             "engagement_id": engagement_id
         }
@@ -989,7 +1019,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePage")
+        )
         input_: capo_ssm_contacts.types.describe_page_request.DescribePageRequest = {
             "page_id": page_id
         }
@@ -1038,7 +1070,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContact")
+        )
         input_: capo_ssm_contacts.types.get_contact_request.GetContactRequest = {
             "contact_id": contact_id
         }
@@ -1087,7 +1121,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactChannel")
+        )
         input_: capo_ssm_contacts.types.get_contact_channel_request.GetContactChannelRequest = {
             "contact_channel_id": contact_channel_id
         }
@@ -1135,7 +1171,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContactPolicy")
+        )
         input_: capo_ssm_contacts.types.get_contact_policy_request.GetContactPolicyRequest = {
             "contact_arn": contact_arn
         }
@@ -1183,7 +1221,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRotation")
+        )
         input_: capo_ssm_contacts.types.get_rotation_request.GetRotationRequest = {
             "rotation_id": rotation_id
         }
@@ -1235,7 +1275,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRotationOverride")
+        )
         input_: capo_ssm_contacts.types.get_rotation_override_request.GetRotationOverrideRequest = {
             "rotation_id": rotation_id,
             "rotation_override_id": rotation_override_id,
@@ -1293,7 +1335,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContactChannels")
+        )
         input_: capo_ssm_contacts.types.list_contact_channels_request.ListContactChannelsRequest = {
             "contact_id": contact_id
         }
@@ -1379,7 +1423,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContacts")
+        )
         input_: capo_ssm_contacts.types.list_contacts_request.ListContactsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1471,7 +1517,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEngagements")
+        )
         input_: capo_ssm_contacts.types.list_engagements_request.ListEngagementsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1560,7 +1608,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPageReceipts")
+        )
         input_: capo_ssm_contacts.types.list_page_receipts_request.ListPageReceiptsRequest = {
             "page_id": page_id
         }
@@ -1643,7 +1693,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPageResolutions")
+        )
         input_: capo_ssm_contacts.types.list_page_resolutions_request.ListPageResolutionsRequest = {
             "page_id": page_id
         }
@@ -1724,7 +1776,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPagesByContact")
+        )
         input_: capo_ssm_contacts.types.list_pages_by_contact_request.ListPagesByContactRequest = {
             "contact_id": contact_id
         }
@@ -1807,7 +1861,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPagesByEngagement")
+        )
         input_: capo_ssm_contacts.types.list_pages_by_engagement_request.ListPagesByEngagementRequest = {
             "engagement_id": engagement_id
         }
@@ -1905,7 +1961,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPreviewRotationShifts")
+        )
         input_: capo_ssm_contacts.types.list_preview_rotation_shifts_request.ListPreviewRotationShiftsRequest = {
             "end_time": end_time,
             "members": members,
@@ -2017,7 +2075,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRotationOverrides")
+        )
         input_: capo_ssm_contacts.types.list_rotation_overrides_request.ListRotationOverridesRequest = {
             "rotation_id": rotation_id,
             "start_time": start_time,
@@ -2108,7 +2168,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRotations")
+        )
         input_: capo_ssm_contacts.types.list_rotations_request.ListRotationsRequest = {}
         if rotation_name_prefix is not None:
             input_["rotation_name_prefix"] = rotation_name_prefix
@@ -2198,7 +2260,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRotationShifts")
+        )
         input_: capo_ssm_contacts.types.list_rotation_shifts_request.ListRotationShiftsRequest = {
             "rotation_id": rotation_id,
             "end_time": end_time,
@@ -2282,7 +2346,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ssm_contacts.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2333,7 +2399,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutContactPolicy")
+        )
         input_: capo_ssm_contacts.types.put_contact_policy_request.PutContactPolicyRequest = {
             "contact_arn": contact_arn,
             "policy": policy,
@@ -2384,7 +2452,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendActivationCode")
+        )
         input_: capo_ssm_contacts.types.send_activation_code_request.SendActivationCodeRequest = {
             "contact_channel_id": contact_channel_id
         }
@@ -2453,7 +2523,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEngagement")
+        )
         input_: capo_ssm_contacts.types.start_engagement_request.StartEngagementRequest = {
             "contact_id": contact_id,
             "sender": sender,
@@ -2515,7 +2587,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEngagement")
+        )
         input_: capo_ssm_contacts.types.stop_engagement_request.StopEngagementRequest = {
             "engagement_id": engagement_id
         }
@@ -2568,7 +2642,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ssm_contacts.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2619,7 +2695,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ssm_contacts.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2676,7 +2754,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContact")
+        )
         input_: capo_ssm_contacts.types.update_contact_request.UpdateContactRequest = {
             "contact_id": contact_id
         }
@@ -2736,7 +2816,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContactChannel")
+        )
         input_: capo_ssm_contacts.types.update_contact_channel_request.UpdateContactChannelRequest = {
             "contact_channel_id": contact_channel_id
         }
@@ -2801,7 +2883,9 @@ class AsyncSSMContactsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRotation")
+        )
         input_: capo_ssm_contacts.types.update_rotation_request.UpdateRotationRequest = {
             "rotation_id": rotation_id,
             "recurrence": recurrence,

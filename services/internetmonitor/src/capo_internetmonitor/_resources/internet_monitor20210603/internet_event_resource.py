@@ -8,6 +8,7 @@ import capo_internetmonitor._auth._sigv4
 from capo_internetmonitor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -69,7 +70,9 @@ class InternetEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInternetEvent")
+        )
         input_: capo_internetmonitor.types.get_internet_event_input.GetInternetEventInput = {
             "event_id": event_id
         }
@@ -127,7 +130,9 @@ class InternetEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListInternetEvents")
+        )
         input_: capo_internetmonitor.types.list_internet_events_input.ListInternetEventsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -189,7 +194,9 @@ class AsyncInternetEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInternetEvent")
+        )
         input_: capo_internetmonitor.types.get_internet_event_input.GetInternetEventInput = {
             "event_id": event_id
         }
@@ -248,7 +255,9 @@ class AsyncInternetEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListInternetEvents")
+        )
         input_: capo_internetmonitor.types.list_internet_events_input.ListInternetEventsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DocumentVersionMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -185,5 +185,26 @@ def deserialize_json(data: dict) -> DocumentVersionMetadata:
 
         out["source"] = capo_workdocs.types.document_source_url_map.deserialize_json(
             data["Source"]
+        )
+    return out
+
+
+def redact_sensitive(value: DocumentVersionMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "thumbnail" in value:
+        import capo_workdocs.types.document_thumbnail_url_map
+
+        out["thumbnail"] = (
+            capo_workdocs.types.document_thumbnail_url_map.redact_sensitive(
+                value["thumbnail"]
+            )
+        )
+    if "source" in value:
+        import capo_workdocs.types.document_source_url_map
+
+        out["source"] = capo_workdocs.types.document_source_url_map.redact_sensitive(
+            value["source"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#AlexaSkillIdList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.alexa_skill_id
@@ -17,3 +17,7 @@ def serialize_json(value: AlexaSkillIdList) -> list:
 
 def deserialize_json(data: list) -> AlexaSkillIdList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: AlexaSkillIdList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

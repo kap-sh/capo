@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rtbfabric#TrustStoreConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> TrustStoreConfiguration:
     else:
         raise DeserializationError(
             "TrustStoreConfiguration.certificate_authority_certificates required"
+        )
+    return out
+
+
+def redact_sensitive(value: TrustStoreConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate_authority_certificates" in value:
+        import capo_rtbfabric.types.certificate_authority_certificates
+
+        out["certificate_authority_certificates"] = (
+            capo_rtbfabric.types.certificate_authority_certificates.redact_sensitive(
+                value["certificate_authority_certificates"]
+            )
         )
     return out

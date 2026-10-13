@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineAvoidanceArea``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,25 @@ def deserialize_json(data: dict) -> IsolineAvoidanceArea:
         )
     else:
         raise DeserializationError("IsolineAvoidanceArea.geometry required")
+    return out
+
+
+def redact_sensitive(value: IsolineAvoidanceArea) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "except" in value:
+        import capo_geo_routes.types.isoline_avoidance_area_geometry_list
+
+        out["except"] = (
+            capo_geo_routes.types.isoline_avoidance_area_geometry_list.redact_sensitive(
+                value["except"]
+            )
+        )
+    if "geometry" in value:
+        import capo_geo_routes.types.isoline_avoidance_area_geometry
+
+        out["geometry"] = (
+            capo_geo_routes.types.isoline_avoidance_area_geometry.redact_sensitive(
+                value["geometry"]
+            )
+        )
     return out

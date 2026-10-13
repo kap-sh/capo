@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanrooms._auth._signers
 import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,36 @@ class AnalysisTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_input
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_analysis_template_output.CreateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAnalysisTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -176,7 +206,19 @@ class AnalysisTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_analysis_template_output.GetAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_analysis_template_output
+
+            return capo_cleanrooms.types.get_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_analysis_template_input.GetAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -230,7 +272,21 @@ class AnalysisTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_analysis_template_output.UpdateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.update_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_analysis_template_input.UpdateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -282,7 +338,9 @@ class AnalysisTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnalysisTemplate")
+        )
         input_: capo_cleanrooms.types.delete_analysis_template_input.DeleteAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -336,7 +394,9 @@ class AnalysisTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_analysis_templates_input.ListAnalysisTemplatesInput = {
             "membership_identifier": membership_identifier
         }
@@ -420,7 +480,36 @@ class AsyncAnalysisTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_input
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_analysis_template_output.CreateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAnalysisTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -485,7 +574,19 @@ class AsyncAnalysisTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_analysis_template_output.GetAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_analysis_template_output
+
+            return capo_cleanrooms.types.get_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_analysis_template_input.GetAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -540,7 +641,21 @@ class AsyncAnalysisTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_analysis_template_output.UpdateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.update_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_analysis_template_input.UpdateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -593,7 +708,9 @@ class AsyncAnalysisTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnalysisTemplate")
+        )
         input_: capo_cleanrooms.types.delete_analysis_template_input.DeleteAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -648,7 +765,9 @@ class AsyncAnalysisTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_analysis_templates_input.ListAnalysisTemplatesInput = {
             "membership_identifier": membership_identifier
         }

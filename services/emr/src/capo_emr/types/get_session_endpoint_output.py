@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emr#GetSessionEndpointOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,5 +63,18 @@ def deserialize_aws_json_1_1(data: dict) -> GetSessionEndpointOutput:
 
         out["credentials"] = capo_emr.types.credentials.deserialize_aws_json_1_1(
             data["Credentials"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetSessionEndpointOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_token" in value:
+        out["auth_token"] = "*** Sensitive Data Redacted ***"
+    if "credentials" in value:
+        import capo_emr.types.credentials
+
+        out["credentials"] = capo_emr.types.credentials.redact_sensitive(
+            value["credentials"]
         )
     return out

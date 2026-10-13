@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssooidc#StartDeviceAuthorizationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> StartDeviceAuthorizationRequest:
         out["start_url"] = data["startUrl"]
     else:
         raise DeserializationError("StartDeviceAuthorizationRequest.start_url required")
+    return out
+
+
+def redact_sensitive(value: StartDeviceAuthorizationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

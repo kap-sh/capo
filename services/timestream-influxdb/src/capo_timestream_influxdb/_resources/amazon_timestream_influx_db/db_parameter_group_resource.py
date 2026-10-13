@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_timestream_influxdb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class DbParameterGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.create_db_parameter_group_input.CreateDbParameterGroupInput = {
             "name": name
         }
@@ -138,7 +141,9 @@ class DbParameterGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.get_db_parameter_group_input.GetDbParameterGroupInput = {
             "identifier": identifier
         }
@@ -191,7 +196,9 @@ class DbParameterGroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbParameterGroups")
+        )
         input_: capo_timestream_influxdb.types.list_db_parameter_groups_input.ListDbParameterGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -258,7 +265,9 @@ class AsyncDbParameterGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.create_db_parameter_group_input.CreateDbParameterGroupInput = {
             "name": name
         }
@@ -312,7 +321,9 @@ class AsyncDbParameterGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.get_db_parameter_group_input.GetDbParameterGroupInput = {
             "identifier": identifier
         }
@@ -366,7 +377,9 @@ class AsyncDbParameterGroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDbParameterGroups")
+        )
         input_: capo_timestream_influxdb.types.list_db_parameter_groups_input.ListDbParameterGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

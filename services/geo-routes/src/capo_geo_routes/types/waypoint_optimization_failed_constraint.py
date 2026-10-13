@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationFailedConstraint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,13 @@ def deserialize_json(data: dict) -> WaypointOptimizationFailedConstraint:
         )
     if data.get("Reason") is not None:
         out["reason"] = data["Reason"]
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationFailedConstraint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "constraint" in value:
+        out["constraint"] = "*** Sensitive Data Redacted ***"
+    if "reason" in value:
+        out["reason"] = "*** Sensitive Data Redacted ***"
     return out

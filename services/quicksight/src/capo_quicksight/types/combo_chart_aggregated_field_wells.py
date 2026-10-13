@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ComboChartAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,5 +79,34 @@ def deserialize_json(data: dict) -> ComboChartAggregatedFieldWells:
 
         out["line_values"] = capo_quicksight.types.measure_field_list.deserialize_json(
             data["LineValues"]
+        )
+    return out
+
+
+def redact_sensitive(value: ComboChartAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "category" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["category"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["category"]
+        )
+    if "bar_values" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["bar_values"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["bar_values"]
+        )
+    if "colors" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["colors"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["colors"]
+        )
+    if "line_values" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["line_values"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["line_values"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#PromptRouterSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.prompt_router_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> PromptRouterSummaries:
             continue
         out.append(capo_bedrock.types.prompt_router_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PromptRouterSummaries) -> list[Any]:
+    import capo_bedrock.types.prompt_router_summary
+
+    return [
+        capo_bedrock.types.prompt_router_summary.redact_sensitive(item)
+        for item in value
+    ]

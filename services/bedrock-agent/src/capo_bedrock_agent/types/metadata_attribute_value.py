@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#MetadataAttributeValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,6 +83,23 @@ def deserialize_json(data: dict) -> MetadataAttributeValue:
         out["string_list_value"] = (
             capo_bedrock_agent.types.string_list_value.deserialize_json(
                 data["stringListValue"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MetadataAttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "number_value" in value:
+        out["number_value"] = "*** Sensitive Data Redacted ***"
+    if "string_value" in value:
+        out["string_value"] = "*** Sensitive Data Redacted ***"
+    if "string_list_value" in value:
+        import capo_bedrock_agent.types.string_list_value
+
+        out["string_list_value"] = (
+            capo_bedrock_agent.types.string_list_value.redact_sensitive(
+                value["string_list_value"]
             )
         )
     return out

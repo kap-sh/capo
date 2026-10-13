@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AuthenticationConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,21 @@ def deserialize_json(data: dict) -> AuthenticationConfigurationInput:
                 data["customAuthenticationCredentials"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AuthenticationConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth2_properties" in value:
+        import capo_datazone.types.o_auth2_properties
+
+        out["o_auth2_properties"] = (
+            capo_datazone.types.o_auth2_properties.redact_sensitive(
+                value["o_auth2_properties"]
+            )
+        )
+    if "basic_authentication_credentials" in value:
+        out["basic_authentication_credentials"] = "*** Sensitive Data Redacted ***"
+    if "custom_authentication_credentials" in value:
+        out["custom_authentication_credentials"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#DNISEmergencyCallingConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_voice.types.dnis_emergency_calling_configuration
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> DNISEmergencyCallingConfigurationList:
             )
         )
     return out
+
+
+def redact_sensitive(value: DNISEmergencyCallingConfigurationList) -> list[Any]:
+    import capo_chime_sdk_voice.types.dnis_emergency_calling_configuration
+
+    return [
+        capo_chime_sdk_voice.types.dnis_emergency_calling_configuration.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

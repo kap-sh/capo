@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#VerifyMacInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,21 @@ def deserialize_json(data: dict) -> VerifyMacInput:
         raise DeserializationError("VerifyMacInput.verification_attributes required")
     if data.get("MacLength") is not None:
         out["mac_length"] = data["MacLength"]
+    return out
+
+
+def redact_sensitive(value: VerifyMacInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_data" in value:
+        out["message_data"] = "*** Sensitive Data Redacted ***"
+    if "mac" in value:
+        out["mac"] = "*** Sensitive Data Redacted ***"
+    if "verification_attributes" in value:
+        import capo_payment_cryptography_data.types.mac_attributes
+
+        out["verification_attributes"] = (
+            capo_payment_cryptography_data.types.mac_attributes.redact_sensitive(
+                value["verification_attributes"]
+            )
+        )
     return out

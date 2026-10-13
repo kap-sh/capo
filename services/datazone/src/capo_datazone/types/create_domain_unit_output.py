@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateDomainUnitOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -119,4 +119,13 @@ def deserialize_json(data: dict) -> CreateDomainUnitOutput:
         )
     if data.get("createdBy") is not None:
         out["created_by"] = data["createdBy"]
+    return out
+
+
+def redact_sensitive(value: CreateDomainUnitOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

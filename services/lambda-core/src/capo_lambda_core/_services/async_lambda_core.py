@@ -28,7 +28,9 @@ from capo_lambda_core._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -131,7 +133,9 @@ class AsyncLambdaCoreClient:
         self.network_connector = AsyncNetworkConnector(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncLambdaCoreClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncLambdaCoreClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLambdaCoreClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -139,8 +143,10 @@ class AsyncLambdaCoreClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -208,7 +214,9 @@ class AsyncLambdaCoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNetworkConnector")
+        )
         input_: capo_lambda_core.types.create_network_connector_request.CreateNetworkConnectorRequest = {
             "name": name,
             "configuration": configuration,
@@ -260,7 +268,9 @@ class AsyncLambdaCoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNetworkConnector")
+        )
         input_: capo_lambda_core.types.get_network_connector_request.GetNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -319,7 +329,9 @@ class AsyncLambdaCoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkConnector")
+        )
         input_: capo_lambda_core.types.update_network_connector_request.UpdateNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -371,7 +383,9 @@ class AsyncLambdaCoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkConnector")
+        )
         input_: capo_lambda_core.types.delete_network_connector_request.DeleteNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -425,7 +439,9 @@ class AsyncLambdaCoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkConnectors")
+        )
         input_: capo_lambda_core.types.list_network_connectors_request.ListNetworkConnectorsRequest = {}
         if state is not None:
             input_["state"] = state

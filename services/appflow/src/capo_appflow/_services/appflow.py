@@ -22,10 +22,12 @@ from capo_appflow._pagination import resolve_path as _resolve_path
 from capo_appflow._services._aws_config import aws_config
 from capo_appflow._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -185,7 +187,9 @@ class AppflowClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AppflowClientConfig] = None
+        self,
+        config_overrides: Optional[AppflowClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppflowClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -193,8 +197,10 @@ class AppflowClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -249,7 +255,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelFlowExecutions")
+        )
         input_: capo_appflow.types.cancel_flow_executions_request.CancelFlowExecutionsRequest = {
             "flow_name": flow_name
         }
@@ -312,7 +320,19 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appflow.types.create_connector_profile_request.CreateConnectorProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_appflow.types.create_connector_profile_request
+
+            return capo_appflow.types.create_connector_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnectorProfile", redact_input=_redact_input),
+        )
         input_: capo_appflow.types.create_connector_profile_request.CreateConnectorProfileRequest = {
             "connector_profile_name": connector_profile_name,
             "connector_type": connector_type,
@@ -394,7 +414,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFlow")
+        )
         input_: capo_appflow.types.create_flow_request.CreateFlowRequest = {
             "flow_name": flow_name,
             "trigger_config": trigger_config,
@@ -456,7 +478,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectorProfile")
+        )
         input_: capo_appflow.types.delete_connector_profile_request.DeleteConnectorProfileRequest = {
             "connector_profile_name": connector_profile_name
         }
@@ -505,7 +529,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_appflow.types.delete_flow_request.DeleteFlowRequest = {
             "flow_name": flow_name
         }
@@ -556,7 +582,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnector")
+        )
         input_: capo_appflow.types.describe_connector_request.DescribeConnectorRequest = {
             "connector_type": connector_type
         }
@@ -615,7 +643,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectorEntity")
+        )
         input_: capo_appflow.types.describe_connector_entity_request.DescribeConnectorEntityRequest = {
             "connector_entity_name": connector_entity_name
         }
@@ -679,7 +709,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectorProfiles")
+        )
         input_: capo_appflow.types.describe_connector_profiles_request.DescribeConnectorProfilesRequest = {}
         if connector_profile_names is not None:
             input_["connector_profile_names"] = connector_profile_names
@@ -768,7 +800,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnectors")
+        )
         input_: capo_appflow.types.describe_connectors_request.DescribeConnectorsRequest = {}
         if connector_types is not None:
             input_["connector_types"] = connector_types
@@ -839,7 +873,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlow")
+        )
         input_: capo_appflow.types.describe_flow_request.DescribeFlowRequest = {
             "flow_name": flow_name
         }
@@ -888,7 +924,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFlowExecutionRecords")
+        )
         input_: capo_appflow.types.describe_flow_execution_records_request.DescribeFlowExecutionRecordsRequest = {
             "flow_name": flow_name
         }
@@ -976,7 +1014,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectorEntities")
+        )
         input_: capo_appflow.types.list_connector_entities_request.ListConnectorEntitiesRequest = {}
         if connector_profile_name is not None:
             input_["connector_profile_name"] = connector_profile_name
@@ -1032,7 +1072,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_appflow.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1099,7 +1141,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_appflow.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1167,7 +1211,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appflow.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1232,7 +1278,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterConnector")
+        )
         input_: capo_appflow.types.register_connector_request.RegisterConnectorRequest = {}
         if connector_label is not None:
             input_["connector_label"] = connector_label
@@ -1301,7 +1349,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetConnectorMetadataCache")
+        )
         input_: capo_appflow.types.reset_connector_metadata_cache_request.ResetConnectorMetadataCacheRequest = {}
         if connector_profile_name is not None:
             input_["connector_profile_name"] = connector_profile_name
@@ -1357,7 +1407,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFlow")
+        )
         input_: capo_appflow.types.start_flow_request.StartFlowRequest = {
             "flow_name": flow_name
         }
@@ -1406,7 +1458,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopFlow")
+        )
         input_: capo_appflow.types.stop_flow_request.StopFlowRequest = {
             "flow_name": flow_name
         }
@@ -1453,7 +1507,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appflow.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1501,7 +1557,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnregisterConnector")
+        )
         input_: capo_appflow.types.unregister_connector_request.UnregisterConnectorRequest = {
             "connector_label": connector_label
         }
@@ -1550,7 +1608,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appflow.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1604,7 +1664,19 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appflow.types.update_connector_profile_request.UpdateConnectorProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_appflow.types.update_connector_profile_request
+
+            return capo_appflow.types.update_connector_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnectorProfile", redact_input=_redact_input),
+        )
         input_: capo_appflow.types.update_connector_profile_request.UpdateConnectorProfileRequest = {
             "connector_profile_name": connector_profile_name,
             "connection_mode": connection_mode,
@@ -1667,7 +1739,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorRegistration")
+        )
         input_: capo_appflow.types.update_connector_registration_request.UpdateConnectorRegistrationRequest = {
             "connector_label": connector_label
         }
@@ -1741,7 +1815,9 @@ class AppflowClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFlow")
+        )
         input_: capo_appflow.types.update_flow_request.UpdateFlowRequest = {
             "flow_name": flow_name,
             "trigger_config": trigger_config,

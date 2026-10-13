@@ -23,10 +23,12 @@ from capo_acm_pca._pagination import resolve_path as _resolve_path
 from capo_acm_pca._services._aws_config import aws_config
 from capo_acm_pca._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_acm_pca.errors import ServiceError, WaiterFailedError, WaiterTimeoutError
@@ -173,7 +175,9 @@ class ACMPCAClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ACMPCAClientConfig] = None
+        self,
+        config_overrides: Optional[ACMPCAClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ACMPCAClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -181,8 +185,10 @@ class ACMPCAClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -254,7 +260,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificateAuthority")
+        )
         input_: capo_acm_pca.types.create_certificate_authority_request.CreateCertificateAuthorityRequest = {
             "certificate_authority_configuration": certificate_authority_configuration,
             "certificate_authority_type": certificate_authority_type,
@@ -317,7 +325,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCertificateAuthorityAuditReport")
+        )
         input_: capo_acm_pca.types.create_certificate_authority_audit_report_request.CreateCertificateAuthorityAuditReportRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "s3_bucket_name": s3_bucket_name,
@@ -371,7 +381,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePermission")
+        )
         input_: capo_acm_pca.types.create_permission_request.CreatePermissionRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "principal": principal,
@@ -423,7 +435,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificateAuthority")
+        )
         input_: capo_acm_pca.types.delete_certificate_authority_request.DeleteCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -473,7 +487,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermission")
+        )
         input_: capo_acm_pca.types.delete_permission_request.DeletePermissionRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "principal": principal,
@@ -522,7 +538,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_acm_pca.types.delete_policy_request.DeletePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -566,7 +584,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificateAuthority")
+        )
         input_: capo_acm_pca.types.describe_certificate_authority_request.DescribeCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -613,7 +633,10 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCertificateAuthorityAuditReport"),
+        )
         input_: capo_acm_pca.types.describe_certificate_authority_audit_report_request.DescribeCertificateAuthorityAuditReportRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "audit_report_id": audit_report_id,
@@ -663,7 +686,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificate")
+        )
         input_: capo_acm_pca.types.get_certificate_request.GetCertificateRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "certificate_arn": certificate_arn,
@@ -763,7 +788,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificateAuthorityCertificate")
+        )
         input_: capo_acm_pca.types.get_certificate_authority_certificate_request.GetCertificateAuthorityCertificateRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -810,7 +837,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCertificateAuthorityCsr")
+        )
         input_: capo_acm_pca.types.get_certificate_authority_csr_request.GetCertificateAuthorityCsrRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -908,7 +937,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_acm_pca.types.get_policy_request.GetPolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -963,7 +994,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportCertificateAuthorityCertificate")
+        )
         input_: capo_acm_pca.types.import_certificate_authority_certificate_request.ImportCertificateAuthorityCertificateRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "certificate": certificate,
@@ -1032,7 +1065,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IssueCertificate")
+        )
         input_: capo_acm_pca.types.issue_certificate_request.IssueCertificateRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "csr": csr,
@@ -1092,7 +1127,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCertificateAuthorities")
+        )
         input_: capo_acm_pca.types.list_certificate_authorities_request.ListCertificateAuthoritiesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1172,7 +1209,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPermissions")
+        )
         input_: capo_acm_pca.types.list_permissions_request.ListPermissionsRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -1249,7 +1288,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_acm_pca.types.list_tags_request.ListTagsRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -1325,7 +1366,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPolicy")
+        )
         input_: capo_acm_pca.types.put_policy_request.PutPolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1369,7 +1412,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreCertificateAuthority")
+        )
         input_: capo_acm_pca.types.restore_certificate_authority_request.RestoreCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -1422,7 +1467,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeCertificate")
+        )
         input_: capo_acm_pca.types.revoke_certificate_request.RevokeCertificateRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "certificate_serial": certificate_serial,
@@ -1471,7 +1518,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagCertificateAuthority")
+        )
         input_: capo_acm_pca.types.tag_certificate_authority_request.TagCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "tags": tags,
@@ -1518,7 +1567,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagCertificateAuthority")
+        )
         input_: capo_acm_pca.types.untag_certificate_authority_request.UntagCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn,
             "tags": tags,
@@ -1573,7 +1624,9 @@ class ACMPCAClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCertificateAuthority")
+        )
         input_: capo_acm_pca.types.update_certificate_authority_request.UpdateCertificateAuthorityRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }

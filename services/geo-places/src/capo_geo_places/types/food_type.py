@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#FoodType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,15 @@ def deserialize_json(data: dict) -> FoodType:
         out["id"] = data["Id"]
     if data.get("Primary") is not None:
         out["primary"] = data["Primary"]
+    return out
+
+
+def redact_sensitive(value: FoodType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "localized_name" in value:
+        out["localized_name"] = "*** Sensitive Data Redacted ***"
+    if "id" in value:
+        out["id"] = "*** Sensitive Data Redacted ***"
+    if "primary" in value:
+        out["primary"] = "*** Sensitive Data Redacted ***"
     return out

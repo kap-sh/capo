@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda_microvms._auth._signers
 import capo_lambda_microvms._auth._sigv4
 from capo_lambda_microvms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -122,7 +123,18 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda_microvms.types.run_microvm_request.RunMicrovmRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.run_microvm_request
+
+            return capo_lambda_microvms.types.run_microvm_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RunMicrovm", redact_input=_redact_input)
+        )
         input_: capo_lambda_microvms.types.run_microvm_request.RunMicrovmRequest = {
             "image_identifier": image_identifier
         }
@@ -188,7 +200,9 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovm")
+        )
         input_: capo_lambda_microvms.types.get_microvm_request.GetMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -238,7 +252,9 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TerminateMicrovm")
+        )
         input_: capo_lambda_microvms.types.terminate_microvm_request.TerminateMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -293,7 +309,9 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovms")
+        )
         input_: capo_lambda_microvms.types.list_microvms_request.ListMicrovmsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -351,7 +369,19 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.create_microvm_auth_token_response.CreateMicrovmAuthTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.create_microvm_auth_token_response
+
+            return capo_lambda_microvms.types.create_microvm_auth_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMicrovmAuthToken", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.create_microvm_auth_token_request.CreateMicrovmAuthTokenRequest = {
             "microvm_identifier": microvm_identifier,
             "expiration_in_minutes": expiration_in_minutes,
@@ -403,7 +433,21 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.create_microvm_shell_auth_token_response.CreateMicrovmShellAuthTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.create_microvm_shell_auth_token_response
+
+            return capo_lambda_microvms.types.create_microvm_shell_auth_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMicrovmShellAuthToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda_microvms.types.create_microvm_shell_auth_token_request.CreateMicrovmShellAuthTokenRequest = {
             "microvm_identifier": microvm_identifier,
             "expiration_in_minutes": expiration_in_minutes,
@@ -452,7 +496,9 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResumeMicrovm")
+        )
         input_: capo_lambda_microvms.types.resume_microvm_request.ResumeMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -500,7 +546,9 @@ class Microvm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SuspendMicrovm")
+        )
         input_: capo_lambda_microvms.types.suspend_microvm_request.SuspendMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -584,7 +632,18 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda_microvms.types.run_microvm_request.RunMicrovmRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.run_microvm_request
+
+            return capo_lambda_microvms.types.run_microvm_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RunMicrovm", redact_input=_redact_input)
+        )
         input_: capo_lambda_microvms.types.run_microvm_request.RunMicrovmRequest = {
             "image_identifier": image_identifier
         }
@@ -651,7 +710,9 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovm")
+        )
         input_: capo_lambda_microvms.types.get_microvm_request.GetMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -702,7 +763,9 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TerminateMicrovm")
+        )
         input_: capo_lambda_microvms.types.terminate_microvm_request.TerminateMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -758,7 +821,9 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovms")
+        )
         input_: capo_lambda_microvms.types.list_microvms_request.ListMicrovmsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -817,7 +882,19 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.create_microvm_auth_token_response.CreateMicrovmAuthTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.create_microvm_auth_token_response
+
+            return capo_lambda_microvms.types.create_microvm_auth_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateMicrovmAuthToken", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.create_microvm_auth_token_request.CreateMicrovmAuthTokenRequest = {
             "microvm_identifier": microvm_identifier,
             "expiration_in_minutes": expiration_in_minutes,
@@ -870,7 +947,21 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.create_microvm_shell_auth_token_response.CreateMicrovmShellAuthTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.create_microvm_shell_auth_token_response
+
+            return capo_lambda_microvms.types.create_microvm_shell_auth_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMicrovmShellAuthToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda_microvms.types.create_microvm_shell_auth_token_request.CreateMicrovmShellAuthTokenRequest = {
             "microvm_identifier": microvm_identifier,
             "expiration_in_minutes": expiration_in_minutes,
@@ -920,7 +1011,9 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResumeMicrovm")
+        )
         input_: capo_lambda_microvms.types.resume_microvm_request.ResumeMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }
@@ -969,7 +1062,9 @@ class AsyncMicrovm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SuspendMicrovm")
+        )
         input_: capo_lambda_microvms.types.suspend_microvm_request.SuspendMicrovmRequest = {
             "microvm_identifier": microvm_identifier
         }

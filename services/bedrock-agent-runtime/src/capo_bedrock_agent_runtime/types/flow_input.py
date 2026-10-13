@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FlowInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,11 @@ def deserialize_json(data: dict) -> FlowInput:
         raise DeserializationError("FlowInput.content required")
     if data.get("nodeInputName") is not None:
         out["node_input_name"] = data["nodeInputName"]
+    return out
+
+
+def redact_sensitive(value: FlowInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        out["content"] = "*** Sensitive Data Redacted ***"
     return out

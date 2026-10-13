@@ -21,10 +21,12 @@ from capo_support._pagination import resolve_path as _resolve_path
 from capo_support._services._aws_config import aws_config
 from capo_support._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class SupportClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SupportClientConfig] = None
+        self,
+        config_overrides: Optional[SupportClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SupportClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class SupportClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -252,7 +258,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddAttachmentsToSet")
+        )
         input_: capo_support.types.add_attachments_to_set_request.AddAttachmentsToSetRequest = {
             "attachments": attachments
         }
@@ -319,7 +327,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddCommunicationToCase")
+        )
         input_: capo_support.types.add_communication_to_case_request.AddCommunicationToCaseRequest = {
             "communication_body": communication_body
         }
@@ -380,7 +390,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteAttachmentUpload")
+        )
         input_: capo_support.types.complete_attachment_upload_request.CompleteAttachmentUploadRequest = {
             "upload_id": upload_id,
             "completed_uploads": completed_uploads,
@@ -456,7 +468,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCase")
+        )
         input_: capo_support.types.create_case_request.CreateCaseRequest = {
             "subject": subject,
             "communication_body": communication_body,
@@ -525,7 +539,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAttachment")
+        )
         input_: capo_support.types.describe_attachment_request.DescribeAttachmentRequest = {
             "attachment_id": attachment_id
         }
@@ -576,7 +592,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAttachmentUploadStatus")
+        )
         input_: capo_support.types.describe_attachment_upload_status_request.DescribeAttachmentUploadStatusRequest = {
             "upload_id": upload_id
         }
@@ -647,7 +665,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCases")
+        )
         input_: capo_support.types.describe_cases_request.DescribeCasesRequest = {}
         if case_id_list is not None:
             input_["case_id_list"] = case_id_list
@@ -765,7 +785,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCommunications")
+        )
         input_: capo_support.types.describe_communications_request.DescribeCommunicationsRequest = {
             "case_id": case_id
         }
@@ -861,7 +883,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCreateCaseOptions")
+        )
         input_: capo_support.types.describe_create_case_options_request.DescribeCreateCaseOptionsRequest = {
             "issue_type": issue_type,
             "service_code": service_code,
@@ -918,7 +942,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServices")
+        )
         input_: capo_support.types.describe_services_request.DescribeServicesRequest = {}
         if service_code_list is not None:
             input_["service_code_list"] = service_code_list
@@ -970,7 +996,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSeverityLevels")
+        )
         input_: capo_support.types.describe_severity_levels_request.DescribeSeverityLevelsRequest = {}
         if language is not None:
             input_["language"] = language
@@ -1025,7 +1053,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSupportedLanguages")
+        )
         input_: capo_support.types.describe_supported_languages_request.DescribeSupportedLanguagesRequest = {
             "issue_type": issue_type,
             "service_code": service_code,
@@ -1073,7 +1103,10 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTrustedAdvisorCheckRefreshStatuses"),
+        )
         input_: capo_support.types.describe_trusted_advisor_check_refresh_statuses_request.DescribeTrustedAdvisorCheckRefreshStatusesRequest = {
             "check_ids": check_ids
         }
@@ -1119,7 +1152,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustedAdvisorCheckResult")
+        )
         input_: capo_support.types.describe_trusted_advisor_check_result_request.DescribeTrustedAdvisorCheckResultRequest = {
             "check_id": check_id
         }
@@ -1165,7 +1200,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustedAdvisorChecks")
+        )
         input_: capo_support.types.describe_trusted_advisor_checks_request.DescribeTrustedAdvisorChecksRequest = {
             "language": language
         }
@@ -1209,7 +1246,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustedAdvisorCheckSummaries")
+        )
         input_: capo_support.types.describe_trusted_advisor_check_summaries_request.DescribeTrustedAdvisorCheckSummariesRequest = {
             "check_ids": check_ids
         }
@@ -1258,7 +1297,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttachmentDownloadLink")
+        )
         input_: capo_support.types.get_attachment_download_link_request.GetAttachmentDownloadLinkRequest = {
             "attachment_id": attachment_id
         }
@@ -1315,7 +1356,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttachmentUploadLinks")
+        )
         input_: capo_support.types.get_attachment_upload_links_request.GetAttachmentUploadLinksRequest = {
             "file_name": file_name
         }
@@ -1366,7 +1409,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RefreshTrustedAdvisorCheck")
+        )
         input_: capo_support.types.refresh_trusted_advisor_check_request.RefreshTrustedAdvisorCheckRequest = {
             "check_id": check_id
         }
@@ -1415,7 +1460,9 @@ class SupportClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResolveCase")
+        )
         input_: capo_support.types.resolve_case_request.ResolveCaseRequest = {}
         if case_id is not None:
             input_["case_id"] = case_id

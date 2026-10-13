@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ConverseResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -138,5 +138,22 @@ def deserialize_json(data: dict) -> ConverseResponse:
 
         out["service_tier"] = capo_bedrock_runtime.types.service_tier.deserialize_json(
             data["serviceTier"]
+        )
+    return out
+
+
+def redact_sensitive(value: ConverseResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "output" in value:
+        import capo_bedrock_runtime.types.converse_output
+
+        out["output"] = capo_bedrock_runtime.types.converse_output.redact_sensitive(
+            value["output"]
+        )
+    if "trace" in value:
+        import capo_bedrock_runtime.types.converse_trace
+
+        out["trace"] = capo_bedrock_runtime.types.converse_trace.redact_sensitive(
+            value["trace"]
         )
     return out

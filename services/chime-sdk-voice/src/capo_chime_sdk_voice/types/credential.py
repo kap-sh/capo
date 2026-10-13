@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#Credential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_json(data: dict) -> Credential:
         out["username"] = data["Username"]
     if data.get("Password") is not None:
         out["password"] = data["Password"]
+    return out
+
+
+def redact_sensitive(value: Credential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

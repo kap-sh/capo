@@ -7,6 +7,7 @@ import capo_s3tables._auth._sigv4
 from capo_s3tables._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,9 @@ class TablePolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTablePolicy")
+        )
         input_: capo_s3tables.types.delete_table_policy_request.DeleteTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -124,7 +127,9 @@ class TablePolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTablePolicy")
+        )
         input_: capo_s3tables.types.get_table_policy_request.GetTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -178,7 +183,9 @@ class TablePolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTablePolicy")
+        )
         input_: capo_s3tables.types.put_table_policy_request.PutTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -237,7 +244,9 @@ class AsyncTablePolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTablePolicy")
+        )
         input_: capo_s3tables.types.delete_table_policy_request.DeleteTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -292,7 +301,9 @@ class AsyncTablePolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTablePolicy")
+        )
         input_: capo_s3tables.types.get_table_policy_request.GetTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,
@@ -347,7 +358,9 @@ class AsyncTablePolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTablePolicy")
+        )
         input_: capo_s3tables.types.put_table_policy_request.PutTablePolicyRequest = {
             "table_bucket_arn": table_bucket_arn,
             "namespace": namespace,

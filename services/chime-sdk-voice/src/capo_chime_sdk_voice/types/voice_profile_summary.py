@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#VoiceProfileSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,4 +103,11 @@ def deserialize_json(data: dict) -> VoiceProfileSummary:
                 data["ExpirationTimestamp"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: VoiceProfileSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "voice_profile_arn" in value:
+        out["voice_profile_arn"] = "*** Sensitive Data Redacted ***"
     return out

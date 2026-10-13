@@ -7,6 +7,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class ManagedFirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_managed_firewall_domain_list_input.GetManagedFirewallDomainListInput = {
             "managed_firewall_domain_list_id": managed_firewall_domain_list_id
         }
@@ -118,7 +121,9 @@ class ManagedFirewallDomainList:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_managed_firewall_domain_lists_input.ListManagedFirewallDomainListsInput = {
             "managed_firewall_domain_list_type": managed_firewall_domain_list_type
         }
@@ -175,7 +180,9 @@ class AsyncManagedFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedFirewallDomainList")
+        )
         input_: capo_route53globalresolver.types.get_managed_firewall_domain_list_input.GetManagedFirewallDomainListInput = {
             "managed_firewall_domain_list_id": managed_firewall_domain_list_id
         }
@@ -226,7 +233,9 @@ class AsyncManagedFirewallDomainList:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedFirewallDomainLists")
+        )
         input_: capo_route53globalresolver.types.list_managed_firewall_domain_lists_input.ListManagedFirewallDomainListsInput = {
             "managed_firewall_domain_list_type": managed_firewall_domain_list_type
         }

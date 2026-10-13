@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#ParticipantTokenList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ivs_realtime.types.participant_token
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ParticipantTokenList:
             continue
         out.append(capo_ivs_realtime.types.participant_token.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ParticipantTokenList) -> list[Any]:
+    import capo_ivs_realtime.types.participant_token
+
+    return [
+        capo_ivs_realtime.types.participant_token.redact_sensitive(item)
+        for item in value
+    ]

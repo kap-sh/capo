@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#ContextSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -155,5 +155,18 @@ def deserialize_json(data: dict) -> ContextSummary:
 
         out["last_modified_at"] = datetime.datetime.fromisoformat(
             data["lastModifiedAt"].replace("Z", "+00:00")
+        )
+    return out
+
+
+def redact_sensitive(value: ContextSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "content" in value:
+        import capo_wellarchitected.types.context_content
+
+        out["content"] = capo_wellarchitected.types.context_content.redact_sensitive(
+            value["content"]
         )
     return out

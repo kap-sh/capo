@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CustomPattern``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,17 @@ def deserialize_json(data: dict) -> CustomPattern:
         out["pattern_description"] = data["patternDescription"]
     if data.get("keywordRegex") is not None:
         out["keyword_regex"] = data["keywordRegex"]
+    return out
+
+
+def redact_sensitive(value: CustomPattern) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pattern_name" in value:
+        out["pattern_name"] = "*** Sensitive Data Redacted ***"
+    if "pattern_regex" in value:
+        out["pattern_regex"] = "*** Sensitive Data Redacted ***"
+    if "pattern_description" in value:
+        out["pattern_description"] = "*** Sensitive Data Redacted ***"
+    if "keyword_regex" in value:
+        out["keyword_regex"] = "*** Sensitive Data Redacted ***"
     return out

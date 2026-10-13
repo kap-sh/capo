@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#AppSyncParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_aws_json_1_1(data: dict) -> AppSyncParameters:
     out: AppSyncParameters = {}  # type: ignore[typeddict-item]
     if data.get("GraphQLOperation") is not None:
         out["graph_ql_operation"] = data["GraphQLOperation"]
+    return out
+
+
+def redact_sensitive(value: AppSyncParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "graph_ql_operation" in value:
+        out["graph_ql_operation"] = "*** Sensitive Data Redacted ***"
     return out

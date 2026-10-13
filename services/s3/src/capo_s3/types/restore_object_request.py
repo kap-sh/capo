@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#RestoreObjectRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,5 +52,16 @@ def deserialize_xml(el: Element) -> RestoreObjectRequest:
 
         out["restore_request"] = capo_s3.types.restore_request.deserialize_xml(
             child_restore_request
+        )
+    return out
+
+
+def redact_sensitive(value: RestoreObjectRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "restore_request" in value:
+        import capo_s3.types.restore_request
+
+        out["restore_request"] = capo_s3.types.restore_request.redact_sensitive(
+            value["restore_request"]
         )
     return out

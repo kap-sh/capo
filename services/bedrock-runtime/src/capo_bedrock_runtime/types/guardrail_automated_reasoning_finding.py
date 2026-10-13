@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#GuardrailAutomatedReasoningFinding``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -180,3 +180,48 @@ def deserialize_json(data: dict) -> GuardrailAutomatedReasoningFinding:
         raise DeserializationError(
             "GuardrailAutomatedReasoningFinding: no recognized variant key"
         )
+
+
+def redact_sensitive(value: GuardrailAutomatedReasoningFinding) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "valid" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding
+
+        out["valid"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_valid_finding.redact_sensitive(
+                value["valid"]
+            )
+        )
+    if "invalid" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_invalid_finding
+
+        out["invalid"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_invalid_finding.redact_sensitive(
+                value["invalid"]
+            )
+        )
+    if "satisfiable" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_satisfiable_finding
+
+        out["satisfiable"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_satisfiable_finding.redact_sensitive(
+                value["satisfiable"]
+            )
+        )
+    if "impossible" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_impossible_finding
+
+        out["impossible"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_impossible_finding.redact_sensitive(
+                value["impossible"]
+            )
+        )
+    if "translationAmbiguous" in value:
+        import capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_ambiguous_finding
+
+        out["translationAmbiguous"] = (
+            capo_bedrock_runtime.types.guardrail_automated_reasoning_translation_ambiguous_finding.redact_sensitive(
+                value["translationAmbiguous"]
+            )
+        )
+    return out

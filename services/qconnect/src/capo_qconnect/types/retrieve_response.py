@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RetrieveResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,5 +50,16 @@ def deserialize_json(data: dict) -> RetrieveResponse:
 
         out["errors"] = capo_qconnect.types.retrieve_error_list.deserialize_json(
             data["errors"]
+        )
+    return out
+
+
+def redact_sensitive(value: RetrieveResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_qconnect.types.retrieve_result_list
+
+        out["results"] = capo_qconnect.types.retrieve_result_list.redact_sensitive(
+            value["results"]
         )
     return out

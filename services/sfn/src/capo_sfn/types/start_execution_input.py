@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#StartExecutionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartExecutionInput:
         out["input"] = data["input"]
     if data.get("traceHeader") is not None:
         out["trace_header"] = data["traceHeader"]
+    return out
+
+
+def redact_sensitive(value: StartExecutionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

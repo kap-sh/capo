@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteSignpost``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,17 @@ def deserialize_json(data: dict) -> RouteSignpost:
         )
     else:
         raise DeserializationError("RouteSignpost.labels required")
+    return out
+
+
+def redact_sensitive(value: RouteSignpost) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "labels" in value:
+        import capo_geo_routes.types.route_signpost_label_list
+
+        out["labels"] = (
+            capo_geo_routes.types.route_signpost_label_list.redact_sensitive(
+                value["labels"]
+            )
+        )
     return out

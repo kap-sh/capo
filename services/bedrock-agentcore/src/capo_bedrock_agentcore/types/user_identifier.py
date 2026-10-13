@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#UserIdentifier``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -39,3 +39,10 @@ def deserialize_json(data: dict) -> UserIdentifier:
         return {"userId": data["userId"]}
     else:
         raise DeserializationError("UserIdentifier: no recognized variant key")
+
+
+def redact_sensitive(value: UserIdentifier) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "userToken" in value:
+        out["userToken"] = "*** Sensitive Data Redacted ***"
+    return out

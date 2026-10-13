@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanMessageValue``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -106,3 +106,32 @@ def deserialize_json(data: dict) -> SpanMessageValue:
         }
     else:
         raise DeserializationError("SpanMessageValue: no recognized variant key")
+
+
+def redact_sensitive(value: SpanMessageValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        import capo_qconnect.types.span_text_value
+
+        out["text"] = capo_qconnect.types.span_text_value.redact_sensitive(
+            value["text"]
+        )
+    if "toolUse" in value:
+        import capo_qconnect.types.span_tool_use_value
+
+        out["toolUse"] = capo_qconnect.types.span_tool_use_value.redact_sensitive(
+            value["toolUse"]
+        )
+    if "toolResult" in value:
+        import capo_qconnect.types.span_tool_result_value
+
+        out["toolResult"] = capo_qconnect.types.span_tool_result_value.redact_sensitive(
+            value["toolResult"]
+        )
+    if "reasoning" in value:
+        import capo_qconnect.types.span_reasoning_value
+
+        out["reasoning"] = capo_qconnect.types.span_reasoning_value.redact_sensitive(
+            value["reasoning"]
+        )
+    return out

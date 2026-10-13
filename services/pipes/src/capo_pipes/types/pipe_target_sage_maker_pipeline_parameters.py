@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetSageMakerPipelineParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> PipeTargetSageMakerPipelineParameters:
         out["pipeline_parameter_list"] = (
             capo_pipes.types.sage_maker_pipeline_parameter_list.deserialize_json(
                 data["PipelineParameterList"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeTargetSageMakerPipelineParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pipeline_parameter_list" in value:
+        import capo_pipes.types.sage_maker_pipeline_parameter_list
+
+        out["pipeline_parameter_list"] = (
+            capo_pipes.types.sage_maker_pipeline_parameter_list.redact_sensitive(
+                value["pipeline_parameter_list"]
             )
         )
     return out

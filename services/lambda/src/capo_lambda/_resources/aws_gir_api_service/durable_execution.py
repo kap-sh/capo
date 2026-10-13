@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda._auth._signers
 import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,19 @@ class DurableExecution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_response.GetDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_response
+
+            return capo_lambda.types.get_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecution", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_request.GetDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -147,7 +160,34 @@ class DurableExecution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_request
+
+            return (
+                capo_lambda.types.checkpoint_durable_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.checkpoint_durable_execution_response.CheckpointDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_response
+
+            return capo_lambda.types.checkpoint_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CheckpointDurableExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -213,7 +253,21 @@ class DurableExecution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_history_response.GetDurableExecutionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_history_response
+
+            return capo_lambda.types.get_durable_execution_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDurableExecutionHistory", redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.get_durable_execution_history_request.GetDurableExecutionHistoryRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -276,7 +330,21 @@ class DurableExecution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_state_response.GetDurableExecutionStateResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_state_response
+
+            return (
+                capo_lambda.types.get_durable_execution_state_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecutionState", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_state_request.GetDurableExecutionStateRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -335,7 +403,19 @@ class DurableExecution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.stop_durable_execution_request
+
+            return capo_lambda.types.stop_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopDurableExecution", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -397,7 +477,19 @@ class AsyncDurableExecution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_response.GetDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_response
+
+            return capo_lambda.types.get_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecution", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_request.GetDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -457,7 +549,34 @@ class AsyncDurableExecution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_request
+
+            return (
+                capo_lambda.types.checkpoint_durable_execution_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lambda.types.checkpoint_durable_execution_response.CheckpointDurableExecutionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.checkpoint_durable_execution_response
+
+            return capo_lambda.types.checkpoint_durable_execution_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CheckpointDurableExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda.types.checkpoint_durable_execution_request.CheckpointDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -524,7 +643,21 @@ class AsyncDurableExecution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_history_response.GetDurableExecutionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_history_response
+
+            return capo_lambda.types.get_durable_execution_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDurableExecutionHistory", redact_output=_redact_output
+            ),
+        )
         input_: capo_lambda.types.get_durable_execution_history_request.GetDurableExecutionHistoryRequest = {
             "durable_execution_arn": durable_execution_arn
         }
@@ -588,7 +721,21 @@ class AsyncDurableExecution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda.types.get_durable_execution_state_response.GetDurableExecutionStateResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.get_durable_execution_state_response
+
+            return (
+                capo_lambda.types.get_durable_execution_state_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDurableExecutionState", redact_output=_redact_output),
+        )
         input_: capo_lambda.types.get_durable_execution_state_request.GetDurableExecutionStateRequest = {
             "durable_execution_arn": durable_execution_arn,
             "checkpoint_token": checkpoint_token,
@@ -648,7 +795,19 @@ class AsyncDurableExecution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda.types.stop_durable_execution_request
+
+            return capo_lambda.types.stop_durable_execution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopDurableExecution", redact_input=_redact_input),
+        )
         input_: capo_lambda.types.stop_durable_execution_request.StopDurableExecutionRequest = {
             "durable_execution_arn": durable_execution_arn
         }

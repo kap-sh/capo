@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ConversationHistory``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> ConversationHistory:
 
         out["messages"] = capo_bedrock_agent_runtime.types.messages.deserialize_json(
             data["messages"]
+        )
+    return out
+
+
+def redact_sensitive(value: ConversationHistory) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_bedrock_agent_runtime.types.messages
+
+        out["messages"] = capo_bedrock_agent_runtime.types.messages.redact_sensitive(
+            value["messages"]
         )
     return out

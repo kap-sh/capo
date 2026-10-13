@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#GetDeviceProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> GetDeviceProfileResponse:
         out["sidewalk"] = (
             capo_iot_wireless.types.sidewalk_get_device_profile.deserialize_json(
                 data["Sidewalk"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetDeviceProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sidewalk" in value:
+        import capo_iot_wireless.types.sidewalk_get_device_profile
+
+        out["sidewalk"] = (
+            capo_iot_wireless.types.sidewalk_get_device_profile.redact_sensitive(
+                value["sidewalk"]
             )
         )
     return out

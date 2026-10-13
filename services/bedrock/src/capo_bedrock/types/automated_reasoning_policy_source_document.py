@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicySourceDocument``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -93,4 +93,15 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicySourceDocument:
         raise DeserializationError(
             "AutomatedReasoningPolicySourceDocument.document_hash required"
         )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicySourceDocument) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document" in value:
+        out["document"] = "*** Sensitive Data Redacted ***"
+    if "document_name" in value:
+        out["document_name"] = "*** Sensitive Data Redacted ***"
+    if "document_description" in value:
+        out["document_description"] = "*** Sensitive Data Redacted ***"
     return out

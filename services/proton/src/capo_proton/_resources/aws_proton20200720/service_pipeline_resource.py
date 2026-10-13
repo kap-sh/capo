@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,32 @@ class ServicePipelineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_pipeline_input.UpdateServicePipelineInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_pipeline_input
+
+            return capo_proton.types.update_service_pipeline_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_pipeline_output.UpdateServicePipelineOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_pipeline_output
+
+            return capo_proton.types.update_service_pipeline_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateServicePipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_pipeline_input.UpdateServicePipelineInput = {
             "service_name": service_name,
             "spec": spec,
@@ -148,7 +174,32 @@ class AsyncServicePipelineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_pipeline_input.UpdateServicePipelineInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_pipeline_input
+
+            return capo_proton.types.update_service_pipeline_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_pipeline_output.UpdateServicePipelineOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_pipeline_output
+
+            return capo_proton.types.update_service_pipeline_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateServicePipeline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_pipeline_input.UpdateServicePipelineInput = {
             "service_name": service_name,
             "spec": spec,

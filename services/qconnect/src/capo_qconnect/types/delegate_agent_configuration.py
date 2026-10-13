@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#DelegateAgentConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,11 @@ def deserialize_json(data: dict) -> DelegateAgentConfiguration:
                 data["instruction"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DelegateAgentConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_bedrock_agent._auth._sigv4
 from capo_bedrock_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgentAlias")
+        )
         input_: capo_bedrock_agent.types.create_agent_alias_request.CreateAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_name": agent_alias_name,
@@ -165,7 +168,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentAlias")
+        )
         input_: capo_bedrock_agent.types.delete_agent_alias_request.DeleteAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -215,7 +220,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentAlias")
+        )
         input_: capo_bedrock_agent.types.get_agent_alias_request.GetAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -269,7 +276,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentAliases")
+        )
         input_: capo_bedrock_agent.types.list_agent_aliases_request.ListAgentAliasesRequest = {
             "agent_id": agent_id
         }
@@ -340,7 +349,9 @@ class AliasResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentAlias")
+        )
         input_: capo_bedrock_agent.types.update_agent_alias_request.UpdateAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -421,7 +432,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAgentAlias")
+        )
         input_: capo_bedrock_agent.types.create_agent_alias_request.CreateAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_name": agent_alias_name,
@@ -483,7 +496,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentAlias")
+        )
         input_: capo_bedrock_agent.types.delete_agent_alias_request.DeleteAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -534,7 +549,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAgentAlias")
+        )
         input_: capo_bedrock_agent.types.get_agent_alias_request.GetAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -589,7 +606,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAgentAliases")
+        )
         input_: capo_bedrock_agent.types.list_agent_aliases_request.ListAgentAliasesRequest = {
             "agent_id": agent_id
         }
@@ -661,7 +680,9 @@ class AsyncAliasResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAgentAlias")
+        )
         input_: capo_bedrock_agent.types.update_agent_alias_request.UpdateAgentAliasRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,

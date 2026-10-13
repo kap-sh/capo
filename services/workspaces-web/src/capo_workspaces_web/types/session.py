@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#Session``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,5 +103,20 @@ def deserialize_json(data: dict) -> Session:
 
         out["end_time"] = capo_workspaces_web.types.timestamp.deserialize_json(
             data["endTime"]
+        )
+    return out
+
+
+def redact_sensitive(value: Session) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "client_ip_addresses" in value:
+        import capo_workspaces_web.types.ip_address_list
+
+        out["client_ip_addresses"] = (
+            capo_workspaces_web.types.ip_address_list.redact_sensitive(
+                value["client_ip_addresses"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#GetManagedThingStateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_json(data: dict) -> GetManagedThingStateResponse:
         )
     else:
         raise DeserializationError("GetManagedThingStateResponse.endpoints required")
+    return out
+
+
+def redact_sensitive(value: GetManagedThingStateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "endpoints" in value:
+        import capo_iot_managed_integrations.types.state_endpoints
+
+        out["endpoints"] = (
+            capo_iot_managed_integrations.types.state_endpoints.redact_sensitive(
+                value["endpoints"]
+            )
+        )
     return out

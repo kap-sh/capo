@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#DataPartitionStorageOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -74,4 +74,11 @@ def deserialize_aws_json_1_0(data: dict) -> DataPartitionStorageOptions:
         raise DeserializationError(
             "DataPartitionStorageOptions.minimum_time_to_live required"
         )
+    return out
+
+
+def redact_sensitive(value: DataPartitionStorageOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "storage_location" in value:
+        out["storage_location"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#CopySnapshotRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -152,4 +152,11 @@ def deserialize_ec2_query(el: Element) -> CopySnapshotRequest:
     child_dry_run = el.find("dryRun")
     if child_dry_run is not None:
         out["dry_run"] = (child_dry_run.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: CopySnapshotRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "presigned_url" in value:
+        out["presigned_url"] = "*** Sensitive Data Redacted ***"
     return out

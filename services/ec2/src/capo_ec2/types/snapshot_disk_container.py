@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#SnapshotDiskContainer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,4 +60,11 @@ def deserialize_ec2_query(el: Element) -> SnapshotDiskContainer:
         out["user_bucket"] = capo_ec2.types.user_bucket.deserialize_ec2_query(
             child_user_bucket
         )
+    return out
+
+
+def redact_sensitive(value: SnapshotDiskContainer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

@@ -23,10 +23,12 @@ from capo_voice_id._resources.voice_id.domain_resource import DomainResource
 from capo_voice_id._services._aws_config import aws_config
 from capo_voice_id._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -195,7 +197,9 @@ class VoiceIDClient:
         self.domain_resource = DomainResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[VoiceIDClientConfig] = None
+        self,
+        config_overrides: Optional[VoiceIDClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: VoiceIDClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -203,8 +207,10 @@ class VoiceIDClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -263,7 +269,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.associate_fraudster_request.AssociateFraudsterRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.associate_fraudster_request
+
+            return capo_voice_id.types.associate_fraudster_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateFraudster", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.associate_fraudster_request.AssociateFraudsterRequest = {
             "domain_id": domain_id,
             "watchlist_id": watchlist_id,
@@ -324,7 +342,30 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.create_watchlist_request.CreateWatchlistRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_watchlist_request
+
+            return capo_voice_id.types.create_watchlist_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.create_watchlist_response.CreateWatchlistResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_watchlist_response
+
+            return capo_voice_id.types.create_watchlist_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWatchlist",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.create_watchlist_request.CreateWatchlistRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -378,7 +419,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.delete_fraudster_request.DeleteFraudsterRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.delete_fraudster_request
+
+            return capo_voice_id.types.delete_fraudster_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteFraudster", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.delete_fraudster_request.DeleteFraudsterRequest = {
             "domain_id": domain_id,
             "fraudster_id": fraudster_id,
@@ -427,7 +478,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.delete_speaker_request.DeleteSpeakerRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.delete_speaker_request
+
+            return capo_voice_id.types.delete_speaker_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteSpeaker", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.delete_speaker_request.DeleteSpeakerRequest = {
             "domain_id": domain_id,
             "speaker_id": speaker_id,
@@ -476,7 +537,9 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWatchlist")
+        )
         input_: capo_voice_id.types.delete_watchlist_request.DeleteWatchlistRequest = {
             "domain_id": domain_id,
             "watchlist_id": watchlist_id,
@@ -526,7 +589,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.describe_fraudster_request.DescribeFraudsterRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_fraudster_request
+
+            return capo_voice_id.types.describe_fraudster_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFraudster", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.describe_fraudster_request.DescribeFraudsterRequest = {
             "domain_id": domain_id,
             "fraudster_id": fraudster_id,
@@ -576,7 +651,21 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_fraudster_registration_job_response.DescribeFraudsterRegistrationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_fraudster_registration_job_response
+
+            return capo_voice_id.types.describe_fraudster_registration_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeFraudsterRegistrationJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.describe_fraudster_registration_job_request.DescribeFraudsterRegistrationJobRequest = {
             "domain_id": domain_id,
             "job_id": job_id,
@@ -626,7 +715,30 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.describe_speaker_request.DescribeSpeakerRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_speaker_request
+
+            return capo_voice_id.types.describe_speaker_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.describe_speaker_response.DescribeSpeakerResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_speaker_response
+
+            return capo_voice_id.types.describe_speaker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeSpeaker",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.describe_speaker_request.DescribeSpeakerRequest = {
             "domain_id": domain_id,
             "speaker_id": speaker_id,
@@ -676,7 +788,21 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_speaker_enrollment_job_response.DescribeSpeakerEnrollmentJobResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_speaker_enrollment_job_response
+
+            return capo_voice_id.types.describe_speaker_enrollment_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeSpeakerEnrollmentJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.describe_speaker_enrollment_job_request.DescribeSpeakerEnrollmentJobRequest = {
             "domain_id": domain_id,
             "job_id": job_id,
@@ -726,7 +852,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_watchlist_response.DescribeWatchlistResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_watchlist_response
+
+            return capo_voice_id.types.describe_watchlist_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeWatchlist", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.describe_watchlist_request.DescribeWatchlistRequest = {
             "domain_id": domain_id,
             "watchlist_id": watchlist_id,
@@ -779,7 +917,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.disassociate_fraudster_request.DisassociateFraudsterRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.disassociate_fraudster_request
+
+            return capo_voice_id.types.disassociate_fraudster_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateFraudster", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.disassociate_fraudster_request.DisassociateFraudsterRequest = {
             "domain_id": domain_id,
             "watchlist_id": watchlist_id,
@@ -831,7 +981,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.evaluate_session_response.EvaluateSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.evaluate_session_response
+
+            return capo_voice_id.types.evaluate_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("EvaluateSession", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.evaluate_session_request.EvaluateSessionRequest = {
             "domain_id": domain_id,
             "session_name_or_id": session_name_or_id,
@@ -889,7 +1051,21 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_fraudster_registration_jobs_response.ListFraudsterRegistrationJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_fraudster_registration_jobs_response
+
+            return capo_voice_id.types.list_fraudster_registration_jobs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListFraudsterRegistrationJobs", redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.list_fraudster_registration_jobs_request.ListFraudsterRegistrationJobsRequest = {
             "domain_id": domain_id
         }
@@ -979,7 +1155,9 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFraudsters")
+        )
         input_: capo_voice_id.types.list_fraudsters_request.ListFraudstersRequest = {
             "domain_id": domain_id
         }
@@ -1069,7 +1247,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_speaker_enrollment_jobs_response.ListSpeakerEnrollmentJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_speaker_enrollment_jobs_response
+
+            return capo_voice_id.types.list_speaker_enrollment_jobs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSpeakerEnrollmentJobs", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_speaker_enrollment_jobs_request.ListSpeakerEnrollmentJobsRequest = {
             "domain_id": domain_id
         }
@@ -1157,7 +1347,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_speakers_response.ListSpeakersResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_speakers_response
+
+            return capo_voice_id.types.list_speakers_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSpeakers", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_speakers_request.ListSpeakersRequest = {
             "domain_id": domain_id
         }
@@ -1233,7 +1433,19 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_tags_for_resource_response
+
+            return capo_voice_id.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1286,7 +1498,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_watchlists_response.ListWatchlistsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_watchlists_response
+
+            return capo_voice_id.types.list_watchlists_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListWatchlists", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_watchlists_request.ListWatchlistsRequest = {
             "domain_id": domain_id
         }
@@ -1366,7 +1588,28 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.opt_out_speaker_request.OptOutSpeakerRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.opt_out_speaker_request
+
+            return capo_voice_id.types.opt_out_speaker_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.opt_out_speaker_response.OptOutSpeakerResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.opt_out_speaker_response
+
+            return capo_voice_id.types.opt_out_speaker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "OptOutSpeaker",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.opt_out_speaker_request.OptOutSpeakerRequest = {
             "domain_id": domain_id,
             "speaker_id": speaker_id,
@@ -1432,7 +1675,32 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.start_fraudster_registration_job_request.StartFraudsterRegistrationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.start_fraudster_registration_job_request
+
+            return capo_voice_id.types.start_fraudster_registration_job_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_voice_id.types.start_fraudster_registration_job_response.StartFraudsterRegistrationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.start_fraudster_registration_job_response
+
+            return capo_voice_id.types.start_fraudster_registration_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartFraudsterRegistrationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.start_fraudster_registration_job_request.StartFraudsterRegistrationJobRequest = {
             "domain_id": domain_id,
             "data_access_role_arn": data_access_role_arn,
@@ -1507,7 +1775,32 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.start_speaker_enrollment_job_request.StartSpeakerEnrollmentJobRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.start_speaker_enrollment_job_request
+
+            return capo_voice_id.types.start_speaker_enrollment_job_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_voice_id.types.start_speaker_enrollment_job_response.StartSpeakerEnrollmentJobResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.start_speaker_enrollment_job_response
+
+            return capo_voice_id.types.start_speaker_enrollment_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSpeakerEnrollmentJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.start_speaker_enrollment_job_request.StartSpeakerEnrollmentJobRequest = {
             "domain_id": domain_id,
             "data_access_role_arn": data_access_role_arn,
@@ -1567,7 +1860,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.tag_resource_request
+
+            return capo_voice_id.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1618,7 +1921,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.untag_resource_request
+
+            return capo_voice_id.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_voice_id.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1675,7 +1988,30 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.update_watchlist_request.UpdateWatchlistRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_watchlist_request
+
+            return capo_voice_id.types.update_watchlist_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.update_watchlist_response.UpdateWatchlistResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_watchlist_response
+
+            return capo_voice_id.types.update_watchlist_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateWatchlist",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_voice_id.types.update_watchlist_request.UpdateWatchlistRequest = {
             "domain_id": domain_id,
             "watchlist_id": watchlist_id,
@@ -1739,7 +2075,26 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.create_domain_request.CreateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_request
+
+            return capo_voice_id.types.create_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.create_domain_response.CreateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.create_domain_response
+
+            return capo_voice_id.types.create_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.create_domain_request.CreateDomainRequest = {
             "name": name,
             "server_side_encryption_configuration": server_side_encryption_configuration,
@@ -1794,7 +2149,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.describe_domain_response.DescribeDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.describe_domain_response
+
+            return capo_voice_id.types.describe_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDomain", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.describe_domain_request.DescribeDomainRequest = {
             "domain_id": domain_id
         }
@@ -1848,7 +2213,26 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_voice_id.types.update_domain_request.UpdateDomainRequest",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_request
+
+            return capo_voice_id.types.update_domain_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_voice_id.types.update_domain_response.UpdateDomainResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.update_domain_response
+
+            return capo_voice_id.types.update_domain_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDomain", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_voice_id.types.update_domain_request.UpdateDomainRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -1898,7 +2282,9 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_voice_id.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -1948,7 +2334,17 @@ class VoiceIDClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_voice_id.types.list_domains_response.ListDomainsResponse",
+        ) -> dict[str, Any]:
+            import capo_voice_id.types.list_domains_response
+
+            return capo_voice_id.types.list_domains_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDomains", redact_output=_redact_output),
+        )
         input_: capo_voice_id.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

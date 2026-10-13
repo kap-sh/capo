@@ -21,10 +21,12 @@ from capo_workdocs._pagination import resolve_path as _resolve_path
 from capo_workdocs._services._aws_config import aws_config
 from capo_workdocs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -239,7 +241,9 @@ class WorkDocsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[WorkDocsClientConfig] = None
+        self,
+        config_overrides: Optional[WorkDocsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: WorkDocsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -247,8 +251,10 @@ class WorkDocsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -307,7 +313,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.abort_document_version_upload_request.AbortDocumentVersionUploadRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.abort_document_version_upload_request
+
+            return capo_workdocs.types.abort_document_version_upload_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AbortDocumentVersionUpload", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.abort_document_version_upload_request.AbortDocumentVersionUploadRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -361,7 +379,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.activate_user_request.ActivateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.activate_user_request
+
+            return capo_workdocs.types.activate_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.activate_user_response.ActivateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.activate_user_response
+
+            return capo_workdocs.types.activate_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ActivateUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.activate_user_request.ActivateUserRequest = {
             "user_id": user_id
         }
@@ -420,7 +457,36 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.add_resource_permissions_request.AddResourcePermissionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.add_resource_permissions_request
+
+            return (
+                capo_workdocs.types.add_resource_permissions_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.add_resource_permissions_response.AddResourcePermissionsResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.add_resource_permissions_response
+
+            return (
+                capo_workdocs.types.add_resource_permissions_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AddResourcePermissions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.add_resource_permissions_request.AddResourcePermissionsRequest = {
             "resource_id": resource_id,
             "principals": principals,
@@ -495,7 +561,28 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.create_comment_request.CreateCommentRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_comment_request
+
+            return capo_workdocs.types.create_comment_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.create_comment_response.CreateCommentResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_comment_response
+
+            return capo_workdocs.types.create_comment_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateComment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.create_comment_request.CreateCommentRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -566,7 +653,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.create_custom_metadata_request.CreateCustomMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_custom_metadata_request
+
+            return capo_workdocs.types.create_custom_metadata_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCustomMetadata", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.create_custom_metadata_request.CreateCustomMetadataRequest = {
             "resource_id": resource_id,
             "custom_metadata": custom_metadata,
@@ -631,7 +730,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.create_folder_request.CreateFolderRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_folder_request
+
+            return capo_workdocs.types.create_folder_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.create_folder_response.CreateFolderResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_folder_response
+
+            return capo_workdocs.types.create_folder_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFolder", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.create_folder_request.CreateFolderRequest = {
             "parent_folder_id": parent_folder_id
         }
@@ -689,7 +807,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.create_labels_request.CreateLabelsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_labels_request
+
+            return capo_workdocs.types.create_labels_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLabels", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.create_labels_request.CreateLabelsRequest = {
             "resource_id": resource_id,
             "labels": labels,
@@ -744,7 +872,9 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotificationSubscription")
+        )
         input_: capo_workdocs.types.create_notification_subscription_request.CreateNotificationSubscriptionRequest = {
             "organization_id": organization_id,
             "endpoint": endpoint,
@@ -818,7 +948,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_user_request
+
+            return capo_workdocs.types.create_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.create_user_response.CreateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.create_user_response
+
+            return capo_workdocs.types.create_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.create_user_request.CreateUserRequest = {
             "username": username,
             "given_name": given_name,
@@ -880,7 +1029,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.deactivate_user_request.DeactivateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.deactivate_user_request
+
+            return capo_workdocs.types.deactivate_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeactivateUser", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.deactivate_user_request.DeactivateUserRequest = {
             "user_id": user_id
         }
@@ -937,7 +1096,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_comment_request.DeleteCommentRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_comment_request
+
+            return capo_workdocs.types.delete_comment_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteComment", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_comment_request.DeleteCommentRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -1003,7 +1172,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_custom_metadata_request.DeleteCustomMetadataRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_custom_metadata_request
+
+            return capo_workdocs.types.delete_custom_metadata_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteCustomMetadata", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_custom_metadata_request.DeleteCustomMetadataRequest = {
             "resource_id": resource_id
         }
@@ -1064,7 +1245,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_document_request.DeleteDocumentRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_document_request
+
+            return capo_workdocs.types.delete_document_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDocument", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_document_request.DeleteDocumentRequest = {
             "document_id": document_id
         }
@@ -1122,7 +1313,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_document_version_request.DeleteDocumentVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_document_version_request
+
+            return capo_workdocs.types.delete_document_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDocumentVersion", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_document_version_request.DeleteDocumentVersionRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -1179,7 +1382,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_folder_request.DeleteFolderRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_folder_request
+
+            return capo_workdocs.types.delete_folder_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteFolder", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_folder_request.DeleteFolderRequest = {
             "folder_id": folder_id
         }
@@ -1232,7 +1445,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_folder_contents_request.DeleteFolderContentsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_folder_contents_request
+
+            return capo_workdocs.types.delete_folder_contents_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteFolderContents", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_folder_contents_request.DeleteFolderContentsRequest = {
             "folder_id": folder_id
         }
@@ -1290,7 +1515,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_labels_request.DeleteLabelsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_labels_request
+
+            return capo_workdocs.types.delete_labels_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteLabels", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.delete_labels_request.DeleteLabelsRequest = {
             "resource_id": resource_id
         }
@@ -1342,7 +1577,9 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationSubscription")
+        )
         input_: capo_workdocs.types.delete_notification_subscription_request.DeleteNotificationSubscriptionRequest = {
             "subscription_id": subscription_id,
             "organization_id": organization_id,
@@ -1392,7 +1629,16 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.delete_user_request.DeleteUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.delete_user_request
+
+            return capo_workdocs.types.delete_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser", redact_input=_redact_input)
+        )
         input_: capo_workdocs.types.delete_user_request.DeleteUserRequest = {
             "user_id": user_id
         }
@@ -1467,7 +1713,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_activities_request.DescribeActivitiesRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_activities_request
+
+            return capo_workdocs.types.describe_activities_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_activities_response.DescribeActivitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_activities_response
+
+            return capo_workdocs.types.describe_activities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeActivities",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_activities_request.DescribeActivitiesRequest = {}
         if authentication_token is not None:
             input_["authentication_token"] = authentication_token
@@ -1588,7 +1859,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_comments_request.DescribeCommentsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_comments_request
+
+            return capo_workdocs.types.describe_comments_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_comments_response.DescribeCommentsResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_comments_response
+
+            return capo_workdocs.types.describe_comments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeComments",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_comments_request.DescribeCommentsRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -1686,7 +1982,34 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_document_versions_request.DescribeDocumentVersionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_document_versions_request
+
+            return (
+                capo_workdocs.types.describe_document_versions_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_document_versions_response.DescribeDocumentVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_document_versions_response
+
+            return capo_workdocs.types.describe_document_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDocumentVersions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_document_versions_request.DescribeDocumentVersionsRequest = {
             "document_id": document_id
         }
@@ -1795,7 +2118,36 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_folder_contents_request.DescribeFolderContentsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_folder_contents_request
+
+            return (
+                capo_workdocs.types.describe_folder_contents_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_folder_contents_response.DescribeFolderContentsResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_folder_contents_response
+
+            return (
+                capo_workdocs.types.describe_folder_contents_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeFolderContents",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_folder_contents_request.DescribeFolderContentsRequest = {
             "folder_id": folder_id
         }
@@ -1904,7 +2256,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_groups_request.DescribeGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_groups_request
+
+            return capo_workdocs.types.describe_groups_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGroups", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.describe_groups_request.DescribeGroupsRequest = {
             "search_query": search_query
         }
@@ -1992,7 +2354,9 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotificationSubscriptions")
+        )
         input_: capo_workdocs.types.describe_notification_subscriptions_request.DescribeNotificationSubscriptionsRequest = {
             "organization_id": organization_id
         }
@@ -2076,7 +2440,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_resource_permissions_request.DescribeResourcePermissionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_resource_permissions_request
+
+            return capo_workdocs.types.describe_resource_permissions_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeResourcePermissions", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.describe_resource_permissions_request.DescribeResourcePermissionsRequest = {
             "resource_id": resource_id
         }
@@ -2166,7 +2542,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_root_folders_request.DescribeRootFoldersRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_root_folders_request
+
+            return capo_workdocs.types.describe_root_folders_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_root_folders_response.DescribeRootFoldersResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_root_folders_response
+
+            return capo_workdocs.types.describe_root_folders_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeRootFolders",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_root_folders_request.DescribeRootFoldersRequest = {
             "authentication_token": authentication_token
         }
@@ -2262,7 +2663,28 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.describe_users_request.DescribeUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_users_request
+
+            return capo_workdocs.types.describe_users_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.describe_users_response.DescribeUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.describe_users_response
+
+            return capo_workdocs.types.describe_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeUsers",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.describe_users_request.DescribeUsersRequest = {}
         if authentication_token is not None:
             input_["authentication_token"] = authentication_token
@@ -2366,7 +2788,30 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_current_user_request.GetCurrentUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_current_user_request
+
+            return capo_workdocs.types.get_current_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_current_user_response.GetCurrentUserResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_current_user_response
+
+            return capo_workdocs.types.get_current_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCurrentUser",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.get_current_user_request.GetCurrentUserRequest = {
             "authentication_token": authentication_token
         }
@@ -2423,7 +2868,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_document_request.GetDocumentRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_request
+
+            return capo_workdocs.types.get_document_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_document_response.GetDocumentResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_response
+
+            return capo_workdocs.types.get_document_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDocument", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.get_document_request.GetDocumentRequest = {
             "document_id": document_id
         }
@@ -2484,7 +2948,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_document_path_request.GetDocumentPathRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_path_request
+
+            return capo_workdocs.types.get_document_path_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_document_path_response.GetDocumentPathResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_path_response
+
+            return capo_workdocs.types.get_document_path_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDocumentPath",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.get_document_path_request.GetDocumentPathRequest = {
             "document_id": document_id
         }
@@ -2553,7 +3042,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_document_version_request.GetDocumentVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_version_request
+
+            return capo_workdocs.types.get_document_version_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_document_version_response.GetDocumentVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_document_version_response
+
+            return capo_workdocs.types.get_document_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDocumentVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.get_document_version_request.GetDocumentVersionRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -2617,7 +3131,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_folder_request.GetFolderRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_folder_request
+
+            return capo_workdocs.types.get_folder_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_folder_response.GetFolderResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_folder_response
+
+            return capo_workdocs.types.get_folder_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetFolder", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.get_folder_request.GetFolderRequest = {
             "folder_id": folder_id
         }
@@ -2678,7 +3211,28 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_folder_path_request.GetFolderPathRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_folder_path_request
+
+            return capo_workdocs.types.get_folder_path_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_folder_path_response.GetFolderPathResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_folder_path_response
+
+            return capo_workdocs.types.get_folder_path_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetFolderPath",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.get_folder_path_request.GetFolderPathRequest = {
             "folder_id": folder_id
         }
@@ -2745,7 +3299,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.get_resources_request.GetResourcesRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_resources_request
+
+            return capo_workdocs.types.get_resources_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.get_resources_response.GetResourcesResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.get_resources_response
+
+            return capo_workdocs.types.get_resources_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetResources", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.get_resources_request.GetResourcesRequest = {}
         if authentication_token is not None:
             input_["authentication_token"] = authentication_token
@@ -2837,7 +3410,32 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.initiate_document_version_upload_request.InitiateDocumentVersionUploadRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.initiate_document_version_upload_request
+
+            return capo_workdocs.types.initiate_document_version_upload_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workdocs.types.initiate_document_version_upload_response.InitiateDocumentVersionUploadResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.initiate_document_version_upload_response
+
+            return capo_workdocs.types.initiate_document_version_upload_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InitiateDocumentVersionUpload",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.initiate_document_version_upload_request.InitiateDocumentVersionUploadRequest = {}
         if authentication_token is not None:
             input_["authentication_token"] = authentication_token
@@ -2899,7 +3497,21 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.remove_all_resource_permissions_request.RemoveAllResourcePermissionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.remove_all_resource_permissions_request
+
+            return capo_workdocs.types.remove_all_resource_permissions_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RemoveAllResourcePermissions", redact_input=_redact_input
+            ),
+        )
         input_: capo_workdocs.types.remove_all_resource_permissions_request.RemoveAllResourcePermissionsRequest = {
             "resource_id": resource_id
         }
@@ -2955,7 +3567,21 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.remove_resource_permission_request.RemoveResourcePermissionRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.remove_resource_permission_request
+
+            return (
+                capo_workdocs.types.remove_resource_permission_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RemoveResourcePermission", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.remove_resource_permission_request.RemoveResourcePermissionRequest = {
             "resource_id": resource_id,
             "principal_id": principal_id,
@@ -3012,7 +3638,21 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.restore_document_versions_request.RestoreDocumentVersionsRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.restore_document_versions_request
+
+            return (
+                capo_workdocs.types.restore_document_versions_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RestoreDocumentVersions", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.restore_document_versions_request.RestoreDocumentVersionsRequest = {
             "document_id": document_id
         }
@@ -3088,7 +3728,30 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.search_resources_request.SearchResourcesRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.search_resources_request
+
+            return capo_workdocs.types.search_resources_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.search_resources_response.SearchResourcesResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.search_resources_response
+
+            return capo_workdocs.types.search_resources_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchResources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workdocs.types.search_resources_request.SearchResourcesRequest = {}
         if authentication_token is not None:
             input_["authentication_token"] = authentication_token
@@ -3217,7 +3880,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.update_document_request.UpdateDocumentRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.update_document_request
+
+            return capo_workdocs.types.update_document_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDocument", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.update_document_request.UpdateDocumentRequest = {
             "document_id": document_id
         }
@@ -3283,7 +3956,19 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.update_document_version_request.UpdateDocumentVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.update_document_version_request
+
+            return capo_workdocs.types.update_document_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDocumentVersion", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.update_document_version_request.UpdateDocumentVersionRequest = {
             "document_id": document_id,
             "version_id": version_id,
@@ -3354,7 +4039,17 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.update_folder_request.UpdateFolderRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.update_folder_request
+
+            return capo_workdocs.types.update_folder_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateFolder", redact_input=_redact_input),
+        )
         input_: capo_workdocs.types.update_folder_request.UpdateFolderRequest = {
             "folder_id": folder_id
         }
@@ -3441,7 +4136,26 @@ class WorkDocsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workdocs.types.update_user_request.UpdateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.update_user_request
+
+            return capo_workdocs.types.update_user_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_workdocs.types.update_user_response.UpdateUserResponse",
+        ) -> dict[str, Any]:
+            import capo_workdocs.types.update_user_response
+
+            return capo_workdocs.types.update_user_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateUser", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_workdocs.types.update_user_request.UpdateUserRequest = {
             "user_id": user_id
         }

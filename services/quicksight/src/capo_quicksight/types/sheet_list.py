@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SheetList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.sheet
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> SheetList:
             continue
         out.append(capo_quicksight.types.sheet.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SheetList) -> list[Any]:
+    import capo_quicksight.types.sheet
+
+    return [capo_quicksight.types.sheet.redact_sensitive(item) for item in value]

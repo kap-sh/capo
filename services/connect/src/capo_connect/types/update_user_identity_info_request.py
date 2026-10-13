@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateUserIdentityInfoRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,16 @@ def deserialize_json(data: dict) -> UpdateUserIdentityInfoRequest:
     else:
         raise DeserializationError(
             "UpdateUserIdentityInfoRequest.identity_info required"
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateUserIdentityInfoRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_info" in value:
+        import capo_connect.types.user_identity_info
+
+        out["identity_info"] = capo_connect.types.user_identity_info.redact_sensitive(
+            value["identity_info"]
         )
     return out

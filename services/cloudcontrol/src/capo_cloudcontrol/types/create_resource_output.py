@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#CreateResourceOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,5 +36,16 @@ def deserialize_aws_json_1_0(data: dict) -> CreateResourceOutput:
             capo_cloudcontrol.types.progress_event.deserialize_aws_json_1_0(
                 data["ProgressEvent"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateResourceOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "progress_event" in value:
+        import capo_cloudcontrol.types.progress_event
+
+        out["progress_event"] = capo_cloudcontrol.types.progress_event.redact_sensitive(
+            value["progress_event"]
         )
     return out

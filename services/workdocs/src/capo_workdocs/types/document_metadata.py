@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DocumentMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,5 +121,18 @@ def deserialize_json(data: dict) -> DocumentMetadata:
 
         out["labels"] = capo_workdocs.types.shared_labels.deserialize_json(
             data["Labels"]
+        )
+    return out
+
+
+def redact_sensitive(value: DocumentMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "latest_version_metadata" in value:
+        import capo_workdocs.types.document_version_metadata
+
+        out["latest_version_metadata"] = (
+            capo_workdocs.types.document_version_metadata.redact_sensitive(
+                value["latest_version_metadata"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaStreamSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_json(data: dict) -> MediaStreamSource:
         out["source_arn"] = data["SourceArn"]
     else:
         raise DeserializationError("MediaStreamSource.source_arn required")
+    return out
+
+
+def redact_sensitive(value: MediaStreamSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source_arn" in value:
+        out["source_arn"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#PutObjectRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -182,3 +182,16 @@ class PutObjectRequest(TypedDict, closed=True):
     """<p>Specifies the event hold duration in years to apply to this object. You cannot specify a duration in both days and years.</p> <note> <p>This functionality is not supported for directory buckets.</p> </note>"""
     expected_bucket_owner: NotRequired["capo_s3.types.account_id.AccountId"]
     """<p>The account ID of the expected bucket owner. If the account ID that you provide does not match the actual owner of the bucket, the request fails with the HTTP status code <code>403 Forbidden</code> (access denied).</p>"""
+
+
+def redact_sensitive(value: PutObjectRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
+    return out

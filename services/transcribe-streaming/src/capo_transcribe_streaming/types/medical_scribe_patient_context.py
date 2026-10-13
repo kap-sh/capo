@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#MedicalScribePatientContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_json(data: dict) -> MedicalScribePatientContext:
         out["pronouns"] = capo_transcribe_streaming.types.pronouns.deserialize_json(
             data["Pronouns"]
         )
+    return out
+
+
+def redact_sensitive(value: MedicalScribePatientContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pronouns" in value:
+        out["pronouns"] = "*** Sensitive Data Redacted ***"
     return out

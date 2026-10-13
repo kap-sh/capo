@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#Storage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_ec2_query(el: Element) -> Storage:
         import capo_ec2.types.s3_storage
 
         out["s3"] = capo_ec2.types.s3_storage.deserialize_ec2_query(child_s3)
+    return out
+
+
+def redact_sensitive(value: Storage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3" in value:
+        import capo_ec2.types.s3_storage
+
+        out["s3"] = capo_ec2.types.s3_storage.redact_sensitive(value["s3"])
     return out

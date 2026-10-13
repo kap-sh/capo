@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_resource_explorer_2._auth._signers
 import capo_resource_explorer_2._auth._sigv4
 from capo_resource_explorer_2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,19 @@ class CfnIndex:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_index_input.CreateIndexInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_index_input
+
+            return capo_resource_explorer_2.types.create_index_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIndex", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.create_index_input.CreateIndexInput = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -133,7 +146,9 @@ class CfnIndex:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIndexType")
+        )
         input_: capo_resource_explorer_2.types.update_index_type_input.UpdateIndexTypeInput = {
             "arn": arn,
             "type": type,
@@ -181,7 +196,9 @@ class CfnIndex:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_resource_explorer_2.types.delete_index_input.DeleteIndexInput = {
             "arn": arn
         }
@@ -235,7 +252,9 @@ class CfnIndex:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIndexes")
+        )
         input_: capo_resource_explorer_2.types.list_indexes_input.ListIndexesInput = {}
         if type is not None:
             input_["type"] = type
@@ -296,7 +315,19 @@ class AsyncCfnIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_index_input.CreateIndexInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_index_input
+
+            return capo_resource_explorer_2.types.create_index_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIndex", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.create_index_input.CreateIndexInput = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -353,7 +384,9 @@ class AsyncCfnIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIndexType")
+        )
         input_: capo_resource_explorer_2.types.update_index_type_input.UpdateIndexTypeInput = {
             "arn": arn,
             "type": type,
@@ -402,7 +435,9 @@ class AsyncCfnIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_resource_explorer_2.types.delete_index_input.DeleteIndexInput = {
             "arn": arn
         }
@@ -457,7 +492,9 @@ class AsyncCfnIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIndexes")
+        )
         input_: capo_resource_explorer_2.types.list_indexes_input.ListIndexesInput = {}
         if type is not None:
             input_["type"] = type

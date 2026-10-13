@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#RemoteAgentBearerTokenConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> RemoteAgentBearerTokenConfig:
         out["authorization_header"] = data["authorizationHeader"]
     else:
         out["authorization_header"] = "Authorization"
+    return out
+
+
+def redact_sensitive(value: RemoteAgentBearerTokenConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token_value" in value:
+        out["token_value"] = "*** Sensitive Data Redacted ***"
     return out

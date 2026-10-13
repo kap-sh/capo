@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,17 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_source_network_request.CreateSourceNetworkRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_source_network_request
+
+            return capo_drs.types.create_source_network_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateSourceNetwork", redact_input=_redact_input),
+        )
         input_: capo_drs.types.create_source_network_request.CreateSourceNetworkRequest = {
             "vpc_id": vpc_id,
             "origin_account_id": origin_account_id,
@@ -142,7 +153,9 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceNetwork")
+        )
         input_: capo_drs.types.delete_source_network_request.DeleteSourceNetworkRequest = {
             "source_network_id": source_network_id
         }
@@ -196,7 +209,19 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_source_networks_response.DescribeSourceNetworksResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_source_networks_response
+
+            return capo_drs.types.describe_source_networks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceNetworks", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_source_networks_request.DescribeSourceNetworksRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -251,7 +276,36 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_request
+
+            return (
+                capo_drs.types.associate_source_network_stack_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.associate_source_network_stack_response.AssociateSourceNetworkStackResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_response
+
+            return (
+                capo_drs.types.associate_source_network_stack_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateSourceNetworkStack",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest = {
             "source_network_id": source_network_id,
             "cfn_stack_name": cfn_stack_name,
@@ -300,7 +354,9 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportSourceNetworkCfnTemplate")
+        )
         input_: capo_drs.types.export_source_network_cfn_template_request.ExportSourceNetworkCfnTemplateRequest = {
             "source_network_id": source_network_id
         }
@@ -347,7 +403,21 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_replication_response.StartSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_replication_response
+
+            return capo_drs.types.start_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.start_source_network_replication_request.StartSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -395,7 +465,21 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.stop_source_network_replication_response.StopSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.stop_source_network_replication_response
+
+            return capo_drs.types.stop_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StopSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.stop_source_network_replication_request.StopSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -447,7 +531,36 @@ class SourceNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_request
+
+            return (
+                capo_drs.types.start_source_network_recovery_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_recovery_response.StartSourceNetworkRecoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_response
+
+            return (
+                capo_drs.types.start_source_network_recovery_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkRecovery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest = {
             "source_networks": source_networks
         }
@@ -512,7 +625,17 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_source_network_request.CreateSourceNetworkRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_source_network_request
+
+            return capo_drs.types.create_source_network_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateSourceNetwork", redact_input=_redact_input),
+        )
         input_: capo_drs.types.create_source_network_request.CreateSourceNetworkRequest = {
             "vpc_id": vpc_id,
             "origin_account_id": origin_account_id,
@@ -564,7 +687,9 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceNetwork")
+        )
         input_: capo_drs.types.delete_source_network_request.DeleteSourceNetworkRequest = {
             "source_network_id": source_network_id
         }
@@ -619,7 +744,19 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_source_networks_response.DescribeSourceNetworksResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_source_networks_response
+
+            return capo_drs.types.describe_source_networks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceNetworks", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_source_networks_request.DescribeSourceNetworksRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -675,7 +812,36 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_request
+
+            return (
+                capo_drs.types.associate_source_network_stack_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.associate_source_network_stack_response.AssociateSourceNetworkStackResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.associate_source_network_stack_response
+
+            return (
+                capo_drs.types.associate_source_network_stack_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateSourceNetworkStack",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.associate_source_network_stack_request.AssociateSourceNetworkStackRequest = {
             "source_network_id": source_network_id,
             "cfn_stack_name": cfn_stack_name,
@@ -725,7 +891,9 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ExportSourceNetworkCfnTemplate")
+        )
         input_: capo_drs.types.export_source_network_cfn_template_request.ExportSourceNetworkCfnTemplateRequest = {
             "source_network_id": source_network_id
         }
@@ -773,7 +941,21 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_replication_response.StartSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_replication_response
+
+            return capo_drs.types.start_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.start_source_network_replication_request.StartSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -822,7 +1004,21 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.stop_source_network_replication_response.StopSourceNetworkReplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.stop_source_network_replication_response
+
+            return capo_drs.types.stop_source_network_replication_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StopSourceNetworkReplication", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.stop_source_network_replication_request.StopSourceNetworkReplicationRequest = {
             "source_network_id": source_network_id
         }
@@ -875,7 +1071,36 @@ class AsyncSourceNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_request
+
+            return (
+                capo_drs.types.start_source_network_recovery_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.start_source_network_recovery_response.StartSourceNetworkRecoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_source_network_recovery_response
+
+            return (
+                capo_drs.types.start_source_network_recovery_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSourceNetworkRecovery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_source_network_recovery_request.StartSourceNetworkRecoveryRequest = {
             "source_networks": source_networks
         }

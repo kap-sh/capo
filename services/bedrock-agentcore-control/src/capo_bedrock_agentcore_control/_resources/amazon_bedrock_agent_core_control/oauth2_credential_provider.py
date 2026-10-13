@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,32 @@ class Oauth2CredentialProvider:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.CreateOauth2CredentialProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request
+
+            return capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response.CreateOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOauth2CredentialProvider",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.CreateOauth2CredentialProviderRequest = {
             "name": name,
             "credential_provider_vendor": credential_provider_vendor,
@@ -142,7 +168,21 @@ class Oauth2CredentialProvider:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response.GetOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOauth2CredentialProvider", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_request.GetOauth2CredentialProviderRequest = {
             "name": name
         }
@@ -198,7 +238,32 @@ class Oauth2CredentialProvider:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.UpdateOauth2CredentialProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request
+
+            return capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response.UpdateOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOauth2CredentialProvider",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.UpdateOauth2CredentialProviderRequest = {
             "name": name,
             "credential_provider_vendor": credential_provider_vendor,
@@ -249,7 +314,9 @@ class Oauth2CredentialProvider:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOauth2CredentialProvider")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_oauth2_credential_provider_request.DeleteOauth2CredentialProviderRequest = {
             "name": name
         }
@@ -299,7 +366,9 @@ class Oauth2CredentialProvider:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOauth2CredentialProviders")
+        )
         input_: capo_bedrock_agentcore_control.types.list_oauth2_credential_providers_request.ListOauth2CredentialProvidersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -366,7 +435,32 @@ class AsyncOauth2CredentialProvider:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.CreateOauth2CredentialProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request
+
+            return capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response.CreateOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOauth2CredentialProvider",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_oauth2_credential_provider_request.CreateOauth2CredentialProviderRequest = {
             "name": name,
             "credential_provider_vendor": credential_provider_vendor,
@@ -420,7 +514,21 @@ class AsyncOauth2CredentialProvider:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response.GetOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetOauth2CredentialProvider", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.get_oauth2_credential_provider_request.GetOauth2CredentialProviderRequest = {
             "name": name
         }
@@ -477,7 +585,32 @@ class AsyncOauth2CredentialProvider:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.UpdateOauth2CredentialProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request
+
+            return capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response.UpdateOauth2CredentialProviderResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response
+
+            return capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOauth2CredentialProvider",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_oauth2_credential_provider_request.UpdateOauth2CredentialProviderRequest = {
             "name": name,
             "credential_provider_vendor": credential_provider_vendor,
@@ -529,7 +662,9 @@ class AsyncOauth2CredentialProvider:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOauth2CredentialProvider")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_oauth2_credential_provider_request.DeleteOauth2CredentialProviderRequest = {
             "name": name
         }
@@ -580,7 +715,9 @@ class AsyncOauth2CredentialProvider:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOauth2CredentialProviders")
+        )
         input_: capo_bedrock_agentcore_control.types.list_oauth2_credential_providers_request.ListOauth2CredentialProvidersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

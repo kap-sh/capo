@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#CreateGuardrailVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> CreateGuardrailVersionRequest:
         out["description"] = data["description"]
     if data.get("clientRequestToken") is not None:
         out["client_request_token"] = data["clientRequestToken"]
+    return out
+
+
+def redact_sensitive(value: CreateGuardrailVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

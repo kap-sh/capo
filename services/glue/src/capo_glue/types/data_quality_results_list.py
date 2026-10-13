@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#DataQualityResultsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_glue.types.data_quality_result
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> DataQualityResultsList:
             continue
         out.append(capo_glue.types.data_quality_result.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: DataQualityResultsList) -> list[Any]:
+    import capo_glue.types.data_quality_result
+
+    return [
+        capo_glue.types.data_quality_result.redact_sensitive(item) for item in value
+    ]

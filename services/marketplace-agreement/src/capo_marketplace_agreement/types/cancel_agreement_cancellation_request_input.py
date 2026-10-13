@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#CancelAgreementCancellationRequestInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_aws_json_1_0(data: dict) -> CancelAgreementCancellationRequestIn
         raise DeserializationError(
             "CancelAgreementCancellationRequestInput.cancellation_reason required"
         )
+    return out
+
+
+def redact_sensitive(value: CancelAgreementCancellationRequestInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cancellation_reason" in value:
+        out["cancellation_reason"] = "*** Sensitive Data Redacted ***"
     return out

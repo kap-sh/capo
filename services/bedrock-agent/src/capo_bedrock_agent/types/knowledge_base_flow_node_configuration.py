@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#KnowledgeBaseFlowNodeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,6 +146,35 @@ def deserialize_json(data: dict) -> KnowledgeBaseFlowNodeConfiguration:
         out["orchestration_configuration"] = (
             capo_bedrock_agent.types.knowledge_base_orchestration_configuration.deserialize_json(
                 data["orchestrationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseFlowNodeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "prompt_template" in value:
+        import capo_bedrock_agent.types.knowledge_base_prompt_template
+
+        out["prompt_template"] = (
+            capo_bedrock_agent.types.knowledge_base_prompt_template.redact_sensitive(
+                value["prompt_template"]
+            )
+        )
+    if "reranking_configuration" in value:
+        import capo_bedrock_agent.types.vector_search_reranking_configuration
+
+        out["reranking_configuration"] = (
+            capo_bedrock_agent.types.vector_search_reranking_configuration.redact_sensitive(
+                value["reranking_configuration"]
+            )
+        )
+    if "orchestration_configuration" in value:
+        import capo_bedrock_agent.types.knowledge_base_orchestration_configuration
+
+        out["orchestration_configuration"] = (
+            capo_bedrock_agent.types.knowledge_base_orchestration_configuration.redact_sensitive(
+                value["orchestration_configuration"]
             )
         )
     return out

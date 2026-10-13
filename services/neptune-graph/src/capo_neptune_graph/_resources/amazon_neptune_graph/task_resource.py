@@ -7,6 +7,7 @@ import capo_neptune_graph._auth._sigv4
 from capo_neptune_graph._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelExportTask")
+        )
         input_: capo_neptune_graph.types.cancel_export_task_input.CancelExportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -147,7 +150,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelImportTask")
+        )
         input_: capo_neptune_graph.types.cancel_import_task_input.CancelImportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -240,7 +245,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraphUsingImportTask")
+        )
         input_: capo_neptune_graph.types.create_graph_using_import_task_input.CreateGraphUsingImportTaskInput = {
             "graph_name": graph_name,
             "source": source,
@@ -314,7 +321,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExportTask")
+        )
         input_: capo_neptune_graph.types.get_export_task_input.GetExportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -360,7 +369,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetImportTask")
+        )
         input_: capo_neptune_graph.types.get_import_task_input.GetImportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -414,7 +425,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExportTasks")
+        )
         input_: capo_neptune_graph.types.list_export_tasks_input.ListExportTasksInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier
@@ -472,7 +485,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportTasks")
+        )
         input_: capo_neptune_graph.types.list_import_tasks_input.ListImportTasksInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier
@@ -541,7 +556,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartExportTask")
+        )
         input_: capo_neptune_graph.types.start_export_task_input.StartExportTaskInput = {
             "graph_identifier": graph_identifier,
             "role_arn": role_arn,
@@ -617,7 +634,9 @@ class TaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartImportTask")
+        )
         input_: capo_neptune_graph.types.start_import_task_input.StartImportTaskInput = {
             "source": source,
             "graph_identifier": graph_identifier,
@@ -682,7 +701,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelExportTask")
+        )
         input_: capo_neptune_graph.types.cancel_export_task_input.CancelExportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -730,7 +751,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelImportTask")
+        )
         input_: capo_neptune_graph.types.cancel_import_task_input.CancelImportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -824,7 +847,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraphUsingImportTask")
+        )
         input_: capo_neptune_graph.types.create_graph_using_import_task_input.CreateGraphUsingImportTaskInput = {
             "graph_name": graph_name,
             "source": source,
@@ -899,7 +924,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExportTask")
+        )
         input_: capo_neptune_graph.types.get_export_task_input.GetExportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -946,7 +973,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetImportTask")
+        )
         input_: capo_neptune_graph.types.get_import_task_input.GetImportTaskInput = {
             "task_identifier": task_identifier
         }
@@ -1001,7 +1030,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExportTasks")
+        )
         input_: capo_neptune_graph.types.list_export_tasks_input.ListExportTasksInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier
@@ -1060,7 +1091,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportTasks")
+        )
         input_: capo_neptune_graph.types.list_import_tasks_input.ListImportTasksInput = {}
         if graph_identifier is not None:
             input_["graph_identifier"] = graph_identifier
@@ -1130,7 +1163,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartExportTask")
+        )
         input_: capo_neptune_graph.types.start_export_task_input.StartExportTaskInput = {
             "graph_identifier": graph_identifier,
             "role_arn": role_arn,
@@ -1207,7 +1242,9 @@ class AsyncTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartImportTask")
+        )
         input_: capo_neptune_graph.types.start_import_task_input.StartImportTaskInput = {
             "source": source,
             "graph_identifier": graph_identifier,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixMatchingOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,15 @@ def deserialize_json(data: dict) -> RouteMatrixMatchingOptions:
         out["strategy"] = capo_geo_routes.types.matching_strategy.deserialize_json(
             data["Strategy"]
         )
+    return out
+
+
+def redact_sensitive(value: RouteMatrixMatchingOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name_hint" in value:
+        out["name_hint"] = "*** Sensitive Data Redacted ***"
+    if "on_road_threshold" in value:
+        out["on_road_threshold"] = "*** Sensitive Data Redacted ***"
+    if "radius" in value:
+        out["radius"] = "*** Sensitive Data Redacted ***"
     return out

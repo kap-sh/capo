@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#IntentDetectedDataDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_json(data: dict) -> IntentDetectedDataDetails:
         raise DeserializationError("IntentDetectedDataDetails.intent_id required")
     if data.get("relevanceLevel") is not None:
         out["relevance_level"] = data["relevanceLevel"]
+    return out
+
+
+def redact_sensitive(value: IntentDetectedDataDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "intent" in value:
+        out["intent"] = "*** Sensitive Data Redacted ***"
     return out

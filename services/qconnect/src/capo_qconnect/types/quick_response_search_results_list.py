@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#QuickResponseSearchResultsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.quick_response_search_result_data
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> QuickResponseSearchResultsList:
             capo_qconnect.types.quick_response_search_result_data.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: QuickResponseSearchResultsList) -> list[Any]:
+    import capo_qconnect.types.quick_response_search_result_data
+
+    return [
+        capo_qconnect.types.quick_response_search_result_data.redact_sensitive(item)
+        for item in value
+    ]

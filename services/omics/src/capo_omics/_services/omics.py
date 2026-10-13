@@ -40,10 +40,12 @@ from capo_omics._resources.omics.workflow_resource import WorkflowResource
 from capo_omics._services._aws_config import aws_config
 from capo_omics._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -512,7 +514,9 @@ class OmicsClient:
         self.workflow_resource = WorkflowResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[OmicsClientConfig] = None
+        self,
+        config_overrides: Optional[OmicsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: OmicsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -520,8 +524,10 @@ class OmicsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -578,7 +584,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteS3AccessPolicy")
+        )
         input_: capo_omics.types.delete_s3_access_policy_request.DeleteS3AccessPolicyRequest = {
             "s3_access_point_arn": s3_access_point_arn
         }
@@ -628,7 +636,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetS3AccessPolicy")
+        )
         input_: capo_omics.types.get_s3_access_policy_request.GetS3AccessPolicyRequest = {
             "s3_access_point_arn": s3_access_point_arn
         }
@@ -679,7 +689,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutS3AccessPolicy")
+        )
         input_: capo_omics.types.put_s3_access_policy_request.PutS3AccessPolicyRequest = {
             "s3_access_point_arn": s3_access_point_arn,
             "s3_access_policy": s3_access_policy,
@@ -746,7 +758,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAnnotationImportJob")
+        )
         input_: capo_omics.types.start_annotation_import_request.StartAnnotationImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -803,7 +817,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnnotationImportJob")
+        )
         input_: capo_omics.types.get_annotation_import_request.GetAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -850,7 +866,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelAnnotationImportJob")
+        )
         input_: capo_omics.types.cancel_annotation_import_request.CancelAnnotationImportRequest = {
             "job_id": job_id
         }
@@ -905,7 +923,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnnotationImportJobs")
+        )
         input_: capo_omics.types.list_annotation_import_jobs_request.ListAnnotationImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1003,7 +1023,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStore")
+        )
         input_: capo_omics.types.create_annotation_store_request.CreateAnnotationStoreRequest = {
             "store_format": store_format
         }
@@ -1061,7 +1083,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStore")
+        )
         input_: capo_omics.types.get_annotation_store_request.GetAnnotationStoreRequest = {
             "name": name
         }
@@ -1110,7 +1134,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStore")
+        )
         input_: capo_omics.types.update_annotation_store_request.UpdateAnnotationStoreRequest = {
             "name": name
         }
@@ -1162,7 +1188,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStore")
+        )
         input_: capo_omics.types.delete_annotation_store_request.DeleteAnnotationStoreRequest = {
             "name": name
         }
@@ -1221,7 +1249,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStores")
+        )
         input_: capo_omics.types.list_annotation_stores_request.ListAnnotationStoresRequest = {}
         if ids is not None:
             input_["ids"] = ids
@@ -1313,7 +1343,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.create_annotation_store_version_request.CreateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -1369,7 +1401,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStoreVersion")
+        )
         input_: capo_omics.types.get_annotation_store_version_request.GetAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -1421,7 +1455,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.update_annotation_store_version_request.UpdateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -1479,7 +1515,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStoreVersions")
+        )
         input_: capo_omics.types.list_annotation_store_versions_request.ListAnnotationStoreVersionsRequest = {
             "name": name
         }
@@ -1564,7 +1602,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStoreVersions")
+        )
         input_: capo_omics.types.delete_annotation_store_versions_request.DeleteAnnotationStoreVersionsRequest = {
             "name": name,
             "versions": versions,
@@ -1627,7 +1667,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguration")
+        )
         input_: capo_omics.types.create_configuration_request.CreateConfigurationRequest = {
             "name": name,
             "run_configurations": run_configurations,
@@ -1683,7 +1725,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
         input_: capo_omics.types.get_configuration_request.GetConfigurationRequest = {
             "name": name
         }
@@ -1731,7 +1775,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguration")
+        )
         input_: capo_omics.types.delete_configuration_request.DeleteConfigurationRequest = {
             "name": name
         }
@@ -1785,7 +1831,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_omics.types.list_configurations_request.ListConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1870,7 +1918,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReferenceStore")
+        )
         input_: capo_omics.types.create_reference_store_request.CreateReferenceStoreRequest = {
             "name": name
         }
@@ -1926,7 +1976,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReferenceStore")
+        )
         input_: capo_omics.types.get_reference_store_request.GetReferenceStoreRequest = {
             "id": id
         }
@@ -1977,7 +2029,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReferenceStore")
+        )
         input_: capo_omics.types.delete_reference_store_request.DeleteReferenceStoreRequest = {
             "id": id
         }
@@ -2030,7 +2084,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReferenceStores")
+        )
         input_: capo_omics.types.list_reference_stores_request.ListReferenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2109,7 +2165,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReferenceImportJob")
+        )
         input_: capo_omics.types.get_reference_import_job_request.GetReferenceImportJobRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -2166,7 +2224,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReferenceImportJobs")
+        )
         input_: capo_omics.types.list_reference_import_jobs_request.ListReferenceImportJobsRequest = {
             "reference_store_id": reference_store_id
         }
@@ -2254,7 +2314,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReferenceImportJob")
+        )
         input_: capo_omics.types.start_reference_import_job_request.StartReferenceImportJobRequest = {
             "reference_store_id": reference_store_id,
             "role_arn": role_arn,
@@ -2310,7 +2372,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReferenceMetadata")
+        )
         input_: capo_omics.types.get_reference_metadata_request.GetReferenceMetadataRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -2362,7 +2426,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReference")
+        )
         input_: capo_omics.types.delete_reference_request.DeleteReferenceRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -2417,7 +2483,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReferences")
+        )
         input_: capo_omics.types.list_references_request.ListReferencesRequest = {
             "reference_store_id": reference_store_id
         }
@@ -2506,7 +2574,17 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_omics.types.get_reference_response.GetReferenceResponse",
+        ) -> dict[str, Any]:
+            import capo_omics.types.get_reference_response
+
+            return capo_omics.types.get_reference_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetReference", redact_output=_redact_output),
+        )
         input_: capo_omics.types.get_reference_request.GetReferenceRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -2572,7 +2650,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRunBatch")
+        )
         input_: capo_omics.types.start_run_batch_request.StartRunBatchRequest = {
             "request_id": request_id,
             "default_run_setting": default_run_setting,
@@ -2622,7 +2702,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBatch")
+        )
         input_: capo_omics.types.get_batch_request.GetBatchRequest = {
             "batch_id": batch_id
         }
@@ -2670,7 +2752,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBatch")
+        )
         input_: capo_omics.types.delete_batch_request.DeleteBatchRequest = {
             "batch_id": batch_id
         }
@@ -2723,7 +2807,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatch")
+        )
         input_: capo_omics.types.list_batch_request.ListBatchRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -2808,7 +2894,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelRunBatch")
+        )
         input_: capo_omics.types.cancel_run_batch_request.CancelRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -2858,7 +2946,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRunBatch")
+        )
         input_: capo_omics.types.delete_run_batch_request.DeleteRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -2920,7 +3010,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRunsInBatch")
+        )
         input_: capo_omics.types.list_runs_in_batch_request.ListRunsInBatchRequest = {
             "batch_id": batch_id
         }
@@ -3029,7 +3121,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRunCache")
+        )
         input_: capo_omics.types.create_run_cache_request.CreateRunCacheRequest = {
             "cache_s3_location": cache_s3_location,
             "request_id": request_id,
@@ -3090,7 +3184,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRunCache")
+        )
         input_: capo_omics.types.get_run_cache_request.GetRunCacheRequest = {"id": id}
 
         response = execute_pipeline(
@@ -3146,7 +3242,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRunCache")
+        )
         input_: capo_omics.types.update_run_cache_request.UpdateRunCacheRequest = {
             "id": id
         }
@@ -3200,7 +3298,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRunCache")
+        )
         input_: capo_omics.types.delete_run_cache_request.DeleteRunCacheRequest = {
             "id": id
         }
@@ -3252,7 +3352,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRunCaches")
+        )
         input_: capo_omics.types.list_run_caches_request.ListRunCachesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3337,7 +3439,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRunGroup")
+        )
         input_: capo_omics.types.create_run_group_request.CreateRunGroupRequest = {
             "request_id": request_id
         }
@@ -3399,7 +3503,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRunGroup")
+        )
         input_: capo_omics.types.get_run_group_request.GetRunGroupRequest = {"id": id}
 
         response = execute_pipeline(
@@ -3455,7 +3561,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRunGroup")
+        )
         input_: capo_omics.types.update_run_group_request.UpdateRunGroupRequest = {
             "id": id
         }
@@ -3513,7 +3621,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRunGroup")
+        )
         input_: capo_omics.types.delete_run_group_request.DeleteRunGroupRequest = {
             "id": id
         }
@@ -3569,7 +3679,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRunGroups")
+        )
         input_: capo_omics.types.list_run_groups_request.ListRunGroupsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3708,7 +3820,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRun")
+        )
         input_: capo_omics.types.start_run_request.StartRunRequest = {
             "role_arn": role_arn,
             "output_uri": output_uri,
@@ -3800,7 +3914,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRun")
+        )
         input_: capo_omics.types.get_run_request.GetRunRequest = {"id": id}
         if export is not None:
             input_["export"] = export
@@ -3846,7 +3962,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRun")
+        )
         input_: capo_omics.types.delete_run_request.DeleteRunRequest = {"id": id}
 
         response = execute_pipeline(
@@ -3900,7 +4018,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuns")
+        )
         input_: capo_omics.types.list_runs_request.ListRunsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -3985,7 +4105,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelRun")
+        )
         input_: capo_omics.types.cancel_run_request.CancelRunRequest = {"id": id}
 
         response = execute_pipeline(
@@ -4035,7 +4157,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRunTask")
+        )
         input_: capo_omics.types.get_run_task_request.GetRunTaskRequest = {
             "id": id,
             "task_id": task_id,
@@ -4094,7 +4218,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRunTasks")
+        )
         input_: capo_omics.types.list_run_tasks_request.ListRunTasksRequest = {"id": id}
         if status is not None:
             input_["status"] = status
@@ -4199,7 +4325,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSequenceStore")
+        )
         input_: capo_omics.types.create_sequence_store_request.CreateSequenceStoreRequest = {
             "name": name
         }
@@ -4264,7 +4392,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSequenceStore")
+        )
         input_: capo_omics.types.get_sequence_store_request.GetSequenceStoreRequest = {
             "id": id
         }
@@ -4333,7 +4463,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSequenceStore")
+        )
         input_: capo_omics.types.update_sequence_store_request.UpdateSequenceStoreRequest = {
             "id": id
         }
@@ -4395,7 +4527,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSequenceStore")
+        )
         input_: capo_omics.types.delete_sequence_store_request.DeleteSequenceStoreRequest = {
             "id": id
         }
@@ -4448,7 +4582,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSequenceStores")
+        )
         input_: capo_omics.types.list_sequence_stores_request.ListSequenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4529,7 +4665,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AbortMultipartReadSetUpload")
+        )
         input_: capo_omics.types.abort_multipart_read_set_upload_request.AbortMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -4584,7 +4722,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteMultipartReadSetUpload")
+        )
         input_: capo_omics.types.complete_multipart_read_set_upload_request.CompleteMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -4658,7 +4798,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultipartReadSetUpload")
+        )
         input_: capo_omics.types.create_multipart_read_set_upload_request.CreateMultipartReadSetUploadRequest = {
             "sequence_store_id": sequence_store_id,
             "source_file_type": source_file_type,
@@ -4722,7 +4864,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadSetActivationJob")
+        )
         input_: capo_omics.types.get_read_set_activation_job_request.GetReadSetActivationJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -4775,7 +4919,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadSetExportJob")
+        )
         input_: capo_omics.types.get_read_set_export_job_request.GetReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "id": id,
@@ -4828,7 +4974,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadSetImportJob")
+        )
         input_: capo_omics.types.get_read_set_import_job_request.GetReadSetImportJobRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -4883,7 +5031,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultipartReadSetUploads")
+        )
         input_: capo_omics.types.list_multipart_read_set_uploads_request.ListMultipartReadSetUploadsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -4966,7 +5116,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadSetActivationJobs")
+        )
         input_: capo_omics.types.list_read_set_activation_jobs_request.ListReadSetActivationJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -5055,7 +5207,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadSetExportJobs")
+        )
         input_: capo_omics.types.list_read_set_export_jobs_request.ListReadSetExportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -5144,7 +5298,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadSetImportJobs")
+        )
         input_: capo_omics.types.list_read_set_import_jobs_request.ListReadSetImportJobsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -5239,7 +5395,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadSetUploadParts")
+        )
         input_: capo_omics.types.list_read_set_upload_parts_request.ListReadSetUploadPartsRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -5331,7 +5489,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReadSetActivationJob")
+        )
         input_: capo_omics.types.start_read_set_activation_job_request.StartReadSetActivationJobRequest = {
             "sequence_store_id": sequence_store_id,
             "sources": sources,
@@ -5391,7 +5551,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReadSetExportJob")
+        )
         input_: capo_omics.types.start_read_set_export_job_request.StartReadSetExportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "destination": destination,
@@ -5451,7 +5613,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReadSetImportJob")
+        )
         input_: capo_omics.types.start_read_set_import_job_request.StartReadSetImportJobRequest = {
             "sequence_store_id": sequence_store_id,
             "role_arn": role_arn,
@@ -5513,7 +5677,19 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest",
+        ) -> dict[str, Any]:
+            import capo_omics.types.upload_read_set_part_request
+
+            return capo_omics.types.upload_read_set_part_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UploadReadSetPart", redact_input=_redact_input),
+        )
         input_: capo_omics.types.upload_read_set_part_request.UploadReadSetPartRequest = {
             "sequence_store_id": sequence_store_id,
             "upload_id": upload_id,
@@ -5568,7 +5744,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReadSetMetadata")
+        )
         input_: capo_omics.types.get_read_set_metadata_request.GetReadSetMetadataRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -5623,7 +5801,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReadSets")
+        )
         input_: capo_omics.types.list_read_sets_request.ListReadSetsRequest = {
             "sequence_store_id": sequence_store_id
         }
@@ -5711,7 +5891,17 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_omics.types.get_read_set_response.GetReadSetResponse",
+        ) -> dict[str, Any]:
+            import capo_omics.types.get_read_set_response
+
+            return capo_omics.types.get_read_set_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetReadSet", redact_output=_redact_output),
+        )
         input_: capo_omics.types.get_read_set_request.GetReadSetRequest = {
             "id": id,
             "sequence_store_id": sequence_store_id,
@@ -5767,7 +5957,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteReadSet")
+        )
         input_: capo_omics.types.batch_delete_read_set_request.BatchDeleteReadSetRequest = {
             "ids": ids,
             "sequence_store_id": sequence_store_id,
@@ -5821,7 +6013,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateShare")
+        )
         input_: capo_omics.types.create_share_request.CreateShareRequest = {
             "resource_arn": resource_arn,
             "principal_subscriber": principal_subscriber,
@@ -5866,7 +6060,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetShare")
+        )
         input_: capo_omics.types.get_share_request.GetShareRequest = {
             "share_id": share_id
         }
@@ -5912,7 +6108,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptShare")
+        )
         input_: capo_omics.types.accept_share_request.AcceptShareRequest = {
             "share_id": share_id
         }
@@ -5958,7 +6156,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteShare")
+        )
         input_: capo_omics.types.delete_share_request.DeleteShareRequest = {
             "share_id": share_id
         }
@@ -6013,7 +6213,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListShares")
+        )
         input_: capo_omics.types.list_shares_request.ListSharesRequest = {
             "resource_owner": resource_owner
         }
@@ -6094,7 +6296,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_omics.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -6146,7 +6350,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_omics.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -6199,7 +6405,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_omics.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -6260,7 +6468,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartVariantImportJob")
+        )
         input_: capo_omics.types.start_variant_import_request.StartVariantImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -6313,7 +6523,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVariantImportJob")
+        )
         input_: capo_omics.types.get_variant_import_request.GetVariantImportRequest = {
             "job_id": job_id
         }
@@ -6360,7 +6572,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelVariantImportJob")
+        )
         input_: capo_omics.types.cancel_variant_import_request.CancelVariantImportRequest = {
             "job_id": job_id
         }
@@ -6415,7 +6629,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVariantImportJobs")
+        )
         input_: capo_omics.types.list_variant_import_jobs_request.ListVariantImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6505,7 +6721,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVariantStore")
+        )
         input_: capo_omics.types.create_variant_store_request.CreateVariantStoreRequest = {
             "reference": reference
         }
@@ -6557,7 +6775,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVariantStore")
+        )
         input_: capo_omics.types.get_variant_store_request.GetVariantStoreRequest = {
             "name": name
         }
@@ -6606,7 +6826,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVariantStore")
+        )
         input_: capo_omics.types.update_variant_store_request.UpdateVariantStoreRequest = {
             "name": name
         }
@@ -6658,7 +6880,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVariantStore")
+        )
         input_: capo_omics.types.delete_variant_store_request.DeleteVariantStoreRequest = {
             "name": name
         }
@@ -6715,7 +6939,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVariantStores")
+        )
         input_: capo_omics.types.list_variant_stores_request.ListVariantStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6854,7 +7080,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_omics.types.create_workflow_request.CreateWorkflowRequest = {
             "request_id": request_id
         }
@@ -6952,7 +7180,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_omics.types.get_workflow_request.GetWorkflowRequest = {"id": id}
         if type is not None:
             input_["type"] = type
@@ -7018,7 +7248,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_omics.types.update_workflow_request.UpdateWorkflowRequest = {
             "id": id
         }
@@ -7076,7 +7308,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_omics.types.delete_workflow_request.DeleteWorkflowRequest = {
             "id": id
         }
@@ -7134,7 +7368,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_omics.types.list_workflows_request.ListWorkflowsRequest = {}
         if type is not None:
             input_["type"] = type
@@ -7275,7 +7511,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflowVersion")
+        )
         input_: capo_omics.types.create_workflow_version_request.CreateWorkflowVersionRequest = {
             "workflow_id": workflow_id,
             "version_name": version_name,
@@ -7375,7 +7613,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflowVersion")
+        )
         input_: capo_omics.types.get_workflow_version_request.GetWorkflowVersionRequest = {
             "workflow_id": workflow_id,
             "version_name": version_name,
@@ -7444,7 +7684,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflowVersion")
+        )
         input_: capo_omics.types.update_workflow_version_request.UpdateWorkflowVersionRequest = {
             "workflow_id": workflow_id,
             "version_name": version_name,
@@ -7503,7 +7745,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowVersion")
+        )
         input_: capo_omics.types.delete_workflow_version_request.DeleteWorkflowVersionRequest = {
             "workflow_id": workflow_id,
             "version_name": version_name,
@@ -7568,7 +7812,9 @@ class OmicsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowVersions")
+        )
         input_: capo_omics.types.list_workflow_versions_request.ListWorkflowVersionsRequest = {
             "workflow_id": workflow_id
         }

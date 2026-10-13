@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#ListDataAccessorsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> ListDataAccessorsResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDataAccessorsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_accessors" in value:
+        import capo_qbusiness.types.data_accessors
+
+        out["data_accessors"] = capo_qbusiness.types.data_accessors.redact_sensitive(
+            value["data_accessors"]
+        )
     return out

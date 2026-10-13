@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#KeyBlockHeaders``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> KeyBlockHeaders:
                 data["OptionalBlocks"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: KeyBlockHeaders) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "optional_blocks" in value:
+        out["optional_blocks"] = "*** Sensitive Data Redacted ***"
     return out

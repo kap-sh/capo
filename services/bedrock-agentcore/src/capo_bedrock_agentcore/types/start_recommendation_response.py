@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#StartRecommendationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -149,4 +149,17 @@ def deserialize_json(data: dict) -> StartRecommendationResponse:
         )
     else:
         raise DeserializationError("StartRecommendationResponse.updated_at required")
+    return out
+
+
+def redact_sensitive(value: StartRecommendationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommendation_config" in value:
+        import capo_bedrock_agentcore.types.recommendation_config
+
+        out["recommendation_config"] = (
+            capo_bedrock_agentcore.types.recommendation_config.redact_sensitive(
+                value["recommendation_config"]
+            )
+        )
     return out

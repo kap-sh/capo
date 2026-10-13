@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#ChannelSubtypeParameters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -112,3 +112,40 @@ def deserialize_json(data: dict) -> ChannelSubtypeParameters:
         raise DeserializationError(
             "ChannelSubtypeParameters: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ChannelSubtypeParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "telephony" in value:
+        import capo_connectcampaignsv2.types.telephony_channel_subtype_parameters
+
+        out["telephony"] = (
+            capo_connectcampaignsv2.types.telephony_channel_subtype_parameters.redact_sensitive(
+                value["telephony"]
+            )
+        )
+    if "sms" in value:
+        import capo_connectcampaignsv2.types.sms_channel_subtype_parameters
+
+        out["sms"] = (
+            capo_connectcampaignsv2.types.sms_channel_subtype_parameters.redact_sensitive(
+                value["sms"]
+            )
+        )
+    if "email" in value:
+        import capo_connectcampaignsv2.types.email_channel_subtype_parameters
+
+        out["email"] = (
+            capo_connectcampaignsv2.types.email_channel_subtype_parameters.redact_sensitive(
+                value["email"]
+            )
+        )
+    if "whatsApp" in value:
+        import capo_connectcampaignsv2.types.whats_app_channel_subtype_parameters
+
+        out["whatsApp"] = (
+            capo_connectcampaignsv2.types.whats_app_channel_subtype_parameters.redact_sensitive(
+                value["whatsApp"]
+            )
+        )
+    return out

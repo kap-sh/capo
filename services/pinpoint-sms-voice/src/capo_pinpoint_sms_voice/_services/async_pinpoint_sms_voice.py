@@ -22,7 +22,9 @@ from capo_pinpoint_sms_voice._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -124,7 +126,9 @@ class AsyncPinpointSMSVoiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPinpointSMSVoiceClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPinpointSMSVoiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPinpointSMSVoiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -132,8 +136,10 @@ class AsyncPinpointSMSVoiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -189,7 +195,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice.types.create_configuration_set_request.CreateConfigurationSetRequest = {}
         if configuration_set_name is not None:
             input_["configuration_set_name"] = configuration_set_name
@@ -245,7 +253,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.create_configuration_set_event_destination_request.CreateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -296,7 +306,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSet")
+        )
         input_: capo_pinpoint_sms_voice.types.delete_configuration_set_request.DeleteConfigurationSetRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -345,7 +357,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.delete_configuration_set_event_destination_request.DeleteConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,
@@ -393,7 +407,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationSetEventDestinations")
+        )
         input_: capo_pinpoint_sms_voice.types.get_configuration_set_event_destinations_request.GetConfigurationSetEventDestinationsRequest = {
             "configuration_set_name": configuration_set_name
         }
@@ -441,7 +457,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationSets")
+        )
         input_: capo_pinpoint_sms_voice.types.list_configuration_sets_request.ListConfigurationSetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -504,7 +522,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendVoiceMessage")
+        )
         input_: capo_pinpoint_sms_voice.types.send_voice_message_request.SendVoiceMessageRequest = {}
         if caller_id is not None:
             input_["caller_id"] = caller_id
@@ -564,7 +584,9 @@ class AsyncPinpointSMSVoiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfigurationSetEventDestination")
+        )
         input_: capo_pinpoint_sms_voice.types.update_configuration_set_event_destination_request.UpdateConfigurationSetEventDestinationRequest = {
             "configuration_set_name": configuration_set_name,
             "event_destination_name": event_destination_name,

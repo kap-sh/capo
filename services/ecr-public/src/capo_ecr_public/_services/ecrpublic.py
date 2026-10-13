@@ -21,10 +21,12 @@ from capo_ecr_public._pagination import resolve_path as _resolve_path
 from capo_ecr_public._services._aws_config import aws_config
 from capo_ecr_public._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -177,7 +179,9 @@ class ECRPUBLICClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ECRPUBLICClientConfig] = None
+        self,
+        config_overrides: Optional[ECRPUBLICClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ECRPUBLICClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -185,8 +189,10 @@ class ECRPUBLICClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -245,7 +251,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCheckLayerAvailability")
+        )
         input_: capo_ecr_public.types.batch_check_layer_availability_request.BatchCheckLayerAvailabilityRequest = {
             "repository_name": repository_name,
             "layer_digests": layer_digests,
@@ -300,7 +308,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteImage")
+        )
         input_: capo_ecr_public.types.batch_delete_image_request.BatchDeleteImageRequest = {
             "repository_name": repository_name,
             "image_ids": image_ids,
@@ -363,7 +373,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteLayerUpload")
+        )
         input_: capo_ecr_public.types.complete_layer_upload_request.CompleteLayerUploadRequest = {
             "repository_name": repository_name,
             "upload_id": upload_id,
@@ -422,7 +434,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_ecr_public.types.create_repository_request.CreateRepositoryRequest = {
             "repository_name": repository_name
         }
@@ -477,7 +491,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_ecr_public.types.delete_repository_request.DeleteRepositoryRequest = {
             "repository_name": repository_name
         }
@@ -530,7 +546,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepositoryPolicy")
+        )
         input_: capo_ecr_public.types.delete_repository_policy_request.DeleteRepositoryPolicyRequest = {
             "repository_name": repository_name
         }
@@ -589,7 +607,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImages")
+        )
         input_: capo_ecr_public.types.describe_images_request.DescribeImagesRequest = {
             "repository_name": repository_name
         }
@@ -678,7 +698,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImageTags")
+        )
         input_: capo_ecr_public.types.describe_image_tags_request.DescribeImageTagsRequest = {
             "repository_name": repository_name
         }
@@ -758,7 +780,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistries")
+        )
         input_: capo_ecr_public.types.describe_registries_request.DescribeRegistriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -835,7 +859,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRepositories")
+        )
         input_: capo_ecr_public.types.describe_repositories_request.DescribeRepositoriesRequest = {}
         if registry_id is not None:
             input_["registry_id"] = registry_id
@@ -907,7 +933,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthorizationToken")
+        )
         input_: capo_ecr_public.types.get_authorization_token_request.GetAuthorizationTokenRequest = {}
 
         response = execute_pipeline(
@@ -943,7 +971,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegistryCatalogData")
+        )
         input_: capo_ecr_public.types.get_registry_catalog_data_request.GetRegistryCatalogDataRequest = {}
 
         response = execute_pipeline(
@@ -990,7 +1020,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryCatalogData")
+        )
         input_: capo_ecr_public.types.get_repository_catalog_data_request.GetRepositoryCatalogDataRequest = {
             "repository_name": repository_name
         }
@@ -1041,7 +1073,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryPolicy")
+        )
         input_: capo_ecr_public.types.get_repository_policy_request.GetRepositoryPolicyRequest = {
             "repository_name": repository_name
         }
@@ -1094,7 +1128,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitiateLayerUpload")
+        )
         input_: capo_ecr_public.types.initiate_layer_upload_request.InitiateLayerUploadRequest = {
             "repository_name": repository_name
         }
@@ -1142,7 +1178,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ecr_public.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1209,7 +1247,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutImage")
+        )
         input_: capo_ecr_public.types.put_image_request.PutImageRequest = {
             "repository_name": repository_name,
             "image_manifest": image_manifest,
@@ -1265,7 +1305,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRegistryCatalogData")
+        )
         input_: capo_ecr_public.types.put_registry_catalog_data_request.PutRegistryCatalogDataRequest = {}
         if display_name is not None:
             input_["display_name"] = display_name
@@ -1315,7 +1357,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRepositoryCatalogData")
+        )
         input_: capo_ecr_public.types.put_repository_catalog_data_request.PutRepositoryCatalogDataRequest = {
             "repository_name": repository_name,
             "catalog_data": catalog_data,
@@ -1370,7 +1414,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetRepositoryPolicy")
+        )
         input_: capo_ecr_public.types.set_repository_policy_request.SetRepositoryPolicyRequest = {
             "repository_name": repository_name,
             "policy_text": policy_text,
@@ -1425,7 +1471,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ecr_public.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1476,7 +1524,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ecr_public.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1539,7 +1589,9 @@ class ECRPUBLICClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UploadLayerPart")
+        )
         input_: capo_ecr_public.types.upload_layer_part_request.UploadLayerPartRequest = {
             "repository_name": repository_name,
             "upload_id": upload_id,

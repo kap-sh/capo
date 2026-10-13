@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#CreateDistributionWithTagsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,5 +41,16 @@ def deserialize_xml(el: Element) -> CreateDistributionWithTagsResult:
 
         out["distribution"] = capo_cloudfront.types.distribution.deserialize_xml(
             child_distribution
+        )
+    return out
+
+
+def redact_sensitive(value: CreateDistributionWithTagsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "distribution" in value:
+        import capo_cloudfront.types.distribution
+
+        out["distribution"] = capo_cloudfront.types.distribution.redact_sensitive(
+            value["distribution"]
         )
     return out

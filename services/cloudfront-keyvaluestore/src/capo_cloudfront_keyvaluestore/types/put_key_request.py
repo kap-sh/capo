@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfrontkeyvaluestore#PutKeyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> PutKeyRequest:
         out["value"] = data["Value"]
     else:
         raise DeserializationError("PutKeyRequest.value required")
+    return out
+
+
+def redact_sensitive(value: PutKeyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#PhoneNumberError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_json(data: dict) -> PhoneNumberError:
         )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
+    return out
+
+
+def redact_sensitive(value: PhoneNumberError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number_id" in value:
+        out["phone_number_id"] = "*** Sensitive Data Redacted ***"
     return out

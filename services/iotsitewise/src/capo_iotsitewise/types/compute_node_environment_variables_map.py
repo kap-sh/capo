@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ComputeNodeEnvironmentVariablesMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iotsitewise.types.environment_variables_map
@@ -35,3 +35,7 @@ def deserialize_json(data: dict) -> ComputeNodeEnvironmentVariablesMap:
             value
         )
     return out
+
+
+def redact_sensitive(value: ComputeNodeEnvironmentVariablesMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

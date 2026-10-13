@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ByteContentFile``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> ByteContentFile:
         )
     else:
         raise DeserializationError("ByteContentFile.data required")
+    return out
+
+
+def redact_sensitive(value: ByteContentFile) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        out["data"] = "*** Sensitive Data Redacted ***"
     return out

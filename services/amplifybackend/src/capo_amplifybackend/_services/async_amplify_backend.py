@@ -22,7 +22,9 @@ from capo_amplifybackend._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -175,7 +177,9 @@ class AsyncAmplifyBackendClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAmplifyBackendClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAmplifyBackendClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAmplifyBackendClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -183,8 +187,10 @@ class AsyncAmplifyBackendClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +249,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloneBackend")
+        )
         input_: capo_amplifybackend.types.clone_backend_request.CloneBackendRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -305,7 +313,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackend")
+        )
         input_: capo_amplifybackend.types.create_backend_request.CreateBackendRequest = {}
         if app_id is not None:
             input_["app_id"] = app_id
@@ -372,7 +382,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackendAPI")
+        )
         input_: capo_amplifybackend.types.create_backend_api_request.CreateBackendAPIRequest = {
             "app_id": app_id
         }
@@ -435,7 +447,21 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplifybackend.types.create_backend_auth_request.CreateBackendAuthRequest",
+        ) -> dict[str, Any]:
+            import capo_amplifybackend.types.create_backend_auth_request
+
+            return (
+                capo_amplifybackend.types.create_backend_auth_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBackendAuth", redact_input=_redact_input),
+        )
         input_: capo_amplifybackend.types.create_backend_auth_request.CreateBackendAuthRequest = {
             "app_id": app_id
         }
@@ -492,7 +518,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackendConfig")
+        )
         input_: capo_amplifybackend.types.create_backend_config_request.CreateBackendConfigRequest = {
             "app_id": app_id
         }
@@ -551,7 +579,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackendStorage")
+        )
         input_: capo_amplifybackend.types.create_backend_storage_request.CreateBackendStorageRequest = {
             "app_id": app_id
         }
@@ -604,7 +634,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateToken")
+        )
         input_: capo_amplifybackend.types.create_token_request.CreateTokenRequest = {
             "app_id": app_id
         }
@@ -653,7 +685,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackend")
+        )
         input_: capo_amplifybackend.types.delete_backend_request.DeleteBackendRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -711,7 +745,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackendAPI")
+        )
         input_: capo_amplifybackend.types.delete_backend_api_request.DeleteBackendAPIRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -767,7 +803,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackendAuth")
+        )
         input_: capo_amplifybackend.types.delete_backend_auth_request.DeleteBackendAuthRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -825,7 +863,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackendStorage")
+        )
         input_: capo_amplifybackend.types.delete_backend_storage_request.DeleteBackendStorageRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -879,7 +919,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteToken")
+        )
         input_: capo_amplifybackend.types.delete_token_request.DeleteTokenRequest = {
             "app_id": app_id,
             "session_id": session_id,
@@ -931,7 +973,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateBackendAPIModels")
+        )
         input_: capo_amplifybackend.types.generate_backend_api_models_request.GenerateBackendAPIModelsRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -985,7 +1029,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackend")
+        )
         input_: capo_amplifybackend.types.get_backend_request.GetBackendRequest = {
             "app_id": app_id
         }
@@ -1042,7 +1088,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackendAPI")
+        )
         input_: capo_amplifybackend.types.get_backend_api_request.GetBackendAPIRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1098,7 +1146,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackendAPIModels")
+        )
         input_: capo_amplifybackend.types.get_backend_api_models_request.GetBackendAPIModelsRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1152,7 +1202,19 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplifybackend.types.get_backend_auth_response.GetBackendAuthResponse",
+        ) -> dict[str, Any]:
+            import capo_amplifybackend.types.get_backend_auth_response
+
+            return capo_amplifybackend.types.get_backend_auth_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBackendAuth", redact_output=_redact_output),
+        )
         input_: capo_amplifybackend.types.get_backend_auth_request.GetBackendAuthRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1206,7 +1268,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackendJob")
+        )
         input_: capo_amplifybackend.types.get_backend_job_request.GetBackendJobRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1259,7 +1323,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackendStorage")
+        )
         input_: capo_amplifybackend.types.get_backend_storage_request.GetBackendStorageRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1311,7 +1377,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetToken")
+        )
         input_: capo_amplifybackend.types.get_token_request.GetTokenRequest = {
             "app_id": app_id,
             "session_id": session_id,
@@ -1373,7 +1441,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportBackendAuth")
+        )
         input_: capo_amplifybackend.types.import_backend_auth_request.ImportBackendAuthRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1437,7 +1507,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportBackendStorage")
+        )
         input_: capo_amplifybackend.types.import_backend_storage_request.ImportBackendStorageRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1503,7 +1575,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackendJobs")
+        )
         input_: capo_amplifybackend.types.list_backend_jobs_request.ListBackendJobsRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1561,7 +1635,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListS3Buckets")
+        )
         input_: capo_amplifybackend.types.list_s3_buckets_request.ListS3BucketsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1612,7 +1688,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveAllBackends")
+        )
         input_: capo_amplifybackend.types.remove_all_backends_request.RemoveAllBackendsRequest = {
             "app_id": app_id
         }
@@ -1661,7 +1739,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveBackendConfig")
+        )
         input_: capo_amplifybackend.types.remove_backend_config_request.RemoveBackendConfigRequest = {
             "app_id": app_id
         }
@@ -1718,7 +1798,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBackendAPI")
+        )
         input_: capo_amplifybackend.types.update_backend_api_request.UpdateBackendAPIRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1778,7 +1860,21 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplifybackend.types.update_backend_auth_request.UpdateBackendAuthRequest",
+        ) -> dict[str, Any]:
+            import capo_amplifybackend.types.update_backend_auth_request
+
+            return (
+                capo_amplifybackend.types.update_backend_auth_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBackendAuth", redact_input=_redact_input),
+        )
         input_: capo_amplifybackend.types.update_backend_auth_request.UpdateBackendAuthRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1834,7 +1930,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBackendConfig")
+        )
         input_: capo_amplifybackend.types.update_backend_config_request.UpdateBackendConfigRequest = {
             "app_id": app_id
         }
@@ -1893,7 +1991,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBackendJob")
+        )
         input_: capo_amplifybackend.types.update_backend_job_request.UpdateBackendJobRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,
@@ -1954,7 +2054,9 @@ class AsyncAmplifyBackendClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBackendStorage")
+        )
         input_: capo_amplifybackend.types.update_backend_storage_request.UpdateBackendStorageRequest = {
             "app_id": app_id,
             "backend_environment_name": backend_environment_name,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#DelegatedAdministrators``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_organizations.types.delegated_administrator
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> DelegatedAdministrators:
             )
         )
     return out
+
+
+def redact_sensitive(value: DelegatedAdministrators) -> list[Any]:
+    import capo_organizations.types.delegated_administrator
+
+    return [
+        capo_organizations.types.delegated_administrator.redact_sensitive(item)
+        for item in value
+    ]

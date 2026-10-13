@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#InvokeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -185,4 +185,25 @@ def deserialize_cbor(data: dict) -> InvokeConfiguration:
         out["target_arn"] = data["TargetArn"]
     else:
         raise DeserializationError("InvokeConfiguration.target_arn required")
+    return out
+
+
+def redact_sensitive(value: InvokeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "lambda_parameters" in value:
+        out["lambda_parameters"] = "*** Sensitive Data Redacted ***"
+    if "sqs_parameters" in value:
+        out["sqs_parameters"] = "*** Sensitive Data Redacted ***"
+    if "sns_parameters" in value:
+        out["sns_parameters"] = "*** Sensitive Data Redacted ***"
+    if "kinesis_parameters" in value:
+        out["kinesis_parameters"] = "*** Sensitive Data Redacted ***"
+    if "step_functions_parameters" in value:
+        out["step_functions_parameters"] = "*** Sensitive Data Redacted ***"
+    if "http_parameters" in value:
+        out["http_parameters"] = "*** Sensitive Data Redacted ***"
+    if "universal_target_parameters" in value:
+        out["universal_target_parameters"] = "*** Sensitive Data Redacted ***"
+    if "event_bus_v2_parameters" in value:
+        out["event_bus_v2_parameters"] = "*** Sensitive Data Redacted ***"
     return out

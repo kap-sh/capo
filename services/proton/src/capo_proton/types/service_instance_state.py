@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ServiceInstanceState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,11 @@ def deserialize_aws_json_1_0(data: dict) -> ServiceInstanceState:
         out["last_successful_service_pipeline_deployment_id"] = data[
             "lastSuccessfulServicePipelineDeploymentId"
         ]
+    return out
+
+
+def redact_sensitive(value: ServiceInstanceState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
     return out

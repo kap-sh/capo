@@ -28,10 +28,12 @@ from capo_connectcases._resources.amazon_connect_cases.template import Template
 from capo_connectcases._services._aws_config import aws_config
 from capo_connectcases._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -254,7 +256,9 @@ class ConnectCasesClient:
         self.template = Template(self)
 
     def operation_options(
-        self, config_overrides: Optional[ConnectCasesClientConfig] = None
+        self,
+        config_overrides: Optional[ConnectCasesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ConnectCasesClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -262,8 +266,10 @@ class ConnectCasesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -316,7 +322,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_connectcases.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -363,7 +371,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_connectcases.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -411,7 +421,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_connectcases.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -469,7 +481,16 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.create_case_request.CreateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.create_case_request
+
+            return capo_connectcases.types.create_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.create_case_request.CreateCaseRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -531,7 +552,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCase")
+        )
         input_: capo_connectcases.types.get_case_request.GetCaseRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -610,7 +633,16 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.update_case_request.UpdateCaseRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.update_case_request
+
+            return capo_connectcases.types.update_case_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCase", redact_input=_redact_input)
+        )
         input_: capo_connectcases.types.update_case_request.UpdateCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -663,7 +695,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCase")
+        )
         input_: capo_connectcases.types.delete_case_request.DeleteCaseRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -717,7 +751,21 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectcases.types.get_case_audit_events_response.GetCaseAuditEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.get_case_audit_events_response
+
+            return (
+                capo_connectcases.types.get_case_audit_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCaseAuditEvents", redact_output=_redact_output),
+        )
         input_: capo_connectcases.types.get_case_audit_events_request.GetCaseAuditEventsRequest = {
             "case_id": case_id,
             "domain_id": domain_id,
@@ -798,7 +846,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCasesForContact")
+        )
         input_: capo_connectcases.types.list_cases_for_contact_request.ListCasesForContactRequest = {
             "domain_id": domain_id,
             "contact_arn": contact_arn,
@@ -887,7 +937,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchCases")
+        )
         input_: capo_connectcases.types.search_cases_request.SearchCasesRequest = {
             "domain_id": domain_id
         }
@@ -990,7 +1042,19 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.create_related_item_request.CreateRelatedItemRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.create_related_item_request
+
+            return capo_connectcases.types.create_related_item_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRelatedItem", redact_input=_redact_input),
+        )
         input_: capo_connectcases.types.create_related_item_request.CreateRelatedItemRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -1053,7 +1117,34 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.update_related_item_request.UpdateRelatedItemRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.update_related_item_request
+
+            return capo_connectcases.types.update_related_item_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connectcases.types.update_related_item_response.UpdateRelatedItemResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.update_related_item_response
+
+            return (
+                capo_connectcases.types.update_related_item_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRelatedItem",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connectcases.types.update_related_item_request.UpdateRelatedItemRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -1111,7 +1202,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRelatedItem")
+        )
         input_: capo_connectcases.types.delete_related_item_request.DeleteRelatedItemRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -1170,7 +1263,36 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.search_related_items_request.SearchRelatedItemsRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_related_items_request
+
+            return (
+                capo_connectcases.types.search_related_items_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_connectcases.types.search_related_items_response.SearchRelatedItemsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_related_items_response
+
+            return (
+                capo_connectcases.types.search_related_items_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchRelatedItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connectcases.types.search_related_items_request.SearchRelatedItemsRequest = {
             "domain_id": domain_id,
             "case_id": case_id,
@@ -1263,7 +1385,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCaseRule")
+        )
         input_: capo_connectcases.types.create_case_rule_request.CreateCaseRuleRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -1328,7 +1452,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCaseRule")
+        )
         input_: capo_connectcases.types.update_case_rule_request.UpdateCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -1384,7 +1510,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCaseRule")
+        )
         input_: capo_connectcases.types.delete_case_rule_request.DeleteCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -1436,7 +1564,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCaseRules")
+        )
         input_: capo_connectcases.types.list_case_rules_request.ListCaseRulesRequest = {
             "domain_id": domain_id
         }
@@ -1514,7 +1644,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCaseRule")
+        )
         input_: capo_connectcases.types.batch_get_case_rule_request.BatchGetCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rules": case_rules,
@@ -1563,7 +1695,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_connectcases.types.create_domain_request.CreateDomainRequest = {
             "name": name
         }
@@ -1610,7 +1744,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_connectcases.types.get_domain_request.GetDomainRequest = {
             "domain_id": domain_id
         }
@@ -1658,7 +1794,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_connectcases.types.delete_domain_request.DeleteDomainRequest = {
             "domain_id": domain_id
         }
@@ -1706,7 +1844,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_connectcases.types.list_domains_request.ListDomainsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1774,7 +1914,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.get_case_event_configuration_request.GetCaseEventConfigurationRequest = {
             "domain_id": domain_id
         }
@@ -1824,7 +1966,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCaseEventConfiguration")
+        )
         input_: capo_connectcases.types.put_case_event_configuration_request.PutCaseEventConfigurationRequest = {
             "domain_id": domain_id,
             "event_bridge": event_bridge,
@@ -1884,7 +2028,32 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_request
+
+            return capo_connectcases.types.search_all_related_items_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connectcases.types.search_all_related_items_response.SearchAllRelatedItemsResponse",
+        ) -> dict[str, Any]:
+            import capo_connectcases.types.search_all_related_items_response
+
+            return capo_connectcases.types.search_all_related_items_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchAllRelatedItems",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connectcases.types.search_all_related_items_request.SearchAllRelatedItemsRequest = {
             "domain_id": domain_id
         }
@@ -1984,7 +2153,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateField")
+        )
         input_: capo_connectcases.types.create_field_request.CreateFieldRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -2050,7 +2221,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateField")
+        )
         input_: capo_connectcases.types.update_field_request.UpdateFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -2108,7 +2281,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteField")
+        )
         input_: capo_connectcases.types.delete_field_request.DeleteFieldRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -2160,7 +2335,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFields")
+        )
         input_: capo_connectcases.types.list_fields_request.ListFieldsRequest = {
             "domain_id": domain_id
         }
@@ -2237,7 +2414,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutFieldOptions")
+        )
         input_: capo_connectcases.types.batch_put_field_options_request.BatchPutFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -2294,7 +2473,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFieldOptions")
+        )
         input_: capo_connectcases.types.list_field_options_request.ListFieldOptionsRequest = {
             "domain_id": domain_id,
             "field_id": field_id,
@@ -2375,7 +2556,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetField")
+        )
         input_: capo_connectcases.types.batch_get_field_request.BatchGetFieldRequest = {
             "domain_id": domain_id,
             "fields": fields,
@@ -2429,7 +2612,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLayout")
+        )
         input_: capo_connectcases.types.create_layout_request.CreateLayoutRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -2480,7 +2665,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLayout")
+        )
         input_: capo_connectcases.types.get_layout_request.GetLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -2538,7 +2725,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLayout")
+        )
         input_: capo_connectcases.types.update_layout_request.UpdateLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -2593,7 +2782,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLayout")
+        )
         input_: capo_connectcases.types.delete_layout_request.DeleteLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -2645,7 +2836,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLayouts")
+        )
         input_: capo_connectcases.types.list_layouts_request.ListLayoutsRequest = {
             "domain_id": domain_id
         }
@@ -2745,7 +2938,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_connectcases.types.create_template_request.CreateTemplateRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -2807,7 +3002,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_connectcases.types.get_template_request.GetTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -2885,7 +3082,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_connectcases.types.update_template_request.UpdateTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -2950,7 +3149,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_connectcases.types.delete_template_request.DeleteTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -3006,7 +3207,9 @@ class ConnectCasesClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_connectcases.types.list_templates_request.ListTemplatesRequest = {
             "domain_id": domain_id
         }

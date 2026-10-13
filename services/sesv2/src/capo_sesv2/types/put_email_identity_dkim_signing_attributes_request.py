@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#PutEmailIdentityDkimSigningAttributesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,6 +66,21 @@ def deserialize_json(data: dict) -> PutEmailIdentityDkimSigningAttributesRequest
         out["signing_attributes"] = (
             capo_sesv2.types.dkim_signing_attributes.deserialize_json(
                 data["SigningAttributes"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: PutEmailIdentityDkimSigningAttributesRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "signing_attributes" in value:
+        import capo_sesv2.types.dkim_signing_attributes
+
+        out["signing_attributes"] = (
+            capo_sesv2.types.dkim_signing_attributes.redact_sensitive(
+                value["signing_attributes"]
             )
         )
     return out

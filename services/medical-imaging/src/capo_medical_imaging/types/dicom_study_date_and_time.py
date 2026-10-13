@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#DICOMStudyDateAndTime``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,13 @@ def deserialize_json(data: dict) -> DICOMStudyDateAndTime:
         raise DeserializationError("DICOMStudyDateAndTime.dicom_study_date required")
     if data.get("DICOMStudyTime") is not None:
         out["dicom_study_time"] = data["DICOMStudyTime"]
+    return out
+
+
+def redact_sensitive(value: DICOMStudyDateAndTime) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dicom_study_date" in value:
+        out["dicom_study_date"] = "*** Sensitive Data Redacted ***"
+    if "dicom_study_time" in value:
+        out["dicom_study_time"] = "*** Sensitive Data Redacted ***"
     return out

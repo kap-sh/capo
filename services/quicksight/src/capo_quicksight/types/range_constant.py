@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#RangeConstant``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_json(data: dict) -> RangeConstant:
         out["minimum"] = data["Minimum"]
     if data.get("Maximum") is not None:
         out["maximum"] = data["Maximum"]
+    return out
+
+
+def redact_sensitive(value: RangeConstant) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "minimum" in value:
+        out["minimum"] = "*** Sensitive Data Redacted ***"
+    if "maximum" in value:
+        out["maximum"] = "*** Sensitive Data Redacted ***"
     return out

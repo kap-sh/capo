@@ -57,10 +57,12 @@ from capo_mgn._resources.application_migration_service.wave_resource import Wave
 from capo_mgn._services._aws_config import aws_config
 from capo_mgn._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -458,7 +460,9 @@ class mgnClient:
         self.wave_resource = WaveResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[mgnClientConfig] = None
+        self,
+        config_overrides: Optional[mgnClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: mgnClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -466,8 +470,10 @@ class mgnClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -511,7 +517,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InitializeService")
+        )
         input_: capo_mgn.types.initialize_service_request.InitializeServiceRequest = {}
 
         response = execute_pipeline(
@@ -563,7 +571,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportFileEnrichments")
+        )
         input_: capo_mgn.types.list_import_file_enrichments_request.ListImportFileEnrichmentsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -638,7 +648,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedAccounts")
+        )
         input_: capo_mgn.types.list_managed_accounts_request.ListManagedAccountsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -708,7 +720,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_tags_for_resource_response
+
+            return capo_mgn.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -770,7 +794,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImportFileEnrichment")
+        )
         input_: capo_mgn.types.start_import_file_enrichment_request.StartImportFileEnrichmentRequest = {
             "s3_bucket_source": s3_bucket_source,
             "s3_bucket_target": s3_bucket_target,
@@ -823,7 +849,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.tag_resource_request
+
+            return capo_mgn.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_mgn.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -871,7 +907,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.untag_resource_request
+
+            return capo_mgn.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_mgn.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -923,7 +969,28 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_application_request
+
+            return capo_mgn.types.create_application_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApplication",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -976,7 +1043,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_mgn.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -1029,7 +1098,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_applications_response.ListApplicationsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_applications_response
+
+            return capo_mgn.types.list_applications_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListApplications", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_applications_request.ListApplicationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1108,7 +1187,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_application_request.ArchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -1160,7 +1249,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSourceServers")
+        )
         input_: capo_mgn.types.associate_source_servers_request.AssociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -1212,7 +1303,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceServers")
+        )
         input_: capo_mgn.types.disassociate_source_servers_request.DisassociateSourceServersRequest = {
             "application_id": application_id,
             "source_server_i_ds": source_server_i_ds,
@@ -1260,7 +1353,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_application_request.UnarchiveApplicationRequest = {
             "application_id": application_id
         }
@@ -1313,7 +1416,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.application.Application",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.application
+
+            return capo_mgn.types.application.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -1369,7 +1482,28 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_connector_request.CreateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_connector_request
+
+            return capo_mgn.types.create_connector_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateConnector",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_connector_request.CreateConnectorRequest = {
             "name": name,
             "ssm_instance_id": ssm_instance_id,
@@ -1423,7 +1557,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.connector.Connector",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.connector
+
+            return capo_mgn.types.connector.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnector", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_connector_request.UpdateConnectorRequest = {
             "connector_id": connector_id
         }
@@ -1470,7 +1614,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_mgn.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_id": connector_id
         }
@@ -1520,7 +1666,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_connectors_response.ListConnectorsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_connectors_response
+
+            return capo_mgn.types.list_connectors_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListConnectors", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_connectors_request.ListConnectorsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1600,7 +1756,26 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_export_request.StartExportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_request
+
+            return capo_mgn.types.start_export_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_export_response.StartExportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_response
+
+            return capo_mgn.types.start_export_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartExport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_export_request.StartExportRequest = {
             "s3_bucket": s3_bucket,
             "s3_key": s3_key,
@@ -1653,7 +1828,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_exports_response.ListExportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_exports_response
+
+            return capo_mgn.types.list_exports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListExports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_exports_request.ListExportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1730,7 +1915,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExportErrors")
+        )
         input_: capo_mgn.types.list_export_errors_request.ListExportErrorsRequest = {
             "export_id": export_id
         }
@@ -1810,7 +1997,26 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_import_request.StartImportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_request
+
+            return capo_mgn.types.start_import_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_import_response.StartImportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_response
+
+            return capo_mgn.types.start_import_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartImport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_import_request.StartImportRequest = {
             "s3_bucket_source": s3_bucket_source
         }
@@ -1865,7 +2071,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_imports_response.ListImportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_imports_response
+
+            return capo_mgn.types.list_imports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListImports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_imports_request.ListImportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1942,7 +2158,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportErrors")
+        )
         input_: capo_mgn.types.list_import_errors_request.ListImportErrorsRequest = {
             "import_id": import_id
         }
@@ -2014,7 +2232,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_mgn.types.delete_job_request.DeleteJobRequest = {"job_id": job_id}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -2066,7 +2286,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_jobs_response.DescribeJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_jobs_response
+
+            return capo_mgn.types.describe_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeJobs", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_jobs_request.DescribeJobsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2149,7 +2379,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobLogItems")
+        )
         input_: capo_mgn.types.describe_job_log_items_request.DescribeJobLogItemsRequest = {
             "job_id": job_id
         }
@@ -2268,7 +2500,30 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_launch_configuration_template_request
+
+            return capo_mgn.types.create_launch_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.launch_configuration_template.LaunchConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.launch_configuration_template
+
+            return capo_mgn.types.launch_configuration_template.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateLaunchConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_launch_configuration_template_request.CreateLaunchConfigurationTemplateRequest = {}
         if post_launch_actions is not None:
             input_["post_launch_actions"] = post_launch_actions
@@ -2387,7 +2642,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.launch_configuration_template.LaunchConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.launch_configuration_template
+
+            return capo_mgn.types.launch_configuration_template.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateLaunchConfigurationTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.update_launch_configuration_template_request.UpdateLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -2464,7 +2731,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLaunchConfigurationTemplate")
+        )
         input_: capo_mgn.types.delete_launch_configuration_template_request.DeleteLaunchConfigurationTemplateRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -2515,7 +2784,21 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_launch_configuration_templates_response.DescribeLaunchConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_launch_configuration_templates_response
+
+            return capo_mgn.types.describe_launch_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeLaunchConfigurationTemplates", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.describe_launch_configuration_templates_request.DescribeLaunchConfigurationTemplatesRequest = {}
         if launch_configuration_template_i_ds is not None:
             input_["launch_configuration_template_i_ds"] = (
@@ -2598,7 +2881,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTemplateActions")
+        )
         input_: capo_mgn.types.list_template_actions_request.ListTemplateActionsRequest = {
             "launch_configuration_template_id": launch_configuration_template_id
         }
@@ -2715,7 +3000,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTemplateAction")
+        )
         input_: capo_mgn.types.put_template_action_request.PutTemplateActionRequest = {
             "launch_configuration_template_id": launch_configuration_template_id,
             "action_name": action_name,
@@ -2784,7 +3071,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTemplateAction")
+        )
         input_: capo_mgn.types.remove_template_action_request.RemoveTemplateActionRequest = {
             "launch_configuration_template_id": launch_configuration_template_id,
             "action_id": action_id,
@@ -2862,7 +3151,30 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_network_migration_definition_request
+
+            return capo_mgn.types.create_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_network_migration_definition_request.CreateNetworkMigrationDefinitionRequest = {
             "name": name,
             "target_s3_configuration": target_s3_configuration,
@@ -2962,7 +3274,30 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_definition_request
+
+            return capo_mgn.types.update_network_migration_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_definition_request.UpdateNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -3030,7 +3365,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkMigrationDefinition")
+        )
         input_: capo_mgn.types.delete_network_migration_definition_request.DeleteNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -3084,7 +3421,21 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_definitions_response.ListNetworkMigrationDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_definitions_response
+
+            return capo_mgn.types.list_network_migration_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationDefinitions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_definitions_request.ListNetworkMigrationDefinitionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3162,7 +3513,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_definition.NetworkMigrationDefinition",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_definition
+
+            return capo_mgn.types.network_migration_definition.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNetworkMigrationDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_network_migration_definition_request.GetNetworkMigrationDefinitionRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -3218,7 +3581,10 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetNetworkMigrationMapperSegmentConstruct"),
+        )
         input_: capo_mgn.types.get_network_migration_mapper_segment_construct_request.GetNetworkMigrationMapperSegmentConstructRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,
@@ -3282,7 +3648,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalyses")
+        )
         input_: capo_mgn.types.list_network_migration_analyses_request.ListNetworkMigrationAnalysesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3379,7 +3747,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationAnalysisResults")
+        )
         input_: capo_mgn.types.list_network_migration_analysis_results_request.ListNetworkMigrationAnalysisResultsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3476,7 +3846,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationCodeGenerations")
+        )
         input_: capo_mgn.types.list_network_migration_code_generations_request.ListNetworkMigrationCodeGenerationsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3573,7 +3945,10 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationCodeGenerationSegments"),
+        )
         input_: capo_mgn.types.list_network_migration_code_generation_segments_request.ListNetworkMigrationCodeGenerationSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3666,7 +4041,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployedStacks")
+        )
         input_: capo_mgn.types.list_network_migration_deployed_stacks_request.ListNetworkMigrationDeployedStacksRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3757,7 +4134,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationDeployments")
+        )
         input_: capo_mgn.types.list_network_migration_deployments_request.ListNetworkMigrationDeploymentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -3850,7 +4229,21 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_executions_response.ListNetworkMigrationExecutionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_executions_response
+
+            return capo_mgn.types.list_network_migration_executions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationExecutions", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_executions_request.ListNetworkMigrationExecutionsRequest = {
             "network_migration_definition_id": network_migration_definition_id
         }
@@ -3951,7 +4344,10 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNetworkMigrationMapperSegmentConstructs"),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segment_constructs_request.ListNetworkMigrationMapperSegmentConstructsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4051,7 +4447,21 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_network_migration_mapper_segments_response.ListNetworkMigrationMapperSegmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_network_migration_mapper_segments_response
+
+            return capo_mgn.types.list_network_migration_mapper_segments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNetworkMigrationMapperSegments", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.list_network_migration_mapper_segments_request.ListNetworkMigrationMapperSegmentsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4148,7 +4558,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappings")
+        )
         input_: capo_mgn.types.list_network_migration_mappings_request.ListNetworkMigrationMappingsRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4245,7 +4657,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworkMigrationMappingUpdates")
+        )
         input_: capo_mgn.types.list_network_migration_mapping_updates_request.ListNetworkMigrationMappingUpdatesRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4336,7 +4750,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationAnalysis")
+        )
         input_: capo_mgn.types.start_network_migration_analysis_request.StartNetworkMigrationAnalysisRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4396,7 +4812,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationCodeGeneration")
+        )
         input_: capo_mgn.types.start_network_migration_code_generation_request.StartNetworkMigrationCodeGenerationRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4456,7 +4874,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationDeployment")
+        )
         input_: capo_mgn.types.start_network_migration_deployment_request.StartNetworkMigrationDeploymentRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4516,7 +4936,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNetworkMigrationMapping")
+        )
         input_: capo_mgn.types.start_network_migration_mapping_request.StartNetworkMigrationMappingRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4582,7 +5004,21 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_network_migration_mapping_update_request
+
+            return capo_mgn.types.start_network_migration_mapping_update_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartNetworkMigrationMappingUpdate", redact_input=_redact_input
+            ),
+        )
         input_: capo_mgn.types.start_network_migration_mapping_update_request.StartNetworkMigrationMappingUpdateRequest = {
             "network_migration_execution_id": network_migration_execution_id,
             "network_migration_definition_id": network_migration_definition_id,
@@ -4645,7 +5081,32 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_network_migration_mapper_segment_request
+
+            return capo_mgn.types.update_network_migration_mapper_segment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.network_migration_mapper_segment.NetworkMigrationMapperSegment",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.network_migration_mapper_segment
+
+            return capo_mgn.types.network_migration_mapper_segment.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNetworkMigrationMapperSegment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_network_migration_mapper_segment_request.UpdateNetworkMigrationMapperSegmentRequest = {
             "network_migration_definition_id": network_migration_definition_id,
             "network_migration_execution_id": network_migration_execution_id,
@@ -4730,7 +5191,32 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_replication_configuration_template_request
+
+            return capo_mgn.types.create_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration_template
+
+            return capo_mgn.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest = {
             "staging_area_subnet_id": staging_area_subnet_id,
             "associate_default_security_group": associate_default_security_group,
@@ -4848,7 +5334,32 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_replication_configuration_template_request
+
+            return capo_mgn.types.update_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration_template
+
+            return capo_mgn.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -4935,7 +5446,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfigurationTemplate")
+        )
         input_: capo_mgn.types.delete_replication_configuration_template_request.DeleteReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -4986,7 +5499,22 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_replication_configuration_templates_response.DescribeReplicationConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_replication_configuration_templates_response
+
+            return capo_mgn.types.describe_replication_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeReplicationConfigurationTemplates",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.describe_replication_configuration_templates_request.DescribeReplicationConfigurationTemplatesRequest = {}
         if replication_configuration_template_i_ds is not None:
             input_["replication_configuration_template_i_ds"] = (
@@ -5078,7 +5606,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSourceServer", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_source_server_request.UpdateSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -5135,7 +5673,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceServer")
+        )
         input_: capo_mgn.types.delete_source_server_request.DeleteSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -5191,7 +5731,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_source_servers_response.DescribeSourceServersResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_source_servers_response
+
+            return capo_mgn.types.describe_source_servers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceServers", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_source_servers_request.DescribeSourceServersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5272,7 +5824,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ChangeServerLifeCycleState", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.change_server_life_cycle_state_request.ChangeServerLifeCycleStateRequest = {
             "source_server_id": source_server_id,
             "life_cycle": life_cycle,
@@ -5320,7 +5884,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisconnectFromService", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.disconnect_from_service_request.DisconnectFromServiceRequest = {
             "source_server_id": source_server_id
         }
@@ -5368,7 +5942,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("FinalizeCutover", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.finalize_cutover_request.FinalizeCutoverRequest = {
             "source_server_id": source_server_id
         }
@@ -5416,7 +6000,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfiguration")
+        )
         input_: capo_mgn.types.get_launch_configuration_request.GetLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -5464,7 +6050,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetReplicationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -5520,7 +6118,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceServerActions")
+        )
         input_: capo_mgn.types.list_source_server_actions_request.ListSourceServerActionsRequest = {
             "source_server_id": source_server_id
         }
@@ -5602,7 +6202,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("MarkAsArchived", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.mark_as_archived_request.MarkAsArchivedRequest = {
             "source_server_id": source_server_id
         }
@@ -5651,7 +6261,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PauseReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.pause_replication_request.PauseReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -5735,7 +6355,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSourceServerAction")
+        )
         input_: capo_mgn.types.put_source_server_action_request.PutSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_name": action_name,
@@ -5806,7 +6428,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveSourceServerAction")
+        )
         input_: capo_mgn.types.remove_source_server_action_request.RemoveSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_id": action_id,
@@ -5856,7 +6480,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ResumeReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.resume_replication_request.ResumeReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -5903,7 +6537,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RetryDataReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.retry_data_replication_request.RetryDataReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -5952,7 +6596,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.start_replication_request.StartReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -6001,7 +6655,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.stop_replication_request.StopReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -6076,7 +6740,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfiguration")
+        )
         input_: capo_mgn.types.update_launch_configuration_request.UpdateLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -6203,7 +6869,30 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_replication_configuration_request
+
+            return capo_mgn.types.update_replication_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -6297,7 +6986,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSourceServerReplicationType", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.update_source_server_replication_type_request.UpdateSourceServerReplicationTypeRequest = {
             "source_server_id": source_server_id,
             "replication_type": replication_type,
@@ -6349,7 +7050,26 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_cutover_request.StartCutoverRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_request
+
+            return capo_mgn.types.start_cutover_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_cutover_response.StartCutoverResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_response
+
+            return capo_mgn.types.start_cutover_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartCutover", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_cutover_request.StartCutoverRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -6400,7 +7120,26 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_test_request.StartTestRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_request
+
+            return capo_mgn.types.start_test_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_test_response.StartTestResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_response
+
+            return capo_mgn.types.start_test_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTest", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_test_request.StartTestRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -6453,7 +7192,32 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_request
+
+            return capo_mgn.types.terminate_target_instances_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.terminate_target_instances_response.TerminateTargetInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_response
+
+            return capo_mgn.types.terminate_target_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateTargetInstances",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -6500,7 +7264,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVcenterClient")
+        )
         input_: capo_mgn.types.delete_vcenter_client_request.DeleteVcenterClientRequest = {
             "vcenter_client_id": vcenter_client_id
         }
@@ -6547,7 +7313,19 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_vcenter_clients_response.DescribeVcenterClientsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_vcenter_clients_response
+
+            return capo_mgn.types.describe_vcenter_clients_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeVcenterClients", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_vcenter_clients_request.DescribeVcenterClientsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6619,7 +7397,24 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_wave_request.CreateWaveRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_wave_request
+
+            return capo_mgn.types.create_wave_request.redact_sensitive(input_)
+
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWave", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.create_wave_request.CreateWaveRequest = {"name": name}
         if description is not None:
             input_["description"] = description
@@ -6670,7 +7465,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWave")
+        )
         input_: capo_mgn.types.delete_wave_request.DeleteWaveRequest = {
             "wave_id": wave_id
         }
@@ -6721,7 +7518,17 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_waves_response.ListWavesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_waves_response
+
+            return capo_mgn.types.list_waves_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListWaves", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_waves_request.ListWavesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6800,7 +7607,15 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_wave_request.ArchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -6852,7 +7667,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApplications")
+        )
         input_: capo_mgn.types.associate_applications_request.AssociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -6904,7 +7721,9 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApplications")
+        )
         input_: capo_mgn.types.disassociate_applications_request.DisassociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -6952,7 +7771,15 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_wave_request.UnarchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -7003,7 +7830,15 @@ class mgnClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_wave_request.UpdateWaveRequest = {
             "wave_id": wave_id
         }

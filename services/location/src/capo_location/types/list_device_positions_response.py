@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ListDevicePositionsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> ListDevicePositionsResponse:
         raise DeserializationError("ListDevicePositionsResponse.entries required")
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDevicePositionsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entries" in value:
+        import capo_location.types.list_device_positions_response_entry_list
+
+        out["entries"] = (
+            capo_location.types.list_device_positions_response_entry_list.redact_sensitive(
+                value["entries"]
+            )
+        )
     return out

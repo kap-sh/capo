@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#MacAlgorithmEmv``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -101,5 +101,20 @@ def deserialize_json(data: dict) -> MacAlgorithmEmv:
     else:
         raise DeserializationError(
             "MacAlgorithmEmv.session_key_derivation_value required"
+        )
+    return out
+
+
+def redact_sensitive(value: MacAlgorithmEmv) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "session_key_derivation_value" in value:
+        import capo_payment_cryptography_data.types.session_key_derivation_value
+
+        out["session_key_derivation_value"] = (
+            capo_payment_cryptography_data.types.session_key_derivation_value.redact_sensitive(
+                value["session_key_derivation_value"]
+            )
         )
     return out

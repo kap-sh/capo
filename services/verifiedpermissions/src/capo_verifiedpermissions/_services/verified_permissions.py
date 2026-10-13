@@ -28,10 +28,12 @@ from capo_verifiedpermissions._resources.verified_permissions.policy_store_alias
 from capo_verifiedpermissions._services._aws_config import aws_config
 from capo_verifiedpermissions._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -226,7 +228,9 @@ class VerifiedPermissionsClient:
         self.policy_store_alias = PolicyStoreAlias(self)
 
     def operation_options(
-        self, config_overrides: Optional[VerifiedPermissionsClientConfig] = None
+        self,
+        config_overrides: Optional[VerifiedPermissionsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: VerifiedPermissionsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -234,8 +238,10 @@ class VerifiedPermissionsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -294,7 +300,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_verifiedpermissions.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -350,7 +358,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_verifiedpermissions.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -406,7 +416,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_verifiedpermissions.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -483,7 +495,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_store_input
+
+            return capo_verifiedpermissions.types.create_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_input.CreatePolicyStoreInput = {
             "validation_settings": validation_settings
         }
@@ -553,7 +577,21 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_policy_store_output.GetPolicyStoreOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_policy_store_output
+
+            return (
+                capo_verifiedpermissions.types.get_policy_store_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicyStore", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_input.GetPolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -619,7 +657,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_store_input
+
+            return capo_verifiedpermissions.types.update_policy_store_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePolicyStore", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.update_policy_store_input.UpdatePolicyStoreInput = {
             "policy_store_id": policy_store_id,
             "validation_settings": validation_settings,
@@ -677,7 +727,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStore")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_input.DeletePolicyStoreInput = {
             "policy_store_id": policy_store_id
         }
@@ -735,7 +787,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_policy_stores_output.ListPolicyStoresOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policy_stores_output
+
+            return capo_verifiedpermissions.types.list_policy_stores_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicyStores", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.list_policy_stores_input.ListPolicyStoresInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -821,7 +885,32 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_output.BatchIsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorized",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_input.BatchIsAuthorizedInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -887,7 +976,32 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_is_authorized_with_token_output.BatchIsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.batch_is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchIsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.batch_is_authorized_with_token_input.BatchIsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id,
             "requests": requests,
@@ -952,7 +1066,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_schema_output.GetSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_schema_output
+
+            return capo_verifiedpermissions.types.get_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSchema", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_schema_input.GetSchemaInput = {
             "policy_store_id": policy_store_id
         }
@@ -1031,7 +1157,30 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_input
+
+            return capo_verifiedpermissions.types.is_authorized_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_output.IsAuthorizedOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_output
+
+            return capo_verifiedpermissions.types.is_authorized_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorized", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_input.IsAuthorizedInput = {
             "policy_store_id": policy_store_id
         }
@@ -1120,7 +1269,32 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_input
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.is_authorized_with_token_output.IsAuthorizedWithTokenOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.is_authorized_with_token_output
+
+            return capo_verifiedpermissions.types.is_authorized_with_token_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "IsAuthorizedWithToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.is_authorized_with_token_input.IsAuthorizedWithTokenInput = {
             "policy_store_id": policy_store_id
         }
@@ -1194,7 +1368,30 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.put_schema_input.PutSchemaInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_input
+
+            return capo_verifiedpermissions.types.put_schema_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.put_schema_output.PutSchemaOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.put_schema_output
+
+            return capo_verifiedpermissions.types.put_schema_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSchema", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.put_schema_input.PutSchemaInput = {
             "policy_store_id": policy_store_id,
             "definition": definition,
@@ -1251,7 +1448,21 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.batch_get_policy_output.BatchGetPolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.batch_get_policy_output
+
+            return (
+                capo_verifiedpermissions.types.batch_get_policy_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetPolicy", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.batch_get_policy_input.BatchGetPolicyInput = {
             "requests": requests
         }
@@ -1316,7 +1527,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_identity_source_input.CreateIdentitySourceInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_identity_source_input
+
+            return capo_verifiedpermissions.types.create_identity_source_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIdentitySource", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.create_identity_source_input.CreateIdentitySourceInput = {
             "policy_store_id": policy_store_id,
             "configuration": configuration,
@@ -1377,7 +1600,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_identity_source_output.GetIdentitySourceOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_identity_source_output
+
+            return capo_verifiedpermissions.types.get_identity_source_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIdentitySource", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_identity_source_input.GetIdentitySourceInput = {
             "policy_store_id": policy_store_id,
             "identity_source_id": identity_source_id,
@@ -1440,7 +1675,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_identity_source_input.UpdateIdentitySourceInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_identity_source_input
+
+            return capo_verifiedpermissions.types.update_identity_source_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIdentitySource", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.update_identity_source_input.UpdateIdentitySourceInput = {
             "policy_store_id": policy_store_id,
             "identity_source_id": identity_source_id,
@@ -1500,7 +1747,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentitySource")
+        )
         input_: capo_verifiedpermissions.types.delete_identity_source_input.DeleteIdentitySourceInput = {
             "policy_store_id": policy_store_id,
             "identity_source_id": identity_source_id,
@@ -1566,7 +1815,32 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.list_identity_sources_input.ListIdentitySourcesInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_identity_sources_input
+
+            return capo_verifiedpermissions.types.list_identity_sources_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_identity_sources_output.ListIdentitySourcesOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_identity_sources_output
+
+            return capo_verifiedpermissions.types.list_identity_sources_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListIdentitySources",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_verifiedpermissions.types.list_identity_sources_input.ListIdentitySourcesInput = {
             "policy_store_id": policy_store_id
         }
@@ -1670,7 +1944,30 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_policy_input.CreatePolicyInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_input
+
+            return capo_verifiedpermissions.types.create_policy_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.create_policy_output.CreatePolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_output
+
+            return capo_verifiedpermissions.types.create_policy_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.create_policy_input.CreatePolicyInput = {
             "policy_store_id": policy_store_id,
             "definition": definition,
@@ -1735,7 +2032,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_policy_output.GetPolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_policy_output
+
+            return capo_verifiedpermissions.types.get_policy_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicy", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_policy_input.GetPolicyInput = {
             "policy_store_id": policy_store_id,
             "policy_id": policy_id,
@@ -1799,7 +2108,30 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_policy_input.UpdatePolicyInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_input
+
+            return capo_verifiedpermissions.types.update_policy_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.update_policy_output.UpdatePolicyOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_output
+
+            return capo_verifiedpermissions.types.update_policy_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.update_policy_input.UpdatePolicyInput = {
             "policy_store_id": policy_store_id,
             "policy_id": policy_id,
@@ -1860,7 +2192,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_input.DeletePolicyInput = {
             "policy_store_id": policy_store_id,
             "policy_id": policy_id,
@@ -1934,7 +2268,30 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.list_policies_input.ListPoliciesInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policies_input
+
+            return capo_verifiedpermissions.types.list_policies_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_policies_output.ListPoliciesOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policies_output
+
+            return capo_verifiedpermissions.types.list_policies_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListPolicies", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_verifiedpermissions.types.list_policies_input.ListPoliciesInput = {
             "policy_store_id": policy_store_id
         }
@@ -2040,7 +2397,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.create_policy_template_input.CreatePolicyTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.create_policy_template_input
+
+            return capo_verifiedpermissions.types.create_policy_template_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePolicyTemplate", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.create_policy_template_input.CreatePolicyTemplateInput = {
             "policy_store_id": policy_store_id,
             "statement": statement,
@@ -2107,7 +2476,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.get_policy_template_output.GetPolicyTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.get_policy_template_output
+
+            return capo_verifiedpermissions.types.get_policy_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicyTemplate", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.get_policy_template_input.GetPolicyTemplateInput = {
             "policy_store_id": policy_store_id,
             "policy_template_id": policy_template_id,
@@ -2179,7 +2560,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_verifiedpermissions.types.update_policy_template_input.UpdatePolicyTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.update_policy_template_input
+
+            return capo_verifiedpermissions.types.update_policy_template_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePolicyTemplate", redact_input=_redact_input),
+        )
         input_: capo_verifiedpermissions.types.update_policy_template_input.UpdatePolicyTemplateInput = {
             "policy_store_id": policy_store_id,
             "policy_template_id": policy_template_id,
@@ -2241,7 +2634,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyTemplate")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_template_input.DeletePolicyTemplateInput = {
             "policy_store_id": policy_store_id,
             "policy_template_id": policy_template_id,
@@ -2303,7 +2698,19 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_verifiedpermissions.types.list_policy_templates_output.ListPolicyTemplatesOutput",
+        ) -> dict[str, Any]:
+            import capo_verifiedpermissions.types.list_policy_templates_output
+
+            return capo_verifiedpermissions.types.list_policy_templates_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicyTemplates", redact_output=_redact_output),
+        )
         input_: capo_verifiedpermissions.types.list_policy_templates_input.ListPolicyTemplatesInput = {
             "policy_store_id": policy_store_id
         }
@@ -2391,7 +2798,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.create_policy_store_alias_input.CreatePolicyStoreAliasInput = {
             "alias_name": alias_name,
             "policy_store_id": policy_store_id,
@@ -2445,7 +2854,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.get_policy_store_alias_input.GetPolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -2506,7 +2917,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStoreAlias")
+        )
         input_: capo_verifiedpermissions.types.delete_policy_store_alias_input.DeletePolicyStoreAliasInput = {
             "alias_name": alias_name
         }
@@ -2574,7 +2987,9 @@ class VerifiedPermissionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyStoreAliases")
+        )
         input_: capo_verifiedpermissions.types.list_policy_store_aliases_input.ListPolicyStoreAliasesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

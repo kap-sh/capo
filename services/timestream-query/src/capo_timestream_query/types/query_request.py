@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreamquery#QueryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,13 @@ def deserialize_aws_json_1_0(data: dict) -> QueryRequest:
                 data["QueryInsights"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: QueryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_string" in value:
+        out["query_string"] = "*** Sensitive Data Redacted ***"
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
     return out

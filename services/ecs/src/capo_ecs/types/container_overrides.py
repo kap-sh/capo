@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ContainerOverrides``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ecs.types.container_override
@@ -29,3 +29,9 @@ def deserialize_aws_json_1_1(data: list) -> ContainerOverrides:
             continue
         out.append(capo_ecs.types.container_override.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: ContainerOverrides) -> list[Any]:
+    import capo_ecs.types.container_override
+
+    return [capo_ecs.types.container_override.redact_sensitive(item) for item in value]

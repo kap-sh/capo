@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#AuthorizationCodeProperties``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> AuthorizationCodeProperties:
         out["authorization_code"] = data["AuthorizationCode"]
     if data.get("RedirectUri") is not None:
         out["redirect_uri"] = data["RedirectUri"]
+    return out
+
+
+def redact_sensitive(value: AuthorizationCodeProperties) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_code" in value:
+        out["authorization_code"] = "*** Sensitive Data Redacted ***"
     return out

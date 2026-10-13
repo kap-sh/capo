@@ -30,7 +30,9 @@ from capo_mpa._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -179,7 +181,9 @@ class AsyncMPAClient:
         self.session = AsyncSession(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMPAClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMPAClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMPAClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class AsyncMPAClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -239,7 +245,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_policy_version_response.GetPolicyVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_policy_version_response
+
+            return capo_mpa.types.get_policy_version_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicyVersion", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_policy_version_request.GetPolicyVersionRequest = {
             "policy_version_arn": policy_version_arn
         }
@@ -291,7 +307,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_resource_policy_response.GetResourcePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_resource_policy_response
+
+            return capo_mpa.types.get_resource_policy_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResourcePolicy", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy_name": policy_name,
@@ -342,7 +368,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_mpa.types.list_policies_request.ListPoliciesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -417,7 +445,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPolicyVersions")
+        )
         input_: capo_mpa.types.list_policy_versions_request.ListPolicyVersionsRequest = {
             "policy_arn": policy_arn
         }
@@ -496,7 +526,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcePolicies")
+        )
         input_: capo_mpa.types.list_resource_policies_request.ListResourcePoliciesRequest = {
             "resource_arn": resource_arn
         }
@@ -571,7 +603,19 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_tags_for_resource_response
+
+            return capo_mpa.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -622,7 +666,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.tag_resource_request
+
+            return capo_mpa.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -673,7 +727,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.untag_resource_request
+
+            return capo_mpa.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -735,7 +799,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_approval_team_request
+
+            return capo_mpa.types.create_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_approval_team_request.CreateApprovalTeamRequest = {
             "approval_strategy": approval_strategy,
             "approvers": approvers,
@@ -792,7 +866,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_approval_team_response.GetApprovalTeamResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_approval_team_response
+
+            return capo_mpa.types.get_approval_team_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetApprovalTeam", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_approval_team_request.GetApprovalTeamRequest = {
             "arn": arn
         }
@@ -854,7 +938,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.update_approval_team_request
+
+            return capo_mpa.types.update_approval_team_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApprovalTeam", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.update_approval_team_request.UpdateApprovalTeamRequest = {
             "arn": arn
         }
@@ -913,7 +1007,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInactiveApprovalTeamVersion")
+        )
         input_: capo_mpa.types.delete_inactive_approval_team_version_request.DeleteInactiveApprovalTeamVersionRequest = {
             "arn": arn,
             "version_id": version_id,
@@ -963,7 +1059,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_approval_teams_response.ListApprovalTeamsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_approval_teams_response
+
+            return capo_mpa.types.list_approval_teams_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListApprovalTeams", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_approval_teams_request.ListApprovalTeamsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1037,7 +1143,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartActiveApprovalTeamDeletion")
+        )
         input_: capo_mpa.types.start_active_approval_team_deletion_request.StartActiveApprovalTeamDeletionRequest = {
             "arn": arn
         }
@@ -1091,7 +1199,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartApprovalTeamBaseline")
+        )
         input_: capo_mpa.types.start_approval_team_baseline_request.StartApprovalTeamBaselineRequest = {
             "arn": arn
         }
@@ -1145,7 +1255,19 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.create_identity_source_request
+
+            return capo_mpa.types.create_identity_source_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIdentitySource", redact_input=_redact_input),
+        )
         input_: capo_mpa.types.create_identity_source_request.CreateIdentitySourceRequest = {
             "identity_source_parameters": identity_source_parameters
         }
@@ -1198,7 +1320,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdentitySource")
+        )
         input_: capo_mpa.types.get_identity_source_request.GetIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -1244,7 +1368,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdentitySource")
+        )
         input_: capo_mpa.types.delete_identity_source_request.DeleteIdentitySourceRequest = {
             "identity_source_arn": identity_source_arn
         }
@@ -1293,7 +1419,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentitySources")
+        )
         input_: capo_mpa.types.list_identity_sources_request.ListIdentitySourcesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1364,7 +1492,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_session_response
+
+            return capo_mpa.types.get_session_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_session_request.GetSessionRequest = {
             "session_arn": session_arn
         }
@@ -1413,7 +1551,9 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSession")
+        )
         input_: capo_mpa.types.cancel_session_request.CancelSessionRequest = {
             "session_arn": session_arn
         }
@@ -1467,7 +1607,17 @@ class AsyncMPAClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_sessions_response.ListSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_sessions_response
+
+            return capo_mpa.types.list_sessions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSessions", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_sessions_request.ListSessionsRequest = {
             "approval_team_arn": approval_team_arn
         }

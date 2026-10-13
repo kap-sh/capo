@@ -22,10 +22,12 @@ from capo_marketplace_reporting._resources.aws_marketplace_reporting.dashboard i
 from capo_marketplace_reporting._services._aws_config import aws_config
 from capo_marketplace_reporting._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -112,7 +114,9 @@ class MarketplaceReportingClient:
         self.dashboard = Dashboard(self)
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceReportingClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceReportingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceReportingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -120,8 +124,10 @@ class MarketplaceReportingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -185,7 +191,9 @@ class MarketplaceReportingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuyerDashboard")
+        )
         input_: capo_marketplace_reporting.types.get_buyer_dashboard_input.GetBuyerDashboardInput = {
             "dashboard_identifier": dashboard_identifier,
             "embedding_domains": embedding_domains,

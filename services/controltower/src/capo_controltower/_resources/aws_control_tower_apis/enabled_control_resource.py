@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,9 @@ class EnabledControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableControl")
+        )
         input_: capo_controltower.types.enable_control_input.EnableControlInput = {
             "control_identifier": control_identifier,
             "target_identifier": target_identifier,
@@ -142,7 +145,9 @@ class EnabledControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnabledControl")
+        )
         input_: capo_controltower.types.get_enabled_control_input.GetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }
@@ -193,7 +198,9 @@ class EnabledControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledControl")
+        )
         input_: capo_controltower.types.update_enabled_control_input.UpdateEnabledControlInput = {
             "parameters": parameters,
             "enabled_control_identifier": enabled_control_identifier,
@@ -255,7 +262,9 @@ class EnabledControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnabledControls")
+        )
         input_: capo_controltower.types.list_enabled_controls_input.ListEnabledControlsInput = {}
         if target_identifier is not None:
             input_["target_identifier"] = target_identifier
@@ -314,7 +323,9 @@ class EnabledControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetEnabledControl")
+        )
         input_: capo_controltower.types.reset_enabled_control_input.ResetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }
@@ -377,7 +388,9 @@ class AsyncEnabledControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableControl")
+        )
         input_: capo_controltower.types.enable_control_input.EnableControlInput = {
             "control_identifier": control_identifier,
             "target_identifier": target_identifier,
@@ -430,7 +443,9 @@ class AsyncEnabledControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnabledControl")
+        )
         input_: capo_controltower.types.get_enabled_control_input.GetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }
@@ -482,7 +497,9 @@ class AsyncEnabledControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnabledControl")
+        )
         input_: capo_controltower.types.update_enabled_control_input.UpdateEnabledControlInput = {
             "parameters": parameters,
             "enabled_control_identifier": enabled_control_identifier,
@@ -545,7 +562,9 @@ class AsyncEnabledControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnabledControls")
+        )
         input_: capo_controltower.types.list_enabled_controls_input.ListEnabledControlsInput = {}
         if target_identifier is not None:
             input_["target_identifier"] = target_identifier
@@ -605,7 +624,9 @@ class AsyncEnabledControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetEnabledControl")
+        )
         input_: capo_controltower.types.reset_enabled_control_input.ResetEnabledControlInput = {
             "enabled_control_identifier": enabled_control_identifier
         }

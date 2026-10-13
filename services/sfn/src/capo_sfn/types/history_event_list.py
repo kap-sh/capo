@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#HistoryEventList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_sfn.types.history_event
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_0(data: list) -> HistoryEventList:
             continue
         out.append(capo_sfn.types.history_event.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: HistoryEventList) -> list[Any]:
+    import capo_sfn.types.history_event
+
+    return [capo_sfn.types.history_event.redact_sensitive(item) for item in value]

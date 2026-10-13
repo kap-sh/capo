@@ -28,7 +28,9 @@ from capo_rolesanywhere._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -165,7 +167,9 @@ class AsyncRolesAnywhereClient:
         self.trust_anchor = AsyncTrustAnchor(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRolesAnywhereClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRolesAnywhereClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -173,8 +177,10 @@ class AsyncRolesAnywhereClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -226,7 +232,19 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rolesanywhere.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.list_tags_for_resource_response
+
+            return capo_rolesanywhere.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_rolesanywhere.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -279,7 +297,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutNotificationSettings")
+        )
         input_: capo_rolesanywhere.types.put_notification_settings_request.PutNotificationSettingsRequest = {
             "trust_anchor_id": trust_anchor_id,
             "notification_settings": notification_settings,
@@ -333,7 +353,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetNotificationSettings")
+        )
         input_: capo_rolesanywhere.types.reset_notification_settings_request.ResetNotificationSettingsRequest = {
             "trust_anchor_id": trust_anchor_id,
             "notification_setting_keys": notification_setting_keys,
@@ -383,7 +405,19 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.tag_resource_request
+
+            return capo_rolesanywhere.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -432,7 +466,19 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.untag_resource_request
+
+            return capo_rolesanywhere.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -486,7 +532,16 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.import_crl_request.ImportCrlRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.import_crl_request
+
+            return capo_rolesanywhere.types.import_crl_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportCrl", redact_input=_redact_input)
+        )
         input_: capo_rolesanywhere.types.import_crl_request.ImportCrlRequest = {
             "name": name,
             "crl_data": crl_data,
@@ -536,7 +591,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -586,7 +643,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCrl")
+        )
         input_: capo_rolesanywhere.types.update_crl_request.UpdateCrlRequest = {
             "crl_id": crl_id
         }
@@ -635,7 +694,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -682,7 +743,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrls")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -750,7 +813,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -795,7 +860,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableCrl")
+        )
         input_: capo_rolesanywhere.types.scalar_crl_request.ScalarCrlRequest = {
             "crl_id": crl_id
         }
@@ -858,7 +925,19 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_profile_request
+
+            return capo_rolesanywhere.types.create_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateProfile", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "role_arns": role_arns,
@@ -918,7 +997,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -980,7 +1061,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProfile")
+        )
         input_: capo_rolesanywhere.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -1037,7 +1120,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -1084,7 +1169,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1164,7 +1251,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.delete_attribute_mapping_request.DeleteAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,
@@ -1212,7 +1301,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -1257,7 +1348,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableProfile")
+        )
         input_: capo_rolesanywhere.types.scalar_profile_request.ScalarProfileRequest = {
             "profile_id": profile_id
         }
@@ -1312,7 +1405,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAttributeMapping")
+        )
         input_: capo_rolesanywhere.types.put_attribute_mapping_request.PutAttributeMappingRequest = {
             "profile_id": profile_id,
             "certificate_field": certificate_field,
@@ -1359,7 +1454,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubject")
+        )
         input_: capo_rolesanywhere.types.scalar_subject_request.ScalarSubjectRequest = {
             "subject_id": subject_id
         }
@@ -1406,7 +1503,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubjects")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1484,7 +1583,21 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest",
+        ) -> dict[str, Any]:
+            import capo_rolesanywhere.types.create_trust_anchor_request
+
+            return (
+                capo_rolesanywhere.types.create_trust_anchor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTrustAnchor", redact_input=_redact_input),
+        )
         input_: capo_rolesanywhere.types.create_trust_anchor_request.CreateTrustAnchorRequest = {
             "name": name,
             "source": source,
@@ -1537,7 +1650,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -1587,7 +1702,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.update_trust_anchor_request.UpdateTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -1636,7 +1753,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -1685,7 +1804,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrustAnchors")
+        )
         input_: capo_rolesanywhere.types.list_request.ListRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1755,7 +1876,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }
@@ -1800,7 +1923,9 @@ class AsyncRolesAnywhereClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableTrustAnchor")
+        )
         input_: capo_rolesanywhere.types.scalar_trust_anchor_request.ScalarTrustAnchorRequest = {
             "trust_anchor_id": trust_anchor_id
         }

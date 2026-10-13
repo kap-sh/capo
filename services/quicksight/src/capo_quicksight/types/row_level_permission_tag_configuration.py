@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#RowLevelPermissionTagConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,6 +72,19 @@ def deserialize_json(data: dict) -> RowLevelPermissionTagConfiguration:
         out["tag_rule_configurations"] = (
             capo_quicksight.types.row_level_permission_tag_rule_configuration_list.deserialize_json(
                 data["TagRuleConfigurations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RowLevelPermissionTagConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tag_rules" in value:
+        import capo_quicksight.types.row_level_permission_tag_rule_list
+
+        out["tag_rules"] = (
+            capo_quicksight.types.row_level_permission_tag_rule_list.redact_sensitive(
+                value["tag_rules"]
             )
         )
     return out

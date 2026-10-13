@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubstrategy#UpdateApplicationComponentConfigRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_json(data: dict) -> UpdateApplicationComponentConfigRequest:
         out["configure_only"] = data["configureOnly"]
     if data.get("appType") is not None:
         out["app_type"] = data["appType"]
+    return out
+
+
+def redact_sensitive(value: UpdateApplicationComponentConfigRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secrets_manager_key" in value:
+        out["secrets_manager_key"] = "*** Sensitive Data Redacted ***"
     return out

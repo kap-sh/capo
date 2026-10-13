@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,32 @@ class ProvisioningProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_request
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_provisioning_profile_response.CreateProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProvisioningProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest = {
             "provisioning_type": provisioning_type
         }
@@ -161,7 +187,19 @@ class ProvisioningProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_provisioning_profile_response.GetProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.get_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProvisioningProfile", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_provisioning_profile_request.GetProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -209,7 +247,9 @@ class ProvisioningProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningProfile")
+        )
         input_: capo_iot_managed_integrations.types.delete_provisioning_profile_request.DeleteProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -263,7 +303,9 @@ class ProvisioningProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisioningProfiles")
+        )
         input_: capo_iot_managed_integrations.types.list_provisioning_profiles_request.ListProvisioningProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -339,7 +381,32 @@ class AsyncProvisioningProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_request
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_provisioning_profile_response.CreateProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProvisioningProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest = {
             "provisioning_type": provisioning_type
         }
@@ -400,7 +467,19 @@ class AsyncProvisioningProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_provisioning_profile_response.GetProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.get_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProvisioningProfile", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_provisioning_profile_request.GetProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -449,7 +528,9 @@ class AsyncProvisioningProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningProfile")
+        )
         input_: capo_iot_managed_integrations.types.delete_provisioning_profile_request.DeleteProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -504,7 +585,9 @@ class AsyncProvisioningProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisioningProfiles")
+        )
         input_: capo_iot_managed_integrations.types.list_provisioning_profiles_request.ListProvisioningProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

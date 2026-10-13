@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#AccessKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,4 +85,11 @@ def deserialize_aws_json_1_1(data: dict) -> AccessKey:
                 data["lastUsed"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AccessKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_key_id" in value:
+        out["access_key_id"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_deadline._auth._sigv4
 from capo_deadline._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_deadline.types.create_monitor_request.CreateMonitorRequest = {
             "display_name": display_name,
             "identity_center_instance_arn": identity_center_instance_arn,
@@ -155,7 +158,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_deadline.types.get_monitor_request.GetMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -208,7 +213,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_deadline.types.update_monitor_request.UpdateMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -261,7 +268,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_deadline.types.delete_monitor_request.DeleteMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -309,7 +318,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_deadline.types.list_monitors_request.ListMonitorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -363,7 +374,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitorSettings")
+        )
         input_: capo_deadline.types.get_monitor_settings_request.GetMonitorSettingsRequest = {
             "monitor_id": monitor_id
         }
@@ -417,7 +430,9 @@ class MonitorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitorSettings")
+        )
         input_: capo_deadline.types.update_monitor_settings_request.UpdateMonitorSettingsRequest = {
             "monitor_id": monitor_id,
             "settings": settings,
@@ -483,7 +498,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMonitor")
+        )
         input_: capo_deadline.types.create_monitor_request.CreateMonitorRequest = {
             "display_name": display_name,
             "identity_center_instance_arn": identity_center_instance_arn,
@@ -541,7 +558,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitor")
+        )
         input_: capo_deadline.types.get_monitor_request.GetMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -595,7 +614,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitor")
+        )
         input_: capo_deadline.types.update_monitor_request.UpdateMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -649,7 +670,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_deadline.types.delete_monitor_request.DeleteMonitorRequest = {
             "monitor_id": monitor_id
         }
@@ -698,7 +721,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_deadline.types.list_monitors_request.ListMonitorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -753,7 +778,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMonitorSettings")
+        )
         input_: capo_deadline.types.get_monitor_settings_request.GetMonitorSettingsRequest = {
             "monitor_id": monitor_id
         }
@@ -808,7 +835,9 @@ class AsyncMonitorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMonitorSettings")
+        )
         input_: capo_deadline.types.update_monitor_settings_request.UpdateMonitorSettingsRequest = {
             "monitor_id": monitor_id,
             "settings": settings,

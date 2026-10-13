@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessToolUseBlockDelta``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> HarnessToolUseBlockDelta:
         out["input"] = data["input"]
     else:
         raise DeserializationError("HarnessToolUseBlockDelta.input required")
+    return out
+
+
+def redact_sensitive(value: HarnessToolUseBlockDelta) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

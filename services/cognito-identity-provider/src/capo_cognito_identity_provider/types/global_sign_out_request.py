@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#GlobalSignOutRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_aws_json_1_1(data: dict) -> GlobalSignOutRequest:
         out["access_token"] = data["AccessToken"]
     else:
         raise DeserializationError("GlobalSignOutRequest.access_token required")
+    return out
+
+
+def redact_sensitive(value: GlobalSignOutRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

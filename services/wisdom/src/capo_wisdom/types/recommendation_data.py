@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#RecommendationData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,13 @@ def deserialize_json(data: dict) -> RecommendationData:
         out["relevance_level"] = data["relevanceLevel"]
     if data.get("type") is not None:
         out["type"] = data["type"]
+    return out
+
+
+def redact_sensitive(value: RecommendationData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document" in value:
+        import capo_wisdom.types.document
+
+        out["document"] = capo_wisdom.types.document.redact_sensitive(value["document"])
     return out

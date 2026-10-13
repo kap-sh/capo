@@ -27,10 +27,12 @@ from capo_resource_explorer_2._resources.resource_explorer.default_view_associat
 from capo_resource_explorer_2._services._aws_config import aws_config
 from capo_resource_explorer_2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -189,7 +191,9 @@ class ResourceExplorer2Client:
         self.default_view_association = DefaultViewAssociation(self)
 
     def operation_options(
-        self, config_overrides: Optional[ResourceExplorer2ClientConfig] = None
+        self,
+        config_overrides: Optional[ResourceExplorer2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ResourceExplorer2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class ResourceExplorer2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -253,7 +259,21 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.batch_get_view_output.BatchGetViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.batch_get_view_output
+
+            return (
+                capo_resource_explorer_2.types.batch_get_view_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetView", redact_output=_redact_output),
+        )
         input_: capo_resource_explorer_2.types.batch_get_view_input.BatchGetViewInput = {}
         if view_arns is not None:
             input_["view_arns"] = view_arns
@@ -306,7 +326,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceExplorerSetup")
+        )
         input_: capo_resource_explorer_2.types.create_resource_explorer_setup_input.CreateResourceExplorerSetupInput = {
             "region_list": region_list,
             "view_name": view_name,
@@ -360,7 +382,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceExplorerSetup")
+        )
         input_: capo_resource_explorer_2.types.delete_resource_explorer_setup_input.DeleteResourceExplorerSetupInput = {}
         if region_list is not None:
             input_["region_list"] = region_list
@@ -399,7 +423,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDefaultView")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -436,7 +462,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountLevelServiceConfiguration")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -474,7 +502,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultView")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -512,7 +542,18 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_index_output.GetIndexOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_index_output
+
+            return capo_resource_explorer_2.types.get_index_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndex", redact_output=_redact_output)
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -557,7 +598,21 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_managed_view_output.GetManagedViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_managed_view_output
+
+            return (
+                capo_resource_explorer_2.types.get_managed_view_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedView", redact_output=_redact_output),
+        )
         input_: capo_resource_explorer_2.types.get_managed_view_input.GetManagedViewInput = {
             "managed_view_arn": managed_view_arn
         }
@@ -608,7 +663,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_resource_explorer_setup_output.GetResourceExplorerSetupOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_resource_explorer_setup_output
+
+            return capo_resource_explorer_2.types.get_resource_explorer_setup_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResourceExplorerSetup", redact_output=_redact_output),
+        )
         input_: capo_resource_explorer_2.types.get_resource_explorer_setup_input.GetResourceExplorerSetupInput = {
             "task_id": task_id
         }
@@ -678,7 +745,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceIndex")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -722,7 +791,21 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_service_view_output.GetServiceViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_service_view_output
+
+            return (
+                capo_resource_explorer_2.types.get_service_view_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetServiceView", redact_output=_redact_output),
+        )
         input_: capo_resource_explorer_2.types.get_service_view_input.GetServiceViewInput = {
             "service_view_arn": service_view_arn
         }
@@ -772,7 +855,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndexesForMembers")
+        )
         input_: capo_resource_explorer_2.types.list_indexes_for_members_input.ListIndexesForMembersInput = {
             "account_id_list": account_id_list
         }
@@ -850,7 +935,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedViews")
+        )
         input_: capo_resource_explorer_2.types.list_managed_views_input.ListManagedViewsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -933,7 +1020,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.list_resources_input.ListResourcesInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.list_resources_input
+
+            return capo_resource_explorer_2.types.list_resources_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListResources", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.list_resources_input.ListResourcesInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1018,7 +1117,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceIndexes")
+        )
         input_: capo_resource_explorer_2.types.list_service_indexes_input.ListServiceIndexesInput = {}
         if regions is not None:
             input_["regions"] = regions
@@ -1095,7 +1196,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceViews")
+        )
         input_: capo_resource_explorer_2.types.list_service_views_input.ListServiceViewsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1165,7 +1268,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamingAccessForServices")
+        )
         input_: capo_resource_explorer_2.types.list_streaming_access_for_services_input.ListStreamingAccessForServicesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1236,7 +1341,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSupportedResourceTypes")
+        )
         input_: capo_resource_explorer_2.types.list_supported_resource_types_input.ListSupportedResourceTypesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1307,7 +1414,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.list_tags_for_resource_output.ListTagsForResourceOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.list_tags_for_resource_output
+
+            return capo_resource_explorer_2.types.list_tags_for_resource_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_resource_explorer_2.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1361,7 +1480,16 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.search_input.SearchInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.search_input
+
+            return capo_resource_explorer_2.types.search_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Search", redact_input=_redact_input)
+        )
         input_: capo_resource_explorer_2.types.search_input.SearchInput = {
             "query_string": query_string
         }
@@ -1442,7 +1570,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.tag_resource_input.TagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.tag_resource_input
+
+            return capo_resource_explorer_2.types.tag_resource_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1494,7 +1634,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.untag_resource_input.UntagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.untag_resource_input
+
+            return capo_resource_explorer_2.types.untag_resource_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1544,7 +1696,19 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_index_input.CreateIndexInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_index_input
+
+            return capo_resource_explorer_2.types.create_index_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIndex", redact_input=_redact_input),
+        )
         input_: capo_resource_explorer_2.types.create_index_input.CreateIndexInput = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -1600,7 +1764,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndexType")
+        )
         input_: capo_resource_explorer_2.types.update_index_type_input.UpdateIndexTypeInput = {
             "arn": arn,
             "type": type,
@@ -1648,7 +1814,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_resource_explorer_2.types.delete_index_input.DeleteIndexInput = {
             "arn": arn
         }
@@ -1702,7 +1870,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndexes")
+        )
         input_: capo_resource_explorer_2.types.list_indexes_input.ListIndexesInput = {}
         if type is not None:
             input_["type"] = type
@@ -1798,7 +1968,30 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_view_input.CreateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_input
+
+            return capo_resource_explorer_2.types.create_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.create_view_output.CreateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_output
+
+            return capo_resource_explorer_2.types.create_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.create_view_input.CreateViewInput = {
             "view_name": view_name
         }
@@ -1857,7 +2050,18 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_view_output.GetViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_view_output
+
+            return capo_resource_explorer_2.types.get_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetView", redact_output=_redact_output)
+        )
         input_: capo_resource_explorer_2.types.get_view_input.GetViewInput = {
             "view_arn": view_arn
         }
@@ -1913,7 +2117,30 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.update_view_input.UpdateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_input
+
+            return capo_resource_explorer_2.types.update_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.update_view_output.UpdateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_output
+
+            return capo_resource_explorer_2.types.update_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.update_view_input.UpdateViewInput = {
             "view_arn": view_arn
         }
@@ -1965,7 +2192,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteView")
+        )
         input_: capo_resource_explorer_2.types.delete_view_input.DeleteViewInput = {
             "view_arn": view_arn
         }
@@ -2013,7 +2242,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListViews")
+        )
         input_: capo_resource_explorer_2.types.list_views_input.ListViewsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2083,7 +2314,9 @@ class ResourceExplorer2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDefaultView")
+        )
         input_: capo_resource_explorer_2.types.associate_default_view_input.AssociateDefaultViewInput = {
             "view_arn": view_arn
         }

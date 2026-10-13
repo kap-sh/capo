@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#UpdateConnectorProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,17 @@ def deserialize_json(data: dict) -> UpdateConnectorProfileRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateConnectorProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connector_profile_config" in value:
+        import capo_appflow.types.connector_profile_config
+
+        out["connector_profile_config"] = (
+            capo_appflow.types.connector_profile_config.redact_sensitive(
+                value["connector_profile_config"]
+            )
+        )
     return out

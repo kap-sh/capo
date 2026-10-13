@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#SupplementalTaxRegistrationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_taxsettings.types.supplemental_tax_registration
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> SupplementalTaxRegistrationList:
             capo_taxsettings.types.supplemental_tax_registration.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SupplementalTaxRegistrationList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

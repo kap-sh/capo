@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,19 @@ class NetworkSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_network_settings_request
+
+            return capo_workspaces_web.types.create_network_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateNetworkSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -146,7 +159,9 @@ class NetworkSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNetworkSettings")
+        )
         input_: capo_workspaces_web.types.get_network_settings_request.GetNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -207,7 +222,9 @@ class NetworkSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkSettings")
+        )
         input_: capo_workspaces_web.types.update_network_settings_request.UpdateNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -263,7 +280,9 @@ class NetworkSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkSettings")
+        )
         input_: capo_workspaces_web.types.delete_network_settings_request.DeleteNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -315,7 +334,9 @@ class NetworkSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkSettings")
+        )
         input_: capo_workspaces_web.types.list_network_settings_request.ListNetworkSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -381,7 +402,19 @@ class AsyncNetworkSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_network_settings_request
+
+            return capo_workspaces_web.types.create_network_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateNetworkSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_network_settings_request.CreateNetworkSettingsRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -436,7 +469,9 @@ class AsyncNetworkSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNetworkSettings")
+        )
         input_: capo_workspaces_web.types.get_network_settings_request.GetNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -498,7 +533,9 @@ class AsyncNetworkSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkSettings")
+        )
         input_: capo_workspaces_web.types.update_network_settings_request.UpdateNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -555,7 +592,9 @@ class AsyncNetworkSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkSettings")
+        )
         input_: capo_workspaces_web.types.delete_network_settings_request.DeleteNetworkSettingsRequest = {
             "network_settings_arn": network_settings_arn
         }
@@ -608,7 +647,9 @@ class AsyncNetworkSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkSettings")
+        )
         input_: capo_workspaces_web.types.list_network_settings_request.ListNetworkSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

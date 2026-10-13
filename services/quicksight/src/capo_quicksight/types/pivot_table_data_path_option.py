@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableDataPathOption``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> PivotTableDataPathOption:
         raise DeserializationError("PivotTableDataPathOption.data_path_list required")
     if data.get("Width") is not None:
         out["width"] = data["Width"]
+    return out
+
+
+def redact_sensitive(value: PivotTableDataPathOption) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_path_list" in value:
+        import capo_quicksight.types.data_path_value_list
+
+        out["data_path_list"] = (
+            capo_quicksight.types.data_path_value_list.redact_sensitive(
+                value["data_path_list"]
+            )
+        )
     return out

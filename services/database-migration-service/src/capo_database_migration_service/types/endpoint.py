@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#Endpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -590,6 +590,107 @@ def deserialize_aws_json_1_1(data: dict) -> Endpoint:
         out["lakehouse_settings"] = (
             capo_database_migration_service.types.lakehouse_settings.deserialize_aws_json_1_1(
                 data["LakehouseSettings"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Endpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "mongo_db_settings" in value:
+        import capo_database_migration_service.types.mongo_db_settings
+
+        out["mongo_db_settings"] = (
+            capo_database_migration_service.types.mongo_db_settings.redact_sensitive(
+                value["mongo_db_settings"]
+            )
+        )
+    if "kafka_settings" in value:
+        import capo_database_migration_service.types.kafka_settings
+
+        out["kafka_settings"] = (
+            capo_database_migration_service.types.kafka_settings.redact_sensitive(
+                value["kafka_settings"]
+            )
+        )
+    if "redshift_settings" in value:
+        import capo_database_migration_service.types.redshift_settings
+
+        out["redshift_settings"] = (
+            capo_database_migration_service.types.redshift_settings.redact_sensitive(
+                value["redshift_settings"]
+            )
+        )
+    if "postgre_sql_settings" in value:
+        import capo_database_migration_service.types.postgre_sql_settings
+
+        out["postgre_sql_settings"] = (
+            capo_database_migration_service.types.postgre_sql_settings.redact_sensitive(
+                value["postgre_sql_settings"]
+            )
+        )
+    if "my_sql_settings" in value:
+        import capo_database_migration_service.types.my_sql_settings
+
+        out["my_sql_settings"] = (
+            capo_database_migration_service.types.my_sql_settings.redact_sensitive(
+                value["my_sql_settings"]
+            )
+        )
+    if "oracle_settings" in value:
+        import capo_database_migration_service.types.oracle_settings
+
+        out["oracle_settings"] = (
+            capo_database_migration_service.types.oracle_settings.redact_sensitive(
+                value["oracle_settings"]
+            )
+        )
+    if "sybase_settings" in value:
+        import capo_database_migration_service.types.sybase_settings
+
+        out["sybase_settings"] = (
+            capo_database_migration_service.types.sybase_settings.redact_sensitive(
+                value["sybase_settings"]
+            )
+        )
+    if "microsoft_sql_server_settings" in value:
+        import capo_database_migration_service.types.microsoft_sql_server_settings
+
+        out["microsoft_sql_server_settings"] = (
+            capo_database_migration_service.types.microsoft_sql_server_settings.redact_sensitive(
+                value["microsoft_sql_server_settings"]
+            )
+        )
+    if "ibm_db2_settings" in value:
+        import capo_database_migration_service.types.ibm_db2_settings
+
+        out["ibm_db2_settings"] = (
+            capo_database_migration_service.types.ibm_db2_settings.redact_sensitive(
+                value["ibm_db2_settings"]
+            )
+        )
+    if "doc_db_settings" in value:
+        import capo_database_migration_service.types.doc_db_settings
+
+        out["doc_db_settings"] = (
+            capo_database_migration_service.types.doc_db_settings.redact_sensitive(
+                value["doc_db_settings"]
+            )
+        )
+    if "redis_settings" in value:
+        import capo_database_migration_service.types.redis_settings
+
+        out["redis_settings"] = (
+            capo_database_migration_service.types.redis_settings.redact_sensitive(
+                value["redis_settings"]
+            )
+        )
+    if "gcp_my_sql_settings" in value:
+        import capo_database_migration_service.types.gcp_my_sql_settings
+
+        out["gcp_my_sql_settings"] = (
+            capo_database_migration_service.types.gcp_my_sql_settings.redact_sensitive(
+                value["gcp_my_sql_settings"]
             )
         )
     return out

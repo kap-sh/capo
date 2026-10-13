@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteAccessibilityAttributeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_accessibility_attribute
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> RouteAccessibilityAttributeList:
             capo_geo_routes.types.route_accessibility_attribute.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RouteAccessibilityAttributeList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

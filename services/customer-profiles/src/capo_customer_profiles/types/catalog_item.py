@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#CatalogItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -144,4 +144,31 @@ def deserialize_json(data: dict) -> CatalogItem:
         out["attributes"] = capo_customer_profiles.types.attributes.deserialize_json(
             data["Attributes"]
         )
+    return out
+
+
+def redact_sensitive(value: CatalogItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "id" in value:
+        out["id"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
+    if "category" in value:
+        out["category"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "additional_information" in value:
+        out["additional_information"] = "*** Sensitive Data Redacted ***"
+    if "image_link" in value:
+        out["image_link"] = "*** Sensitive Data Redacted ***"
+    if "link" in value:
+        out["link"] = "*** Sensitive Data Redacted ***"
+    if "price" in value:
+        out["price"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

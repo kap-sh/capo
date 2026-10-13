@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateReferenceStore")
+        )
         input_: capo_omics.types.create_reference_store_request.CreateReferenceStoreRequest = {
             "name": name
         }
@@ -156,7 +159,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReferenceStore")
+        )
         input_: capo_omics.types.get_reference_store_request.GetReferenceStoreRequest = {
             "id": id
         }
@@ -207,7 +212,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteReferenceStore")
+        )
         input_: capo_omics.types.delete_reference_store_request.DeleteReferenceStoreRequest = {
             "id": id
         }
@@ -260,7 +267,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReferenceStores")
+        )
         input_: capo_omics.types.list_reference_stores_request.ListReferenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -314,7 +323,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReferenceImportJob")
+        )
         input_: capo_omics.types.get_reference_import_job_request.GetReferenceImportJobRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -371,7 +382,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReferenceImportJobs")
+        )
         input_: capo_omics.types.list_reference_import_jobs_request.ListReferenceImportJobsRequest = {
             "reference_store_id": reference_store_id
         }
@@ -432,7 +445,9 @@ class ReferenceStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReferenceImportJob")
+        )
         input_: capo_omics.types.start_reference_import_job_request.StartReferenceImportJobRequest = {
             "reference_store_id": reference_store_id,
             "role_arn": role_arn,
@@ -502,7 +517,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateReferenceStore")
+        )
         input_: capo_omics.types.create_reference_store_request.CreateReferenceStoreRequest = {
             "name": name
         }
@@ -559,7 +576,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReferenceStore")
+        )
         input_: capo_omics.types.get_reference_store_request.GetReferenceStoreRequest = {
             "id": id
         }
@@ -611,7 +630,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteReferenceStore")
+        )
         input_: capo_omics.types.delete_reference_store_request.DeleteReferenceStoreRequest = {
             "id": id
         }
@@ -665,7 +686,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReferenceStores")
+        )
         input_: capo_omics.types.list_reference_stores_request.ListReferenceStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -720,7 +743,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReferenceImportJob")
+        )
         input_: capo_omics.types.get_reference_import_job_request.GetReferenceImportJobRequest = {
             "id": id,
             "reference_store_id": reference_store_id,
@@ -778,7 +803,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReferenceImportJobs")
+        )
         input_: capo_omics.types.list_reference_import_jobs_request.ListReferenceImportJobsRequest = {
             "reference_store_id": reference_store_id
         }
@@ -840,7 +867,9 @@ class AsyncReferenceStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartReferenceImportJob")
+        )
         input_: capo_omics.types.start_reference_import_job_request.StartReferenceImportJobRequest = {
             "reference_store_id": reference_store_id,
             "role_arn": role_arn,

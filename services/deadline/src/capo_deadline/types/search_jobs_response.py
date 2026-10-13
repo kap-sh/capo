@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#SearchJobsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,15 @@ def deserialize_json(data: dict) -> SearchJobsResponse:
         out["total_results"] = data["totalResults"]
     else:
         raise DeserializationError("SearchJobsResponse.total_results required")
+    return out
+
+
+def redact_sensitive(value: SearchJobsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "jobs" in value:
+        import capo_deadline.types.job_search_summaries
+
+        out["jobs"] = capo_deadline.types.job_search_summaries.redact_sensitive(
+            value["jobs"]
+        )
     return out

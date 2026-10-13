@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ModifyVpnTunnelOptionsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,11 @@ def deserialize_ec2_query(el: Element) -> ModifyVpnTunnelOptionsRequest:
     child_pre_shared_key_storage = el.find("PreSharedKeyStorage")
     if child_pre_shared_key_storage is not None:
         out["pre_shared_key_storage"] = str(child_pre_shared_key_storage.text or "")
+    return out
+
+
+def redact_sensitive(value: ModifyVpnTunnelOptionsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tunnel_options" in value:
+        out["tunnel_options"] = "*** Sensitive Data Redacted ***"
     return out

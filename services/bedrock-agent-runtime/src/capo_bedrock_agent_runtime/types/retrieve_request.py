@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RetrieveRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,21 @@ def deserialize_json(data: dict) -> RetrieveRequest:
                 data["userContext"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RetrieveRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieval_query" in value:
+        out["retrieval_query"] = "*** Sensitive Data Redacted ***"
+    if "retrieval_configuration" in value:
+        import capo_bedrock_agent_runtime.types.knowledge_base_retrieval_configuration
+
+        out["retrieval_configuration"] = (
+            capo_bedrock_agent_runtime.types.knowledge_base_retrieval_configuration.redact_sensitive(
+                value["retrieval_configuration"]
+            )
+        )
+    if "user_context" in value:
+        out["user_context"] = "*** Sensitive Data Redacted ***"
     return out

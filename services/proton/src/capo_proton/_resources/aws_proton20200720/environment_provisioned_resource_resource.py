@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class EnvironmentProvisionedResourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentProvisionedResources")
+        )
         input_: capo_proton.types.list_environment_provisioned_resources_input.ListEnvironmentProvisionedResourcesInput = {
             "environment_name": environment_name
         }
@@ -125,7 +128,9 @@ class AsyncEnvironmentProvisionedResourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironmentProvisionedResources")
+        )
         input_: capo_proton.types.list_environment_provisioned_resources_input.ListEnvironmentProvisionedResourcesInput = {
             "environment_name": environment_name
         }

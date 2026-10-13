@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ToolConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.tool_configuration
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> ToolConfigurationList:
             continue
         out.append(capo_qconnect.types.tool_configuration.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ToolConfigurationList) -> list[Any]:
+    import capo_qconnect.types.tool_configuration
+
+    return [
+        capo_qconnect.types.tool_configuration.redact_sensitive(item) for item in value
+    ]

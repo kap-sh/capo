@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#Service``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -337,4 +337,11 @@ def deserialize_json(data: dict) -> Service:
                 data["updatedAt"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Service) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -24,7 +24,9 @@ from capo_entityresolution._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -223,7 +225,9 @@ class AsyncEntityResolutionClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEntityResolutionClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEntityResolutionClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEntityResolutionClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -231,8 +235,10 @@ class AsyncEntityResolutionClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -299,7 +305,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPolicyStatement")
+        )
         input_: capo_entityresolution.types.add_policy_statement_input.AddPolicyStatementInput = {
             "arn": arn,
             "statement_id": statement_id,
@@ -355,7 +363,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteUniqueId")
+        )
         input_: capo_entityresolution.types.batch_delete_unique_id_input.BatchDeleteUniqueIdInput = {
             "workflow_name": workflow_name,
             "unique_ids": unique_ids,
@@ -429,7 +439,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdMappingWorkflow")
+        )
         input_: capo_entityresolution.types.create_id_mapping_workflow_input.CreateIdMappingWorkflowInput = {
             "workflow_name": workflow_name,
             "input_source_config": input_source_config,
@@ -510,7 +522,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdNamespace")
+        )
         input_: capo_entityresolution.types.create_id_namespace_input.CreateIdNamespaceInput = {
             "id_namespace_name": id_namespace_name,
             "type": type,
@@ -588,7 +602,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMatchingWorkflow")
+        )
         input_: capo_entityresolution.types.create_matching_workflow_input.CreateMatchingWorkflowInput = {
             "workflow_name": workflow_name,
             "input_source_config": input_source_config,
@@ -655,7 +671,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchemaMapping")
+        )
         input_: capo_entityresolution.types.create_schema_mapping_input.CreateSchemaMappingInput = {
             "schema_name": schema_name,
             "mapped_input_fields": mapped_input_fields,
@@ -709,7 +727,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdMappingWorkflow")
+        )
         input_: capo_entityresolution.types.delete_id_mapping_workflow_input.DeleteIdMappingWorkflowInput = {
             "workflow_name": workflow_name
         }
@@ -759,7 +779,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdNamespace")
+        )
         input_: capo_entityresolution.types.delete_id_namespace_input.DeleteIdNamespaceInput = {
             "id_namespace_name": id_namespace_name
         }
@@ -808,7 +830,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMatchingWorkflow")
+        )
         input_: capo_entityresolution.types.delete_matching_workflow_input.DeleteMatchingWorkflowInput = {
             "workflow_name": workflow_name
         }
@@ -859,7 +883,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePolicyStatement")
+        )
         input_: capo_entityresolution.types.delete_policy_statement_input.DeletePolicyStatementInput = {
             "arn": arn,
             "statement_id": statement_id,
@@ -909,7 +935,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchemaMapping")
+        )
         input_: capo_entityresolution.types.delete_schema_mapping_input.DeleteSchemaMappingInput = {
             "schema_name": schema_name
         }
@@ -963,7 +991,19 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_entityresolution.types.generate_match_id_input.GenerateMatchIdInput",
+        ) -> dict[str, Any]:
+            import capo_entityresolution.types.generate_match_id_input
+
+            return capo_entityresolution.types.generate_match_id_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GenerateMatchId", redact_input=_redact_input),
+        )
         input_: capo_entityresolution.types.generate_match_id_input.GenerateMatchIdInput = {
             "workflow_name": workflow_name,
             "records": records,
@@ -1016,7 +1056,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdMappingJob")
+        )
         input_: capo_entityresolution.types.get_id_mapping_job_input.GetIdMappingJobInput = {
             "workflow_name": workflow_name,
             "job_id": job_id,
@@ -1065,7 +1107,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdMappingWorkflow")
+        )
         input_: capo_entityresolution.types.get_id_mapping_workflow_input.GetIdMappingWorkflowInput = {
             "workflow_name": workflow_name
         }
@@ -1113,7 +1157,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdNamespace")
+        )
         input_: capo_entityresolution.types.get_id_namespace_input.GetIdNamespaceInput = {
             "id_namespace_name": id_namespace_name
         }
@@ -1165,7 +1211,18 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_entityresolution.types.get_match_id_input.GetMatchIdInput",
+        ) -> dict[str, Any]:
+            import capo_entityresolution.types.get_match_id_input
+
+            return capo_entityresolution.types.get_match_id_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMatchId", redact_input=_redact_input)
+        )
         input_: capo_entityresolution.types.get_match_id_input.GetMatchIdInput = {
             "workflow_name": workflow_name,
             "record": record,
@@ -1218,7 +1275,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMatchingJob")
+        )
         input_: capo_entityresolution.types.get_matching_job_input.GetMatchingJobInput = {
             "workflow_name": workflow_name,
             "job_id": job_id,
@@ -1267,7 +1326,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMatchingWorkflow")
+        )
         input_: capo_entityresolution.types.get_matching_workflow_input.GetMatchingWorkflowInput = {
             "workflow_name": workflow_name
         }
@@ -1315,7 +1376,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_entityresolution.types.get_policy_input.GetPolicyInput = {
             "arn": arn
         }
@@ -1365,7 +1428,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProviderService")
+        )
         input_: capo_entityresolution.types.get_provider_service_input.GetProviderServiceInput = {
             "provider_name": provider_name,
             "provider_service_name": provider_service_name,
@@ -1414,7 +1479,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaMapping")
+        )
         input_: capo_entityresolution.types.get_schema_mapping_input.GetSchemaMappingInput = {
             "schema_name": schema_name
         }
@@ -1466,7 +1533,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdMappingJobs")
+        )
         input_: capo_entityresolution.types.list_id_mapping_jobs_input.ListIdMappingJobsInput = {
             "workflow_name": workflow_name
         }
@@ -1542,7 +1611,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdMappingWorkflows")
+        )
         input_: capo_entityresolution.types.list_id_mapping_workflows_input.ListIdMappingWorkflowsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1614,7 +1685,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdNamespaces")
+        )
         input_: capo_entityresolution.types.list_id_namespaces_input.ListIdNamespacesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1689,7 +1762,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMatchingJobs")
+        )
         input_: capo_entityresolution.types.list_matching_jobs_input.ListMatchingJobsInput = {
             "workflow_name": workflow_name
         }
@@ -1765,7 +1840,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMatchingWorkflows")
+        )
         input_: capo_entityresolution.types.list_matching_workflows_input.ListMatchingWorkflowsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1841,7 +1918,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProviderServices")
+        )
         input_: capo_entityresolution.types.list_provider_services_input.ListProviderServicesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1919,7 +1998,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemaMappings")
+        )
         input_: capo_entityresolution.types.list_schema_mappings_input.ListSchemaMappingsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1988,7 +2069,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_entityresolution.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -2041,7 +2124,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPolicy")
+        )
         input_: capo_entityresolution.types.put_policy_input.PutPolicyInput = {
             "arn": arn,
             "policy": policy,
@@ -2100,7 +2185,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartIdMappingJob")
+        )
         input_: capo_entityresolution.types.start_id_mapping_job_input.StartIdMappingJobInput = {
             "workflow_name": workflow_name
         }
@@ -2154,7 +2241,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMatchingJob")
+        )
         input_: capo_entityresolution.types.start_matching_job_input.StartMatchingJobInput = {
             "workflow_name": workflow_name
         }
@@ -2202,7 +2291,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_entityresolution.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2250,7 +2341,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_entityresolution.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2319,7 +2412,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdMappingWorkflow")
+        )
         input_: capo_entityresolution.types.update_id_mapping_workflow_input.UpdateIdMappingWorkflowInput = {
             "workflow_name": workflow_name,
             "input_source_config": input_source_config,
@@ -2393,7 +2488,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdNamespace")
+        )
         input_: capo_entityresolution.types.update_id_namespace_input.UpdateIdNamespaceInput = {
             "id_namespace_name": id_namespace_name
         }
@@ -2465,7 +2562,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMatchingWorkflow")
+        )
         input_: capo_entityresolution.types.update_matching_workflow_input.UpdateMatchingWorkflowInput = {
             "workflow_name": workflow_name,
             "input_source_config": input_source_config,
@@ -2528,7 +2627,9 @@ class AsyncEntityResolutionClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchemaMapping")
+        )
         input_: capo_entityresolution.types.update_schema_mapping_input.UpdateSchemaMappingInput = {
             "schema_name": schema_name,
             "mapped_input_fields": mapped_input_fields,

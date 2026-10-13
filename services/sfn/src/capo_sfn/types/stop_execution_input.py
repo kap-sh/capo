@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#StopExecutionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,13 @@ def deserialize_aws_json_1_0(data: dict) -> StopExecutionInput:
         out["error"] = data["error"]
     if data.get("cause") is not None:
         out["cause"] = data["cause"]
+    return out
+
+
+def redact_sensitive(value: StopExecutionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        out["error"] = "*** Sensitive Data Redacted ***"
+    if "cause" in value:
+        out["cause"] = "*** Sensitive Data Redacted ***"
     return out

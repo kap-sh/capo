@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_devops_agent._auth._signers
 import capo_devops_agent._auth._sigv4
 from capo_devops_agent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,32 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_input
+
+            return capo_devops_agent.types.create_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.create_agent_space_output.CreateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_output
+
+            return capo_devops_agent.types.create_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -175,7 +201,19 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_agent_space_output.GetAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_agent_space_output
+
+            return capo_devops_agent.types.get_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentSpace", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_agent_space_input.GetAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -238,7 +276,32 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_input
+
+            return capo_devops_agent.types.update_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.update_agent_space_output.UpdateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_output
+
+            return capo_devops_agent.types.update_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -297,7 +360,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_devops_agent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -349,7 +414,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableOperatorApp")
+        )
         input_: capo_devops_agent.types.disable_operator_app_input.DisableOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -421,7 +488,19 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.enable_operator_app_input
+
+            return capo_devops_agent.types.enable_operator_app_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("EnableOperatorApp", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput = {
             "agent_space_id": agent_space_id,
             "auth_flow": auth_flow,
@@ -484,7 +563,9 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOperatorApp")
+        )
         input_: capo_devops_agent.types.get_operator_app_input.GetOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -539,7 +620,19 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_operator_app_idp_config_input
+
+            return capo_devops_agent.types.update_operator_app_idp_config_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOperatorAppIdpConfig", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput = {
             "agent_space_id": agent_space_id
         }
@@ -594,7 +687,19 @@ class AgentSpaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_agent_spaces_output.ListAgentSpacesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_agent_spaces_output
+
+            return capo_devops_agent.types.list_agent_spaces_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentSpaces", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -667,7 +772,32 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_input
+
+            return capo_devops_agent.types.create_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.create_agent_space_output.CreateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.create_agent_space_output
+
+            return capo_devops_agent.types.create_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -732,7 +862,19 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.get_agent_space_output.GetAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.get_agent_space_output
+
+            return capo_devops_agent.types.get_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentSpace", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.get_agent_space_input.GetAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -796,7 +938,32 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_input
+
+            return capo_devops_agent.types.update_agent_space_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_devops_agent.types.update_agent_space_output.UpdateAgentSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_agent_space_output
+
+            return capo_devops_agent.types.update_agent_space_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAgentSpace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_devops_agent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -856,7 +1023,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_devops_agent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -909,7 +1078,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableOperatorApp")
+        )
         input_: capo_devops_agent.types.disable_operator_app_input.DisableOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -982,7 +1153,19 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.enable_operator_app_input
+
+            return capo_devops_agent.types.enable_operator_app_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("EnableOperatorApp", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.enable_operator_app_input.EnableOperatorAppInput = {
             "agent_space_id": agent_space_id,
             "auth_flow": auth_flow,
@@ -1046,7 +1229,9 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOperatorApp")
+        )
         input_: capo_devops_agent.types.get_operator_app_input.GetOperatorAppInput = {
             "agent_space_id": agent_space_id
         }
@@ -1102,7 +1287,19 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.update_operator_app_idp_config_input
+
+            return capo_devops_agent.types.update_operator_app_idp_config_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOperatorAppIdpConfig", redact_input=_redact_input),
+        )
         input_: capo_devops_agent.types.update_operator_app_idp_config_input.UpdateOperatorAppIdpConfigInput = {
             "agent_space_id": agent_space_id
         }
@@ -1158,7 +1355,19 @@ class AsyncAgentSpaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_devops_agent.types.list_agent_spaces_output.ListAgentSpacesOutput",
+        ) -> dict[str, Any]:
+            import capo_devops_agent.types.list_agent_spaces_output
+
+            return capo_devops_agent.types.list_agent_spaces_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentSpaces", redact_output=_redact_output),
+        )
         input_: capo_devops_agent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

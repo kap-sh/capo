@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#HierarchyFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -144,6 +144,19 @@ def deserialize_json(data: dict) -> HierarchyFilter:
         out["default_filter_control_configuration"] = (
             capo_quicksight.types.default_filter_control_configuration.deserialize_json(
                 data["DefaultFilterControlConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HierarchyFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "hierarchy_tree" in value:
+        import capo_quicksight.types.hierarchy_filter_node
+
+        out["hierarchy_tree"] = (
+            capo_quicksight.types.hierarchy_filter_node.redact_sensitive(
+                value["hierarchy_tree"]
             )
         )
     return out

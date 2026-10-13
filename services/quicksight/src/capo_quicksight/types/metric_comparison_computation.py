@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#MetricComparisonComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,5 +82,28 @@ def deserialize_json(data: dict) -> MetricComparisonComputation:
 
         out["target_value"] = capo_quicksight.types.measure_field.deserialize_json(
             data["TargetValue"]
+        )
+    return out
+
+
+def redact_sensitive(value: MetricComparisonComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["time"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["time"]
+        )
+    if "from_value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["from_value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["from_value"]
+        )
+    if "target_value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["target_value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["target_value"]
         )
     return out

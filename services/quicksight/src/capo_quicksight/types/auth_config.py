@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AuthConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -62,4 +62,17 @@ def deserialize_json(data: dict) -> AuthConfig:
         )
     else:
         raise DeserializationError("AuthConfig.authentication_metadata required")
+    return out
+
+
+def redact_sensitive(value: AuthConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_metadata" in value:
+        import capo_quicksight.types.authentication_metadata
+
+        out["authentication_metadata"] = (
+            capo_quicksight.types.authentication_metadata.redact_sensitive(
+                value["authentication_metadata"]
+            )
+        )
     return out

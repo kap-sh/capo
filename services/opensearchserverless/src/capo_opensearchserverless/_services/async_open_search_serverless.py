@@ -47,7 +47,9 @@ from capo_opensearchserverless._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -278,7 +280,9 @@ class AsyncOpenSearchServerlessClient:
         self.vpc_endpoint = AsyncVpcEndpoint(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncOpenSearchServerlessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncOpenSearchServerlessClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -286,8 +290,10 @@ class AsyncOpenSearchServerlessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -344,7 +350,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCollection")
+        )
         input_: capo_opensearchserverless.types.batch_get_collection_request.BatchGetCollectionRequest = {}
         if ids is not None:
             input_["ids"] = ids
@@ -397,7 +405,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.batch_get_collection_group_request.BatchGetCollectionGroupRequest = {}
         if ids is not None:
             input_["ids"] = ids
@@ -444,7 +454,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetEffectiveLifecyclePolicy")
+        )
         input_: capo_opensearchserverless.types.batch_get_effective_lifecycle_policy_request.BatchGetEffectiveLifecyclePolicyRequest = {
             "resource_identifiers": resource_identifiers
         }
@@ -489,7 +501,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetLifecyclePolicy")
+        )
         input_: capo_opensearchserverless.types.batch_get_lifecycle_policy_request.BatchGetLifecyclePolicyRequest = {
             "identifiers": identifiers
         }
@@ -534,7 +548,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetVpcEndpoint")
+        )
         input_: capo_opensearchserverless.types.batch_get_vpc_endpoint_request.BatchGetVpcEndpointRequest = {
             "ids": ids
         }
@@ -593,7 +609,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLifecyclePolicy")
+        )
         input_: capo_opensearchserverless.types.create_lifecycle_policy_request.CreateLifecyclePolicyRequest = {
             "type": type,
             "name": name,
@@ -659,7 +677,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.create_security_policy_request.CreateSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -707,7 +727,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_opensearchserverless.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = await aexecute_pipeline(
@@ -745,7 +767,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPoliciesStats")
+        )
         input_: capo_opensearchserverless.types.get_policies_stats_request.GetPoliciesStatsRequest = {}
 
         response = await aexecute_pipeline(
@@ -789,7 +813,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_opensearchserverless.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -839,7 +865,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_opensearchserverless.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -891,7 +919,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_opensearchserverless.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -937,7 +967,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_opensearchserverless.types.update_account_settings_request.UpdateAccountSettingsRequest = {}
         if capacity_limits is not None:
             input_["capacity_limits"] = capacity_limits
@@ -1003,7 +1035,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVpcEndpoint")
+        )
         input_: capo_opensearchserverless.types.update_vpc_endpoint_request.UpdateVpcEndpointRequest = {
             "id": id
         }
@@ -1073,7 +1107,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.create_access_policy_request.CreateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -1128,7 +1164,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.get_access_policy_request.GetAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -1192,7 +1230,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.update_access_policy_request.UpdateAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -1254,7 +1294,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_access_policy_request.DeleteAccessPolicyRequest = {
             "type": type,
             "name": name,
@@ -1311,7 +1353,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessPolicies")
+        )
         input_: capo_opensearchserverless.types.list_access_policies_request.ListAccessPoliciesRequest = {
             "type": type
         }
@@ -1422,7 +1466,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCollection")
+        )
         input_: capo_opensearchserverless.types.create_collection_request.CreateCollectionRequest = {
             "name": name
         }
@@ -1501,7 +1547,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCollection")
+        )
         input_: capo_opensearchserverless.types.update_collection_request.UpdateCollectionRequest = {
             "id": id
         }
@@ -1561,7 +1609,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCollection")
+        )
         input_: capo_opensearchserverless.types.delete_collection_request.DeleteCollectionRequest = {
             "id": id
         }
@@ -1615,7 +1665,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollections")
+        )
         input_: capo_opensearchserverless.types.list_collections_request.ListCollectionsRequest = {}
         if collection_filters is not None:
             input_["collection_filters"] = collection_filters
@@ -1707,7 +1759,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.create_collection_group_request.CreateCollectionGroupRequest = {
             "name": name,
             "standby_replicas": standby_replicas,
@@ -1776,7 +1830,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.update_collection_group_request.UpdateCollectionGroupRequest = {
             "id": id
         }
@@ -1834,7 +1890,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.delete_collection_group_request.DeleteCollectionGroupRequest = {
             "id": id
         }
@@ -1884,7 +1942,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollectionGroups")
+        )
         input_: capo_opensearchserverless.types.list_collection_groups_request.ListCollectionGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1958,7 +2018,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_opensearchserverless.types.create_index_request.CreateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -2009,7 +2071,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndex")
+        )
         input_: capo_opensearchserverless.types.get_index_request.GetIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -2062,7 +2126,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_opensearchserverless.types.update_index_request.UpdateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -2113,7 +2179,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_opensearchserverless.types.delete_index_request.DeleteIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -2178,7 +2246,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLifecyclePolicy")
+        )
         input_: capo_opensearchserverless.types.update_lifecycle_policy_request.UpdateLifecyclePolicyRequest = {
             "type": type,
             "name": name,
@@ -2240,7 +2310,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLifecyclePolicy")
+        )
         input_: capo_opensearchserverless.types.delete_lifecycle_policy_request.DeleteLifecyclePolicyRequest = {
             "type": type,
             "name": name,
@@ -2297,7 +2369,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLifecyclePolicies")
+        )
         input_: capo_opensearchserverless.types.list_lifecycle_policies_request.ListLifecyclePoliciesRequest = {
             "type": type
         }
@@ -2397,7 +2471,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.create_security_config_request.CreateSecurityConfigRequest = {
             "type": type,
             "name": name,
@@ -2455,7 +2531,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.get_security_config_request.GetSecurityConfigRequest = {
             "id": id
         }
@@ -2524,7 +2602,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.update_security_config_request.UpdateSecurityConfigRequest = {
             "id": id,
             "config_version": config_version,
@@ -2589,7 +2669,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityConfig")
+        )
         input_: capo_opensearchserverless.types.delete_security_config_request.DeleteSecurityConfigRequest = {
             "id": id
         }
@@ -2641,7 +2723,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityConfigs")
+        )
         input_: capo_opensearchserverless.types.list_security_configs_request.ListSecurityConfigsRequest = {
             "type": type
         }
@@ -2714,7 +2798,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.get_security_policy_request.GetSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -2779,7 +2865,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.update_security_policy_request.UpdateSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -2841,7 +2929,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_security_policy_request.DeleteSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -2898,7 +2988,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityPolicies")
+        )
         input_: capo_opensearchserverless.types.list_security_policies_request.ListSecurityPoliciesRequest = {
             "type": type
         }
@@ -2988,7 +3080,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcEndpoint")
+        )
         input_: capo_opensearchserverless.types.create_vpc_endpoint_request.CreateVpcEndpointRequest = {
             "name": name,
             "vpc_id": vpc_id,
@@ -3046,7 +3140,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcEndpoint")
+        )
         input_: capo_opensearchserverless.types.delete_vpc_endpoint_request.DeleteVpcEndpointRequest = {
             "id": id
         }
@@ -3100,7 +3196,9 @@ class AsyncOpenSearchServerlessClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcEndpoints")
+        )
         input_: capo_opensearchserverless.types.list_vpc_endpoints_request.ListVpcEndpointsRequest = {}
         if vpc_endpoint_filters is not None:
             input_["vpc_endpoint_filters"] = vpc_endpoint_filters

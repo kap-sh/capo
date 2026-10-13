@@ -30,7 +30,9 @@ from capo_payment_cryptography._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -205,7 +207,9 @@ class AsyncPaymentCryptographyClient:
         self.key_resource = AsyncKeyResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPaymentCryptographyClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPaymentCryptographyClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPaymentCryptographyClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -213,8 +217,10 @@ class AsyncPaymentCryptographyClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -277,7 +283,19 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography.types.associate_mpa_team_input.AssociateMpaTeamInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.associate_mpa_team_input
+
+            return capo_payment_cryptography.types.associate_mpa_team_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateMpaTeam", redact_input=_redact_input),
+        )
         input_: capo_payment_cryptography.types.associate_mpa_team_input.AssociateMpaTeamInput = {
             "action": action,
             "mpa_team_arn": mpa_team_arn,
@@ -330,7 +348,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_payment_cryptography.types.delete_resource_policy_input.DeleteResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -380,7 +400,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableDefaultKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.disable_default_key_replication_regions_input.DisableDefaultKeyReplicationRegionsInput = {
             "replication_regions": replication_regions
         }
@@ -435,7 +457,19 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography.types.disassociate_mpa_team_input.DisassociateMpaTeamInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.disassociate_mpa_team_input
+
+            return capo_payment_cryptography.types.disassociate_mpa_team_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateMpaTeam", redact_input=_redact_input),
+        )
         input_: capo_payment_cryptography.types.disassociate_mpa_team_input.DisassociateMpaTeamInput = {
             "action": action
         }
@@ -487,7 +521,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableDefaultKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.enable_default_key_replication_regions_input.EnableDefaultKeyReplicationRegionsInput = {
             "replication_regions": replication_regions
         }
@@ -543,7 +579,30 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography.types.export_key_input.ExportKeyInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.export_key_input
+
+            return capo_payment_cryptography.types.export_key_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_payment_cryptography.types.export_key_output.ExportKeyOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.export_key_output
+
+            return capo_payment_cryptography.types.export_key_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ExportKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_payment_cryptography.types.export_key_input.ExportKeyInput = {
             "key_material": key_material,
             "export_key_identifier": export_key_identifier,
@@ -599,7 +658,21 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_payment_cryptography.types.get_certificate_signing_request_output.GetCertificateSigningRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.get_certificate_signing_request_output
+
+            return capo_payment_cryptography.types.get_certificate_signing_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCertificateSigningRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_payment_cryptography.types.get_certificate_signing_request_input.GetCertificateSigningRequestInput = {
             "key_identifier": key_identifier,
             "signing_algorithm": signing_algorithm,
@@ -645,7 +718,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.get_default_key_replication_regions_input.GetDefaultKeyReplicationRegionsInput = {}
 
         response = await aexecute_pipeline(
@@ -694,7 +769,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMpaTeamAssociation")
+        )
         input_: capo_payment_cryptography.types.get_mpa_team_association_input.GetMpaTeamAssociationInput = {
             "action": action
         }
@@ -749,7 +826,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetParametersForExport")
+        )
         input_: capo_payment_cryptography.types.get_parameters_for_export_input.GetParametersForExportInput = {
             "key_material_type": key_material_type,
             "signing_key_algorithm": signing_key_algorithm,
@@ -807,7 +886,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetParametersForImport")
+        )
         input_: capo_payment_cryptography.types.get_parameters_for_import_input.GetParametersForImportInput = {
             "key_material_type": key_material_type,
             "wrapping_key_algorithm": wrapping_key_algorithm,
@@ -859,7 +940,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPublicKeyCertificate")
+        )
         input_: capo_payment_cryptography.types.get_public_key_certificate_input.GetPublicKeyCertificateInput = {
             "key_identifier": key_identifier
         }
@@ -908,7 +991,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_payment_cryptography.types.get_resource_policy_input.GetResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -974,7 +1059,18 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_payment_cryptography.types.import_key_input.ImportKeyInput",
+        ) -> dict[str, Any]:
+            import capo_payment_cryptography.types.import_key_input
+
+            return capo_payment_cryptography.types.import_key_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportKey", redact_input=_redact_input)
+        )
         input_: capo_payment_cryptography.types.import_key_input.ImportKeyInput = {
             "key_material": key_material
         }
@@ -1041,7 +1137,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_payment_cryptography.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1126,7 +1224,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_payment_cryptography.types.put_resource_policy_input.PutResourcePolicyInput = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -1180,7 +1280,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_payment_cryptography.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1233,7 +1335,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_payment_cryptography.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1287,7 +1391,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_payment_cryptography.types.create_alias_input.CreateAliasInput = {
             "alias_name": alias_name
         }
@@ -1338,7 +1444,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_payment_cryptography.types.get_alias_input.GetAliasInput = {
             "alias_name": alias_name
         }
@@ -1390,7 +1498,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_payment_cryptography.types.update_alias_input.UpdateAliasInput = {
             "alias_name": alias_name
         }
@@ -1442,7 +1552,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_payment_cryptography.types.delete_alias_input.DeleteAliasInput = {
             "alias_name": alias_name
         }
@@ -1499,7 +1611,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_payment_cryptography.types.list_aliases_input.ListAliasesInput = {}
         if key_arn is not None:
             input_["key_arn"] = key_arn
@@ -1598,7 +1712,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKey")
+        )
         input_: capo_payment_cryptography.types.create_key_input.CreateKeyInput = {
             "key_attributes": key_attributes,
             "exportable": exportable,
@@ -1658,7 +1774,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKey")
+        )
         input_: capo_payment_cryptography.types.get_key_input.GetKeyInput = {
             "key_identifier": key_identifier
         }
@@ -1710,7 +1828,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_payment_cryptography.types.delete_key_input.DeleteKeyInput = {
             "key_identifier": key_identifier
         }
@@ -1771,7 +1891,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeys")
+        )
         input_: capo_payment_cryptography.types.list_keys_input.ListKeysInput = {}
         if key_state is not None:
             input_["key_state"] = key_state
@@ -1856,7 +1978,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.add_key_replication_regions_input.AddKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -1909,7 +2033,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveKeyReplicationRegions")
+        )
         input_: capo_payment_cryptography.types.remove_key_replication_regions_input.RemoveKeyReplicationRegionsInput = {
             "key_identifier": key_identifier,
             "replication_regions": replication_regions,
@@ -1961,7 +2087,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreKey")
+        )
         input_: capo_payment_cryptography.types.restore_key_input.RestoreKeyInput = {
             "key_identifier": key_identifier
         }
@@ -2012,7 +2140,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartKeyUsage")
+        )
         input_: capo_payment_cryptography.types.start_key_usage_input.StartKeyUsageInput = {
             "key_identifier": key_identifier
         }
@@ -2063,7 +2193,9 @@ class AsyncPaymentCryptographyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopKeyUsage")
+        )
         input_: capo_payment_cryptography.types.stop_key_usage_input.StopKeyUsageInput = {
             "key_identifier": key_identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.accessanalyzer#CheckNoNewAccessRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -49,4 +49,13 @@ def deserialize_json(data: dict) -> CheckNoNewAccessRequest:
         out["policy_type"] = data["policyType"]
     else:
         raise DeserializationError("CheckNoNewAccessRequest.policy_type required")
+    return out
+
+
+def redact_sensitive(value: CheckNoNewAccessRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "new_policy_document" in value:
+        out["new_policy_document"] = "*** Sensitive Data Redacted ***"
+    if "existing_policy_document" in value:
+        out["existing_policy_document"] = "*** Sensitive Data Redacted ***"
     return out

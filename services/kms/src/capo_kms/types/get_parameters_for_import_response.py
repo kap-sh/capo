@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#GetParametersForImportResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,4 +70,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetParametersForImportResponse:
         out["parameters_valid_to"] = capo_kms.types.date_type.deserialize_aws_json_1_1(
             data["ParametersValidTo"]
         )
+    return out
+
+
+def redact_sensitive(value: GetParametersForImportResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "public_key" in value:
+        out["public_key"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivschat#CreateChatTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,13 @@ def deserialize_json(data: dict) -> CreateChatTokenRequest:
         out["attributes"] = capo_ivschat.types.chat_token_attributes.deserialize_json(
             data["attributes"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateChatTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#StripePrivyConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,4 +136,13 @@ def deserialize_json(data: dict) -> StripePrivyConfigurationInput:
         raise DeserializationError(
             "StripePrivyConfigurationInput.authorization_id required"
         )
+    return out
+
+
+def redact_sensitive(value: StripePrivyConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_secret" in value:
+        out["app_secret"] = "*** Sensitive Data Redacted ***"
+    if "authorization_private_key" in value:
+        out["authorization_private_key"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#FilterConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,5 +46,16 @@ def deserialize_cbor(data: dict) -> FilterConfiguration:
 
         out["filters"] = capo_eventbridgev2.types.filter_list.deserialize_cbor(
             data["Filters"]
+        )
+    return out
+
+
+def redact_sensitive(value: FilterConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_eventbridgev2.types.filter_list
+
+        out["filters"] = capo_eventbridgev2.types.filter_list.redact_sensitive(
+            value["filters"]
         )
     return out

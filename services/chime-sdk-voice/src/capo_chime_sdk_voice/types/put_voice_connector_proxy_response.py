@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#PutVoiceConnectorProxyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> PutVoiceConnectorProxyResponse:
         import capo_chime_sdk_voice.types.proxy
 
         out["proxy"] = capo_chime_sdk_voice.types.proxy.deserialize_json(data["Proxy"])
+    return out
+
+
+def redact_sensitive(value: PutVoiceConnectorProxyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "proxy" in value:
+        import capo_chime_sdk_voice.types.proxy
+
+        out["proxy"] = capo_chime_sdk_voice.types.proxy.redact_sensitive(value["proxy"])
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#ParsedQuerySecondaryAddressComponentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.parsed_query_secondary_address_component
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ParsedQuerySecondaryAddressComponentList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ParsedQuerySecondaryAddressComponentList) -> list[Any]:
+    import capo_geo_places.types.parsed_query_secondary_address_component
+
+    return [
+        capo_geo_places.types.parsed_query_secondary_address_component.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

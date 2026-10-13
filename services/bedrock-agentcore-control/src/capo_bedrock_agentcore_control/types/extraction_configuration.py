@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ExtractionConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -47,3 +47,16 @@ def deserialize_json(data: dict) -> ExtractionConfiguration:
         }
     else:
         raise DeserializationError("ExtractionConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: ExtractionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customExtractionConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.custom_extraction_configuration
+
+        out["customExtractionConfiguration"] = (
+            capo_bedrock_agentcore_control.types.custom_extraction_configuration.redact_sensitive(
+                value["customExtractionConfiguration"]
+            )
+        )
+    return out

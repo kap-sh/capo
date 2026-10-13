@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#PutBucketInventoryConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,18 @@ def deserialize_xml(el: Element) -> PutBucketInventoryConfigurationRequest:
     else:
         raise DeserializationError(
             "PutBucketInventoryConfigurationRequest.inventory_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: PutBucketInventoryConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inventory_configuration" in value:
+        import capo_s3.types.inventory_configuration
+
+        out["inventory_configuration"] = (
+            capo_s3.types.inventory_configuration.redact_sensitive(
+                value["inventory_configuration"]
+            )
         )
     return out

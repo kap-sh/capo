@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#GetDataAutomationProjectResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,17 @@ def deserialize_json(data: dict) -> GetDataAutomationProjectResponse:
         )
     else:
         raise DeserializationError("GetDataAutomationProjectResponse.project required")
+    return out
+
+
+def redact_sensitive(value: GetDataAutomationProjectResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "project" in value:
+        import capo_bedrock_data_automation.types.data_automation_project
+
+        out["project"] = (
+            capo_bedrock_data_automation.types.data_automation_project.redact_sensitive(
+                value["project"]
+            )
+        )
     return out

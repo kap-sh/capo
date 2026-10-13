@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#AutonomousDatabaseList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_odb.types.autonomous_database_summary
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_0(data: list) -> AutonomousDatabaseList:
             capo_odb.types.autonomous_database_summary.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: AutonomousDatabaseList) -> list[Any]:
+    import capo_odb.types.autonomous_database_summary
+
+    return [
+        capo_odb.types.autonomous_database_summary.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#DirectoryDescriptions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_directory_service.types.directory_description
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> DirectoryDescriptions:
             )
         )
     return out
+
+
+def redact_sensitive(value: DirectoryDescriptions) -> list[Any]:
+    import capo_directory_service.types.directory_description
+
+    return [
+        capo_directory_service.types.directory_description.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#ListDocumentClassifiersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> ListDocumentClassifiersResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListDocumentClassifiersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document_classifier_properties_list" in value:
+        import capo_comprehend.types.document_classifier_properties_list
+
+        out["document_classifier_properties_list"] = (
+            capo_comprehend.types.document_classifier_properties_list.redact_sensitive(
+                value["document_classifier_properties_list"]
+            )
+        )
     return out

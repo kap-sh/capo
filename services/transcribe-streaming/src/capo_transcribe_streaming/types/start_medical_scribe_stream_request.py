@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#StartMedicalScribeStreamRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -23,3 +23,10 @@ class StartMedicalScribeStreamRequest(TypedDict, closed=True):
     """<p>Specify the encoding used for the input audio.</p> <p>Supported formats are:</p> <ul> <li> <p>FLAC</p> </li> <li> <p>OPUS-encoded audio in an Ogg container</p> </li> <li> <p>PCM (only signed 16-bit little-endian audio formats, which does not include WAV) </p> </li> </ul> <p>For more information, see <a href="https://docs.aws.amazon.com/transcribe/latest/dg/how-input.html#how-input-audio">Media formats</a>. </p>"""
     input_stream: "capo_transcribe_streaming.types.medical_scribe_input_stream.MedicalScribeInputStream"
     """<p>Specify the input stream where you will send events in real time.</p> <p>The first element of the input stream must be a <code>MedicalScribeConfigurationEvent</code>. </p>"""
+
+
+def redact_sensitive(value: StartMedicalScribeStreamRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_stream" in value:
+        out["input_stream"] = "*** Streaming Data Redacted ***"
+    return out

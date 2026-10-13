@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ModifyStrategyConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,35 @@ def deserialize_json(data: dict) -> ModifyStrategyConfiguration:
         out["self_managed_configuration"] = (
             capo_bedrock_agentcore_control.types.modify_self_managed_configuration.deserialize_json(
                 data["selfManagedConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ModifyStrategyConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "extraction" in value:
+        import capo_bedrock_agentcore_control.types.modify_extraction_configuration
+
+        out["extraction"] = (
+            capo_bedrock_agentcore_control.types.modify_extraction_configuration.redact_sensitive(
+                value["extraction"]
+            )
+        )
+    if "consolidation" in value:
+        import capo_bedrock_agentcore_control.types.modify_consolidation_configuration
+
+        out["consolidation"] = (
+            capo_bedrock_agentcore_control.types.modify_consolidation_configuration.redact_sensitive(
+                value["consolidation"]
+            )
+        )
+    if "reflection" in value:
+        import capo_bedrock_agentcore_control.types.modify_reflection_configuration
+
+        out["reflection"] = (
+            capo_bedrock_agentcore_control.types.modify_reflection_configuration.redact_sensitive(
+                value["reflection"]
             )
         )
     return out

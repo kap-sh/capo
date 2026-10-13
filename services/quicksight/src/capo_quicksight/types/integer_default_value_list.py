@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#IntegerDefaultValueList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.sensitive_long_object
@@ -17,3 +17,7 @@ def serialize_json(value: IntegerDefaultValueList) -> list:
 
 def deserialize_json(data: list) -> IntegerDefaultValueList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: IntegerDefaultValueList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

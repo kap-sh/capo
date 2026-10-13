@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#UpdateUserRequestItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,6 +73,19 @@ def deserialize_json(data: dict) -> UpdateUserRequestItem:
         out["alexa_for_business_metadata"] = (
             capo_chime.types.alexa_for_business_metadata.deserialize_json(
                 data["AlexaForBusinessMetadata"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateUserRequestItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alexa_for_business_metadata" in value:
+        import capo_chime.types.alexa_for_business_metadata
+
+        out["alexa_for_business_metadata"] = (
+            capo_chime.types.alexa_for_business_metadata.redact_sensitive(
+                value["alexa_for_business_metadata"]
             )
         )
     return out

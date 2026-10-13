@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#FleetLaunchTemplateSpecificationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,5 +73,14 @@ def deserialize_ec2_query(el: Element) -> FleetLaunchTemplateSpecificationReques
     if child_launch_template_specification_user_data is not None:
         out["launch_template_specification_user_data"] = str(
             child_launch_template_specification_user_data.text or ""
+        )
+    return out
+
+
+def redact_sensitive(value: FleetLaunchTemplateSpecificationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_specification_user_data" in value:
+        out["launch_template_specification_user_data"] = (
+            "*** Sensitive Data Redacted ***"
         )
     return out

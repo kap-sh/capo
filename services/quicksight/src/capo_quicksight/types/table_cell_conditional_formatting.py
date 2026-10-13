@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TableCellConditionalFormatting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,6 +47,19 @@ def deserialize_json(data: dict) -> TableCellConditionalFormatting:
         out["text_format"] = (
             capo_quicksight.types.text_conditional_format.deserialize_json(
                 data["TextFormat"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TableCellConditionalFormatting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_format" in value:
+        import capo_quicksight.types.text_conditional_format
+
+        out["text_format"] = (
+            capo_quicksight.types.text_conditional_format.redact_sensitive(
+                value["text_format"]
             )
         )
     return out

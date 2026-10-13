@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DescribeDashboardSnapshotJobResultResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,17 @@ def deserialize_json(data: dict) -> DescribeDashboardSnapshotJobResultResponse:
         )
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(
+    value: DescribeDashboardSnapshotJobResultResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result" in value:
+        import capo_quicksight.types.snapshot_job_result
+
+        out["result"] = capo_quicksight.types.snapshot_job_result.redact_sensitive(
+            value["result"]
+        )
     return out

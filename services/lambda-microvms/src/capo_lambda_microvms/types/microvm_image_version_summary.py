@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#MicrovmImageVersionSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -297,4 +297,17 @@ def deserialize_json(data: dict) -> MicrovmImageVersionSummary:
         import capo_lambda_microvms.types.tags
 
         out["tags"] = capo_lambda_microvms.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: MicrovmImageVersionSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_variables" in value:
+        import capo_lambda_microvms.types.environment_variable_map
+
+        out["environment_variables"] = (
+            capo_lambda_microvms.types.environment_variable_map.redact_sensitive(
+                value["environment_variables"]
+            )
+        )
     return out

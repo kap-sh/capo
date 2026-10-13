@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineAllowOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_json(data: dict) -> IsolineAllowOptions:
         out["hot"] = data["Hot"]
     if data.get("Hov") is not None:
         out["hov"] = data["Hov"]
+    return out
+
+
+def redact_sensitive(value: IsolineAllowOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "hot" in value:
+        out["hot"] = "*** Sensitive Data Redacted ***"
+    if "hov" in value:
+        out["hov"] = "*** Sensitive Data Redacted ***"
     return out

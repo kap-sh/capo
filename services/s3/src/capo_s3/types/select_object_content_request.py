@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#SelectObjectContentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -138,4 +138,11 @@ def deserialize_xml(el: Element) -> SelectObjectContentRequest:
         import capo_s3.types.scan_range
 
         out["scan_range"] = capo_s3.types.scan_range.deserialize_xml(child_scan_range)
+    return out
+
+
+def redact_sensitive(value: SelectObjectContentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
     return out

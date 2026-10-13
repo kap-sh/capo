@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_marketplace_deployment._auth._signers
 import capo_marketplace_deployment._auth._sigv4
 from capo_marketplace_deployment._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,19 @@ class DeploymentParameter:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest",
+        ) -> dict[str, Any]:
+            import capo_marketplace_deployment.types.put_deployment_parameter_request
+
+            return capo_marketplace_deployment.types.put_deployment_parameter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutDeploymentParameter", redact_input=_redact_input),
+        )
         input_: capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest = {
             "catalog": catalog,
             "product_id": product_id,
@@ -186,7 +199,19 @@ class AsyncDeploymentParameter:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest",
+        ) -> dict[str, Any]:
+            import capo_marketplace_deployment.types.put_deployment_parameter_request
+
+            return capo_marketplace_deployment.types.put_deployment_parameter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutDeploymentParameter", redact_input=_redact_input),
+        )
         input_: capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest = {
             "catalog": catalog,
             "product_id": product_id,

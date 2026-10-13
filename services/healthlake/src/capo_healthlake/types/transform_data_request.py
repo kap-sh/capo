@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazon.awshealthlakedatatransformationfrontendservice#TransformDataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,11 @@ def deserialize_aws_json_1_0(data: dict) -> TransformDataRequest:
         out["provenance_enabled"] = data["ProvenanceEnabled"]
     else:
         out["provenance_enabled"] = True
+    return out
+
+
+def redact_sensitive(value: TransformDataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_data" in value:
+        out["input_data"] = "*** Sensitive Data Redacted ***"
     return out

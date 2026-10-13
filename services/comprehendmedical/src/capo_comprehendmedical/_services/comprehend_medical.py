@@ -20,10 +20,12 @@ from capo_comprehendmedical._auth._zapros_handler import AuthMiddleware
 from capo_comprehendmedical._services._aws_config import aws_config
 from capo_comprehendmedical._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -168,7 +170,9 @@ class ComprehendMedicalClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ComprehendMedicalClientConfig] = None
+        self,
+        config_overrides: Optional[ComprehendMedicalClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ComprehendMedicalClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -176,8 +180,10 @@ class ComprehendMedicalClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -229,7 +235,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEntitiesDetectionV2Job")
+        )
         input_: capo_comprehendmedical.types.describe_entities_detection_v2_job_request.DescribeEntitiesDetectionV2JobRequest = {
             "job_id": job_id
         }
@@ -275,7 +283,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeICD10CMInferenceJob")
+        )
         input_: capo_comprehendmedical.types.describe_icd10_cm_inference_job_request.DescribeICD10CMInferenceJobRequest = {
             "job_id": job_id
         }
@@ -321,7 +331,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePHIDetectionJob")
+        )
         input_: capo_comprehendmedical.types.describe_phi_detection_job_request.DescribePHIDetectionJobRequest = {
             "job_id": job_id
         }
@@ -367,7 +379,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRxNormInferenceJob")
+        )
         input_: capo_comprehendmedical.types.describe_rx_norm_inference_job_request.DescribeRxNormInferenceJobRequest = {
             "job_id": job_id
         }
@@ -413,7 +427,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSNOMEDCTInferenceJob")
+        )
         input_: capo_comprehendmedical.types.describe_snomedct_inference_job_request.DescribeSNOMEDCTInferenceJobRequest = {
             "job_id": job_id
         }
@@ -461,7 +477,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectEntities")
+        )
         input_: capo_comprehendmedical.types.detect_entities_request.DetectEntitiesRequest = {
             "text": text
         }
@@ -509,7 +527,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectEntitiesV2")
+        )
         input_: capo_comprehendmedical.types.detect_entities_v2_request.DetectEntitiesV2Request = {
             "text": text
         }
@@ -557,7 +577,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectPHI")
+        )
         input_: capo_comprehendmedical.types.detect_phi_request.DetectPHIRequest = {
             "text": text
         }
@@ -605,7 +627,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InferICD10CM")
+        )
         input_: capo_comprehendmedical.types.infer_icd10_cm_request.InferICD10CMRequest = {
             "text": text
         }
@@ -653,7 +677,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InferRxNorm")
+        )
         input_: capo_comprehendmedical.types.infer_rx_norm_request.InferRxNormRequest = {
             "text": text
         }
@@ -701,7 +727,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InferSNOMEDCT")
+        )
         input_: capo_comprehendmedical.types.infer_snomedct_request.InferSNOMEDCTRequest = {
             "text": text
         }
@@ -755,7 +783,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntitiesDetectionV2Jobs")
+        )
         input_: capo_comprehendmedical.types.list_entities_detection_v2_jobs_request.ListEntitiesDetectionV2JobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -813,7 +843,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListICD10CMInferenceJobs")
+        )
         input_: capo_comprehendmedical.types.list_icd10_cm_inference_jobs_request.ListICD10CMInferenceJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -871,7 +903,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPHIDetectionJobs")
+        )
         input_: capo_comprehendmedical.types.list_phi_detection_jobs_request.ListPHIDetectionJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -929,7 +963,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRxNormInferenceJobs")
+        )
         input_: capo_comprehendmedical.types.list_rx_norm_inference_jobs_request.ListRxNormInferenceJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -986,7 +1022,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSNOMEDCTInferenceJobs")
+        )
         input_: capo_comprehendmedical.types.list_snomedct_inference_jobs_request.ListSNOMEDCTInferenceJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1050,7 +1088,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEntitiesDetectionV2Job")
+        )
         input_: capo_comprehendmedical.types.start_entities_detection_v2_job_request.StartEntitiesDetectionV2JobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1120,7 +1160,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartICD10CMInferenceJob")
+        )
         input_: capo_comprehendmedical.types.start_icd10_cm_inference_job_request.StartICD10CMInferenceJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1190,7 +1232,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPHIDetectionJob")
+        )
         input_: capo_comprehendmedical.types.start_phi_detection_job_request.StartPHIDetectionJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1260,7 +1304,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRxNormInferenceJob")
+        )
         input_: capo_comprehendmedical.types.start_rx_norm_inference_job_request.StartRxNormInferenceJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1328,7 +1374,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSNOMEDCTInferenceJob")
+        )
         input_: capo_comprehendmedical.types.start_snomedct_inference_job_request.StartSNOMEDCTInferenceJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1383,7 +1431,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEntitiesDetectionV2Job")
+        )
         input_: capo_comprehendmedical.types.stop_entities_detection_v2_job_request.StopEntitiesDetectionV2JobRequest = {
             "job_id": job_id
         }
@@ -1428,7 +1478,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopICD10CMInferenceJob")
+        )
         input_: capo_comprehendmedical.types.stop_icd10_cm_inference_job_request.StopICD10CMInferenceJobRequest = {
             "job_id": job_id
         }
@@ -1473,7 +1525,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPHIDetectionJob")
+        )
         input_: capo_comprehendmedical.types.stop_phi_detection_job_request.StopPHIDetectionJobRequest = {
             "job_id": job_id
         }
@@ -1518,7 +1572,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRxNormInferenceJob")
+        )
         input_: capo_comprehendmedical.types.stop_rx_norm_inference_job_request.StopRxNormInferenceJobRequest = {
             "job_id": job_id
         }
@@ -1564,7 +1620,9 @@ class ComprehendMedicalClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSNOMEDCTInferenceJob")
+        )
         input_: capo_comprehendmedical.types.stop_snomedct_inference_job_request.StopSNOMEDCTInferenceJobRequest = {
             "job_id": job_id
         }

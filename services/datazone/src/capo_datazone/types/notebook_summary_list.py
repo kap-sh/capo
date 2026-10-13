@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#NotebookSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.notebook_summary
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> NotebookSummaryList:
             continue
         out.append(capo_datazone.types.notebook_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: NotebookSummaryList) -> list[Any]:
+    import capo_datazone.types.notebook_summary
+
+    return [
+        capo_datazone.types.notebook_summary.redact_sensitive(item) for item in value
+    ]

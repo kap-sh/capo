@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -59,7 +60,9 @@ class VcenterClientResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVcenterClient")
+        )
         input_: capo_mgn.types.delete_vcenter_client_request.DeleteVcenterClientRequest = {
             "vcenter_client_id": vcenter_client_id
         }
@@ -106,7 +109,19 @@ class VcenterClientResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_vcenter_clients_response.DescribeVcenterClientsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_vcenter_clients_response
+
+            return capo_mgn.types.describe_vcenter_clients_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeVcenterClients", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_vcenter_clients_request.DescribeVcenterClientsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -157,7 +172,9 @@ class AsyncVcenterClientResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVcenterClient")
+        )
         input_: capo_mgn.types.delete_vcenter_client_request.DeleteVcenterClientRequest = {
             "vcenter_client_id": vcenter_client_id
         }
@@ -205,7 +222,19 @@ class AsyncVcenterClientResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_vcenter_clients_response.DescribeVcenterClientsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_vcenter_clients_response
+
+            return capo_mgn.types.describe_vcenter_clients_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeVcenterClients", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_vcenter_clients_request.DescribeVcenterClientsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

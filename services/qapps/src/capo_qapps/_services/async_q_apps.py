@@ -24,7 +24,9 @@ from capo_qapps._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -189,7 +191,9 @@ class AsyncQAppsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncQAppsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncQAppsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncQAppsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class AsyncQAppsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -260,7 +266,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateLibraryItemReview")
+        )
         input_: capo_qapps.types.associate_library_item_review_input.AssociateLibraryItemReviewInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -316,7 +324,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateQAppWithUser")
+        )
         input_: capo_qapps.types.associate_q_app_with_user_input.AssociateQAppWithUserInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -372,7 +382,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateCategory")
+        )
         input_: capo_qapps.types.batch_create_category_input.BatchCreateCategoryInput = {
             "instance_id": instance_id,
             "categories": categories,
@@ -428,7 +440,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteCategory")
+        )
         input_: capo_qapps.types.batch_delete_category_input.BatchDeleteCategoryInput = {
             "instance_id": instance_id,
             "categories": categories,
@@ -484,7 +498,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateCategory")
+        )
         input_: capo_qapps.types.batch_update_category_input.BatchUpdateCategoryInput = {
             "instance_id": instance_id,
             "categories": categories,
@@ -546,7 +562,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLibraryItem")
+        )
         input_: capo_qapps.types.create_library_item_input.CreateLibraryItemInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -617,7 +635,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedUrl")
+        )
         input_: capo_qapps.types.create_presigned_url_input.CreatePresignedUrlInput = {
             "instance_id": instance_id,
             "card_id": card_id,
@@ -688,7 +708,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQApp")
+        )
         input_: capo_qapps.types.create_q_app_input.CreateQAppInput = {
             "instance_id": instance_id,
             "title": title,
@@ -749,7 +771,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLibraryItem")
+        )
         input_: capo_qapps.types.delete_library_item_input.DeleteLibraryItemInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -804,7 +828,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQApp")
+        )
         input_: capo_qapps.types.delete_q_app_input.DeleteQAppInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -861,7 +887,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQAppPermissions")
+        )
         input_: capo_qapps.types.describe_q_app_permissions_input.DescribeQAppPermissionsInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -918,7 +946,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateLibraryItemReview")
+        )
         input_: capo_qapps.types.disassociate_library_item_review_input.DisassociateLibraryItemReviewInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -973,7 +1003,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateQAppFromUser")
+        )
         input_: capo_qapps.types.disassociate_q_app_from_user_input.DisassociateQAppFromUserInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -1029,7 +1061,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportQAppSessionData")
+        )
         input_: capo_qapps.types.export_q_app_session_data_input.ExportQAppSessionDataInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -1088,7 +1122,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLibraryItem")
+        )
         input_: capo_qapps.types.get_library_item_input.GetLibraryItemInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -1147,7 +1183,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQApp")
+        )
         input_: capo_qapps.types.get_q_app_input.GetQAppInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -1207,7 +1245,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQAppSession")
+        )
         input_: capo_qapps.types.get_q_app_session_input.GetQAppSessionInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -1265,7 +1305,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQAppSessionMetadata")
+        )
         input_: capo_qapps.types.get_q_app_session_metadata_input.GetQAppSessionMetadataInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -1337,7 +1379,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportDocument")
+        )
         input_: capo_qapps.types.import_document_input.ImportDocumentInput = {
             "instance_id": instance_id,
             "card_id": card_id,
@@ -1398,7 +1442,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCategories")
+        )
         input_: capo_qapps.types.list_categories_input.ListCategoriesInput = {
             "instance_id": instance_id
         }
@@ -1460,7 +1506,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLibraryItems")
+        )
         input_: capo_qapps.types.list_library_items_input.ListLibraryItemsInput = {
             "instance_id": instance_id
         }
@@ -1555,7 +1603,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQApps")
+        )
         input_: capo_qapps.types.list_q_apps_input.ListQAppsInput = {
             "instance_id": instance_id
         }
@@ -1636,7 +1686,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQAppSessionData")
+        )
         input_: capo_qapps.types.list_q_app_session_data_input.ListQAppSessionDataInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -1690,7 +1742,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_qapps.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1742,7 +1796,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PredictQApp")
+        )
         input_: capo_qapps.types.predict_q_app_input.PredictQAppInput = {
             "instance_id": instance_id
         }
@@ -1811,7 +1867,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQAppSession")
+        )
         input_: capo_qapps.types.start_q_app_session_input.StartQAppSessionInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -1869,7 +1927,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopQAppSession")
+        )
         input_: capo_qapps.types.stop_q_app_session_input.StopQAppSessionInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -1926,7 +1986,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_qapps.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1982,7 +2044,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_qapps.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2046,7 +2110,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLibraryItem")
+        )
         input_: capo_qapps.types.update_library_item_input.UpdateLibraryItemInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -2108,7 +2174,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLibraryItemMetadata")
+        )
         input_: capo_qapps.types.update_library_item_metadata_input.UpdateLibraryItemMetadataInput = {
             "instance_id": instance_id,
             "library_item_id": library_item_id,
@@ -2179,7 +2247,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQApp")
+        )
         input_: capo_qapps.types.update_q_app_input.UpdateQAppInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -2253,7 +2323,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQAppPermissions")
+        )
         input_: capo_qapps.types.update_q_app_permissions_input.UpdateQAppPermissionsInput = {
             "instance_id": instance_id,
             "app_id": app_id,
@@ -2312,7 +2384,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQAppSession")
+        )
         input_: capo_qapps.types.update_q_app_session_input.UpdateQAppSessionInput = {
             "instance_id": instance_id,
             "session_id": session_id,
@@ -2376,7 +2450,9 @@ class AsyncQAppsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQAppSessionMetadata")
+        )
         input_: capo_qapps.types.update_q_app_session_metadata_input.UpdateQAppSessionMetadataInput = {
             "instance_id": instance_id,
             "session_id": session_id,

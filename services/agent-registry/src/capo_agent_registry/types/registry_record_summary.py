@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistry#RegistryRecordSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,4 +168,19 @@ def deserialize_json(data: dict) -> RegistryRecordSummary:
         raise DeserializationError("RegistryRecordSummary.updated_at required")
     if data.get("customMetadata") is not None:
         out["custom_metadata"] = data["customMetadata"]
+    return out
+
+
+def redact_sensitive(value: RegistryRecordSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "descriptors" in value:
+        import capo_agent_registry.types.descriptors
+
+        out["descriptors"] = capo_agent_registry.types.descriptors.redact_sensitive(
+            value["descriptors"]
+        )
+    if "custom_metadata" in value:
+        out["custom_metadata"] = "*** Sensitive Data Redacted ***"
     return out

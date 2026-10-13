@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#IsAuthorizedOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -80,4 +80,17 @@ def deserialize_aws_json_1_0(data: dict) -> IsAuthorizedOutput:
         )
     else:
         raise DeserializationError("IsAuthorizedOutput.errors required")
+    return out
+
+
+def redact_sensitive(value: IsAuthorizedOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "errors" in value:
+        import capo_verifiedpermissions.types.evaluation_error_list
+
+        out["errors"] = (
+            capo_verifiedpermissions.types.evaluation_error_list.redact_sensitive(
+                value["errors"]
+            )
+        )
     return out

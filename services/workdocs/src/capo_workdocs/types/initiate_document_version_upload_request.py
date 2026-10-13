@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#InitiateDocumentVersionUploadRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,4 +100,13 @@ def deserialize_json(data: dict) -> InitiateDocumentVersionUploadRequest:
         out["document_size_in_bytes"] = data["DocumentSizeInBytes"]
     if data.get("ParentFolderId") is not None:
         out["parent_folder_id"] = data["ParentFolderId"]
+    return out
+
+
+def redact_sensitive(value: InitiateDocumentVersionUploadRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

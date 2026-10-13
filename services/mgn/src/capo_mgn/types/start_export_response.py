@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#StartExportResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> StartExportResponse:
 
         out["export_task"] = capo_mgn.types.export_task.deserialize_json(
             data["exportTask"]
+        )
+    return out
+
+
+def redact_sensitive(value: StartExportResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "export_task" in value:
+        import capo_mgn.types.export_task
+
+        out["export_task"] = capo_mgn.types.export_task.redact_sensitive(
+            value["export_task"]
         )
     return out

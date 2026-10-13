@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateConnectionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,5 +124,18 @@ def deserialize_json(data: dict) -> CreateConnectionInput:
 
         out["scope"] = capo_datazone.types.connection_scope.deserialize_json(
             data["scope"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateConnectionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "props" in value:
+        import capo_datazone.types.connection_properties_input
+
+        out["props"] = capo_datazone.types.connection_properties_input.redact_sensitive(
+            value["props"]
         )
     return out

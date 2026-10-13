@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#DescribeCertificateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCertificateResponse:
         )
     else:
         raise DeserializationError("DescribeCertificateResponse.certificate required")
+    return out
+
+
+def redact_sensitive(value: DescribeCertificateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate" in value:
+        import capo_transfer.types.described_certificate
+
+        out["certificate"] = capo_transfer.types.described_certificate.redact_sensitive(
+            value["certificate"]
+        )
     return out

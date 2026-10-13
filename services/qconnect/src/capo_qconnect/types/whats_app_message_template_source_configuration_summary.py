@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#WhatsAppMessageTemplateSourceConfigurationSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,13 @@ def deserialize_json(data: dict) -> WhatsAppMessageTemplateSourceConfigurationSu
         out["status"] = data["status"]
     if data.get("statusReason") is not None:
         out["status_reason"] = data["statusReason"]
+    return out
+
+
+def redact_sensitive(
+    value: WhatsAppMessageTemplateSourceConfigurationSummary,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "status_reason" in value:
+        out["status_reason"] = "*** Sensitive Data Redacted ***"
     return out

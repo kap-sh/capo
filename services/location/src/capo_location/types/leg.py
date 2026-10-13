@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#Leg``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,4 +109,27 @@ def deserialize_json(data: dict) -> Leg:
         out["steps"] = capo_location.types.step_list.deserialize_json(data["Steps"])
     else:
         raise DeserializationError("Leg.steps required")
+    return out
+
+
+def redact_sensitive(value: Leg) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "start_position" in value:
+        out["start_position"] = "*** Sensitive Data Redacted ***"
+    if "end_position" in value:
+        out["end_position"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration_seconds" in value:
+        out["duration_seconds"] = "*** Sensitive Data Redacted ***"
+    if "geometry" in value:
+        import capo_location.types.leg_geometry
+
+        out["geometry"] = capo_location.types.leg_geometry.redact_sensitive(
+            value["geometry"]
+        )
+    if "steps" in value:
+        import capo_location.types.step_list
+
+        out["steps"] = capo_location.types.step_list.redact_sensitive(value["steps"])
     return out

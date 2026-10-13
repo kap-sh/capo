@@ -7,6 +7,7 @@ import capo_braket._auth._sigv4
 from capo_braket._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -118,7 +119,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_braket.types.create_job_request.CreateJobRequest = {
             "client_token": client_token,
             "algorithm_specification": algorithm_specification,
@@ -183,7 +186,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_braket.types.get_job_request.GetJobRequest = {"job_arn": job_arn}
         if additional_attribute_names is not None:
             input_["additional_attribute_names"] = additional_attribute_names
@@ -231,7 +236,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_braket.types.cancel_job_request.CancelJobRequest = {
             "job_arn": job_arn
         }
@@ -281,7 +288,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchJobs")
+        )
         input_: capo_braket.types.search_jobs_request.SearchJobsRequest = {
             "filters": filters
         }
@@ -373,7 +382,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_braket.types.create_job_request.CreateJobRequest = {
             "client_token": client_token,
             "algorithm_specification": algorithm_specification,
@@ -443,7 +454,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_braket.types.get_job_request.GetJobRequest = {"job_arn": job_arn}
         if additional_attribute_names is not None:
             input_["additional_attribute_names"] = additional_attribute_names
@@ -492,7 +505,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_braket.types.cancel_job_request.CancelJobRequest = {
             "job_arn": job_arn
         }
@@ -543,7 +558,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchJobs")
+        )
         input_: capo_braket.types.search_jobs_request.SearchJobsRequest = {
             "filters": filters
         }

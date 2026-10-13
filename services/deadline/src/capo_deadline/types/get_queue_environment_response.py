@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#GetQueueEnvironmentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,11 @@ def deserialize_json(data: dict) -> GetQueueEnvironmentResponse:
         )
     if data.get("updatedBy") is not None:
         out["updated_by"] = data["updatedBy"]
+    return out
+
+
+def redact_sensitive(value: GetQueueEnvironmentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template" in value:
+        out["template"] = "*** Sensitive Data Redacted ***"
     return out

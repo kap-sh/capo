@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class EngagementFromOpportunityTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartEngagementFromOpportunityTask")
+        )
         input_: capo_partnercentral_selling.types.start_engagement_from_opportunity_task_request.StartEngagementFromOpportunityTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -160,7 +163,9 @@ class EngagementFromOpportunityTask:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEngagementFromOpportunityTasks")
+        )
         input_: capo_partnercentral_selling.types.list_engagement_from_opportunity_tasks_request.ListEngagementFromOpportunityTasksRequest = {
             "catalog": catalog
         }
@@ -236,7 +241,9 @@ class AsyncEngagementFromOpportunityTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartEngagementFromOpportunityTask")
+        )
         input_: capo_partnercentral_selling.types.start_engagement_from_opportunity_task_request.StartEngagementFromOpportunityTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -313,7 +320,9 @@ class AsyncEngagementFromOpportunityTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEngagementFromOpportunityTasks")
+        )
         input_: capo_partnercentral_selling.types.list_engagement_from_opportunity_tasks_request.ListEngagementFromOpportunityTasksRequest = {
             "catalog": catalog
         }

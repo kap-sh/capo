@@ -19,10 +19,12 @@ from capo_cloudtrail_data._auth._zapros_handler import AuthMiddleware
 from capo_cloudtrail_data._services._aws_config import aws_config
 from capo_cloudtrail_data._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -107,7 +109,9 @@ class CloudTrailDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudTrailDataClientConfig] = None
+        self,
+        config_overrides: Optional[CloudTrailDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudTrailDataClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -115,8 +119,10 @@ class CloudTrailDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -176,7 +182,9 @@ class CloudTrailDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAuditEvents")
+        )
         input_: capo_cloudtrail_data.types.put_audit_events_request.PutAuditEventsRequest = {
             "audit_events": audit_events,
             "channel_arn": channel_arn,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#BatchGetPolicyOutputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.batch_get_policy_output_item
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_0(data: list) -> BatchGetPolicyOutputList:
             )
         )
     return out
+
+
+def redact_sensitive(value: BatchGetPolicyOutputList) -> list[Any]:
+    import capo_verifiedpermissions.types.batch_get_policy_output_item
+
+    return [
+        capo_verifiedpermissions.types.batch_get_policy_output_item.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

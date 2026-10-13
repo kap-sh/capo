@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.detective#ListMembersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,17 @@ def deserialize_json(data: dict) -> ListMembersResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListMembersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "member_details" in value:
+        import capo_detective.types.member_detail_list
+
+        out["member_details"] = (
+            capo_detective.types.member_detail_list.redact_sensitive(
+                value["member_details"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#UpdateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,5 +45,16 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
 
         out["user_details"] = capo_wickr.types.update_user_details.deserialize_json(
             data["userDetails"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_details" in value:
+        import capo_wickr.types.update_user_details
+
+        out["user_details"] = capo_wickr.types.update_user_details.redact_sensitive(
+            value["user_details"]
         )
     return out

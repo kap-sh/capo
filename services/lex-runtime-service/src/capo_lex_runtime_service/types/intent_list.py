@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#IntentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lex_runtime_service.types.predicted_intent
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> IntentList:
             capo_lex_runtime_service.types.predicted_intent.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: IntentList) -> list[Any]:
+    import capo_lex_runtime_service.types.predicted_intent
+
+    return [
+        capo_lex_runtime_service.types.predicted_intent.redact_sensitive(item)
+        for item in value
+    ]

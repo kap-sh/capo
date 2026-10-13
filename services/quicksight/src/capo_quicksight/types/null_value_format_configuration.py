@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#NullValueFormatConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> NullValueFormatConfiguration:
         out["null_string"] = data["NullString"]
     else:
         raise DeserializationError("NullValueFormatConfiguration.null_string required")
+    return out
+
+
+def redact_sensitive(value: NullValueFormatConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "null_string" in value:
+        out["null_string"] = "*** Sensitive Data Redacted ***"
     return out

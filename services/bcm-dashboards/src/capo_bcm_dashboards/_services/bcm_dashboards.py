@@ -22,10 +22,12 @@ from capo_bcm_dashboards._pagination import resolve_path as _resolve_path
 from capo_bcm_dashboards._services._aws_config import aws_config
 from capo_bcm_dashboards._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -150,7 +152,9 @@ class BCMDashboardsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[BCMDashboardsClientConfig] = None
+        self,
+        config_overrides: Optional[BCMDashboardsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BCMDashboardsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -158,8 +162,10 @@ class BCMDashboardsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -224,7 +230,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDashboard")
+        )
         input_: capo_bcm_dashboards.types.create_dashboard_request.CreateDashboardRequest = {
             "name": name,
             "widgets": widgets,
@@ -285,7 +293,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateScheduledReport")
+        )
         input_: capo_bcm_dashboards.types.create_scheduled_report_request.CreateScheduledReportRequest = {
             "scheduled_report": scheduled_report
         }
@@ -341,7 +351,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDashboard")
+        )
         input_: capo_bcm_dashboards.types.delete_dashboard_request.DeleteDashboardRequest = {
             "arn": arn
         }
@@ -388,7 +400,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledReport")
+        )
         input_: capo_bcm_dashboards.types.delete_scheduled_report_request.DeleteScheduledReportRequest = {
             "arn": arn
         }
@@ -442,7 +456,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteScheduledReport")
+        )
         input_: capo_bcm_dashboards.types.execute_scheduled_report_request.ExecuteScheduledReportRequest = {
             "arn": arn
         }
@@ -499,7 +515,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDashboard")
+        )
         input_: capo_bcm_dashboards.types.get_dashboard_request.GetDashboardRequest = {
             "arn": arn
         }
@@ -551,7 +569,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_bcm_dashboards.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -598,7 +618,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetScheduledReport")
+        )
         input_: capo_bcm_dashboards.types.get_scheduled_report_request.GetScheduledReportRequest = {
             "arn": arn
         }
@@ -655,7 +677,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboards")
+        )
         input_: capo_bcm_dashboards.types.list_dashboards_request.ListDashboardsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -734,7 +758,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScheduledReports")
+        )
         input_: capo_bcm_dashboards.types.list_scheduled_reports_request.ListScheduledReportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -812,7 +838,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bcm_dashboards.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -865,7 +893,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bcm_dashboards.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -919,7 +949,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bcm_dashboards.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -980,7 +1012,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboard")
+        )
         input_: capo_bcm_dashboards.types.update_dashboard_request.UpdateDashboardRequest = {
             "arn": arn,
             "name": name,
@@ -1065,7 +1099,9 @@ class BCMDashboardsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledReport")
+        )
         input_: capo_bcm_dashboards.types.update_scheduled_report_request.UpdateScheduledReportRequest = {
             "arn": arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PartnerEventsSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_cbor(data: dict) -> PartnerEventsSourceConfiguration:
                 data["OnFailureConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PartnerEventsSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pattern" in value:
+        out["pattern"] = "*** Sensitive Data Redacted ***"
     return out

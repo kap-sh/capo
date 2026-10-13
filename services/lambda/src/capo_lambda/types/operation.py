@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#Operation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -200,6 +200,43 @@ def deserialize_json(data: dict) -> Operation:
         out["chained_invoke_details"] = (
             capo_lambda.types.chained_invoke_details.deserialize_json(
                 data["ChainedInvokeDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Operation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "execution_details" in value:
+        import capo_lambda.types.execution_details
+
+        out["execution_details"] = capo_lambda.types.execution_details.redact_sensitive(
+            value["execution_details"]
+        )
+    if "context_details" in value:
+        import capo_lambda.types.context_details
+
+        out["context_details"] = capo_lambda.types.context_details.redact_sensitive(
+            value["context_details"]
+        )
+    if "step_details" in value:
+        import capo_lambda.types.step_details
+
+        out["step_details"] = capo_lambda.types.step_details.redact_sensitive(
+            value["step_details"]
+        )
+    if "callback_details" in value:
+        import capo_lambda.types.callback_details
+
+        out["callback_details"] = capo_lambda.types.callback_details.redact_sensitive(
+            value["callback_details"]
+        )
+    if "chained_invoke_details" in value:
+        import capo_lambda.types.chained_invoke_details
+
+        out["chained_invoke_details"] = (
+            capo_lambda.types.chained_invoke_details.redact_sensitive(
+                value["chained_invoke_details"]
             )
         )
     return out

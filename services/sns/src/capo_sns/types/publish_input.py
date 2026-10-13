@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#PublishInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,11 @@ def deserialize_query(el: Element) -> PublishInput:
     child_message_group_id = el.find("MessageGroupId")
     if child_message_group_id is not None:
         out["message_group_id"] = str(child_message_group_id.text or "")
+    return out
+
+
+def redact_sensitive(value: PublishInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#UpdateReplicationConfigurationTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -178,4 +178,13 @@ def deserialize_json(data: dict) -> UpdateReplicationConfigurationTemplateReques
         out["auto_replicate_new_disks"] = data["autoReplicateNewDisks"]
     if data.get("internetProtocol") is not None:
         out["internet_protocol"] = data["internetProtocol"]
+    return out
+
+
+def redact_sensitive(
+    value: UpdateReplicationConfigurationTemplateRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "staging_area_tags" in value:
+        out["staging_area_tags"] = "*** Sensitive Data Redacted ***"
     return out

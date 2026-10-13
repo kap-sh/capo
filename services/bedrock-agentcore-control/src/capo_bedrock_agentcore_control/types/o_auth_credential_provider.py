@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#OAuthCredentialProvider``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,17 @@ def deserialize_json(data: dict) -> OAuthCredentialProvider:
         out["grant_type"] = "CLIENT_CREDENTIALS"
     if data.get("defaultReturnUrl") is not None:
         out["default_return_url"] = data["defaultReturnUrl"]
+    return out
+
+
+def redact_sensitive(value: OAuthCredentialProvider) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_parameters" in value:
+        import capo_bedrock_agentcore_control.types.o_auth_custom_parameters
+
+        out["custom_parameters"] = (
+            capo_bedrock_agentcore_control.types.o_auth_custom_parameters.redact_sensitive(
+                value["custom_parameters"]
+            )
+        )
     return out

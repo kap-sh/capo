@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#LineageNodeItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -185,5 +185,16 @@ def deserialize_json(data: dict) -> LineageNodeItem:
             capo_datazone.types.lineage_node_ids.deserialize_json(
                 data["downstreamLineageNodeIds"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: LineageNodeItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "forms_output" in value:
+        import capo_datazone.types.form_output_list
+
+        out["forms_output"] = capo_datazone.types.form_output_list.redact_sensitive(
+            value["forms_output"]
         )
     return out

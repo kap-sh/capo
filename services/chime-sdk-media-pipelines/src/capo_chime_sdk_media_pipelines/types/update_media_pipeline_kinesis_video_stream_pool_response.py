@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#UpdateMediaPipelineKinesisVideoStreamPoolResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,21 @@ def deserialize_json(data: dict) -> UpdateMediaPipelineKinesisVideoStreamPoolRes
         out["kinesis_video_stream_pool_configuration"] = (
             capo_chime_sdk_media_pipelines.types.kinesis_video_stream_pool_configuration.deserialize_json(
                 data["KinesisVideoStreamPoolConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: UpdateMediaPipelineKinesisVideoStreamPoolResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kinesis_video_stream_pool_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.kinesis_video_stream_pool_configuration
+
+        out["kinesis_video_stream_pool_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.kinesis_video_stream_pool_configuration.redact_sensitive(
+                value["kinesis_video_stream_pool_configuration"]
             )
         )
     return out

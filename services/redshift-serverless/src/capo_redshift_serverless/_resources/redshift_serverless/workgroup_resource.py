@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -123,7 +124,9 @@ class WorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.create_workgroup_request.CreateWorkgroupRequest = {
             "workgroup_name": workgroup_name,
             "namespace_name": namespace_name,
@@ -197,7 +200,9 @@ class WorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkgroup")
+        )
         input_: capo_redshift_serverless.types.get_workgroup_request.GetWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -281,7 +286,9 @@ class WorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.update_workgroup_request.UpdateWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -353,7 +360,9 @@ class WorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkgroup")
+        )
         input_: capo_redshift_serverless.types.delete_workgroup_request.DeleteWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -405,7 +414,9 @@ class WorkgroupResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_workgroups_request.ListWorkgroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -504,7 +515,9 @@ class AsyncWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.create_workgroup_request.CreateWorkgroupRequest = {
             "workgroup_name": workgroup_name,
             "namespace_name": namespace_name,
@@ -579,7 +592,9 @@ class AsyncWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkgroup")
+        )
         input_: capo_redshift_serverless.types.get_workgroup_request.GetWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -664,7 +679,9 @@ class AsyncWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkgroup")
+        )
         input_: capo_redshift_serverless.types.update_workgroup_request.UpdateWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -737,7 +754,9 @@ class AsyncWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkgroup")
+        )
         input_: capo_redshift_serverless.types.delete_workgroup_request.DeleteWorkgroupRequest = {
             "workgroup_name": workgroup_name
         }
@@ -790,7 +809,9 @@ class AsyncWorkgroupResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkgroups")
+        )
         input_: capo_redshift_serverless.types.list_workgroups_request.ListWorkgroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

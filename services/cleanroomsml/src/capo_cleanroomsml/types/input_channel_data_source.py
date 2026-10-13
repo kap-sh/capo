@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanroomsml#InputChannelDataSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -44,3 +44,16 @@ def deserialize_json(data: dict) -> InputChannelDataSource:
         }
     else:
         raise DeserializationError("InputChannelDataSource: no recognized variant key")
+
+
+def redact_sensitive(value: InputChannelDataSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "protectedQueryInputParameters" in value:
+        import capo_cleanroomsml.types.protected_query_input_parameters
+
+        out["protectedQueryInputParameters"] = (
+            capo_cleanroomsml.types.protected_query_input_parameters.redact_sensitive(
+                value["protectedQueryInputParameters"]
+            )
+        )
+    return out

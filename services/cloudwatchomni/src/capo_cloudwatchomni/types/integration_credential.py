@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchomni#IntegrationCredential``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -92,3 +92,14 @@ def deserialize_cbor(data: dict) -> IntegrationCredential:
         }
     else:
         raise DeserializationError("IntegrationCredential: no recognized variant key")
+
+
+def redact_sensitive(value: IntegrationCredential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauthCodeCredential" in value:
+        out["oauthCodeCredential"] = "*** Sensitive Data Redacted ***"
+    if "oauthClientCredential" in value:
+        out["oauthClientCredential"] = "*** Sensitive Data Redacted ***"
+    if "apiKeyCredential" in value:
+        out["apiKeyCredential"] = "*** Sensitive Data Redacted ***"
+    return out

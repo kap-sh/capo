@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#AttachVerifiedAccessTrustProviderResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,6 +65,19 @@ def deserialize_ec2_query(el: Element) -> AttachVerifiedAccessTrustProviderResul
         out["verified_access_instance"] = (
             capo_ec2.types.verified_access_instance.deserialize_ec2_query(
                 child_verified_access_instance
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AttachVerifiedAccessTrustProviderResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "verified_access_trust_provider" in value:
+        import capo_ec2.types.verified_access_trust_provider
+
+        out["verified_access_trust_provider"] = (
+            capo_ec2.types.verified_access_trust_provider.redact_sensitive(
+                value["verified_access_trust_provider"]
             )
         )
     return out

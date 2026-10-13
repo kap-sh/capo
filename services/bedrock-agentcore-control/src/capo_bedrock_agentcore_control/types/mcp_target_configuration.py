@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#McpTargetConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -161,3 +161,40 @@ def deserialize_json(data: dict) -> McpTargetConfiguration:
         }
     else:
         raise DeserializationError("McpTargetConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: McpTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "openApiSchema" in value:
+        import capo_bedrock_agentcore_control.types.api_schema_configuration
+
+        out["openApiSchema"] = (
+            capo_bedrock_agentcore_control.types.api_schema_configuration.redact_sensitive(
+                value["openApiSchema"]
+            )
+        )
+    if "smithyModel" in value:
+        import capo_bedrock_agentcore_control.types.api_schema_configuration
+
+        out["smithyModel"] = (
+            capo_bedrock_agentcore_control.types.api_schema_configuration.redact_sensitive(
+                value["smithyModel"]
+            )
+        )
+    if "lambda" in value:
+        import capo_bedrock_agentcore_control.types.mcp_lambda_target_configuration
+
+        out["lambda"] = (
+            capo_bedrock_agentcore_control.types.mcp_lambda_target_configuration.redact_sensitive(
+                value["lambda"]
+            )
+        )
+    if "mcpServer" in value:
+        import capo_bedrock_agentcore_control.types.mcp_server_target_configuration
+
+        out["mcpServer"] = (
+            capo_bedrock_agentcore_control.types.mcp_server_target_configuration.redact_sensitive(
+                value["mcpServer"]
+            )
+        )
+    return out

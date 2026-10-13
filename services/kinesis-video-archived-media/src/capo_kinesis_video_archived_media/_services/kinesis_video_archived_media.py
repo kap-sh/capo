@@ -22,10 +22,12 @@ from capo_kinesis_video_archived_media._pagination import resolve_path as _resol
 from capo_kinesis_video_archived_media._services._aws_config import aws_config
 from capo_kinesis_video_archived_media._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -146,7 +148,9 @@ class KinesisVideoArchivedMediaClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KinesisVideoArchivedMediaClientConfig] = None
+        self,
+        config_overrides: Optional[KinesisVideoArchivedMediaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KinesisVideoArchivedMediaClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -154,8 +158,10 @@ class KinesisVideoArchivedMediaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -221,7 +227,18 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis_video_archived_media.types.get_clip_output.GetClipOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video_archived_media.types.get_clip_output
+
+            return capo_kinesis_video_archived_media.types.get_clip_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClip", redact_output=_redact_output)
+        )
         input_: capo_kinesis_video_archived_media.types.get_clip_input.GetClipInput = {
             "clip_fragment_selector": clip_fragment_selector
         }
@@ -307,7 +324,9 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDASHStreamingSessionURL")
+        )
         input_: capo_kinesis_video_archived_media.types.get_dash_streaming_session_url_input.GetDASHStreamingSessionURLInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -405,7 +424,9 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHLSStreamingSessionURL")
+        )
         input_: capo_kinesis_video_archived_media.types.get_hls_streaming_session_url_input.GetHLSStreamingSessionURLInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name
@@ -508,7 +529,9 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImages")
+        )
         input_: capo_kinesis_video_archived_media.types.get_images_input.GetImagesInput = {
             "image_selector_type": image_selector_type,
             "start_timestamp": start_timestamp,
@@ -639,7 +662,19 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis_video_archived_media.types.get_media_for_fragment_list_output.GetMediaForFragmentListOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video_archived_media.types.get_media_for_fragment_list_output
+
+            return capo_kinesis_video_archived_media.types.get_media_for_fragment_list_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMediaForFragmentList", redact_output=_redact_output),
+        )
         input_: capo_kinesis_video_archived_media.types.get_media_for_fragment_list_input.GetMediaForFragmentListInput = {
             "fragments": fragments
         }
@@ -709,7 +744,9 @@ class KinesisVideoArchivedMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFragments")
+        )
         input_: capo_kinesis_video_archived_media.types.list_fragments_input.ListFragmentsInput = {}
         if stream_name is not None:
             input_["stream_name"] = stream_name

@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_backup_gateway._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_backup_gateway.types.create_gateway_input.CreateGatewayInput = {
             "activation_key": activation_key,
             "gateway_display_name": gateway_display_name,
@@ -149,7 +152,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGateway")
+        )
         input_: capo_backup_gateway.types.get_gateway_input.GetGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -198,7 +203,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInformation")
+        )
         input_: capo_backup_gateway.types.update_gateway_information_input.UpdateGatewayInformationInput = {
             "gateway_arn": gateway_arn
         }
@@ -246,7 +253,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_backup_gateway.types.delete_gateway_input.DeleteGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -295,7 +304,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_backup_gateway.types.list_gateways_input.ListGatewaysInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -345,7 +356,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateGatewayToServer")
+        )
         input_: capo_backup_gateway.types.associate_gateway_to_server_input.AssociateGatewayToServerInput = {
             "gateway_arn": gateway_arn,
             "server_arn": server_arn,
@@ -393,7 +406,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateGatewayFromServer")
+        )
         input_: capo_backup_gateway.types.disassociate_gateway_from_server_input.DisassociateGatewayFromServerInput = {
             "gateway_arn": gateway_arn
         }
@@ -450,7 +465,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMaintenanceStartTime")
+        )
         input_: capo_backup_gateway.types.put_maintenance_start_time_input.PutMaintenanceStartTimeInput = {
             "gateway_arn": gateway_arn,
             "hour_of_day": hour_of_day,
@@ -509,7 +526,19 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.test_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.test_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("TestHypervisorConfiguration", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput = {
             "gateway_arn": gateway_arn,
             "host": host,
@@ -560,7 +589,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewaySoftwareNow")
+        )
         input_: capo_backup_gateway.types.update_gateway_software_now_input.UpdateGatewaySoftwareNowInput = {
             "gateway_arn": gateway_arn
         }
@@ -617,7 +648,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_backup_gateway.types.create_gateway_input.CreateGatewayInput = {
             "activation_key": activation_key,
             "gateway_display_name": gateway_display_name,
@@ -668,7 +701,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGateway")
+        )
         input_: capo_backup_gateway.types.get_gateway_input.GetGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -718,7 +753,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewayInformation")
+        )
         input_: capo_backup_gateway.types.update_gateway_information_input.UpdateGatewayInformationInput = {
             "gateway_arn": gateway_arn
         }
@@ -767,7 +804,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_backup_gateway.types.delete_gateway_input.DeleteGatewayInput = {
             "gateway_arn": gateway_arn
         }
@@ -817,7 +856,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_backup_gateway.types.list_gateways_input.ListGatewaysInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -868,7 +909,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateGatewayToServer")
+        )
         input_: capo_backup_gateway.types.associate_gateway_to_server_input.AssociateGatewayToServerInput = {
             "gateway_arn": gateway_arn,
             "server_arn": server_arn,
@@ -917,7 +960,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateGatewayFromServer")
+        )
         input_: capo_backup_gateway.types.disassociate_gateway_from_server_input.DisassociateGatewayFromServerInput = {
             "gateway_arn": gateway_arn
         }
@@ -975,7 +1020,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMaintenanceStartTime")
+        )
         input_: capo_backup_gateway.types.put_maintenance_start_time_input.PutMaintenanceStartTimeInput = {
             "gateway_arn": gateway_arn,
             "hour_of_day": hour_of_day,
@@ -1035,7 +1082,19 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup_gateway.types.test_hypervisor_configuration_input
+
+            return capo_backup_gateway.types.test_hypervisor_configuration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("TestHypervisorConfiguration", redact_input=_redact_input),
+        )
         input_: capo_backup_gateway.types.test_hypervisor_configuration_input.TestHypervisorConfigurationInput = {
             "gateway_arn": gateway_arn,
             "host": host,
@@ -1087,7 +1146,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGatewaySoftwareNow")
+        )
         input_: capo_backup_gateway.types.update_gateway_software_now_input.UpdateGatewaySoftwareNowInput = {
             "gateway_arn": gateway_arn
         }

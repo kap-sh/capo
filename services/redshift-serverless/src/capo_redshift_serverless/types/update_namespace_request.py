@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshiftserverless#UpdateNamespaceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -169,4 +169,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateNamespaceRequest:
         out["s3_table_kms_key_id"] = data["s3TableKmsKeyId"]
     if data.get("s3TableGranularity") is not None:
         out["s3_table_granularity"] = data["s3TableGranularity"]
+    return out
+
+
+def redact_sensitive(value: UpdateNamespaceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin_user_password" in value:
+        out["admin_user_password"] = "*** Sensitive Data Redacted ***"
+    if "admin_username" in value:
+        out["admin_username"] = "*** Sensitive Data Redacted ***"
     return out

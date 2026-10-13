@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ValidateStateMachineDefinitionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,11 @@ def deserialize_aws_json_1_0(data: dict) -> ValidateStateMachineDefinitionInput:
         out["max_results"] = data["maxResults"]
     else:
         out["max_results"] = 0
+    return out
+
+
+def redact_sensitive(value: ValidateStateMachineDefinitionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
     return out

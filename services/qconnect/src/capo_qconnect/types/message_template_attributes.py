@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageTemplateAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,33 @@ def deserialize_json(data: dict) -> MessageTemplateAttributes:
                 data["customAttributes"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: MessageTemplateAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "system_attributes" in value:
+        import capo_qconnect.types.system_attributes
+
+        out["system_attributes"] = (
+            capo_qconnect.types.system_attributes.redact_sensitive(
+                value["system_attributes"]
+            )
+        )
+    if "agent_attributes" in value:
+        import capo_qconnect.types.agent_attributes
+
+        out["agent_attributes"] = capo_qconnect.types.agent_attributes.redact_sensitive(
+            value["agent_attributes"]
+        )
+    if "customer_profile_attributes" in value:
+        import capo_qconnect.types.customer_profile_attributes
+
+        out["customer_profile_attributes"] = (
+            capo_qconnect.types.customer_profile_attributes.redact_sensitive(
+                value["customer_profile_attributes"]
+            )
+        )
+    if "custom_attributes" in value:
+        out["custom_attributes"] = "*** Sensitive Data Redacted ***"
     return out

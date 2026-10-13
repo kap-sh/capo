@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RetrieveConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -49,5 +49,18 @@ def deserialize_json(data: dict) -> RetrieveConfig:
     else:
         raise DeserializationError(
             "RetrieveConfig.knowledge_base_retrieval_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: RetrieveConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledge_base_retrieval_configuration" in value:
+        import capo_bedrock.types.knowledge_base_retrieval_configuration
+
+        out["knowledge_base_retrieval_configuration"] = (
+            capo_bedrock.types.knowledge_base_retrieval_configuration.redact_sensitive(
+                value["knowledge_base_retrieval_configuration"]
+            )
         )
     return out

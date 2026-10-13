@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock._auth._signers
 import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -138,7 +139,17 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_request
+
+            return capo_bedrock.types.create_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest = {
             "name": name,
             "blocked_input_messaging": blocked_input_messaging,
@@ -220,7 +231,17 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_guardrail_response.GetGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_guardrail_response
+
+            return capo_bedrock.types.get_guardrail_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGuardrail", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_guardrail_request.GetGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -311,7 +332,17 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_guardrail_request
+
+            return capo_bedrock.types.update_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier,
             "name": name,
@@ -391,7 +422,9 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGuardrail")
+        )
         input_: capo_bedrock.types.delete_guardrail_request.DeleteGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -448,7 +481,17 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_guardrails_response.ListGuardrailsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_guardrails_response
+
+            return capo_bedrock.types.list_guardrails_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGuardrails", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_guardrails_request.ListGuardrailsRequest = {}
         if guardrail_identifier is not None:
             input_["guardrail_identifier"] = guardrail_identifier
@@ -509,7 +552,19 @@ class GuardrailsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_version_request
+
+            return capo_bedrock.types.create_guardrail_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrailVersion", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -614,7 +669,17 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_request
+
+            return capo_bedrock.types.create_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_request.CreateGuardrailRequest = {
             "name": name,
             "blocked_input_messaging": blocked_input_messaging,
@@ -697,7 +762,17 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_guardrail_response.GetGuardrailResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_guardrail_response
+
+            return capo_bedrock.types.get_guardrail_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGuardrail", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_guardrail_request.GetGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -789,7 +864,17 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.update_guardrail_request
+
+            return capo_bedrock.types.update_guardrail_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGuardrail", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.update_guardrail_request.UpdateGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier,
             "name": name,
@@ -870,7 +955,9 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGuardrail")
+        )
         input_: capo_bedrock.types.delete_guardrail_request.DeleteGuardrailRequest = {
             "guardrail_identifier": guardrail_identifier
         }
@@ -928,7 +1015,17 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_guardrails_response.ListGuardrailsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_guardrails_response
+
+            return capo_bedrock.types.list_guardrails_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGuardrails", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_guardrails_request.ListGuardrailsRequest = {}
         if guardrail_identifier is not None:
             input_["guardrail_identifier"] = guardrail_identifier
@@ -990,7 +1087,19 @@ class AsyncGuardrailsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_guardrail_version_request
+
+            return capo_bedrock.types.create_guardrail_version_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGuardrailVersion", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_guardrail_version_request.CreateGuardrailVersionRequest = {
             "guardrail_identifier": guardrail_identifier
         }

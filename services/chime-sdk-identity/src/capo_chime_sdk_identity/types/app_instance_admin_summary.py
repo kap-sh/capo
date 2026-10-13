@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#AppInstanceAdminSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> AppInstanceAdminSummary:
 
         out["admin"] = capo_chime_sdk_identity.types.identity.deserialize_json(
             data["Admin"]
+        )
+    return out
+
+
+def redact_sensitive(value: AppInstanceAdminSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "admin" in value:
+        import capo_chime_sdk_identity.types.identity
+
+        out["admin"] = capo_chime_sdk_identity.types.identity.redact_sensitive(
+            value["admin"]
         )
     return out

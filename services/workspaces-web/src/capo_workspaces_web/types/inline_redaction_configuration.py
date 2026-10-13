@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#InlineRedactionConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,33 @@ def deserialize_json(data: dict) -> InlineRedactionConfiguration:
         )
     if data.get("globalConfidenceLevel") is not None:
         out["global_confidence_level"] = data["globalConfidenceLevel"]
+    return out
+
+
+def redact_sensitive(value: InlineRedactionConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_redaction_patterns" in value:
+        import capo_workspaces_web.types.inline_redaction_patterns
+
+        out["inline_redaction_patterns"] = (
+            capo_workspaces_web.types.inline_redaction_patterns.redact_sensitive(
+                value["inline_redaction_patterns"]
+            )
+        )
+    if "global_enforced_urls" in value:
+        import capo_workspaces_web.types.global_inline_redaction_urls
+
+        out["global_enforced_urls"] = (
+            capo_workspaces_web.types.global_inline_redaction_urls.redact_sensitive(
+                value["global_enforced_urls"]
+            )
+        )
+    if "global_exempt_urls" in value:
+        import capo_workspaces_web.types.global_inline_redaction_urls
+
+        out["global_exempt_urls"] = (
+            capo_workspaces_web.types.global_inline_redaction_urls.redact_sensitive(
+                value["global_exempt_urls"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrcontainers#CreateManagedEndpointRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -114,4 +114,17 @@ def deserialize_json(data: dict) -> CreateManagedEndpointRequest:
         out["session_idle_timeout_in_minutes"] = data["sessionIdleTimeoutInMinutes"]
     else:
         out["session_idle_timeout_in_minutes"] = 0
+    return out
+
+
+def redact_sensitive(value: CreateManagedEndpointRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration_overrides" in value:
+        import capo_emr_containers.types.configuration_overrides
+
+        out["configuration_overrides"] = (
+            capo_emr_containers.types.configuration_overrides.redact_sensitive(
+                value["configuration_overrides"]
+            )
+        )
     return out

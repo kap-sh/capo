@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GenerateAs2805KekValidationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -59,4 +59,13 @@ def deserialize_json(data: dict) -> GenerateAs2805KekValidationOutput:
         raise DeserializationError(
             "GenerateAs2805KekValidationOutput.random_key_receive required"
         )
+    return out
+
+
+def redact_sensitive(value: GenerateAs2805KekValidationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "random_key_send" in value:
+        out["random_key_send"] = "*** Sensitive Data Redacted ***"
+    if "random_key_receive" in value:
+        out["random_key_receive"] = "*** Sensitive Data Redacted ***"
     return out

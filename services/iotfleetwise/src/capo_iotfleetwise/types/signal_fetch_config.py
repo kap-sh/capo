@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#SignalFetchConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,16 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchConfig:
         }
     else:
         raise DeserializationError("SignalFetchConfig: no recognized variant key")
+
+
+def redact_sensitive(value: SignalFetchConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "conditionBased" in value:
+        import capo_iotfleetwise.types.condition_based_signal_fetch_config
+
+        out["conditionBased"] = (
+            capo_iotfleetwise.types.condition_based_signal_fetch_config.redact_sensitive(
+                value["conditionBased"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#GetStreamUrlOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -277,6 +277,23 @@ def deserialize_json(data: dict) -> GetStreamUrlOutput:
         out["stream_sessions"] = (
             capo_gameliftstreams.types.stream_session_summary_list.deserialize_json(
                 data["StreamSessions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetStreamUrlOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream_url" in value:
+        out["stream_url"] = "*** Sensitive Data Redacted ***"
+    if "role_arn" in value:
+        out["role_arn"] = "*** Sensitive Data Redacted ***"
+    if "stream_sessions" in value:
+        import capo_gameliftstreams.types.stream_session_summary_list
+
+        out["stream_sessions"] = (
+            capo_gameliftstreams.types.stream_session_summary_list.redact_sensitive(
+                value["stream_sessions"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetWorkloadAccessTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> GetWorkloadAccessTokenResponse:
         raise DeserializationError(
             "GetWorkloadAccessTokenResponse.workload_access_token required"
         )
+    return out
+
+
+def redact_sensitive(value: GetWorkloadAccessTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workload_access_token" in value:
+        out["workload_access_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AuthorizationCodeGrantDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> AuthorizationCodeGrantDetails:
         raise DeserializationError(
             "AuthorizationCodeGrantDetails.authorization_endpoint required"
         )
+    return out
+
+
+def redact_sensitive(value: AuthorizationCodeGrantDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

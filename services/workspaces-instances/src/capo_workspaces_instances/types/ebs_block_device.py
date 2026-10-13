@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#EbsBlockDevice``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,11 @@ def deserialize_aws_json_1_0(data: dict) -> EbsBlockDevice:
         out["throughput"] = data["Throughput"]
     if data.get("VolumeSize") is not None:
         out["volume_size"] = data["VolumeSize"]
+    return out
+
+
+def redact_sensitive(value: EbsBlockDevice) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kms_key_id" in value:
+        out["kms_key_id"] = "*** Sensitive Data Redacted ***"
     return out

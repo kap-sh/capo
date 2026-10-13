@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#KnowledgeBaseList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.knowledge_base_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> KnowledgeBaseList:
             continue
         out.append(capo_qconnect.types.knowledge_base_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: KnowledgeBaseList) -> list[Any]:
+    import capo_qconnect.types.knowledge_base_summary
+
+    return [
+        capo_qconnect.types.knowledge_base_summary.redact_sensitive(item)
+        for item in value
+    ]

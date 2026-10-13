@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#TranslationNameList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.translation_name
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> TranslationNameList:
             continue
         out.append(capo_geo_places.types.translation_name.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TranslationNameList) -> list[Any]:
+    import capo_geo_places.types.translation_name
+
+    return [
+        capo_geo_places.types.translation_name.redact_sensitive(item) for item in value
+    ]

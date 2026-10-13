@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,19 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_recovery_instances_response.DescribeRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_recovery_instances_response
+
+            return capo_drs.types.describe_recovery_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRecoveryInstances", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_recovery_instances_request.DescribeRecoveryInstancesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -137,7 +150,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryInstance")
+        )
         input_: capo_drs.types.delete_recovery_instance_request.DeleteRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -183,7 +198,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisconnectRecoveryInstance")
+        )
         input_: capo_drs.types.disconnect_recovery_instance_request.DisconnectRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -229,7 +246,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.get_failback_replication_configuration_request.GetFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -278,7 +297,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ReverseReplication")
+        )
         input_: capo_drs.types.reverse_replication_request.ReverseReplicationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -322,7 +343,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFailback")
+        )
         input_: capo_drs.types.stop_failback_request.StopFailbackRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -379,7 +402,9 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.update_failback_replication_configuration_request.UpdateFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -437,7 +462,30 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_request
+
+            return capo_drs.types.start_failback_launch_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.start_failback_launch_response.StartFailbackLaunchResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_response
+
+            return capo_drs.types.start_failback_launch_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartFailbackLaunch",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }
@@ -486,7 +534,23 @@ class RecoveryInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.terminate_recovery_instances_response.TerminateRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.terminate_recovery_instances_response
+
+            return (
+                capo_drs.types.terminate_recovery_instances_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateRecoveryInstances", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.terminate_recovery_instances_request.TerminateRecoveryInstancesRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }
@@ -546,7 +610,19 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_recovery_instances_response.DescribeRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_recovery_instances_response
+
+            return capo_drs.types.describe_recovery_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRecoveryInstances", redact_output=_redact_output),
+        )
         input_: capo_drs.types.describe_recovery_instances_request.DescribeRecoveryInstancesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -596,7 +672,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryInstance")
+        )
         input_: capo_drs.types.delete_recovery_instance_request.DeleteRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -643,7 +721,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisconnectRecoveryInstance")
+        )
         input_: capo_drs.types.disconnect_recovery_instance_request.DisconnectRecoveryInstanceRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -690,7 +770,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.get_failback_replication_configuration_request.GetFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -740,7 +822,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ReverseReplication")
+        )
         input_: capo_drs.types.reverse_replication_request.ReverseReplicationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -785,7 +869,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFailback")
+        )
         input_: capo_drs.types.stop_failback_request.StopFailbackRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -843,7 +929,9 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFailbackReplicationConfiguration")
+        )
         input_: capo_drs.types.update_failback_replication_configuration_request.UpdateFailbackReplicationConfigurationRequest = {
             "recovery_instance_id": recovery_instance_id
         }
@@ -902,7 +990,30 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_request
+
+            return capo_drs.types.start_failback_launch_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_drs.types.start_failback_launch_response.StartFailbackLaunchResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.start_failback_launch_response
+
+            return capo_drs.types.start_failback_launch_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartFailbackLaunch",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.start_failback_launch_request.StartFailbackLaunchRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }
@@ -952,7 +1063,23 @@ class AsyncRecoveryInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.terminate_recovery_instances_response.TerminateRecoveryInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.terminate_recovery_instances_response
+
+            return (
+                capo_drs.types.terminate_recovery_instances_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateRecoveryInstances", redact_output=_redact_output
+            ),
+        )
         input_: capo_drs.types.terminate_recovery_instances_request.TerminateRecoveryInstancesRequest = {
             "recovery_instance_i_ds": recovery_instance_i_ds
         }

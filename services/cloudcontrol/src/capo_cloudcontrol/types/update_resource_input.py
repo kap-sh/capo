@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#UpdateResourceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateResourceInput:
         out["patch_document"] = data["PatchDocument"]
     else:
         raise DeserializationError("UpdateResourceInput.patch_document required")
+    return out
+
+
+def redact_sensitive(value: UpdateResourceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "patch_document" in value:
+        out["patch_document"] = "*** Sensitive Data Redacted ***"
     return out

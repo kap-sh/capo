@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#CreateFleetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -265,4 +265,17 @@ def deserialize_ec2_query(el: Element) -> CreateFleetRequest:
     child_context = el.find("Context")
     if child_context is not None:
         out["context"] = str(child_context.text or "")
+    return out
+
+
+def redact_sensitive(value: CreateFleetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_configs" in value:
+        import capo_ec2.types.fleet_launch_template_config_list_request
+
+        out["launch_template_configs"] = (
+            capo_ec2.types.fleet_launch_template_config_list_request.redact_sensitive(
+                value["launch_template_configs"]
+            )
+        )
     return out

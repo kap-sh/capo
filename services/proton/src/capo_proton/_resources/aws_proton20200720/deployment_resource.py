@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,17 @@ class DeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_deployment_output.GetDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_deployment_output
+
+            return capo_proton.types.get_deployment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeployment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_deployment_input.GetDeploymentInput = {"id": id}
         if environment_name is not None:
             input_["environment_name"] = environment_name
@@ -133,7 +144,17 @@ class DeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_deployment_output.DeleteDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_deployment_output
+
+            return capo_proton.types.delete_deployment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDeployment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_deployment_input.DeleteDeploymentInput = {
             "id": id
         }
@@ -196,7 +217,9 @@ class DeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_proton.types.list_deployments_input.ListDeploymentsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -271,7 +294,17 @@ class AsyncDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_deployment_output.GetDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_deployment_output
+
+            return capo_proton.types.get_deployment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeployment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_deployment_input.GetDeploymentInput = {"id": id}
         if environment_name is not None:
             input_["environment_name"] = environment_name
@@ -325,7 +358,17 @@ class AsyncDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_deployment_output.DeleteDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_deployment_output
+
+            return capo_proton.types.delete_deployment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDeployment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_deployment_input.DeleteDeploymentInput = {
             "id": id
         }
@@ -389,7 +432,9 @@ class AsyncDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_proton.types.list_deployments_input.ListDeploymentsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.applicationdiscoveryservice#AgentsInfo``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_application_discovery_service.types.agent_info
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> AgentsInfo:
             )
         )
     return out
+
+
+def redact_sensitive(value: AgentsInfo) -> list[Any]:
+    import capo_application_discovery_service.types.agent_info
+
+    return [
+        capo_application_discovery_service.types.agent_info.redact_sensitive(item)
+        for item in value
+    ]

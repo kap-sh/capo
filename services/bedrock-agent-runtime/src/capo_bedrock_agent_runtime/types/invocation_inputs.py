@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvocationInputs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.invocation_input_member
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> InvocationInputs:
             )
         )
     return out
+
+
+def redact_sensitive(value: InvocationInputs) -> list[Any]:
+    import capo_bedrock_agent_runtime.types.invocation_input_member
+
+    return [
+        capo_bedrock_agent_runtime.types.invocation_input_member.redact_sensitive(item)
+        for item in value
+    ]

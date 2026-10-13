@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#PutIntegrationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -131,4 +131,11 @@ def deserialize_json(data: dict) -> PutIntegrationRequest:
         out["scope"] = capo_customer_profiles.types.scope.deserialize_json(
             data["Scope"]
         )
+    return out
+
+
+def redact_sensitive(value: PutIntegrationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow_definition" in value:
+        out["flow_definition"] = "*** Sensitive Data Redacted ***"
     return out

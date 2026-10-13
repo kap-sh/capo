@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_identitystore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGroupMembership")
+        )
         input_: capo_identitystore.types.create_group_membership_request.CreateGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -138,7 +141,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGroupMembership")
+        )
         input_: capo_identitystore.types.describe_group_membership_request.DescribeGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -189,7 +194,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGroupMembership")
+        )
         input_: capo_identitystore.types.delete_group_membership_request.DeleteGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -243,7 +250,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroupMemberships")
+        )
         input_: capo_identitystore.types.list_group_memberships_request.ListGroupMembershipsRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -299,7 +308,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGroupMembershipId")
+        )
         input_: capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -354,7 +365,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("IsMemberInGroups")
+        )
         input_: capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,
@@ -409,7 +422,9 @@ class GroupMembershipResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroupMembershipsForMember")
+        )
         input_: capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,
@@ -473,7 +488,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGroupMembership")
+        )
         input_: capo_identitystore.types.create_group_membership_request.CreateGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -525,7 +542,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGroupMembership")
+        )
         input_: capo_identitystore.types.describe_group_membership_request.DescribeGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -577,7 +596,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGroupMembership")
+        )
         input_: capo_identitystore.types.delete_group_membership_request.DeleteGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -632,7 +653,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroupMemberships")
+        )
         input_: capo_identitystore.types.list_group_memberships_request.ListGroupMembershipsRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -689,7 +712,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGroupMembershipId")
+        )
         input_: capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -745,7 +770,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("IsMemberInGroups")
+        )
         input_: capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,
@@ -801,7 +828,9 @@ class AsyncGroupMembershipResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroupMembershipsForMember")
+        )
         input_: capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,

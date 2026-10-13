@@ -8,6 +8,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,10 @@ class AdvancedPromptOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteAdvancedPromptOptimizationJob"),
+        )
         input_: capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_request.BatchDeleteAdvancedPromptOptimizationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -152,7 +156,9 @@ class AdvancedPromptOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.create_advanced_prompt_optimization_job_request.CreateAdvancedPromptOptimizationJobRequest = {
             "job_name": job_name,
             "input_config": input_config,
@@ -211,7 +217,9 @@ class AdvancedPromptOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.get_advanced_prompt_optimization_job_request.GetAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -265,7 +273,9 @@ class AdvancedPromptOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAdvancedPromptOptimizationJobs")
+        )
         input_: capo_bedrock.types.list_advanced_prompt_optimization_jobs_request.ListAdvancedPromptOptimizationJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -319,7 +329,9 @@ class AdvancedPromptOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.stop_advanced_prompt_optimization_job_request.StopAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -371,7 +383,10 @@ class AsyncAdvancedPromptOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteAdvancedPromptOptimizationJob"),
+        )
         input_: capo_bedrock.types.batch_delete_advanced_prompt_optimization_job_request.BatchDeleteAdvancedPromptOptimizationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -440,7 +455,9 @@ class AsyncAdvancedPromptOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.create_advanced_prompt_optimization_job_request.CreateAdvancedPromptOptimizationJobRequest = {
             "job_name": job_name,
             "input_config": input_config,
@@ -500,7 +517,9 @@ class AsyncAdvancedPromptOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.get_advanced_prompt_optimization_job_request.GetAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -555,7 +574,9 @@ class AsyncAdvancedPromptOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAdvancedPromptOptimizationJobs")
+        )
         input_: capo_bedrock.types.list_advanced_prompt_optimization_jobs_request.ListAdvancedPromptOptimizationJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -610,7 +631,9 @@ class AsyncAdvancedPromptOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopAdvancedPromptOptimizationJob")
+        )
         input_: capo_bedrock.types.stop_advanced_prompt_optimization_job_request.StopAdvancedPromptOptimizationJobRequest = {
             "job_identifier": job_identifier
         }

@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class DataflowEndpointGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_request.CreateDataflowEndpointGroupRequest = {
             "endpoint_details": endpoint_details
         }
@@ -139,7 +142,9 @@ class DataflowEndpointGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.get_dataflow_endpoint_group_request.GetDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -184,7 +189,9 @@ class DataflowEndpointGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.delete_dataflow_endpoint_group_request.DeleteDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -235,7 +242,9 @@ class DataflowEndpointGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataflowEndpointGroups")
+        )
         input_: capo_groundstation.types.list_dataflow_endpoint_groups_request.ListDataflowEndpointGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -298,7 +307,9 @@ class AsyncDataflowEndpointGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.create_dataflow_endpoint_group_request.CreateDataflowEndpointGroupRequest = {
             "endpoint_details": endpoint_details
         }
@@ -354,7 +365,9 @@ class AsyncDataflowEndpointGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.get_dataflow_endpoint_group_request.GetDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -400,7 +413,9 @@ class AsyncDataflowEndpointGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataflowEndpointGroup")
+        )
         input_: capo_groundstation.types.delete_dataflow_endpoint_group_request.DeleteDataflowEndpointGroupRequest = {
             "dataflow_endpoint_group_id": dataflow_endpoint_group_id
         }
@@ -452,7 +467,9 @@ class AsyncDataflowEndpointGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataflowEndpointGroups")
+        )
         input_: capo_groundstation.types.list_dataflow_endpoint_groups_request.ListDataflowEndpointGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

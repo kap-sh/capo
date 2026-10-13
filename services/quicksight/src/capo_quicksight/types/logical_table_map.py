@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#LogicalTableMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.logical_table
@@ -31,3 +31,12 @@ def deserialize_json(data: dict) -> LogicalTableMap:
 
         out[key] = capo_quicksight.types.logical_table.deserialize_json(value)
     return out
+
+
+def redact_sensitive(value: LogicalTableMap) -> dict[str, Any]:
+    import capo_quicksight.types.logical_table
+
+    return {
+        key: capo_quicksight.types.logical_table.redact_sensitive(item)
+        for key, item in value.items()
+    }

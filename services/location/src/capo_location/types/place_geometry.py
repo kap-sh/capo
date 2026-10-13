@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#PlaceGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,11 @@ def deserialize_json(data: dict) -> PlaceGeometry:
         import capo_location.types.position
 
         out["point"] = capo_location.types.position.deserialize_json(data["Point"])
+    return out
+
+
+def redact_sensitive(value: PlaceGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "point" in value:
+        out["point"] = "*** Sensitive Data Redacted ***"
     return out

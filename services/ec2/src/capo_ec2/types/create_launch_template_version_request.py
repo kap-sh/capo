@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#CreateLaunchTemplateVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -109,4 +109,17 @@ def deserialize_ec2_query(el: Element) -> CreateLaunchTemplateVersionRequest:
     child_resolve_alias = el.find("ResolveAlias")
     if child_resolve_alias is not None:
         out["resolve_alias"] = (child_resolve_alias.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: CreateLaunchTemplateVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_data" in value:
+        import capo_ec2.types.request_launch_template_data
+
+        out["launch_template_data"] = (
+            capo_ec2.types.request_launch_template_data.redact_sensitive(
+                value["launch_template_data"]
+            )
+        )
     return out

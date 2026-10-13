@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ComputeNode``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_json(data: dict) -> ComputeNode:
                 data["dependsOn"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: ComputeNode) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_variables" in value:
+        out["environment_variables"] = "*** Sensitive Data Redacted ***"
     return out

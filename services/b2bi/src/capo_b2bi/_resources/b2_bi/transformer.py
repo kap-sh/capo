@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_b2bi._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -114,7 +115,9 @@ class Transformer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTransformer")
+        )
         input_: capo_b2bi.types.create_transformer_request.CreateTransformerRequest = {
             "name": name
         }
@@ -187,7 +190,9 @@ class Transformer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTransformer")
+        )
         input_: capo_b2bi.types.get_transformer_request.GetTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -269,7 +274,9 @@ class Transformer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTransformer")
+        )
         input_: capo_b2bi.types.update_transformer_request.UpdateTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -340,7 +347,9 @@ class Transformer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTransformer")
+        )
         input_: capo_b2bi.types.delete_transformer_request.DeleteTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -393,7 +402,9 @@ class Transformer:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTransformers")
+        )
         input_: capo_b2bi.types.list_transformers_request.ListTransformersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -483,7 +494,9 @@ class AsyncTransformer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTransformer")
+        )
         input_: capo_b2bi.types.create_transformer_request.CreateTransformerRequest = {
             "name": name
         }
@@ -557,7 +570,9 @@ class AsyncTransformer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTransformer")
+        )
         input_: capo_b2bi.types.get_transformer_request.GetTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -640,7 +655,9 @@ class AsyncTransformer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTransformer")
+        )
         input_: capo_b2bi.types.update_transformer_request.UpdateTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -712,7 +729,9 @@ class AsyncTransformer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTransformer")
+        )
         input_: capo_b2bi.types.delete_transformer_request.DeleteTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -766,7 +785,9 @@ class AsyncTransformer:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTransformers")
+        )
         input_: capo_b2bi.types.list_transformers_request.ListTransformersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

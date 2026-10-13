@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetrieveActions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.agentic_retrieve_action
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> AgenticRetrieveActions:
             )
         )
     return out
+
+
+def redact_sensitive(value: AgenticRetrieveActions) -> list[Any]:
+    import capo_bedrock_agent_runtime.types.agentic_retrieve_action
+
+    return [
+        capo_bedrock_agent_runtime.types.agentic_retrieve_action.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transcribestreaming#StartMedicalScribeStreamResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,3 +34,10 @@ class StartMedicalScribeStreamResponse(TypedDict, closed=True):
         "capo_transcribe_streaming.types.medical_scribe_result_stream.MedicalScribeResultStream"
     ]
     """<p>The result stream where you will receive the output events. </p>"""
+
+
+def redact_sensitive(value: StartMedicalScribeStreamResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "result_stream" in value:
+        out["result_stream"] = "*** Streaming Data Redacted ***"
+    return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_securityagent._auth._signers
 import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,19 @@ class IntegrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_integration_input.CreateIntegrationInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_integration_input
+
+            return capo_securityagent.types.create_integration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIntegration", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_integration_input.CreateIntegrationInput = {
             "provider": provider,
             "input": input,
@@ -151,7 +164,9 @@ class IntegrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
         }
@@ -201,7 +216,19 @@ class IntegrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_integration_output
+
+            return capo_securityagent.types.update_integration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntegration", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
             "integration_id": integration_id,
             "webhook_action": webhook_action,
@@ -250,7 +277,9 @@ class IntegrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_securityagent.types.delete_integration_input.DeleteIntegrationInput = {
             "integration_id": integration_id
         }
@@ -303,7 +332,9 @@ class IntegrationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_securityagent.types.list_integrations_input.ListIntegrationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -373,7 +404,19 @@ class AsyncIntegrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_integration_input.CreateIntegrationInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_integration_input
+
+            return capo_securityagent.types.create_integration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIntegration", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_integration_input.CreateIntegrationInput = {
             "provider": provider,
             "input": input,
@@ -429,7 +472,9 @@ class AsyncIntegrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
         }
@@ -480,7 +525,19 @@ class AsyncIntegrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_integration_output
+
+            return capo_securityagent.types.update_integration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntegration", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
             "integration_id": integration_id,
             "webhook_action": webhook_action,
@@ -530,7 +587,9 @@ class AsyncIntegrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_securityagent.types.delete_integration_input.DeleteIntegrationInput = {
             "integration_id": integration_id
         }
@@ -584,7 +643,9 @@ class AsyncIntegrationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_securityagent.types.list_integrations_input.ListIntegrationsInput = {}
         if filter is not None:
             input_["filter"] = filter

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RequestMetadataFilters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -110,3 +110,28 @@ def deserialize_json(data: dict) -> RequestMetadataFilters:
         }
     else:
         raise DeserializationError("RequestMetadataFilters: no recognized variant key")
+
+
+def redact_sensitive(value: RequestMetadataFilters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "equals" in value:
+        out["equals"] = "*** Sensitive Data Redacted ***"
+    if "notEquals" in value:
+        out["notEquals"] = "*** Sensitive Data Redacted ***"
+    if "andAll" in value:
+        import capo_bedrock.types.request_metadata_filters_list
+
+        out["andAll"] = (
+            capo_bedrock.types.request_metadata_filters_list.redact_sensitive(
+                value["andAll"]
+            )
+        )
+    if "orAll" in value:
+        import capo_bedrock.types.request_metadata_filters_list
+
+        out["orAll"] = (
+            capo_bedrock.types.request_metadata_filters_list.redact_sensitive(
+                value["orAll"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#UpdateEventTriggerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -133,4 +133,13 @@ def deserialize_json(data: dict) -> UpdateEventTriggerResponse:
         out["tags"] = capo_customer_profiles.types.tag_map.deserialize_json(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateEventTriggerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "event_trigger_conditions" in value:
+        out["event_trigger_conditions"] = "*** Sensitive Data Redacted ***"
     return out

@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,9 @@ class OrganizationalUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.associate_organizational_unit_request.AssociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -125,7 +128,9 @@ class OrganizationalUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.disassociate_organizational_unit_request.DisassociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -177,7 +182,9 @@ class OrganizationalUnit:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOrganizationalUnits")
+        )
         input_: capo_notifications.types.list_organizational_units_request.ListOrganizationalUnitsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -238,7 +245,9 @@ class AsyncOrganizationalUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.associate_organizational_unit_request.AssociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -289,7 +298,9 @@ class AsyncOrganizationalUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateOrganizationalUnit")
+        )
         input_: capo_notifications.types.disassociate_organizational_unit_request.DisassociateOrganizationalUnitRequest = {
             "organizational_unit_id": organizational_unit_id,
             "notification_configuration_arn": notification_configuration_arn,
@@ -342,7 +353,9 @@ class AsyncOrganizationalUnit:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOrganizationalUnits")
+        )
         input_: capo_notifications.types.list_organizational_units_request.ListOrganizationalUnitsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#ContactInformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,33 @@ def deserialize_json(data: dict) -> ContactInformation:
         out["company_name"] = data["CompanyName"]
     if data.get("WebsiteUrl") is not None:
         out["website_url"] = data["WebsiteUrl"]
+    return out
+
+
+def redact_sensitive(value: ContactInformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "full_name" in value:
+        out["full_name"] = "*** Sensitive Data Redacted ***"
+    if "address_line1" in value:
+        out["address_line1"] = "*** Sensitive Data Redacted ***"
+    if "address_line2" in value:
+        out["address_line2"] = "*** Sensitive Data Redacted ***"
+    if "address_line3" in value:
+        out["address_line3"] = "*** Sensitive Data Redacted ***"
+    if "city" in value:
+        out["city"] = "*** Sensitive Data Redacted ***"
+    if "state_or_region" in value:
+        out["state_or_region"] = "*** Sensitive Data Redacted ***"
+    if "district_or_county" in value:
+        out["district_or_county"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "country_code" in value:
+        out["country_code"] = "*** Sensitive Data Redacted ***"
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "company_name" in value:
+        out["company_name"] = "*** Sensitive Data Redacted ***"
+    if "website_url" in value:
+        out["website_url"] = "*** Sensitive Data Redacted ***"
     return out

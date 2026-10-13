@@ -2,13 +2,14 @@ from __future__ import annotations
 
 import datetime
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore._auth._signers
 import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -130,7 +131,19 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_create_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_create_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchCreateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -184,7 +197,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteMemoryRecords")
+        )
         input_: capo_bedrock_agentcore.types.batch_delete_memory_records_input.BatchDeleteMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -235,7 +250,19 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_update_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_update_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -312,7 +339,30 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_event_input.CreateEventInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_input
+
+            return capo_bedrock_agentcore.types.create_event_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_event_output.CreateEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_output
+
+            return capo_bedrock_agentcore.types.create_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEvent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_event_input.CreateEventInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -383,7 +433,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEvent")
+        )
         input_: capo_bedrock_agentcore.types.delete_event_input.DeleteEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -439,7 +491,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMemoryRecord")
+        )
         input_: capo_bedrock_agentcore.types.delete_memory_record_input.DeleteMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -497,7 +551,18 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_event_output.GetEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_event_output
+
+            return capo_bedrock_agentcore.types.get_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEvent", redact_output=_redact_output)
+        )
         input_: capo_bedrock_agentcore.types.get_event_input.GetEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -553,7 +618,21 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_memory_record_output.GetMemoryRecordOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_memory_record_output
+
+            return (
+                capo_bedrock_agentcore.types.get_memory_record_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMemoryRecord", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_memory_record_input.GetMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -624,7 +703,18 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.ingest_data_input
+
+            return capo_bedrock_agentcore.types.ingest_data_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("IngestData", redact_input=_redact_input)
+        )
         input_: capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput = {
             "memory_id": memory_id,
             "source": source,
@@ -693,7 +783,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListActors")
+        )
         input_: capo_bedrock_agentcore.types.list_actors_input.ListActorsInput = {
             "memory_id": memory_id
         }
@@ -764,7 +856,19 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_events_output.ListEventsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_events_output
+
+            return capo_bedrock_agentcore.types.list_events_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEvents", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_events_input.ListEventsInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -832,7 +936,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemoryExtractionJobs")
+        )
         input_: capo_bedrock_agentcore.types.list_memory_extraction_jobs_input.ListMemoryExtractionJobsInput = {
             "memory_id": memory_id
         }
@@ -909,7 +1015,19 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_memory_records_output.ListMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_memory_records_output
+
+            return capo_bedrock_agentcore.types.list_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListMemoryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_memory_records_input.ListMemoryRecordsInput = {
             "memory_id": memory_id
         }
@@ -984,7 +1102,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_sessions_input.ListSessionsInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -1056,7 +1176,32 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_input
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.retrieve_memory_records_output.RetrieveMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_output
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RetrieveMemoryRecords",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput = {
             "memory_id": memory_id,
             "search_criteria": search_criteria,
@@ -1117,7 +1262,9 @@ class MemoryResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartMemoryExtractionJob")
+        )
         input_: capo_bedrock_agentcore.types.start_memory_extraction_job_input.StartMemoryExtractionJobInput = {
             "memory_id": memory_id,
             "extraction_job": extraction_job,
@@ -1179,7 +1326,19 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_create_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_create_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchCreateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_create_memory_records_input.BatchCreateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -1234,7 +1393,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteMemoryRecords")
+        )
         input_: capo_bedrock_agentcore.types.batch_delete_memory_records_input.BatchDeleteMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -1286,7 +1447,19 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.batch_update_memory_records_input
+
+            return capo_bedrock_agentcore.types.batch_update_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateMemoryRecords", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore.types.batch_update_memory_records_input.BatchUpdateMemoryRecordsInput = {
             "memory_id": memory_id,
             "records": records,
@@ -1364,7 +1537,30 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.create_event_input.CreateEventInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_input
+
+            return capo_bedrock_agentcore.types.create_event_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.create_event_output.CreateEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.create_event_output
+
+            return capo_bedrock_agentcore.types.create_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEvent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore.types.create_event_input.CreateEventInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -1436,7 +1632,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEvent")
+        )
         input_: capo_bedrock_agentcore.types.delete_event_input.DeleteEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -1493,7 +1691,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMemoryRecord")
+        )
         input_: capo_bedrock_agentcore.types.delete_memory_record_input.DeleteMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -1552,7 +1752,18 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_event_output.GetEventOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_event_output
+
+            return capo_bedrock_agentcore.types.get_event_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEvent", redact_output=_redact_output)
+        )
         input_: capo_bedrock_agentcore.types.get_event_input.GetEventInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -1609,7 +1820,21 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.get_memory_record_output.GetMemoryRecordOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.get_memory_record_output
+
+            return (
+                capo_bedrock_agentcore.types.get_memory_record_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMemoryRecord", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.get_memory_record_input.GetMemoryRecordInput = {
             "memory_id": memory_id,
             "memory_record_id": memory_record_id,
@@ -1681,7 +1906,18 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.ingest_data_input
+
+            return capo_bedrock_agentcore.types.ingest_data_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("IngestData", redact_input=_redact_input)
+        )
         input_: capo_bedrock_agentcore.types.ingest_data_input.IngestDataInput = {
             "memory_id": memory_id,
             "source": source,
@@ -1751,7 +1987,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListActors")
+        )
         input_: capo_bedrock_agentcore.types.list_actors_input.ListActorsInput = {
             "memory_id": memory_id
         }
@@ -1823,7 +2061,19 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_events_output.ListEventsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_events_output
+
+            return capo_bedrock_agentcore.types.list_events_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEvents", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_events_input.ListEventsInput = {
             "memory_id": memory_id,
             "session_id": session_id,
@@ -1892,7 +2142,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMemoryExtractionJobs")
+        )
         input_: capo_bedrock_agentcore.types.list_memory_extraction_jobs_input.ListMemoryExtractionJobsInput = {
             "memory_id": memory_id
         }
@@ -1970,7 +2222,19 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.list_memory_records_output.ListMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.list_memory_records_output
+
+            return capo_bedrock_agentcore.types.list_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListMemoryRecords", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore.types.list_memory_records_input.ListMemoryRecordsInput = {
             "memory_id": memory_id
         }
@@ -2046,7 +2310,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_bedrock_agentcore.types.list_sessions_input.ListSessionsInput = {
             "memory_id": memory_id,
             "actor_id": actor_id,
@@ -2119,7 +2385,32 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_input
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.retrieve_memory_records_output.RetrieveMemoryRecordsOutput",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.retrieve_memory_records_output
+
+            return capo_bedrock_agentcore.types.retrieve_memory_records_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RetrieveMemoryRecords",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.retrieve_memory_records_input.RetrieveMemoryRecordsInput = {
             "memory_id": memory_id,
             "search_criteria": search_criteria,
@@ -2181,7 +2472,9 @@ class AsyncMemoryResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartMemoryExtractionJob")
+        )
         input_: capo_bedrock_agentcore.types.start_memory_extraction_job_input.StartMemoryExtractionJobInput = {
             "memory_id": memory_id,
             "extraction_job": extraction_job,

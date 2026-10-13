@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.apprunner#SourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,6 +86,25 @@ def deserialize_aws_json_1_0(data: dict) -> SourceConfiguration:
         out["authentication_configuration"] = (
             capo_apprunner.types.authentication_configuration.deserialize_aws_json_1_0(
                 data["AuthenticationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code_repository" in value:
+        import capo_apprunner.types.code_repository
+
+        out["code_repository"] = capo_apprunner.types.code_repository.redact_sensitive(
+            value["code_repository"]
+        )
+    if "image_repository" in value:
+        import capo_apprunner.types.image_repository
+
+        out["image_repository"] = (
+            capo_apprunner.types.image_repository.redact_sensitive(
+                value["image_repository"]
             )
         )
     return out

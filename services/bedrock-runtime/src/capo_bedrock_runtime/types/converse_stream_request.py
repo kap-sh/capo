@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ConverseStreamRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -238,6 +238,37 @@ def deserialize_json(data: dict) -> ConverseStreamRequest:
         out["output_config"] = (
             capo_bedrock_runtime.types.output_config.deserialize_json(
                 data["outputConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConverseStreamRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_bedrock_runtime.types.messages
+
+        out["messages"] = capo_bedrock_runtime.types.messages.redact_sensitive(
+            value["messages"]
+        )
+    if "system" in value:
+        import capo_bedrock_runtime.types.system_content_blocks
+
+        out["system"] = (
+            capo_bedrock_runtime.types.system_content_blocks.redact_sensitive(
+                value["system"]
+            )
+        )
+    if "prompt_variables" in value:
+        out["prompt_variables"] = "*** Sensitive Data Redacted ***"
+    if "request_metadata" in value:
+        out["request_metadata"] = "*** Sensitive Data Redacted ***"
+    if "output_config" in value:
+        import capo_bedrock_runtime.types.output_config
+
+        out["output_config"] = (
+            capo_bedrock_runtime.types.output_config.redact_sensitive(
+                value["output_config"]
             )
         )
     return out

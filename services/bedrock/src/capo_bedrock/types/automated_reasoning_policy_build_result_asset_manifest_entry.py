@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildResultAssetManifestEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,13 @@ def deserialize_json(
         out["asset_name"] = data["assetName"]
     if data.get("assetId") is not None:
         out["asset_id"] = data["assetId"]
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyBuildResultAssetManifestEntry,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "asset_name" in value:
+        out["asset_name"] = "*** Sensitive Data Redacted ***"
     return out

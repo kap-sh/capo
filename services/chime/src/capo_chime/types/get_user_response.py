@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#GetUserResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> GetUserResponse:
         import capo_chime.types.user
 
         out["user"] = capo_chime.types.user.deserialize_json(data["User"])
+    return out
+
+
+def redact_sensitive(value: GetUserResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user" in value:
+        import capo_chime.types.user
+
+        out["user"] = capo_chime.types.user.redact_sensitive(value["user"])
     return out

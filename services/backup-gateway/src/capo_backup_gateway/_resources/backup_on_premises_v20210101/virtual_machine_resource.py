@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_backup_gateway._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -67,7 +68,9 @@ class VirtualMachineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVirtualMachine")
+        )
         input_: capo_backup_gateway.types.get_virtual_machine_input.GetVirtualMachineInput = {
             "resource_arn": resource_arn
         }
@@ -120,7 +123,9 @@ class VirtualMachineResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVirtualMachines")
+        )
         input_: capo_backup_gateway.types.list_virtual_machines_input.ListVirtualMachinesInput = {}
         if hypervisor_arn is not None:
             input_["hypervisor_arn"] = hypervisor_arn
@@ -176,7 +181,9 @@ class AsyncVirtualMachineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVirtualMachine")
+        )
         input_: capo_backup_gateway.types.get_virtual_machine_input.GetVirtualMachineInput = {
             "resource_arn": resource_arn
         }
@@ -230,7 +237,9 @@ class AsyncVirtualMachineResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVirtualMachines")
+        )
         input_: capo_backup_gateway.types.list_virtual_machines_input.ListVirtualMachinesInput = {}
         if hypervisor_arn is not None:
             input_["hypervisor_arn"] = hypervisor_arn

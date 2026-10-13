@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ConditionalFormattingColor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> ConditionalFormattingColor:
         out["gradient"] = (
             capo_quicksight.types.conditional_formatting_gradient_color.deserialize_json(
                 data["Gradient"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConditionalFormattingColor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "solid" in value:
+        import capo_quicksight.types.conditional_formatting_solid_color
+
+        out["solid"] = (
+            capo_quicksight.types.conditional_formatting_solid_color.redact_sensitive(
+                value["solid"]
+            )
+        )
+    if "gradient" in value:
+        import capo_quicksight.types.conditional_formatting_gradient_color
+
+        out["gradient"] = (
+            capo_quicksight.types.conditional_formatting_gradient_color.redact_sensitive(
+                value["gradient"]
             )
         )
     return out

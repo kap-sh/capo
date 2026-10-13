@@ -23,10 +23,12 @@ from capo_cloudwatch._pagination import resolve_path as _resolve_path
 from capo_cloudwatch._services._aws_config import aws_config
 from capo_cloudwatch._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_cloudwatch.errors import ServiceError, WaiterTimeoutError
@@ -310,7 +312,9 @@ class CloudWatchClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CloudWatchClientConfig] = None
+        self,
+        config_overrides: Optional[CloudWatchClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudWatchClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -318,8 +322,10 @@ class CloudWatchClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -376,7 +382,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDatasetKmsKey")
+        )
         input_: capo_cloudwatch.types.associate_dataset_kms_key_input.AssociateDatasetKmsKeyInput = {}
         if dataset_identifier is not None:
             input_["dataset_identifier"] = dataset_identifier
@@ -426,7 +434,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceMetricsConfiguration")
+        )
         input_: capo_cloudwatch.types.create_resource_metrics_configuration_input.CreateResourceMetricsConfigurationInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -468,7 +478,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlarmMuteRule")
+        )
         input_: capo_cloudwatch.types.delete_alarm_mute_rule_input.DeleteAlarmMuteRuleInput = {}
         if alarm_mute_rule_name is not None:
             input_["alarm_mute_rule_name"] = alarm_mute_rule_name
@@ -510,7 +522,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlarms")
+        )
         input_: capo_cloudwatch.types.delete_alarms_input.DeleteAlarmsInput = {}
         if alarm_names is not None:
             input_["alarm_names"] = alarm_names
@@ -577,7 +591,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnomalyDetector")
+        )
         input_: capo_cloudwatch.types.delete_anomaly_detector_input.DeleteAnomalyDetectorInput = {}
         if anomaly_detector_id is not None:
             input_["anomaly_detector_id"] = anomaly_detector_id
@@ -636,7 +652,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDashboards")
+        )
         input_: capo_cloudwatch.types.delete_dashboards_input.DeleteDashboardsInput = {}
         if dashboard_names is not None:
             input_["dashboard_names"] = dashboard_names
@@ -682,7 +700,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInsightRules")
+        )
         input_: capo_cloudwatch.types.delete_insight_rules_input.DeleteInsightRulesInput = {}
         if rule_names is not None:
             input_["rule_names"] = rule_names
@@ -729,7 +749,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricStream")
+        )
         input_: capo_cloudwatch.types.delete_metric_stream_input.DeleteMetricStreamInput = {}
         if name is not None:
             input_["name"] = name
@@ -772,7 +794,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceMetricsConfiguration")
+        )
         input_: capo_cloudwatch.types.delete_resource_metrics_configuration_input.DeleteResourceMetricsConfigurationInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -818,7 +842,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlarmContributors")
+        )
         input_: capo_cloudwatch.types.describe_alarm_contributors_input.DescribeAlarmContributorsInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -885,7 +911,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlarmHistory")
+        )
         input_: capo_cloudwatch.types.describe_alarm_history_input.DescribeAlarmHistoryInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -1007,7 +1035,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlarms")
+        )
         input_: capo_cloudwatch.types.describe_alarms_input.DescribeAlarmsInput = {}
         if alarm_names is not None:
             input_["alarm_names"] = alarm_names
@@ -1120,7 +1150,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlarmsForMetric")
+        )
         input_: capo_cloudwatch.types.describe_alarms_for_metric_input.DescribeAlarmsForMetricInput = {}
         if metric_name is not None:
             input_["metric_name"] = metric_name
@@ -1196,7 +1228,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAnomalyDetectors")
+        )
         input_: capo_cloudwatch.types.describe_anomaly_detectors_input.DescribeAnomalyDetectorsInput = {}
         if anomaly_detector_ids is not None:
             input_["anomaly_detector_ids"] = anomaly_detector_ids
@@ -1294,7 +1328,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInsightRules")
+        )
         input_: capo_cloudwatch.types.describe_insight_rules_input.DescribeInsightRulesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1357,7 +1393,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableAlarmActions")
+        )
         input_: capo_cloudwatch.types.disable_alarm_actions_input.DisableAlarmActionsInput = {}
         if alarm_names is not None:
             input_["alarm_names"] = alarm_names
@@ -1403,7 +1441,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableInsightRules")
+        )
         input_: capo_cloudwatch.types.disable_insight_rules_input.DisableInsightRulesInput = {}
         if rule_names is not None:
             input_["rule_names"] = rule_names
@@ -1449,7 +1489,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDatasetKmsKey")
+        )
         input_: capo_cloudwatch.types.disassociate_dataset_kms_key_input.DisassociateDatasetKmsKeyInput = {}
         if dataset_identifier is not None:
             input_["dataset_identifier"] = dataset_identifier
@@ -1489,7 +1531,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableAlarmActions")
+        )
         input_: capo_cloudwatch.types.enable_alarm_actions_input.EnableAlarmActionsInput = {}
         if alarm_names is not None:
             input_["alarm_names"] = alarm_names
@@ -1536,7 +1580,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableInsightRules")
+        )
         input_: capo_cloudwatch.types.enable_insight_rules_input.EnableInsightRulesInput = {}
         if rule_names is not None:
             input_["rule_names"] = rule_names
@@ -1579,7 +1625,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAlarmMuteRule")
+        )
         input_: capo_cloudwatch.types.get_alarm_mute_rule_input.GetAlarmMuteRuleInput = {}
         if alarm_mute_rule_name is not None:
             input_["alarm_mute_rule_name"] = alarm_mute_rule_name
@@ -1672,7 +1720,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDashboard")
+        )
         input_: capo_cloudwatch.types.get_dashboard_input.GetDashboardInput = {}
         if dashboard_name is not None:
             input_["dashboard_name"] = dashboard_name
@@ -1717,7 +1767,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataset")
+        )
         input_: capo_cloudwatch.types.get_dataset_input.GetDatasetInput = {}
         if dataset_identifier is not None:
             input_["dataset_identifier"] = dataset_identifier
@@ -1782,7 +1834,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightRuleReport")
+        )
         input_: capo_cloudwatch.types.get_insight_rule_report_input.GetInsightRuleReportInput = {}
         if rule_name is not None:
             input_["rule_name"] = rule_name
@@ -1855,7 +1909,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricData")
+        )
         input_: capo_cloudwatch.types.get_metric_data_input.GetMetricDataInput = {}
         if metric_data_queries is not None:
             input_["metric_data_queries"] = metric_data_queries
@@ -1966,7 +2022,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricStatistics")
+        )
         input_: capo_cloudwatch.types.get_metric_statistics_input.GetMetricStatisticsInput = {}
         if namespace is not None:
             input_["namespace"] = namespace
@@ -2031,7 +2089,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricStream")
+        )
         input_: capo_cloudwatch.types.get_metric_stream_input.GetMetricStreamInput = {}
         if name is not None:
             input_["name"] = name
@@ -2079,7 +2139,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMetricWidgetImage")
+        )
         input_: capo_cloudwatch.types.get_metric_widget_image_input.GetMetricWidgetImageInput = {}
         if metric_widget is not None:
             input_["metric_widget"] = metric_widget
@@ -2117,7 +2179,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOTelEnrichment")
+        )
         input_: capo_cloudwatch.types.get_o_tel_enrichment_input.GetOTelEnrichmentInput = {}
 
         response = execute_pipeline(
@@ -2158,7 +2222,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceMetricsConfiguration")
+        )
         input_: capo_cloudwatch.types.get_resource_metrics_configuration_input.GetResourceMetricsConfigurationInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -2210,7 +2276,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlarmMuteRules")
+        )
         input_: capo_cloudwatch.types.list_alarm_mute_rules_input.ListAlarmMuteRulesInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -2291,7 +2359,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboards")
+        )
         input_: capo_cloudwatch.types.list_dashboards_input.ListDashboardsInput = {}
         if dashboard_name_prefix is not None:
             input_["dashboard_name_prefix"] = dashboard_name_prefix
@@ -2369,7 +2439,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedInsightRules")
+        )
         input_: capo_cloudwatch.types.list_managed_insight_rules_input.ListManagedInsightRulesInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -2460,7 +2532,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetrics")
+        )
         input_: capo_cloudwatch.types.list_metrics_input.ListMetricsInput = {}
         if namespace is not None:
             input_["namespace"] = namespace
@@ -2557,7 +2631,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetricStreams")
+        )
         input_: capo_cloudwatch.types.list_metric_streams_input.ListMetricStreamsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2629,7 +2705,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cloudwatch.types.list_tags_for_resource_input.ListTagsForResourceInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -2684,7 +2762,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAlarmMuteRule")
+        )
         input_: capo_cloudwatch.types.put_alarm_mute_rule_input.PutAlarmMuteRuleInput = {}
         if name is not None:
             input_["name"] = name
@@ -2767,7 +2847,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAnomalyDetector")
+        )
         input_: capo_cloudwatch.types.put_anomaly_detector_input.PutAnomalyDetectorInput = {}
         if namespace is not None:
             input_["namespace"] = namespace
@@ -2854,7 +2936,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCompositeAlarm")
+        )
         input_: capo_cloudwatch.types.put_composite_alarm_input.PutCompositeAlarmInput = {}
         if actions_enabled is not None:
             input_["actions_enabled"] = actions_enabled
@@ -2929,7 +3013,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDashboard")
+        )
         input_: capo_cloudwatch.types.put_dashboard_input.PutDashboardInput = {}
         if dashboard_name is not None:
             input_["dashboard_name"] = dashboard_name
@@ -2994,7 +3080,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInsightRule")
+        )
         input_: capo_cloudwatch.types.put_insight_rule_input.PutInsightRuleInput = {}
         if rule_name is not None:
             input_["rule_name"] = rule_name
@@ -3098,7 +3186,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLogAlarm")
+        )
         input_: capo_cloudwatch.types.put_log_alarm_input.PutLogAlarmInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -3174,7 +3264,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutManagedInsightRules")
+        )
         input_: capo_cloudwatch.types.put_managed_insight_rules_input.PutManagedInsightRulesInput = {}
         if managed_rules is not None:
             input_["managed_rules"] = managed_rules
@@ -3297,7 +3389,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetricAlarm")
+        )
         input_: capo_cloudwatch.types.put_metric_alarm_input.PutMetricAlarmInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -3403,7 +3497,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetricData")
+        )
         input_: capo_cloudwatch.types.put_metric_data_input.PutMetricDataInput = {}
         if namespace is not None:
             input_["namespace"] = namespace
@@ -3488,7 +3584,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutMetricStream")
+        )
         input_: capo_cloudwatch.types.put_metric_stream_input.PutMetricStreamInput = {}
         if name is not None:
             input_["name"] = name
@@ -3554,7 +3652,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetAlarmState")
+        )
         input_: capo_cloudwatch.types.set_alarm_state_input.SetAlarmStateInput = {}
         if alarm_name is not None:
             input_["alarm_name"] = alarm_name
@@ -3607,7 +3707,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetricStreams")
+        )
         input_: capo_cloudwatch.types.start_metric_streams_input.StartMetricStreamsInput = {}
         if names is not None:
             input_["names"] = names
@@ -3658,7 +3760,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOTelEnrichment")
+        )
         input_: capo_cloudwatch.types.start_o_tel_enrichment_input.StartOTelEnrichmentInput = {}
         if include_filters is not None:
             input_["include_filters"] = include_filters
@@ -3707,7 +3811,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMetricStreams")
+        )
         input_: capo_cloudwatch.types.stop_metric_streams_input.StopMetricStreamsInput = {}
         if names is not None:
             input_["names"] = names
@@ -3743,7 +3849,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopOTelEnrichment")
+        )
         input_: capo_cloudwatch.types.stop_o_tel_enrichment_input.StopOTelEnrichmentInput = {}
 
         response = execute_pipeline(
@@ -3792,7 +3900,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cloudwatch.types.tag_resource_input.TagResourceInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3845,7 +3955,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cloudwatch.types.untag_resource_input.UntagResourceInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3897,7 +4009,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOTelEnrichment")
+        )
         input_: capo_cloudwatch.types.update_o_tel_enrichment_input.UpdateOTelEnrichmentInput = {}
         if include_filters is not None:
             input_["include_filters"] = include_filters
@@ -3946,7 +4060,9 @@ class CloudWatchClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceMetricsConfiguration")
+        )
         input_: capo_cloudwatch.types.update_resource_metrics_configuration_input.UpdateResourceMetricsConfigurationInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn

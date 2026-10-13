@@ -24,7 +24,9 @@ from capo_elasticache._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -315,7 +317,9 @@ class AsyncElastiCacheClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncElastiCacheClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncElastiCacheClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncElastiCacheClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -323,8 +327,10 @@ class AsyncElastiCacheClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -399,7 +405,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_elasticache.types.add_tags_to_resource_message.AddTagsToResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -465,7 +473,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AuthorizeCacheSecurityGroupIngress")
+        )
         input_: capo_elasticache.types.authorize_cache_security_group_ingress_message.AuthorizeCacheSecurityGroupIngressMessage = {}
         if cache_security_group_name is not None:
             input_["cache_security_group_name"] = cache_security_group_name
@@ -522,7 +532,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchApplyUpdateAction")
+        )
         input_: capo_elasticache.types.batch_apply_update_action_message.BatchApplyUpdateActionMessage = {}
         if replication_group_ids is not None:
             input_["replication_group_ids"] = replication_group_ids
@@ -579,7 +591,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStopUpdateAction")
+        )
         input_: capo_elasticache.types.batch_stop_update_action_message.BatchStopUpdateActionMessage = {}
         if replication_group_ids is not None:
             input_["replication_group_ids"] = replication_group_ids
@@ -631,7 +645,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteMigration")
+        )
         input_: capo_elasticache.types.complete_migration_message.CompleteMigrationMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -694,7 +710,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyServerlessCacheSnapshot")
+        )
         input_: capo_elasticache.types.copy_serverless_cache_snapshot_request.CopyServerlessCacheSnapshotRequest = {}
         if source_serverless_cache_snapshot_name is not None:
             input_["source_serverless_cache_snapshot_name"] = (
@@ -768,7 +786,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopySnapshot")
+        )
         input_: capo_elasticache.types.copy_snapshot_message.CopySnapshotMessage = {}
         if source_snapshot_name is not None:
             input_["source_snapshot_name"] = source_snapshot_name
@@ -937,7 +957,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCacheCluster")
+        )
         input_: capo_elasticache.types.create_cache_cluster_message.CreateCacheClusterMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -1060,7 +1082,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCacheParameterGroup")
+        )
         input_: capo_elasticache.types.create_cache_parameter_group_message.CreateCacheParameterGroupMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -1126,7 +1150,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCacheSecurityGroup")
+        )
         input_: capo_elasticache.types.create_cache_security_group_message.CreateCacheSecurityGroupMessage = {}
         if cache_security_group_name is not None:
             input_["cache_security_group_name"] = cache_security_group_name
@@ -1197,7 +1223,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCacheSubnetGroup")
+        )
         input_: capo_elasticache.types.create_cache_subnet_group_message.CreateCacheSubnetGroupMessage = {}
         if cache_subnet_group_name is not None:
             input_["cache_subnet_group_name"] = cache_subnet_group_name
@@ -1264,7 +1292,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.create_global_replication_group_message.CreateGlobalReplicationGroupMessage = {}
         if global_replication_group_id_suffix is not None:
             input_["global_replication_group_id_suffix"] = (
@@ -1480,7 +1510,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationGroup")
+        )
         input_: capo_elasticache.types.create_replication_group_message.CreateReplicationGroupMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -1654,7 +1686,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServerlessCache")
+        )
         input_: capo_elasticache.types.create_serverless_cache_request.CreateServerlessCacheRequest = {}
         if serverless_cache_name is not None:
             input_["serverless_cache_name"] = serverless_cache_name
@@ -1741,7 +1775,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServerlessCacheSnapshot")
+        )
         input_: capo_elasticache.types.create_serverless_cache_snapshot_request.CreateServerlessCacheSnapshotRequest = {}
         if serverless_cache_snapshot_name is not None:
             input_["serverless_cache_snapshot_name"] = serverless_cache_snapshot_name
@@ -1822,7 +1858,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSnapshot")
+        )
         input_: capo_elasticache.types.create_snapshot_message.CreateSnapshotMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -1900,7 +1938,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_elasticache.types.create_user_message.CreateUserMessage = {}
         if user_id is not None:
             input_["user_id"] = user_id
@@ -1971,7 +2011,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUserGroup")
+        )
         input_: capo_elasticache.types.create_user_group_message.CreateUserGroupMessage = {}
         if user_group_id is not None:
             input_["user_group_id"] = user_group_id
@@ -2038,7 +2080,10 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DecreaseNodeGroupsInGlobalReplicationGroup"),
+        )
         input_: capo_elasticache.types.decrease_node_groups_in_global_replication_group_message.DecreaseNodeGroupsInGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -2115,7 +2160,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DecreaseReplicaCount")
+        )
         input_: capo_elasticache.types.decrease_replica_count_message.DecreaseReplicaCountMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -2183,7 +2230,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCacheCluster")
+        )
         input_: capo_elasticache.types.delete_cache_cluster_message.DeleteCacheClusterMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -2238,7 +2287,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCacheParameterGroup")
+        )
         input_: capo_elasticache.types.delete_cache_parameter_group_message.DeleteCacheParameterGroupMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -2291,7 +2342,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCacheSecurityGroup")
+        )
         input_: capo_elasticache.types.delete_cache_security_group_message.DeleteCacheSecurityGroupMessage = {}
         if cache_security_group_name is not None:
             input_["cache_security_group_name"] = cache_security_group_name
@@ -2342,7 +2395,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCacheSubnetGroup")
+        )
         input_: capo_elasticache.types.delete_cache_subnet_group_message.DeleteCacheSubnetGroupMessage = {}
         if cache_subnet_group_name is not None:
             input_["cache_subnet_group_name"] = cache_subnet_group_name
@@ -2394,7 +2449,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.delete_global_replication_group_message.DeleteGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -2462,7 +2519,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationGroup")
+        )
         input_: capo_elasticache.types.delete_replication_group_message.DeleteReplicationGroupMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -2518,7 +2577,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServerlessCache")
+        )
         input_: capo_elasticache.types.delete_serverless_cache_request.DeleteServerlessCacheRequest = {}
         if serverless_cache_name is not None:
             input_["serverless_cache_name"] = serverless_cache_name
@@ -2569,7 +2630,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServerlessCacheSnapshot")
+        )
         input_: capo_elasticache.types.delete_serverless_cache_snapshot_request.DeleteServerlessCacheSnapshotRequest = {}
         if serverless_cache_snapshot_name is not None:
             input_["serverless_cache_snapshot_name"] = serverless_cache_snapshot_name
@@ -2622,7 +2685,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_elasticache.types.delete_snapshot_message.DeleteSnapshotMessage = {}
         if snapshot_name is not None:
             input_["snapshot_name"] = snapshot_name
@@ -2668,7 +2733,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_elasticache.types.delete_user_message.DeleteUserMessage = {}
         if user_id is not None:
             input_["user_id"] = user_id
@@ -2713,7 +2780,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUserGroup")
+        )
         input_: capo_elasticache.types.delete_user_group_message.DeleteUserGroupMessage = {}
         if user_group_id is not None:
             input_["user_group_id"] = user_group_id
@@ -2783,7 +2852,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheClusters")
+        )
         input_: capo_elasticache.types.describe_cache_clusters_message.DescribeCacheClustersMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -2895,7 +2966,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheEngineVersions")
+        )
         input_: capo_elasticache.types.describe_cache_engine_versions_message.DescribeCacheEngineVersionsMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -3000,7 +3073,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheParameterGroups")
+        )
         input_: capo_elasticache.types.describe_cache_parameter_groups_message.DescribeCacheParameterGroupsMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -3093,7 +3168,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheParameters")
+        )
         input_: capo_elasticache.types.describe_cache_parameters_message.DescribeCacheParametersMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -3190,7 +3267,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheSecurityGroups")
+        )
         input_: capo_elasticache.types.describe_cache_security_groups_message.DescribeCacheSecurityGroupsMessage = {}
         if cache_security_group_name is not None:
             input_["cache_security_group_name"] = cache_security_group_name
@@ -3281,7 +3360,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCacheSubnetGroups")
+        )
         input_: capo_elasticache.types.describe_cache_subnet_groups_message.DescribeCacheSubnetGroupsMessage = {}
         if cache_subnet_group_name is not None:
             input_["cache_subnet_group_name"] = cache_subnet_group_name
@@ -3371,7 +3452,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineDefaultParameters")
+        )
         input_: capo_elasticache.types.describe_engine_default_parameters_message.DescribeEngineDefaultParametersMessage = {}
         if cache_parameter_group_family is not None:
             input_["cache_parameter_group_family"] = cache_parameter_group_family
@@ -3473,7 +3556,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_elasticache.types.describe_events_message.DescribeEventsMessage = {}
         if source_identifier is not None:
             input_["source_identifier"] = source_identifier
@@ -3578,7 +3663,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalReplicationGroups")
+        )
         input_: capo_elasticache.types.describe_global_replication_groups_message.DescribeGlobalReplicationGroupsMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -3673,7 +3760,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationGroups")
+        )
         input_: capo_elasticache.types.describe_replication_groups_message.DescribeReplicationGroupsMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -3772,7 +3861,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedCacheNodes")
+        )
         input_: capo_elasticache.types.describe_reserved_cache_nodes_message.DescribeReservedCacheNodesMessage = {}
         if reserved_cache_node_id is not None:
             input_["reserved_cache_node_id"] = reserved_cache_node_id
@@ -3901,7 +3992,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservedCacheNodesOfferings")
+        )
         input_: capo_elasticache.types.describe_reserved_cache_nodes_offerings_message.DescribeReservedCacheNodesOfferingsMessage = {}
         if reserved_cache_nodes_offering_id is not None:
             input_["reserved_cache_nodes_offering_id"] = (
@@ -4002,7 +4095,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessCaches")
+        )
         input_: capo_elasticache.types.describe_serverless_caches_request.DescribeServerlessCachesRequest = {}
         if serverless_cache_name is not None:
             input_["serverless_cache_name"] = serverless_cache_name
@@ -4090,7 +4185,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServerlessCacheSnapshots")
+        )
         input_: capo_elasticache.types.describe_serverless_cache_snapshots_request.DescribeServerlessCacheSnapshotsRequest = {}
         if serverless_cache_name is not None:
             input_["serverless_cache_name"] = serverless_cache_name
@@ -4185,7 +4282,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceUpdates")
+        )
         input_: capo_elasticache.types.describe_service_updates_message.DescribeServiceUpdatesMessage = {}
         if service_update_name is not None:
             input_["service_update_name"] = service_update_name
@@ -4289,7 +4388,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSnapshots")
+        )
         input_: capo_elasticache.types.describe_snapshots_message.DescribeSnapshotsMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -4413,7 +4514,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUpdateActions")
+        )
         input_: capo_elasticache.types.describe_update_actions_message.DescribeUpdateActionsMessage = {}
         if service_update_name is not None:
             input_["service_update_name"] = service_update_name
@@ -4534,7 +4637,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUserGroups")
+        )
         input_: capo_elasticache.types.describe_user_groups_message.DescribeUserGroupsMessage = {}
         if user_group_id is not None:
             input_["user_group_id"] = user_group_id
@@ -4619,7 +4724,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeUsers")
+        )
         input_: capo_elasticache.types.describe_users_message.DescribeUsersMessage = {}
         if engine is not None:
             input_["engine"] = engine
@@ -4711,7 +4818,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.disassociate_global_replication_group_message.DisassociateGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -4766,7 +4875,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportServerlessCacheSnapshot")
+        )
         input_: capo_elasticache.types.export_serverless_cache_snapshot_request.ExportServerlessCacheSnapshotRequest = {}
         if serverless_cache_snapshot_name is not None:
             input_["serverless_cache_snapshot_name"] = serverless_cache_snapshot_name
@@ -4823,7 +4934,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FailoverGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.failover_global_replication_group_message.FailoverGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -4883,7 +4996,10 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("IncreaseNodeGroupsInGlobalReplicationGroup"),
+        )
         input_: capo_elasticache.types.increase_node_groups_in_global_replication_group_message.IncreaseNodeGroupsInGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -4954,7 +5070,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IncreaseReplicaCount")
+        )
         input_: capo_elasticache.types.increase_replica_count_message.IncreaseReplicaCountMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -5019,7 +5137,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAllowedNodeTypeModifications")
+        )
         input_: capo_elasticache.types.list_allowed_node_type_modifications_message.ListAllowedNodeTypeModificationsMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -5087,7 +5207,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_elasticache.types.list_tags_for_resource_message.ListTagsForResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -5219,7 +5341,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCacheCluster")
+        )
         input_: capo_elasticache.types.modify_cache_cluster_message.ModifyCacheClusterMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -5323,7 +5447,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCacheParameterGroup")
+        )
         input_: capo_elasticache.types.modify_cache_parameter_group_message.ModifyCacheParameterGroupMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -5389,7 +5515,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCacheSubnetGroup")
+        )
         input_: capo_elasticache.types.modify_cache_subnet_group_message.ModifyCacheSubnetGroupMessage = {}
         if cache_subnet_group_name is not None:
             input_["cache_subnet_group_name"] = cache_subnet_group_name
@@ -5461,7 +5589,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.modify_global_replication_group_message.ModifyGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -5641,7 +5771,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReplicationGroup")
+        )
         input_: capo_elasticache.types.modify_replication_group_message.ModifyReplicationGroupMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -5770,7 +5902,10 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ModifyReplicationGroupShardConfiguration"),
+        )
         input_: capo_elasticache.types.modify_replication_group_shard_configuration_message.ModifyReplicationGroupShardConfigurationMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -5857,7 +5992,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyServerlessCache")
+        )
         input_: capo_elasticache.types.modify_serverless_cache_request.ModifyServerlessCacheRequest = {}
         if serverless_cache_name is not None:
             input_["serverless_cache_name"] = serverless_cache_name
@@ -5943,7 +6080,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyUser")
+        )
         input_: capo_elasticache.types.modify_user_message.ModifyUserMessage = {}
         if user_id is not None:
             input_["user_id"] = user_id
@@ -6014,7 +6153,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyUserGroup")
+        )
         input_: capo_elasticache.types.modify_user_group_message.ModifyUserGroupMessage = {}
         if user_group_id is not None:
             input_["user_group_id"] = user_group_id
@@ -6085,7 +6226,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseReservedCacheNodesOffering")
+        )
         input_: capo_elasticache.types.purchase_reserved_cache_nodes_offering_message.PurchaseReservedCacheNodesOfferingMessage = {}
         if reserved_cache_nodes_offering_id is not None:
             input_["reserved_cache_nodes_offering_id"] = (
@@ -6143,7 +6286,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebalanceSlotsInGlobalReplicationGroup")
+        )
         input_: capo_elasticache.types.rebalance_slots_in_global_replication_group_message.RebalanceSlotsInGlobalReplicationGroupMessage = {}
         if global_replication_group_id is not None:
             input_["global_replication_group_id"] = global_replication_group_id
@@ -6200,7 +6345,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootCacheCluster")
+        )
         input_: capo_elasticache.types.reboot_cache_cluster_message.RebootCacheClusterMessage = {}
         if cache_cluster_id is not None:
             input_["cache_cluster_id"] = cache_cluster_id
@@ -6271,7 +6418,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_elasticache.types.remove_tags_from_resource_message.RemoveTagsFromResourceMessage = {}
         if resource_name is not None:
             input_["resource_name"] = resource_name
@@ -6335,7 +6484,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetCacheParameterGroup")
+        )
         input_: capo_elasticache.types.reset_cache_parameter_group_message.ResetCacheParameterGroupMessage = {}
         if cache_parameter_group_name is not None:
             input_["cache_parameter_group_name"] = cache_parameter_group_name
@@ -6403,7 +6554,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeCacheSecurityGroupIngress")
+        )
         input_: capo_elasticache.types.revoke_cache_security_group_ingress_message.RevokeCacheSecurityGroupIngressMessage = {}
         if cache_security_group_name is not None:
             input_["cache_security_group_name"] = cache_security_group_name
@@ -6458,7 +6611,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMigration")
+        )
         input_: capo_elasticache.types.start_migration_message.StartMigrationMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -6516,7 +6671,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestFailover")
+        )
         input_: capo_elasticache.types.test_failover_message.TestFailoverMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id
@@ -6569,7 +6726,9 @@ class AsyncElastiCacheClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestMigration")
+        )
         input_: capo_elasticache.types.test_migration_message.TestMigrationMessage = {}
         if replication_group_id is not None:
             input_["replication_group_id"] = replication_group_id

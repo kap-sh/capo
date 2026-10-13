@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#PortProbeDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_guardduty.types.port_probe_detail
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> PortProbeDetails:
             continue
         out.append(capo_guardduty.types.port_probe_detail.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: PortProbeDetails) -> list[Any]:
+    import capo_guardduty.types.port_probe_detail
+
+    return [
+        capo_guardduty.types.port_probe_detail.redact_sensitive(item) for item in value
+    ]

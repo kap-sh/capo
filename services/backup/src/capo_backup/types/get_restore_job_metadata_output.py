@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#GetRestoreJobMetadataOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> GetRestoreJobMetadataOutput:
         import capo_backup.types.metadata
 
         out["metadata"] = capo_backup.types.metadata.deserialize_json(data["Metadata"])
+    return out
+
+
+def redact_sensitive(value: GetRestoreJobMetadataOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
     return out

@@ -7,6 +7,7 @@ import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class TemplateStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_request.GetTemplateStepRequest = {
             "id": id,
             "template_id": template_id,
@@ -135,7 +138,9 @@ class TemplateStep:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_template_steps_request.ListTemplateStepsRequest = {
             "template_id": template_id,
             "step_group_id": step_group_id,
@@ -197,7 +202,9 @@ class AsyncTemplateStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateStep")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_request.GetTemplateStepRequest = {
             "id": id,
             "template_id": template_id,
@@ -257,7 +264,9 @@ class AsyncTemplateStep:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplateSteps")
+        )
         input_: capo_migrationhuborchestrator.types.list_template_steps_request.ListTemplateStepsRequest = {
             "template_id": template_id,
             "step_group_id": step_group_id,

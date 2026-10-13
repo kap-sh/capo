@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class VodSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVodSource")
+        )
         input_: capo_mediatailor.types.create_vod_source_request.CreateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -130,7 +133,9 @@ class VodSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeVodSource")
+        )
         input_: capo_mediatailor.types.describe_vod_source_request.DescribeVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -177,7 +182,9 @@ class VodSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVodSource")
+        )
         input_: capo_mediatailor.types.update_vod_source_request.UpdateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -223,7 +230,9 @@ class VodSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVodSource")
+        )
         input_: capo_mediatailor.types.delete_vod_source_request.DeleteVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -270,7 +279,9 @@ class VodSourceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVodSources")
+        )
         input_: capo_mediatailor.types.list_vod_sources_request.ListVodSourcesRequest = {
             "source_location_name": source_location_name
         }
@@ -330,7 +341,9 @@ class AsyncVodSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVodSource")
+        )
         input_: capo_mediatailor.types.create_vod_source_request.CreateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -381,7 +394,9 @@ class AsyncVodSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeVodSource")
+        )
         input_: capo_mediatailor.types.describe_vod_source_request.DescribeVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -429,7 +444,9 @@ class AsyncVodSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVodSource")
+        )
         input_: capo_mediatailor.types.update_vod_source_request.UpdateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -476,7 +493,9 @@ class AsyncVodSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVodSource")
+        )
         input_: capo_mediatailor.types.delete_vod_source_request.DeleteVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -524,7 +543,9 @@ class AsyncVodSourceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVodSources")
+        )
         input_: capo_mediatailor.types.list_vod_sources_request.ListVodSourcesRequest = {
             "source_location_name": source_location_name
         }

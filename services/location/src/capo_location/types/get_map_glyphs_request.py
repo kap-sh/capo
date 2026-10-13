@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetMapGlyphsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,4 +28,11 @@ def serialize_json(value: GetMapGlyphsRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetMapGlyphsRequest:
     out: GetMapGlyphsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetMapGlyphsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

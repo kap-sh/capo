@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#UpdateDirectoryConfigResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDirectoryConfigResult:
         out["directory_config"] = (
             capo_appstream.types.directory_config.deserialize_aws_json_1_1(
                 data["DirectoryConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateDirectoryConfigResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "directory_config" in value:
+        import capo_appstream.types.directory_config
+
+        out["directory_config"] = (
+            capo_appstream.types.directory_config.redact_sensitive(
+                value["directory_config"]
             )
         )
     return out

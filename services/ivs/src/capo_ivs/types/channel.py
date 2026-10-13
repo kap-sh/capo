@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#Channel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -168,4 +168,13 @@ def deserialize_json(data: dict) -> Channel:
         out["container_format"] = data["containerFormat"]
     if data.get("adConfigurationArn") is not None:
         out["ad_configuration_arn"] = data["adConfigurationArn"]
+    return out
+
+
+def redact_sensitive(value: Channel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "srt" in value:
+        import capo_ivs.types.srt
+
+        out["srt"] = capo_ivs.types.srt.redact_sensitive(value["srt"])
     return out

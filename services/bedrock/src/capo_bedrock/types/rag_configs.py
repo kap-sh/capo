@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RagConfigs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.rag_config
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> RagConfigs:
             continue
         out.append(capo_bedrock.types.rag_config.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RagConfigs) -> list[Any]:
+    import capo_bedrock.types.rag_config
+
+    return [capo_bedrock.types.rag_config.redact_sensitive(item) for item in value]

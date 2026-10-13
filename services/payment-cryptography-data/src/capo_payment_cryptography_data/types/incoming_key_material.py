@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#IncomingKeyMaterial``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -45,3 +45,16 @@ def deserialize_json(data: dict) -> IncomingKeyMaterial:
         }
     else:
         raise DeserializationError("IncomingKeyMaterial: no recognized variant key")
+
+
+def redact_sensitive(value: IncomingKeyMaterial) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "DiffieHellmanTr31KeyBlock" in value:
+        import capo_payment_cryptography_data.types.incoming_diffie_hellman_tr31_key_block
+
+        out["DiffieHellmanTr31KeyBlock"] = (
+            capo_payment_cryptography_data.types.incoming_diffie_hellman_tr31_key_block.redact_sensitive(
+                value["DiffieHellmanTr31KeyBlock"]
+            )
+        )
+    return out

@@ -27,10 +27,12 @@ from capo_elementalinference._resources.elemental_inference.feed_resource import
 from capo_elementalinference._services._aws_config import aws_config
 from capo_elementalinference._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -173,7 +175,9 @@ class ElementalInferenceClient:
         self.feed_resource = FeedResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[ElementalInferenceClientConfig] = None
+        self,
+        config_overrides: Optional[ElementalInferenceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ElementalInferenceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -181,8 +185,10 @@ class ElementalInferenceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -237,7 +243,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFixture")
+        )
         input_: capo_elementalinference.types.get_fixture_request.GetFixtureRequest = {
             "fixture_id": fixture_id
         }
@@ -284,7 +292,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_elementalinference.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -348,7 +358,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFixtures")
+        )
         input_: capo_elementalinference.types.search_fixtures_request.SearchFixturesRequest = {
             "sport": sport,
             "start_date": start_date,
@@ -438,7 +450,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_elementalinference.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -487,7 +501,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_elementalinference.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -544,7 +560,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDictionary")
+        )
         input_: capo_elementalinference.types.create_dictionary_request.CreateDictionaryRequest = {
             "name": name,
             "language": language,
@@ -596,7 +614,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDictionary")
+        )
         input_: capo_elementalinference.types.get_dictionary_request.GetDictionaryRequest = {
             "id": id
         }
@@ -656,7 +676,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDictionary")
+        )
         input_: capo_elementalinference.types.update_dictionary_request.UpdateDictionaryRequest = {
             "id": id
         }
@@ -710,7 +732,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDictionary")
+        )
         input_: capo_elementalinference.types.delete_dictionary_request.DeleteDictionaryRequest = {
             "id": id
         }
@@ -758,7 +782,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDictionaries")
+        )
         input_: capo_elementalinference.types.list_dictionaries_request.ListDictionariesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -828,7 +854,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportDictionaryEntries")
+        )
         input_: capo_elementalinference.types.export_dictionary_entries_request.ExportDictionaryEntriesRequest = {
             "id": id
         }
@@ -884,7 +912,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFeed")
+        )
         input_: capo_elementalinference.types.create_feed_request.CreateFeedRequest = {
             "name": name,
             "outputs": outputs,
@@ -935,7 +965,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFeed")
+        )
         input_: capo_elementalinference.types.get_feed_request.GetFeedRequest = {
             "id": id
         }
@@ -992,7 +1024,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFeed")
+        )
         input_: capo_elementalinference.types.update_feed_request.UpdateFeedRequest = {
             "name": name,
             "id": id,
@@ -1044,7 +1078,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFeed")
+        )
         input_: capo_elementalinference.types.delete_feed_request.DeleteFeedRequest = {
             "id": id
         }
@@ -1093,7 +1129,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFeeds")
+        )
         input_: capo_elementalinference.types.list_feeds_request.ListFeedsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1171,7 +1209,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFeed")
+        )
         input_: capo_elementalinference.types.associate_feed_request.AssociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -1220,7 +1260,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFeedPolicy")
+        )
         input_: capo_elementalinference.types.delete_feed_policy_request.DeleteFeedPolicyRequest = {
             "id": id
         }
@@ -1272,7 +1314,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFeed")
+        )
         input_: capo_elementalinference.types.disassociate_feed_request.DisassociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -1322,7 +1366,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFeedPolicy")
+        )
         input_: capo_elementalinference.types.get_feed_policy_request.GetFeedPolicyRequest = {
             "id": id
         }
@@ -1372,7 +1418,9 @@ class ElementalInferenceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFeedPolicy")
+        )
         input_: capo_elementalinference.types.put_feed_policy_request.PutFeedPolicyRequest = {
             "id": id,
             "policy": policy,

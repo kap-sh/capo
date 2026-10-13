@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#JobDriver``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -55,3 +55,18 @@ def deserialize_json(data: dict) -> JobDriver:
         return {"hive": capo_emr_serverless.types.hive.deserialize_json(data["hive"])}
     else:
         raise DeserializationError("JobDriver: no recognized variant key")
+
+
+def redact_sensitive(value: JobDriver) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sparkSubmit" in value:
+        import capo_emr_serverless.types.spark_submit
+
+        out["sparkSubmit"] = capo_emr_serverless.types.spark_submit.redact_sensitive(
+            value["sparkSubmit"]
+        )
+    if "hive" in value:
+        import capo_emr_serverless.types.hive
+
+        out["hive"] = capo_emr_serverless.types.hive.redact_sensitive(value["hive"])
+    return out

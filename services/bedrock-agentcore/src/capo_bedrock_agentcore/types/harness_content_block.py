@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessContentBlock``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -100,3 +100,28 @@ def deserialize_json(data: dict) -> HarnessContentBlock:
         }
     else:
         raise DeserializationError("HarnessContentBlock: no recognized variant key")
+
+
+def redact_sensitive(value: HarnessContentBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "toolUse" in value:
+        import capo_bedrock_agentcore.types.harness_tool_use_block
+
+        out["toolUse"] = (
+            capo_bedrock_agentcore.types.harness_tool_use_block.redact_sensitive(
+                value["toolUse"]
+            )
+        )
+    if "toolResult" in value:
+        import capo_bedrock_agentcore.types.harness_tool_result_block
+
+        out["toolResult"] = (
+            capo_bedrock_agentcore.types.harness_tool_result_block.redact_sensitive(
+                value["toolResult"]
+            )
+        )
+    if "reasoningContent" in value:
+        out["reasoningContent"] = "*** Sensitive Data Redacted ***"
+    return out

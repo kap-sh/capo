@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixTrafficOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_json(data: dict) -> RouteMatrixTrafficOptions:
         out["usage"] = capo_geo_routes.types.traffic_usage.deserialize_json(
             data["Usage"]
         )
+    return out
+
+
+def redact_sensitive(value: RouteMatrixTrafficOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flow_event_threshold_override" in value:
+        out["flow_event_threshold_override"] = "*** Sensitive Data Redacted ***"
     return out

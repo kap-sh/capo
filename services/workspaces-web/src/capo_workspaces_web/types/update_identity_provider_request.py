@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateIdentityProviderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,13 @@ def deserialize_json(data: dict) -> UpdateIdentityProviderRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateIdentityProviderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_provider_name" in value:
+        out["identity_provider_name"] = "*** Sensitive Data Redacted ***"
+    if "identity_provider_details" in value:
+        out["identity_provider_details"] = "*** Sensitive Data Redacted ***"
     return out

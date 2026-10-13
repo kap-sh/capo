@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#CreateDeliveryStreamInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -384,6 +384,35 @@ def deserialize_aws_json_1_1(data: dict) -> CreateDeliveryStreamInput:
         out["database_source_configuration"] = (
             capo_firehose.types.database_source_configuration.deserialize_aws_json_1_1(
                 data["DatabaseSourceConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateDeliveryStreamInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "redshift_destination_configuration" in value:
+        import capo_firehose.types.redshift_destination_configuration
+
+        out["redshift_destination_configuration"] = (
+            capo_firehose.types.redshift_destination_configuration.redact_sensitive(
+                value["redshift_destination_configuration"]
+            )
+        )
+    if "http_endpoint_destination_configuration" in value:
+        import capo_firehose.types.http_endpoint_destination_configuration
+
+        out["http_endpoint_destination_configuration"] = (
+            capo_firehose.types.http_endpoint_destination_configuration.redact_sensitive(
+                value["http_endpoint_destination_configuration"]
+            )
+        )
+    if "snowflake_destination_configuration" in value:
+        import capo_firehose.types.snowflake_destination_configuration
+
+        out["snowflake_destination_configuration"] = (
+            capo_firehose.types.snowflake_destination_configuration.redact_sensitive(
+                value["snowflake_destination_configuration"]
             )
         )
     return out

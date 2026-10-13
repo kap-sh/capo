@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#DataPartitions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iotfleetwise.types.data_partition
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_0(data: list) -> DataPartitions:
             capo_iotfleetwise.types.data_partition.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: DataPartitions) -> list[Any]:
+    import capo_iotfleetwise.types.data_partition
+
+    return [
+        capo_iotfleetwise.types.data_partition.redact_sensitive(item) for item in value
+    ]

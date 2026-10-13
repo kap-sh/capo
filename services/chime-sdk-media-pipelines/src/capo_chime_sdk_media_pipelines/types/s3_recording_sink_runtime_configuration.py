@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#S3RecordingSinkRuntimeConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_json(data: dict) -> S3RecordingSinkRuntimeConfiguration:
         raise DeserializationError(
             "S3RecordingSinkRuntimeConfiguration.recording_file_format required"
         )
+    return out
+
+
+def redact_sensitive(value: S3RecordingSinkRuntimeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination" in value:
+        out["destination"] = "*** Sensitive Data Redacted ***"
     return out

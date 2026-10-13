@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyDeleteVariableAnnotation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,13 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyDeleteVariableAnnota
         raise DeserializationError(
             "AutomatedReasoningPolicyDeleteVariableAnnotation.name required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyDeleteVariableAnnotation,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

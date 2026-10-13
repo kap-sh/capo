@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#ListTasksResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,15 @@ def deserialize_json(data: dict) -> ListTasksResponse:
         raise DeserializationError("ListTasksResponse.tasks required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListTasksResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tasks" in value:
+        import capo_deadline.types.task_summaries
+
+        out["tasks"] = capo_deadline.types.task_summaries.redact_sensitive(
+            value["tasks"]
+        )
     return out

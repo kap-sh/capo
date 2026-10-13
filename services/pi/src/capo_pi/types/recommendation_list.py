@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pi#RecommendationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pi.types.recommendation
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> RecommendationList:
             continue
         out.append(capo_pi.types.recommendation.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: RecommendationList) -> list[Any]:
+    import capo_pi.types.recommendation
+
+    return [capo_pi.types.recommendation.redact_sensitive(item) for item in value]

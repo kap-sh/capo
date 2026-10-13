@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TableConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,6 +199,25 @@ def deserialize_json(data: dict) -> TableConfiguration:
         out["interactions"] = (
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TableConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.table_field_wells
+
+        out["field_wells"] = capo_quicksight.types.table_field_wells.redact_sensitive(
+            value["field_wells"]
+        )
+    if "table_inline_visualizations" in value:
+        import capo_quicksight.types.table_inline_visualization_list
+
+        out["table_inline_visualizations"] = (
+            capo_quicksight.types.table_inline_visualization_list.redact_sensitive(
+                value["table_inline_visualizations"]
             )
         )
     return out

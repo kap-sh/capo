@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AdminAccountSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_json(data: dict) -> AdminAccountSummary:
         out["name"] = data["name"]
     if data.get("email") is not None:
         out["email"] = data["email"]
+    return out
+
+
+def redact_sensitive(value: AdminAccountSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

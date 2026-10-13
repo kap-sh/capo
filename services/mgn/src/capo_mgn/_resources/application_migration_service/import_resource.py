@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,26 @@ class ImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_import_request.StartImportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_request
+
+            return capo_mgn.types.start_import_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_import_response.StartImportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_response
+
+            return capo_mgn.types.start_import_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartImport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_import_request.StartImportRequest = {
             "s3_bucket_source": s3_bucket_source
         }
@@ -133,7 +153,17 @@ class ImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_imports_response.ListImportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_imports_response
+
+            return capo_mgn.types.list_imports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListImports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_imports_request.ListImportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -185,7 +215,9 @@ class ImportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportErrors")
+        )
         input_: capo_mgn.types.list_import_errors_request.ListImportErrorsRequest = {
             "import_id": import_id
         }
@@ -248,7 +280,26 @@ class AsyncImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_import_request.StartImportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_request
+
+            return capo_mgn.types.start_import_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_import_response.StartImportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_import_response
+
+            return capo_mgn.types.start_import_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartImport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_import_request.StartImportRequest = {
             "s3_bucket_source": s3_bucket_source
         }
@@ -304,7 +355,17 @@ class AsyncImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_imports_response.ListImportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_imports_response
+
+            return capo_mgn.types.list_imports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListImports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_imports_request.ListImportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -357,7 +418,9 @@ class AsyncImportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListImportErrors")
+        )
         input_: capo_mgn.types.list_import_errors_request.ListImportErrorsRequest = {
             "import_id": import_id
         }

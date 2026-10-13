@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataPathColor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,5 +62,16 @@ def deserialize_json(data: dict) -> DataPathColor:
             capo_quicksight.types.time_granularity.deserialize_json(
                 data["TimeGranularity"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DataPathColor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "element" in value:
+        import capo_quicksight.types.data_path_value
+
+        out["element"] = capo_quicksight.types.data_path_value.redact_sensitive(
+            value["element"]
         )
     return out

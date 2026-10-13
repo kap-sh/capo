@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#StateExitedEventDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -98,4 +98,13 @@ def deserialize_aws_json_1_0(data: dict) -> StateExitedEventDetails:
                 data["assignedVariablesDetails"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: StateExitedEventDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "output" in value:
+        out["output"] = "*** Sensitive Data Redacted ***"
+    if "assigned_variables" in value:
+        out["assigned_variables"] = "*** Sensitive Data Redacted ***"
     return out

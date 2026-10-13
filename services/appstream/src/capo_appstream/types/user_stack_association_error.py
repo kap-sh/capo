@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#UserStackAssociationError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,17 @@ def deserialize_aws_json_1_1(data: dict) -> UserStackAssociationError:
         )
     if data.get("ErrorMessage") is not None:
         out["error_message"] = data["ErrorMessage"]
+    return out
+
+
+def redact_sensitive(value: UserStackAssociationError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_stack_association" in value:
+        import capo_appstream.types.user_stack_association
+
+        out["user_stack_association"] = (
+            capo_appstream.types.user_stack_association.redact_sensitive(
+                value["user_stack_association"]
+            )
+        )
     return out

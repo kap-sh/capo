@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#StaticQueryParameters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.static_query_parameter_name
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> StaticQueryParameters:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: StaticQueryParameters) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

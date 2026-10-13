@@ -61,10 +61,12 @@ from capo_ecs._resources.amazon_ec2_container_service_v20141113.task_set_resourc
 from capo_ecs._services._aws_config import aws_config
 from capo_ecs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -402,7 +404,9 @@ class ECSClient:
         self.task_set_resource = TaskSetResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[ECSClientConfig] = None
+        self,
+        config_overrides: Optional[ECSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ECSClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -410,8 +414,10 @@ class ECSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -481,7 +487,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ContinueServiceDeployment")
+        )
         input_: capo_ecs.types.continue_service_deployment_request.ContinueServiceDeploymentRequest = {
             "service_deployment_arn": service_deployment_arn,
             "hook_id": hook_id,
@@ -542,7 +550,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountSetting")
+        )
         input_: capo_ecs.types.delete_account_setting_request.DeleteAccountSettingRequest = {
             "name": name
         }
@@ -596,7 +606,19 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.deregister_task_definition_response.DeregisterTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.deregister_task_definition_response
+
+            return capo_ecs.types.deregister_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeregisterTaskDefinition", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.deregister_task_definition_request.DeregisterTaskDefinitionRequest = {
             "task_definition": task_definition
         }
@@ -652,7 +674,19 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_task_definition_response.DescribeTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_task_definition_response
+
+            return capo_ecs.types.describe_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTaskDefinition", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.describe_task_definition_request.DescribeTaskDefinitionRequest = {
             "task_definition": task_definition
         }
@@ -702,7 +736,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DiscoverPollEndpoint")
+        )
         input_: capo_ecs.types.discover_poll_endpoint_request.DiscoverPollEndpointRequest = {}
         if container_instance is not None:
             input_["container_instance"] = container_instance
@@ -770,7 +806,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountSettings")
+        )
         input_: capo_ecs.types.list_account_settings_request.ListAccountSettingsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -860,7 +898,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServicesByNamespace")
+        )
         input_: capo_ecs.types.list_services_by_namespace_request.ListServicesByNamespaceRequest = {
             "namespace": namespace
         }
@@ -940,7 +980,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ecs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1004,7 +1046,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaskDefinitionFamilies")
+        )
         input_: capo_ecs.types.list_task_definition_families_request.ListTaskDefinitionFamiliesRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -1097,7 +1141,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSetting")
+        )
         input_: capo_ecs.types.put_account_setting_request.PutAccountSettingRequest = {
             "name": name,
             "value": value,
@@ -1154,7 +1200,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountSettingDefault")
+        )
         input_: capo_ecs.types.put_account_setting_default_request.PutAccountSettingDefaultRequest = {
             "name": name,
             "value": value,
@@ -1212,7 +1260,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ecs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1269,7 +1319,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ecs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1338,7 +1390,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCapacityProvider")
+        )
         input_: capo_ecs.types.create_capacity_provider_request.CreateCapacityProviderRequest = {
             "name": name
         }
@@ -1410,7 +1464,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCapacityProvider")
+        )
         input_: capo_ecs.types.update_capacity_provider_request.UpdateCapacityProviderRequest = {
             "name": name
         }
@@ -1473,7 +1529,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_ecs.types.delete_capacity_provider_request.DeleteCapacityProviderRequest = {
             "capacity_provider": capacity_provider
         }
@@ -1543,7 +1601,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCapacityProviders")
+        )
         input_: capo_ecs.types.describe_capacity_providers_request.DescribeCapacityProvidersRequest = {}
         if capacity_providers is not None:
             input_["capacity_providers"] = capacity_providers
@@ -1619,7 +1679,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_ecs.types.update_cluster_request.UpdateClusterRequest = {
             "cluster": cluster
         }
@@ -1683,7 +1745,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_ecs.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster": cluster
         }
@@ -1750,7 +1814,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutClusterCapacityProviders")
+        )
         input_: capo_ecs.types.put_cluster_capacity_providers_request.PutClusterCapacityProvidersRequest = {
             "cluster": cluster,
             "capacity_providers": capacity_providers,
@@ -1810,7 +1876,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterSettings")
+        )
         input_: capo_ecs.types.update_cluster_settings_request.UpdateClusterSettingsRequest = {
             "cluster": cluster,
             "settings": settings,
@@ -1882,7 +1950,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_ecs.types.create_cluster_request.CreateClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -1953,7 +2023,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterContainerInstance")
+        )
         input_: capo_ecs.types.deregister_container_instance_request.DeregisterContainerInstanceRequest = {
             "container_instance": container_instance
         }
@@ -2011,7 +2083,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_ecs.types.describe_clusters_request.DescribeClustersRequest = {}
         if clusters is not None:
             input_["clusters"] = clusters
@@ -2075,7 +2149,17 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.execute_command_response.ExecuteCommandResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.execute_command_response
+
+            return capo_ecs.types.execute_command_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ExecuteCommand", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.execute_command_request.ExecuteCommandRequest = {
             "command": command,
             "interactive": interactive,
@@ -2144,7 +2228,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttributes")
+        )
         input_: capo_ecs.types.list_attributes_request.ListAttributesRequest = {
             "target_type": target_type
         }
@@ -2237,7 +2323,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_ecs.types.list_clusters_request.ListClustersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2323,7 +2411,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListContainerInstances")
+        )
         input_: capo_ecs.types.list_container_instances_request.ListContainerInstancesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -2409,7 +2499,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitAttachmentStateChanges")
+        )
         input_: capo_ecs.types.submit_attachment_state_changes_request.SubmitAttachmentStateChangesRequest = {
             "attachments": attachments
         }
@@ -2474,7 +2566,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitContainerStateChange")
+        )
         input_: capo_ecs.types.submit_container_state_change_request.SubmitContainerStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -2561,7 +2655,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitTaskStateChange")
+        )
         input_: capo_ecs.types.submit_task_state_change_request.SubmitTaskStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -2635,7 +2731,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttributes")
+        )
         input_: capo_ecs.types.delete_attributes_request.DeleteAttributesRequest = {
             "attributes": attributes
         }
@@ -2696,7 +2794,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContainerInstances")
+        )
         input_: capo_ecs.types.describe_container_instances_request.DescribeContainerInstancesRequest = {
             "container_instances": container_instances
         }
@@ -2774,7 +2874,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_ecs.types.list_tasks_request.ListTasksRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -2886,7 +2988,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAttributes")
+        )
         input_: capo_ecs.types.put_attributes_request.PutAttributesRequest = {
             "attributes": attributes
         }
@@ -2955,7 +3059,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterContainerInstance")
+        )
         input_: capo_ecs.types.register_container_instance_request.RegisterContainerInstanceRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -3031,7 +3137,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContainerAgent")
+        )
         input_: capo_ecs.types.update_container_agent_request.UpdateContainerAgentRequest = {
             "container_instance": container_instance
         }
@@ -3090,7 +3198,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateContainerInstancesState")
+        )
         input_: capo_ecs.types.update_container_instances_state_request.UpdateContainerInstancesStateRequest = {
             "container_instances": container_instances,
             "status": status,
@@ -3147,7 +3257,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonDeployments")
+        )
         input_: capo_ecs.types.describe_daemon_deployments_request.DescribeDaemonDeploymentsRequest = {
             "daemon_deployment_arns": daemon_deployment_arns
         }
@@ -3226,7 +3338,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDaemon")
+        )
         input_: capo_ecs.types.create_daemon_request.CreateDaemonRequest = {
             "daemon_name": daemon_name,
             "daemon_task_definition_arn": daemon_task_definition_arn,
@@ -3300,7 +3414,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDaemon")
+        )
         input_: capo_ecs.types.delete_daemon_request.DeleteDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -3355,7 +3471,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDaemon")
+        )
         input_: capo_ecs.types.describe_daemon_request.DescribeDaemonRequest = {
             "daemon_arn": daemon_arn
         }
@@ -3421,7 +3539,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDaemonDeployments")
+        )
         input_: capo_ecs.types.list_daemon_deployments_request.ListDaemonDeploymentsRequest = {
             "daemon_arn": daemon_arn
         }
@@ -3491,7 +3611,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDaemons")
+        )
         input_: capo_ecs.types.list_daemons_request.ListDaemonsRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -3572,7 +3694,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDaemon")
+        )
         input_: capo_ecs.types.update_daemon_request.UpdateDaemonRequest = {
             "daemon_arn": daemon_arn,
             "daemon_task_definition_arn": daemon_task_definition_arn,
@@ -3638,7 +3762,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonRevisions")
+        )
         input_: capo_ecs.types.describe_daemon_revisions_request.DescribeDaemonRevisionsRequest = {
             "daemon_revision_arns": daemon_revision_arns
         }
@@ -3690,7 +3816,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDaemonTaskDefinition")
+        )
         input_: capo_ecs.types.delete_daemon_task_definition_request.DeleteDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -3742,7 +3870,21 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_daemon_task_definition_response.DescribeDaemonTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_daemon_task_definition_response
+
+            return capo_ecs.types.describe_daemon_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeDaemonTaskDefinition", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_daemon_task_definition_request.DescribeDaemonTaskDefinitionRequest = {
             "daemon_task_definition": daemon_task_definition
         }
@@ -3810,7 +3952,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDaemonTaskDefinitions")
+        )
         input_: capo_ecs.types.list_daemon_task_definitions_request.ListDaemonTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -3893,7 +4037,23 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_daemon_task_definition_request
+
+            return (
+                capo_ecs.types.register_daemon_task_definition_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterDaemonTaskDefinition", redact_input=_redact_input
+            ),
+        )
         input_: capo_ecs.types.register_daemon_task_definition_request.RegisterDaemonTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,
@@ -3969,7 +4129,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceDeployments")
+        )
         input_: capo_ecs.types.describe_service_deployments_request.DescribeServiceDeploymentsRequest = {
             "service_deployment_arns": service_deployment_arns
         }
@@ -4030,7 +4192,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServicePrimaryTaskSet")
+        )
         input_: capo_ecs.types.update_service_primary_task_set_request.UpdateServicePrimaryTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -4116,7 +4280,36 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_request
+
+            return (
+                capo_ecs.types.create_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.create_express_gateway_service_response.CreateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.create_express_gateway_service_response
+
+            return (
+                capo_ecs.types.create_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.create_express_gateway_service_request.CreateExpressGatewayServiceRequest = {
             "infrastructure_role_arn": infrastructure_role_arn
         }
@@ -4291,7 +4484,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_ecs.types.create_service_request.CreateServiceRequest = {
             "service_name": service_name
         }
@@ -4395,7 +4590,23 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_express_gateway_service_response.DeleteExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_express_gateway_service_response
+
+            return (
+                capo_ecs.types.delete_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.delete_express_gateway_service_request.DeleteExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -4453,7 +4664,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_ecs.types.delete_service_request.DeleteServiceRequest = {
             "service": service
         }
@@ -4510,7 +4723,21 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_express_gateway_service_response.DescribeExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_express_gateway_service_response
+
+            return capo_ecs.types.describe_express_gateway_service_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeExpressGatewayService", redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.describe_express_gateway_service_request.DescribeExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -4573,7 +4800,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServices")
+        )
         input_: capo_ecs.types.describe_services_request.DescribeServicesRequest = {
             "services": services
         }
@@ -4644,7 +4873,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceDeployments")
+        )
         input_: capo_ecs.types.list_service_deployments_request.ListServiceDeploymentsRequest = {
             "service": service
         }
@@ -4721,7 +4952,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_ecs.types.list_services_request.ListServicesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -4825,7 +5058,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopServiceDeployment")
+        )
         input_: capo_ecs.types.stop_service_deployment_request.StopServiceDeploymentRequest = {
             "service_deployment_arn": service_deployment_arn
         }
@@ -4905,7 +5140,36 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_request
+
+            return (
+                capo_ecs.types.update_express_gateway_service_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.update_express_gateway_service_response.UpdateExpressGatewayServiceResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.update_express_gateway_service_response
+
+            return (
+                capo_ecs.types.update_express_gateway_service_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateExpressGatewayService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.update_express_gateway_service_request.UpdateExpressGatewayServiceRequest = {
             "service_arn": service_arn
         }
@@ -5069,7 +5333,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_ecs.types.update_service_request.UpdateServiceRequest = {
             "service": service
         }
@@ -5174,7 +5440,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceRevisions")
+        )
         input_: capo_ecs.types.describe_service_revisions_request.DescribeServiceRevisionsRequest = {
             "service_revision_arns": service_revision_arns
         }
@@ -5228,7 +5496,19 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.delete_task_definitions_response.DeleteTaskDefinitionsResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.delete_task_definitions_response
+
+            return capo_ecs.types.delete_task_definitions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTaskDefinitions", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.delete_task_definitions_request.DeleteTaskDefinitionsRequest = {
             "task_definitions": task_definitions
         }
@@ -5294,7 +5574,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaskDefinitions")
+        )
         input_: capo_ecs.types.list_task_definitions_request.ListTaskDefinitionsRequest = {}
         if family_prefix is not None:
             input_["family_prefix"] = family_prefix
@@ -5432,7 +5714,32 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_request
+
+            return capo_ecs.types.register_task_definition_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ecs.types.register_task_definition_response.RegisterTaskDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.register_task_definition_response
+
+            return capo_ecs.types.register_task_definition_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterTaskDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ecs.types.register_task_definition_request.RegisterTaskDefinitionRequest = {
             "family": family,
             "container_definitions": container_definitions,
@@ -5522,7 +5829,17 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.describe_tasks_response.DescribeTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.describe_tasks_response
+
+            return capo_ecs.types.describe_tasks_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTasks", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.describe_tasks_request.DescribeTasksRequest = {
             "tasks": tasks
         }
@@ -5583,7 +5900,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaskProtection")
+        )
         input_: capo_ecs.types.get_task_protection_request.GetTaskProtectionRequest = {
             "cluster": cluster
         }
@@ -5687,7 +6006,26 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.run_task_request.RunTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_request
+
+            return capo_ecs.types.run_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.run_task_response.RunTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.run_task_response
+
+            return capo_ecs.types.run_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RunTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.run_task_request.RunTaskRequest = {
             "task_definition": task_definition
         }
@@ -5805,7 +6143,26 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ecs.types.start_task_request.StartTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_request
+
+            return capo_ecs.types.start_task_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ecs.types.start_task_response.StartTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.start_task_response
+
+            return capo_ecs.types.start_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTask", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ecs.types.start_task_request.StartTaskRequest = {
             "container_instances": container_instances,
             "task_definition": task_definition,
@@ -5883,7 +6240,16 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.stop_task_response.StopTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.stop_task_response
+
+            return capo_ecs.types.stop_task_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTask", redact_output=_redact_output)
+        )
         input_: capo_ecs.types.stop_task_request.StopTaskRequest = {"task": task}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -5956,7 +6322,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTaskProtection")
+        )
         input_: capo_ecs.types.update_task_protection_request.UpdateTaskProtectionRequest = {
             "cluster": cluster,
             "tasks": tasks,
@@ -6024,7 +6392,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTaskSet")
+        )
         input_: capo_ecs.types.update_task_set_request.UpdateTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -6091,7 +6461,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTaskSet")
+        )
         input_: capo_ecs.types.delete_task_set_request.DeleteTaskSetRequest = {
             "cluster": cluster,
             "service": service,
@@ -6185,7 +6557,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTaskSet")
+        )
         input_: capo_ecs.types.create_task_set_request.CreateTaskSetRequest = {
             "service": service,
             "cluster": cluster,
@@ -6269,7 +6643,9 @@ class ECSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTaskSets")
+        )
         input_: capo_ecs.types.describe_task_sets_request.DescribeTaskSetsRequest = {
             "cluster": cluster,
             "service": service,

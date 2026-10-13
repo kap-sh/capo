@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#ExternalId``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_1(data: dict) -> ExternalId:
         out["id"] = data["Id"]
     else:
         raise DeserializationError("ExternalId.id required")
+    return out
+
+
+def redact_sensitive(value: ExternalId) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "issuer" in value:
+        out["issuer"] = "*** Sensitive Data Redacted ***"
+    if "id" in value:
+        out["id"] = "*** Sensitive Data Redacted ***"
     return out

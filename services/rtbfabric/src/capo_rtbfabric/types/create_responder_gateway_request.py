@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rtbfabric#CreateResponderGatewayRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -212,6 +212,27 @@ def deserialize_json(data: dict) -> CreateResponderGatewayRequest:
         out["client_routing_policy"] = (
             capo_rtbfabric.types.client_routing_policy.deserialize_json(
                 data["clientRoutingPolicy"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateResponderGatewayRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trust_store_configuration" in value:
+        import capo_rtbfabric.types.trust_store_configuration
+
+        out["trust_store_configuration"] = (
+            capo_rtbfabric.types.trust_store_configuration.redact_sensitive(
+                value["trust_store_configuration"]
+            )
+        )
+    if "managed_endpoint_configuration" in value:
+        import capo_rtbfabric.types.managed_endpoint_configuration
+
+        out["managed_endpoint_configuration"] = (
+            capo_rtbfabric.types.managed_endpoint_configuration.redact_sensitive(
+                value["managed_endpoint_configuration"]
             )
         )
     return out

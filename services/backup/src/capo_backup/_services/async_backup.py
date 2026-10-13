@@ -26,7 +26,9 @@ from capo_backup._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -408,7 +410,9 @@ class AsyncBackupClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncBackupClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncBackupClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncBackupClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -416,8 +420,10 @@ class AsyncBackupClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -475,7 +481,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.associate_backup_vault_mpa_approval_team_input.AssociateBackupVaultMpaApprovalTeamInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.associate_backup_vault_mpa_approval_team_input
+
+            return capo_backup.types.associate_backup_vault_mpa_approval_team_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateBackupVaultMpaApprovalTeam", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.associate_backup_vault_mpa_approval_team_input.AssociateBackupVaultMpaApprovalTeamInput = {
             "backup_vault_name": backup_vault_name,
             "mpa_approval_team_arn": mpa_approval_team_arn,
@@ -530,7 +550,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelLegalHold")
+        )
         input_: capo_backup.types.cancel_legal_hold_input.CancelLegalHoldInput = {
             "legal_hold_id": legal_hold_id,
             "cancel_description": cancel_description,
@@ -596,7 +618,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_backup_access_point_request.CreateBackupAccessPointRequest",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_backup_access_point_request
+
+            return (
+                capo_backup.types.create_backup_access_point_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBackupAccessPoint", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_backup_access_point_request.CreateBackupAccessPointRequest = {
             "name": name,
             "recovery_point_arn": recovery_point_arn,
@@ -655,7 +691,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_backup_plan_input.CreateBackupPlanInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_backup_plan_input
+
+            return capo_backup.types.create_backup_plan_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBackupPlan", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_backup_plan_input.CreateBackupPlanInput = {
             "backup_plan": backup_plan
         }
@@ -712,7 +758,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackupSelection")
+        )
         input_: capo_backup.types.create_backup_selection_input.CreateBackupSelectionInput = {
             "backup_plan_id": backup_plan_id,
             "backup_selection": backup_selection,
@@ -770,7 +818,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_backup_vault_input.CreateBackupVaultInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_backup_vault_input
+
+            return capo_backup.types.create_backup_vault_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBackupVault", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_backup_vault_input.CreateBackupVaultInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -835,7 +893,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFramework")
+        )
         input_: capo_backup.types.create_framework_input.CreateFrameworkInput = {
             "framework_name": framework_name,
             "framework_controls": framework_controls,
@@ -900,7 +960,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_legal_hold_input.CreateLegalHoldInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_legal_hold_input
+
+            return capo_backup.types.create_legal_hold_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLegalHold", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_legal_hold_input.CreateLegalHoldInput = {
             "title": title,
             "description": description,
@@ -967,7 +1037,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_logically_air_gapped_backup_vault_input.CreateLogicallyAirGappedBackupVaultInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_logically_air_gapped_backup_vault_input
+
+            return capo_backup.types.create_logically_air_gapped_backup_vault_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateLogicallyAirGappedBackupVault", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.create_logically_air_gapped_backup_vault_input.CreateLogicallyAirGappedBackupVaultInput = {
             "backup_vault_name": backup_vault_name,
             "min_retention_days": min_retention_days,
@@ -1036,7 +1120,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReportPlan")
+        )
         input_: capo_backup.types.create_report_plan_input.CreateReportPlanInput = {
             "report_plan_name": report_plan_name,
             "report_delivery_channel": report_delivery_channel,
@@ -1107,7 +1193,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_restore_access_backup_vault_input.CreateRestoreAccessBackupVaultInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_restore_access_backup_vault_input
+
+            return capo_backup.types.create_restore_access_backup_vault_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRestoreAccessBackupVault", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.create_restore_access_backup_vault_input.CreateRestoreAccessBackupVaultInput = {
             "source_backup_vault_arn": source_backup_vault_arn
         }
@@ -1171,7 +1271,19 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_restore_testing_plan_input.CreateRestoreTestingPlanInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_restore_testing_plan_input
+
+            return capo_backup.types.create_restore_testing_plan_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRestoreTestingPlan", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_restore_testing_plan_input.CreateRestoreTestingPlanInput = {
             "restore_testing_plan": restore_testing_plan
         }
@@ -1228,7 +1340,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_restore_testing_selection_input.CreateRestoreTestingSelectionInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_restore_testing_selection_input
+
+            return capo_backup.types.create_restore_testing_selection_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRestoreTestingSelection", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.create_restore_testing_selection_input.CreateRestoreTestingSelectionInput = {
             "restore_testing_plan_name": restore_testing_plan_name,
             "restore_testing_selection": restore_testing_selection,
@@ -1286,7 +1412,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.create_tiering_configuration_input.CreateTieringConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.create_tiering_configuration_input
+
+            return (
+                capo_backup.types.create_tiering_configuration_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTieringConfiguration", redact_input=_redact_input),
+        )
         input_: capo_backup.types.create_tiering_configuration_input.CreateTieringConfigurationInput = {
             "tiering_configuration": tiering_configuration
         }
@@ -1337,7 +1477,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupAccessPoint")
+        )
         input_: capo_backup.types.delete_backup_access_point_input.DeleteBackupAccessPointInput = {
             "access_point_arn": access_point_arn
         }
@@ -1385,7 +1527,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupPlan")
+        )
         input_: capo_backup.types.delete_backup_plan_input.DeleteBackupPlanInput = {
             "backup_plan_id": backup_plan_id
         }
@@ -1432,7 +1576,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupSelection")
+        )
         input_: capo_backup.types.delete_backup_selection_input.DeleteBackupSelectionInput = {
             "backup_plan_id": backup_plan_id,
             "selection_id": selection_id,
@@ -1479,7 +1625,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupVault")
+        )
         input_: capo_backup.types.delete_backup_vault_input.DeleteBackupVaultInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -1524,7 +1672,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupVaultAccessPolicy")
+        )
         input_: capo_backup.types.delete_backup_vault_access_policy_input.DeleteBackupVaultAccessPolicyInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -1570,7 +1720,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupVaultLockConfiguration")
+        )
         input_: capo_backup.types.delete_backup_vault_lock_configuration_input.DeleteBackupVaultLockConfigurationInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -1615,7 +1767,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackupVaultNotifications")
+        )
         input_: capo_backup.types.delete_backup_vault_notifications_input.DeleteBackupVaultNotificationsInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -1661,7 +1815,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFramework")
+        )
         input_: capo_backup.types.delete_framework_input.DeleteFrameworkInput = {
             "framework_name": framework_name
         }
@@ -1710,7 +1866,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecoveryPoint")
+        )
         input_: capo_backup.types.delete_recovery_point_input.DeleteRecoveryPointInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -1757,7 +1915,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReportPlan")
+        )
         input_: capo_backup.types.delete_report_plan_input.DeleteReportPlanInput = {
             "report_plan_name": report_plan_name
         }
@@ -1800,7 +1960,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRestoreTestingPlan")
+        )
         input_: capo_backup.types.delete_restore_testing_plan_input.DeleteRestoreTestingPlanInput = {
             "restore_testing_plan_name": restore_testing_plan_name
         }
@@ -1845,7 +2007,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRestoreTestingSelection")
+        )
         input_: capo_backup.types.delete_restore_testing_selection_input.DeleteRestoreTestingSelectionInput = {
             "restore_testing_plan_name": restore_testing_plan_name,
             "restore_testing_selection_name": restore_testing_selection_name,
@@ -1893,7 +2057,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTieringConfiguration")
+        )
         input_: capo_backup.types.delete_tiering_configuration_input.DeleteTieringConfigurationInput = {
             "tiering_configuration_name": tiering_configuration_name
         }
@@ -1941,7 +2107,19 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.describe_backup_access_point_response.DescribeBackupAccessPointResponse",
+        ) -> dict[str, Any]:
+            import capo_backup.types.describe_backup_access_point_response
+
+            return capo_backup.types.describe_backup_access_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeBackupAccessPoint", redact_output=_redact_output),
+        )
         input_: capo_backup.types.describe_backup_access_point_input.DescribeBackupAccessPointInput = {
             "access_point_arn": access_point_arn
         }
@@ -1989,7 +2167,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBackupJob")
+        )
         input_: capo_backup.types.describe_backup_job_input.DescribeBackupJobInput = {
             "backup_job_id": backup_job_id
         }
@@ -2038,7 +2218,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBackupVault")
+        )
         input_: capo_backup.types.describe_backup_vault_input.DescribeBackupVaultInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -2087,7 +2269,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCopyJob")
+        )
         input_: capo_backup.types.describe_copy_job_input.DescribeCopyJobInput = {
             "copy_job_id": copy_job_id
         }
@@ -2134,7 +2318,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFramework")
+        )
         input_: capo_backup.types.describe_framework_input.DescribeFrameworkInput = {
             "framework_name": framework_name
         }
@@ -2175,7 +2361,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGlobalSettings")
+        )
         input_: capo_backup.types.describe_global_settings_input.DescribeGlobalSettingsInput = {}
 
         response = await aexecute_pipeline(
@@ -2220,7 +2408,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProtectedResource")
+        )
         input_: capo_backup.types.describe_protected_resource_input.DescribeProtectedResourceInput = {
             "resource_arn": resource_arn
         }
@@ -2273,7 +2463,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecoveryPoint")
+        )
         input_: capo_backup.types.describe_recovery_point_input.DescribeRecoveryPointInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -2316,7 +2508,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegionSettings")
+        )
         input_: capo_backup.types.describe_region_settings_input.DescribeRegionSettingsInput = {}
 
         response = await aexecute_pipeline(
@@ -2360,7 +2554,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReportJob")
+        )
         input_: capo_backup.types.describe_report_job_input.DescribeReportJobInput = {
             "report_job_id": report_job_id
         }
@@ -2407,7 +2603,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReportPlan")
+        )
         input_: capo_backup.types.describe_report_plan_input.DescribeReportPlanInput = {
             "report_plan_name": report_plan_name
         }
@@ -2455,7 +2653,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRestoreJob")
+        )
         input_: capo_backup.types.describe_restore_job_input.DescribeRestoreJobInput = {
             "restore_job_id": restore_job_id
         }
@@ -2502,7 +2702,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeScanJob")
+        )
         input_: capo_backup.types.describe_scan_job_input.DescribeScanJobInput = {
             "scan_job_id": scan_job_id
         }
@@ -2552,7 +2754,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.disassociate_backup_vault_mpa_approval_team_input.DisassociateBackupVaultMpaApprovalTeamInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.disassociate_backup_vault_mpa_approval_team_input
+
+            return capo_backup.types.disassociate_backup_vault_mpa_approval_team_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DisassociateBackupVaultMpaApprovalTeam", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.disassociate_backup_vault_mpa_approval_team_input.DisassociateBackupVaultMpaApprovalTeamInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -2603,7 +2819,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateRecoveryPoint")
+        )
         input_: capo_backup.types.disassociate_recovery_point_input.DisassociateRecoveryPointInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -2652,7 +2870,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateRecoveryPointFromParent")
+        )
         input_: capo_backup.types.disassociate_recovery_point_from_parent_input.DisassociateRecoveryPointFromParentInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -2700,7 +2920,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportBackupPlanTemplate")
+        )
         input_: capo_backup.types.export_backup_plan_template_input.ExportBackupPlanTemplateInput = {
             "backup_plan_id": backup_plan_id
         }
@@ -2753,7 +2975,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_backup_plan_output.GetBackupPlanOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_backup_plan_output
+
+            return capo_backup.types.get_backup_plan_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBackupPlan", redact_output=_redact_output),
+        )
         input_: capo_backup.types.get_backup_plan_input.GetBackupPlanInput = {
             "backup_plan_id": backup_plan_id
         }
@@ -2807,7 +3039,19 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_backup_plan_from_json_output.GetBackupPlanFromJSONOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_backup_plan_from_json_output
+
+            return capo_backup.types.get_backup_plan_from_json_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBackupPlanFromJSON", redact_output=_redact_output),
+        )
         input_: capo_backup.types.get_backup_plan_from_json_input.GetBackupPlanFromJSONInput = {
             "backup_plan_template_json": backup_plan_template_json
         }
@@ -2854,7 +3098,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_backup_plan_from_template_output.GetBackupPlanFromTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_backup_plan_from_template_output
+
+            return (
+                capo_backup.types.get_backup_plan_from_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBackupPlanFromTemplate", redact_output=_redact_output),
+        )
         input_: capo_backup.types.get_backup_plan_from_template_input.GetBackupPlanFromTemplateInput = {
             "backup_plan_template_id": backup_plan_template_id
         }
@@ -2903,7 +3161,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackupSelection")
+        )
         input_: capo_backup.types.get_backup_selection_input.GetBackupSelectionInput = {
             "backup_plan_id": backup_plan_id,
             "selection_id": selection_id,
@@ -2951,7 +3211,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackupVaultAccessPolicy")
+        )
         input_: capo_backup.types.get_backup_vault_access_policy_input.GetBackupVaultAccessPolicyInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -2998,7 +3260,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackupVaultNotifications")
+        )
         input_: capo_backup.types.get_backup_vault_notifications_input.GetBackupVaultNotificationsInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -3045,7 +3309,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLegalHold")
+        )
         input_: capo_backup.types.get_legal_hold_input.GetLegalHoldInput = {
             "legal_hold_id": legal_hold_id
         }
@@ -3098,7 +3364,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPITRMalwareScanResults")
+        )
         input_: capo_backup.types.get_pitr_malware_scan_results_input.GetPITRMalwareScanResultsInput = {
             "recovery_point_arn": recovery_point_arn,
             "backup_vault_name": backup_vault_name,
@@ -3150,7 +3418,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPointIndexDetails")
+        )
         input_: capo_backup.types.get_recovery_point_index_details_input.GetRecoveryPointIndexDetailsInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -3204,7 +3474,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_recovery_point_restore_metadata_output.GetRecoveryPointRestoreMetadataOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_recovery_point_restore_metadata_output
+
+            return capo_backup.types.get_recovery_point_restore_metadata_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRecoveryPointRestoreMetadata", redact_output=_redact_output
+            ),
+        )
         input_: capo_backup.types.get_recovery_point_restore_metadata_input.GetRecoveryPointRestoreMetadataInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -3256,7 +3540,19 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_restore_job_metadata_output.GetRestoreJobMetadataOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_restore_job_metadata_output
+
+            return capo_backup.types.get_restore_job_metadata_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRestoreJobMetadata", redact_output=_redact_output),
+        )
         input_: capo_backup.types.get_restore_job_metadata_input.GetRestoreJobMetadataInput = {
             "restore_job_id": restore_job_id
         }
@@ -3307,7 +3603,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRestoreTestingInferredMetadata")
+        )
         input_: capo_backup.types.get_restore_testing_inferred_metadata_input.GetRestoreTestingInferredMetadataInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -3357,7 +3655,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRestoreTestingPlan")
+        )
         input_: capo_backup.types.get_restore_testing_plan_input.GetRestoreTestingPlanInput = {
             "restore_testing_plan_name": restore_testing_plan_name
         }
@@ -3404,7 +3704,23 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.get_restore_testing_selection_output.GetRestoreTestingSelectionOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.get_restore_testing_selection_output
+
+            return (
+                capo_backup.types.get_restore_testing_selection_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRestoreTestingSelection", redact_output=_redact_output
+            ),
+        )
         input_: capo_backup.types.get_restore_testing_selection_input.GetRestoreTestingSelectionInput = {
             "restore_testing_plan_name": restore_testing_plan_name,
             "restore_testing_selection_name": restore_testing_selection_name,
@@ -3443,7 +3759,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSupportedResourceTypes")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -3487,7 +3805,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTieringConfiguration")
+        )
         input_: capo_backup.types.get_tiering_configuration_input.GetTieringConfigurationInput = {
             "tiering_configuration_name": tiering_configuration_name
         }
@@ -3536,7 +3856,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.list_backup_access_points_response.ListBackupAccessPointsResponse",
+        ) -> dict[str, Any]:
+            import capo_backup.types.list_backup_access_points_response
+
+            return (
+                capo_backup.types.list_backup_access_points_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBackupAccessPoints", redact_output=_redact_output),
+        )
         input_: capo_backup.types.list_backup_access_points_request.ListBackupAccessPointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3612,7 +3946,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.list_backup_access_points_by_recovery_point_response.ListBackupAccessPointsByRecoveryPointResponse",
+        ) -> dict[str, Any]:
+            import capo_backup.types.list_backup_access_points_by_recovery_point_response
+
+            return capo_backup.types.list_backup_access_points_by_recovery_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListBackupAccessPointsByRecoveryPoint", redact_output=_redact_output
+            ),
+        )
         input_: capo_backup.types.list_backup_access_points_by_recovery_point_request.ListBackupAccessPointsByRecoveryPointRequest = {
             "recovery_point_arn": recovery_point_arn
         }
@@ -3692,7 +4040,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.list_backup_access_points_by_resource_response.ListBackupAccessPointsByResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_backup.types.list_backup_access_points_by_resource_response
+
+            return capo_backup.types.list_backup_access_points_by_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListBackupAccessPointsByResource", redact_output=_redact_output
+            ),
+        )
         input_: capo_backup.types.list_backup_access_points_by_resource_request.ListBackupAccessPointsByResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3794,7 +4156,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupJobs")
+        )
         input_: capo_backup.types.list_backup_jobs_input.ListBackupJobsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3926,7 +4290,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupJobSummaries")
+        )
         input_: capo_backup.types.list_backup_job_summaries_input.ListBackupJobSummariesInput = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -4022,7 +4388,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupPlans")
+        )
         input_: capo_backup.types.list_backup_plans_input.ListBackupPlansInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4098,7 +4466,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupPlanTemplates")
+        )
         input_: capo_backup.types.list_backup_plan_templates_input.ListBackupPlanTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4172,7 +4542,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupPlanVersions")
+        )
         input_: capo_backup.types.list_backup_plan_versions_input.ListBackupPlanVersionsInput = {
             "backup_plan_id": backup_plan_id
         }
@@ -4250,7 +4622,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupSelections")
+        )
         input_: capo_backup.types.list_backup_selections_input.ListBackupSelectionsInput = {
             "backup_plan_id": backup_plan_id
         }
@@ -4330,7 +4704,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackupVaults")
+        )
         input_: capo_backup.types.list_backup_vaults_input.ListBackupVaultsInput = {}
         if by_vault_type is not None:
             input_["by_vault_type"] = by_vault_type
@@ -4436,7 +4812,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCopyJobs")
+        )
         input_: capo_backup.types.list_copy_jobs_input.ListCopyJobsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4572,7 +4950,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCopyJobSummaries")
+        )
         input_: capo_backup.types.list_copy_job_summaries_input.ListCopyJobSummariesInput = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -4666,7 +5046,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFrameworks")
+        )
         input_: capo_backup.types.list_frameworks_input.ListFrameworksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4747,7 +5129,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndexedRecoveryPoints")
+        )
         input_: capo_backup.types.list_indexed_recovery_points_input.ListIndexedRecoveryPointsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4837,7 +5221,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLegalHolds")
+        )
         input_: capo_backup.types.list_legal_holds_input.ListLegalHoldsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4909,7 +5295,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtectedResources")
+        )
         input_: capo_backup.types.list_protected_resources_input.ListProtectedResourcesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4986,7 +5374,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtectedResourcesByBackupVault")
+        )
         input_: capo_backup.types.list_protected_resources_by_backup_vault_input.ListProtectedResourcesByBackupVaultInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -5088,7 +5478,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPointsByBackupVault")
+        )
         input_: capo_backup.types.list_recovery_points_by_backup_vault_input.ListRecoveryPointsByBackupVaultInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -5197,7 +5589,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPointsByLegalHold")
+        )
         input_: capo_backup.types.list_recovery_points_by_legal_hold_input.ListRecoveryPointsByLegalHoldInput = {
             "legal_hold_id": legal_hold_id
         }
@@ -5279,7 +5673,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPointsByResource")
+        )
         input_: capo_backup.types.list_recovery_points_by_resource_input.ListRecoveryPointsByResourceInput = {
             "resource_arn": resource_arn
         }
@@ -5370,7 +5766,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportJobs")
+        )
         input_: capo_backup.types.list_report_jobs_input.ListReportJobsInput = {}
         if by_report_plan_name is not None:
             input_["by_report_plan_name"] = by_report_plan_name
@@ -5458,7 +5856,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportPlans")
+        )
         input_: capo_backup.types.list_report_plans_input.ListReportPlansInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5530,7 +5930,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreAccessBackupVaults")
+        )
         input_: capo_backup.types.list_restore_access_backup_vaults_input.ListRestoreAccessBackupVaultsInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -5628,7 +6030,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreJobs")
+        )
         input_: capo_backup.types.list_restore_jobs_input.ListRestoreJobsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5754,7 +6158,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreJobsByProtectedResource")
+        )
         input_: capo_backup.types.list_restore_jobs_by_protected_resource_input.ListRestoreJobsByProtectedResourceInput = {
             "resource_arn": resource_arn
         }
@@ -5860,7 +6266,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreJobSummaries")
+        )
         input_: capo_backup.types.list_restore_job_summaries_input.ListRestoreJobSummariesInput = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -5948,7 +6356,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreTestingPlans")
+        )
         input_: capo_backup.types.list_restore_testing_plans_input.ListRestoreTestingPlansInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6025,7 +6435,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRestoreTestingSelections")
+        )
         input_: capo_backup.types.list_restore_testing_selections_input.ListRestoreTestingSelectionsInput = {
             "restore_testing_plan_name": restore_testing_plan_name
         }
@@ -6129,7 +6541,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScanJobs")
+        )
         input_: capo_backup.types.list_scan_jobs_input.ListScanJobsInput = {}
         if by_account_id is not None:
             input_["by_account_id"] = by_account_id
@@ -6265,7 +6679,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScanJobSummaries")
+        )
         input_: capo_backup.types.list_scan_job_summaries_input.ListScanJobSummariesInput = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -6369,7 +6785,16 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_backup.types.list_tags_output.ListTagsOutput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.list_tags_output
+
+            return capo_backup.types.list_tags_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags", redact_output=_redact_output)
+        )
         input_: capo_backup.types.list_tags_input.ListTagsInput = {
             "resource_arn": resource_arn
         }
@@ -6441,7 +6866,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTieringConfigurations")
+        )
         input_: capo_backup.types.list_tiering_configurations_input.ListTieringConfigurationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6511,7 +6938,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBackupVaultAccessPolicy")
+        )
         input_: capo_backup.types.put_backup_vault_access_policy_input.PutBackupVaultAccessPolicyInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -6565,7 +6994,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBackupVaultLockConfiguration")
+        )
         input_: capo_backup.types.put_backup_vault_lock_configuration_input.PutBackupVaultLockConfigurationInput = {
             "backup_vault_name": backup_vault_name
         }
@@ -6620,7 +7051,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBackupVaultNotifications")
+        )
         input_: capo_backup.types.put_backup_vault_notifications_input.PutBackupVaultNotificationsInput = {
             "backup_vault_name": backup_vault_name,
             "sns_topic_arn": sns_topic_arn,
@@ -6672,7 +7105,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRestoreValidationResult")
+        )
         input_: capo_backup.types.put_restore_validation_result_input.PutRestoreValidationResultInput = {
             "restore_job_id": restore_job_id,
             "validation_status": validation_status,
@@ -6727,7 +7162,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.revoke_restore_access_backup_vault_input.RevokeRestoreAccessBackupVaultInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.revoke_restore_access_backup_vault_input
+
+            return capo_backup.types.revoke_restore_access_backup_vault_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RevokeRestoreAccessBackupVault", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.revoke_restore_access_backup_vault_input.RevokeRestoreAccessBackupVaultInput = {
             "backup_vault_name": backup_vault_name,
             "restore_access_backup_vault_arn": restore_access_backup_vault_arn,
@@ -6807,7 +7256,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.start_backup_job_input.StartBackupJobInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.start_backup_job_input
+
+            return capo_backup.types.start_backup_job_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartBackupJob", redact_input=_redact_input),
+        )
         input_: capo_backup.types.start_backup_job_input.StartBackupJobInput = {
             "backup_vault_name": backup_vault_name,
             "resource_arn": resource_arn,
@@ -6886,7 +7345,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCopyJob")
+        )
         input_: capo_backup.types.start_copy_job_input.StartCopyJobInput = {
             "recovery_point_arn": recovery_point_arn,
             "source_backup_vault_name": source_backup_vault_name,
@@ -6943,7 +7404,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReportJob")
+        )
         input_: capo_backup.types.start_report_job_input.StartReportJobInput = {
             "report_plan_name": report_plan_name
         }
@@ -7006,7 +7469,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.start_restore_job_input.StartRestoreJobInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.start_restore_job_input
+
+            return capo_backup.types.start_restore_job_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartRestoreJob", redact_input=_redact_input),
+        )
         input_: capo_backup.types.start_restore_job_input.StartRestoreJobInput = {
             "recovery_point_arn": recovery_point_arn,
             "metadata": metadata,
@@ -7083,7 +7556,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartScanJob")
+        )
         input_: capo_backup.types.start_scan_job_input.StartScanJobInput = {
             "backup_vault_name": backup_vault_name,
             "iam_role_arn": iam_role_arn,
@@ -7140,7 +7615,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBackupJob")
+        )
         input_: capo_backup.types.stop_backup_job_input.StopBackupJobInput = {
             "backup_job_id": backup_job_id
         }
@@ -7188,7 +7665,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.tag_resource_input.TagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.tag_resource_input
+
+            return capo_backup.types.tag_resource_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_backup.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -7236,7 +7723,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.untag_resource_input.UntagResourceInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.untag_resource_input
+
+            return capo_backup.types.untag_resource_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_backup.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_key_list": tag_key_list,
@@ -7286,7 +7783,17 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.update_backup_plan_input.UpdateBackupPlanInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.update_backup_plan_input
+
+            return capo_backup.types.update_backup_plan_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateBackupPlan", redact_input=_redact_input),
+        )
         input_: capo_backup.types.update_backup_plan_input.UpdateBackupPlanInput = {
             "backup_plan_id": backup_plan_id,
             "backup_plan": backup_plan,
@@ -7347,7 +7854,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFramework")
+        )
         input_: capo_backup.types.update_framework_input.UpdateFrameworkInput = {
             "framework_name": framework_name
         }
@@ -7401,7 +7910,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGlobalSettings")
+        )
         input_: capo_backup.types.update_global_settings_input.UpdateGlobalSettingsInput = {}
         if global_settings is not None:
             input_["global_settings"] = global_settings
@@ -7455,7 +7966,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecoveryPointIndexSettings")
+        )
         input_: capo_backup.types.update_recovery_point_index_settings_input.UpdateRecoveryPointIndexSettingsInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -7511,7 +8024,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecoveryPointLifecycle")
+        )
         input_: capo_backup.types.update_recovery_point_lifecycle_input.UpdateRecoveryPointLifecycleInput = {
             "backup_vault_name": backup_vault_name,
             "recovery_point_arn": recovery_point_arn,
@@ -7564,7 +8079,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegionSettings")
+        )
         input_: capo_backup.types.update_region_settings_input.UpdateRegionSettingsInput = {}
         if resource_type_opt_in_preference is not None:
             input_["resource_type_opt_in_preference"] = resource_type_opt_in_preference
@@ -7630,7 +8147,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReportPlan")
+        )
         input_: capo_backup.types.update_report_plan_input.UpdateReportPlanInput = {
             "report_plan_name": report_plan_name
         }
@@ -7689,7 +8208,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRestoreTestingPlan")
+        )
         input_: capo_backup.types.update_restore_testing_plan_input.UpdateRestoreTestingPlanInput = {
             "restore_testing_plan": restore_testing_plan,
             "restore_testing_plan_name": restore_testing_plan_name,
@@ -7742,7 +8263,21 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_backup.types.update_restore_testing_selection_input.UpdateRestoreTestingSelectionInput",
+        ) -> dict[str, Any]:
+            import capo_backup.types.update_restore_testing_selection_input
+
+            return capo_backup.types.update_restore_testing_selection_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRestoreTestingSelection", redact_input=_redact_input
+            ),
+        )
         input_: capo_backup.types.update_restore_testing_selection_input.UpdateRestoreTestingSelectionInput = {
             "restore_testing_plan_name": restore_testing_plan_name,
             "restore_testing_selection": restore_testing_selection,
@@ -7796,7 +8331,9 @@ class AsyncBackupClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTieringConfiguration")
+        )
         input_: capo_backup.types.update_tiering_configuration_input.UpdateTieringConfigurationInput = {
             "tiering_configuration_name": tiering_configuration_name,
             "tiering_configuration": tiering_configuration,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#PinData``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,12 @@ def deserialize_json(data: dict) -> PinData:
         return {"VerificationValue": data["VerificationValue"]}
     else:
         raise DeserializationError("PinData: no recognized variant key")
+
+
+def redact_sensitive(value: PinData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "PinOffset" in value:
+        out["PinOffset"] = "*** Sensitive Data Redacted ***"
+    if "VerificationValue" in value:
+        out["VerificationValue"] = "*** Sensitive Data Redacted ***"
+    return out

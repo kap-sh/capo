@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#GetDeployablePatchSnapshotForInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,17 @@ def deserialize_aws_json_1_1(
         out["use_s3_dual_stack_endpoint"] = data["UseS3DualStackEndpoint"]
     else:
         out["use_s3_dual_stack_endpoint"] = False
+    return out
+
+
+def redact_sensitive(
+    value: GetDeployablePatchSnapshotForInstanceRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "baseline_override" in value:
+        import capo_ssm.types.baseline_override
+
+        out["baseline_override"] = capo_ssm.types.baseline_override.redact_sensitive(
+            value["baseline_override"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#Credential``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,24 @@ def deserialize_json(data: dict) -> Credential:
         }
     else:
         raise DeserializationError("Credential: no recognized variant key")
+
+
+def redact_sensitive(value: Credential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauth2Credential" in value:
+        import capo_appfabric.types.oauth2_credential
+
+        out["oauth2Credential"] = (
+            capo_appfabric.types.oauth2_credential.redact_sensitive(
+                value["oauth2Credential"]
+            )
+        )
+    if "apiKeyCredential" in value:
+        import capo_appfabric.types.api_key_credential
+
+        out["apiKeyCredential"] = (
+            capo_appfabric.types.api_key_credential.redact_sensitive(
+                value["apiKeyCredential"]
+            )
+        )
+    return out

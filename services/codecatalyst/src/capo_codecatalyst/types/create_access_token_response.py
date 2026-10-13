@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codecatalyst#CreateAccessTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,11 @@ def deserialize_json(data: dict) -> CreateAccessTokenResponse:
         out["access_token_id"] = data["accessTokenId"]
     else:
         raise DeserializationError("CreateAccessTokenResponse.access_token_id required")
+    return out
+
+
+def redact_sensitive(value: CreateAccessTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret" in value:
+        out["secret"] = "*** Sensitive Data Redacted ***"
     return out

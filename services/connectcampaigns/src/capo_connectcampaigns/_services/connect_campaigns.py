@@ -21,10 +21,12 @@ from capo_connectcampaigns._pagination import resolve_path as _resolve_path
 from capo_connectcampaigns._services._aws_config import aws_config
 from capo_connectcampaigns._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -154,7 +156,9 @@ class ConnectCampaignsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ConnectCampaignsClientConfig] = None
+        self,
+        config_overrides: Optional[ConnectCampaignsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ConnectCampaignsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -162,8 +166,10 @@ class ConnectCampaignsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -219,7 +225,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCampaign")
+        )
         input_: capo_connectcampaigns.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "connect_instance_id": connect_instance_id,
@@ -265,7 +273,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_connectcampaigns.types.delete_campaign_request.DeleteCampaignRequest = {
             "id": id
         }
@@ -308,7 +318,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectInstanceConfig")
+        )
         input_: capo_connectcampaigns.types.delete_connect_instance_config_request.DeleteConnectInstanceConfigRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -350,7 +362,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceOnboardingJob")
+        )
         input_: capo_connectcampaigns.types.delete_instance_onboarding_job_request.DeleteInstanceOnboardingJobRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -393,7 +407,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCampaign")
+        )
         input_: capo_connectcampaigns.types.describe_campaign_request.DescribeCampaignRequest = {
             "id": id
         }
@@ -437,7 +453,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignState")
+        )
         input_: capo_connectcampaigns.types.get_campaign_state_request.GetCampaignStateRequest = {
             "id": id
         }
@@ -480,7 +498,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCampaignStateBatch")
+        )
         input_: capo_connectcampaigns.types.get_campaign_state_batch_request.GetCampaignStateBatchRequest = {
             "campaign_ids": campaign_ids
         }
@@ -523,7 +543,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectInstanceConfig")
+        )
         input_: capo_connectcampaigns.types.get_connect_instance_config_request.GetConnectInstanceConfigRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -566,7 +588,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInstanceOnboardingJobStatus")
+        )
         input_: capo_connectcampaigns.types.get_instance_onboarding_job_status_request.GetInstanceOnboardingJobStatusRequest = {
             "connect_instance_id": connect_instance_id
         }
@@ -614,7 +638,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_connectcampaigns.types.list_campaigns_request.ListCampaignsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -689,7 +715,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_connectcampaigns.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -733,7 +761,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PauseCampaign")
+        )
         input_: capo_connectcampaigns.types.pause_campaign_request.PauseCampaignRequest = {
             "id": id
         }
@@ -780,7 +810,19 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connectcampaigns.types.put_dial_request_batch_request.PutDialRequestBatchRequest",
+        ) -> dict[str, Any]:
+            import capo_connectcampaigns.types.put_dial_request_batch_request
+
+            return capo_connectcampaigns.types.put_dial_request_batch_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutDialRequestBatch", redact_input=_redact_input),
+        )
         input_: capo_connectcampaigns.types.put_dial_request_batch_request.PutDialRequestBatchRequest = {
             "id": id,
             "dial_requests": dial_requests,
@@ -825,7 +867,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeCampaign")
+        )
         input_: capo_connectcampaigns.types.resume_campaign_request.ResumeCampaignRequest = {
             "id": id
         }
@@ -869,7 +913,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCampaign")
+        )
         input_: capo_connectcampaigns.types.start_campaign_request.StartCampaignRequest = {
             "id": id
         }
@@ -915,7 +961,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInstanceOnboardingJob")
+        )
         input_: capo_connectcampaigns.types.start_instance_onboarding_job_request.StartInstanceOnboardingJobRequest = {
             "connect_instance_id": connect_instance_id,
             "encryption_config": encryption_config,
@@ -960,7 +1008,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCampaign")
+        )
         input_: capo_connectcampaigns.types.stop_campaign_request.StopCampaignRequest = {
             "id": id
         }
@@ -1003,7 +1053,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_connectcampaigns.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -1047,7 +1099,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_connectcampaigns.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -1091,7 +1145,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignDialerConfig")
+        )
         input_: capo_connectcampaigns.types.update_campaign_dialer_config_request.UpdateCampaignDialerConfigRequest = {
             "id": id,
             "dialer_config": dialer_config,
@@ -1135,7 +1191,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignName")
+        )
         input_: capo_connectcampaigns.types.update_campaign_name_request.UpdateCampaignNameRequest = {
             "id": id,
             "name": name,
@@ -1188,7 +1246,9 @@ class ConnectCampaignsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaignOutboundCallConfig")
+        )
         input_: capo_connectcampaigns.types.update_campaign_outbound_call_config_request.UpdateCampaignOutboundCallConfigRequest = {
             "id": id
         }

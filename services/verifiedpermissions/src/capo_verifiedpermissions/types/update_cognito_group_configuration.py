@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#UpdateCognitoGroupConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCognitoGroupConfiguration:
         raise DeserializationError(
             "UpdateCognitoGroupConfiguration.group_entity_type required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdateCognitoGroupConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "group_entity_type" in value:
+        out["group_entity_type"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetHttpParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,6 +77,35 @@ def deserialize_json(data: dict) -> PipeTargetHttpParameters:
         out["query_string_parameters"] = (
             capo_pipes.types.query_string_parameters_map.deserialize_json(
                 data["QueryStringParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeTargetHttpParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "path_parameter_values" in value:
+        import capo_pipes.types.path_parameter_list
+
+        out["path_parameter_values"] = (
+            capo_pipes.types.path_parameter_list.redact_sensitive(
+                value["path_parameter_values"]
+            )
+        )
+    if "header_parameters" in value:
+        import capo_pipes.types.header_parameters_map
+
+        out["header_parameters"] = (
+            capo_pipes.types.header_parameters_map.redact_sensitive(
+                value["header_parameters"]
+            )
+        )
+    if "query_string_parameters" in value:
+        import capo_pipes.types.query_string_parameters_map
+
+        out["query_string_parameters"] = (
+            capo_pipes.types.query_string_parameters_map.redact_sensitive(
+                value["query_string_parameters"]
             )
         )
     return out

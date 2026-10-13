@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#AWSAccount``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> AWSAccount:
         out["email_address"] = data["emailAddress"]
     if data.get("name") is not None:
         out["name"] = data["name"]
+    return out
+
+
+def redact_sensitive(value: AWSAccount) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

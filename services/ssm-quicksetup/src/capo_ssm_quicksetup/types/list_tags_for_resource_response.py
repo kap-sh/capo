@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmquicksetup#ListTagsForResourceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,11 @@ def deserialize_json(data: dict) -> ListTagsForResourceResponse:
         import capo_ssm_quicksetup.types.tags
 
         out["tags"] = capo_ssm_quicksetup.types.tags.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: ListTagsForResourceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

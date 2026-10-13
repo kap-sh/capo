@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#CreateCaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -208,4 +208,27 @@ def deserialize_json(data: dict) -> CreateCaseRequest:
         import capo_security_ir.types.tag_map
 
         out["tags"] = capo_security_ir.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateCaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "watchers" in value:
+        import capo_security_ir.types.watchers
+
+        out["watchers"] = capo_security_ir.types.watchers.redact_sensitive(
+            value["watchers"]
+        )
+    if "threat_actor_ip_addresses" in value:
+        import capo_security_ir.types.threat_actor_ip_list
+
+        out["threat_actor_ip_addresses"] = (
+            capo_security_ir.types.threat_actor_ip_list.redact_sensitive(
+                value["threat_actor_ip_addresses"]
+            )
+        )
     return out

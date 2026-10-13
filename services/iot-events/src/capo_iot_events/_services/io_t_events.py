@@ -19,10 +19,12 @@ from capo_iot_events._auth._zapros_handler import AuthMiddleware
 from capo_iot_events._services._aws_config import aws_config
 from capo_iot_events._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class IoTEventsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IoTEventsClientConfig] = None
+        self,
+        config_overrides: Optional[IoTEventsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IoTEventsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class IoTEventsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -271,7 +277,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlarmModel")
+        )
         input_: capo_iot_events.types.create_alarm_model_request.CreateAlarmModelRequest = {
             "alarm_model_name": alarm_model_name,
             "role_arn": role_arn,
@@ -354,7 +362,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDetectorModel")
+        )
         input_: capo_iot_events.types.create_detector_model_request.CreateDetectorModelRequest = {
             "detector_model_name": detector_model_name,
             "detector_model_definition": detector_model_definition,
@@ -419,7 +429,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInput")
+        )
         input_: capo_iot_events.types.create_input_request.CreateInputRequest = {
             "input_name": input_name,
             "input_definition": input_definition,
@@ -472,7 +484,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlarmModel")
+        )
         input_: capo_iot_events.types.delete_alarm_model_request.DeleteAlarmModelRequest = {
             "alarm_model_name": alarm_model_name
         }
@@ -520,7 +534,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDetectorModel")
+        )
         input_: capo_iot_events.types.delete_detector_model_request.DeleteDetectorModelRequest = {
             "detector_model_name": detector_model_name
         }
@@ -568,7 +584,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInput")
+        )
         input_: capo_iot_events.types.delete_input_request.DeleteInputRequest = {
             "input_name": input_name
         }
@@ -621,7 +639,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlarmModel")
+        )
         input_: capo_iot_events.types.describe_alarm_model_request.DescribeAlarmModelRequest = {
             "alarm_model_name": alarm_model_name
         }
@@ -674,7 +694,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDetectorModel")
+        )
         input_: capo_iot_events.types.describe_detector_model_request.DescribeDetectorModelRequest = {
             "detector_model_name": detector_model_name
         }
@@ -723,7 +745,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDetectorModelAnalysis")
+        )
         input_: capo_iot_events.types.describe_detector_model_analysis_request.DescribeDetectorModelAnalysisRequest = {
             "analysis_id": analysis_id
         }
@@ -770,7 +794,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInput")
+        )
         input_: capo_iot_events.types.describe_input_request.DescribeInputRequest = {
             "input_name": input_name
         }
@@ -812,7 +838,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoggingOptions")
+        )
         input_: capo_iot_events.types.describe_logging_options_request.DescribeLoggingOptionsRequest = {}
 
         response = execute_pipeline(
@@ -863,7 +891,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDetectorModelAnalysisResults")
+        )
         input_: capo_iot_events.types.get_detector_model_analysis_results_request.GetDetectorModelAnalysisResultsRequest = {
             "analysis_id": analysis_id
         }
@@ -915,7 +945,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlarmModels")
+        )
         input_: capo_iot_events.types.list_alarm_models_request.ListAlarmModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -968,7 +1000,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlarmModelVersions")
+        )
         input_: capo_iot_events.types.list_alarm_model_versions_request.ListAlarmModelVersionsRequest = {
             "alarm_model_name": alarm_model_name
         }
@@ -1022,7 +1056,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDetectorModels")
+        )
         input_: capo_iot_events.types.list_detector_models_request.ListDetectorModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1075,7 +1111,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDetectorModelVersions")
+        )
         input_: capo_iot_events.types.list_detector_model_versions_request.ListDetectorModelVersionsRequest = {
             "detector_model_name": detector_model_name
         }
@@ -1130,7 +1168,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputRoutings")
+        )
         input_: capo_iot_events.types.list_input_routings_request.ListInputRoutingsRequest = {
             "input_identifier": input_identifier
         }
@@ -1182,7 +1222,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputs")
+        )
         input_: capo_iot_events.types.list_inputs_request.ListInputsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1231,7 +1273,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iot_events.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1277,7 +1321,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLoggingOptions")
+        )
         input_: capo_iot_events.types.put_logging_options_request.PutLoggingOptionsRequest = {
             "logging_options": logging_options
         }
@@ -1321,7 +1367,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDetectorModelAnalysis")
+        )
         input_: capo_iot_events.types.start_detector_model_analysis_request.StartDetectorModelAnalysisRequest = {
             "detector_model_definition": detector_model_definition
         }
@@ -1371,7 +1419,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iot_events.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1421,7 +1471,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iot_events.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1492,7 +1544,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlarmModel")
+        )
         input_: capo_iot_events.types.update_alarm_model_request.UpdateAlarmModelRequest = {
             "alarm_model_name": alarm_model_name,
             "role_arn": role_arn,
@@ -1564,7 +1618,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDetectorModel")
+        )
         input_: capo_iot_events.types.update_detector_model_request.UpdateDetectorModelRequest = {
             "detector_model_name": detector_model_name,
             "detector_model_definition": detector_model_definition,
@@ -1624,7 +1680,9 @@ class IoTEventsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInput")
+        )
         input_: capo_iot_events.types.update_input_request.UpdateInputRequest = {
             "input_name": input_name,
             "input_definition": input_definition,

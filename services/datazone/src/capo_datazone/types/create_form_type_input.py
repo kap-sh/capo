@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateFormTypeInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,15 @@ def deserialize_json(data: dict) -> CreateFormTypeInput:
         )
     if data.get("description") is not None:
         out["description"] = data["description"]
+    return out
+
+
+def redact_sensitive(value: CreateFormTypeInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "model" in value:
+        out["model"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

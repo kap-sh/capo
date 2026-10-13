@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#BackupRule``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -167,4 +167,11 @@ def deserialize_json(data: dict) -> BackupRule:
         out["scan_actions"] = capo_backup.types.scan_actions.deserialize_json(
             data["ScanActions"]
         )
+    return out
+
+
+def redact_sensitive(value: BackupRule) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recovery_point_tags" in value:
+        out["recovery_point_tags"] = "*** Sensitive Data Redacted ***"
     return out

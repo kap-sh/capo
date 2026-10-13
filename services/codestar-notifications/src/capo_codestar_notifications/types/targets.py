@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codestarnotifications#Targets``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_codestar_notifications.types.target
@@ -27,3 +27,12 @@ def deserialize_json(data: list) -> Targets:
             continue
         out.append(capo_codestar_notifications.types.target.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Targets) -> list[Any]:
+    import capo_codestar_notifications.types.target
+
+    return [
+        capo_codestar_notifications.types.target.redact_sensitive(item)
+        for item in value
+    ]

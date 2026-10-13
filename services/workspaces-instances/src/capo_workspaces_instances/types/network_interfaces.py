@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#NetworkInterfaces``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.instance_network_interface_specification
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_0(data: list) -> NetworkInterfaces:
             )
         )
     return out
+
+
+def redact_sensitive(value: NetworkInterfaces) -> list[Any]:
+    import capo_workspaces_instances.types.instance_network_interface_specification
+
+    return [
+        capo_workspaces_instances.types.instance_network_interface_specification.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

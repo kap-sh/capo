@@ -24,10 +24,12 @@ from capo_marketplace_deployment._resources.awsmp_deployment_parameters_service.
 from capo_marketplace_deployment._services._aws_config import aws_config
 from capo_marketplace_deployment._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -125,7 +127,9 @@ class MarketplaceDeploymentClient:
         self.deployment_parameter = DeploymentParameter(self)
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceDeploymentClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceDeploymentClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceDeploymentClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -133,8 +137,10 @@ class MarketplaceDeploymentClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -193,7 +199,9 @@ class MarketplaceDeploymentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_marketplace_deployment.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -249,7 +257,9 @@ class MarketplaceDeploymentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_marketplace_deployment.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -307,7 +317,9 @@ class MarketplaceDeploymentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_marketplace_deployment.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -381,7 +393,19 @@ class MarketplaceDeploymentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest",
+        ) -> dict[str, Any]:
+            import capo_marketplace_deployment.types.put_deployment_parameter_request
+
+            return capo_marketplace_deployment.types.put_deployment_parameter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutDeploymentParameter", redact_input=_redact_input),
+        )
         input_: capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest = {
             "catalog": catalog,
             "product_id": product_id,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#ExternalSourcesRetrieveAndGenerateConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,6 +69,29 @@ def deserialize_json(data: dict) -> ExternalSourcesRetrieveAndGenerateConfigurat
         out["generation_configuration"] = (
             capo_bedrock_agent_runtime.types.external_sources_generation_configuration.deserialize_json(
                 data["generationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: ExternalSourcesRetrieveAndGenerateConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sources" in value:
+        import capo_bedrock_agent_runtime.types.external_sources
+
+        out["sources"] = (
+            capo_bedrock_agent_runtime.types.external_sources.redact_sensitive(
+                value["sources"]
+            )
+        )
+    if "generation_configuration" in value:
+        import capo_bedrock_agent_runtime.types.external_sources_generation_configuration
+
+        out["generation_configuration"] = (
+            capo_bedrock_agent_runtime.types.external_sources_generation_configuration.redact_sensitive(
+                value["generation_configuration"]
             )
         )
     return out

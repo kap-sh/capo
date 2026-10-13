@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#CreateFleetRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,6 +111,21 @@ def deserialize_json(data: dict) -> CreateFleetRequest:
         out["host_configuration"] = (
             capo_deadline.types.host_configuration.deserialize_json(
                 data["hostConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateFleetRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "host_configuration" in value:
+        import capo_deadline.types.host_configuration
+
+        out["host_configuration"] = (
+            capo_deadline.types.host_configuration.redact_sensitive(
+                value["host_configuration"]
             )
         )
     return out

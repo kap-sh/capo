@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class CrossVpcEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.create_endpoint_access_request.CreateEndpointAccessRequest = {
             "endpoint_name": endpoint_name,
             "subnet_ids": subnet_ids,
@@ -139,7 +142,9 @@ class CrossVpcEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.delete_endpoint_access_request.DeleteEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -185,7 +190,9 @@ class CrossVpcEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.get_endpoint_access_request.GetEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -241,7 +248,9 @@ class CrossVpcEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.list_endpoint_access_request.ListEndpointAccessRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -300,7 +309,9 @@ class CrossVpcEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.update_endpoint_access_request.UpdateEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -368,7 +379,9 @@ class AsyncCrossVpcEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.create_endpoint_access_request.CreateEndpointAccessRequest = {
             "endpoint_name": endpoint_name,
             "subnet_ids": subnet_ids,
@@ -421,7 +434,9 @@ class AsyncCrossVpcEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.delete_endpoint_access_request.DeleteEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -468,7 +483,9 @@ class AsyncCrossVpcEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.get_endpoint_access_request.GetEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }
@@ -525,7 +542,9 @@ class AsyncCrossVpcEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.list_endpoint_access_request.ListEndpointAccessRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -585,7 +604,9 @@ class AsyncCrossVpcEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointAccess")
+        )
         input_: capo_redshift_serverless.types.update_endpoint_access_request.UpdateEndpointAccessRequest = {
             "endpoint_name": endpoint_name
         }

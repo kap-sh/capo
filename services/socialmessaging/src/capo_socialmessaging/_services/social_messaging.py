@@ -25,10 +25,12 @@ from capo_socialmessaging._resources.social_messaging.linked_whats_app_phone_num
 from capo_socialmessaging._services._aws_config import aws_config
 from capo_socialmessaging._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -231,7 +233,9 @@ class SocialMessagingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SocialMessagingClientConfig] = None
+        self,
+        config_overrides: Optional[SocialMessagingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SocialMessagingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -239,8 +243,10 @@ class SocialMessagingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -293,7 +299,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_socialmessaging.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -342,7 +350,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_socialmessaging.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -392,7 +402,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_socialmessaging.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -447,7 +459,32 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.associate_whats_app_business_account_input.AssociateWhatsAppBusinessAccountInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.associate_whats_app_business_account_input
+
+            return capo_socialmessaging.types.associate_whats_app_business_account_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_socialmessaging.types.associate_whats_app_business_account_output.AssociateWhatsAppBusinessAccountOutput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.associate_whats_app_business_account_output
+
+            return capo_socialmessaging.types.associate_whats_app_business_account_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AssociateWhatsAppBusinessAccount",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_socialmessaging.types.associate_whats_app_business_account_input.AssociateWhatsAppBusinessAccountInput = {}
         if signup_callback is not None:
             input_["signup_callback"] = signup_callback
@@ -498,7 +535,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLinkedWhatsAppBusinessAccount")
+        )
         input_: capo_socialmessaging.types.get_linked_whats_app_business_account_input.GetLinkedWhatsAppBusinessAccountInput = {
             "id": id
         }
@@ -546,7 +585,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWhatsAppBusinessAccount")
+        )
         input_: capo_socialmessaging.types.disassociate_whats_app_business_account_input.DisassociateWhatsAppBusinessAccountInput = {
             "id": id
         }
@@ -598,7 +639,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinkedWhatsAppBusinessAccounts")
+        )
         input_: capo_socialmessaging.types.list_linked_whats_app_business_accounts_input.ListLinkedWhatsAppBusinessAccountsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -650,7 +693,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWhatsAppDataset")
+        )
         input_: capo_socialmessaging.types.create_whats_app_dataset_input.CreateWhatsAppDatasetInput = {
             "id": id
         }
@@ -718,7 +763,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.create_whats_app_flow_input.CreateWhatsAppFlowInput = {
             "id": id,
             "flow_name": flow_name,
@@ -780,7 +827,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWhatsAppMessageTemplate")
+        )
         input_: capo_socialmessaging.types.create_whats_app_message_template_input.CreateWhatsAppMessageTemplateInput = {
             "template_definition": template_definition,
             "id": id,
@@ -833,7 +882,10 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWhatsAppMessageTemplateFromLibrary"),
+        )
         input_: capo_socialmessaging.types.create_whats_app_message_template_from_library_input.CreateWhatsAppMessageTemplateFromLibraryInput = {
             "meta_library_template": meta_library_template,
             "id": id,
@@ -885,7 +937,21 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.create_whats_app_message_template_media_input.CreateWhatsAppMessageTemplateMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.create_whats_app_message_template_media_input
+
+            return capo_socialmessaging.types.create_whats_app_message_template_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWhatsAppMessageTemplateMedia", redact_input=_redact_input
+            ),
+        )
         input_: capo_socialmessaging.types.create_whats_app_message_template_media_input.CreateWhatsAppMessageTemplateMediaInput = {
             "id": id
         }
@@ -939,7 +1005,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.delete_whats_app_flow_input.DeleteWhatsAppFlowInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1000,7 +1068,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatsAppMessageTemplate")
+        )
         input_: capo_socialmessaging.types.delete_whats_app_message_template_input.DeleteWhatsAppMessageTemplateInput = {
             "id": id,
             "template_name": template_name,
@@ -1057,7 +1127,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprecateWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.deprecate_whats_app_flow_input.DeprecateWhatsAppFlowInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1110,7 +1182,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.get_whats_app_flow_input.GetWhatsAppFlowInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1165,7 +1239,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppFlowPreview")
+        )
         input_: capo_socialmessaging.types.get_whats_app_flow_preview_input.GetWhatsAppFlowPreviewInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1230,7 +1306,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppMessageTemplate")
+        )
         input_: capo_socialmessaging.types.get_whats_app_message_template_input.GetWhatsAppMessageTemplateInput = {
             "id": id
         }
@@ -1294,7 +1372,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatsAppFlowAssets")
+        )
         input_: capo_socialmessaging.types.list_whats_app_flow_assets_input.ListWhatsAppFlowAssetsInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1357,7 +1437,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatsAppFlows")
+        )
         input_: capo_socialmessaging.types.list_whats_app_flows_input.ListWhatsAppFlowsInput = {
             "id": id
         }
@@ -1417,7 +1499,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatsAppMessageTemplates")
+        )
         input_: capo_socialmessaging.types.list_whats_app_message_templates_input.ListWhatsAppMessageTemplatesInput = {
             "id": id
         }
@@ -1479,7 +1563,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatsAppTemplateLibrary")
+        )
         input_: capo_socialmessaging.types.list_whats_app_template_library_input.ListWhatsAppTemplateLibraryInput = {
             "id": id
         }
@@ -1537,7 +1623,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.publish_whats_app_flow_input.PublishWhatsAppFlowInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1587,7 +1675,10 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutWhatsAppBusinessAccountEventDestinations"),
+        )
         input_: capo_socialmessaging.types.put_whats_app_business_account_event_destinations_input.PutWhatsAppBusinessAccountEventDestinationsInput = {
             "id": id,
             "event_destinations": event_destinations,
@@ -1642,7 +1733,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_conversion_event_input.SendWhatsAppConversionEventInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_conversion_event_input
+
+            return capo_socialmessaging.types.send_whats_app_conversion_event_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppConversionEvent", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_conversion_event_input.SendWhatsAppConversionEventInput = {
             "id": id,
             "dataset_id": dataset_id,
@@ -1712,7 +1815,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWhatsAppFlow")
+        )
         input_: capo_socialmessaging.types.update_whats_app_flow_input.UpdateWhatsAppFlowInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1775,7 +1880,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWhatsAppFlowAssets")
+        )
         input_: capo_socialmessaging.types.update_whats_app_flow_assets_input.UpdateWhatsAppFlowAssetsInput = {
             "id": id,
             "flow_id": flow_id,
@@ -1855,7 +1962,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWhatsAppMessageTemplate")
+        )
         input_: capo_socialmessaging.types.update_whats_app_message_template_input.UpdateWhatsAppMessageTemplateInput = {
             "id": id
         }
@@ -1918,7 +2027,10 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.get_linked_whats_app_business_account_phone_number_input.GetLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id
         }
@@ -1970,7 +2082,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatsAppMessageMedia")
+        )
         input_: capo_socialmessaging.types.delete_whats_app_message_media_input.DeleteWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -2021,7 +2135,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.get_whats_app_business_public_key_input.GetWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -2079,7 +2195,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_call_permission_input
+
+            return capo_socialmessaging.types.get_whats_app_call_permission_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppCallPermission", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_call_permission_input.GetWhatsAppCallPermissionInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -2145,7 +2273,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.get_whats_app_message_media_input
+
+            return capo_socialmessaging.types.get_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.get_whats_app_message_media_input.GetWhatsAppMessageMediaInput = {
             "media_id": media_id,
             "origination_phone_number_id": origination_phone_number_id,
@@ -2208,7 +2348,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.post_whats_app_message_media_input
+
+            return capo_socialmessaging.types.post_whats_app_message_media_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PostWhatsAppMessageMedia", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.post_whats_app_message_media_input.PostWhatsAppMessageMediaInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -2270,7 +2422,9 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutWhatsAppBusinessPublicKey")
+        )
         input_: capo_socialmessaging.types.put_whats_app_business_public_key_input.PutWhatsAppBusinessPublicKeyInput = {
             "origination_phone_number_id": origination_phone_number_id
         }
@@ -2329,7 +2483,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_call_event_input
+
+            return capo_socialmessaging.types.send_whats_app_call_event_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppCallEvent", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_call_event_input.SendWhatsAppCallEventInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "meta_api_version": meta_api_version,
@@ -2384,7 +2550,19 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput",
+        ) -> dict[str, Any]:
+            import capo_socialmessaging.types.send_whats_app_message_input
+
+            return capo_socialmessaging.types.send_whats_app_message_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendWhatsAppMessage", redact_input=_redact_input),
+        )
         input_: capo_socialmessaging.types.send_whats_app_message_input.SendWhatsAppMessageInput = {
             "origination_phone_number_id": origination_phone_number_id,
             "message": message,
@@ -2438,7 +2616,10 @@ class SocialMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateLinkedWhatsAppBusinessAccountPhoneNumber"),
+        )
         input_: capo_socialmessaging.types.update_linked_whats_app_business_account_phone_number_input.UpdateLinkedWhatsAppBusinessAccountPhoneNumberInput = {
             "id": id,
             "call_settings": call_settings,

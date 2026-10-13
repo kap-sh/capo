@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#LifeCycle``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,11 @@ def deserialize_aws_json_1_0(data: dict) -> LifeCycle:
                 data["NextStepsHistory"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: LifeCycle) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "next_steps" in value:
+        out["next_steps"] = "*** Sensitive Data Redacted ***"
     return out

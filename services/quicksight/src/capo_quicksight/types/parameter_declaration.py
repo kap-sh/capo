@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ParameterDeclaration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,43 @@ def deserialize_json(data: dict) -> ParameterDeclaration:
         out["date_time_parameter_declaration"] = (
             capo_quicksight.types.date_time_parameter_declaration.deserialize_json(
                 data["DateTimeParameterDeclaration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ParameterDeclaration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "string_parameter_declaration" in value:
+        import capo_quicksight.types.string_parameter_declaration
+
+        out["string_parameter_declaration"] = (
+            capo_quicksight.types.string_parameter_declaration.redact_sensitive(
+                value["string_parameter_declaration"]
+            )
+        )
+    if "decimal_parameter_declaration" in value:
+        import capo_quicksight.types.decimal_parameter_declaration
+
+        out["decimal_parameter_declaration"] = (
+            capo_quicksight.types.decimal_parameter_declaration.redact_sensitive(
+                value["decimal_parameter_declaration"]
+            )
+        )
+    if "integer_parameter_declaration" in value:
+        import capo_quicksight.types.integer_parameter_declaration
+
+        out["integer_parameter_declaration"] = (
+            capo_quicksight.types.integer_parameter_declaration.redact_sensitive(
+                value["integer_parameter_declaration"]
+            )
+        )
+    if "date_time_parameter_declaration" in value:
+        import capo_quicksight.types.date_time_parameter_declaration
+
+        out["date_time_parameter_declaration"] = (
+            capo_quicksight.types.date_time_parameter_declaration.redact_sensitive(
+                value["date_time_parameter_declaration"]
             )
         )
     return out

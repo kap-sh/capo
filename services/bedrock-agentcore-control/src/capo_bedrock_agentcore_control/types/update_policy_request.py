@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#UpdatePolicyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,6 +104,19 @@ def deserialize_json(data: dict) -> UpdatePolicyRequest:
         out["enforcement_mode"] = (
             capo_bedrock_agentcore_control.types.enforcement_mode.deserialize_json(
                 data["enforcementMode"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdatePolicyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        import capo_bedrock_agentcore_control.types.updated_description
+
+        out["description"] = (
+            capo_bedrock_agentcore_control.types.updated_description.redact_sensitive(
+                value["description"]
             )
         )
     return out

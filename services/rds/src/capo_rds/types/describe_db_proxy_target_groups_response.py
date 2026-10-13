@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DescribeDBProxyTargetGroupsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,15 @@ def deserialize_query(el: Element) -> DescribeDBProxyTargetGroupsResponse:
     child_marker = el.find("Marker")
     if child_marker is not None:
         out["marker"] = str(child_marker.text or "")
+    return out
+
+
+def redact_sensitive(value: DescribeDBProxyTargetGroupsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_groups" in value:
+        import capo_rds.types.target_group_list
+
+        out["target_groups"] = capo_rds.types.target_group_list.redact_sensitive(
+            value["target_groups"]
+        )
     return out

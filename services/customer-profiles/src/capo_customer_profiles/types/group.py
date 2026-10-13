@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#Group``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,4 +89,17 @@ def deserialize_json(data: dict) -> Group:
         )
     else:
         out["type"] = "ALL"
+    return out
+
+
+def redact_sensitive(value: Group) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dimensions" in value:
+        import capo_customer_profiles.types.dimension_list
+
+        out["dimensions"] = (
+            capo_customer_profiles.types.dimension_list.redact_sensitive(
+                value["dimensions"]
+            )
+        )
     return out

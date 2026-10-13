@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#BatchUpdateDevicePositionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,4 +41,17 @@ def deserialize_json(data: dict) -> BatchUpdateDevicePositionRequest:
         )
     else:
         raise DeserializationError("BatchUpdateDevicePositionRequest.updates required")
+    return out
+
+
+def redact_sensitive(value: BatchUpdateDevicePositionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "updates" in value:
+        import capo_location.types.device_position_update_list
+
+        out["updates"] = (
+            capo_location.types.device_position_update_list.redact_sensitive(
+                value["updates"]
+            )
+        )
     return out

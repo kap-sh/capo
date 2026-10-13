@@ -22,10 +22,12 @@ from capo_outposts._pagination import resolve_path as _resolve_path
 from capo_outposts._services._aws_config import aws_config
 from capo_outposts._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -281,7 +283,9 @@ class OutpostsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[OutpostsClientConfig] = None
+        self,
+        config_overrides: Optional[OutpostsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: OutpostsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -289,8 +293,10 @@ class OutpostsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -345,7 +351,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCapacityTask")
+        )
         input_: capo_outposts.types.cancel_capacity_task_input.CancelCapacityTaskInput = {
             "capacity_task_id": capacity_task_id,
             "outpost_identifier": outpost_identifier,
@@ -393,7 +401,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelOrder")
+        )
         input_: capo_outposts.types.cancel_order_input.CancelOrderInput = {
             "order_id": order_id
         }
@@ -457,7 +467,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOrder")
+        )
         input_: capo_outposts.types.create_order_input.CreateOrderInput = {
             "outpost_identifier": outpost_identifier,
             "payment_option": payment_option,
@@ -530,7 +542,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOutpost")
+        )
         input_: capo_outposts.types.create_outpost_input.CreateOutpostInput = {
             "name": name,
             "site_id": site_id,
@@ -590,7 +604,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrivateConnectivityConfig")
+        )
         input_: capo_outposts.types.create_private_connectivity_config_input.CreatePrivateConnectivityConfigInput = {
             "outpost_id": outpost_id,
             "vpc_information_list": vpc_information_list,
@@ -659,7 +675,26 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_outposts.types.create_quote_input.CreateQuoteInput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.create_quote_input
+
+            return capo_outposts.types.create_quote_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_outposts.types.create_quote_output.CreateQuoteOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.create_quote_output
+
+            return capo_outposts.types.create_quote_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateQuote", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_outposts.types.create_quote_input.CreateQuoteInput = {
             "country_code": country_code,
             "requested_capacities": requested_capacities,
@@ -724,7 +759,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRenewal")
+        )
         input_: capo_outposts.types.create_renewal_input.CreateRenewalInput = {
             "payment_option": payment_option,
             "payment_term": payment_term,
@@ -790,7 +827,16 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_outposts.types.create_site_input.CreateSiteInput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.create_site_input
+
+            return capo_outposts.types.create_site_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSite", redact_input=_redact_input)
+        )
         input_: capo_outposts.types.create_site_input.CreateSiteInput = {"name": name}
         if description is not None:
             input_["description"] = description
@@ -847,7 +893,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOutpost")
+        )
         input_: capo_outposts.types.delete_outpost_input.DeleteOutpostInput = {
             "outpost_id": outpost_id
         }
@@ -893,7 +941,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuote")
+        )
         input_: capo_outposts.types.delete_quote_input.DeleteQuoteInput = {
             "quote_identifier": quote_identifier
         }
@@ -940,7 +990,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSite")
+        )
         input_: capo_outposts.types.delete_site_input.DeleteSiteInput = {
             "site_id": site_id
         }
@@ -988,7 +1040,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapacityTask")
+        )
         input_: capo_outposts.types.get_capacity_task_input.GetCapacityTaskInput = {
             "capacity_task_id": capacity_task_id,
             "outpost_identifier": outpost_identifier,
@@ -1035,7 +1089,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCatalogItem")
+        )
         input_: capo_outposts.types.get_catalog_item_input.GetCatalogItemInput = {
             "catalog_item_id": catalog_item_id
         }
@@ -1081,7 +1137,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnection")
+        )
         input_: capo_outposts.types.get_connection_request.GetConnectionRequest = {
             "connection_id": connection_id
         }
@@ -1124,7 +1182,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOrder")
+        )
         input_: capo_outposts.types.get_order_input.GetOrderInput = {
             "order_id": order_id
         }
@@ -1170,7 +1230,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutpost")
+        )
         input_: capo_outposts.types.get_outpost_input.GetOutpostInput = {
             "outpost_id": outpost_id
         }
@@ -1219,7 +1281,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutpostBillingInformation")
+        )
         input_: capo_outposts.types.get_outpost_billing_information_input.GetOutpostBillingInformationInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -1298,7 +1362,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutpostInstanceTypes")
+        )
         input_: capo_outposts.types.get_outpost_instance_types_input.GetOutpostInstanceTypesInput = {
             "outpost_id": outpost_id
         }
@@ -1381,7 +1447,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOutpostSupportedInstanceTypes")
+        )
         input_: capo_outposts.types.get_outpost_supported_instance_types_input.GetOutpostSupportedInstanceTypesInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -1464,7 +1532,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPrivateConnectivityConfig")
+        )
         input_: capo_outposts.types.get_private_connectivity_config_input.GetPrivateConnectivityConfigInput = {
             "outpost_id": outpost_id
         }
@@ -1508,7 +1578,16 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_outposts.types.get_quote_output.GetQuoteOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.get_quote_output
+
+            return capo_outposts.types.get_quote_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQuote", redact_output=_redact_output)
+        )
         input_: capo_outposts.types.get_quote_input.GetQuoteInput = {
             "quote_identifier": quote_identifier
         }
@@ -1554,7 +1633,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRenewalPricing")
+        )
         input_: capo_outposts.types.get_renewal_pricing_input.GetRenewalPricingInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -1598,7 +1679,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSite")
+        )
         input_: capo_outposts.types.get_site_input.GetSiteInput = {"site_id": site_id}
 
         response = execute_pipeline(
@@ -1644,7 +1727,17 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_outposts.types.get_site_address_output.GetSiteAddressOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.get_site_address_output
+
+            return capo_outposts.types.get_site_address_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSiteAddress", redact_output=_redact_output),
+        )
         input_: capo_outposts.types.get_site_address_input.GetSiteAddressInput = {
             "site_id": site_id,
             "address_type": address_type,
@@ -1711,7 +1804,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetInstances")
+        )
         input_: capo_outposts.types.list_asset_instances_input.ListAssetInstancesInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -1822,7 +1917,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssets")
+        )
         input_: capo_outposts.types.list_assets_input.ListAssetsInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -1917,7 +2014,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBlockingInstancesForCapacityTask")
+        )
         input_: capo_outposts.types.list_blocking_instances_for_capacity_task_input.ListBlockingInstancesForCapacityTaskInput = {
             "outpost_identifier": outpost_identifier,
             "capacity_task_id": capacity_task_id,
@@ -2005,7 +2104,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCapacityTasks")
+        )
         input_: capo_outposts.types.list_capacity_tasks_input.ListCapacityTasksInput = {}
         if outpost_identifier_filter is not None:
             input_["outpost_identifier_filter"] = outpost_identifier_filter
@@ -2102,7 +2203,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCatalogItems")
+        )
         input_: capo_outposts.types.list_catalog_items_input.ListCatalogItemsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2199,7 +2302,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrderableInstanceTypes")
+        )
         input_: capo_outposts.types.list_orderable_instance_types_input.ListOrderableInstanceTypesInput = {}
         if outpost_generation_filter is not None:
             input_["outpost_generation_filter"] = outpost_generation_filter
@@ -2282,7 +2387,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrders")
+        )
         input_: capo_outposts.types.list_orders_input.ListOrdersInput = {}
         if outpost_identifier_filter is not None:
             input_["outpost_identifier_filter"] = outpost_identifier_filter
@@ -2372,7 +2479,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOutposts")
+        )
         input_: capo_outposts.types.list_outposts_input.ListOutpostsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2463,7 +2572,17 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_outposts.types.list_quotes_output.ListQuotesOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.list_quotes_output
+
+            return capo_outposts.types.list_quotes_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListQuotes", redact_output=_redact_output),
+        )
         input_: capo_outposts.types.list_quotes_input.ListQuotesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2545,7 +2664,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSites")
+        )
         input_: capo_outposts.types.list_sites_input.ListSitesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2637,7 +2758,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_outposts.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2700,7 +2823,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCapacityTask")
+        )
         input_: capo_outposts.types.start_capacity_task_input.StartCapacityTaskInput = {
             "outpost_identifier": outpost_identifier,
             "instance_pools": instance_pools,
@@ -2767,7 +2892,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartConnection")
+        )
         input_: capo_outposts.types.start_connection_request.StartConnectionRequest = {
             "asset_id": asset_id,
             "client_public_key": client_public_key,
@@ -2822,7 +2949,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOutpostDecommission")
+        )
         input_: capo_outposts.types.start_outpost_decommission_input.StartOutpostDecommissionInput = {
             "outpost_identifier": outpost_identifier
         }
@@ -2871,7 +3000,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_outposts.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2919,7 +3050,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_outposts.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2975,7 +3108,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOutpost")
+        )
         input_: capo_outposts.types.update_outpost_input.UpdateOutpostInput = {
             "outpost_id": outpost_id
         }
@@ -3053,7 +3188,26 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_outposts.types.update_quote_input.UpdateQuoteInput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.update_quote_input
+
+            return capo_outposts.types.update_quote_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_outposts.types.update_quote_output.UpdateQuoteOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.update_quote_output
+
+            return capo_outposts.types.update_quote_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateQuote", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_outposts.types.update_quote_input.UpdateQuoteInput = {
             "quote_identifier": quote_identifier
         }
@@ -3120,7 +3274,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSite")
+        )
         input_: capo_outposts.types.update_site_input.UpdateSiteInput = {
             "site_id": site_id
         }
@@ -3177,7 +3333,32 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_outposts.types.update_site_address_input.UpdateSiteAddressInput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.update_site_address_input
+
+            return capo_outposts.types.update_site_address_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_outposts.types.update_site_address_output.UpdateSiteAddressOutput",
+        ) -> dict[str, Any]:
+            import capo_outposts.types.update_site_address_output
+
+            return capo_outposts.types.update_site_address_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSiteAddress",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_outposts.types.update_site_address_input.UpdateSiteAddressInput = {
             "site_id": site_id,
             "address_type": address_type,
@@ -3256,7 +3437,9 @@ class OutpostsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSiteRackPhysicalProperties")
+        )
         input_: capo_outposts.types.update_site_rack_physical_properties_input.UpdateSiteRackPhysicalPropertiesInput = {
             "site_id": site_id
         }

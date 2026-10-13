@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#CreateLaunchConfigurationTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -180,4 +180,11 @@ def deserialize_json(data: dict) -> CreateLaunchConfigurationTemplateRequest:
         out["enable_parameters_encryption"] = data["enableParametersEncryption"]
     if data.get("parametersEncryptionKey") is not None:
         out["parameters_encryption_key"] = data["parametersEncryptionKey"]
+    return out
+
+
+def redact_sensitive(value: CreateLaunchConfigurationTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ShapeConditionalFormat``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,17 @@ def deserialize_json(data: dict) -> ShapeConditionalFormat:
         )
     else:
         raise DeserializationError("ShapeConditionalFormat.background_color required")
+    return out
+
+
+def redact_sensitive(value: ShapeConditionalFormat) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "background_color" in value:
+        import capo_quicksight.types.conditional_formatting_color
+
+        out["background_color"] = (
+            capo_quicksight.types.conditional_formatting_color.redact_sensitive(
+                value["background_color"]
+            )
+        )
     return out

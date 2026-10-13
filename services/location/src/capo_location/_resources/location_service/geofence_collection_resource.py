@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -115,7 +116,19 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_geofence_collection_response.CreateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_geofence_collection_response
+
+            return capo_location.types.create_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_geofence_collection_request.CreateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -172,7 +185,21 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_geofence_collection_response.DescribeGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_geofence_collection_response
+
+            return capo_location.types.describe_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGeofenceCollection", redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.describe_geofence_collection_request.DescribeGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -227,7 +254,19 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_geofence_collection_response.UpdateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_geofence_collection_response
+
+            return capo_location.types.update_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_geofence_collection_request.UpdateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -280,7 +319,9 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGeofenceCollection")
+        )
         input_: capo_location.types.delete_geofence_collection_request.DeleteGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -328,7 +369,21 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofence_collections_response.ListGeofenceCollectionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofence_collections_response
+
+            return (
+                capo_location.types.list_geofence_collections_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofenceCollections", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofence_collections_request.ListGeofenceCollectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -381,7 +436,9 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteGeofence")
+        )
         input_: capo_location.types.batch_delete_geofence_request.BatchDeleteGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_ids": geofence_ids,
@@ -431,7 +488,36 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_request
+
+            return (
+                capo_location.types.batch_evaluate_geofences_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_evaluate_geofences_response.BatchEvaluateGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_response
+
+            return (
+                capo_location.types.batch_evaluate_geofences_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchEvaluateGeofences",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest = {
             "collection_name": collection_name,
             "device_position_updates": device_position_updates,
@@ -481,7 +567,32 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_request
+
+            return capo_location.types.batch_put_geofence_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_put_geofence_response.BatchPutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_response
+
+            return capo_location.types.batch_put_geofence_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchPutGeofence",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest = {
             "collection_name": collection_name,
             "entries": entries,
@@ -543,7 +654,36 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_request
+
+            return (
+                capo_location.types.forecast_geofence_events_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.forecast_geofence_events_response.ForecastGeofenceEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_response
+
+            return (
+                capo_location.types.forecast_geofence_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ForecastGeofenceEvents",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest = {
             "collection_name": collection_name,
             "device_state": device_state,
@@ -603,7 +743,17 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_geofence_response.GetGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_geofence_response
+
+            return capo_location.types.get_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGeofence", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_geofence_request.GetGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,
@@ -655,7 +805,17 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofences_response.ListGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofences_response
+
+            return capo_location.types.list_geofences_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofences", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofences_request.ListGeofencesRequest = {
             "collection_name": collection_name
         }
@@ -715,7 +875,26 @@ class GeofenceCollectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.put_geofence_request.PutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_request
+
+            return capo_location.types.put_geofence_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.put_geofence_response.PutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_response
+
+            return capo_location.types.put_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutGeofence", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.put_geofence_request.PutGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,
@@ -785,7 +964,19 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_geofence_collection_response.CreateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_geofence_collection_response
+
+            return capo_location.types.create_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_geofence_collection_request.CreateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -843,7 +1034,21 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_geofence_collection_response.DescribeGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_geofence_collection_response
+
+            return capo_location.types.describe_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGeofenceCollection", redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.describe_geofence_collection_request.DescribeGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -899,7 +1104,19 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_geofence_collection_response.UpdateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_geofence_collection_response
+
+            return capo_location.types.update_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_geofence_collection_request.UpdateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -953,7 +1170,9 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGeofenceCollection")
+        )
         input_: capo_location.types.delete_geofence_collection_request.DeleteGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -1002,7 +1221,21 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofence_collections_response.ListGeofenceCollectionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofence_collections_response
+
+            return (
+                capo_location.types.list_geofence_collections_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofenceCollections", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofence_collections_request.ListGeofenceCollectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1056,7 +1289,9 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteGeofence")
+        )
         input_: capo_location.types.batch_delete_geofence_request.BatchDeleteGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_ids": geofence_ids,
@@ -1107,7 +1342,36 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_request
+
+            return (
+                capo_location.types.batch_evaluate_geofences_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_evaluate_geofences_response.BatchEvaluateGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_response
+
+            return (
+                capo_location.types.batch_evaluate_geofences_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchEvaluateGeofences",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest = {
             "collection_name": collection_name,
             "device_position_updates": device_position_updates,
@@ -1158,7 +1422,32 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_request
+
+            return capo_location.types.batch_put_geofence_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_put_geofence_response.BatchPutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_response
+
+            return capo_location.types.batch_put_geofence_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchPutGeofence",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest = {
             "collection_name": collection_name,
             "entries": entries,
@@ -1221,7 +1510,36 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_request
+
+            return (
+                capo_location.types.forecast_geofence_events_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.forecast_geofence_events_response.ForecastGeofenceEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_response
+
+            return (
+                capo_location.types.forecast_geofence_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ForecastGeofenceEvents",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest = {
             "collection_name": collection_name,
             "device_state": device_state,
@@ -1282,7 +1600,17 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_geofence_response.GetGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_geofence_response
+
+            return capo_location.types.get_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGeofence", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_geofence_request.GetGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,
@@ -1335,7 +1663,17 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofences_response.ListGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofences_response
+
+            return capo_location.types.list_geofences_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofences", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofences_request.ListGeofencesRequest = {
             "collection_name": collection_name
         }
@@ -1396,7 +1734,26 @@ class AsyncGeofenceCollectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.put_geofence_request.PutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_request
+
+            return capo_location.types.put_geofence_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.put_geofence_response.PutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_response
+
+            return capo_location.types.put_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutGeofence", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.put_geofence_request.PutGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,

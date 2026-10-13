@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#MediaInsightsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> MediaInsightsConfiguration:
         out["disabled"] = data["Disabled"]
     if data.get("ConfigurationArn") is not None:
         out["configuration_arn"] = data["ConfigurationArn"]
+    return out
+
+
+def redact_sensitive(value: MediaInsightsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration_arn" in value:
+        out["configuration_arn"] = "*** Sensitive Data Redacted ***"
     return out

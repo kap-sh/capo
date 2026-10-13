@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#RunScheduledInstancesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,11 @@ def deserialize_ec2_query(el: Element) -> RunScheduledInstancesRequest:
     child_scheduled_instance_id = el.find("ScheduledInstanceId")
     if child_scheduled_instance_id is not None:
         out["scheduled_instance_id"] = str(child_scheduled_instance_id.text or "")
+    return out
+
+
+def redact_sensitive(value: RunScheduledInstancesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_specification" in value:
+        out["launch_specification"] = "*** Sensitive Data Redacted ***"
     return out

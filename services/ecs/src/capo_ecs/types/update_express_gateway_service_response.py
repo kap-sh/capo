@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#UpdateExpressGatewayServiceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateExpressGatewayServiceResponse:
         out["service"] = (
             capo_ecs.types.updated_express_gateway_service.deserialize_aws_json_1_1(
                 data["service"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateExpressGatewayServiceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service" in value:
+        import capo_ecs.types.updated_express_gateway_service
+
+        out["service"] = (
+            capo_ecs.types.updated_express_gateway_service.redact_sensitive(
+                value["service"]
             )
         )
     return out

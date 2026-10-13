@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#IngestDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,4 +117,15 @@ def deserialize_json(data: dict) -> IngestDataInput:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: IngestDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_bedrock_agentcore.types.content_source
+
+        out["source"] = capo_bedrock_agentcore.types.content_source.redact_sensitive(
+            value["source"]
+        )
     return out

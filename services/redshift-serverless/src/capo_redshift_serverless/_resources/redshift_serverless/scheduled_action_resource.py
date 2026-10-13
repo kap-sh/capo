@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class ScheduledActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.create_scheduled_action_request.CreateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name,
             "target_action": target_action,
@@ -149,7 +152,9 @@ class ScheduledActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_redshift_serverless.types.delete_scheduled_action_request.DeleteScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -194,7 +199,9 @@ class ScheduledActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScheduledAction")
+        )
         input_: capo_redshift_serverless.types.get_scheduled_action_request.GetScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -248,7 +255,9 @@ class ScheduledActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduledActions")
+        )
         input_: capo_redshift_serverless.types.list_scheduled_actions_request.ListScheduledActionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -315,7 +324,9 @@ class ScheduledActionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.update_scheduled_action_request.UpdateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -396,7 +407,9 @@ class AsyncScheduledActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.create_scheduled_action_request.CreateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name,
             "target_action": target_action,
@@ -454,7 +467,9 @@ class AsyncScheduledActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduledAction")
+        )
         input_: capo_redshift_serverless.types.delete_scheduled_action_request.DeleteScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -500,7 +515,9 @@ class AsyncScheduledActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScheduledAction")
+        )
         input_: capo_redshift_serverless.types.get_scheduled_action_request.GetScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }
@@ -555,7 +572,9 @@ class AsyncScheduledActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduledActions")
+        )
         input_: capo_redshift_serverless.types.list_scheduled_actions_request.ListScheduledActionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -623,7 +642,9 @@ class AsyncScheduledActionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScheduledAction")
+        )
         input_: capo_redshift_serverless.types.update_scheduled_action_request.UpdateScheduledActionRequest = {
             "scheduled_action_name": scheduled_action_name
         }

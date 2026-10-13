@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#RevokeSubscriptionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -156,4 +156,25 @@ def deserialize_json(data: dict) -> RevokeSubscriptionOutput:
         out["subscription_request_id"] = data["subscriptionRequestId"]
     if data.get("retainPermissions") is not None:
         out["retain_permissions"] = data["retainPermissions"]
+    return out
+
+
+def redact_sensitive(value: RevokeSubscriptionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "subscribed_principal" in value:
+        import capo_datazone.types.subscribed_principal
+
+        out["subscribed_principal"] = (
+            capo_datazone.types.subscribed_principal.redact_sensitive(
+                value["subscribed_principal"]
+            )
+        )
+    if "subscribed_listing" in value:
+        import capo_datazone.types.subscribed_listing
+
+        out["subscribed_listing"] = (
+            capo_datazone.types.subscribed_listing.redact_sensitive(
+                value["subscribed_listing"]
+            )
+        )
     return out

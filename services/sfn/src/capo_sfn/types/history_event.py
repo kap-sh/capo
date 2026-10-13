@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#HistoryEvent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -823,6 +823,227 @@ def deserialize_aws_json_1_0(data: dict) -> HistoryEvent:
         out["evaluation_failed_event_details"] = (
             capo_sfn.types.evaluation_failed_event_details.deserialize_aws_json_1_0(
                 data["evaluationFailedEventDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HistoryEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "activity_failed_event_details" in value:
+        import capo_sfn.types.activity_failed_event_details
+
+        out["activity_failed_event_details"] = (
+            capo_sfn.types.activity_failed_event_details.redact_sensitive(
+                value["activity_failed_event_details"]
+            )
+        )
+    if "activity_schedule_failed_event_details" in value:
+        import capo_sfn.types.activity_schedule_failed_event_details
+
+        out["activity_schedule_failed_event_details"] = (
+            capo_sfn.types.activity_schedule_failed_event_details.redact_sensitive(
+                value["activity_schedule_failed_event_details"]
+            )
+        )
+    if "activity_scheduled_event_details" in value:
+        import capo_sfn.types.activity_scheduled_event_details
+
+        out["activity_scheduled_event_details"] = (
+            capo_sfn.types.activity_scheduled_event_details.redact_sensitive(
+                value["activity_scheduled_event_details"]
+            )
+        )
+    if "activity_succeeded_event_details" in value:
+        import capo_sfn.types.activity_succeeded_event_details
+
+        out["activity_succeeded_event_details"] = (
+            capo_sfn.types.activity_succeeded_event_details.redact_sensitive(
+                value["activity_succeeded_event_details"]
+            )
+        )
+    if "activity_timed_out_event_details" in value:
+        import capo_sfn.types.activity_timed_out_event_details
+
+        out["activity_timed_out_event_details"] = (
+            capo_sfn.types.activity_timed_out_event_details.redact_sensitive(
+                value["activity_timed_out_event_details"]
+            )
+        )
+    if "task_failed_event_details" in value:
+        import capo_sfn.types.task_failed_event_details
+
+        out["task_failed_event_details"] = (
+            capo_sfn.types.task_failed_event_details.redact_sensitive(
+                value["task_failed_event_details"]
+            )
+        )
+    if "task_scheduled_event_details" in value:
+        import capo_sfn.types.task_scheduled_event_details
+
+        out["task_scheduled_event_details"] = (
+            capo_sfn.types.task_scheduled_event_details.redact_sensitive(
+                value["task_scheduled_event_details"]
+            )
+        )
+    if "task_start_failed_event_details" in value:
+        import capo_sfn.types.task_start_failed_event_details
+
+        out["task_start_failed_event_details"] = (
+            capo_sfn.types.task_start_failed_event_details.redact_sensitive(
+                value["task_start_failed_event_details"]
+            )
+        )
+    if "task_submit_failed_event_details" in value:
+        import capo_sfn.types.task_submit_failed_event_details
+
+        out["task_submit_failed_event_details"] = (
+            capo_sfn.types.task_submit_failed_event_details.redact_sensitive(
+                value["task_submit_failed_event_details"]
+            )
+        )
+    if "task_submitted_event_details" in value:
+        import capo_sfn.types.task_submitted_event_details
+
+        out["task_submitted_event_details"] = (
+            capo_sfn.types.task_submitted_event_details.redact_sensitive(
+                value["task_submitted_event_details"]
+            )
+        )
+    if "task_succeeded_event_details" in value:
+        import capo_sfn.types.task_succeeded_event_details
+
+        out["task_succeeded_event_details"] = (
+            capo_sfn.types.task_succeeded_event_details.redact_sensitive(
+                value["task_succeeded_event_details"]
+            )
+        )
+    if "task_timed_out_event_details" in value:
+        import capo_sfn.types.task_timed_out_event_details
+
+        out["task_timed_out_event_details"] = (
+            capo_sfn.types.task_timed_out_event_details.redact_sensitive(
+                value["task_timed_out_event_details"]
+            )
+        )
+    if "execution_failed_event_details" in value:
+        import capo_sfn.types.execution_failed_event_details
+
+        out["execution_failed_event_details"] = (
+            capo_sfn.types.execution_failed_event_details.redact_sensitive(
+                value["execution_failed_event_details"]
+            )
+        )
+    if "execution_started_event_details" in value:
+        import capo_sfn.types.execution_started_event_details
+
+        out["execution_started_event_details"] = (
+            capo_sfn.types.execution_started_event_details.redact_sensitive(
+                value["execution_started_event_details"]
+            )
+        )
+    if "execution_succeeded_event_details" in value:
+        import capo_sfn.types.execution_succeeded_event_details
+
+        out["execution_succeeded_event_details"] = (
+            capo_sfn.types.execution_succeeded_event_details.redact_sensitive(
+                value["execution_succeeded_event_details"]
+            )
+        )
+    if "execution_aborted_event_details" in value:
+        import capo_sfn.types.execution_aborted_event_details
+
+        out["execution_aborted_event_details"] = (
+            capo_sfn.types.execution_aborted_event_details.redact_sensitive(
+                value["execution_aborted_event_details"]
+            )
+        )
+    if "execution_timed_out_event_details" in value:
+        import capo_sfn.types.execution_timed_out_event_details
+
+        out["execution_timed_out_event_details"] = (
+            capo_sfn.types.execution_timed_out_event_details.redact_sensitive(
+                value["execution_timed_out_event_details"]
+            )
+        )
+    if "lambda_function_failed_event_details" in value:
+        import capo_sfn.types.lambda_function_failed_event_details
+
+        out["lambda_function_failed_event_details"] = (
+            capo_sfn.types.lambda_function_failed_event_details.redact_sensitive(
+                value["lambda_function_failed_event_details"]
+            )
+        )
+    if "lambda_function_schedule_failed_event_details" in value:
+        import capo_sfn.types.lambda_function_schedule_failed_event_details
+
+        out["lambda_function_schedule_failed_event_details"] = (
+            capo_sfn.types.lambda_function_schedule_failed_event_details.redact_sensitive(
+                value["lambda_function_schedule_failed_event_details"]
+            )
+        )
+    if "lambda_function_scheduled_event_details" in value:
+        import capo_sfn.types.lambda_function_scheduled_event_details
+
+        out["lambda_function_scheduled_event_details"] = (
+            capo_sfn.types.lambda_function_scheduled_event_details.redact_sensitive(
+                value["lambda_function_scheduled_event_details"]
+            )
+        )
+    if "lambda_function_start_failed_event_details" in value:
+        import capo_sfn.types.lambda_function_start_failed_event_details
+
+        out["lambda_function_start_failed_event_details"] = (
+            capo_sfn.types.lambda_function_start_failed_event_details.redact_sensitive(
+                value["lambda_function_start_failed_event_details"]
+            )
+        )
+    if "lambda_function_succeeded_event_details" in value:
+        import capo_sfn.types.lambda_function_succeeded_event_details
+
+        out["lambda_function_succeeded_event_details"] = (
+            capo_sfn.types.lambda_function_succeeded_event_details.redact_sensitive(
+                value["lambda_function_succeeded_event_details"]
+            )
+        )
+    if "lambda_function_timed_out_event_details" in value:
+        import capo_sfn.types.lambda_function_timed_out_event_details
+
+        out["lambda_function_timed_out_event_details"] = (
+            capo_sfn.types.lambda_function_timed_out_event_details.redact_sensitive(
+                value["lambda_function_timed_out_event_details"]
+            )
+        )
+    if "state_entered_event_details" in value:
+        import capo_sfn.types.state_entered_event_details
+
+        out["state_entered_event_details"] = (
+            capo_sfn.types.state_entered_event_details.redact_sensitive(
+                value["state_entered_event_details"]
+            )
+        )
+    if "state_exited_event_details" in value:
+        import capo_sfn.types.state_exited_event_details
+
+        out["state_exited_event_details"] = (
+            capo_sfn.types.state_exited_event_details.redact_sensitive(
+                value["state_exited_event_details"]
+            )
+        )
+    if "map_run_failed_event_details" in value:
+        import capo_sfn.types.map_run_failed_event_details
+
+        out["map_run_failed_event_details"] = (
+            capo_sfn.types.map_run_failed_event_details.redact_sensitive(
+                value["map_run_failed_event_details"]
+            )
+        )
+    if "evaluation_failed_event_details" in value:
+        import capo_sfn.types.evaluation_failed_event_details
+
+        out["evaluation_failed_event_details"] = (
+            capo_sfn.types.evaluation_failed_event_details.redact_sensitive(
+                value["evaluation_failed_event_details"]
             )
         )
     return out

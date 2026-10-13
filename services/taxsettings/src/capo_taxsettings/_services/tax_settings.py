@@ -21,10 +21,12 @@ from capo_taxsettings._pagination import resolve_path as _resolve_path
 from capo_taxsettings._services._aws_config import aws_config
 from capo_taxsettings._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -151,7 +153,9 @@ class TaxSettingsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[TaxSettingsClientConfig] = None
+        self,
+        config_overrides: Optional[TaxSettingsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TaxSettingsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -159,8 +163,10 @@ class TaxSettingsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -211,7 +217,21 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_taxsettings.types.batch_delete_tax_registration_response.BatchDeleteTaxRegistrationResponse",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.batch_delete_tax_registration_response
+
+            return capo_taxsettings.types.batch_delete_tax_registration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDeleteTaxRegistration", redact_output=_redact_output
+            ),
+        )
         input_: capo_taxsettings.types.batch_delete_tax_registration_request.BatchDeleteTaxRegistrationRequest = {
             "account_ids": account_ids
         }
@@ -256,7 +276,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTaxExemptions")
+        )
         input_: capo_taxsettings.types.batch_get_tax_exemptions_request.BatchGetTaxExemptionsRequest = {
             "account_ids": account_ids
         }
@@ -303,7 +325,32 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_taxsettings.types.batch_put_tax_registration_request.BatchPutTaxRegistrationRequest",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.batch_put_tax_registration_request
+
+            return capo_taxsettings.types.batch_put_tax_registration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_taxsettings.types.batch_put_tax_registration_response.BatchPutTaxRegistrationResponse",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.batch_put_tax_registration_response
+
+            return capo_taxsettings.types.batch_put_tax_registration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchPutTaxRegistration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_taxsettings.types.batch_put_tax_registration_request.BatchPutTaxRegistrationRequest = {
             "account_ids": account_ids,
             "tax_registration_entry": tax_registration_entry,
@@ -350,7 +397,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSupplementalTaxRegistration")
+        )
         input_: capo_taxsettings.types.delete_supplemental_tax_registration_request.DeleteSupplementalTaxRegistrationRequest = {
             "authority_id": authority_id
         }
@@ -396,7 +445,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTaxRegistration")
+        )
         input_: capo_taxsettings.types.delete_tax_registration_request.DeleteTaxRegistrationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -435,7 +486,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaxExemptionTypes")
+        )
         input_: capo_taxsettings.types.get_tax_exemption_types_request.GetTaxExemptionTypesRequest = {}
 
         response = execute_pipeline(
@@ -474,7 +527,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaxInheritance")
+        )
         input_: capo_taxsettings.types.get_tax_inheritance_request.GetTaxInheritanceRequest = {}
 
         response = execute_pipeline(
@@ -517,7 +572,21 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_taxsettings.types.get_tax_registration_response.GetTaxRegistrationResponse",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.get_tax_registration_response
+
+            return (
+                capo_taxsettings.types.get_tax_registration_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetTaxRegistration", redact_output=_redact_output),
+        )
         input_: capo_taxsettings.types.get_tax_registration_request.GetTaxRegistrationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -565,7 +634,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaxRegistrationDocument")
+        )
         input_: capo_taxsettings.types.get_tax_registration_document_request.GetTaxRegistrationDocumentRequest = {
             "tax_document_metadata": tax_document_metadata
         }
@@ -616,7 +687,21 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_taxsettings.types.list_supplemental_tax_registrations_response.ListSupplementalTaxRegistrationsResponse",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.list_supplemental_tax_registrations_response
+
+            return capo_taxsettings.types.list_supplemental_tax_registrations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListSupplementalTaxRegistrations", redact_output=_redact_output
+            ),
+        )
         input_: capo_taxsettings.types.list_supplemental_tax_registrations_request.ListSupplementalTaxRegistrationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -692,7 +777,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaxExemptions")
+        )
         input_: capo_taxsettings.types.list_tax_exemptions_request.ListTaxExemptionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -766,7 +853,21 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_taxsettings.types.list_tax_registrations_response.ListTaxRegistrationsResponse",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.list_tax_registrations_response
+
+            return (
+                capo_taxsettings.types.list_tax_registrations_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTaxRegistrations", redact_output=_redact_output),
+        )
         input_: capo_taxsettings.types.list_tax_registrations_request.ListTaxRegistrationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -836,7 +937,21 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_taxsettings.types.put_supplemental_tax_registration_request.PutSupplementalTaxRegistrationRequest",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.put_supplemental_tax_registration_request
+
+            return capo_taxsettings.types.put_supplemental_tax_registration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSupplementalTaxRegistration", redact_input=_redact_input
+            ),
+        )
         input_: capo_taxsettings.types.put_supplemental_tax_registration_request.PutSupplementalTaxRegistrationRequest = {
             "tax_registration_entry": tax_registration_entry
         }
@@ -888,7 +1003,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTaxExemption")
+        )
         input_: capo_taxsettings.types.put_tax_exemption_request.PutTaxExemptionRequest = {
             "account_ids": account_ids,
             "authority": authority,
@@ -941,7 +1058,9 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutTaxInheritance")
+        )
         input_: capo_taxsettings.types.put_tax_inheritance_request.PutTaxInheritanceRequest = {}
         if heritage_status is not None:
             input_["heritage_status"] = heritage_status
@@ -988,7 +1107,19 @@ class TaxSettingsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_taxsettings.types.put_tax_registration_request.PutTaxRegistrationRequest",
+        ) -> dict[str, Any]:
+            import capo_taxsettings.types.put_tax_registration_request
+
+            return capo_taxsettings.types.put_tax_registration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutTaxRegistration", redact_input=_redact_input),
+        )
         input_: capo_taxsettings.types.put_tax_registration_request.PutTaxRegistrationRequest = {
             "tax_registration_entry": tax_registration_entry
         }

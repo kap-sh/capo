@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eksauth#AssumeRoleForPodIdentityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_json(data: dict) -> AssumeRoleForPodIdentityRequest:
         out["instance_id"] = data["instanceId"]
     if data.get("zone") is not None:
         out["zone"] = data["zone"]
+    return out
+
+
+def redact_sensitive(value: AssumeRoleForPodIdentityRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntitiesDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -53,3 +53,16 @@ def deserialize_aws_json_1_0(data: dict) -> EntitiesDefinition:
         return {"cedarJson": data["cedarJson"]}
     else:
         raise DeserializationError("EntitiesDefinition: no recognized variant key")
+
+
+def redact_sensitive(value: EntitiesDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entityList" in value:
+        import capo_verifiedpermissions.types.entity_list
+
+        out["entityList"] = capo_verifiedpermissions.types.entity_list.redact_sensitive(
+            value["entityList"]
+        )
+    if "cedarJson" in value:
+        out["cedarJson"] = "*** Sensitive Data Redacted ***"
+    return out

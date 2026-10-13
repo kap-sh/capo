@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#RecommenderFilterValues``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.recommender_filter_attribute_name
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> RecommenderFilterValues:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: RecommenderFilterValues) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Detection``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,5 +43,16 @@ def deserialize_json(data: dict) -> Detection:
 
         out["sequence"] = capo_guardduty.types.sequence.deserialize_json(
             data["sequence"]
+        )
+    return out
+
+
+def redact_sensitive(value: Detection) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sequence" in value:
+        import capo_guardduty.types.sequence
+
+        out["sequence"] = capo_guardduty.types.sequence.redact_sensitive(
+            value["sequence"]
         )
     return out

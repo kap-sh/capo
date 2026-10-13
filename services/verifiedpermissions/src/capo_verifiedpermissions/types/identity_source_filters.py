@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#IdentitySourceFilters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.identity_source_filter
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> IdentitySourceFilters:
             )
         )
     return out
+
+
+def redact_sensitive(value: IdentitySourceFilters) -> list[Any]:
+    import capo_verifiedpermissions.types.identity_source_filter
+
+    return [
+        capo_verifiedpermissions.types.identity_source_filter.redact_sensitive(item)
+        for item in value
+    ]

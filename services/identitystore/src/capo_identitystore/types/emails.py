@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Emails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_identitystore.types.email
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Emails:
             continue
         out.append(capo_identitystore.types.email.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Emails) -> list[Any]:
+    import capo_identitystore.types.email
+
+    return [capo_identitystore.types.email.redact_sensitive(item) for item in value]

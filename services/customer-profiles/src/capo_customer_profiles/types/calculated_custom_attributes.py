@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#CalculatedCustomAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.calculated_attribute_dimension
@@ -39,3 +39,14 @@ def deserialize_json(data: dict) -> CalculatedCustomAttributes:
             )
         )
     return out
+
+
+def redact_sensitive(value: CalculatedCustomAttributes) -> dict[str, Any]:
+    import capo_customer_profiles.types.calculated_attribute_dimension
+
+    return {
+        key: capo_customer_profiles.types.calculated_attribute_dimension.redact_sensitive(
+            item
+        )
+        for key, item in value.items()
+    }

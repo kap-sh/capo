@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#AutoBranchCreationConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,4 +118,13 @@ def deserialize_json(data: dict) -> AutoBranchCreationConfig:
         out["enable_pull_request_preview"] = data["enablePullRequestPreview"]
     if data.get("pullRequestEnvironmentName") is not None:
         out["pull_request_environment_name"] = data["pullRequestEnvironmentName"]
+    return out
+
+
+def redact_sensitive(value: AutoBranchCreationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_auth_credentials" in value:
+        out["basic_auth_credentials"] = "*** Sensitive Data Redacted ***"
+    if "build_spec" in value:
+        out["build_spec"] = "*** Sensitive Data Redacted ***"
     return out

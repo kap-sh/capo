@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#FunctionCodeLocation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,5 +88,16 @@ def deserialize_json(data: dict) -> FunctionCodeLocation:
 
         out["error"] = capo_lambda.types.function_code_location_error.deserialize_json(
             data["Error"]
+        )
+    return out
+
+
+def redact_sensitive(value: FunctionCodeLocation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        import capo_lambda.types.function_code_location_error
+
+        out["error"] = capo_lambda.types.function_code_location_error.redact_sensitive(
+            value["error"]
         )
     return out

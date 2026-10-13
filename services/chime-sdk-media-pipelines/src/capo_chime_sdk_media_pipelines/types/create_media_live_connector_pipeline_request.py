@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#CreateMediaLiveConnectorPipelineRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,27 @@ def deserialize_json(data: dict) -> CreateMediaLiveConnectorPipelineRequest:
         out["tags"] = capo_chime_sdk_media_pipelines.types.tag_list.deserialize_json(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateMediaLiveConnectorPipelineRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sources" in value:
+        import capo_chime_sdk_media_pipelines.types.live_connector_source_list
+
+        out["sources"] = (
+            capo_chime_sdk_media_pipelines.types.live_connector_source_list.redact_sensitive(
+                value["sources"]
+            )
+        )
+    if "sinks" in value:
+        import capo_chime_sdk_media_pipelines.types.live_connector_sink_list
+
+        out["sinks"] = (
+            capo_chime_sdk_media_pipelines.types.live_connector_sink_list.redact_sensitive(
+                value["sinks"]
+            )
+        )
+    if "client_request_token" in value:
+        out["client_request_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kafkaconnect#DescribeWorkerConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,17 @@ def deserialize_json(data: dict) -> DescribeWorkerConfigurationResponse:
         out["worker_configuration_arn"] = data["workerConfigurationArn"]
     if data.get("workerConfigurationState") is not None:
         out["worker_configuration_state"] = data["workerConfigurationState"]
+    return out
+
+
+def redact_sensitive(value: DescribeWorkerConfigurationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "latest_revision" in value:
+        import capo_kafkaconnect.types.worker_configuration_revision_description
+
+        out["latest_revision"] = (
+            capo_kafkaconnect.types.worker_configuration_revision_description.redact_sensitive(
+                value["latest_revision"]
+            )
+        )
     return out

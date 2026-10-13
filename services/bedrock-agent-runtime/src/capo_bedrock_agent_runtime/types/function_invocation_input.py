@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FunctionInvocationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,11 @@ def deserialize_json(data: dict) -> FunctionInvocationInput:
         out["agent_id"] = data["agentId"]
     if data.get("collaboratorName") is not None:
         out["collaborator_name"] = data["collaboratorName"]
+    return out
+
+
+def redact_sensitive(value: FunctionInvocationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "collaborator_name" in value:
+        out["collaborator_name"] = "*** Sensitive Data Redacted ***"
     return out

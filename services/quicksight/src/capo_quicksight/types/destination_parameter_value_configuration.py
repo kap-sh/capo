@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DestinationParameterValueConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,5 +89,18 @@ def deserialize_json(data: dict) -> DestinationParameterValueConfiguration:
 
         out["source_column"] = capo_quicksight.types.column_identifier.deserialize_json(
             data["SourceColumn"]
+        )
+    return out
+
+
+def redact_sensitive(value: DestinationParameterValueConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_values_configuration" in value:
+        import capo_quicksight.types.custom_values_configuration
+
+        out["custom_values_configuration"] = (
+            capo_quicksight.types.custom_values_configuration.redact_sensitive(
+                value["custom_values_configuration"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#IntegrationConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> IntegrationConfig:
         out["appflow_integration"] = (
             capo_customer_profiles.types.appflow_integration.deserialize_json(
                 data["AppflowIntegration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: IntegrationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "appflow_integration" in value:
+        import capo_customer_profiles.types.appflow_integration
+
+        out["appflow_integration"] = (
+            capo_customer_profiles.types.appflow_integration.redact_sensitive(
+                value["appflow_integration"]
             )
         )
     return out

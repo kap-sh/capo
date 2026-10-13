@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TransformOperationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.transform_operation
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> TransformOperationList:
             continue
         out.append(capo_quicksight.types.transform_operation.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TransformOperationList) -> list[Any]:
+    import capo_quicksight.types.transform_operation
+
+    return [
+        capo_quicksight.types.transform_operation.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#Messages``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent.types.message
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Messages:
             continue
         out.append(capo_bedrock_agent.types.message.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Messages) -> list[Any]:
+    import capo_bedrock_agent.types.message
+
+    return [capo_bedrock_agent.types.message.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AttributeInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_json(data: dict) -> AttributeInput:
         )
     else:
         raise DeserializationError("AttributeInput.forms required")
+    return out
+
+
+def redact_sensitive(value: AttributeInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "forms" in value:
+        out["forms"] = "*** Sensitive Data Redacted ***"
     return out

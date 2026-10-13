@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#RecordTypeSchemaOverride``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> RecordTypeSchemaOverride:
         out["schema"] = data["schema"]
     else:
         raise DeserializationError("RecordTypeSchemaOverride.schema required")
+    return out
+
+
+def redact_sensitive(value: RecordTypeSchemaOverride) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "schema" in value:
+        out["schema"] = "*** Sensitive Data Redacted ***"
     return out

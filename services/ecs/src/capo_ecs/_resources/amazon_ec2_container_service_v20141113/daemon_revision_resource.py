@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -64,7 +65,9 @@ class DaemonRevisionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonRevisions")
+        )
         input_: capo_ecs.types.describe_daemon_revisions_request.DescribeDaemonRevisionsRequest = {
             "daemon_revision_arns": daemon_revision_arns
         }
@@ -124,7 +127,9 @@ class AsyncDaemonRevisionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonRevisions")
+        )
         input_: capo_ecs.types.describe_daemon_revisions_request.DescribeDaemonRevisionsRequest = {
             "daemon_revision_arns": daemon_revision_arns
         }

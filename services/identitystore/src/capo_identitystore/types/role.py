@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Role``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,13 @@ def deserialize_aws_json_1_1(data: dict) -> Role:
         out["primary"] = data["Primary"]
     else:
         out["primary"] = False
+    return out
+
+
+def redact_sensitive(value: Role) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

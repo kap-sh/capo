@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datasync#DescribeLocationFsxOpenZfsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,5 +82,16 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeLocationFsxOpenZfsResponse:
 
         out["creation_time"] = capo_datasync.types.time.deserialize_aws_json_1_1(
             data["CreationTime"]
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeLocationFsxOpenZfsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "protocol" in value:
+        import capo_datasync.types.fsx_protocol
+
+        out["protocol"] = capo_datasync.types.fsx_protocol.redact_sensitive(
+            value["protocol"]
         )
     return out

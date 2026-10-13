@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#UpdateCampaignRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,4 +76,11 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateCampaignRequest:
         )
     else:
         raise DeserializationError("UpdateCampaignRequest.action required")
+    return out
+
+
+def redact_sensitive(value: UpdateCampaignRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_extra_dimensions" in value:
+        out["data_extra_dimensions"] = "*** Sensitive Data Redacted ***"
     return out

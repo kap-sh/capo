@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#StatisticSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -210,4 +210,11 @@ def deserialize_aws_json_1_1(data: dict) -> StatisticSummary:
                 data["InclusionAnnotation"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: StatisticSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "statistic_properties" in value:
+        out["statistic_properties"] = "*** Sensitive Data Redacted ***"
     return out

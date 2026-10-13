@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GaugeChartConditionalFormattingOption``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,27 @@ def deserialize_json(data: dict) -> GaugeChartConditionalFormattingOption:
         out["arc"] = (
             capo_quicksight.types.gauge_chart_arc_conditional_formatting.deserialize_json(
                 data["Arc"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GaugeChartConditionalFormattingOption) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_value" in value:
+        import capo_quicksight.types.gauge_chart_primary_value_conditional_formatting
+
+        out["primary_value"] = (
+            capo_quicksight.types.gauge_chart_primary_value_conditional_formatting.redact_sensitive(
+                value["primary_value"]
+            )
+        )
+    if "arc" in value:
+        import capo_quicksight.types.gauge_chart_arc_conditional_formatting
+
+        out["arc"] = (
+            capo_quicksight.types.gauge_chart_arc_conditional_formatting.redact_sensitive(
+                value["arc"]
             )
         )
     return out

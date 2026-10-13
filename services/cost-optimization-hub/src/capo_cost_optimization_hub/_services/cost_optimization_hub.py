@@ -21,10 +21,12 @@ from capo_cost_optimization_hub._pagination import resolve_path as _resolve_path
 from capo_cost_optimization_hub._services._aws_config import aws_config
 from capo_cost_optimization_hub._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -135,7 +137,9 @@ class CostOptimizationHubClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CostOptimizationHubClientConfig] = None
+        self,
+        config_overrides: Optional[CostOptimizationHubClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CostOptimizationHubClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -143,8 +147,10 @@ class CostOptimizationHubClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -190,7 +196,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPreferences")
+        )
         input_: capo_cost_optimization_hub.types.get_preferences_request.GetPreferencesRequest = {}
 
         response = execute_pipeline(
@@ -235,7 +243,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecommendation")
+        )
         input_: capo_cost_optimization_hub.types.get_recommendation_request.GetRecommendationRequest = {
             "recommendation_id": recommendation_id
         }
@@ -293,7 +303,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEfficiencyMetrics")
+        )
         input_: capo_cost_optimization_hub.types.list_efficiency_metrics_request.ListEfficiencyMetricsRequest = {
             "granularity": granularity,
             "time_period": time_period,
@@ -389,7 +401,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnrollmentStatuses")
+        )
         input_: capo_cost_optimization_hub.types.list_enrollment_statuses_request.ListEnrollmentStatusesRequest = {}
         if include_organization_info is not None:
             input_["include_organization_info"] = include_organization_info
@@ -480,7 +494,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendations")
+        )
         input_: capo_cost_optimization_hub.types.list_recommendations_request.ListRecommendationsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -574,7 +590,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommendationSummaries")
+        )
         input_: capo_cost_optimization_hub.types.list_recommendation_summaries_request.ListRecommendationSummariesRequest = {
             "group_by": group_by
         }
@@ -661,7 +679,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnrollmentStatus")
+        )
         input_: capo_cost_optimization_hub.types.update_enrollment_status_request.UpdateEnrollmentStatusRequest = {
             "status": status
         }
@@ -719,7 +739,9 @@ class CostOptimizationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePreferences")
+        )
         input_: capo_cost_optimization_hub.types.update_preferences_request.UpdatePreferencesRequest = {}
         if savings_estimation_mode is not None:
             input_["savings_estimation_mode"] = savings_estimation_mode

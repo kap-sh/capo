@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#XksProxyConfigurationType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,11 @@ def deserialize_aws_json_1_1(data: dict) -> XksProxyConfigurationType:
         out["vpc_endpoint_service_name"] = data["VpcEndpointServiceName"]
     if data.get("VpcEndpointServiceOwner") is not None:
         out["vpc_endpoint_service_owner"] = data["VpcEndpointServiceOwner"]
+    return out
+
+
+def redact_sensitive(value: XksProxyConfigurationType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_key_id" in value:
+        out["access_key_id"] = "*** Sensitive Data Redacted ***"
     return out

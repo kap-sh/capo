@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#ListServicesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ListServicesResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListServicesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_summary_list" in value:
+        import capo_migration_hub_refactor_spaces.types.service_summaries
+
+        out["service_summary_list"] = (
+            capo_migration_hub_refactor_spaces.types.service_summaries.redact_sensitive(
+                value["service_summary_list"]
+            )
+        )
     return out

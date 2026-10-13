@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#CopyBackupResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -28,4 +28,13 @@ def deserialize_aws_json_1_1(data: dict) -> CopyBackupResponse:
         import capo_fsx.types.backup
 
         out["backup"] = capo_fsx.types.backup.deserialize_aws_json_1_1(data["Backup"])
+    return out
+
+
+def redact_sensitive(value: CopyBackupResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "backup" in value:
+        import capo_fsx.types.backup
+
+        out["backup"] = capo_fsx.types.backup.redact_sensitive(value["backup"])
     return out

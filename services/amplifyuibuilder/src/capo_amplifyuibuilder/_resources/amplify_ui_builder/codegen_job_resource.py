@@ -8,6 +8,7 @@ import capo_amplifyuibuilder._auth._sigv4
 from capo_amplifyuibuilder._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class CodegenJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.start_codegen_job_request.StartCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -135,7 +138,9 @@ class CodegenJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.get_codegen_job_request.GetCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -192,7 +197,9 @@ class CodegenJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodegenJobs")
+        )
         input_: capo_amplifyuibuilder.types.list_codegen_jobs_request.ListCodegenJobsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -256,7 +263,9 @@ class AsyncCodegenJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.start_codegen_job_request.StartCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -312,7 +321,9 @@ class AsyncCodegenJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCodegenJob")
+        )
         input_: capo_amplifyuibuilder.types.get_codegen_job_request.GetCodegenJobRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -370,7 +381,9 @@ class AsyncCodegenJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCodegenJobs")
+        )
         input_: capo_amplifyuibuilder.types.list_codegen_jobs_request.ListCodegenJobsRequest = {
             "app_id": app_id,
             "environment_name": environment_name,

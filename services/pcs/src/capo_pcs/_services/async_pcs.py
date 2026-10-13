@@ -28,7 +28,9 @@ from capo_pcs._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -185,7 +187,9 @@ class AsyncPCSClient:
         self.cluster_resource = AsyncClusterResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPCSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPCSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPCSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -193,8 +197,10 @@ class AsyncPCSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -244,7 +250,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_pcs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -291,7 +299,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_pcs.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -338,7 +348,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_pcs.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -402,7 +414,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_pcs.types.create_cluster_request.CreateClusterRequest = {
             "cluster_name": cluster_name,
             "scheduler": scheduler,
@@ -471,7 +485,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_pcs.types.update_cluster_request.UpdateClusterRequest = {
             "cluster_identifier": cluster_identifier
         }
@@ -529,7 +545,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_pcs.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_identifier": cluster_identifier
         }
@@ -581,7 +599,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCluster")
+        )
         input_: capo_pcs.types.get_cluster_request.GetClusterRequest = {
             "cluster_identifier": cluster_identifier
         }
@@ -628,7 +648,21 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pcs.types.register_compute_node_group_instance_response.RegisterComputeNodeGroupInstanceResponse",
+        ) -> dict[str, Any]:
+            import capo_pcs.types.register_compute_node_group_instance_response
+
+            return capo_pcs.types.register_compute_node_group_instance_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterComputeNodeGroupInstance", redact_output=_redact_output
+            ),
+        )
         input_: capo_pcs.types.register_compute_node_group_instance_request.RegisterComputeNodeGroupInstanceRequest = {
             "cluster_identifier": cluster_identifier,
             "bootstrap_id": bootstrap_id,
@@ -680,7 +714,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_pcs.types.list_clusters_request.ListClustersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -783,7 +819,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComputeNodeGroup")
+        )
         input_: capo_pcs.types.create_compute_node_group_request.CreateComputeNodeGroupRequest = {
             "cluster_identifier": cluster_identifier,
             "compute_node_group_name": compute_node_group_name,
@@ -886,7 +924,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComputeNodeGroup")
+        )
         input_: capo_pcs.types.update_compute_node_group_request.UpdateComputeNodeGroupRequest = {
             "cluster_identifier": cluster_identifier,
             "compute_node_group_identifier": compute_node_group_identifier,
@@ -961,7 +1001,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComputeNodeGroup")
+        )
         input_: capo_pcs.types.delete_compute_node_group_request.DeleteComputeNodeGroupRequest = {
             "cluster_identifier": cluster_identifier,
             "compute_node_group_identifier": compute_node_group_identifier,
@@ -1016,7 +1058,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComputeNodeGroup")
+        )
         input_: capo_pcs.types.get_compute_node_group_request.GetComputeNodeGroupRequest = {
             "cluster_identifier": cluster_identifier,
             "compute_node_group_identifier": compute_node_group_identifier,
@@ -1072,7 +1116,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComputeNodeGroups")
+        )
         input_: capo_pcs.types.list_compute_node_groups_request.ListComputeNodeGroupsRequest = {
             "cluster_identifier": cluster_identifier
         }
@@ -1163,7 +1209,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueue")
+        )
         input_: capo_pcs.types.create_queue_request.CreateQueueRequest = {
             "cluster_identifier": cluster_identifier,
             "queue_name": queue_name,
@@ -1237,7 +1285,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQueue")
+        )
         input_: capo_pcs.types.update_queue_request.UpdateQueueRequest = {
             "cluster_identifier": cluster_identifier,
             "queue_identifier": queue_identifier,
@@ -1300,7 +1350,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
         input_: capo_pcs.types.delete_queue_request.DeleteQueueRequest = {
             "cluster_identifier": cluster_identifier,
             "queue_identifier": queue_identifier,
@@ -1355,7 +1407,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueue")
+        )
         input_: capo_pcs.types.get_queue_request.GetQueueRequest = {
             "cluster_identifier": cluster_identifier,
             "queue_identifier": queue_identifier,
@@ -1409,7 +1463,9 @@ class AsyncPCSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
         input_: capo_pcs.types.list_queues_request.ListQueuesRequest = {
             "cluster_identifier": cluster_identifier
         }

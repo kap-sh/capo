@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_supplychain._auth._signers
 import capo_supplychain._auth._sigv4
 from capo_supplychain._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,19 @@ class DataIntegrationFlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.create_data_integration_flow_request
+
+            return capo_supplychain.types.create_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataIntegrationFlow", redact_input=_redact_input),
+        )
         input_: capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -163,7 +176,19 @@ class DataIntegrationFlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.get_data_integration_flow_response.GetDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.get_data_integration_flow_response
+
+            return capo_supplychain.types.get_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataIntegrationFlow", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.get_data_integration_flow_request.GetDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -235,7 +260,32 @@ class DataIntegrationFlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_request
+
+            return capo_supplychain.types.update_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_supplychain.types.update_data_integration_flow_response.UpdateDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_response
+
+            return capo_supplychain.types.update_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataIntegrationFlow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -298,7 +348,9 @@ class DataIntegrationFlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataIntegrationFlow")
+        )
         input_: capo_supplychain.types.delete_data_integration_flow_request.DeleteDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -361,7 +413,19 @@ class DataIntegrationFlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.list_data_integration_flows_response.ListDataIntegrationFlowsResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.list_data_integration_flows_response
+
+            return capo_supplychain.types.list_data_integration_flows_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDataIntegrationFlows", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.list_data_integration_flows_request.ListDataIntegrationFlowsRequest = {
             "instance_id": instance_id
         }
@@ -438,7 +502,19 @@ class AsyncDataIntegrationFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.create_data_integration_flow_request
+
+            return capo_supplychain.types.create_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataIntegrationFlow", redact_input=_redact_input),
+        )
         input_: capo_supplychain.types.create_data_integration_flow_request.CreateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -501,7 +577,19 @@ class AsyncDataIntegrationFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.get_data_integration_flow_response.GetDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.get_data_integration_flow_response
+
+            return capo_supplychain.types.get_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataIntegrationFlow", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.get_data_integration_flow_request.GetDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -574,7 +662,32 @@ class AsyncDataIntegrationFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_request
+
+            return capo_supplychain.types.update_data_integration_flow_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_supplychain.types.update_data_integration_flow_response.UpdateDataIntegrationFlowResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.update_data_integration_flow_response
+
+            return capo_supplychain.types.update_data_integration_flow_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataIntegrationFlow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_supplychain.types.update_data_integration_flow_request.UpdateDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -638,7 +751,9 @@ class AsyncDataIntegrationFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataIntegrationFlow")
+        )
         input_: capo_supplychain.types.delete_data_integration_flow_request.DeleteDataIntegrationFlowRequest = {
             "instance_id": instance_id,
             "name": name,
@@ -702,7 +817,19 @@ class AsyncDataIntegrationFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_supplychain.types.list_data_integration_flows_response.ListDataIntegrationFlowsResponse",
+        ) -> dict[str, Any]:
+            import capo_supplychain.types.list_data_integration_flows_response
+
+            return capo_supplychain.types.list_data_integration_flows_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListDataIntegrationFlows", redact_output=_redact_output),
+        )
         input_: capo_supplychain.types.list_data_integration_flows_request.ListDataIntegrationFlowsRequest = {
             "instance_id": instance_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#GetCloudExadataInfrastructureOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_0(data: dict) -> GetCloudExadataInfrastructureOutput:
         out["cloud_exadata_infrastructure"] = (
             capo_odb.types.cloud_exadata_infrastructure.deserialize_aws_json_1_0(
                 data["cloudExadataInfrastructure"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetCloudExadataInfrastructureOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cloud_exadata_infrastructure" in value:
+        import capo_odb.types.cloud_exadata_infrastructure
+
+        out["cloud_exadata_infrastructure"] = (
+            capo_odb.types.cloud_exadata_infrastructure.redact_sensitive(
+                value["cloud_exadata_infrastructure"]
             )
         )
     return out

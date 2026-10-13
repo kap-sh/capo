@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#CreateFlowVersionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,11 @@ def deserialize_json(data: dict) -> CreateFlowVersionResponse:
         out["definition"] = capo_bedrock_agent.types.flow_definition.deserialize_json(
             data["definition"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateFlowVersionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "definition" in value:
+        out["definition"] = "*** Sensitive Data Redacted ***"
     return out

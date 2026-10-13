@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#MedicalScribeConfigurationEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -106,4 +106,25 @@ def deserialize_event_json(message: Message) -> MedicalScribeConfigurationEvent:
     out: MedicalScribeConfigurationEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: MedicalScribeConfigurationEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "post_stream_action_settings" in value:
+        import capo_connecthealth.types.medical_scribe_post_stream_action_settings
+
+        out["post_stream_action_settings"] = (
+            capo_connecthealth.types.medical_scribe_post_stream_action_settings.redact_sensitive(
+                value["post_stream_action_settings"]
+            )
+        )
+    if "encounter_context" in value:
+        import capo_connecthealth.types.encounter_context
+
+        out["encounter_context"] = (
+            capo_connecthealth.types.encounter_context.redact_sensitive(
+                value["encounter_context"]
+            )
+        )
     return out

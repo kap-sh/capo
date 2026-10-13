@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#SessionState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,5 +107,18 @@ def deserialize_json(data: dict) -> SessionState:
 
         out["runtime_hints"] = capo_lex_runtime_v2.types.runtime_hints.deserialize_json(
             data["runtimeHints"]
+        )
+    return out
+
+
+def redact_sensitive(value: SessionState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "active_contexts" in value:
+        import capo_lex_runtime_v2.types.active_contexts_list
+
+        out["active_contexts"] = (
+            capo_lex_runtime_v2.types.active_contexts_list.redact_sensitive(
+                value["active_contexts"]
+            )
         )
     return out

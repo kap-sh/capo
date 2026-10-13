@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#NumberFormatConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> NumberFormatConfiguration:
         out["format_configuration"] = (
             capo_quicksight.types.numeric_format_configuration.deserialize_json(
                 data["FormatConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: NumberFormatConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "format_configuration" in value:
+        import capo_quicksight.types.numeric_format_configuration
+
+        out["format_configuration"] = (
+            capo_quicksight.types.numeric_format_configuration.redact_sensitive(
+                value["format_configuration"]
             )
         )
     return out

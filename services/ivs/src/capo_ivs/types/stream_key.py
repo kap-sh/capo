@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#StreamKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> StreamKey:
         import capo_ivs.types.tags
 
         out["tags"] = capo_ivs.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: StreamKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

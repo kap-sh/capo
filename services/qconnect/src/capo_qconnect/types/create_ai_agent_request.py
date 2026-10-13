@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#CreateAIAgentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,17 @@ def deserialize_json(data: dict) -> CreateAIAgentRequest:
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
     if data.get("description") is not None:
         out["description"] = data["description"]
+    return out
+
+
+def redact_sensitive(value: CreateAIAgentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_qconnect.types.ai_agent_configuration
+
+        out["configuration"] = (
+            capo_qconnect.types.ai_agent_configuration.redact_sensitive(
+                value["configuration"]
+            )
+        )
     return out

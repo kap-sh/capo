@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#JoinDomainInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,4 +89,11 @@ def deserialize_aws_json_1_1(data: dict) -> JoinDomainInput:
         out["password"] = data["Password"]
     else:
         raise DeserializationError("JoinDomainInput.password required")
+    return out
+
+
+def redact_sensitive(value: JoinDomainInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

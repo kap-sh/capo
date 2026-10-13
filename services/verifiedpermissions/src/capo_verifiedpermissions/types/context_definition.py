@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ContextDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -53,3 +53,12 @@ def deserialize_aws_json_1_0(data: dict) -> ContextDefinition:
         return {"cedarJson": data["cedarJson"]}
     else:
         raise DeserializationError("ContextDefinition: no recognized variant key")
+
+
+def redact_sensitive(value: ContextDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contextMap" in value:
+        out["contextMap"] = "*** Sensitive Data Redacted ***"
+    if "cedarJson" in value:
+        out["cedarJson"] = "*** Sensitive Data Redacted ***"
+    return out

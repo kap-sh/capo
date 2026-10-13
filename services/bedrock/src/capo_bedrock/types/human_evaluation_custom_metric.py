@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#HumanEvaluationCustomMetric``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,13 @@ def deserialize_json(data: dict) -> HumanEvaluationCustomMetric:
         out["rating_method"] = data["ratingMethod"]
     else:
         raise DeserializationError("HumanEvaluationCustomMetric.rating_method required")
+    return out
+
+
+def redact_sensitive(value: HumanEvaluationCustomMetric) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

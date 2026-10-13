@@ -7,6 +7,7 @@ import capo_arc_zonal_shift._auth._sigv4
 from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class ZonalShiftResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.cancel_practice_run_request.CancelPracticeRunRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -117,7 +120,9 @@ class ZonalShiftResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.cancel_zonal_shift_request.CancelZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -169,7 +174,9 @@ class ZonalShiftResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_shift_request.UpdateZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -227,7 +234,9 @@ class AsyncZonalShiftResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.cancel_practice_run_request.CancelPracticeRunRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -276,7 +285,9 @@ class AsyncZonalShiftResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.cancel_zonal_shift_request.CancelZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -331,7 +342,9 @@ class AsyncZonalShiftResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_shift_request.UpdateZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }

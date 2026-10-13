@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#InstanceDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -141,4 +141,17 @@ def deserialize_json(data: dict) -> InstanceDetails:
         import capo_guardduty.types.tags
 
         out["tags"] = capo_guardduty.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: InstanceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "network_interfaces" in value:
+        import capo_guardduty.types.network_interfaces
+
+        out["network_interfaces"] = (
+            capo_guardduty.types.network_interfaces.redact_sensitive(
+                value["network_interfaces"]
+            )
+        )
     return out

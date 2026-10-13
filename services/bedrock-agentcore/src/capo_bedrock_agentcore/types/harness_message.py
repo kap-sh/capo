@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> HarnessMessage:
         )
     else:
         raise DeserializationError("HarnessMessage.content required")
+    return out
+
+
+def redact_sensitive(value: HarnessMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_agentcore.types.harness_content_blocks
+
+        out["content"] = (
+            capo_bedrock_agentcore.types.harness_content_blocks.redact_sensitive(
+                value["content"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#CreateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,21 @@ def deserialize_json(data: dict) -> CreateUserRequest:
         out["storage_rule"] = capo_workdocs.types.storage_rule_type.deserialize_json(
             data["StorageRule"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
     return out

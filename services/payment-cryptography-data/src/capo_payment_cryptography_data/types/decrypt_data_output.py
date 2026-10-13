@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#DecryptDataOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> DecryptDataOutput:
         out["plain_text"] = data["PlainText"]
     else:
         raise DeserializationError("DecryptDataOutput.plain_text required")
+    return out
+
+
+def redact_sensitive(value: DecryptDataOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "plain_text" in value:
+        out["plain_text"] = "*** Sensitive Data Redacted ***"
     return out

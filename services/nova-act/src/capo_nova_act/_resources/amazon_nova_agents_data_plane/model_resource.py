@@ -7,6 +7,7 @@ import capo_nova_act._auth._sigv4
 from capo_nova_act._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -59,7 +60,9 @@ class ModelResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModels")
+        )
         input_: capo_nova_act.types.list_models_request.ListModelsRequest = {
             "client_compatibility_version": client_compatibility_version
         }
@@ -110,7 +113,9 @@ class AsyncModelResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModels")
+        )
         input_: capo_nova_act.types.list_models_request.ListModelsRequest = {
             "client_compatibility_version": client_compatibility_version
         }

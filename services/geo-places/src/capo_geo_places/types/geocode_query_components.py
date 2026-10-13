@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeQueryComponents``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,25 @@ def deserialize_json(data: dict) -> GeocodeQueryComponents:
         out["address_number"] = data["AddressNumber"]
     if data.get("PostalCode") is not None:
         out["postal_code"] = data["PostalCode"]
+    return out
+
+
+def redact_sensitive(value: GeocodeQueryComponents) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "region" in value:
+        out["region"] = "*** Sensitive Data Redacted ***"
+    if "sub_region" in value:
+        out["sub_region"] = "*** Sensitive Data Redacted ***"
+    if "locality" in value:
+        out["locality"] = "*** Sensitive Data Redacted ***"
+    if "district" in value:
+        out["district"] = "*** Sensitive Data Redacted ***"
+    if "street" in value:
+        out["street"] = "*** Sensitive Data Redacted ***"
+    if "address_number" in value:
+        out["address_number"] = "*** Sensitive Data Redacted ***"
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
     return out

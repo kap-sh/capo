@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ListEngagementsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -165,6 +165,27 @@ def deserialize_aws_json_1_0(data: dict) -> ListEngagementsRequest:
         out["engagement_identifier"] = (
             capo_partnercentral_selling.types.engagement_identifiers.deserialize_aws_json_1_0(
                 data["EngagementIdentifier"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListEngagementsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "created_by" in value:
+        import capo_partnercentral_selling.types.aws_account_list
+
+        out["created_by"] = (
+            capo_partnercentral_selling.types.aws_account_list.redact_sensitive(
+                value["created_by"]
+            )
+        )
+    if "exclude_created_by" in value:
+        import capo_partnercentral_selling.types.aws_account_list
+
+        out["exclude_created_by"] = (
+            capo_partnercentral_selling.types.aws_account_list.redact_sensitive(
+                value["exclude_created_by"]
             )
         )
     return out

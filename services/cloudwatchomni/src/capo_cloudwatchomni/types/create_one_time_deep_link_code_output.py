@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchomni#CreateOneTimeDeepLinkCodeOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -59,4 +59,13 @@ def deserialize_cbor(data: dict) -> CreateOneTimeDeepLinkCodeOutput:
         raise DeserializationError(
             "CreateOneTimeDeepLinkCodeOutput.expires_at required"
         )
+    return out
+
+
+def redact_sensitive(value: CreateOneTimeDeepLinkCodeOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "deep_link_url" in value:
+        out["deep_link_url"] = "*** Sensitive Data Redacted ***"
     return out

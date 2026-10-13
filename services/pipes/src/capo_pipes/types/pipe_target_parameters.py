@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -275,6 +275,69 @@ def deserialize_json(data: dict) -> PipeTargetParameters:
         out["timestream_parameters"] = (
             capo_pipes.types.pipe_target_timestream_parameters.deserialize_json(
                 data["TimestreamParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeTargetParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_template" in value:
+        out["input_template"] = "*** Sensitive Data Redacted ***"
+    if "kinesis_stream_parameters" in value:
+        import capo_pipes.types.pipe_target_kinesis_stream_parameters
+
+        out["kinesis_stream_parameters"] = (
+            capo_pipes.types.pipe_target_kinesis_stream_parameters.redact_sensitive(
+                value["kinesis_stream_parameters"]
+            )
+        )
+    if "ecs_task_parameters" in value:
+        import capo_pipes.types.pipe_target_ecs_task_parameters
+
+        out["ecs_task_parameters"] = (
+            capo_pipes.types.pipe_target_ecs_task_parameters.redact_sensitive(
+                value["ecs_task_parameters"]
+            )
+        )
+    if "sqs_queue_parameters" in value:
+        import capo_pipes.types.pipe_target_sqs_queue_parameters
+
+        out["sqs_queue_parameters"] = (
+            capo_pipes.types.pipe_target_sqs_queue_parameters.redact_sensitive(
+                value["sqs_queue_parameters"]
+            )
+        )
+    if "http_parameters" in value:
+        import capo_pipes.types.pipe_target_http_parameters
+
+        out["http_parameters"] = (
+            capo_pipes.types.pipe_target_http_parameters.redact_sensitive(
+                value["http_parameters"]
+            )
+        )
+    if "redshift_data_parameters" in value:
+        import capo_pipes.types.pipe_target_redshift_data_parameters
+
+        out["redshift_data_parameters"] = (
+            capo_pipes.types.pipe_target_redshift_data_parameters.redact_sensitive(
+                value["redshift_data_parameters"]
+            )
+        )
+    if "sage_maker_pipeline_parameters" in value:
+        import capo_pipes.types.pipe_target_sage_maker_pipeline_parameters
+
+        out["sage_maker_pipeline_parameters"] = (
+            capo_pipes.types.pipe_target_sage_maker_pipeline_parameters.redact_sensitive(
+                value["sage_maker_pipeline_parameters"]
+            )
+        )
+    if "event_bridge_event_bus_parameters" in value:
+        import capo_pipes.types.pipe_target_event_bridge_event_bus_parameters
+
+        out["event_bridge_event_bus_parameters"] = (
+            capo_pipes.types.pipe_target_event_bridge_event_bus_parameters.redact_sensitive(
+                value["event_bridge_event_bus_parameters"]
             )
         )
     return out

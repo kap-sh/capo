@@ -8,6 +8,7 @@ import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class MetadataGenerationRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartMetadataGenerationRun")
+        )
         input_: capo_datazone.types.start_metadata_generation_run_input.StartMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "target": target,
@@ -160,7 +163,9 @@ class MetadataGenerationRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMetadataGenerationRun")
+        )
         input_: capo_datazone.types.get_metadata_generation_run_input.GetMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -214,7 +219,9 @@ class MetadataGenerationRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelMetadataGenerationRun")
+        )
         input_: capo_datazone.types.cancel_metadata_generation_run_input.CancelMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -279,7 +286,9 @@ class MetadataGenerationRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMetadataGenerationRuns")
+        )
         input_: capo_datazone.types.list_metadata_generation_runs_input.ListMetadataGenerationRunsInput = {
             "domain_identifier": domain_identifier
         }
@@ -359,7 +368,9 @@ class AsyncMetadataGenerationRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartMetadataGenerationRun")
+        )
         input_: capo_datazone.types.start_metadata_generation_run_input.StartMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "target": target,
@@ -423,7 +434,9 @@ class AsyncMetadataGenerationRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMetadataGenerationRun")
+        )
         input_: capo_datazone.types.get_metadata_generation_run_input.GetMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -478,7 +491,9 @@ class AsyncMetadataGenerationRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelMetadataGenerationRun")
+        )
         input_: capo_datazone.types.cancel_metadata_generation_run_input.CancelMetadataGenerationRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -544,7 +559,9 @@ class AsyncMetadataGenerationRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMetadataGenerationRuns")
+        )
         input_: capo_datazone.types.list_metadata_generation_runs_input.ListMetadataGenerationRunsInput = {
             "domain_identifier": domain_identifier
         }

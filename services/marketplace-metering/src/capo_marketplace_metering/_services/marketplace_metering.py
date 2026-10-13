@@ -20,10 +20,12 @@ from capo_marketplace_metering._auth._zapros_handler import AuthMiddleware
 from capo_marketplace_metering._services._aws_config import aws_config
 from capo_marketplace_metering._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -122,7 +124,9 @@ class MarketplaceMeteringClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceMeteringClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceMeteringClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceMeteringClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -130,8 +134,10 @@ class MarketplaceMeteringClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -195,7 +201,9 @@ class MarketplaceMeteringClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchMeterUsage")
+        )
         input_: capo_marketplace_metering.types.batch_meter_usage_request.BatchMeterUsageRequest = {
             "usage_records": usage_records
         }
@@ -268,7 +276,9 @@ class MarketplaceMeteringClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MeterUsage")
+        )
         input_: capo_marketplace_metering.types.meter_usage_request.MeterUsageRequest = {
             "product_code": product_code,
             "timestamp": timestamp,
@@ -333,7 +343,9 @@ class MarketplaceMeteringClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterUsage")
+        )
         input_: capo_marketplace_metering.types.register_usage_request.RegisterUsageRequest = {
             "product_code": product_code,
             "public_key_version": public_key_version,
@@ -385,7 +397,9 @@ class MarketplaceMeteringClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResolveCustomer")
+        )
         input_: capo_marketplace_metering.types.resolve_customer_request.ResolveCustomerRequest = {
             "registration_token": registration_token
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#CreateEnvironmentBlueprintOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -181,5 +181,20 @@ def deserialize_json(data: dict) -> CreateEnvironmentBlueprintOutput:
 
         out["updated_at"] = datetime.datetime.fromisoformat(
             data["updatedAt"].replace("Z", "+00:00")
+        )
+    return out
+
+
+def redact_sensitive(value: CreateEnvironmentBlueprintOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "user_parameters" in value:
+        import capo_datazone.types.custom_parameter_list
+
+        out["user_parameters"] = (
+            capo_datazone.types.custom_parameter_list.redact_sensitive(
+                value["user_parameters"]
+            )
         )
     return out

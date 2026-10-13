@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resiliencehubv2#ResourceConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -91,3 +91,14 @@ def deserialize_json(data: dict) -> ResourceConfiguration:
         return {"designFileS3Url": data["designFileS3Url"]}
     else:
         raise DeserializationError("ResourceConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: ResourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "eks" in value:
+        import capo_resiliencehubv2.types.eks_source
+
+        out["eks"] = capo_resiliencehubv2.types.eks_source.redact_sensitive(
+            value["eks"]
+        )
+    return out

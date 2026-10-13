@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#TestResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,15 @@ def deserialize_xml(el: Element) -> TestResult:
     child_function_output = el.find("FunctionOutput")
     if child_function_output is not None:
         out["function_output"] = str(child_function_output.text or "")
+    return out
+
+
+def redact_sensitive(value: TestResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "function_execution_logs" in value:
+        out["function_execution_logs"] = "*** Sensitive Data Redacted ***"
+    if "function_error_message" in value:
+        out["function_error_message"] = "*** Sensitive Data Redacted ***"
+    if "function_output" in value:
+        out["function_output"] = "*** Sensitive Data Redacted ***"
     return out

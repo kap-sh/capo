@@ -22,10 +22,12 @@ from capo_greengrassv2._pagination import resolve_path as _resolve_path
 from capo_greengrassv2._services._aws_config import aws_config
 from capo_greengrassv2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -200,7 +202,9 @@ class GreengrassV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[GreengrassV2ClientConfig] = None
+        self,
+        config_overrides: Optional[GreengrassV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: GreengrassV2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class GreengrassV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -259,7 +265,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateServiceRoleToAccount")
+        )
         input_: capo_greengrassv2.types.associate_service_role_to_account_request.AssociateServiceRoleToAccountRequest = {
             "role_arn": role_arn
         }
@@ -310,7 +318,10 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateClientDeviceWithCoreDevice"),
+        )
         input_: capo_greengrassv2.types.batch_associate_client_device_with_core_device_request.BatchAssociateClientDeviceWithCoreDeviceRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -363,7 +374,10 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateClientDeviceFromCoreDevice"),
+        )
         input_: capo_greengrassv2.types.batch_disassociate_client_device_from_core_device_request.BatchDisassociateClientDeviceFromCoreDeviceRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -413,7 +427,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDeployment")
+        )
         input_: capo_greengrassv2.types.cancel_deployment_request.CancelDeploymentRequest = {
             "deployment_id": deployment_id
         }
@@ -474,7 +490,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComponentVersion")
+        )
         input_: capo_greengrassv2.types.create_component_version_request.CreateComponentVersionRequest = {}
         if inline_recipe is not None:
             input_["inline_recipe"] = inline_recipe
@@ -556,7 +574,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_greengrassv2.types.create_deployment_request.CreateDeploymentRequest = {
             "target_arn": target_arn
         }
@@ -617,7 +637,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_greengrassv2.types.delete_component_request.DeleteComponentRequest = {
             "arn": arn
         }
@@ -663,7 +685,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreDevice")
+        )
         input_: capo_greengrassv2.types.delete_core_device_request.DeleteCoreDeviceRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -709,7 +733,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_greengrassv2.types.delete_deployment_request.DeleteDeploymentRequest = {
             "deployment_id": deployment_id
         }
@@ -758,7 +784,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComponent")
+        )
         input_: capo_greengrassv2.types.describe_component_request.DescribeComponentRequest = {
             "arn": arn
         }
@@ -795,7 +823,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateServiceRoleFromAccount")
+        )
         input_: capo_greengrassv2.types.disassociate_service_role_from_account_request.DisassociateServiceRoleFromAccountRequest = {}
 
         response = execute_pipeline(
@@ -844,7 +874,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_greengrassv2.types.get_component_request.GetComponentRequest = {
             "arn": arn
         }
@@ -903,7 +935,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponentVersionArtifact")
+        )
         input_: capo_greengrassv2.types.get_component_version_artifact_request.GetComponentVersionArtifactRequest = {
             "arn": arn,
             "artifact_name": artifact_name,
@@ -952,7 +986,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectivityInfo")
+        )
         input_: capo_greengrassv2.types.get_connectivity_info_request.GetConnectivityInfoRequest = {
             "thing_name": thing_name
         }
@@ -999,7 +1035,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreDevice")
+        )
         input_: capo_greengrassv2.types.get_core_device_request.GetCoreDeviceRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -1046,7 +1084,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_greengrassv2.types.get_deployment_request.GetDeploymentRequest = {
             "deployment_id": deployment_id
         }
@@ -1083,7 +1123,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceRoleForAccount")
+        )
         input_: capo_greengrassv2.types.get_service_role_for_account_request.GetServiceRoleForAccountRequest = {}
 
         response = execute_pipeline(
@@ -1136,7 +1178,10 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListClientDevicesAssociatedWithCoreDevice"),
+        )
         input_: capo_greengrassv2.types.list_client_devices_associated_with_core_device_request.ListClientDevicesAssociatedWithCoreDeviceRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -1224,7 +1269,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_greengrassv2.types.list_components_request.ListComponentsRequest = {}
         if scope is not None:
             input_["scope"] = scope
@@ -1312,7 +1359,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponentVersions")
+        )
         input_: capo_greengrassv2.types.list_component_versions_request.ListComponentVersionsRequest = {
             "arn": arn
         }
@@ -1407,7 +1456,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreDevices")
+        )
         input_: capo_greengrassv2.types.list_core_devices_request.ListCoreDevicesRequest = {}
         if thing_group_arn is not None:
             input_["thing_group_arn"] = thing_group_arn
@@ -1514,7 +1565,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_greengrassv2.types.list_deployments_request.ListDeploymentsRequest = {}
         if target_arn is not None:
             input_["target_arn"] = target_arn
@@ -1612,7 +1665,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEffectiveDeployments")
+        )
         input_: capo_greengrassv2.types.list_effective_deployments_request.ListEffectiveDeploymentsRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -1702,7 +1757,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstalledComponents")
+        )
         input_: capo_greengrassv2.types.list_installed_components_request.ListInstalledComponentsRequest = {
             "core_device_thing_name": core_device_thing_name
         }
@@ -1784,7 +1841,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_greengrassv2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1838,7 +1897,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResolveComponentCandidates")
+        )
         input_: capo_greengrassv2.types.resolve_component_candidates_request.ResolveComponentCandidatesRequest = {}
         if platform is not None:
             input_["platform"] = platform
@@ -1887,7 +1948,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_greengrassv2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1935,7 +1998,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_greengrassv2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1982,7 +2047,9 @@ class GreengrassV2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectivityInfo")
+        )
         input_: capo_greengrassv2.types.update_connectivity_info_request.UpdateConnectivityInfoRequest = {
             "thing_name": thing_name,
             "connectivity_info": connectivity_info,

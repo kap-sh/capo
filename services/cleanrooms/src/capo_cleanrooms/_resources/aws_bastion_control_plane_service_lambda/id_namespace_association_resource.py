@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class IdNamespaceAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.create_id_namespace_association_input.CreateIdNamespaceAssociationInput = {
             "membership_identifier": membership_identifier,
             "input_reference_config": input_reference_config,
@@ -155,7 +158,9 @@ class IdNamespaceAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_id_namespace_association_input.GetIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -217,7 +222,9 @@ class IdNamespaceAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.update_id_namespace_association_input.UpdateIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -273,7 +280,9 @@ class IdNamespaceAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.delete_id_namespace_association_input.DeleteIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -327,7 +336,9 @@ class IdNamespaceAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdNamespaceAssociations")
+        )
         input_: capo_cleanrooms.types.list_id_namespace_associations_input.ListIdNamespaceAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -400,7 +411,9 @@ class AsyncIdNamespaceAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.create_id_namespace_association_input.CreateIdNamespaceAssociationInput = {
             "membership_identifier": membership_identifier,
             "input_reference_config": input_reference_config,
@@ -458,7 +471,9 @@ class AsyncIdNamespaceAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_id_namespace_association_input.GetIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -521,7 +536,9 @@ class AsyncIdNamespaceAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.update_id_namespace_association_input.UpdateIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -578,7 +595,9 @@ class AsyncIdNamespaceAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.delete_id_namespace_association_input.DeleteIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -633,7 +652,9 @@ class AsyncIdNamespaceAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdNamespaceAssociations")
+        )
         input_: capo_cleanrooms.types.list_id_namespace_associations_input.ListIdNamespaceAssociationsInput = {
             "membership_identifier": membership_identifier
         }

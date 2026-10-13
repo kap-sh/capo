@@ -21,10 +21,12 @@ from capo_kafka._pagination import resolve_path as _resolve_path
 from capo_kafka._services._aws_config import aws_config
 from capo_kafka._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -283,7 +285,9 @@ class KafkaClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KafkaClientConfig] = None
+        self,
+        config_overrides: Optional[KafkaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KafkaClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -291,8 +295,10 @@ class KafkaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -351,7 +357,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateScramSecret")
+        )
         input_: capo_kafka.types.batch_associate_scram_secret_request.BatchAssociateScramSecretRequest = {
             "cluster_arn": cluster_arn
         }
@@ -406,7 +414,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDisassociateScramSecret")
+        )
         input_: capo_kafka.types.batch_disassociate_scram_secret_request.BatchDisassociateScramSecretRequest = {
             "cluster_arn": cluster_arn
         }
@@ -482,7 +492,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_kafka.types.create_channel_request.CreateChannelRequest = {
             "cluster_arn": cluster_arn
         }
@@ -588,7 +600,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_kafka.types.create_cluster_request.CreateClusterRequest = {}
         if broker_node_group_info is not None:
             input_["broker_node_group_info"] = broker_node_group_info
@@ -673,7 +687,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateClusterV2")
+        )
         input_: capo_kafka.types.create_cluster_v2_request.CreateClusterV2Request = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -736,7 +752,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguration")
+        )
         input_: capo_kafka.types.create_configuration_request.CreateConfigurationRequest = {}
         if description is not None:
             input_["description"] = description
@@ -814,7 +832,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicator")
+        )
         input_: capo_kafka.types.create_replicator_request.CreateReplicatorRequest = {}
         if description is not None:
             input_["description"] = description
@@ -896,7 +916,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTopic")
+        )
         input_: capo_kafka.types.create_topic_request.CreateTopicRequest = {
             "cluster_arn": cluster_arn
         }
@@ -966,7 +988,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVpcConnection")
+        )
         input_: capo_kafka.types.create_vpc_connection_request.CreateVpcConnectionRequest = {}
         if target_cluster_arn is not None:
             input_["target_cluster_arn"] = target_cluster_arn
@@ -1027,7 +1051,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_kafka.types.delete_channel_request.DeleteChannelRequest = {
             "channel_arn": channel_arn,
             "cluster_arn": cluster_arn,
@@ -1076,7 +1102,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_kafka.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_arn": cluster_arn
         }
@@ -1124,7 +1152,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterPolicy")
+        )
         input_: capo_kafka.types.delete_cluster_policy_request.DeleteClusterPolicyRequest = {
             "cluster_arn": cluster_arn
         }
@@ -1170,7 +1200,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguration")
+        )
         input_: capo_kafka.types.delete_configuration_request.DeleteConfigurationRequest = {
             "arn": arn
         }
@@ -1221,7 +1253,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicator")
+        )
         input_: capo_kafka.types.delete_replicator_request.DeleteReplicatorRequest = {
             "replicator_arn": replicator_arn
         }
@@ -1279,7 +1313,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTopic")
+        )
         input_: capo_kafka.types.delete_topic_request.DeleteTopicRequest = {
             "cluster_arn": cluster_arn,
             "topic_name": topic_name,
@@ -1326,7 +1362,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVpcConnection")
+        )
         input_: capo_kafka.types.delete_vpc_connection_request.DeleteVpcConnectionRequest = {
             "arn": arn
         }
@@ -1377,7 +1415,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_kafka.types.describe_channel_request.DescribeChannelRequest = {
             "channel_arn": channel_arn,
             "cluster_arn": cluster_arn,
@@ -1425,7 +1465,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_kafka.types.describe_cluster_request.DescribeClusterRequest = {
             "cluster_arn": cluster_arn
         }
@@ -1472,7 +1514,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterOperation")
+        )
         input_: capo_kafka.types.describe_cluster_operation_request.DescribeClusterOperationRequest = {
             "cluster_operation_arn": cluster_operation_arn
         }
@@ -1521,7 +1565,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterOperationV2")
+        )
         input_: capo_kafka.types.describe_cluster_operation_v2_request.DescribeClusterOperationV2Request = {
             "cluster_operation_arn": cluster_operation_arn
         }
@@ -1568,7 +1614,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusterV2")
+        )
         input_: capo_kafka.types.describe_cluster_v2_request.DescribeClusterV2Request = {
             "cluster_arn": cluster_arn
         }
@@ -1618,7 +1666,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfiguration")
+        )
         input_: capo_kafka.types.describe_configuration_request.DescribeConfigurationRequest = {
             "arn": arn
         }
@@ -1668,7 +1718,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationRevision")
+        )
         input_: capo_kafka.types.describe_configuration_revision_request.DescribeConfigurationRevisionRequest = {
             "arn": arn,
             "revision": revision,
@@ -1718,7 +1770,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicator")
+        )
         input_: capo_kafka.types.describe_replicator_request.DescribeReplicatorRequest = {
             "replicator_arn": replicator_arn
         }
@@ -1767,7 +1821,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopic")
+        )
         input_: capo_kafka.types.describe_topic_request.DescribeTopicRequest = {
             "cluster_arn": cluster_arn,
             "topic_name": topic_name,
@@ -1821,7 +1877,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTopicPartitions")
+        )
         input_: capo_kafka.types.describe_topic_partitions_request.DescribeTopicPartitionsRequest = {
             "cluster_arn": cluster_arn,
             "topic_name": topic_name,
@@ -1899,7 +1957,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVpcConnection")
+        )
         input_: capo_kafka.types.describe_vpc_connection_request.DescribeVpcConnectionRequest = {
             "arn": arn
         }
@@ -1946,7 +2006,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBootstrapBrokers")
+        )
         input_: capo_kafka.types.get_bootstrap_brokers_request.GetBootstrapBrokersRequest = {
             "cluster_arn": cluster_arn
         }
@@ -1992,7 +2054,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClusterPolicy")
+        )
         input_: capo_kafka.types.get_cluster_policy_request.GetClusterPolicyRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2041,7 +2105,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCompatibleKafkaVersions")
+        )
         input_: capo_kafka.types.get_compatible_kafka_versions_request.GetCompatibleKafkaVersionsRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -2096,7 +2162,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_kafka.types.list_channels_request.ListChannelsRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2153,7 +2221,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClientVpcConnections")
+        )
         input_: capo_kafka.types.list_client_vpc_connections_request.ListClientVpcConnectionsRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2230,7 +2300,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterOperations")
+        )
         input_: capo_kafka.types.list_cluster_operations_request.ListClusterOperationsRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2310,7 +2382,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterOperationsV2")
+        )
         input_: capo_kafka.types.list_cluster_operations_v2_request.ListClusterOperationsV2Request = {
             "cluster_arn": cluster_arn
         }
@@ -2387,7 +2461,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_kafka.types.list_clusters_request.ListClustersRequest = {}
         if cluster_name_filter is not None:
             input_["cluster_name_filter"] = cluster_name_filter
@@ -2466,7 +2542,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClustersV2")
+        )
         input_: capo_kafka.types.list_clusters_v2_request.ListClustersV2Request = {}
         if cluster_name_filter is not None:
             input_["cluster_name_filter"] = cluster_name_filter
@@ -2549,7 +2627,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationRevisions")
+        )
         input_: capo_kafka.types.list_configuration_revisions_request.ListConfigurationRevisionsRequest = {
             "arn": arn
         }
@@ -2625,7 +2705,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_kafka.types.list_configurations_request.ListConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2696,7 +2778,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKafkaVersions")
+        )
         input_: capo_kafka.types.list_kafka_versions_request.ListKafkaVersionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2767,7 +2851,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodes")
+        )
         input_: capo_kafka.types.list_nodes_request.ListNodesRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2847,7 +2933,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReplicators")
+        )
         input_: capo_kafka.types.list_replicators_request.ListReplicatorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2927,7 +3015,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListScramSecrets")
+        )
         input_: capo_kafka.types.list_scram_secrets_request.ListScramSecretsRequest = {
             "cluster_arn": cluster_arn
         }
@@ -2999,7 +3089,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kafka.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3052,7 +3144,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTopics")
+        )
         input_: capo_kafka.types.list_topics_request.ListTopicsRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3132,7 +3226,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVpcConnections")
+        )
         input_: capo_kafka.types.list_vpc_connections_request.ListVpcConnectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3204,7 +3300,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutClusterPolicy")
+        )
         input_: capo_kafka.types.put_cluster_policy_request.PutClusterPolicyRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3261,7 +3359,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootBroker")
+        )
         input_: capo_kafka.types.reboot_broker_request.RebootBrokerRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3312,7 +3412,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectClientVpcConnection")
+        )
         input_: capo_kafka.types.reject_client_vpc_connection_request.RejectClientVpcConnectionRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3359,7 +3461,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kafka.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3408,7 +3512,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kafka.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3463,7 +3569,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrokerCount")
+        )
         input_: capo_kafka.types.update_broker_count_request.UpdateBrokerCountRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3520,7 +3628,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrokerStorage")
+        )
         input_: capo_kafka.types.update_broker_storage_request.UpdateBrokerStorageRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3577,7 +3687,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrokerType")
+        )
         input_: capo_kafka.types.update_broker_type_request.UpdateBrokerTypeRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3640,7 +3752,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_kafka.types.update_channel_request.UpdateChannelRequest = {
             "channel_arn": channel_arn,
             "cluster_arn": cluster_arn,
@@ -3699,7 +3813,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterConfiguration")
+        )
         input_: capo_kafka.types.update_cluster_configuration_request.UpdateClusterConfigurationRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3760,7 +3876,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateClusterKafkaVersion")
+        )
         input_: capo_kafka.types.update_cluster_kafka_version_request.UpdateClusterKafkaVersionRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3818,7 +3936,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguration")
+        )
         input_: capo_kafka.types.update_configuration_request.UpdateConfigurationRequest = {
             "arn": arn
         }
@@ -3880,7 +4000,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectivity")
+        )
         input_: capo_kafka.types.update_connectivity_request.UpdateConnectivityRequest = {
             "cluster_arn": cluster_arn
         }
@@ -3944,7 +4066,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMonitoring")
+        )
         input_: capo_kafka.types.update_monitoring_request.UpdateMonitoringRequest = {
             "cluster_arn": cluster_arn
         }
@@ -4005,7 +4129,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRebalancing")
+        )
         input_: capo_kafka.types.update_rebalancing_request.UpdateRebalancingRequest = {
             "cluster_arn": cluster_arn
         }
@@ -4078,7 +4204,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReplicationInfo")
+        )
         input_: capo_kafka.types.update_replication_info_request.UpdateReplicationInfoRequest = {
             "replicator_arn": replicator_arn
         }
@@ -4153,7 +4281,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurity")
+        )
         input_: capo_kafka.types.update_security_request.UpdateSecurityRequest = {
             "cluster_arn": cluster_arn
         }
@@ -4218,7 +4348,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStorage")
+        )
         input_: capo_kafka.types.update_storage_request.UpdateStorageRequest = {
             "cluster_arn": cluster_arn
         }
@@ -4288,7 +4420,9 @@ class KafkaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTopic")
+        )
         input_: capo_kafka.types.update_topic_request.UpdateTopicRequest = {
             "cluster_arn": cluster_arn,
             "topic_name": topic_name,

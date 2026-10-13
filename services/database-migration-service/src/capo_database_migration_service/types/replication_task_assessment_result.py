@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#ReplicationTaskAssessmentResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,4 +89,11 @@ def deserialize_aws_json_1_1(data: dict) -> ReplicationTaskAssessmentResult:
         out["assessment_results"] = data["AssessmentResults"]
     if data.get("S3ObjectUrl") is not None:
         out["s3_object_url"] = data["S3ObjectUrl"]
+    return out
+
+
+def redact_sensitive(value: ReplicationTaskAssessmentResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "s3_object_url" in value:
+        out["s3_object_url"] = "*** Sensitive Data Redacted ***"
     return out

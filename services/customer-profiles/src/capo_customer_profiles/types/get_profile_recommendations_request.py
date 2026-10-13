@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#GetProfileRecommendationsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -166,6 +166,29 @@ def deserialize_json(data: dict) -> GetProfileRecommendationsRequest:
         out["diversity_config"] = (
             capo_customer_profiles.types.recommendation_diversity_config.deserialize_json(
                 data["DiversityConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetProfileRecommendationsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "context" in value:
+        out["context"] = "*** Sensitive Data Redacted ***"
+    if "recommender_filters" in value:
+        import capo_customer_profiles.types.recommender_filters
+
+        out["recommender_filters"] = (
+            capo_customer_profiles.types.recommender_filters.redact_sensitive(
+                value["recommender_filters"]
+            )
+        )
+    if "recommender_promotional_filters" in value:
+        import capo_customer_profiles.types.recommender_promotional_filters
+
+        out["recommender_promotional_filters"] = (
+            capo_customer_profiles.types.recommender_promotional_filters.redact_sensitive(
+                value["recommender_promotional_filters"]
             )
         )
     return out

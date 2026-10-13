@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateModelManifest")
+        )
         input_: capo_iotfleetwise.types.create_model_manifest_request.CreateModelManifestRequest = {
             "name": name,
             "nodes": nodes,
@@ -148,7 +151,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelManifest")
+        )
         input_: capo_iotfleetwise.types.get_model_manifest_request.GetModelManifestRequest = {
             "name": name
         }
@@ -209,7 +214,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateModelManifest")
+        )
         input_: capo_iotfleetwise.types.update_model_manifest_request.UpdateModelManifestRequest = {
             "name": name
         }
@@ -264,7 +271,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteModelManifest")
+        )
         input_: capo_iotfleetwise.types.delete_model_manifest_request.DeleteModelManifestRequest = {
             "name": name
         }
@@ -318,7 +327,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelManifests")
+        )
         input_: capo_iotfleetwise.types.list_model_manifests_request.ListModelManifestsRequest = {}
         if signal_catalog_arn is not None:
             input_["signal_catalog_arn"] = signal_catalog_arn
@@ -376,7 +387,9 @@ class ModelManifestResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelManifestNodes")
+        )
         input_: capo_iotfleetwise.types.list_model_manifest_nodes_request.ListModelManifestNodesRequest = {
             "name": name
         }
@@ -444,7 +457,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateModelManifest")
+        )
         input_: capo_iotfleetwise.types.create_model_manifest_request.CreateModelManifestRequest = {
             "name": name,
             "nodes": nodes,
@@ -498,7 +513,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetModelManifest")
+        )
         input_: capo_iotfleetwise.types.get_model_manifest_request.GetModelManifestRequest = {
             "name": name
         }
@@ -560,7 +577,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateModelManifest")
+        )
         input_: capo_iotfleetwise.types.update_model_manifest_request.UpdateModelManifestRequest = {
             "name": name
         }
@@ -616,7 +635,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteModelManifest")
+        )
         input_: capo_iotfleetwise.types.delete_model_manifest_request.DeleteModelManifestRequest = {
             "name": name
         }
@@ -671,7 +692,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelManifests")
+        )
         input_: capo_iotfleetwise.types.list_model_manifests_request.ListModelManifestsRequest = {}
         if signal_catalog_arn is not None:
             input_["signal_catalog_arn"] = signal_catalog_arn
@@ -730,7 +753,9 @@ class AsyncModelManifestResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListModelManifestNodes")
+        )
         input_: capo_iotfleetwise.types.list_model_manifest_nodes_request.ListModelManifestNodesRequest = {
             "name": name
         }

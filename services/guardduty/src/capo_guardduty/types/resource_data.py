@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#ResourceData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -313,6 +313,19 @@ def deserialize_json(data: dict) -> ResourceData:
         out["bedrock_guardrail"] = (
             capo_guardduty.types.bedrock_guardrail_resource.deserialize_json(
                 data["bedrockGuardrail"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ResourceData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ec2_network_interface" in value:
+        import capo_guardduty.types.ec2_network_interface
+
+        out["ec2_network_interface"] = (
+            capo_guardduty.types.ec2_network_interface.redact_sensitive(
+                value["ec2_network_interface"]
             )
         )
     return out

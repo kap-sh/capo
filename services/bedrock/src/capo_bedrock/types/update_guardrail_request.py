@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#UpdateGuardrailRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -217,4 +217,49 @@ def deserialize_json(data: dict) -> UpdateGuardrailRequest:
         )
     if data.get("kmsKeyId") is not None:
         out["kms_key_id"] = data["kmsKeyId"]
+    return out
+
+
+def redact_sensitive(value: UpdateGuardrailRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "topic_policy_config" in value:
+        import capo_bedrock.types.guardrail_topic_policy_config
+
+        out["topic_policy_config"] = (
+            capo_bedrock.types.guardrail_topic_policy_config.redact_sensitive(
+                value["topic_policy_config"]
+            )
+        )
+    if "content_policy_config" in value:
+        import capo_bedrock.types.guardrail_content_policy_config
+
+        out["content_policy_config"] = (
+            capo_bedrock.types.guardrail_content_policy_config.redact_sensitive(
+                value["content_policy_config"]
+            )
+        )
+    if "word_policy_config" in value:
+        import capo_bedrock.types.guardrail_word_policy_config
+
+        out["word_policy_config"] = (
+            capo_bedrock.types.guardrail_word_policy_config.redact_sensitive(
+                value["word_policy_config"]
+            )
+        )
+    if "contextual_grounding_policy_config" in value:
+        import capo_bedrock.types.guardrail_contextual_grounding_policy_config
+
+        out["contextual_grounding_policy_config"] = (
+            capo_bedrock.types.guardrail_contextual_grounding_policy_config.redact_sensitive(
+                value["contextual_grounding_policy_config"]
+            )
+        )
+    if "blocked_input_messaging" in value:
+        out["blocked_input_messaging"] = "*** Sensitive Data Redacted ***"
+    if "blocked_outputs_messaging" in value:
+        out["blocked_outputs_messaging"] = "*** Sensitive Data Redacted ***"
     return out

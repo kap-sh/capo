@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#DeregisterTaskDefinitionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,5 +34,16 @@ def deserialize_aws_json_1_1(data: dict) -> DeregisterTaskDefinitionResponse:
             capo_ecs.types.task_definition.deserialize_aws_json_1_1(
                 data["taskDefinition"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DeregisterTaskDefinitionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "task_definition" in value:
+        import capo_ecs.types.task_definition
+
+        out["task_definition"] = capo_ecs.types.task_definition.redact_sensitive(
+            value["task_definition"]
         )
     return out

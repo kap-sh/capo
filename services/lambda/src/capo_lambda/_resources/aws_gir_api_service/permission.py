@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -120,7 +121,9 @@ class Permission:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddPermission")
+        )
         input_: capo_lambda.types.add_permission_request.AddPermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,
@@ -199,7 +202,9 @@ class Permission:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_lambda.types.remove_permission_request.RemovePermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,
@@ -302,7 +307,9 @@ class AsyncPermission:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddPermission")
+        )
         input_: capo_lambda.types.add_permission_request.AddPermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,
@@ -382,7 +389,9 @@ class AsyncPermission:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_lambda.types.remove_permission_request.RemovePermissionRequest = {
             "function_name": function_name,
             "statement_id": statement_id,

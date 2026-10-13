@@ -7,6 +7,7 @@ import capo_neptune_graph._auth._sigv4
 from capo_neptune_graph._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraph")
+        )
         input_: capo_neptune_graph.types.create_graph_input.CreateGraphInput = {
             "graph_name": graph_name,
             "provisioned_memory": provisioned_memory,
@@ -173,7 +176,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGraph")
+        )
         input_: capo_neptune_graph.types.delete_graph_input.DeleteGraphInput = {
             "graph_identifier": graph_identifier,
             "skip_snapshot": skip_snapshot,
@@ -220,7 +225,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGraph")
+        )
         input_: capo_neptune_graph.types.get_graph_input.GetGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -269,7 +276,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGraphs")
+        )
         input_: capo_neptune_graph.types.list_graphs_input.ListGraphsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -320,7 +329,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetGraph")
+        )
         input_: capo_neptune_graph.types.reset_graph_input.ResetGraphInput = {
             "graph_identifier": graph_identifier,
             "skip_snapshot": skip_snapshot,
@@ -385,7 +396,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreGraphFromSnapshot")
+        )
         input_: capo_neptune_graph.types.restore_graph_from_snapshot_input.RestoreGraphFromSnapshotInput = {
             "snapshot_identifier": snapshot_identifier,
             "graph_name": graph_name,
@@ -443,7 +456,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartGraph")
+        )
         input_: capo_neptune_graph.types.start_graph_input.StartGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -490,7 +505,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopGraph")
+        )
         input_: capo_neptune_graph.types.stop_graph_input.StopGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -545,7 +562,9 @@ class GraphResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGraph")
+        )
         input_: capo_neptune_graph.types.update_graph_input.UpdateGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -624,7 +643,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGraph")
+        )
         input_: capo_neptune_graph.types.create_graph_input.CreateGraphInput = {
             "graph_name": graph_name,
             "provisioned_memory": provisioned_memory,
@@ -687,7 +708,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGraph")
+        )
         input_: capo_neptune_graph.types.delete_graph_input.DeleteGraphInput = {
             "graph_identifier": graph_identifier,
             "skip_snapshot": skip_snapshot,
@@ -735,7 +758,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGraph")
+        )
         input_: capo_neptune_graph.types.get_graph_input.GetGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -785,7 +810,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGraphs")
+        )
         input_: capo_neptune_graph.types.list_graphs_input.ListGraphsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -837,7 +864,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ResetGraph")
+        )
         input_: capo_neptune_graph.types.reset_graph_input.ResetGraphInput = {
             "graph_identifier": graph_identifier,
             "skip_snapshot": skip_snapshot,
@@ -903,7 +932,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreGraphFromSnapshot")
+        )
         input_: capo_neptune_graph.types.restore_graph_from_snapshot_input.RestoreGraphFromSnapshotInput = {
             "snapshot_identifier": snapshot_identifier,
             "graph_name": graph_name,
@@ -962,7 +993,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartGraph")
+        )
         input_: capo_neptune_graph.types.start_graph_input.StartGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -1010,7 +1043,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopGraph")
+        )
         input_: capo_neptune_graph.types.stop_graph_input.StopGraphInput = {
             "graph_identifier": graph_identifier
         }
@@ -1066,7 +1101,9 @@ class AsyncGraphResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateGraph")
+        )
         input_: capo_neptune_graph.types.update_graph_input.UpdateGraphInput = {
             "graph_identifier": graph_identifier
         }

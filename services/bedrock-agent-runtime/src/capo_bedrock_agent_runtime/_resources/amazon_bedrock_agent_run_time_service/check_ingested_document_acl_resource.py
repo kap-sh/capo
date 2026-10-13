@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent_runtime._auth._signers
 import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,19 @@ class CheckIngestedDocumentAclResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.CheckIngestedDocumentAclRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.check_ingested_document_acl_request
+
+            return capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CheckIngestedDocumentAcl", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.CheckIngestedDocumentAclRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -136,7 +149,19 @@ class AsyncCheckIngestedDocumentAclResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.CheckIngestedDocumentAclRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.check_ingested_document_acl_request
+
+            return capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CheckIngestedDocumentAcl", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agent_runtime.types.check_ingested_document_acl_request.CheckIngestedDocumentAclRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,

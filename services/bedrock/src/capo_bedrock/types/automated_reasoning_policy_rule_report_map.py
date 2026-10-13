@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyRuleReportMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_definition_rule_id
@@ -39,3 +39,14 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyRuleReportMap:
             )
         )
     return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyRuleReportMap) -> dict[str, Any]:
+    import capo_bedrock.types.automated_reasoning_policy_rule_report
+
+    return {
+        key: capo_bedrock.types.automated_reasoning_policy_rule_report.redact_sensitive(
+            item
+        )
+        for key, item in value.items()
+    }

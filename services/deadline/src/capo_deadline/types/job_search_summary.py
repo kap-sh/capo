@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#JobSearchSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -256,4 +256,11 @@ def deserialize_json(data: dict) -> JobSearchSummary:
         out["max_worker_count"] = data["maxWorkerCount"]
     if data.get("sourceJobId") is not None:
         out["source_job_id"] = data["sourceJobId"]
+    return out
+
+
+def redact_sensitive(value: JobSearchSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_parameters" in value:
+        out["job_parameters"] = "*** Sensitive Data Redacted ***"
     return out

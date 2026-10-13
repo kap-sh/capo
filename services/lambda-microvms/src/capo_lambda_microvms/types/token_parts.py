@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#TokenParts``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lambda_microvms.types.auth_token_key
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> TokenParts:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: TokenParts) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

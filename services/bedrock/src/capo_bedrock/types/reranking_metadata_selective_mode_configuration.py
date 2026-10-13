@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#RerankingMetadataSelectiveModeConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -73,3 +73,14 @@ def deserialize_json(data: dict) -> RerankingMetadataSelectiveModeConfiguration:
         raise DeserializationError(
             "RerankingMetadataSelectiveModeConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: RerankingMetadataSelectiveModeConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fieldsToInclude" in value:
+        out["fieldsToInclude"] = "*** Sensitive Data Redacted ***"
+    if "fieldsToExclude" in value:
+        out["fieldsToExclude"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#CreateSAMLProviderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,11 @@ def deserialize_query(el: Element) -> CreateSAMLProviderRequest:
     child_add_private_key = el.find("AddPrivateKey")
     if child_add_private_key is not None:
         out["add_private_key"] = str(child_add_private_key.text or "")
+    return out
+
+
+def redact_sensitive(value: CreateSAMLProviderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "add_private_key" in value:
+        out["add_private_key"] = "*** Sensitive Data Redacted ***"
     return out

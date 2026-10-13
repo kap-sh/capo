@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#CreateRestoreTestingSelectionInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,18 @@ def deserialize_json(data: dict) -> CreateRestoreTestingSelectionInput:
     else:
         raise DeserializationError(
             "CreateRestoreTestingSelectionInput.restore_testing_selection required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreateRestoreTestingSelectionInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "restore_testing_selection" in value:
+        import capo_backup.types.restore_testing_selection_for_create
+
+        out["restore_testing_selection"] = (
+            capo_backup.types.restore_testing_selection_for_create.redact_sensitive(
+                value["restore_testing_selection"]
+            )
         )
     return out

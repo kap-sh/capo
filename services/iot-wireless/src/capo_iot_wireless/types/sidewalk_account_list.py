@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#SidewalkAccountList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_wireless.types.sidewalk_account_info_with_fingerprint
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> SidewalkAccountList:
             )
         )
     return out
+
+
+def redact_sensitive(value: SidewalkAccountList) -> list[Any]:
+    import capo_iot_wireless.types.sidewalk_account_info_with_fingerprint
+
+    return [
+        capo_iot_wireless.types.sidewalk_account_info_with_fingerprint.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchomni#GetSpaceCredentialsForOrganizationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_cbor(data: dict) -> GetSpaceCredentialsForOrganizationOutput:
         raise DeserializationError(
             "GetSpaceCredentialsForOrganizationOutput.credentials required"
         )
+    return out
+
+
+def redact_sensitive(value: GetSpaceCredentialsForOrganizationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        out["credentials"] = "*** Sensitive Data Redacted ***"
     return out

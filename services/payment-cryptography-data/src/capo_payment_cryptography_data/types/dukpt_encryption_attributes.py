@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#DukptEncryptionAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,4 +102,11 @@ def deserialize_json(data: dict) -> DukptEncryptionAttributes:
         )
     if data.get("InitializationVector") is not None:
         out["initialization_vector"] = data["InitializationVector"]
+    return out
+
+
+def redact_sensitive(value: DukptEncryptionAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "initialization_vector" in value:
+        out["initialization_vector"] = "*** Sensitive Data Redacted ***"
     return out

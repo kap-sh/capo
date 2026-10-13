@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloud9#EnvironmentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cloud9.types.environment
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> EnvironmentList:
             continue
         out.append(capo_cloud9.types.environment.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: EnvironmentList) -> list[Any]:
+    import capo_cloud9.types.environment
+
+    return [capo_cloud9.types.environment.redact_sensitive(item) for item in value]

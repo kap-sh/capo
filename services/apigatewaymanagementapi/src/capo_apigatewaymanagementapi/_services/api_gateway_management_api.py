@@ -19,10 +19,12 @@ from capo_apigatewaymanagementapi._auth._zapros_handler import AuthMiddleware
 from capo_apigatewaymanagementapi._services._aws_config import aws_config
 from capo_apigatewaymanagementapi._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -108,7 +110,9 @@ class ApiGatewayManagementApiClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ApiGatewayManagementApiClientConfig] = None
+        self,
+        config_overrides: Optional[ApiGatewayManagementApiClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ApiGatewayManagementApiClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -116,8 +120,10 @@ class ApiGatewayManagementApiClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -163,7 +169,9 @@ class ApiGatewayManagementApiClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_apigatewaymanagementapi.types.delete_connection_request.DeleteConnectionRequest = {
             "connection_id": connection_id
         }
@@ -205,7 +213,9 @@ class ApiGatewayManagementApiClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnection")
+        )
         input_: capo_apigatewaymanagementapi.types.get_connection_request.GetConnectionRequest = {
             "connection_id": connection_id
         }
@@ -251,7 +261,9 @@ class ApiGatewayManagementApiClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostToConnection")
+        )
         input_: capo_apigatewaymanagementapi.types.post_to_connection_request.PostToConnectionRequest = {
             "connection_id": connection_id
         }

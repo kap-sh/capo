@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#StartSpeakerEnrollmentJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,4 +121,11 @@ def deserialize_aws_json_1_0(data: dict) -> StartSpeakerEnrollmentJobRequest:
         raise DeserializationError(
             "StartSpeakerEnrollmentJobRequest.output_data_config required"
         )
+    return out
+
+
+def redact_sensitive(value: StartSpeakerEnrollmentJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_name" in value:
+        out["job_name"] = "*** Sensitive Data Redacted ***"
     return out

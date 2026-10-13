@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PutRawEventsRequestEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,17 @@ def deserialize_cbor(data: dict) -> PutRawEventsRequestEntry:
         )
     else:
         raise DeserializationError("PutRawEventsRequestEntry.system_metadata required")
+    return out
+
+
+def redact_sensitive(value: PutRawEventsRequestEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        out["data"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        import capo_eventbridgev2.types.event_metadata_map
+
+        out["metadata"] = capo_eventbridgev2.types.event_metadata_map.redact_sensitive(
+            value["metadata"]
+        )
     return out

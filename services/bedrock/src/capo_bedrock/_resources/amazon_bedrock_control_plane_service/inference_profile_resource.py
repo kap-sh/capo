@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock._auth._signers
 import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,19 @@ class InferenceProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_inference_profile_request
+
+            return capo_bedrock.types.create_inference_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateInferenceProfile", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest = {
             "inference_profile_name": inference_profile_name,
             "model_source": model_source,
@@ -150,7 +163,19 @@ class InferenceProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_inference_profile_response.GetInferenceProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_inference_profile_response
+
+            return capo_bedrock.types.get_inference_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetInferenceProfile", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_inference_profile_request.GetInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -198,7 +223,9 @@ class InferenceProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceProfile")
+        )
         input_: capo_bedrock.types.delete_inference_profile_request.DeleteInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -252,7 +279,19 @@ class InferenceProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_inference_profiles_response.ListInferenceProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_inference_profiles_response
+
+            return capo_bedrock.types.list_inference_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListInferenceProfiles", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_inference_profiles_request.ListInferenceProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -324,7 +363,19 @@ class AsyncInferenceProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_inference_profile_request
+
+            return capo_bedrock.types.create_inference_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateInferenceProfile", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_inference_profile_request.CreateInferenceProfileRequest = {
             "inference_profile_name": inference_profile_name,
             "model_source": model_source,
@@ -382,7 +433,19 @@ class AsyncInferenceProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.get_inference_profile_response.GetInferenceProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_inference_profile_response
+
+            return capo_bedrock.types.get_inference_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetInferenceProfile", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.get_inference_profile_request.GetInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -431,7 +494,9 @@ class AsyncInferenceProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceProfile")
+        )
         input_: capo_bedrock.types.delete_inference_profile_request.DeleteInferenceProfileRequest = {
             "inference_profile_identifier": inference_profile_identifier
         }
@@ -486,7 +551,19 @@ class AsyncInferenceProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock.types.list_inference_profiles_response.ListInferenceProfilesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.list_inference_profiles_response
+
+            return capo_bedrock.types.list_inference_profiles_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListInferenceProfiles", redact_output=_redact_output),
+        )
         input_: capo_bedrock.types.list_inference_profiles_request.ListInferenceProfilesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

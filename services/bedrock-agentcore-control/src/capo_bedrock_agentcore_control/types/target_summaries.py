@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#TargetSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.target_summary
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> TargetSummaries:
             capo_bedrock_agentcore_control.types.target_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: TargetSummaries) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.target_summary
+
+    return [
+        capo_bedrock_agentcore_control.types.target_summary.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SubscribedUser``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,5 +39,16 @@ def deserialize_json(data: dict) -> SubscribedUser:
 
         out["details"] = capo_datazone.types.user_profile_details.deserialize_json(
             data["details"]
+        )
+    return out
+
+
+def redact_sensitive(value: SubscribedUser) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "details" in value:
+        import capo_datazone.types.user_profile_details
+
+        out["details"] = capo_datazone.types.user_profile_details.redact_sensitive(
+            value["details"]
         )
     return out

@@ -8,6 +8,7 @@ import capo_m2._auth._sigv4
 from capo_m2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -123,7 +124,9 @@ class Environment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironment")
+        )
         input_: capo_m2.types.create_environment_request.CreateEnvironmentRequest = {
             "name": name,
             "instance_type": instance_type,
@@ -197,7 +200,9 @@ class Environment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_m2.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -260,7 +265,9 @@ class Environment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_m2.types.update_environment_request.UpdateEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -319,7 +326,9 @@ class Environment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_m2.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -371,7 +380,9 @@ class Environment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_m2.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -467,7 +478,9 @@ class AsyncEnvironment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEnvironment")
+        )
         input_: capo_m2.types.create_environment_request.CreateEnvironmentRequest = {
             "name": name,
             "instance_type": instance_type,
@@ -542,7 +555,9 @@ class AsyncEnvironment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_m2.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -606,7 +621,9 @@ class AsyncEnvironment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_m2.types.update_environment_request.UpdateEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -666,7 +683,9 @@ class AsyncEnvironment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_m2.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -719,7 +738,9 @@ class AsyncEnvironment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_m2.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

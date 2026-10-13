@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeParsedQuery``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,27 @@ def deserialize_json(data: dict) -> GeocodeParsedQuery:
         out["address"] = (
             capo_geo_places.types.geocode_parsed_query_address_components.deserialize_json(
                 data["Address"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeocodeParsedQuery) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["title"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["title"]
+            )
+        )
+    if "address" in value:
+        import capo_geo_places.types.geocode_parsed_query_address_components
+
+        out["address"] = (
+            capo_geo_places.types.geocode_parsed_query_address_components.redact_sensitive(
+                value["address"]
             )
         )
     return out

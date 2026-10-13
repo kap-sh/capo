@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#ImportKeyInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,19 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyInput:
         )
     if data.get("RequesterComment") is not None:
         out["requester_comment"] = data["RequesterComment"]
+    return out
+
+
+def redact_sensitive(value: ImportKeyInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_material" in value:
+        import capo_payment_cryptography.types.import_key_material
+
+        out["key_material"] = (
+            capo_payment_cryptography.types.import_key_material.redact_sensitive(
+                value["key_material"]
+            )
+        )
+    if "requester_comment" in value:
+        out["requester_comment"] = "*** Sensitive Data Redacted ***"
     return out

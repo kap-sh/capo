@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixAutoCircle``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -33,4 +33,13 @@ def deserialize_json(data: dict) -> RouteMatrixAutoCircle:
         out["max_radius"] = data["MaxRadius"]
     else:
         out["max_radius"] = 0
+    return out
+
+
+def redact_sensitive(value: RouteMatrixAutoCircle) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "margin" in value:
+        out["margin"] = "*** Sensitive Data Redacted ***"
+    if "max_radius" in value:
+        out["max_radius"] = "*** Sensitive Data Redacted ***"
     return out

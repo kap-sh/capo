@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ConverseStreamMetadataEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -129,4 +129,17 @@ def deserialize_event_json(message: Message) -> ConverseStreamMetadataEvent:
     out: ConverseStreamMetadataEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: ConverseStreamMetadataEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trace" in value:
+        import capo_bedrock_runtime.types.converse_stream_trace
+
+        out["trace"] = (
+            capo_bedrock_runtime.types.converse_stream_trace.redact_sensitive(
+                value["trace"]
+            )
+        )
     return out

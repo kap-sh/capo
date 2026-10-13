@@ -22,7 +22,9 @@ from capo_personalize_events._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -115,7 +117,9 @@ class AsyncPersonalizeEventsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPersonalizeEventsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPersonalizeEventsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPersonalizeEventsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -123,8 +127,10 @@ class AsyncPersonalizeEventsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -176,7 +182,19 @@ class AsyncPersonalizeEventsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_events.types.put_action_interactions_request.PutActionInteractionsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_events.types.put_action_interactions_request
+
+            return capo_personalize_events.types.put_action_interactions_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutActionInteractions", redact_input=_redact_input),
+        )
         input_: capo_personalize_events.types.put_action_interactions_request.PutActionInteractionsRequest = {
             "tracking_id": tracking_id,
             "action_interactions": action_interactions,
@@ -223,7 +241,18 @@ class AsyncPersonalizeEventsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_events.types.put_actions_request.PutActionsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_events.types.put_actions_request
+
+            return capo_personalize_events.types.put_actions_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutActions", redact_input=_redact_input)
+        )
         input_: capo_personalize_events.types.put_actions_request.PutActionsRequest = {
             "dataset_arn": dataset_arn,
             "actions": actions,
@@ -272,7 +301,18 @@ class AsyncPersonalizeEventsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_events.types.put_events_request.PutEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_events.types.put_events_request
+
+            return capo_personalize_events.types.put_events_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEvents", redact_input=_redact_input)
+        )
         input_: capo_personalize_events.types.put_events_request.PutEventsRequest = {
             "tracking_id": tracking_id,
             "session_id": session_id,
@@ -322,7 +362,18 @@ class AsyncPersonalizeEventsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_events.types.put_items_request.PutItemsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_events.types.put_items_request
+
+            return capo_personalize_events.types.put_items_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutItems", redact_input=_redact_input)
+        )
         input_: capo_personalize_events.types.put_items_request.PutItemsRequest = {
             "dataset_arn": dataset_arn,
             "items": items,
@@ -369,7 +420,18 @@ class AsyncPersonalizeEventsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_events.types.put_users_request.PutUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_events.types.put_users_request
+
+            return capo_personalize_events.types.put_users_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutUsers", redact_input=_redact_input)
+        )
         input_: capo_personalize_events.types.put_users_request.PutUsersRequest = {
             "dataset_arn": dataset_arn,
             "users": users,

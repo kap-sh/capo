@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateUserConfigRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,6 +127,19 @@ def deserialize_json(data: dict) -> UpdateUserConfigRequest:
         out["voice_enhancement_configs"] = (
             capo_connect.types.voice_enhancement_configs.deserialize_json(
                 data["VoiceEnhancementConfigs"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateUserConfigRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number_configs" in value:
+        import capo_connect.types.phone_number_configs
+
+        out["phone_number_configs"] = (
+            capo_connect.types.phone_number_configs.redact_sensitive(
+                value["phone_number_configs"]
             )
         )
     return out

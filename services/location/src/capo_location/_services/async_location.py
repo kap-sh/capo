@@ -45,7 +45,9 @@ from capo_location._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -326,7 +328,9 @@ class AsyncLocationClient:
         self.tracker_resource = AsyncTrackerResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncLocationClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncLocationClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLocationClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -334,8 +338,10 @@ class AsyncLocationClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -402,7 +408,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_key_request.CreateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_request
+
+            return capo_location.types.create_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_key_response.CreateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_key_response
+
+            return capo_location.types.create_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_key_request.CreateKeyRequest = {
             "key_name": key_name,
             "restrictions": restrictions,
@@ -459,7 +484,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_key_response.DescribeKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_key_response
+
+            return capo_location.types.describe_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeKey", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_key_request.DescribeKeyRequest = {
             "key_name": key_name
         }
@@ -521,7 +556,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_key_request.UpdateKeyRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_request
+
+            return capo_location.types.update_key_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_key_response.UpdateKeyResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_key_response
+
+            return capo_location.types.update_key_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateKey", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_key_request.UpdateKeyRequest = {
             "key_name": key_name
         }
@@ -581,7 +635,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKey")
+        )
         input_: capo_location.types.delete_key_request.DeleteKeyRequest = {
             "key_name": key_name
         }
@@ -634,7 +690,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_keys_response.ListKeysResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_keys_response
+
+            return capo_location.types.list_keys_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeys", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_keys_request.ListKeysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -709,7 +774,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_location.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -759,7 +826,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_location.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -810,7 +879,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_location.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -872,7 +943,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_geofence_collection_response.CreateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_geofence_collection_response
+
+            return capo_location.types.create_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_geofence_collection_request.CreateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -930,7 +1013,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_geofence_collection_response.DescribeGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_geofence_collection_response
+
+            return capo_location.types.describe_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeGeofenceCollection", redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.describe_geofence_collection_request.DescribeGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -986,7 +1083,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_geofence_collection_response.UpdateGeofenceCollectionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_geofence_collection_response
+
+            return capo_location.types.update_geofence_collection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateGeofenceCollection", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_geofence_collection_request.UpdateGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -1040,7 +1149,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGeofenceCollection")
+        )
         input_: capo_location.types.delete_geofence_collection_request.DeleteGeofenceCollectionRequest = {
             "collection_name": collection_name
         }
@@ -1089,7 +1200,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofence_collections_response.ListGeofenceCollectionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofence_collections_response
+
+            return (
+                capo_location.types.list_geofence_collections_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofenceCollections", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofence_collections_request.ListGeofenceCollectionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1164,7 +1289,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteGeofence")
+        )
         input_: capo_location.types.batch_delete_geofence_request.BatchDeleteGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_ids": geofence_ids,
@@ -1215,7 +1342,36 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_request
+
+            return (
+                capo_location.types.batch_evaluate_geofences_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_evaluate_geofences_response.BatchEvaluateGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_evaluate_geofences_response
+
+            return (
+                capo_location.types.batch_evaluate_geofences_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchEvaluateGeofences",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_evaluate_geofences_request.BatchEvaluateGeofencesRequest = {
             "collection_name": collection_name,
             "device_position_updates": device_position_updates,
@@ -1266,7 +1422,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_request
+
+            return capo_location.types.batch_put_geofence_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_put_geofence_response.BatchPutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_put_geofence_response
+
+            return capo_location.types.batch_put_geofence_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchPutGeofence",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_put_geofence_request.BatchPutGeofenceRequest = {
             "collection_name": collection_name,
             "entries": entries,
@@ -1329,7 +1510,36 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_request
+
+            return (
+                capo_location.types.forecast_geofence_events_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_location.types.forecast_geofence_events_response.ForecastGeofenceEventsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.forecast_geofence_events_response
+
+            return (
+                capo_location.types.forecast_geofence_events_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ForecastGeofenceEvents",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.forecast_geofence_events_request.ForecastGeofenceEventsRequest = {
             "collection_name": collection_name,
             "device_state": device_state,
@@ -1423,7 +1633,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_geofence_response.GetGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_geofence_response
+
+            return capo_location.types.get_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetGeofence", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_geofence_request.GetGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,
@@ -1476,7 +1696,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_geofences_response.ListGeofencesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_geofences_response
+
+            return capo_location.types.list_geofences_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListGeofences", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_geofences_request.ListGeofencesRequest = {
             "collection_name": collection_name
         }
@@ -1560,7 +1790,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.put_geofence_request.PutGeofenceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_request
+
+            return capo_location.types.put_geofence_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.put_geofence_response.PutGeofenceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.put_geofence_response
+
+            return capo_location.types.put_geofence_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutGeofence", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.put_geofence_request.PutGeofenceRequest = {
             "collection_name": collection_name,
             "geofence_id": geofence_id,
@@ -1627,7 +1876,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.start_job_response.StartJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.start_job_response
+
+            return capo_location.types.start_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.start_job_request.StartJobRequest = {
             "action": action,
             "execution_role_arn": execution_role_arn,
@@ -1687,7 +1945,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_job_response.GetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_job_response
+
+            return capo_location.types.get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.get_job_request.GetJobRequest = {"job_id": job_id}
 
         response = await aexecute_pipeline(
@@ -1736,7 +2003,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_jobs_response.ListJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_jobs_response
+
+            return capo_location.types.list_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_jobs_request.ListJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1810,7 +2086,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_location.types.cancel_job_request.CancelJobRequest = {
             "job_id": job_id
         }
@@ -1869,7 +2147,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_map_request.CreateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_request
+
+            return capo_location.types.create_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_map_response.CreateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_response
+
+            return capo_location.types.create_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_map_request.CreateMapRequest = {
             "map_name": map_name,
             "configuration": configuration,
@@ -1924,7 +2221,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_map_response.DescribeMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_map_response
+
+            return capo_location.types.describe_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMap", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_map_request.DescribeMapRequest = {
             "map_name": map_name
         }
@@ -1982,7 +2289,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_map_request.UpdateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_request
+
+            return capo_location.types.update_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_map_response.UpdateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_response
+
+            return capo_location.types.update_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_map_request.UpdateMapRequest = {
             "map_name": map_name
         }
@@ -2036,7 +2362,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMap")
+        )
         input_: capo_location.types.delete_map_request.DeleteMapRequest = {
             "map_name": map_name
         }
@@ -2085,7 +2413,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_maps_response.ListMapsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_maps_response
+
+            return capo_location.types.list_maps_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMaps", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_maps_request.ListMapsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2162,7 +2499,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_glyphs_request
+
+            return capo_location.types.get_map_glyphs_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMapGlyphs", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest = {
             "map_name": map_name,
             "font_stack": font_stack,
@@ -2218,7 +2565,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_sprites_request.GetMapSpritesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_sprites_request
+
+            return capo_location.types.get_map_sprites_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMapSprites", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_sprites_request.GetMapSpritesRequest = {
             "map_name": map_name,
             "file_name": file_name,
@@ -2271,7 +2628,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_style_descriptor_request
+
+            return (
+                capo_location.types.get_map_style_descriptor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMapStyleDescriptor", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest = {
             "map_name": map_name
         }
@@ -2329,7 +2700,16 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_tile_request.GetMapTileRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_tile_request
+
+            return capo_location.types.get_map_tile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMapTile", redact_input=_redact_input)
+        )
         input_: capo_location.types.get_map_tile_request.GetMapTileRequest = {
             "map_name": map_name,
             "z": z,
@@ -2397,7 +2777,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_place_index_response.CreatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_place_index_response
+
+            return capo_location.types.create_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_place_index_request.CreatePlaceIndexRequest = {
             "index_name": index_name,
             "data_source": data_source,
@@ -2454,7 +2846,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_place_index_response.DescribePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_place_index_response
+
+            return capo_location.types.describe_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_place_index_request.DescribePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -2512,7 +2916,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_place_index_response.UpdatePlaceIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_place_index_response
+
+            return capo_location.types.update_place_index_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePlaceIndex", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_place_index_request.UpdatePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -2566,7 +2982,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlaceIndex")
+        )
         input_: capo_location.types.delete_place_index_request.DeletePlaceIndexRequest = {
             "index_name": index_name
         }
@@ -2615,7 +3033,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_place_indexes_response.ListPlaceIndexesResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_place_indexes_response
+
+            return capo_location.types.list_place_indexes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListPlaceIndexes", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_place_indexes_request.ListPlaceIndexesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2692,7 +3122,26 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_place_request.GetPlaceRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_request
+
+            return capo_location.types.get_place_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.get_place_response.GetPlaceResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_place_response
+
+            return capo_location.types.get_place_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPlace", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.get_place_request.GetPlaceRequest = {
             "index_name": index_name,
             "place_id": place_id,
@@ -2755,7 +3204,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_request
+
+            return capo_location.types.search_place_index_for_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_position_response.SearchPlaceIndexForPositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_position_response
+
+            return capo_location.types.search_place_index_for_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForPosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_position_request.SearchPlaceIndexForPositionRequest = {
             "index_name": index_name,
             "position": position,
@@ -2830,7 +3304,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_request
+
+            return capo_location.types.search_place_index_for_suggestions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_suggestions_response.SearchPlaceIndexForSuggestionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_suggestions_response
+
+            return capo_location.types.search_place_index_for_suggestions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForSuggestions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_suggestions_request.SearchPlaceIndexForSuggestionsRequest = {
             "index_name": index_name,
             "text": text,
@@ -2915,7 +3414,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_request
+
+            return capo_location.types.search_place_index_for_text_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.search_place_index_for_text_response.SearchPlaceIndexForTextResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.search_place_index_for_text_response
+
+            return capo_location.types.search_place_index_for_text_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchPlaceIndexForText",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.search_place_index_for_text_request.SearchPlaceIndexForTextRequest = {
             "index_name": index_name,
             "text": text,
@@ -2989,7 +3513,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_route_calculator_response.CreateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_route_calculator_response
+
+            return (
+                capo_location.types.create_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_route_calculator_request.CreateRouteCalculatorRequest = {
             "calculator_name": calculator_name,
             "data_source": data_source,
@@ -3044,7 +3582,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_route_calculator_response.DescribeRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_route_calculator_response
+
+            return (
+                capo_location.types.describe_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_route_calculator_request.DescribeRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -3098,7 +3650,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_route_calculator_response.UpdateRouteCalculatorResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_route_calculator_response
+
+            return (
+                capo_location.types.update_route_calculator_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateRouteCalculator", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_route_calculator_request.UpdateRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -3150,7 +3716,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRouteCalculator")
+        )
         input_: capo_location.types.delete_route_calculator_request.DeleteRouteCalculatorRequest = {
             "calculator_name": calculator_name
         }
@@ -3199,7 +3767,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_route_calculators_response.ListRouteCalculatorsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_route_calculators_response
+
+            return capo_location.types.list_route_calculators_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRouteCalculators", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_route_calculators_request.ListRouteCalculatorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3310,7 +3890,28 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_request.CalculateRouteRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_request
+
+            return capo_location.types.calculate_route_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_response.CalculateRouteResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_response
+
+            return capo_location.types.calculate_route_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRoute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_request.CalculateRouteRequest = {
             "calculator_name": calculator_name,
             "departure_position": departure_position,
@@ -3408,7 +4009,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_request
+
+            return capo_location.types.calculate_route_matrix_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.calculate_route_matrix_response.CalculateRouteMatrixResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.calculate_route_matrix_response
+
+            return capo_location.types.calculate_route_matrix_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CalculateRouteMatrix",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.calculate_route_matrix_request.CalculateRouteMatrixRequest = {
             "calculator_name": calculator_name,
             "departure_positions": departure_positions,
@@ -3493,7 +4119,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_tracker_response.CreateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_tracker_response
+
+            return capo_location.types.create_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_tracker_request.CreateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -3559,7 +4195,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_tracker_response.DescribeTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_tracker_response
+
+            return capo_location.types.describe_tracker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_tracker_request.DescribeTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -3623,7 +4271,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_tracker_response.UpdateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_tracker_response
+
+            return capo_location.types.update_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_tracker_request.UpdateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -3685,7 +4343,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTracker")
+        )
         input_: capo_location.types.delete_tracker_request.DeleteTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -3734,7 +4394,17 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_trackers_response.ListTrackersResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_trackers_response
+
+            return capo_location.types.list_trackers_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTrackers", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_trackers_request.ListTrackersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3809,7 +4479,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTrackerConsumer")
+        )
         input_: capo_location.types.associate_tracker_consumer_request.AssociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -3860,7 +4532,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDevicePositionHistory")
+        )
         input_: capo_location.types.batch_delete_device_position_history_request.BatchDeleteDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -3911,7 +4585,21 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.batch_get_device_position_response.BatchGetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_get_device_position_response
+
+            return (
+                capo_location.types.batch_get_device_position_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.batch_get_device_position_request.BatchGetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -3962,7 +4650,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_request
+
+            return capo_location.types.batch_update_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_update_device_position_response.BatchUpdateDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_response
+
+            return capo_location.types.batch_update_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchUpdateDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest = {
             "tracker_name": tracker_name,
             "updates": updates,
@@ -4013,7 +4726,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateTrackerConsumer")
+        )
         input_: capo_location.types.disassociate_tracker_consumer_request.DisassociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -4064,7 +4779,19 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_device_position_response.GetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_response
+
+            return capo_location.types.get_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_device_position_request.GetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -4125,7 +4852,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_request
+
+            return capo_location.types.get_device_position_history_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.get_device_position_history_response.GetDevicePositionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_response
+
+            return capo_location.types.get_device_position_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDevicePositionHistory",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -4222,7 +4974,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.list_device_positions_request.ListDevicePositionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_request
+
+            return capo_location.types.list_device_positions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.list_device_positions_response.ListDevicePositionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_response
+
+            return capo_location.types.list_device_positions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDevicePositions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.list_device_positions_request.ListDevicePositionsRequest = {
             "tracker_name": tracker_name
         }
@@ -4307,7 +5084,9 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrackerConsumers")
+        )
         input_: capo_location.types.list_tracker_consumers_request.ListTrackerConsumersRequest = {
             "tracker_name": tracker_name
         }
@@ -4388,7 +5167,32 @@ class AsyncLocationClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.verify_device_position_request.VerifyDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_request
+
+            return capo_location.types.verify_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.verify_device_position_response.VerifyDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_response
+
+            return capo_location.types.verify_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "VerifyDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.verify_device_position_request.VerifyDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_state": device_state,

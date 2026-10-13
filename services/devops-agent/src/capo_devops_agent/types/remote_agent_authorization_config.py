@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#RemoteAgentAuthorizationConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -92,3 +92,32 @@ def deserialize_json(data: dict) -> RemoteAgentAuthorizationConfig:
         raise DeserializationError(
             "RemoteAgentAuthorizationConfig: no recognized variant key"
         )
+
+
+def redact_sensitive(value: RemoteAgentAuthorizationConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "apiKey" in value:
+        import capo_devops_agent.types.remote_agent_api_key_config
+
+        out["apiKey"] = (
+            capo_devops_agent.types.remote_agent_api_key_config.redact_sensitive(
+                value["apiKey"]
+            )
+        )
+    if "oAuthClientCredentials" in value:
+        import capo_devops_agent.types.remote_agent_o_auth_client_credentials_config
+
+        out["oAuthClientCredentials"] = (
+            capo_devops_agent.types.remote_agent_o_auth_client_credentials_config.redact_sensitive(
+                value["oAuthClientCredentials"]
+            )
+        )
+    if "bearerToken" in value:
+        import capo_devops_agent.types.remote_agent_bearer_token_config
+
+        out["bearerToken"] = (
+            capo_devops_agent.types.remote_agent_bearer_token_config.redact_sensitive(
+                value["bearerToken"]
+            )
+        )
+    return out

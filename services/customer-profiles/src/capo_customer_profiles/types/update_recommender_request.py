@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#UpdateRecommenderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,11 @@ def deserialize_json(data: dict) -> UpdateRecommenderRequest:
         )
     if data.get("RecommenderVersionName") is not None:
         out["recommender_version_name"] = data["RecommenderVersionName"]
+    return out
+
+
+def redact_sensitive(value: UpdateRecommenderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#TrainingDataConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,19 @@ def deserialize_json(data: dict) -> TrainingDataConfig:
         out["invocation_logs_config"] = (
             capo_bedrock.types.invocation_logs_config.deserialize_json(
                 data["invocationLogsConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TrainingDataConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invocation_logs_config" in value:
+        import capo_bedrock.types.invocation_logs_config
+
+        out["invocation_logs_config"] = (
+            capo_bedrock.types.invocation_logs_config.redact_sensitive(
+                value["invocation_logs_config"]
             )
         )
     return out

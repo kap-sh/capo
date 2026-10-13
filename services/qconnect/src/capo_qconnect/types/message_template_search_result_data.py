@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageTemplateSearchResultData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -209,4 +209,27 @@ def deserialize_json(data: dict) -> MessageTemplateSearchResultData:
         import capo_qconnect.types.tags
 
         out["tags"] = capo_qconnect.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: MessageTemplateSearchResultData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel" in value:
+        out["channel"] = "*** Sensitive Data Redacted ***"
+    if "source_configuration_summary" in value:
+        import capo_qconnect.types.message_template_source_configuration_summary
+
+        out["source_configuration_summary"] = (
+            capo_qconnect.types.message_template_source_configuration_summary.redact_sensitive(
+                value["source_configuration_summary"]
+            )
+        )
+    if "grouping_configuration" in value:
+        import capo_qconnect.types.grouping_configuration
+
+        out["grouping_configuration"] = (
+            capo_qconnect.types.grouping_configuration.redact_sensitive(
+                value["grouping_configuration"]
+            )
+        )
     return out

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -104,7 +105,28 @@ class Notebook:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_notebook_input.CreateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_input
+
+            return capo_datazone.types.create_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_notebook_output.CreateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_output
+
+            return capo_datazone.types.create_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_notebook_input.CreateNotebookInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -167,7 +189,17 @@ class Notebook:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_output.GetNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_output
+
+            return capo_datazone.types.get_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebook", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_input.GetNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -239,7 +271,28 @@ class Notebook:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_notebook_input.UpdateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_input
+
+            return capo_datazone.types.update_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_notebook_output.UpdateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_output
+
+            return capo_datazone.types.update_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_notebook_input.UpdateNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -309,7 +362,9 @@ class Notebook:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNotebook")
+        )
         input_: capo_datazone.types.delete_notebook_input.DeleteNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -373,7 +428,17 @@ class Notebook:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_notebooks_output.ListNotebooksOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_notebooks_output
+
+            return capo_datazone.types.list_notebooks_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNotebooks", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_notebooks_input.ListNotebooksInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -456,7 +521,28 @@ class AsyncNotebook:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_notebook_input.CreateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_input
+
+            return capo_datazone.types.create_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.create_notebook_output.CreateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_notebook_output
+
+            return capo_datazone.types.create_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_notebook_input.CreateNotebookInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,
@@ -520,7 +606,17 @@ class AsyncNotebook:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_notebook_output.GetNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_notebook_output
+
+            return capo_datazone.types.get_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNotebook", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_notebook_input.GetNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -593,7 +689,28 @@ class AsyncNotebook:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.update_notebook_input.UpdateNotebookInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_input
+
+            return capo_datazone.types.update_notebook_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_datazone.types.update_notebook_output.UpdateNotebookOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.update_notebook_output
+
+            return capo_datazone.types.update_notebook_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNotebook",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.update_notebook_input.UpdateNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -664,7 +781,9 @@ class AsyncNotebook:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNotebook")
+        )
         input_: capo_datazone.types.delete_notebook_input.DeleteNotebookInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -729,7 +848,17 @@ class AsyncNotebook:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.list_notebooks_output.ListNotebooksOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.list_notebooks_output
+
+            return capo_datazone.types.list_notebooks_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNotebooks", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.list_notebooks_input.ListNotebooksInput = {
             "domain_identifier": domain_identifier,
             "owning_project_identifier": owning_project_identifier,

@@ -25,7 +25,9 @@ from capo_finspace._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -265,7 +267,9 @@ class AsyncfinspaceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncfinspaceClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncfinspaceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncfinspaceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -273,8 +277,10 @@ class AsyncfinspaceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -351,7 +357,19 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_finspace.types.create_environment_request.CreateEnvironmentRequest",
+        ) -> dict[str, Any]:
+            import capo_finspace.types.create_environment_request
+
+            return capo_finspace.types.create_environment_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEnvironment", redact_input=_redact_input),
+        )
         input_: capo_finspace.types.create_environment_request.CreateEnvironmentRequest = {
             "name": name
         }
@@ -421,7 +439,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxChangeset")
+        )
         input_: capo_finspace.types.create_kx_changeset_request.CreateKxChangesetRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -540,7 +560,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxCluster")
+        )
         input_: capo_finspace.types.create_kx_cluster_request.CreateKxClusterRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -635,7 +657,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxDatabase")
+        )
         input_: capo_finspace.types.create_kx_database_request.CreateKxDatabaseRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -718,7 +742,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxDataview")
+        )
         input_: capo_finspace.types.create_kx_dataview_request.CreateKxDataviewRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -796,7 +822,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxEnvironment")
+        )
         input_: capo_finspace.types.create_kx_environment_request.CreateKxEnvironmentRequest = {
             "name": name,
             "kms_key_id": kms_key_id,
@@ -864,7 +892,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxScalingGroup")
+        )
         input_: capo_finspace.types.create_kx_scaling_group_request.CreateKxScalingGroupRequest = {
             "client_token": client_token,
             "environment_id": environment_id,
@@ -929,7 +959,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxUser")
+        )
         input_: capo_finspace.types.create_kx_user_request.CreateKxUserRequest = {
             "environment_id": environment_id,
             "user_name": user_name,
@@ -1005,7 +1037,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateKxVolume")
+        )
         input_: capo_finspace.types.create_kx_volume_request.CreateKxVolumeRequest = {
             "environment_id": environment_id,
             "volume_type": volume_type,
@@ -1066,7 +1100,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEnvironment")
+        )
         input_: capo_finspace.types.delete_environment_request.DeleteEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1122,7 +1158,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxCluster")
+        )
         input_: capo_finspace.types.delete_kx_cluster_request.DeleteKxClusterRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -1178,7 +1216,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxClusterNode")
+        )
         input_: capo_finspace.types.delete_kx_cluster_node_request.DeleteKxClusterNodeRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -1233,7 +1273,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxDatabase")
+        )
         input_: capo_finspace.types.delete_kx_database_request.DeleteKxDatabaseRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -1290,7 +1332,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxDataview")
+        )
         input_: capo_finspace.types.delete_kx_dataview_request.DeleteKxDataviewRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -1346,7 +1390,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxEnvironment")
+        )
         input_: capo_finspace.types.delete_kx_environment_request.DeleteKxEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1405,7 +1451,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxScalingGroup")
+        )
         input_: capo_finspace.types.delete_kx_scaling_group_request.DeleteKxScalingGroupRequest = {
             "environment_id": environment_id,
             "scaling_group_name": scaling_group_name,
@@ -1462,7 +1510,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxUser")
+        )
         input_: capo_finspace.types.delete_kx_user_request.DeleteKxUserRequest = {
             "user_name": user_name,
             "environment_id": environment_id,
@@ -1522,7 +1572,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteKxVolume")
+        )
         input_: capo_finspace.types.delete_kx_volume_request.DeleteKxVolumeRequest = {
             "environment_id": environment_id,
             "volume_name": volume_name,
@@ -1573,7 +1625,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_finspace.types.get_environment_request.GetEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1625,7 +1679,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxChangeset")
+        )
         input_: capo_finspace.types.get_kx_changeset_request.GetKxChangesetRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -1679,7 +1735,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxCluster")
+        )
         input_: capo_finspace.types.get_kx_cluster_request.GetKxClusterRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -1732,7 +1790,21 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_finspace.types.get_kx_connection_string_response.GetKxConnectionStringResponse",
+        ) -> dict[str, Any]:
+            import capo_finspace.types.get_kx_connection_string_response
+
+            return (
+                capo_finspace.types.get_kx_connection_string_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetKxConnectionString", redact_output=_redact_output),
+        )
         input_: capo_finspace.types.get_kx_connection_string_request.GetKxConnectionStringRequest = {
             "user_arn": user_arn,
             "environment_id": environment_id,
@@ -1784,7 +1856,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxDatabase")
+        )
         input_: capo_finspace.types.get_kx_database_request.GetKxDatabaseRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -1837,7 +1911,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxDataview")
+        )
         input_: capo_finspace.types.get_kx_dataview_request.GetKxDataviewRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -1887,7 +1963,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxEnvironment")
+        )
         input_: capo_finspace.types.get_kx_environment_request.GetKxEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -1939,7 +2017,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxScalingGroup")
+        )
         input_: capo_finspace.types.get_kx_scaling_group_request.GetKxScalingGroupRequest = {
             "environment_id": environment_id,
             "scaling_group_name": scaling_group_name,
@@ -1990,7 +2070,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxUser")
+        )
         input_: capo_finspace.types.get_kx_user_request.GetKxUserRequest = {
             "user_name": user_name,
             "environment_id": environment_id,
@@ -2043,7 +2125,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetKxVolume")
+        )
         input_: capo_finspace.types.get_kx_volume_request.GetKxVolumeRequest = {
             "environment_id": environment_id,
             "volume_name": volume_name,
@@ -2094,7 +2178,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_finspace.types.list_environments_request.ListEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2152,7 +2238,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxChangesets")
+        )
         input_: capo_finspace.types.list_kx_changesets_request.ListKxChangesetsRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -2241,7 +2329,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxClusterNodes")
+        )
         input_: capo_finspace.types.list_kx_cluster_nodes_request.ListKxClusterNodesRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -2331,7 +2421,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxClusters")
+        )
         input_: capo_finspace.types.list_kx_clusters_request.ListKxClustersRequest = {
             "environment_id": environment_id
         }
@@ -2391,7 +2483,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxDatabases")
+        )
         input_: capo_finspace.types.list_kx_databases_request.ListKxDatabasesRequest = {
             "environment_id": environment_id
         }
@@ -2474,7 +2568,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxDataviews")
+        )
         input_: capo_finspace.types.list_kx_dataviews_request.ListKxDataviewsRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -2554,7 +2650,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxEnvironments")
+        )
         input_: capo_finspace.types.list_kx_environments_request.ListKxEnvironmentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2635,7 +2733,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxScalingGroups")
+        )
         input_: capo_finspace.types.list_kx_scaling_groups_request.ListKxScalingGroupsRequest = {
             "environment_id": environment_id
         }
@@ -2716,7 +2816,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxUsers")
+        )
         input_: capo_finspace.types.list_kx_users_request.ListKxUsersRequest = {
             "environment_id": environment_id
         }
@@ -2778,7 +2880,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKxVolumes")
+        )
         input_: capo_finspace.types.list_kx_volumes_request.ListKxVolumesRequest = {
             "environment_id": environment_id
         }
@@ -2830,7 +2934,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_finspace.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2878,7 +2984,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_finspace.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2927,7 +3035,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_finspace.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2987,7 +3097,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEnvironment")
+        )
         input_: capo_finspace.types.update_environment_request.UpdateEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -3064,7 +3176,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxClusterCodeConfiguration")
+        )
         input_: capo_finspace.types.update_kx_cluster_code_configuration_request.UpdateKxClusterCodeConfigurationRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -3137,7 +3251,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxClusterDatabases")
+        )
         input_: capo_finspace.types.update_kx_cluster_databases_request.UpdateKxClusterDatabasesRequest = {
             "environment_id": environment_id,
             "cluster_name": cluster_name,
@@ -3199,7 +3315,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxDatabase")
+        )
         input_: capo_finspace.types.update_kx_database_request.UpdateKxDatabaseRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -3267,7 +3385,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxDataview")
+        )
         input_: capo_finspace.types.update_kx_dataview_request.UpdateKxDataviewRequest = {
             "environment_id": environment_id,
             "database_name": database_name,
@@ -3335,7 +3455,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxEnvironment")
+        )
         input_: capo_finspace.types.update_kx_environment_request.UpdateKxEnvironmentRequest = {
             "environment_id": environment_id
         }
@@ -3401,7 +3523,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxEnvironmentNetwork")
+        )
         input_: capo_finspace.types.update_kx_environment_network_request.UpdateKxEnvironmentNetworkRequest = {
             "environment_id": environment_id
         }
@@ -3464,7 +3588,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxUser")
+        )
         input_: capo_finspace.types.update_kx_user_request.UpdateKxUserRequest = {
             "environment_id": environment_id,
             "user_name": user_name,
@@ -3531,7 +3657,9 @@ class AsyncfinspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateKxVolume")
+        )
         input_: capo_finspace.types.update_kx_volume_request.UpdateKxVolumeRequest = {
             "environment_id": environment_id,
             "volume_name": volume_name,

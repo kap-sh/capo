@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#UpdateActRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_json(data: dict) -> UpdateActRequest:
         import capo_nova_act.types.act_error
 
         out["error"] = capo_nova_act.types.act_error.deserialize_json(data["error"])
+    return out
+
+
+def redact_sensitive(value: UpdateActRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error" in value:
+        import capo_nova_act.types.act_error
+
+        out["error"] = capo_nova_act.types.act_error.redact_sensitive(value["error"])
     return out

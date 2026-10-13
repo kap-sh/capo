@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#VirtualMFADevice``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,13 @@ def deserialize_query(el: Element) -> VirtualMFADevice:
         import capo_iam.types.tag_list_type
 
         out["tags"] = capo_iam.types.tag_list_type.deserialize_query(child_tags)
+    return out
+
+
+def redact_sensitive(value: VirtualMFADevice) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "base32_string_seed" in value:
+        out["base32_string_seed"] = "*** Sensitive Data Redacted ***"
+    if "qr_code_png" in value:
+        out["qr_code_png"] = "*** Sensitive Data Redacted ***"
     return out

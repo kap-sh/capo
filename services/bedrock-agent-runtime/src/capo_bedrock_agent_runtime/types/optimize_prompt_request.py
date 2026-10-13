@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#OptimizePromptRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_json(data: dict) -> OptimizePromptRequest:
         out["target_model_id"] = data["targetModelId"]
     else:
         raise DeserializationError("OptimizePromptRequest.target_model_id required")
+    return out
+
+
+def redact_sensitive(value: OptimizePromptRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        import capo_bedrock_agent_runtime.types.input_prompt
+
+        out["input"] = capo_bedrock_agent_runtime.types.input_prompt.redact_sensitive(
+            value["input"]
+        )
     return out

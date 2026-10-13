@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptFlowNodeSourceConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -70,3 +70,16 @@ def deserialize_json(data: dict) -> PromptFlowNodeSourceConfiguration:
         raise DeserializationError(
             "PromptFlowNodeSourceConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: PromptFlowNodeSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline" in value:
+        import capo_bedrock_agent.types.prompt_flow_node_inline_configuration
+
+        out["inline"] = (
+            capo_bedrock_agent.types.prompt_flow_node_inline_configuration.redact_sensitive(
+                value["inline"]
+            )
+        )
+    return out

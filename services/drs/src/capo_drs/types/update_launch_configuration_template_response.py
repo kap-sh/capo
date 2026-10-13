@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#UpdateLaunchConfigurationTemplateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,21 @@ def deserialize_json(data: dict) -> UpdateLaunchConfigurationTemplateResponse:
         out["launch_configuration_template"] = (
             capo_drs.types.launch_configuration_template.deserialize_json(
                 data["launchConfigurationTemplate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: UpdateLaunchConfigurationTemplateResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_configuration_template" in value:
+        import capo_drs.types.launch_configuration_template
+
+        out["launch_configuration_template"] = (
+            capo_drs.types.launch_configuration_template.redact_sensitive(
+                value["launch_configuration_template"]
             )
         )
     return out

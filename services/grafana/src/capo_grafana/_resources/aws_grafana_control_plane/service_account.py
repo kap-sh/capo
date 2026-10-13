@@ -7,6 +7,7 @@ import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class ServiceAccount:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.create_workspace_service_account_request.CreateWorkspaceServiceAccountRequest = {
             "name": name,
             "grafana_role": grafana_role,
@@ -128,7 +131,9 @@ class ServiceAccount:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_request.DeleteWorkspaceServiceAccountRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,
@@ -183,7 +188,9 @@ class ServiceAccount:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccounts")
+        )
         input_: capo_grafana.types.list_workspace_service_accounts_request.ListWorkspaceServiceAccountsRequest = {
             "workspace_id": workspace_id
         }
@@ -246,7 +253,9 @@ class AsyncServiceAccount:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.create_workspace_service_account_request.CreateWorkspaceServiceAccountRequest = {
             "name": name,
             "grafana_role": grafana_role,
@@ -299,7 +308,9 @@ class AsyncServiceAccount:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccount")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_request.DeleteWorkspaceServiceAccountRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,
@@ -355,7 +366,9 @@ class AsyncServiceAccount:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccounts")
+        )
         input_: capo_grafana.types.list_workspace_service_accounts_request.ListWorkspaceServiceAccountsRequest = {
             "workspace_id": workspace_id
         }

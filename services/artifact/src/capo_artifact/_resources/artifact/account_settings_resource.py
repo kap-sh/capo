@@ -7,6 +7,7 @@ import capo_artifact._auth._sigv4
 from capo_artifact._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class AccountSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_artifact.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = execute_pipeline(
@@ -121,7 +124,9 @@ class AccountSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAccountSettings")
+        )
         input_: capo_artifact.types.put_account_settings_request.PutAccountSettingsRequest = {}
         if notification_subscription_status is not None:
             input_["notification_subscription_status"] = (
@@ -178,7 +183,9 @@ class AsyncAccountSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_artifact.types.get_account_settings_request.GetAccountSettingsRequest = {}
 
         response = await aexecute_pipeline(
@@ -234,7 +241,9 @@ class AsyncAccountSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAccountSettings")
+        )
         input_: capo_artifact.types.put_account_settings_request.PutAccountSettingsRequest = {}
         if notification_subscription_status is not None:
             input_["notification_subscription_status"] = (

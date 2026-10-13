@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#UpdateRelatedItemResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -121,5 +121,28 @@ def deserialize_json(data: dict) -> UpdateRelatedItemResponse:
 
         out["created_by"] = capo_connectcases.types.user_union.deserialize_json(
             data["createdBy"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateRelatedItemResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_connectcases.types.related_item_content
+
+        out["content"] = capo_connectcases.types.related_item_content.redact_sensitive(
+            value["content"]
+        )
+    if "last_updated_user" in value:
+        import capo_connectcases.types.user_union
+
+        out["last_updated_user"] = capo_connectcases.types.user_union.redact_sensitive(
+            value["last_updated_user"]
+        )
+    if "created_by" in value:
+        import capo_connectcases.types.user_union
+
+        out["created_by"] = capo_connectcases.types.user_union.redact_sensitive(
+            value["created_by"]
         )
     return out

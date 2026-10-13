@@ -24,7 +24,9 @@ from capo_route53_recovery_cluster._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -119,7 +121,9 @@ class AsyncRoute53RecoveryClusterClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncRoute53RecoveryClusterClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncRoute53RecoveryClusterClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncRoute53RecoveryClusterClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -127,8 +131,10 @@ class AsyncRoute53RecoveryClusterClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -183,7 +189,9 @@ class AsyncRoute53RecoveryClusterClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRoutingControlState")
+        )
         input_: capo_route53_recovery_cluster.types.get_routing_control_state_request.GetRoutingControlStateRequest = {
             "routing_control_arn": routing_control_arn
         }
@@ -242,7 +250,9 @@ class AsyncRoute53RecoveryClusterClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoutingControls")
+        )
         input_: capo_route53_recovery_cluster.types.list_routing_controls_request.ListRoutingControlsRequest = {}
         if control_panel_arn is not None:
             input_["control_panel_arn"] = control_panel_arn
@@ -331,7 +341,9 @@ class AsyncRoute53RecoveryClusterClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingControlState")
+        )
         input_: capo_route53_recovery_cluster.types.update_routing_control_state_request.UpdateRoutingControlStateRequest = {
             "routing_control_arn": routing_control_arn,
             "routing_control_state": routing_control_state,
@@ -389,7 +401,9 @@ class AsyncRoute53RecoveryClusterClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingControlStates")
+        )
         input_: capo_route53_recovery_cluster.types.update_routing_control_states_request.UpdateRoutingControlStatesRequest = {
             "update_routing_control_state_entries": update_routing_control_state_entries
         }

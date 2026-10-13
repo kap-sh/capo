@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#GetFormTypeOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -133,5 +133,22 @@ def deserialize_json(data: dict) -> GetFormTypeOutput:
 
         out["imports"] = capo_datazone.types.import_list.deserialize_json(
             data["imports"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetFormTypeOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "model" in value:
+        out["model"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "imports" in value:
+        import capo_datazone.types.import_list
+
+        out["imports"] = capo_datazone.types.import_list.redact_sensitive(
+            value["imports"]
         )
     return out

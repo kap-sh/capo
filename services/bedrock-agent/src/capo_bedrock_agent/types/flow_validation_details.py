@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#FlowValidationDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -748,3 +748,16 @@ def deserialize_json(data: dict) -> FlowValidationDetails:
         }
     else:
         raise DeserializationError("FlowValidationDetails: no recognized variant key")
+
+
+def redact_sensitive(value: FlowValidationDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "duplicateConditionExpression" in value:
+        import capo_bedrock_agent.types.duplicate_condition_expression_flow_validation_details
+
+        out["duplicateConditionExpression"] = (
+            capo_bedrock_agent.types.duplicate_condition_expression_flow_validation_details.redact_sensitive(
+                value["duplicateConditionExpression"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#BusinessVerificationDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_aws_json_1_0(data: dict) -> BusinessVerificationDetails:
         raise DeserializationError("BusinessVerificationDetails.country_code required")
     if data.get("JurisdictionOfIncorporation") is not None:
         out["jurisdiction_of_incorporation"] = data["JurisdictionOfIncorporation"]
+    return out
+
+
+def redact_sensitive(value: BusinessVerificationDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "legal_name" in value:
+        out["legal_name"] = "*** Sensitive Data Redacted ***"
+    if "registration_id" in value:
+        out["registration_id"] = "*** Sensitive Data Redacted ***"
     return out

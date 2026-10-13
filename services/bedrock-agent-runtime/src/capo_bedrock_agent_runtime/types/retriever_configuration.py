@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RetrieverConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> RetrieverConfiguration:
         }
     else:
         raise DeserializationError("RetrieverConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: RetrieverConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledgeBase" in value:
+        import capo_bedrock_agent_runtime.types.knowledge_base_retriever_configuration
+
+        out["knowledgeBase"] = (
+            capo_bedrock_agent_runtime.types.knowledge_base_retriever_configuration.redact_sensitive(
+                value["knowledgeBase"]
+            )
+        )
+    return out

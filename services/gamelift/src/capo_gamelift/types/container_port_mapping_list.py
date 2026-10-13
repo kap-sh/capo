@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#ContainerPortMappingList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.container_port_mapping
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> ContainerPortMappingList:
             capo_gamelift.types.container_port_mapping.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: ContainerPortMappingList) -> list[Any]:
+    import capo_gamelift.types.container_port_mapping
+
+    return [
+        capo_gamelift.types.container_port_mapping.redact_sensitive(item)
+        for item in value
+    ]

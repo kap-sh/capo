@@ -8,6 +8,7 @@ import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class DataSourceRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDataSourceRun")
+        )
         input_: capo_datazone.types.start_data_source_run_input.StartDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,
@@ -136,7 +139,9 @@ class DataSourceRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSourceRun")
+        )
         input_: capo_datazone.types.get_data_source_run_input.GetDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -199,7 +204,9 @@ class DataSourceRun:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSourceRuns")
+        )
         input_: capo_datazone.types.list_data_source_runs_input.ListDataSourceRunsInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,
@@ -266,7 +273,9 @@ class AsyncDataSourceRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDataSourceRun")
+        )
         input_: capo_datazone.types.start_data_source_run_input.StartDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,
@@ -323,7 +332,9 @@ class AsyncDataSourceRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSourceRun")
+        )
         input_: capo_datazone.types.get_data_source_run_input.GetDataSourceRunInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -387,7 +398,9 @@ class AsyncDataSourceRun:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSourceRuns")
+        )
         input_: capo_datazone.types.list_data_source_runs_input.ListDataSourceRunsInput = {
             "domain_identifier": domain_identifier,
             "data_source_identifier": data_source_identifier,

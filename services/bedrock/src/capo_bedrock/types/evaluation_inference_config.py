@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#EvaluationInferenceConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,20 @@ def deserialize_json(data: dict) -> EvaluationInferenceConfig:
         raise DeserializationError(
             "EvaluationInferenceConfig: no recognized variant key"
         )
+
+
+def redact_sensitive(value: EvaluationInferenceConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "models" in value:
+        import capo_bedrock.types.evaluation_model_configs
+
+        out["models"] = capo_bedrock.types.evaluation_model_configs.redact_sensitive(
+            value["models"]
+        )
+    if "ragConfigs" in value:
+        import capo_bedrock.types.rag_configs
+
+        out["ragConfigs"] = capo_bedrock.types.rag_configs.redact_sensitive(
+            value["ragConfigs"]
+        )
+    return out

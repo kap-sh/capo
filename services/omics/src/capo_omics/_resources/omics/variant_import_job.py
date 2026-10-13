@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class VariantImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVariantImportJob")
+        )
         input_: capo_omics.types.start_variant_import_request.StartVariantImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -142,7 +145,9 @@ class VariantImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVariantImportJob")
+        )
         input_: capo_omics.types.get_variant_import_request.GetVariantImportRequest = {
             "job_id": job_id
         }
@@ -189,7 +194,9 @@ class VariantImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelVariantImportJob")
+        )
         input_: capo_omics.types.cancel_variant_import_request.CancelVariantImportRequest = {
             "job_id": job_id
         }
@@ -244,7 +251,9 @@ class VariantImportJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVariantImportJobs")
+        )
         input_: capo_omics.types.list_variant_import_jobs_request.ListVariantImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -316,7 +325,9 @@ class AsyncVariantImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartVariantImportJob")
+        )
         input_: capo_omics.types.start_variant_import_request.StartVariantImportRequest = {
             "destination_name": destination_name,
             "role_arn": role_arn,
@@ -370,7 +381,9 @@ class AsyncVariantImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVariantImportJob")
+        )
         input_: capo_omics.types.get_variant_import_request.GetVariantImportRequest = {
             "job_id": job_id
         }
@@ -418,7 +431,9 @@ class AsyncVariantImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelVariantImportJob")
+        )
         input_: capo_omics.types.cancel_variant_import_request.CancelVariantImportRequest = {
             "job_id": job_id
         }
@@ -474,7 +489,9 @@ class AsyncVariantImportJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVariantImportJobs")
+        )
         input_: capo_omics.types.list_variant_import_jobs_request.ListVariantImportJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

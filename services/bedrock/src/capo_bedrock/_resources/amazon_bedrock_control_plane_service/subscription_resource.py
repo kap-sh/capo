@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class SubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.create_foundation_model_agreement_request.CreateFoundationModelAgreementRequest = {
             "offer_token": offer_token,
             "model_id": model_id,
@@ -122,7 +125,9 @@ class SubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.delete_foundation_model_agreement_request.DeleteFoundationModelAgreementRequest = {
             "model_id": model_id
         }
@@ -169,7 +174,9 @@ class SubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFoundationModelAvailability")
+        )
         input_: capo_bedrock.types.get_foundation_model_availability_request.GetFoundationModelAvailabilityRequest = {
             "model_id": model_id
         }
@@ -218,7 +225,9 @@ class SubscriptionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFoundationModelAgreementOffers")
+        )
         input_: capo_bedrock.types.list_foundation_model_agreement_offers_request.ListFoundationModelAgreementOffersRequest = {
             "model_id": model_id
         }
@@ -276,7 +285,9 @@ class AsyncSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.create_foundation_model_agreement_request.CreateFoundationModelAgreementRequest = {
             "offer_token": offer_token,
             "model_id": model_id,
@@ -326,7 +337,9 @@ class AsyncSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFoundationModelAgreement")
+        )
         input_: capo_bedrock.types.delete_foundation_model_agreement_request.DeleteFoundationModelAgreementRequest = {
             "model_id": model_id
         }
@@ -374,7 +387,9 @@ class AsyncSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFoundationModelAvailability")
+        )
         input_: capo_bedrock.types.get_foundation_model_availability_request.GetFoundationModelAvailabilityRequest = {
             "model_id": model_id
         }
@@ -424,7 +439,9 @@ class AsyncSubscriptionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFoundationModelAgreementOffers")
+        )
         input_: capo_bedrock.types.list_foundation_model_agreement_offers_request.ListFoundationModelAgreementOffersRequest = {
             "model_id": model_id
         }

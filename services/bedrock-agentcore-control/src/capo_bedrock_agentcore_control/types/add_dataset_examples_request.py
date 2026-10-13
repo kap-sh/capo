@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#AddDatasetExamplesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,17 @@ def deserialize_json(data: dict) -> AddDatasetExamplesRequest:
         )
     else:
         raise DeserializationError("AddDatasetExamplesRequest.source required")
+    return out
+
+
+def redact_sensitive(value: AddDatasetExamplesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_bedrock_agentcore_control.types.data_source_type
+
+        out["source"] = (
+            capo_bedrock_agentcore_control.types.data_source_type.redact_sensitive(
+                value["source"]
+            )
+        )
     return out

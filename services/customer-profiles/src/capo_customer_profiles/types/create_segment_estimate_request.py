@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#CreateSegmentEstimateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,19 @@ def deserialize_json(data: dict) -> CreateSegmentEstimateRequest:
         )
     if data.get("SegmentSqlQuery") is not None:
         out["segment_sql_query"] = data["SegmentSqlQuery"]
+    return out
+
+
+def redact_sensitive(value: CreateSegmentEstimateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "segment_query" in value:
+        import capo_customer_profiles.types.segment_group_structure
+
+        out["segment_query"] = (
+            capo_customer_profiles.types.segment_group_structure.redact_sensitive(
+                value["segment_query"]
+            )
+        )
+    if "segment_sql_query" in value:
+        out["segment_sql_query"] = "*** Sensitive Data Redacted ***"
     return out

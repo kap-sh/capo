@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#PardotConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,21 @@ def deserialize_json(data: dict) -> PardotConnectorProfileCredentials:
         )
     if data.get("clientCredentialsArn") is not None:
         out["client_credentials_arn"] = data["clientCredentialsArn"]
+    return out
+
+
+def redact_sensitive(value: PardotConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
+    if "o_auth_request" in value:
+        import capo_appflow.types.connector_o_auth_request
+
+        out["o_auth_request"] = (
+            capo_appflow.types.connector_o_auth_request.redact_sensitive(
+                value["o_auth_request"]
+            )
+        )
+    if "client_credentials_arn" in value:
+        out["client_credentials_arn"] = "*** Sensitive Data Redacted ***"
     return out

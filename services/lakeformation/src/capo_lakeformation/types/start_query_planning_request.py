@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lakeformation#StartQueryPlanningRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> StartQueryPlanningRequest:
         out["query_string"] = data["QueryString"]
     else:
         raise DeserializationError("StartQueryPlanningRequest.query_string required")
+    return out
+
+
+def redact_sensitive(value: StartQueryPlanningRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_string" in value:
+        out["query_string"] = "*** Sensitive Data Redacted ***"
     return out

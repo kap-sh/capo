@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ListPolicyEnginesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_json(data: dict) -> ListPolicyEnginesResponse:
         raise DeserializationError("ListPolicyEnginesResponse.policy_engines required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListPolicyEnginesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy_engines" in value:
+        import capo_bedrock_agentcore_control.types.policy_engines
+
+        out["policy_engines"] = (
+            capo_bedrock_agentcore_control.types.policy_engines.redact_sensitive(
+                value["policy_engines"]
+            )
+        )
     return out

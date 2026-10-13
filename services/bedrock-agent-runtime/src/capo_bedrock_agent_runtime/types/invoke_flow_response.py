@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeFlowResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -18,3 +18,10 @@ class InvokeFlowResponse(TypedDict, closed=True):
         "capo_bedrock_agent_runtime.types.flow_execution_id.FlowExecutionId"
     ]
     """<p>The unique identifier for the current flow execution.</p>"""
+
+
+def redact_sensitive(value: InvokeFlowResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "response_stream" in value:
+        out["response_stream"] = "*** Streaming Data Redacted ***"
+    return out

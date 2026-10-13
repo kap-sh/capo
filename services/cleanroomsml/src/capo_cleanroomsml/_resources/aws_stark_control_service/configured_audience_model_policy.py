@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -78,7 +79,9 @@ class ConfiguredAudienceModelPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.put_configured_audience_model_policy_request.PutConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn,
             "configured_audience_model_policy": configured_audience_model_policy,
@@ -129,7 +132,9 @@ class ConfiguredAudienceModelPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_policy_request.GetConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -173,7 +178,9 @@ class ConfiguredAudienceModelPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_policy_request.DeleteConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -233,7 +240,9 @@ class AsyncConfiguredAudienceModelPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.put_configured_audience_model_policy_request.PutConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn,
             "configured_audience_model_policy": configured_audience_model_policy,
@@ -285,7 +294,9 @@ class AsyncConfiguredAudienceModelPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.get_configured_audience_model_policy_request.GetConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }
@@ -330,7 +341,9 @@ class AsyncConfiguredAudienceModelPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredAudienceModelPolicy")
+        )
         input_: capo_cleanroomsml.types.delete_configured_audience_model_policy_request.DeleteConfiguredAudienceModelPolicyRequest = {
             "configured_audience_model_arn": configured_audience_model_arn
         }

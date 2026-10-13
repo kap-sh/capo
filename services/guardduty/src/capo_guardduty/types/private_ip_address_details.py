@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#PrivateIpAddressDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_json(data: dict) -> PrivateIpAddressDetails:
         out["private_dns_name"] = data["privateDnsName"]
     if data.get("privateIpAddress") is not None:
         out["private_ip_address"] = data["privateIpAddress"]
+    return out
+
+
+def redact_sensitive(value: PrivateIpAddressDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_ip_address" in value:
+        out["private_ip_address"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,10 +22,12 @@ from capo_supportauthz._pagination import resolve_path as _resolve_path
 from capo_supportauthz._services._aws_config import aws_config
 from capo_supportauthz._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -142,7 +144,9 @@ class SupportAuthZClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SupportAuthZClientConfig] = None
+        self,
+        config_overrides: Optional[SupportAuthZClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SupportAuthZClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -150,8 +154,10 @@ class SupportAuthZClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -220,7 +226,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSupportPermit")
+        )
         input_: capo_supportauthz.types.create_support_permit_input.CreateSupportPermitInput = {
             "permit": permit,
             "name": name,
@@ -280,7 +288,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSupportPermit")
+        )
         input_: capo_supportauthz.types.delete_support_permit_input.DeleteSupportPermitInput = {
             "support_permit_identifier": support_permit_identifier
         }
@@ -327,7 +337,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAction")
+        )
         input_: capo_supportauthz.types.get_action_input.GetActionInput = {
             "action": action
         }
@@ -374,7 +386,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSupportPermit")
+        )
         input_: capo_supportauthz.types.get_support_permit_input.GetSupportPermitInput = {
             "support_permit_identifier": support_permit_identifier
         }
@@ -424,7 +438,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActions")
+        )
         input_: capo_supportauthz.types.list_actions_input.ListActionsInput = {
             "service": service
         }
@@ -503,7 +519,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSupportPermitRequests")
+        )
         input_: capo_supportauthz.types.list_support_permit_requests_input.ListSupportPermitRequestsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -586,7 +604,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSupportPermits")
+        )
         input_: capo_supportauthz.types.list_support_permits_input.ListSupportPermitsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -664,7 +684,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_supportauthz.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -712,7 +734,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectSupportPermitRequest")
+        )
         input_: capo_supportauthz.types.reject_support_permit_request_input.RejectSupportPermitRequestInput = {
             "request_arn": request_arn
         }
@@ -761,7 +785,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_supportauthz.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -811,7 +837,9 @@ class SupportAuthZClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_supportauthz.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

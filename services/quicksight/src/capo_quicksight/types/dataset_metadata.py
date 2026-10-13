@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DatasetMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -132,6 +132,39 @@ def deserialize_json(data: dict) -> DatasetMetadata:
         out["named_entities"] = (
             capo_quicksight.types.topic_named_entities.deserialize_json(
                 data["NamedEntities"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DatasetMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_quicksight.types.topic_filters
+
+        out["filters"] = capo_quicksight.types.topic_filters.redact_sensitive(
+            value["filters"]
+        )
+    if "columns" in value:
+        import capo_quicksight.types.topic_columns
+
+        out["columns"] = capo_quicksight.types.topic_columns.redact_sensitive(
+            value["columns"]
+        )
+    if "calculated_fields" in value:
+        import capo_quicksight.types.topic_calculated_fields
+
+        out["calculated_fields"] = (
+            capo_quicksight.types.topic_calculated_fields.redact_sensitive(
+                value["calculated_fields"]
+            )
+        )
+    if "named_entities" in value:
+        import capo_quicksight.types.topic_named_entities
+
+        out["named_entities"] = (
+            capo_quicksight.types.topic_named_entities.redact_sensitive(
+                value["named_entities"]
             )
         )
     return out

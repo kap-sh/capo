@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ConsolidationConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -51,3 +51,16 @@ def deserialize_json(data: dict) -> ConsolidationConfiguration:
         raise DeserializationError(
             "ConsolidationConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ConsolidationConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customConsolidationConfiguration" in value:
+        import capo_bedrock_agentcore_control.types.custom_consolidation_configuration
+
+        out["customConsolidationConfiguration"] = (
+            capo_bedrock_agentcore_control.types.custom_consolidation_configuration.redact_sensitive(
+                value["customConsolidationConfiguration"]
+            )
+        )
+    return out

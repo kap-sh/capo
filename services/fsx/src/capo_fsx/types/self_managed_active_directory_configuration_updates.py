@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#SelfManagedActiveDirectoryConfigurationUpdates``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,4 +91,13 @@ def deserialize_aws_json_1_1(
         out["domain_join_service_account_secret"] = data[
             "DomainJoinServiceAccountSecret"
         ]
+    return out
+
+
+def redact_sensitive(
+    value: SelfManagedActiveDirectoryConfigurationUpdates,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
     return out

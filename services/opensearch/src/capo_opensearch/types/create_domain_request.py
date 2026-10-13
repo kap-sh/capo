@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.opensearch#CreateDomainRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -447,5 +447,18 @@ def deserialize_json(data: dict) -> CreateDomainRequest:
 
         out["engine_mode"] = capo_opensearch.types.engine_mode.deserialize_json(
             data["EngineMode"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateDomainRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "advanced_security_options" in value:
+        import capo_opensearch.types.advanced_security_options_input
+
+        out["advanced_security_options"] = (
+            capo_opensearch.types.advanced_security_options_input.redact_sensitive(
+                value["advanced_security_options"]
+            )
         )
     return out

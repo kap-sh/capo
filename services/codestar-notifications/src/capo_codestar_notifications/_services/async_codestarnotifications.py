@@ -25,7 +25,9 @@ from capo_codestar_notifications._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -152,7 +154,9 @@ class AsynccodestarnotificationsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsynccodestarnotificationsClientConfig] = None
+        self,
+        config_overrides: Optional[AsynccodestarnotificationsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsynccodestarnotificationsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -160,8 +164,10 @@ class AsynccodestarnotificationsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -234,7 +240,19 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codestar_notifications.types.create_notification_rule_request.CreateNotificationRuleRequest",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.create_notification_rule_request
+
+            return capo_codestar_notifications.types.create_notification_rule_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNotificationRule", redact_input=_redact_input),
+        )
         input_: capo_codestar_notifications.types.create_notification_rule_request.CreateNotificationRuleRequest = {
             "name": name,
             "event_type_ids": event_type_ids,
@@ -291,7 +309,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationRule")
+        )
         input_: capo_codestar_notifications.types.delete_notification_rule_request.DeleteNotificationRuleRequest = {
             "arn": arn
         }
@@ -339,7 +359,19 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codestar_notifications.types.delete_target_request.DeleteTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.delete_target_request
+
+            return capo_codestar_notifications.types.delete_target_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteTarget", redact_input=_redact_input),
+        )
         input_: capo_codestar_notifications.types.delete_target_request.DeleteTargetRequest = {
             "target_address": target_address
         }
@@ -386,7 +418,19 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codestar_notifications.types.describe_notification_rule_result.DescribeNotificationRuleResult",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.describe_notification_rule_result
+
+            return capo_codestar_notifications.types.describe_notification_rule_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeNotificationRule", redact_output=_redact_output),
+        )
         input_: capo_codestar_notifications.types.describe_notification_rule_request.DescribeNotificationRuleRequest = {
             "arn": arn
         }
@@ -443,7 +487,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventTypes")
+        )
         input_: capo_codestar_notifications.types.list_event_types_request.ListEventTypesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -531,7 +577,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationRules")
+        )
         input_: capo_codestar_notifications.types.list_notification_rules_request.ListNotificationRulesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -609,7 +657,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codestar_notifications.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -664,7 +714,21 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codestar_notifications.types.list_targets_result.ListTargetsResult",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.list_targets_result
+
+            return (
+                capo_codestar_notifications.types.list_targets_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTargets", redact_output=_redact_output),
+        )
         input_: capo_codestar_notifications.types.list_targets_request.ListTargetsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -750,7 +814,18 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codestar_notifications.types.subscribe_request.SubscribeRequest",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.subscribe_request
+
+            return capo_codestar_notifications.types.subscribe_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Subscribe", redact_input=_redact_input)
+        )
         input_: capo_codestar_notifications.types.subscribe_request.SubscribeRequest = {
             "arn": arn,
             "target": target,
@@ -802,7 +877,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codestar_notifications.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -849,7 +926,21 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codestar_notifications.types.unsubscribe_request.UnsubscribeRequest",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.unsubscribe_request
+
+            return (
+                capo_codestar_notifications.types.unsubscribe_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("Unsubscribe", redact_input=_redact_input),
+        )
         input_: capo_codestar_notifications.types.unsubscribe_request.UnsubscribeRequest = {
             "arn": arn,
             "target_address": target_address,
@@ -899,7 +990,9 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codestar_notifications.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -964,7 +1057,19 @@ class AsynccodestarnotificationsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codestar_notifications.types.update_notification_rule_request.UpdateNotificationRuleRequest",
+        ) -> dict[str, Any]:
+            import capo_codestar_notifications.types.update_notification_rule_request
+
+            return capo_codestar_notifications.types.update_notification_rule_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateNotificationRule", redact_input=_redact_input),
+        )
         input_: capo_codestar_notifications.types.update_notification_rule_request.UpdateNotificationRuleRequest = {
             "arn": arn
         }

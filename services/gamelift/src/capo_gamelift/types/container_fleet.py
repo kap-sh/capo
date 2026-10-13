@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#ContainerFleet``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -373,6 +373,27 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerFleet:
         out["player_gateway_mode"] = (
             capo_gamelift.types.player_gateway_mode.deserialize_aws_json_1_1(
                 data["PlayerGatewayMode"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ContainerFleet) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_connection_port_range" in value:
+        import capo_gamelift.types.connection_port_range
+
+        out["instance_connection_port_range"] = (
+            capo_gamelift.types.connection_port_range.redact_sensitive(
+                value["instance_connection_port_range"]
+            )
+        )
+    if "instance_inbound_permissions" in value:
+        import capo_gamelift.types.ip_permissions_list
+
+        out["instance_inbound_permissions"] = (
+            capo_gamelift.types.ip_permissions_list.redact_sensitive(
+                value["instance_inbound_permissions"]
             )
         )
     return out

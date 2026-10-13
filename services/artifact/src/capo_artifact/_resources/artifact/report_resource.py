@@ -7,6 +7,7 @@ import capo_artifact._auth._sigv4
 from capo_artifact._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class ReportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReportMetadata")
+        )
         input_: capo_artifact.types.get_report_metadata_request.GetReportMetadataRequest = {
             "report_id": report_id
         }
@@ -149,7 +152,9 @@ class ReportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReports")
+        )
         input_: capo_artifact.types.list_reports_request.ListReportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -215,7 +220,9 @@ class ReportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReport")
+        )
         input_: capo_artifact.types.get_report_request.GetReportRequest = {
             "report_id": report_id,
             "term_token": term_token,
@@ -278,7 +285,9 @@ class ReportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTermForReport")
+        )
         input_: capo_artifact.types.get_term_for_report_request.GetTermForReportRequest = {
             "report_id": report_id
         }
@@ -343,7 +352,9 @@ class ReportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReportVersions")
+        )
         input_: capo_artifact.types.list_report_versions_request.ListReportVersionsRequest = {
             "report_id": report_id
         }
@@ -412,7 +423,9 @@ class AsyncReportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReportMetadata")
+        )
         input_: capo_artifact.types.get_report_metadata_request.GetReportMetadataRequest = {
             "report_id": report_id
         }
@@ -475,7 +488,9 @@ class AsyncReportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReports")
+        )
         input_: capo_artifact.types.list_reports_request.ListReportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -542,7 +557,9 @@ class AsyncReportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReport")
+        )
         input_: capo_artifact.types.get_report_request.GetReportRequest = {
             "report_id": report_id,
             "term_token": term_token,
@@ -606,7 +623,9 @@ class AsyncReportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTermForReport")
+        )
         input_: capo_artifact.types.get_term_for_report_request.GetTermForReportRequest = {
             "report_id": report_id
         }
@@ -672,7 +691,9 @@ class AsyncReportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReportVersions")
+        )
         input_: capo_artifact.types.list_report_versions_request.ListReportVersionsRequest = {
             "report_id": report_id
         }

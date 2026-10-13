@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ListMapsResponseEntryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.list_maps_response_entry
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ListMapsResponseEntryList:
             continue
         out.append(capo_location.types.list_maps_response_entry.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ListMapsResponseEntryList) -> list[Any]:
+    import capo_location.types.list_maps_response_entry
+
+    return [
+        capo_location.types.list_maps_response_entry.redact_sensitive(item)
+        for item in value
+    ]

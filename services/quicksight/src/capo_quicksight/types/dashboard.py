@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Dashboard``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,5 +117,16 @@ def deserialize_json(data: dict) -> Dashboard:
             capo_quicksight.types.link_entity_arn_list.deserialize_json(
                 data["LinkEntities"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: Dashboard) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "version" in value:
+        import capo_quicksight.types.dashboard_version
+
+        out["version"] = capo_quicksight.types.dashboard_version.redact_sensitive(
+            value["version"]
         )
     return out

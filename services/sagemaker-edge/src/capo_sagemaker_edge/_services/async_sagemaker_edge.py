@@ -22,7 +22,9 @@ from capo_sagemaker_edge._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -113,7 +115,9 @@ class AsyncSagemakerEdgeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSagemakerEdgeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSagemakerEdgeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSagemakerEdgeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -121,8 +125,10 @@ class AsyncSagemakerEdgeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -178,7 +184,9 @@ class AsyncSagemakerEdgeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployments")
+        )
         input_: capo_sagemaker_edge.types.get_deployments_request.GetDeploymentsRequest = {}
         if device_name is not None:
             input_["device_name"] = device_name
@@ -230,7 +238,9 @@ class AsyncSagemakerEdgeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeviceRegistration")
+        )
         input_: capo_sagemaker_edge.types.get_device_registration_request.GetDeviceRegistrationRequest = {}
         if device_name is not None:
             input_["device_name"] = device_name
@@ -292,7 +302,9 @@ class AsyncSagemakerEdgeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendHeartbeat")
+        )
         input_: capo_sagemaker_edge.types.send_heartbeat_request.SendHeartbeatRequest = {}
         if agent_metrics is not None:
             input_["agent_metrics"] = agent_metrics

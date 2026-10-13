@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#AwsServiceEventsSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_cbor(data: dict) -> AwsServiceEventsSourceConfiguration:
                 data["OnFailureConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AwsServiceEventsSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pattern" in value:
+        out["pattern"] = "*** Sensitive Data Redacted ***"
     return out

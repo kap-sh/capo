@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SankeyDiagramAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,5 +65,30 @@ def deserialize_json(data: dict) -> SankeyDiagramAggregatedFieldWells:
 
         out["weight"] = capo_quicksight.types.measure_field_list.deserialize_json(
             data["Weight"]
+        )
+    return out
+
+
+def redact_sensitive(value: SankeyDiagramAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["source"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["source"]
+        )
+    if "destination" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["destination"] = (
+            capo_quicksight.types.dimension_field_list.redact_sensitive(
+                value["destination"]
+            )
+        )
+    if "weight" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["weight"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["weight"]
         )
     return out

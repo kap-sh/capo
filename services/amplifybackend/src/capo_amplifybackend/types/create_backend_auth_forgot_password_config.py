@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifybackend#CreateBackendAuthForgotPasswordConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,13 @@ def deserialize_json(data: dict) -> CreateBackendAuthForgotPasswordConfig:
         out["sms_settings"] = capo_amplifybackend.types.sms_settings.deserialize_json(
             data["smsSettings"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateBackendAuthForgotPasswordConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_settings" in value:
+        out["email_settings"] = "*** Sensitive Data Redacted ***"
+    if "sms_settings" in value:
+        out["sms_settings"] = "*** Sensitive Data Redacted ***"
     return out

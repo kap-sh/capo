@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ListObjectTypeAttributeValuesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_customer_profiles.types.list_object_type_attribute_values_item
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ListObjectTypeAttributeValuesList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ListObjectTypeAttributeValuesList) -> list[Any]:
+    import capo_customer_profiles.types.list_object_type_attribute_values_item
+
+    return [
+        capo_customer_profiles.types.list_object_type_attribute_values_item.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

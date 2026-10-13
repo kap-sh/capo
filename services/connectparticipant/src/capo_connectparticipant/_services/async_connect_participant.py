@@ -25,7 +25,9 @@ from capo_connectparticipant._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -149,7 +151,9 @@ class AsyncConnectParticipantClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncConnectParticipantClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncConnectParticipantClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncConnectParticipantClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -157,8 +161,10 @@ class AsyncConnectParticipantClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -213,7 +219,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelParticipantAuthentication")
+        )
         input_: capo_connectparticipant.types.cancel_participant_authentication_request.CancelParticipantAuthenticationRequest = {
             "session_id": session_id,
             "connection_token": connection_token,
@@ -267,7 +275,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteAttachmentUpload")
+        )
         input_: capo_connectparticipant.types.complete_attachment_upload_request.CompleteAttachmentUploadRequest = {
             "attachment_ids": attachment_ids,
             "client_token": client_token,
@@ -322,7 +332,21 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectparticipant.types.create_participant_connection_response.CreateParticipantConnectionResponse",
+        ) -> dict[str, Any]:
+            import capo_connectparticipant.types.create_participant_connection_response
+
+            return capo_connectparticipant.types.create_participant_connection_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateParticipantConnection", redact_output=_redact_output
+            ),
+        )
         input_: capo_connectparticipant.types.create_participant_connection_request.CreateParticipantConnectionRequest = {
             "participant_token": participant_token
         }
@@ -376,7 +400,21 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connectparticipant.types.describe_view_response.DescribeViewResponse",
+        ) -> dict[str, Any]:
+            import capo_connectparticipant.types.describe_view_response
+
+            return (
+                capo_connectparticipant.types.describe_view_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeView", redact_output=_redact_output),
+        )
         input_: capo_connectparticipant.types.describe_view_request.DescribeViewRequest = {
             "view_token": view_token,
             "connection_token": connection_token,
@@ -428,7 +466,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisconnectParticipant")
+        )
         input_: capo_connectparticipant.types.disconnect_participant_request.DisconnectParticipantRequest = {
             "connection_token": connection_token
         }
@@ -484,7 +524,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttachment")
+        )
         input_: capo_connectparticipant.types.get_attachment_request.GetAttachmentRequest = {
             "attachment_id": attachment_id,
             "connection_token": connection_token,
@@ -538,7 +580,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthenticationUrl")
+        )
         input_: capo_connectparticipant.types.get_authentication_url_request.GetAuthenticationUrlRequest = {
             "session_id": session_id,
             "redirect_uri": redirect_uri,
@@ -609,7 +653,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTranscript")
+        )
         input_: capo_connectparticipant.types.get_transcript_request.GetTranscriptRequest = {
             "connection_token": connection_token
         }
@@ -718,7 +764,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendEvent")
+        )
         input_: capo_connectparticipant.types.send_event_request.SendEventRequest = {
             "content_type": content_type,
             "connection_token": connection_token,
@@ -779,7 +827,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendMessage")
+        )
         input_: capo_connectparticipant.types.send_message_request.SendMessageRequest = {
             "content_type": content_type,
             "content": content,
@@ -840,7 +890,9 @@ class AsyncConnectParticipantClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAttachmentUpload")
+        )
         input_: capo_connectparticipant.types.start_attachment_upload_request.StartAttachmentUploadRequest = {
             "content_type": content_type,
             "attachment_size_in_bytes": attachment_size_in_bytes,

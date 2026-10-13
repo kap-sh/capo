@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#KPIConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,5 +89,22 @@ def deserialize_json(data: dict) -> KPIConfiguration:
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: KPIConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.kpi_field_wells
+
+        out["field_wells"] = capo_quicksight.types.kpi_field_wells.redact_sensitive(
+            value["field_wells"]
+        )
+    if "kpi_options" in value:
+        import capo_quicksight.types.kpi_options
+
+        out["kpi_options"] = capo_quicksight.types.kpi_options.redact_sensitive(
+            value["kpi_options"]
         )
     return out

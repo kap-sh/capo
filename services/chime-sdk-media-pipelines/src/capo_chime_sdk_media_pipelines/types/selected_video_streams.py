@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#SelectedVideoStreams``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_json(data: dict) -> SelectedVideoStreams:
         out["external_user_ids"] = (
             capo_chime_sdk_media_pipelines.types.external_user_id_list.deserialize_json(
                 data["ExternalUserIds"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SelectedVideoStreams) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "external_user_ids" in value:
+        import capo_chime_sdk_media_pipelines.types.external_user_id_list
+
+        out["external_user_ids"] = (
+            capo_chime_sdk_media_pipelines.types.external_user_id_list.redact_sensitive(
+                value["external_user_ids"]
             )
         )
     return out

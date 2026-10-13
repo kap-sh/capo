@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#VerifySoftwareTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,15 @@ def deserialize_aws_json_1_1(data: dict) -> VerifySoftwareTokenRequest:
         raise DeserializationError("VerifySoftwareTokenRequest.user_code required")
     if data.get("FriendlyDeviceName") is not None:
         out["friendly_device_name"] = data["FriendlyDeviceName"]
+    return out
+
+
+def redact_sensitive(value: VerifySoftwareTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
+    if "session" in value:
+        out["session"] = "*** Sensitive Data Redacted ***"
+    if "user_code" in value:
+        out["user_code"] = "*** Sensitive Data Redacted ***"
     return out

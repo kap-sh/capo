@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#ContentData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -145,4 +145,11 @@ def deserialize_json(data: dict) -> ContentData:
         )
     else:
         raise DeserializationError("ContentData.url_expiry required")
+    return out
+
+
+def redact_sensitive(value: ContentData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

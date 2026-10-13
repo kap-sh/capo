@@ -19,10 +19,12 @@ from capo_rds_data._auth._zapros_handler import AuthMiddleware
 from capo_rds_data._services._aws_config import aws_config
 from capo_rds_data._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -123,7 +125,9 @@ class RDSDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[RDSDataClientConfig] = None
+        self,
+        config_overrides: Optional[RDSDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: RDSDataClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -131,8 +135,10 @@ class RDSDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -209,7 +215,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchExecuteStatement")
+        )
         input_: capo_rds_data.types.batch_execute_statement_request.BatchExecuteStatementRequest = {
             "resource_arn": resource_arn,
             "secret_arn": secret_arn,
@@ -282,7 +290,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BeginTransaction")
+        )
         input_: capo_rds_data.types.begin_transaction_request.BeginTransactionRequest = {
             "resource_arn": resource_arn,
             "secret_arn": secret_arn,
@@ -348,7 +358,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CommitTransaction")
+        )
         input_: capo_rds_data.types.commit_transaction_request.CommitTransactionRequest = {
             "resource_arn": resource_arn,
             "secret_arn": secret_arn,
@@ -405,7 +417,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteSql")
+        )
         input_: capo_rds_data.types.execute_sql_request.ExecuteSqlRequest = {
             "db_cluster_or_instance_arn": db_cluster_or_instance_arn,
             "aws_secret_store_arn": aws_secret_store_arn,
@@ -495,7 +509,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteStatement")
+        )
         input_: capo_rds_data.types.execute_statement_request.ExecuteStatementRequest = {
             "resource_arn": resource_arn,
             "secret_arn": secret_arn,
@@ -576,7 +592,9 @@ class RDSDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RollbackTransaction")
+        )
         input_: capo_rds_data.types.rollback_transaction_request.RollbackTransactionRequest = {
             "resource_arn": resource_arn,
             "secret_arn": secret_arn,

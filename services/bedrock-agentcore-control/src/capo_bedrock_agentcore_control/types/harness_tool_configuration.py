@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HarnessToolConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -137,3 +137,32 @@ def deserialize_json(data: dict) -> HarnessToolConfiguration:
         raise DeserializationError(
             "HarnessToolConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: HarnessToolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "remoteMcp" in value:
+        import capo_bedrock_agentcore_control.types.harness_remote_mcp_config
+
+        out["remoteMcp"] = (
+            capo_bedrock_agentcore_control.types.harness_remote_mcp_config.redact_sensitive(
+                value["remoteMcp"]
+            )
+        )
+    if "agentCoreGateway" in value:
+        import capo_bedrock_agentcore_control.types.harness_agent_core_gateway_config
+
+        out["agentCoreGateway"] = (
+            capo_bedrock_agentcore_control.types.harness_agent_core_gateway_config.redact_sensitive(
+                value["agentCoreGateway"]
+            )
+        )
+    if "inlineFunction" in value:
+        import capo_bedrock_agentcore_control.types.harness_inline_function_config
+
+        out["inlineFunction"] = (
+            capo_bedrock_agentcore_control.types.harness_inline_function_config.redact_sensitive(
+                value["inlineFunction"]
+            )
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#As2805KekValidationType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -69,3 +69,16 @@ def deserialize_json(data: dict) -> As2805KekValidationType:
         }
     else:
         raise DeserializationError("As2805KekValidationType: no recognized variant key")
+
+
+def redact_sensitive(value: As2805KekValidationType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "KekValidationResponse" in value:
+        import capo_payment_cryptography_data.types.kek_validation_response
+
+        out["KekValidationResponse"] = (
+            capo_payment_cryptography_data.types.kek_validation_response.redact_sensitive(
+                value["KekValidationResponse"]
+            )
+        )
+    return out

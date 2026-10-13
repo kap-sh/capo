@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#CreateWaveRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_json(data: dict) -> CreateWaveRequest:
         out["tags"] = capo_mgn.types.tags_map.deserialize_json(data["tags"])
     if data.get("accountID") is not None:
         out["account_id"] = data["accountID"]
+    return out
+
+
+def redact_sensitive(value: CreateWaveRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

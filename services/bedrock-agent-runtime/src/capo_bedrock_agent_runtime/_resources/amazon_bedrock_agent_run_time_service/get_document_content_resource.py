@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent_runtime._auth._signers
 import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,32 @@ class GetDocumentContentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.get_document_content_request.GetDocumentContentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.get_document_content_request
+
+            return capo_bedrock_agent_runtime.types.get_document_content_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.get_document_content_response.GetDocumentContentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.get_document_content_response
+
+            return capo_bedrock_agent_runtime.types.get_document_content_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDocumentContent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.get_document_content_request.GetDocumentContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,
@@ -152,7 +178,32 @@ class AsyncGetDocumentContentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.get_document_content_request.GetDocumentContentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.get_document_content_request
+
+            return capo_bedrock_agent_runtime.types.get_document_content_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.get_document_content_response.GetDocumentContentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.get_document_content_response
+
+            return capo_bedrock_agent_runtime.types.get_document_content_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDocumentContent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.get_document_content_request.GetDocumentContentRequest = {
             "knowledge_base_id": knowledge_base_id,
             "data_source_id": data_source_id,

@@ -24,7 +24,9 @@ from capo_iam_toolbox._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -107,7 +109,9 @@ class AsyncIAMToolboxClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncIAMToolboxClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncIAMToolboxClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncIAMToolboxClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -115,8 +119,10 @@ class AsyncIAMToolboxClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -171,7 +177,9 @@ class AsyncIAMToolboxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequestAuthorizationDetails")
+        )
         input_: capo_iam_toolbox.types.get_request_authorization_details_input.GetRequestAuthorizationDetailsInput = {
             "authorization_id": authorization_id
         }

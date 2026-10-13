@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#PhonemeDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,27 @@ def deserialize_json(data: dict) -> PhonemeDetails:
         out["address"] = (
             capo_geo_places.types.address_component_phonemes.deserialize_json(
                 data["Address"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PhonemeDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        import capo_geo_places.types.phoneme_transcription_list
+
+        out["title"] = (
+            capo_geo_places.types.phoneme_transcription_list.redact_sensitive(
+                value["title"]
+            )
+        )
+    if "address" in value:
+        import capo_geo_places.types.address_component_phonemes
+
+        out["address"] = (
+            capo_geo_places.types.address_component_phonemes.redact_sensitive(
+                value["address"]
             )
         )
     return out

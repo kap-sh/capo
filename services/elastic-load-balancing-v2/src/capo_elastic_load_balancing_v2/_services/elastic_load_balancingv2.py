@@ -23,10 +23,12 @@ from capo_elastic_load_balancing_v2._pagination import resolve_path as _resolve_
 from capo_elastic_load_balancing_v2._services._aws_config import aws_config
 from capo_elastic_load_balancing_v2._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_elastic_load_balancing_v2.errors import (
@@ -292,7 +294,9 @@ class ElasticLoadBalancingv2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ElasticLoadBalancingv2ClientConfig] = None
+        self,
+        config_overrides: Optional[ElasticLoadBalancingv2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ElasticLoadBalancingv2ClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -300,8 +304,10 @@ class ElasticLoadBalancingv2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -358,7 +364,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddListenerCertificates")
+        )
         input_: capo_elastic_load_balancing_v2.types.add_listener_certificates_input.AddListenerCertificatesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -419,7 +427,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_elastic_load_balancing_v2.types.add_tags_input.AddTagsInput = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -473,7 +483,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTrustStoreRevocations")
+        )
         input_: capo_elastic_load_balancing_v2.types.add_trust_store_revocations_input.AddTrustStoreRevocationsInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -577,7 +589,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateListener")
+        )
         input_: capo_elastic_load_balancing_v2.types.create_listener_input.CreateListenerInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -698,7 +712,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancer")
+        )
         input_: capo_elastic_load_balancing_v2.types.create_load_balancer_input.CreateLoadBalancerInput = {}
         if name is not None:
             input_["name"] = name
@@ -807,7 +823,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_elastic_load_balancing_v2.types.create_rule_input.CreateRuleInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -933,7 +951,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTargetGroup")
+        )
         input_: capo_elastic_load_balancing_v2.types.create_target_group_input.CreateTargetGroupInput = {}
         if name is not None:
             input_["name"] = name
@@ -1031,7 +1051,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrustStore")
+        )
         input_: capo_elastic_load_balancing_v2.types.create_trust_store_input.CreateTrustStoreInput = {}
         if name is not None:
             input_["name"] = name
@@ -1095,7 +1117,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteListener")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_listener_input.DeleteListenerInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -1148,7 +1172,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancer")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_load_balancer_input.DeleteLoadBalancerInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -1200,7 +1226,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_rule_input.DeleteRuleInput = {}
         if rule_arn is not None:
             input_["rule_arn"] = rule_arn
@@ -1257,7 +1285,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSharedTrustStoreAssociation")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_shared_trust_store_association_input.DeleteSharedTrustStoreAssociationInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -1310,7 +1340,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTargetGroup")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_target_group_input.DeleteTargetGroupInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -1356,7 +1388,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrustStore")
+        )
         input_: capo_elastic_load_balancing_v2.types.delete_trust_store_input.DeleteTrustStoreInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -1412,7 +1446,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterTargets")
+        )
         input_: capo_elastic_load_balancing_v2.types.deregister_targets_input.DeregisterTargetsInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -1460,7 +1496,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountLimits")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_account_limits_input.DescribeAccountLimitsInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -1530,7 +1568,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCapacityReservation")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_capacity_reservation_input.DescribeCapacityReservationInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -1581,7 +1621,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeListenerAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_listener_attributes_input.DescribeListenerAttributesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -1632,7 +1674,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeListenerCertificates")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_listener_certificates_input.DescribeListenerCertificatesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -1726,7 +1770,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeListeners")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_listeners_input.DescribeListenersInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -1814,7 +1860,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancerAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_load_balancer_attributes_input.DescribeLoadBalancerAttributesInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -1875,7 +1923,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancers")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_load_balancers_input.DescribeLoadBalancersInput = {}
         if load_balancer_arns is not None:
             input_["load_balancer_arns"] = load_balancer_arns
@@ -2042,7 +2092,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRules")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_rules_input.DescribeRulesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -2140,7 +2192,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSSLPolicies")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_ssl_policies_input.DescribeSSLPoliciesInput = {}
         if names is not None:
             input_["names"] = names
@@ -2201,7 +2255,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_tags_input.DescribeTagsInput = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -2252,7 +2308,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTargetGroupAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_target_group_attributes_input.DescribeTargetGroupAttributesInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -2318,7 +2376,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTargetGroups")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_target_groups_input.DescribeTargetGroupsInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -2426,7 +2486,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTargetHealth")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_target_health_input.DescribeTargetHealthInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -2481,7 +2543,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustStoreAssociations")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_trust_store_associations_input.DescribeTrustStoreAssociationsInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -2568,7 +2632,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustStoreRevocations")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_trust_store_revocations_input.DescribeTrustStoreRevocationsInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -2660,7 +2726,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrustStores")
+        )
         input_: capo_elastic_load_balancing_v2.types.describe_trust_stores_input.DescribeTrustStoresInput = {}
         if trust_store_arns is not None:
             input_["trust_store_arns"] = trust_store_arns
@@ -2748,7 +2816,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_elastic_load_balancing_v2.types.get_resource_policy_input.GetResourcePolicyInput = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -2793,7 +2863,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustStoreCaCertificatesBundle")
+        )
         input_: capo_elastic_load_balancing_v2.types.get_trust_store_ca_certificates_bundle_input.GetTrustStoreCaCertificatesBundleInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -2843,7 +2915,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrustStoreRevocationContent")
+        )
         input_: capo_elastic_load_balancing_v2.types.get_trust_store_revocation_content_input.GetTrustStoreRevocationContentInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -2905,7 +2979,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyCapacityReservation")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_capacity_reservation_input.ModifyCapacityReservationInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -2962,7 +3038,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyIpPools")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_ip_pools_input.ModifyIpPoolsInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -3065,7 +3143,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyListener")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_listener_input.ModifyListenerInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -3129,7 +3209,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyListenerAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_listener_attributes_input.ModifyListenerAttributesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -3195,7 +3277,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyLoadBalancerAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_load_balancer_attributes_input.ModifyLoadBalancerAttributesInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -3278,7 +3362,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyRule")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_rule_input.ModifyRuleInput = {}
         if rule_arn is not None:
             input_["rule_arn"] = rule_arn
@@ -3374,7 +3460,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyTargetGroup")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_target_group_input.ModifyTargetGroupInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -3448,7 +3536,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyTargetGroupAttributes")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_target_group_attributes_input.ModifyTargetGroupAttributesInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -3509,7 +3599,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyTrustStore")
+        )
         input_: capo_elastic_load_balancing_v2.types.modify_trust_store_input.ModifyTrustStoreInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -3581,7 +3673,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterTargets")
+        )
         input_: capo_elastic_load_balancing_v2.types.register_targets_input.RegisterTargetsInput = {}
         if target_group_arn is not None:
             input_["target_group_arn"] = target_group_arn
@@ -3633,7 +3727,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveListenerCertificates")
+        )
         input_: capo_elastic_load_balancing_v2.types.remove_listener_certificates_input.RemoveListenerCertificatesInput = {}
         if listener_arn is not None:
             input_["listener_arn"] = listener_arn
@@ -3695,7 +3791,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_elastic_load_balancing_v2.types.remove_tags_input.RemoveTagsInput = {}
         if resource_arns is not None:
             input_["resource_arns"] = resource_arns
@@ -3747,7 +3845,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTrustStoreRevocations")
+        )
         input_: capo_elastic_load_balancing_v2.types.remove_trust_store_revocations_input.RemoveTrustStoreRevocationsInput = {}
         if trust_store_arn is not None:
             input_["trust_store_arn"] = trust_store_arn
@@ -3800,7 +3900,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetIpAddressType")
+        )
         input_: capo_elastic_load_balancing_v2.types.set_ip_address_type_input.SetIpAddressTypeInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -3855,7 +3957,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetRulePriorities")
+        )
         input_: capo_elastic_load_balancing_v2.types.set_rule_priorities_input.SetRulePrioritiesInput = {}
         if rule_priorities is not None:
             input_["rule_priorities"] = rule_priorities
@@ -3916,7 +4020,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetSecurityGroups")
+        )
         input_: capo_elastic_load_balancing_v2.types.set_security_groups_input.SetSecurityGroupsInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn
@@ -3995,7 +4101,9 @@ class ElasticLoadBalancingv2Client:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetSubnets")
+        )
         input_: capo_elastic_load_balancing_v2.types.set_subnets_input.SetSubnetsInput = {}
         if load_balancer_arn is not None:
             input_["load_balancer_arn"] = load_balancer_arn

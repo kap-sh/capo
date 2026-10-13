@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#Credentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,13 @@ def deserialize_aws_json_1_1(data: dict) -> Credentials:
         )
     else:
         raise DeserializationError("Credentials.expiration_time required")
+    return out
+
+
+def redact_sensitive(value: Credentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_access_key" in value:
+        out["secret_access_key"] = "*** Sensitive Data Redacted ***"
+    if "session_token" in value:
+        out["session_token"] = "*** Sensitive Data Redacted ***"
     return out

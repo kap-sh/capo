@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#PlayerLatencyList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.player_latency
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> PlayerLatencyList:
             continue
         out.append(capo_gamelift.types.player_latency.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: PlayerLatencyList) -> list[Any]:
+    import capo_gamelift.types.player_latency
+
+    return [capo_gamelift.types.player_latency.redact_sensitive(item) for item in value]

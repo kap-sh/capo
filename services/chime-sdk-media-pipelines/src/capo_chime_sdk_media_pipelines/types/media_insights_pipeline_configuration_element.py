@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaInsightsPipelineConfigurationElement``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -229,6 +229,53 @@ def deserialize_json(data: dict) -> MediaInsightsPipelineConfigurationElement:
         out["voice_enhancement_sink_configuration"] = (
             capo_chime_sdk_media_pipelines.types.voice_enhancement_sink_configuration.deserialize_json(
                 data["VoiceEnhancementSinkConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: MediaInsightsPipelineConfigurationElement,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "kinesis_data_stream_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.kinesis_data_stream_sink_configuration
+
+        out["kinesis_data_stream_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.kinesis_data_stream_sink_configuration.redact_sensitive(
+                value["kinesis_data_stream_sink_configuration"]
+            )
+        )
+    if "s3_recording_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.s3_recording_sink_configuration
+
+        out["s3_recording_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.s3_recording_sink_configuration.redact_sensitive(
+                value["s3_recording_sink_configuration"]
+            )
+        )
+    if "lambda_function_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.lambda_function_sink_configuration
+
+        out["lambda_function_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.lambda_function_sink_configuration.redact_sensitive(
+                value["lambda_function_sink_configuration"]
+            )
+        )
+    if "sqs_queue_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.sqs_queue_sink_configuration
+
+        out["sqs_queue_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.sqs_queue_sink_configuration.redact_sensitive(
+                value["sqs_queue_sink_configuration"]
+            )
+        )
+    if "sns_topic_sink_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.sns_topic_sink_configuration
+
+        out["sns_topic_sink_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.sns_topic_sink_configuration.redact_sensitive(
+                value["sns_topic_sink_configuration"]
             )
         )
     return out

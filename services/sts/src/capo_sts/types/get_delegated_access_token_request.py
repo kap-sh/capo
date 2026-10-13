@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#GetDelegatedAccessTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -33,4 +33,11 @@ def deserialize_query(el: Element) -> GetDelegatedAccessTokenRequest:
         raise DeserializationError(
             "GetDelegatedAccessTokenRequest.trade_in_token required"
         )
+    return out
+
+
+def redact_sensitive(value: GetDelegatedAccessTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "trade_in_token" in value:
+        out["trade_in_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#AssociationDescriptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.association_description
@@ -31,3 +31,11 @@ def deserialize_aws_json_1_1(data: list) -> AssociationDescriptionList:
             capo_ssm.types.association_description.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: AssociationDescriptionList) -> list[Any]:
+    import capo_ssm.types.association_description
+
+    return [
+        capo_ssm.types.association_description.redact_sensitive(item) for item in value
+    ]

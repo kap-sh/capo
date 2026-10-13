@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteRentalLegDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -205,4 +205,83 @@ def deserialize_json(data: dict) -> RouteRentalLegDetails:
         )
     else:
         raise DeserializationError("RouteRentalLegDetails.travel_steps required")
+    return out
+
+
+def redact_sensitive(value: RouteRentalLegDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "after_travel_steps" in value:
+        import capo_geo_routes.types.route_rental_after_travel_step_list
+
+        out["after_travel_steps"] = (
+            capo_geo_routes.types.route_rental_after_travel_step_list.redact_sensitive(
+                value["after_travel_steps"]
+            )
+        )
+    if "agency" in value:
+        import capo_geo_routes.types.route_rental_agency
+
+        out["agency"] = capo_geo_routes.types.route_rental_agency.redact_sensitive(
+            value["agency"]
+        )
+    if "arrival" in value:
+        import capo_geo_routes.types.route_rental_arrival
+
+        out["arrival"] = capo_geo_routes.types.route_rental_arrival.redact_sensitive(
+            value["arrival"]
+        )
+    if "attributions" in value:
+        import capo_geo_routes.types.route_attribution_list
+
+        out["attributions"] = (
+            capo_geo_routes.types.route_attribution_list.redact_sensitive(
+                value["attributions"]
+            )
+        )
+    if "before_travel_steps" in value:
+        import capo_geo_routes.types.route_rental_before_travel_step_list
+
+        out["before_travel_steps"] = (
+            capo_geo_routes.types.route_rental_before_travel_step_list.redact_sensitive(
+                value["before_travel_steps"]
+            )
+        )
+    if "booking_web_links" in value:
+        import capo_geo_routes.types.route_web_link_list
+
+        out["booking_web_links"] = (
+            capo_geo_routes.types.route_web_link_list.redact_sensitive(
+                value["booking_web_links"]
+            )
+        )
+    if "departure" in value:
+        import capo_geo_routes.types.route_rental_departure
+
+        out["departure"] = (
+            capo_geo_routes.types.route_rental_departure.redact_sensitive(
+                value["departure"]
+            )
+        )
+    if "summary" in value:
+        import capo_geo_routes.types.route_rental_summary
+
+        out["summary"] = capo_geo_routes.types.route_rental_summary.redact_sensitive(
+            value["summary"]
+        )
+    if "transport" in value:
+        import capo_geo_routes.types.route_rental_transport_mode_details
+
+        out["transport"] = (
+            capo_geo_routes.types.route_rental_transport_mode_details.redact_sensitive(
+                value["transport"]
+            )
+        )
+    if "travel_steps" in value:
+        import capo_geo_routes.types.route_rental_travel_step_list
+
+        out["travel_steps"] = (
+            capo_geo_routes.types.route_rental_travel_step_list.redact_sensitive(
+                value["travel_steps"]
+            )
+        )
     return out

@@ -20,10 +20,12 @@ from capo_iot_jobs_data_plane._auth._zapros_handler import AuthMiddleware
 from capo_iot_jobs_data_plane._services._aws_config import aws_config
 from capo_iot_jobs_data_plane._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -128,7 +130,9 @@ class IoTJobsDataPlaneClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IoTJobsDataPlaneClientConfig] = None
+        self,
+        config_overrides: Optional[IoTJobsDataPlaneClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IoTJobsDataPlaneClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -136,8 +140,10 @@ class IoTJobsDataPlaneClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -201,7 +207,9 @@ class IoTJobsDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.describe_job_execution_request.DescribeJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,
@@ -253,7 +261,9 @@ class IoTJobsDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPendingJobExecutions")
+        )
         input_: capo_iot_jobs_data_plane.types.get_pending_job_executions_request.GetPendingJobExecutionsRequest = {
             "thing_name": thing_name
         }
@@ -315,7 +325,9 @@ class IoTJobsDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCommandExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.start_command_execution_request.StartCommandExecutionRequest = {
             "target_arn": target_arn,
             "command_arn": command_arn,
@@ -378,7 +390,9 @@ class IoTJobsDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartNextPendingJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.start_next_pending_job_execution_request.StartNextPendingJobExecutionRequest = {
             "thing_name": thing_name
         }
@@ -458,7 +472,9 @@ class IoTJobsDataPlaneClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobExecution")
+        )
         input_: capo_iot_jobs_data_plane.types.update_job_execution_request.UpdateJobExecutionRequest = {
             "job_id": job_id,
             "thing_name": thing_name,

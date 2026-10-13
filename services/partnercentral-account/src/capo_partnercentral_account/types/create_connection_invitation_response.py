@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#CreateConnectionInvitationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -224,4 +224,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateConnectionInvitationResponse:
         raise DeserializationError(
             "CreateConnectionInvitationResponse.inviter_name required"
         )
+    return out
+
+
+def redact_sensitive(value: CreateConnectionInvitationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inviter_name" in value:
+        out["inviter_name"] = "*** Sensitive Data Redacted ***"
     return out

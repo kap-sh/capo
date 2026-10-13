@@ -24,7 +24,9 @@ from capo_kafkaconnect._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -167,7 +169,9 @@ class AsyncKafkaConnectClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncKafkaConnectClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncKafkaConnectClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncKafkaConnectClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -175,8 +179,10 @@ class AsyncKafkaConnectClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -267,7 +273,19 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kafkaconnect.types.create_connector_request.CreateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.create_connector_request
+
+            return capo_kafkaconnect.types.create_connector_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConnector", redact_input=_redact_input),
+        )
         input_: capo_kafkaconnect.types.create_connector_request.CreateConnectorRequest = {
             "capacity": capacity,
             "connector_configuration": connector_configuration,
@@ -346,7 +364,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomPlugin")
+        )
         input_: capo_kafkaconnect.types.create_custom_plugin_request.CreateCustomPluginRequest = {
             "content_type": content_type,
             "location": location,
@@ -411,7 +431,19 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kafkaconnect.types.create_worker_configuration_request.CreateWorkerConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.create_worker_configuration_request
+
+            return capo_kafkaconnect.types.create_worker_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkerConfiguration", redact_input=_redact_input),
+        )
         input_: capo_kafkaconnect.types.create_worker_configuration_request.CreateWorkerConfigurationRequest = {
             "name": name,
             "properties_file_content": properties_file_content,
@@ -468,7 +500,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_kafkaconnect.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -520,7 +554,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomPlugin")
+        )
         input_: capo_kafkaconnect.types.delete_custom_plugin_request.DeleteCustomPluginRequest = {
             "custom_plugin_arn": custom_plugin_arn
         }
@@ -570,7 +606,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkerConfiguration")
+        )
         input_: capo_kafkaconnect.types.delete_worker_configuration_request.DeleteWorkerConfigurationRequest = {
             "worker_configuration_arn": worker_configuration_arn
         }
@@ -622,7 +660,19 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kafkaconnect.types.describe_connector_response.DescribeConnectorResponse",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.describe_connector_response
+
+            return capo_kafkaconnect.types.describe_connector_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeConnector", redact_output=_redact_output),
+        )
         input_: capo_kafkaconnect.types.describe_connector_request.DescribeConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -672,7 +722,21 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kafkaconnect.types.describe_connector_operation_response.DescribeConnectorOperationResponse",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.describe_connector_operation_response
+
+            return capo_kafkaconnect.types.describe_connector_operation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeConnectorOperation", redact_output=_redact_output
+            ),
+        )
         input_: capo_kafkaconnect.types.describe_connector_operation_request.DescribeConnectorOperationRequest = {
             "connector_operation_arn": connector_operation_arn
         }
@@ -722,7 +786,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomPlugin")
+        )
         input_: capo_kafkaconnect.types.describe_custom_plugin_request.DescribeCustomPluginRequest = {
             "custom_plugin_arn": custom_plugin_arn
         }
@@ -772,7 +838,21 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kafkaconnect.types.describe_worker_configuration_response.DescribeWorkerConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.describe_worker_configuration_response
+
+            return capo_kafkaconnect.types.describe_worker_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeWorkerConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_kafkaconnect.types.describe_worker_configuration_request.DescribeWorkerConfigurationRequest = {
             "worker_configuration_arn": worker_configuration_arn
         }
@@ -826,7 +906,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectorOperations")
+        )
         input_: capo_kafkaconnect.types.list_connector_operations_request.ListConnectorOperationsRequest = {
             "connector_arn": connector_arn
         }
@@ -909,7 +991,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_kafkaconnect.types.list_connectors_request.ListConnectorsRequest = {}
         if connector_name_prefix is not None:
             input_["connector_name_prefix"] = connector_name_prefix
@@ -994,7 +1078,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomPlugins")
+        )
         input_: capo_kafkaconnect.types.list_custom_plugins_request.ListCustomPluginsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1071,7 +1157,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kafkaconnect.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1125,7 +1213,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkerConfigurations")
+        )
         input_: capo_kafkaconnect.types.list_worker_configurations_request.ListWorkerConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1206,7 +1296,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestartConnector")
+        )
         input_: capo_kafkaconnect.types.restart_connector_request.RestartConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -1261,7 +1353,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kafkaconnect.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1314,7 +1408,9 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kafkaconnect.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1375,7 +1471,19 @@ class AsyncKafkaConnectClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kafkaconnect.types.update_connector_request.UpdateConnectorRequest",
+        ) -> dict[str, Any]:
+            import capo_kafkaconnect.types.update_connector_request
+
+            return capo_kafkaconnect.types.update_connector_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConnector", redact_input=_redact_input),
+        )
         input_: capo_kafkaconnect.types.update_connector_request.UpdateConnectorRequest = {
             "connector_arn": connector_arn,
             "current_version": current_version,

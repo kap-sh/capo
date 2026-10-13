@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#AcceptPrimaryEmailUpdateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> AcceptPrimaryEmailUpdateRequest:
         out["otp"] = data["Otp"]
     else:
         raise DeserializationError("AcceptPrimaryEmailUpdateRequest.otp required")
+    return out
+
+
+def redact_sensitive(value: AcceptPrimaryEmailUpdateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_email" in value:
+        out["primary_email"] = "*** Sensitive Data Redacted ***"
+    if "otp" in value:
+        out["otp"] = "*** Sensitive Data Redacted ***"
     return out

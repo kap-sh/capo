@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTravelModeOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,5 +123,50 @@ def deserialize_json(data: dict) -> RouteTravelModeOptions:
 
         out["transit"] = capo_geo_routes.types.route_transit_options.deserialize_json(
             data["Transit"]
+        )
+    return out
+
+
+def redact_sensitive(value: RouteTravelModeOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "car" in value:
+        import capo_geo_routes.types.route_car_options
+
+        out["car"] = capo_geo_routes.types.route_car_options.redact_sensitive(
+            value["car"]
+        )
+    if "pedestrian" in value:
+        import capo_geo_routes.types.route_pedestrian_options
+
+        out["pedestrian"] = (
+            capo_geo_routes.types.route_pedestrian_options.redact_sensitive(
+                value["pedestrian"]
+            )
+        )
+    if "scooter" in value:
+        import capo_geo_routes.types.route_scooter_options
+
+        out["scooter"] = capo_geo_routes.types.route_scooter_options.redact_sensitive(
+            value["scooter"]
+        )
+    if "truck" in value:
+        import capo_geo_routes.types.route_truck_options
+
+        out["truck"] = capo_geo_routes.types.route_truck_options.redact_sensitive(
+            value["truck"]
+        )
+    if "intermodal" in value:
+        import capo_geo_routes.types.route_intermodal_options
+
+        out["intermodal"] = (
+            capo_geo_routes.types.route_intermodal_options.redact_sensitive(
+                value["intermodal"]
+            )
+        )
+    if "transit" in value:
+        import capo_geo_routes.types.route_transit_options
+
+        out["transit"] = capo_geo_routes.types.route_transit_options.redact_sensitive(
+            value["transit"]
         )
     return out

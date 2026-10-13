@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#Ipv6Addresses``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.instance_ipv6_address
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> Ipv6Addresses:
             )
         )
     return out
+
+
+def redact_sensitive(value: Ipv6Addresses) -> list[Any]:
+    import capo_workspaces_instances.types.instance_ipv6_address
+
+    return [
+        capo_workspaces_instances.types.instance_ipv6_address.redact_sensitive(item)
+        for item in value
+    ]

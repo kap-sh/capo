@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -64,7 +65,9 @@ class DaemonDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonDeployments")
+        )
         input_: capo_ecs.types.describe_daemon_deployments_request.DescribeDaemonDeploymentsRequest = {
             "daemon_deployment_arns": daemon_deployment_arns
         }
@@ -124,7 +127,9 @@ class AsyncDaemonDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeDaemonDeployments")
+        )
         input_: capo_ecs.types.describe_daemon_deployments_request.DescribeDaemonDeploymentsRequest = {
             "daemon_deployment_arns": daemon_deployment_arns
         }

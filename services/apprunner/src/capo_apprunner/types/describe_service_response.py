@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.apprunner#DescribeServiceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,13 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeServiceResponse:
         )
     else:
         raise DeserializationError("DescribeServiceResponse.service required")
+    return out
+
+
+def redact_sensitive(value: DescribeServiceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service" in value:
+        import capo_apprunner.types.service
+
+        out["service"] = capo_apprunner.types.service.redact_sensitive(value["service"])
     return out

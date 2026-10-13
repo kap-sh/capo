@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#CancelRecoveryPlanExecutionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_json(data: dict) -> CancelRecoveryPlanExecutionResponse:
     else:
         raise DeserializationError(
             "CancelRecoveryPlanExecutionResponse.recovery_plan_execution required"
+        )
+    return out
+
+
+def redact_sensitive(value: CancelRecoveryPlanExecutionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recovery_plan_execution" in value:
+        import capo_drs.types.recovery_plan_execution
+
+        out["recovery_plan_execution"] = (
+            capo_drs.types.recovery_plan_execution.redact_sensitive(
+                value["recovery_plan_execution"]
+            )
         )
     return out

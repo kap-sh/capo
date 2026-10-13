@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GeneratePinDataInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,6 +117,29 @@ def deserialize_json(data: dict) -> GeneratePinDataInput:
         out["encryption_wrapped_key"] = (
             capo_payment_cryptography_data.types.wrapped_key.deserialize_json(
                 data["EncryptionWrappedKey"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeneratePinDataInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "generation_attributes" in value:
+        import capo_payment_cryptography_data.types.pin_generation_attributes
+
+        out["generation_attributes"] = (
+            capo_payment_cryptography_data.types.pin_generation_attributes.redact_sensitive(
+                value["generation_attributes"]
+            )
+        )
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "encryption_wrapped_key" in value:
+        import capo_payment_cryptography_data.types.wrapped_key
+
+        out["encryption_wrapped_key"] = (
+            capo_payment_cryptography_data.types.wrapped_key.redact_sensitive(
+                value["encryption_wrapped_key"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kendra#ExperienceEntitiesSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,16 @@ def deserialize_aws_json_1_1(data: dict) -> ExperienceEntitiesSummary:
             capo_kendra.types.entity_display_data.deserialize_aws_json_1_1(
                 data["DisplayData"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ExperienceEntitiesSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_data" in value:
+        import capo_kendra.types.entity_display_data
+
+        out["display_data"] = capo_kendra.types.entity_display_data.redact_sensitive(
+            value["display_data"]
         )
     return out

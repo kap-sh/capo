@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#AdminGetDeviceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,17 @@ def deserialize_aws_json_1_1(data: dict) -> AdminGetDeviceResponse:
         )
     else:
         raise DeserializationError("AdminGetDeviceResponse.device required")
+    return out
+
+
+def redact_sensitive(value: AdminGetDeviceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "device" in value:
+        import capo_cognito_identity_provider.types.device_type
+
+        out["device"] = (
+            capo_cognito_identity_provider.types.device_type.redact_sensitive(
+                value["device"]
+            )
+        )
     return out

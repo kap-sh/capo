@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#ModifyOptionGroupMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,4 +80,17 @@ def deserialize_query(el: Element) -> ModifyOptionGroupMessage:
         out["apply_immediately"] = (
             child_apply_immediately.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: ModifyOptionGroupMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "options_to_include" in value:
+        import capo_rds.types.option_configuration_list
+
+        out["options_to_include"] = (
+            capo_rds.types.option_configuration_list.redact_sensitive(
+                value["options_to_include"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#Citations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.citation
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Citations:
             continue
         out.append(capo_qconnect.types.citation.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Citations) -> list[Any]:
+    import capo_qconnect.types.citation
+
+    return [capo_qconnect.types.citation.redact_sensitive(item) for item in value]

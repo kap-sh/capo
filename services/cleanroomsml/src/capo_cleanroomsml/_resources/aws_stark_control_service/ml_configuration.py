@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class MLConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.put_ml_configuration_request.PutMLConfigurationRequest = {
             "membership_identifier": membership_identifier,
             "default_output_location": default_output_location,
@@ -113,7 +116,9 @@ class MLConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.get_ml_configuration_request.GetMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }
@@ -157,7 +162,9 @@ class MLConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.delete_ml_configuration_request.DeleteMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }
@@ -208,7 +215,9 @@ class AsyncMLConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.put_ml_configuration_request.PutMLConfigurationRequest = {
             "membership_identifier": membership_identifier,
             "default_output_location": default_output_location,
@@ -256,7 +265,9 @@ class AsyncMLConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.get_ml_configuration_request.GetMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }
@@ -301,7 +312,9 @@ class AsyncMLConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMLConfiguration")
+        )
         input_: capo_cleanroomsml.types.delete_ml_configuration_request.DeleteMLConfigurationRequest = {
             "membership_identifier": membership_identifier
         }

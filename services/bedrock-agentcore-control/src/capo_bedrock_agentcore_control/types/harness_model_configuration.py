@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HarnessModelConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -115,3 +115,24 @@ def deserialize_json(data: dict) -> HarnessModelConfiguration:
         raise DeserializationError(
             "HarnessModelConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: HarnessModelConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "openAiModelConfig" in value:
+        import capo_bedrock_agentcore_control.types.harness_open_ai_model_config
+
+        out["openAiModelConfig"] = (
+            capo_bedrock_agentcore_control.types.harness_open_ai_model_config.redact_sensitive(
+                value["openAiModelConfig"]
+            )
+        )
+    if "liteLlmModelConfig" in value:
+        import capo_bedrock_agentcore_control.types.harness_lite_llm_model_config
+
+        out["liteLlmModelConfig"] = (
+            capo_bedrock_agentcore_control.types.harness_lite_llm_model_config.redact_sensitive(
+                value["liteLlmModelConfig"]
+            )
+        )
+    return out

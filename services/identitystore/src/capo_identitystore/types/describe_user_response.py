@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#DescribeUserResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -329,4 +329,69 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeUserResponse:
                 data["Extensions"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: DescribeUserResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_name" in value:
+        out["user_name"] = "*** Sensitive Data Redacted ***"
+    if "external_ids" in value:
+        import capo_identitystore.types.external_ids
+
+        out["external_ids"] = capo_identitystore.types.external_ids.redact_sensitive(
+            value["external_ids"]
+        )
+    if "name" in value:
+        import capo_identitystore.types.name
+
+        out["name"] = capo_identitystore.types.name.redact_sensitive(value["name"])
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "nick_name" in value:
+        out["nick_name"] = "*** Sensitive Data Redacted ***"
+    if "profile_url" in value:
+        out["profile_url"] = "*** Sensitive Data Redacted ***"
+    if "emails" in value:
+        import capo_identitystore.types.emails
+
+        out["emails"] = capo_identitystore.types.emails.redact_sensitive(
+            value["emails"]
+        )
+    if "addresses" in value:
+        import capo_identitystore.types.addresses
+
+        out["addresses"] = capo_identitystore.types.addresses.redact_sensitive(
+            value["addresses"]
+        )
+    if "phone_numbers" in value:
+        import capo_identitystore.types.phone_numbers
+
+        out["phone_numbers"] = capo_identitystore.types.phone_numbers.redact_sensitive(
+            value["phone_numbers"]
+        )
+    if "user_type" in value:
+        out["user_type"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "preferred_language" in value:
+        out["preferred_language"] = "*** Sensitive Data Redacted ***"
+    if "locale" in value:
+        out["locale"] = "*** Sensitive Data Redacted ***"
+    if "timezone" in value:
+        out["timezone"] = "*** Sensitive Data Redacted ***"
+    if "photos" in value:
+        import capo_identitystore.types.photos
+
+        out["photos"] = capo_identitystore.types.photos.redact_sensitive(
+            value["photos"]
+        )
+    if "website" in value:
+        out["website"] = "*** Sensitive Data Redacted ***"
+    if "birthdate" in value:
+        out["birthdate"] = "*** Sensitive Data Redacted ***"
+    if "roles" in value:
+        import capo_identitystore.types.roles
+
+        out["roles"] = capo_identitystore.types.roles.redact_sensitive(value["roles"])
     return out

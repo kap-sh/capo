@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.invoicing#ProcurementPortalPreference``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -393,5 +393,16 @@ def deserialize_aws_json_1_0(data: dict) -> ProcurementPortalPreference:
     else:
         raise DeserializationError(
             "ProcurementPortalPreference.last_update_date required"
+        )
+    return out
+
+
+def redact_sensitive(value: ProcurementPortalPreference) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "contacts" in value:
+        import capo_invoicing.types.contacts
+
+        out["contacts"] = capo_invoicing.types.contacts.redact_sensitive(
+            value["contacts"]
         )
     return out

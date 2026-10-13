@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopBottomMoversComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -127,4 +127,27 @@ def deserialize_json(data: dict) -> TopBottomMoversComputation:
         )
     else:
         raise DeserializationError("TopBottomMoversComputation.type required")
+    return out
+
+
+def redact_sensitive(value: TopBottomMoversComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["time"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["time"]
+        )
+    if "category" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["category"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["category"]
+        )
+    if "value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["value"]
+        )
     return out

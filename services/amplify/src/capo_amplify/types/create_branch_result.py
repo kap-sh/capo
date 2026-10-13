@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#CreateBranchResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_json(data: dict) -> CreateBranchResult:
         out["branch"] = capo_amplify.types.branch.deserialize_json(data["branch"])
     else:
         raise DeserializationError("CreateBranchResult.branch required")
+    return out
+
+
+def redact_sensitive(value: CreateBranchResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "branch" in value:
+        import capo_amplify.types.branch
+
+        out["branch"] = capo_amplify.types.branch.redact_sensitive(value["branch"])
     return out

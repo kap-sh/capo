@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#CreatePipelineRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -93,4 +93,17 @@ def deserialize_json(data: dict) -> CreatePipelineRequest:
         out["tags"] = capo_iotsitewise.types.tag_map.deserialize_json(data["tags"])
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreatePipelineRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_variables" in value:
+        out["environment_variables"] = "*** Sensitive Data Redacted ***"
+    if "computations" in value:
+        import capo_iotsitewise.types.compute_node_list
+
+        out["computations"] = capo_iotsitewise.types.compute_node_list.redact_sensitive(
+            value["computations"]
+        )
     return out

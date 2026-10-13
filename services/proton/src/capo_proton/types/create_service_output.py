@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#CreateServiceOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceOutput:
         )
     else:
         raise DeserializationError("CreateServiceOutput.service required")
+    return out
+
+
+def redact_sensitive(value: CreateServiceOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service" in value:
+        import capo_proton.types.service
+
+        out["service"] = capo_proton.types.service.redact_sensitive(value["service"])
     return out

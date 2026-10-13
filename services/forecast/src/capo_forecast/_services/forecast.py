@@ -21,10 +21,12 @@ from capo_forecast._pagination import resolve_path as _resolve_path
 from capo_forecast._services._aws_config import aws_config
 from capo_forecast._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -270,7 +272,9 @@ class forecastClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[forecastClientConfig] = None
+        self,
+        config_overrides: Optional[forecastClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: forecastClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -278,8 +282,10 @@ class forecastClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -369,7 +375,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_auto_predictor_request.CreateAutoPredictorRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_auto_predictor_request
+
+            return capo_forecast.types.create_auto_predictor_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAutoPredictor", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_auto_predictor_request.CreateAutoPredictorRequest = {
             "predictor_name": predictor_name
         }
@@ -452,7 +470,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_dataset_request.CreateDatasetRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_dataset_request
+
+            return capo_forecast.types.create_dataset_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataset", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_name": dataset_name,
             "domain": domain,
@@ -514,7 +542,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_dataset_group_request.CreateDatasetGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_dataset_group_request
+
+            return capo_forecast.types.create_dataset_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDatasetGroup", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_dataset_group_request.CreateDatasetGroupRequest = {
             "dataset_group_name": dataset_group_name,
             "domain": domain,
@@ -590,7 +630,21 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_dataset_import_job_request.CreateDatasetImportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_dataset_import_job_request
+
+            return (
+                capo_forecast.types.create_dataset_import_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDatasetImportJob", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_dataset_import_job_request.CreateDatasetImportJobRequest = {
             "dataset_import_job_name": dataset_import_job_name,
             "dataset_arn": dataset_arn,
@@ -671,7 +725,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_explainability_request.CreateExplainabilityRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_explainability_request
+
+            return capo_forecast.types.create_explainability_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateExplainability", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_explainability_request.CreateExplainabilityRequest = {
             "explainability_name": explainability_name,
             "resource_arn": resource_arn,
@@ -739,7 +805,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_explainability_export_request.CreateExplainabilityExportRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_explainability_export_request
+
+            return capo_forecast.types.create_explainability_export_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateExplainabilityExport", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_explainability_export_request.CreateExplainabilityExportRequest = {
             "explainability_export_name": explainability_export_name,
             "explainability_arn": explainability_arn,
@@ -804,7 +882,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_forecast_request.CreateForecastRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_forecast_request
+
+            return capo_forecast.types.create_forecast_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateForecast", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_forecast_request.CreateForecastRequest = {
             "forecast_name": forecast_name,
             "predictor_arn": predictor_arn,
@@ -866,7 +954,21 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_forecast_export_job_request.CreateForecastExportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_forecast_export_job_request
+
+            return (
+                capo_forecast.types.create_forecast_export_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateForecastExportJob", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_forecast_export_job_request.CreateForecastExportJobRequest = {
             "forecast_export_job_name": forecast_export_job_name,
             "forecast_arn": forecast_arn,
@@ -923,7 +1025,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_monitor_request.CreateMonitorRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_monitor_request
+
+            return capo_forecast.types.create_monitor_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMonitor", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_monitor_request.CreateMonitorRequest = {
             "monitor_name": monitor_name,
             "resource_arn": resource_arn,
@@ -1015,7 +1127,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_predictor_request.CreatePredictorRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_predictor_request
+
+            return capo_forecast.types.create_predictor_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePredictor", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_predictor_request.CreatePredictorRequest = {
             "predictor_name": predictor_name,
             "forecast_horizon": forecast_horizon,
@@ -1094,7 +1216,21 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_predictor_backtest_export_job_request.CreatePredictorBacktestExportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_predictor_backtest_export_job_request
+
+            return capo_forecast.types.create_predictor_backtest_export_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePredictorBacktestExportJob", redact_input=_redact_input
+            ),
+        )
         input_: capo_forecast.types.create_predictor_backtest_export_job_request.CreatePredictorBacktestExportJobRequest = {
             "predictor_backtest_export_job_name": predictor_backtest_export_job_name,
             "predictor_arn": predictor_arn,
@@ -1155,7 +1291,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_what_if_analysis_request.CreateWhatIfAnalysisRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_what_if_analysis_request
+
+            return capo_forecast.types.create_what_if_analysis_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWhatIfAnalysis", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_what_if_analysis_request.CreateWhatIfAnalysisRequest = {
             "what_if_analysis_name": what_if_analysis_name,
             "forecast_arn": forecast_arn,
@@ -1219,7 +1367,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_what_if_forecast_request.CreateWhatIfForecastRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_what_if_forecast_request
+
+            return capo_forecast.types.create_what_if_forecast_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWhatIfForecast", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_what_if_forecast_request.CreateWhatIfForecastRequest = {
             "what_if_forecast_name": what_if_forecast_name,
             "what_if_analysis_arn": what_if_analysis_arn,
@@ -1283,7 +1443,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.create_what_if_forecast_export_request.CreateWhatIfForecastExportRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.create_what_if_forecast_export_request
+
+            return capo_forecast.types.create_what_if_forecast_export_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateWhatIfForecastExport", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.create_what_if_forecast_export_request.CreateWhatIfForecastExportRequest = {
             "what_if_forecast_export_name": what_if_forecast_export_name,
             "what_if_forecast_arns": what_if_forecast_arns,
@@ -1332,7 +1504,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_forecast.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1375,7 +1549,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetGroup")
+        )
         input_: capo_forecast.types.delete_dataset_group_request.DeleteDatasetGroupRequest = {
             "dataset_group_arn": dataset_group_arn
         }
@@ -1418,7 +1594,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetImportJob")
+        )
         input_: capo_forecast.types.delete_dataset_import_job_request.DeleteDatasetImportJobRequest = {
             "dataset_import_job_arn": dataset_import_job_arn
         }
@@ -1461,7 +1639,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExplainability")
+        )
         input_: capo_forecast.types.delete_explainability_request.DeleteExplainabilityRequest = {
             "explainability_arn": explainability_arn
         }
@@ -1504,7 +1684,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExplainabilityExport")
+        )
         input_: capo_forecast.types.delete_explainability_export_request.DeleteExplainabilityExportRequest = {
             "explainability_export_arn": explainability_export_arn
         }
@@ -1547,7 +1729,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteForecast")
+        )
         input_: capo_forecast.types.delete_forecast_request.DeleteForecastRequest = {
             "forecast_arn": forecast_arn
         }
@@ -1590,7 +1774,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteForecastExportJob")
+        )
         input_: capo_forecast.types.delete_forecast_export_job_request.DeleteForecastExportJobRequest = {
             "forecast_export_job_arn": forecast_export_job_arn
         }
@@ -1633,7 +1819,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMonitor")
+        )
         input_: capo_forecast.types.delete_monitor_request.DeleteMonitorRequest = {
             "monitor_arn": monitor_arn
         }
@@ -1676,7 +1864,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePredictor")
+        )
         input_: capo_forecast.types.delete_predictor_request.DeletePredictorRequest = {
             "predictor_arn": predictor_arn
         }
@@ -1719,7 +1909,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePredictorBacktestExportJob")
+        )
         input_: capo_forecast.types.delete_predictor_backtest_export_job_request.DeletePredictorBacktestExportJobRequest = {
             "predictor_backtest_export_job_arn": predictor_backtest_export_job_arn
         }
@@ -1762,7 +1954,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceTree")
+        )
         input_: capo_forecast.types.delete_resource_tree_request.DeleteResourceTreeRequest = {
             "resource_arn": resource_arn
         }
@@ -1805,7 +1999,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatIfAnalysis")
+        )
         input_: capo_forecast.types.delete_what_if_analysis_request.DeleteWhatIfAnalysisRequest = {
             "what_if_analysis_arn": what_if_analysis_arn
         }
@@ -1848,7 +2044,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatIfForecast")
+        )
         input_: capo_forecast.types.delete_what_if_forecast_request.DeleteWhatIfForecastRequest = {
             "what_if_forecast_arn": what_if_forecast_arn
         }
@@ -1891,7 +2089,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWhatIfForecastExport")
+        )
         input_: capo_forecast.types.delete_what_if_forecast_export_request.DeleteWhatIfForecastExportRequest = {
             "what_if_forecast_export_arn": what_if_forecast_export_arn
         }
@@ -1935,7 +2135,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutoPredictor")
+        )
         input_: capo_forecast.types.describe_auto_predictor_request.DescribeAutoPredictorRequest = {
             "predictor_arn": predictor_arn
         }
@@ -1979,7 +2181,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_forecast.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -2023,7 +2227,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetGroup")
+        )
         input_: capo_forecast.types.describe_dataset_group_request.DescribeDatasetGroupRequest = {
             "dataset_group_arn": dataset_group_arn
         }
@@ -2067,7 +2273,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetImportJob")
+        )
         input_: capo_forecast.types.describe_dataset_import_job_request.DescribeDatasetImportJobRequest = {
             "dataset_import_job_arn": dataset_import_job_arn
         }
@@ -2111,7 +2319,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExplainability")
+        )
         input_: capo_forecast.types.describe_explainability_request.DescribeExplainabilityRequest = {
             "explainability_arn": explainability_arn
         }
@@ -2155,7 +2365,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExplainabilityExport")
+        )
         input_: capo_forecast.types.describe_explainability_export_request.DescribeExplainabilityExportRequest = {
             "explainability_export_arn": explainability_export_arn
         }
@@ -2199,7 +2411,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeForecast")
+        )
         input_: capo_forecast.types.describe_forecast_request.DescribeForecastRequest = {
             "forecast_arn": forecast_arn
         }
@@ -2243,7 +2457,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeForecastExportJob")
+        )
         input_: capo_forecast.types.describe_forecast_export_job_request.DescribeForecastExportJobRequest = {
             "forecast_export_job_arn": forecast_export_job_arn
         }
@@ -2287,7 +2503,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMonitor")
+        )
         input_: capo_forecast.types.describe_monitor_request.DescribeMonitorRequest = {
             "monitor_arn": monitor_arn
         }
@@ -2331,7 +2549,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePredictor")
+        )
         input_: capo_forecast.types.describe_predictor_request.DescribePredictorRequest = {
             "predictor_arn": predictor_arn
         }
@@ -2375,7 +2595,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePredictorBacktestExportJob")
+        )
         input_: capo_forecast.types.describe_predictor_backtest_export_job_request.DescribePredictorBacktestExportJobRequest = {
             "predictor_backtest_export_job_arn": predictor_backtest_export_job_arn
         }
@@ -2419,7 +2641,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWhatIfAnalysis")
+        )
         input_: capo_forecast.types.describe_what_if_analysis_request.DescribeWhatIfAnalysisRequest = {
             "what_if_analysis_arn": what_if_analysis_arn
         }
@@ -2463,7 +2687,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWhatIfForecast")
+        )
         input_: capo_forecast.types.describe_what_if_forecast_request.DescribeWhatIfForecastRequest = {
             "what_if_forecast_arn": what_if_forecast_arn
         }
@@ -2507,7 +2733,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWhatIfForecastExport")
+        )
         input_: capo_forecast.types.describe_what_if_forecast_export_request.DescribeWhatIfForecastExportRequest = {
             "what_if_forecast_export_arn": what_if_forecast_export_arn
         }
@@ -2552,7 +2780,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccuracyMetrics")
+        )
         input_: capo_forecast.types.get_accuracy_metrics_request.GetAccuracyMetricsRequest = {
             "predictor_arn": predictor_arn
         }
@@ -2597,7 +2827,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetGroups")
+        )
         input_: capo_forecast.types.list_dataset_groups_request.ListDatasetGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2668,7 +2900,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetImportJobs")
+        )
         input_: capo_forecast.types.list_dataset_import_jobs_request.ListDatasetImportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2740,7 +2974,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_forecast.types.list_datasets_request.ListDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2811,7 +3047,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExplainabilities")
+        )
         input_: capo_forecast.types.list_explainabilities_request.ListExplainabilitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2886,7 +3124,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExplainabilityExports")
+        )
         input_: capo_forecast.types.list_explainability_exports_request.ListExplainabilityExportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2961,7 +3201,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListForecastExportJobs")
+        )
         input_: capo_forecast.types.list_forecast_export_jobs_request.ListForecastExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3036,7 +3278,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListForecasts")
+        )
         input_: capo_forecast.types.list_forecasts_request.ListForecastsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3114,7 +3358,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitorEvaluations")
+        )
         input_: capo_forecast.types.list_monitor_evaluations_request.ListMonitorEvaluationsRequest = {
             "monitor_arn": monitor_arn
         }
@@ -3193,7 +3439,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMonitors")
+        )
         input_: capo_forecast.types.list_monitors_request.ListMonitorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3268,7 +3516,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPredictorBacktestExportJobs")
+        )
         input_: capo_forecast.types.list_predictor_backtest_export_jobs_request.ListPredictorBacktestExportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3343,7 +3593,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPredictors")
+        )
         input_: capo_forecast.types.list_predictors_request.ListPredictorsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3414,7 +3666,19 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_forecast.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.list_tags_for_resource_response
+
+            return capo_forecast.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_forecast.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3464,7 +3728,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatIfAnalyses")
+        )
         input_: capo_forecast.types.list_what_if_analyses_request.ListWhatIfAnalysesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3539,7 +3805,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatIfForecastExports")
+        )
         input_: capo_forecast.types.list_what_if_forecast_exports_request.ListWhatIfForecastExportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3614,7 +3882,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWhatIfForecasts")
+        )
         input_: capo_forecast.types.list_what_if_forecasts_request.ListWhatIfForecastsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3685,7 +3955,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeResource")
+        )
         input_: capo_forecast.types.resume_resource_request.ResumeResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3728,7 +4000,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopResource")
+        )
         input_: capo_forecast.types.stop_resource_request.StopResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3775,7 +4049,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.tag_resource_request
+
+            return capo_forecast.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3822,7 +4106,17 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_forecast.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_forecast.types.untag_resource_request
+
+            return capo_forecast.types.untag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_forecast.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3870,7 +4164,9 @@ class forecastClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDatasetGroup")
+        )
         input_: capo_forecast.types.update_dataset_group_request.UpdateDatasetGroupRequest = {
             "dataset_group_arn": dataset_group_arn,
             "dataset_arns": dataset_arns,

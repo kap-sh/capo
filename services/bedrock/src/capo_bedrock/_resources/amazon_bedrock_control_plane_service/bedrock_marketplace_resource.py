@@ -8,6 +8,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.create_marketplace_model_endpoint_request.CreateMarketplaceModelEndpointRequest = {
             "model_source_identifier": model_source_identifier,
             "endpoint_config": endpoint_config,
@@ -154,7 +157,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.delete_marketplace_model_endpoint_request.DeleteMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -202,7 +207,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.deregister_marketplace_model_endpoint_request.DeregisterMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -249,7 +256,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.get_marketplace_model_endpoint_request.GetMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -304,7 +313,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMarketplaceModelEndpoints")
+        )
         input_: capo_bedrock.types.list_marketplace_model_endpoints_request.ListMarketplaceModelEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -358,7 +369,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.register_marketplace_model_endpoint_request.RegisterMarketplaceModelEndpointRequest = {
             "endpoint_identifier": endpoint_identifier,
             "model_source_identifier": model_source_identifier,
@@ -414,7 +427,9 @@ class BedrockMarketplaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.update_marketplace_model_endpoint_request.UpdateMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn,
             "endpoint_config": endpoint_config,
@@ -485,7 +500,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.create_marketplace_model_endpoint_request.CreateMarketplaceModelEndpointRequest = {
             "model_source_identifier": model_source_identifier,
             "endpoint_config": endpoint_config,
@@ -542,7 +559,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.delete_marketplace_model_endpoint_request.DeleteMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -591,7 +610,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.deregister_marketplace_model_endpoint_request.DeregisterMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -639,7 +660,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.get_marketplace_model_endpoint_request.GetMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn
         }
@@ -695,7 +718,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMarketplaceModelEndpoints")
+        )
         input_: capo_bedrock.types.list_marketplace_model_endpoints_request.ListMarketplaceModelEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -750,7 +775,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.register_marketplace_model_endpoint_request.RegisterMarketplaceModelEndpointRequest = {
             "endpoint_identifier": endpoint_identifier,
             "model_source_identifier": model_source_identifier,
@@ -807,7 +834,9 @@ class AsyncBedrockMarketplaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMarketplaceModelEndpoint")
+        )
         input_: capo_bedrock.types.update_marketplace_model_endpoint_request.UpdateMarketplaceModelEndpointRequest = {
             "endpoint_arn": endpoint_arn,
             "endpoint_config": endpoint_config,

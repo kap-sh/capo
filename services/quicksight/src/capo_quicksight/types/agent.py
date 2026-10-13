@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Agent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -220,4 +220,21 @@ def deserialize_json(data: dict) -> Agent:
         )
     else:
         raise DeserializationError("Agent.updated_at required")
+    return out
+
+
+def redact_sensitive(value: Agent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "starter_prompts" in value:
+        out["starter_prompts"] = "*** Sensitive Data Redacted ***"
+    if "welcome_message" in value:
+        out["welcome_message"] = "*** Sensitive Data Redacted ***"
+    if "custom_prompt_interface" in value:
+        import capo_quicksight.types.custom_prompt_interface
+
+        out["custom_prompt_interface"] = (
+            capo_quicksight.types.custom_prompt_interface.redact_sensitive(
+                value["custom_prompt_interface"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeruntime#GetRecommendationsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,6 +135,33 @@ def deserialize_json(data: dict) -> GetRecommendationsRequest:
         out["metadata_columns"] = (
             capo_personalize_runtime.types.metadata_columns.deserialize_json(
                 data["metadataColumns"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetRecommendationsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "context" in value:
+        import capo_personalize_runtime.types.context
+
+        out["context"] = capo_personalize_runtime.types.context.redact_sensitive(
+            value["context"]
+        )
+    if "filter_values" in value:
+        import capo_personalize_runtime.types.filter_values
+
+        out["filter_values"] = (
+            capo_personalize_runtime.types.filter_values.redact_sensitive(
+                value["filter_values"]
+            )
+        )
+    if "promotions" in value:
+        import capo_personalize_runtime.types.promotion_list
+
+        out["promotions"] = (
+            capo_personalize_runtime.types.promotion_list.redact_sensitive(
+                value["promotions"]
             )
         )
     return out

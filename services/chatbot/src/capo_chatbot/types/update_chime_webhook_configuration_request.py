@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chatbot#UpdateChimeWebhookConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,13 @@ def deserialize_json(data: dict) -> UpdateChimeWebhookConfigurationRequest:
         out["iam_role_arn"] = data["IamRoleArn"]
     if data.get("LoggingLevel") is not None:
         out["logging_level"] = data["LoggingLevel"]
+    return out
+
+
+def redact_sensitive(value: UpdateChimeWebhookConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "webhook_description" in value:
+        out["webhook_description"] = "*** Sensitive Data Redacted ***"
+    if "webhook_url" in value:
+        out["webhook_url"] = "*** Sensitive Data Redacted ***"
     return out

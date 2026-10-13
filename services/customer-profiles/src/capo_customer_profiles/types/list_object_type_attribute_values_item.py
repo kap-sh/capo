@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ListObjectTypeAttributeValuesItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> ListObjectTypeAttributeValuesItem:
         raise DeserializationError(
             "ListObjectTypeAttributeValuesItem.last_updated_at required"
         )
+    return out
+
+
+def redact_sensitive(value: ListObjectTypeAttributeValuesItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

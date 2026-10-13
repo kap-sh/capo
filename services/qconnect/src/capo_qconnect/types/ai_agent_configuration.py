@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#AIAgentConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -226,3 +226,24 @@ def deserialize_json(data: dict) -> AIAgentConfiguration:
         }
     else:
         raise DeserializationError("AIAgentConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: AIAgentConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "answerRecommendationAIAgentConfiguration" in value:
+        import capo_qconnect.types.answer_recommendation_ai_agent_configuration
+
+        out["answerRecommendationAIAgentConfiguration"] = (
+            capo_qconnect.types.answer_recommendation_ai_agent_configuration.redact_sensitive(
+                value["answerRecommendationAIAgentConfiguration"]
+            )
+        )
+    if "orchestrationAIAgentConfiguration" in value:
+        import capo_qconnect.types.orchestration_ai_agent_configuration
+
+        out["orchestrationAIAgentConfiguration"] = (
+            capo_qconnect.types.orchestration_ai_agent_configuration.redact_sensitive(
+                value["orchestrationAIAgentConfiguration"]
+            )
+        )
+    return out

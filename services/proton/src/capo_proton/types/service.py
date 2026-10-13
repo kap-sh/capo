@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#Service``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -145,4 +145,21 @@ def deserialize_aws_json_1_0(data: dict) -> Service:
         out["repository_id"] = data["repositoryId"]
     if data.get("branchName") is not None:
         out["branch_name"] = data["branchName"]
+    return out
+
+
+def redact_sensitive(value: Service) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "status_message" in value:
+        out["status_message"] = "*** Sensitive Data Redacted ***"
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
+    if "pipeline" in value:
+        import capo_proton.types.service_pipeline
+
+        out["pipeline"] = capo_proton.types.service_pipeline.redact_sensitive(
+            value["pipeline"]
+        )
     return out

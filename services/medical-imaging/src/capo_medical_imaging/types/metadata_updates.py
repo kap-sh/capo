@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#MetadataUpdates``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -53,3 +53,14 @@ def deserialize_json(data: dict) -> MetadataUpdates:
         return {"revertToVersionId": data["revertToVersionId"]}
     else:
         raise DeserializationError("MetadataUpdates: no recognized variant key")
+
+
+def redact_sensitive(value: MetadataUpdates) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "DICOMUpdates" in value:
+        import capo_medical_imaging.types.dicom_updates
+
+        out["DICOMUpdates"] = capo_medical_imaging.types.dicom_updates.redact_sensitive(
+            value["DICOMUpdates"]
+        )
+    return out

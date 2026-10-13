@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SnowflakePropertiesPatch``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,5 +60,18 @@ def deserialize_json(data: dict) -> SnowflakePropertiesPatch:
 
         out["lineage_sync"] = capo_datazone.types.lineage_sync_input.deserialize_json(
             data["lineageSync"]
+        )
+    return out
+
+
+def redact_sensitive(value: SnowflakePropertiesPatch) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connectivity_properties_patch" in value:
+        import capo_datazone.types.connectivity_properties_patch
+
+        out["connectivity_properties_patch"] = (
+            capo_datazone.types.connectivity_properties_patch.redact_sensitive(
+                value["connectivity_properties_patch"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#RedshiftDataParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,13 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDataParameters:
         import capo_eventbridge.types.sqls
 
         out["sqls"] = capo_eventbridge.types.sqls.deserialize_aws_json_1_1(data["Sqls"])
+    return out
+
+
+def redact_sensitive(value: RedshiftDataParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sql" in value:
+        out["sql"] = "*** Sensitive Data Redacted ***"
+    if "sqls" in value:
+        out["sqls"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CreateSpaceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> CreateSpaceRequest:
         raise DeserializationError("CreateSpaceRequest.name required")
     if data.get("Description") is not None:
         out["description"] = data["Description"]
+    return out
+
+
+def redact_sensitive(value: CreateSpaceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#ChimeSdkMeetingLiveConnectorConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -92,6 +92,23 @@ def deserialize_json(data: dict) -> ChimeSdkMeetingLiveConnectorConfiguration:
         out["source_configuration"] = (
             capo_chime_sdk_media_pipelines.types.source_configuration.deserialize_json(
                 data["SourceConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: ChimeSdkMeetingLiveConnectorConfiguration,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "arn" in value:
+        out["arn"] = "*** Sensitive Data Redacted ***"
+    if "source_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.source_configuration
+
+        out["source_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.source_configuration.redact_sensitive(
+                value["source_configuration"]
             )
         )
     return out

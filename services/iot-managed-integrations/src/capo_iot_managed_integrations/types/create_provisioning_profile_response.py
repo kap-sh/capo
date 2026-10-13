@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#CreateProvisioningProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,4 +105,13 @@ def deserialize_json(data: dict) -> CreateProvisioningProfileResponse:
         out["claim_certificate"] = data["ClaimCertificate"]
     if data.get("ClaimCertificatePrivateKey") is not None:
         out["claim_certificate_private_key"] = data["ClaimCertificatePrivateKey"]
+    return out
+
+
+def redact_sensitive(value: CreateProvisioningProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "claim_certificate" in value:
+        out["claim_certificate"] = "*** Sensitive Data Redacted ***"
+    if "claim_certificate_private_key" in value:
+        out["claim_certificate_private_key"] = "*** Sensitive Data Redacted ***"
     return out

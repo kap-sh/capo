@@ -26,10 +26,12 @@ from capo_cloudwatchomni._resources.cloud_watch_omni_frontend.space_resource imp
 from capo_cloudwatchomni._services._aws_config import aws_config
 from capo_cloudwatchomni._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -289,7 +291,9 @@ class CloudWatchOmniClient:
         self.space_resource = SpaceResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[CloudWatchOmniClientConfig] = None
+        self,
+        config_overrides: Optional[CloudWatchOmniClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CloudWatchOmniClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -297,8 +301,10 @@ class CloudWatchOmniClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -374,7 +380,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessGrant")
+        )
         input_: capo_cloudwatchomni.types.create_access_grant_input.CreateAccessGrantInput = {
             "domain_id": domain_id,
             "space_id": space_id,
@@ -450,7 +458,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessProfile")
+        )
         input_: capo_cloudwatchomni.types.create_access_profile_input.CreateAccessProfileInput = {
             "space_id": space_id,
             "name": name,
@@ -539,7 +549,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAlert")
+        )
         input_: capo_cloudwatchomni.types.create_alert_input.CreateAlertInput = {
             "space_id": space_id,
             "profile_id": profile_id,
@@ -619,7 +631,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_cloudwatchomni.types.create_domain_input.CreateDomainInput = {
             "name": name,
             "identity_providers": identity_providers,
@@ -694,7 +708,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainAccessGrantForOrganization")
+        )
         input_: capo_cloudwatchomni.types.create_domain_access_grant_for_organization_input.CreateDomainAccessGrantForOrganizationInput = {
             "domain_id": domain_id,
             "name": name,
@@ -769,7 +785,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainForOrganization")
+        )
         input_: capo_cloudwatchomni.types.create_domain_for_organization_input.CreateDomainForOrganizationInput = {
             "name": name,
             "identity_providers": identity_providers,
@@ -848,7 +866,19 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudwatchomni.types.create_integration_input.CreateIntegrationInput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatchomni.types.create_integration_input
+
+            return capo_cloudwatchomni.types.create_integration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIntegration", redact_input=_redact_input),
+        )
         input_: capo_cloudwatchomni.types.create_integration_input.CreateIntegrationInput = {
             "integration_type": integration_type,
             "name": name,
@@ -927,7 +957,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOmniDashboard")
+        )
         input_: capo_cloudwatchomni.types.create_omni_dashboard_input.CreateOmniDashboardInput = {
             "space_id": space_id,
             "name": name,
@@ -993,7 +1025,19 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudwatchomni.types.create_one_time_deep_link_code_output.CreateOneTimeDeepLinkCodeOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatchomni.types.create_one_time_deep_link_code_output
+
+            return capo_cloudwatchomni.types.create_one_time_deep_link_code_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOneTimeDeepLinkCode", redact_output=_redact_output),
+        )
         input_: capo_cloudwatchomni.types.create_one_time_deep_link_code_input.CreateOneTimeDeepLinkCodeInput = {
             "domain_id": domain_id
         }
@@ -1070,7 +1114,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSpace")
+        )
         input_: capo_cloudwatchomni.types.create_space_input.CreateSpaceInput = {
             "name": name,
             "domain_id": domain_id,
@@ -1144,7 +1190,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateView")
+        )
         input_: capo_cloudwatchomni.types.create_view_request.CreateViewRequest = {
             "name": name,
             "definition": definition,
@@ -1205,7 +1253,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessGrant")
+        )
         input_: capo_cloudwatchomni.types.delete_access_grant_input.DeleteAccessGrantInput = {
             "grant_id": grant_id
         }
@@ -1260,7 +1310,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessProfile")
+        )
         input_: capo_cloudwatchomni.types.delete_access_profile_input.DeleteAccessProfileInput = {
             "space_id": space_id,
             "profile_id": profile_id,
@@ -1315,7 +1367,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAlert")
+        )
         input_: capo_cloudwatchomni.types.delete_alert_input.DeleteAlertInput = {
             "space_id": space_id,
             "alert_id": alert_id,
@@ -1369,7 +1423,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_cloudwatchomni.types.delete_domain_input.DeleteDomainInput = {
             "domain_id": domain_id
         }
@@ -1422,7 +1478,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainAccessGrantForOrganization")
+        )
         input_: capo_cloudwatchomni.types.delete_domain_access_grant_for_organization_input.DeleteDomainAccessGrantForOrganizationInput = {
             "grant_id": grant_id
         }
@@ -1475,7 +1533,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainForOrganization")
+        )
         input_: capo_cloudwatchomni.types.delete_domain_for_organization_input.DeleteDomainForOrganizationInput = {
             "domain_id": domain_id
         }
@@ -1527,7 +1587,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_cloudwatchomni.types.delete_integration_input.DeleteIntegrationInput = {
             "identifier": identifier
         }
@@ -1581,7 +1643,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOmniDashboard")
+        )
         input_: capo_cloudwatchomni.types.delete_omni_dashboard_input.DeleteOmniDashboardInput = {
             "space_id": space_id,
             "dashboard_id": dashboard_id,
@@ -1634,7 +1698,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_cloudwatchomni.types.delete_space_input.DeleteSpaceInput = {
             "space_id": space_id
         }
@@ -1687,7 +1753,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteView")
+        )
         input_: capo_cloudwatchomni.types.delete_view_request.DeleteViewRequest = {
             "name": name
         }
@@ -1740,7 +1808,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessGrant")
+        )
         input_: capo_cloudwatchomni.types.get_access_grant_input.GetAccessGrantInput = {
             "grant_id": grant_id
         }
@@ -1795,7 +1865,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessProfile")
+        )
         input_: capo_cloudwatchomni.types.get_access_profile_input.GetAccessProfileInput = {
             "space_id": space_id,
             "profile_id": profile_id,
@@ -1851,7 +1923,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAlert")
+        )
         input_: capo_cloudwatchomni.types.get_alert_input.GetAlertInput = {
             "space_id": space_id,
             "alert_id": alert_id,
@@ -1926,7 +2000,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetContextGraph")
+        )
         input_: capo_cloudwatchomni.types.get_context_graph_input.GetContextGraphInput = {
             "start_time": start_time,
             "end_time": end_time,
@@ -2035,7 +2111,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_cloudwatchomni.types.get_domain_input.GetDomainInput = {
             "domain_id": domain_id
         }
@@ -2088,7 +2166,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainAccessGrantForOrganization")
+        )
         input_: capo_cloudwatchomni.types.get_domain_access_grant_for_organization_input.GetDomainAccessGrantForOrganizationInput = {
             "grant_id": grant_id
         }
@@ -2141,7 +2221,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainForOrganization")
+        )
         input_: capo_cloudwatchomni.types.get_domain_for_organization_input.GetDomainForOrganizationInput = {
             "domain_id": domain_id
         }
@@ -2194,7 +2276,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_cloudwatchomni.types.get_integration_input.GetIntegrationInput = {
             "identifier": identifier
         }
@@ -2240,7 +2324,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntelligenceConfiguration")
+        )
         input_: capo_cloudwatchomni.types.get_intelligence_configuration_input.GetIntelligenceConfigurationInput = {}
 
         response = execute_pipeline(
@@ -2293,7 +2379,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOmniDashboard")
+        )
         input_: capo_cloudwatchomni.types.get_omni_dashboard_input.GetOmniDashboardInput = {
             "space_id": space_id,
             "dashboard_id": dashboard_id,
@@ -2347,7 +2435,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSpace")
+        )
         input_: capo_cloudwatchomni.types.get_space_input.GetSpaceInput = {
             "space_id": space_id
         }
@@ -2402,7 +2492,21 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cloudwatchomni.types.get_space_credentials_for_organization_output.GetSpaceCredentialsForOrganizationOutput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatchomni.types.get_space_credentials_for_organization_output
+
+            return capo_cloudwatchomni.types.get_space_credentials_for_organization_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetSpaceCredentialsForOrganization", redact_output=_redact_output
+            ),
+        )
         input_: capo_cloudwatchomni.types.get_space_credentials_for_organization_input.GetSpaceCredentialsForOrganizationInput = {
             "context": context,
             "credential_type": credential_type,
@@ -2460,7 +2564,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTelemetryQueryResults")
+        )
         input_: capo_cloudwatchomni.types.get_telemetry_query_results_request.GetTelemetryQueryResultsRequest = {
             "query_id": query_id
         }
@@ -2539,7 +2645,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetView")
+        )
         input_: capo_cloudwatchomni.types.get_view_request.GetViewRequest = {
             "name": name
         }
@@ -2610,7 +2718,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessGrants")
+        )
         input_: capo_cloudwatchomni.types.list_access_grants_input.ListAccessGrantsInput = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -2718,7 +2828,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessProfiles")
+        )
         input_: capo_cloudwatchomni.types.list_access_profiles_input.ListAccessProfilesInput = {
             "space_id": space_id
         }
@@ -2814,7 +2926,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlerts")
+        )
         input_: capo_cloudwatchomni.types.list_alerts_input.ListAlertsInput = {
             "space_id": space_id
         }
@@ -2928,7 +3042,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainAccessGrantsForOrganization")
+        )
         input_: capo_cloudwatchomni.types.list_domain_access_grants_for_organization_input.ListDomainAccessGrantsForOrganizationInput = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -3027,7 +3143,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_cloudwatchomni.types.list_domains_input.ListDomainsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3114,7 +3232,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_cloudwatchomni.types.list_integrations_input.ListIntegrationsInput = {}
         if integration_type is not None:
             input_["integration_type"] = integration_type
@@ -3214,7 +3334,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOmniDashboards")
+        )
         input_: capo_cloudwatchomni.types.list_omni_dashboards_input.ListOmniDashboardsInput = {
             "space_id": space_id
         }
@@ -3301,7 +3423,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpaces")
+        )
         input_: capo_cloudwatchomni.types.list_spaces_input.ListSpacesInput = {}
         if domain_id is not None:
             input_["domain_id"] = domain_id
@@ -3383,7 +3507,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSpacesForOrganization")
+        )
         input_: capo_cloudwatchomni.types.list_spaces_for_organization_input.ListSpacesForOrganizationInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3468,7 +3594,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTelemetryFields")
+        )
         input_: capo_cloudwatchomni.types.list_telemetry_fields_request.ListTelemetryFieldsRequest = {
             "data_set_name": data_set_name
         }
@@ -3558,7 +3686,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTelemetryQuerySessions")
+        )
         input_: capo_cloudwatchomni.types.list_telemetry_query_sessions_request.ListTelemetryQuerySessionsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3636,7 +3766,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListViews")
+        )
         input_: capo_cloudwatchomni.types.list_views_request.ListViewsRequest = {}
         if type is not None:
             input_["type"] = type
@@ -3723,7 +3855,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIntelligenceConfiguration")
+        )
         input_: capo_cloudwatchomni.types.put_intelligence_configuration_input.PutIntelligenceConfigurationInput = {}
         if kms_key_arn is not None:
             input_["kms_key_arn"] = kms_key_arn
@@ -3789,7 +3923,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchPrincipals")
+        )
         input_: capo_cloudwatchomni.types.search_principals_input.SearchPrincipalsInput = {
             "domain_id": domain_id,
             "search_query": search_query,
@@ -3875,7 +4011,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTelemetryQuery")
+        )
         input_: capo_cloudwatchomni.types.start_telemetry_query_request.StartTelemetryQueryRequest = {
             "query_string": query_string,
             "session_id": session_id,
@@ -3929,7 +4067,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTelemetryQuerySession")
+        )
         input_: capo_cloudwatchomni.types.start_telemetry_query_session_request.StartTelemetryQuerySessionRequest = {}
         if session_name is not None:
             input_["session_name"] = session_name
@@ -3982,7 +4122,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTelemetryQuery")
+        )
         input_: capo_cloudwatchomni.types.stop_telemetry_query_request.StopTelemetryQueryRequest = {
             "query_id": query_id
         }
@@ -4034,7 +4176,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTelemetryQuerySession")
+        )
         input_: capo_cloudwatchomni.types.stop_telemetry_query_session_request.StopTelemetryQuerySessionRequest = {
             "session_id": session_id
         }
@@ -4097,7 +4241,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessProfile")
+        )
         input_: capo_cloudwatchomni.types.update_access_profile_input.UpdateAccessProfileInput = {
             "space_id": space_id,
             "profile_id": profile_id,
@@ -4172,7 +4318,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAlert")
+        )
         input_: capo_cloudwatchomni.types.update_alert_input.UpdateAlertInput = {
             "space_id": space_id,
             "alert_id": alert_id,
@@ -4250,7 +4398,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomain")
+        )
         input_: capo_cloudwatchomni.types.update_domain_input.UpdateDomainInput = {
             "domain_id": domain_id
         }
@@ -4320,7 +4470,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainForOrganization")
+        )
         input_: capo_cloudwatchomni.types.update_domain_for_organization_input.UpdateDomainForOrganizationInput = {
             "domain_id": domain_id
         }
@@ -4389,7 +4541,19 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cloudwatchomni.types.update_integration_input.UpdateIntegrationInput",
+        ) -> dict[str, Any]:
+            import capo_cloudwatchomni.types.update_integration_input
+
+            return capo_cloudwatchomni.types.update_integration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntegration", redact_input=_redact_input),
+        )
         input_: capo_cloudwatchomni.types.update_integration_input.UpdateIntegrationInput = {
             "identifier": identifier
         }
@@ -4458,7 +4622,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOmniDashboard")
+        )
         input_: capo_cloudwatchomni.types.update_omni_dashboard_input.UpdateOmniDashboardInput = {
             "space_id": space_id,
             "dashboard_id": dashboard_id,
@@ -4526,7 +4692,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSpace")
+        )
         input_: capo_cloudwatchomni.types.update_space_input.UpdateSpaceInput = {
             "space_id": space_id
         }
@@ -4592,7 +4760,9 @@ class CloudWatchOmniClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateView")
+        )
         input_: capo_cloudwatchomni.types.update_view_request.UpdateViewRequest = {
             "name": name
         }

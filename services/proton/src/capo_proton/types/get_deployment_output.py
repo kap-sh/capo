@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#GetDeploymentOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_0(data: dict) -> GetDeploymentOutput:
 
         out["deployment"] = capo_proton.types.deployment.deserialize_aws_json_1_0(
             data["deployment"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetDeploymentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "deployment" in value:
+        import capo_proton.types.deployment
+
+        out["deployment"] = capo_proton.types.deployment.redact_sensitive(
+            value["deployment"]
         )
     return out

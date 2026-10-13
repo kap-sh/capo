@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DateTimeParameterDeclaration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,6 +107,27 @@ def deserialize_json(data: dict) -> DateTimeParameterDeclaration:
         out["mapped_data_set_parameters"] = (
             capo_quicksight.types.mapped_data_set_parameters.deserialize_json(
                 data["MappedDataSetParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DateTimeParameterDeclaration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "default_values" in value:
+        import capo_quicksight.types.date_time_default_values
+
+        out["default_values"] = (
+            capo_quicksight.types.date_time_default_values.redact_sensitive(
+                value["default_values"]
+            )
+        )
+    if "value_when_unset" in value:
+        import capo_quicksight.types.date_time_value_when_unset_configuration
+
+        out["value_when_unset"] = (
+            capo_quicksight.types.date_time_value_when_unset_configuration.redact_sensitive(
+                value["value_when_unset"]
             )
         )
     return out

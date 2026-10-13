@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#SearchResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,16 @@ def deserialize_aws_json_1_1(data: dict) -> SearchResponse:
 
         out["total_hits"] = capo_sagemaker.types.total_hits.deserialize_aws_json_1_1(
             data["TotalHits"]
+        )
+    return out
+
+
+def redact_sensitive(value: SearchResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_sagemaker.types.search_results_list
+
+        out["results"] = capo_sagemaker.types.search_results_list.redact_sensitive(
+            value["results"]
         )
     return out

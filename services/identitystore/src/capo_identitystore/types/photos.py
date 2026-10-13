@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Photos``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_identitystore.types.photo
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Photos:
             continue
         out.append(capo_identitystore.types.photo.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Photos) -> list[Any]:
+    import capo_identitystore.types.photo
+
+    return [capo_identitystore.types.photo.redact_sensitive(item) for item in value]

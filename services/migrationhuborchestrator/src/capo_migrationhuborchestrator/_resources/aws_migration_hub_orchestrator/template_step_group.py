@@ -7,6 +7,7 @@ import capo_migrationhuborchestrator._auth._sigv4
 from capo_migrationhuborchestrator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class TemplateStepGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_group_request.GetTemplateStepGroupRequest = {
             "template_id": template_id,
             "id": id,
@@ -124,7 +127,9 @@ class AsyncTemplateStepGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplateStepGroup")
+        )
         input_: capo_migrationhuborchestrator.types.get_template_step_group_request.GetTemplateStepGroupRequest = {
             "template_id": template_id,
             "id": id,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesthinclient#EnvironmentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_thin_client.types.environment_summary
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> EnvironmentList:
             capo_workspaces_thin_client.types.environment_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: EnvironmentList) -> list[Any]:
+    import capo_workspaces_thin_client.types.environment_summary
+
+    return [
+        capo_workspaces_thin_client.types.environment_summary.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeospatialLayerMapConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,6 +105,19 @@ def deserialize_json(data: dict) -> GeospatialLayerMapConfiguration:
         out["interactions"] = (
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeospatialLayerMapConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "map_layers" in value:
+        import capo_quicksight.types.geospatial_map_layer_list
+
+        out["map_layers"] = (
+            capo_quicksight.types.geospatial_map_layer_list.redact_sensitive(
+                value["map_layers"]
             )
         )
     return out

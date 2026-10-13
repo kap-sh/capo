@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -89,7 +90,9 @@ class AnnotationStoreVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.create_annotation_store_version_request.CreateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -145,7 +148,9 @@ class AnnotationStoreVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStoreVersion")
+        )
         input_: capo_omics.types.get_annotation_store_version_request.GetAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -197,7 +202,9 @@ class AnnotationStoreVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.update_annotation_store_version_request.UpdateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -255,7 +262,9 @@ class AnnotationStoreVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStoreVersions")
+        )
         input_: capo_omics.types.list_annotation_store_versions_request.ListAnnotationStoreVersionsRequest = {
             "name": name
         }
@@ -313,7 +322,9 @@ class AnnotationStoreVersion:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStoreVersions")
+        )
         input_: capo_omics.types.delete_annotation_store_versions_request.DeleteAnnotationStoreVersionsRequest = {
             "name": name,
             "versions": versions,
@@ -381,7 +392,9 @@ class AsyncAnnotationStoreVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.create_annotation_store_version_request.CreateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -438,7 +451,9 @@ class AsyncAnnotationStoreVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStoreVersion")
+        )
         input_: capo_omics.types.get_annotation_store_version_request.GetAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -491,7 +506,9 @@ class AsyncAnnotationStoreVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStoreVersion")
+        )
         input_: capo_omics.types.update_annotation_store_version_request.UpdateAnnotationStoreVersionRequest = {
             "name": name,
             "version_name": version_name,
@@ -550,7 +567,9 @@ class AsyncAnnotationStoreVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStoreVersions")
+        )
         input_: capo_omics.types.list_annotation_store_versions_request.ListAnnotationStoreVersionsRequest = {
             "name": name
         }
@@ -609,7 +628,9 @@ class AsyncAnnotationStoreVersion:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStoreVersions")
+        )
         input_: capo_omics.types.delete_annotation_store_versions_request.DeleteAnnotationStoreVersionsRequest = {
             "name": name,
             "versions": versions,

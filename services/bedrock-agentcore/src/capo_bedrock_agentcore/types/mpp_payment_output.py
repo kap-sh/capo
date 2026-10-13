@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#MppPaymentOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> MppPaymentOutput:
         out["payment_credential"] = data["paymentCredential"]
     else:
         raise DeserializationError("MppPaymentOutput.payment_credential required")
+    return out
+
+
+def redact_sensitive(value: MppPaymentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payment_credential" in value:
+        out["payment_credential"] = "*** Sensitive Data Redacted ***"
     return out

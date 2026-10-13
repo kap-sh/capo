@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.evs#LicenseInfoList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_evs.types.license_info
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_0(data: list) -> LicenseInfoList:
             continue
         out.append(capo_evs.types.license_info.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: LicenseInfoList) -> list[Any]:
+    import capo_evs.types.license_info
+
+    return [capo_evs.types.license_info.redact_sensitive(item) for item in value]

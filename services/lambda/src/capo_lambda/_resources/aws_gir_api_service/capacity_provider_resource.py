@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCapacityProvider")
+        )
         input_: capo_lambda.types.create_capacity_provider_request.CreateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name,
             "vpc_config": vpc_config,
@@ -173,7 +176,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCapacityProvider")
+        )
         input_: capo_lambda.types.get_capacity_provider_request.GetCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -231,7 +236,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCapacityProvider")
+        )
         input_: capo_lambda.types.update_capacity_provider_request.UpdateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -286,7 +293,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_lambda.types.delete_capacity_provider_request.DeleteCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -339,7 +348,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapacityProviders")
+        )
         input_: capo_lambda.types.list_capacity_providers_request.ListCapacityProvidersRequest = {}
         if state is not None:
             input_["state"] = state
@@ -395,7 +406,9 @@ class CapacityProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionVersionsByCapacityProvider")
+        )
         input_: capo_lambda.types.list_function_versions_by_capacity_provider_request.ListFunctionVersionsByCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -478,7 +491,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCapacityProvider")
+        )
         input_: capo_lambda.types.create_capacity_provider_request.CreateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name,
             "vpc_config": vpc_config,
@@ -541,7 +556,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCapacityProvider")
+        )
         input_: capo_lambda.types.get_capacity_provider_request.GetCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -600,7 +617,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCapacityProvider")
+        )
         input_: capo_lambda.types.update_capacity_provider_request.UpdateCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -656,7 +675,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityProvider")
+        )
         input_: capo_lambda.types.delete_capacity_provider_request.DeleteCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }
@@ -710,7 +731,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCapacityProviders")
+        )
         input_: capo_lambda.types.list_capacity_providers_request.ListCapacityProvidersRequest = {}
         if state is not None:
             input_["state"] = state
@@ -767,7 +790,9 @@ class AsyncCapacityProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctionVersionsByCapacityProvider")
+        )
         input_: capo_lambda.types.list_function_versions_by_capacity_provider_request.ListFunctionVersionsByCapacityProviderRequest = {
             "capacity_provider_name": capacity_provider_name
         }

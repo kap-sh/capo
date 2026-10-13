@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#ThreatActorIp``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> ThreatActorIp:
         raise DeserializationError("ThreatActorIp.ip_address required")
     if data.get("userAgent") is not None:
         out["user_agent"] = data["userAgent"]
+    return out
+
+
+def redact_sensitive(value: ThreatActorIp) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_address" in value:
+        out["ip_address"] = "*** Sensitive Data Redacted ***"
     return out

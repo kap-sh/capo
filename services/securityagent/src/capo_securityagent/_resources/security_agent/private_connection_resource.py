@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_securityagent._auth._signers
 import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -79,7 +80,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_securityagent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -127,7 +130,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_securityagent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -175,7 +180,9 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_securityagent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -229,7 +236,19 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_private_connection_input
+
+            return capo_securityagent.types.create_private_connection_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePrivateConnection", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "private_connection_name": private_connection_name,
             "mode": mode,
@@ -282,7 +301,21 @@ class PrivateConnectionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_private_connection_certificate_input
+
+            return capo_securityagent.types.update_private_connection_certificate_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePrivateConnectionCertificate", redact_input=_redact_input
+            ),
+        )
         input_: capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "private_connection_name": private_connection_name,
             "certificate": certificate,
@@ -336,7 +369,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_securityagent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -385,7 +420,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_securityagent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -434,7 +471,9 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_securityagent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -489,7 +528,19 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_private_connection_input
+
+            return capo_securityagent.types.create_private_connection_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePrivateConnection", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "private_connection_name": private_connection_name,
             "mode": mode,
@@ -543,7 +594,21 @@ class AsyncPrivateConnectionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_private_connection_certificate_input
+
+            return capo_securityagent.types.update_private_connection_certificate_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePrivateConnectionCertificate", redact_input=_redact_input
+            ),
+        )
         input_: capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "private_connection_name": private_connection_name,
             "certificate": certificate,

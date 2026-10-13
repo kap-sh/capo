@@ -7,6 +7,7 @@ import capo_braket._auth._sigv4
 from capo_braket._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -102,7 +103,9 @@ class QuantumTaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateQuantumTask")
+        )
         input_: capo_braket.types.create_quantum_task_request.CreateQuantumTaskRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -168,7 +171,9 @@ class QuantumTaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQuantumTask")
+        )
         input_: capo_braket.types.get_quantum_task_request.GetQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn
         }
@@ -220,7 +225,9 @@ class QuantumTaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelQuantumTask")
+        )
         input_: capo_braket.types.cancel_quantum_task_request.CancelQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn,
             "client_token": client_token,
@@ -271,7 +278,9 @@ class QuantumTaskResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchQuantumTasks")
+        )
         input_: capo_braket.types.search_quantum_tasks_request.SearchQuantumTasksRequest = {
             "filters": filters
         }
@@ -352,7 +361,9 @@ class AsyncQuantumTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateQuantumTask")
+        )
         input_: capo_braket.types.create_quantum_task_request.CreateQuantumTaskRequest = {
             "client_token": client_token,
             "device_arn": device_arn,
@@ -419,7 +430,9 @@ class AsyncQuantumTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetQuantumTask")
+        )
         input_: capo_braket.types.get_quantum_task_request.GetQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn
         }
@@ -472,7 +485,9 @@ class AsyncQuantumTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelQuantumTask")
+        )
         input_: capo_braket.types.cancel_quantum_task_request.CancelQuantumTaskRequest = {
             "quantum_task_arn": quantum_task_arn,
             "client_token": client_token,
@@ -524,7 +539,9 @@ class AsyncQuantumTaskResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchQuantumTasks")
+        )
         input_: capo_braket.types.search_quantum_tasks_request.SearchQuantumTasksRequest = {
             "filters": filters
         }

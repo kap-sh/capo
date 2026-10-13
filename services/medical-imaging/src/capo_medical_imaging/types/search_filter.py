@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#SearchFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_json(data: dict) -> SearchFilter:
         )
     else:
         raise DeserializationError("SearchFilter.operator required")
+    return out
+
+
+def redact_sensitive(value: SearchFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "values" in value:
+        import capo_medical_imaging.types.search_by_attribute_values
+
+        out["values"] = (
+            capo_medical_imaging.types.search_by_attribute_values.redact_sensitive(
+                value["values"]
+            )
+        )
     return out

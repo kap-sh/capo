@@ -22,10 +22,12 @@ from capo_athena._pagination import resolve_path as _resolve_path
 from capo_athena._services._aws_config import aws_config
 from capo_athena._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -319,7 +321,9 @@ class AthenaClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AthenaClientConfig] = None
+        self,
+        config_overrides: Optional[AthenaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AthenaClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -327,8 +331,10 @@ class AthenaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -378,7 +384,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetNamedQuery")
+        )
         input_: capo_athena.types.batch_get_named_query_input.BatchGetNamedQueryInput = {
             "named_query_ids": named_query_ids
         }
@@ -424,7 +432,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetPreparedStatement")
+        )
         input_: capo_athena.types.batch_get_prepared_statement_input.BatchGetPreparedStatementInput = {
             "prepared_statement_names": prepared_statement_names,
             "work_group": work_group,
@@ -469,7 +479,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetQueryExecution")
+        )
         input_: capo_athena.types.batch_get_query_execution_input.BatchGetQueryExecutionInput = {
             "query_execution_ids": query_execution_ids
         }
@@ -513,7 +525,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCapacityReservation")
+        )
         input_: capo_athena.types.cancel_capacity_reservation_input.CancelCapacityReservationInput = {
             "name": name
         }
@@ -561,7 +575,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCapacityReservation")
+        )
         input_: capo_athena.types.create_capacity_reservation_input.CreateCapacityReservationInput = {
             "target_dpus": target_dpus,
             "name": name,
@@ -618,7 +634,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataCatalog")
+        )
         input_: capo_athena.types.create_data_catalog_input.CreateDataCatalogInput = {
             "name": name,
             "type": type,
@@ -683,7 +701,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNamedQuery")
+        )
         input_: capo_athena.types.create_named_query_input.CreateNamedQueryInput = {
             "name": name,
             "database": database,
@@ -743,7 +763,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNotebook")
+        )
         input_: capo_athena.types.create_notebook_input.CreateNotebookInput = {
             "work_group": work_group,
             "name": name,
@@ -798,7 +820,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePreparedStatement")
+        )
         input_: capo_athena.types.create_prepared_statement_input.CreatePreparedStatementInput = {
             "statement_name": statement_name,
             "work_group": work_group,
@@ -847,7 +871,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePresignedNotebookUrl")
+        )
         input_: capo_athena.types.create_presigned_notebook_url_request.CreatePresignedNotebookUrlRequest = {
             "session_id": session_id
         }
@@ -901,7 +927,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkGroup")
+        )
         input_: capo_athena.types.create_work_group_input.CreateWorkGroupInput = {
             "name": name
         }
@@ -951,7 +979,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapacityReservation")
+        )
         input_: capo_athena.types.delete_capacity_reservation_input.DeleteCapacityReservationInput = {
             "name": name
         }
@@ -997,7 +1027,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataCatalog")
+        )
         input_: capo_athena.types.delete_data_catalog_input.DeleteDataCatalogInput = {
             "name": name
         }
@@ -1043,7 +1075,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNamedQuery")
+        )
         input_: capo_athena.types.delete_named_query_input.DeleteNamedQueryInput = {
             "named_query_id": named_query_id
         }
@@ -1088,7 +1122,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotebook")
+        )
         input_: capo_athena.types.delete_notebook_input.DeleteNotebookInput = {
             "notebook_id": notebook_id
         }
@@ -1135,7 +1171,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePreparedStatement")
+        )
         input_: capo_athena.types.delete_prepared_statement_input.DeletePreparedStatementInput = {
             "statement_name": statement_name,
             "work_group": work_group,
@@ -1184,7 +1222,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkGroup")
+        )
         input_: capo_athena.types.delete_work_group_input.DeleteWorkGroupInput = {
             "work_group": work_group
         }
@@ -1231,7 +1271,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportNotebook")
+        )
         input_: capo_athena.types.export_notebook_input.ExportNotebookInput = {
             "notebook_id": notebook_id
         }
@@ -1276,7 +1318,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCalculationExecution")
+        )
         input_: capo_athena.types.get_calculation_execution_request.GetCalculationExecutionRequest = {
             "calculation_execution_id": calculation_execution_id
         }
@@ -1321,7 +1365,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCalculationExecutionCode")
+        )
         input_: capo_athena.types.get_calculation_execution_code_request.GetCalculationExecutionCodeRequest = {
             "calculation_execution_id": calculation_execution_id
         }
@@ -1366,7 +1412,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCalculationExecutionStatus")
+        )
         input_: capo_athena.types.get_calculation_execution_status_request.GetCalculationExecutionStatusRequest = {
             "calculation_execution_id": calculation_execution_id
         }
@@ -1410,7 +1458,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapacityAssignmentConfiguration")
+        )
         input_: capo_athena.types.get_capacity_assignment_configuration_input.GetCapacityAssignmentConfigurationInput = {
             "capacity_reservation_name": capacity_reservation_name
         }
@@ -1456,7 +1506,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapacityReservation")
+        )
         input_: capo_athena.types.get_capacity_reservation_input.GetCapacityReservationInput = {
             "name": name
         }
@@ -1505,7 +1557,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDatabase")
+        )
         input_: capo_athena.types.get_database_input.GetDatabaseInput = {
             "catalog_name": catalog_name,
             "database_name": database_name,
@@ -1554,7 +1608,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataCatalog")
+        )
         input_: capo_athena.types.get_data_catalog_input.GetDataCatalogInput = {
             "name": name
         }
@@ -1600,7 +1656,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNamedQuery")
+        )
         input_: capo_athena.types.get_named_query_input.GetNamedQueryInput = {
             "named_query_id": named_query_id
         }
@@ -1645,7 +1703,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetNotebookMetadata")
+        )
         input_: capo_athena.types.get_notebook_metadata_input.GetNotebookMetadataInput = {
             "notebook_id": notebook_id
         }
@@ -1692,7 +1752,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPreparedStatement")
+        )
         input_: capo_athena.types.get_prepared_statement_input.GetPreparedStatementInput = {
             "statement_name": statement_name,
             "work_group": work_group,
@@ -1737,7 +1799,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryExecution")
+        )
         input_: capo_athena.types.get_query_execution_input.GetQueryExecutionInput = {
             "query_execution_id": query_execution_id
         }
@@ -1792,7 +1856,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResults")
+        )
         input_: capo_athena.types.get_query_results_input.GetQueryResultsInput = {
             "query_execution_id": query_execution_id
         }
@@ -1869,7 +1935,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryRuntimeStatistics")
+        )
         input_: capo_athena.types.get_query_runtime_statistics_input.GetQueryRuntimeStatisticsInput = {
             "query_execution_id": query_execution_id
         }
@@ -1916,7 +1984,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceDashboard")
+        )
         input_: capo_athena.types.get_resource_dashboard_request.GetResourceDashboardRequest = {
             "resource_arn": resource_arn
         }
@@ -1961,7 +2031,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSession")
+        )
         input_: capo_athena.types.get_session_request.GetSessionRequest = {
             "session_id": session_id
         }
@@ -2006,7 +2078,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSessionEndpoint")
+        )
         input_: capo_athena.types.get_session_endpoint_request.GetSessionEndpointRequest = {
             "session_id": session_id
         }
@@ -2051,7 +2125,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSessionStatus")
+        )
         input_: capo_athena.types.get_session_status_request.GetSessionStatusRequest = {
             "session_id": session_id
         }
@@ -2102,7 +2178,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTableMetadata")
+        )
         input_: capo_athena.types.get_table_metadata_input.GetTableMetadataInput = {
             "catalog_name": catalog_name,
             "database_name": database_name,
@@ -2150,7 +2228,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkGroup")
+        )
         input_: capo_athena.types.get_work_group_input.GetWorkGroupInput = {
             "work_group": work_group
         }
@@ -2207,7 +2287,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportNotebook")
+        )
         input_: capo_athena.types.import_notebook_input.ImportNotebookInput = {
             "work_group": work_group,
             "name": name,
@@ -2264,7 +2346,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationDPUSizes")
+        )
         input_: capo_athena.types.list_application_dpu_sizes_input.ListApplicationDPUSizesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2344,7 +2428,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCalculationExecutions")
+        )
         input_: capo_athena.types.list_calculation_executions_request.ListCalculationExecutionsRequest = {
             "session_id": session_id
         }
@@ -2427,7 +2513,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCapacityReservations")
+        )
         input_: capo_athena.types.list_capacity_reservations_input.ListCapacityReservationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2503,7 +2591,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatabases")
+        )
         input_: capo_athena.types.list_databases_input.ListDatabasesInput = {
             "catalog_name": catalog_name
         }
@@ -2586,7 +2676,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataCatalogs")
+        )
         input_: capo_athena.types.list_data_catalogs_input.ListDataCatalogsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2663,7 +2755,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEngineVersions")
+        )
         input_: capo_athena.types.list_engine_versions_input.ListEngineVersionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2743,7 +2837,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutors")
+        )
         input_: capo_athena.types.list_executors_request.ListExecutorsRequest = {
             "session_id": session_id
         }
@@ -2828,7 +2924,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNamedQueries")
+        )
         input_: capo_athena.types.list_named_queries_input.ListNamedQueriesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2910,7 +3008,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookMetadata")
+        )
         input_: capo_athena.types.list_notebook_metadata_input.ListNotebookMetadataInput = {
             "work_group": work_group
         }
@@ -2969,7 +3069,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotebookSessions")
+        )
         input_: capo_athena.types.list_notebook_sessions_request.ListNotebookSessionsRequest = {
             "notebook_id": notebook_id
         }
@@ -3025,7 +3127,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPreparedStatements")
+        )
         input_: capo_athena.types.list_prepared_statements_input.ListPreparedStatementsInput = {
             "work_group": work_group
         }
@@ -3102,7 +3206,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueryExecutions")
+        )
         input_: capo_athena.types.list_query_executions_input.ListQueryExecutionsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3184,7 +3290,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSessions")
+        )
         input_: capo_athena.types.list_sessions_request.ListSessionsRequest = {
             "work_group": work_group
         }
@@ -3276,7 +3384,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTableMetadata")
+        )
         input_: capo_athena.types.list_table_metadata_input.ListTableMetadataInput = {
             "catalog_name": catalog_name,
             "database_name": database_name,
@@ -3367,7 +3477,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_athena.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -3442,7 +3554,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkGroups")
+        )
         input_: capo_athena.types.list_work_groups_input.ListWorkGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3511,7 +3625,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCapacityAssignmentConfiguration")
+        )
         input_: capo_athena.types.put_capacity_assignment_configuration_input.PutCapacityAssignmentConfigurationInput = {
             "capacity_reservation_name": capacity_reservation_name,
             "capacity_assignments": capacity_assignments,
@@ -3571,7 +3687,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCalculationExecution")
+        )
         input_: capo_athena.types.start_calculation_execution_request.StartCalculationExecutionRequest = {
             "session_id": session_id
         }
@@ -3650,7 +3768,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQueryExecution")
+        )
         input_: capo_athena.types.start_query_execution_input.StartQueryExecutionInput = {
             "query_string": query_string
         }
@@ -3740,7 +3860,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSession")
+        )
         input_: capo_athena.types.start_session_request.StartSessionRequest = {
             "work_group": work_group,
             "engine_configuration": engine_configuration,
@@ -3802,7 +3924,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCalculationExecution")
+        )
         input_: capo_athena.types.stop_calculation_execution_request.StopCalculationExecutionRequest = {
             "calculation_execution_id": calculation_execution_id
         }
@@ -3846,7 +3970,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopQueryExecution")
+        )
         input_: capo_athena.types.stop_query_execution_input.StopQueryExecutionInput = {
             "query_execution_id": query_execution_id
         }
@@ -3893,7 +4019,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_athena.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3939,7 +4067,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateSession")
+        )
         input_: capo_athena.types.terminate_session_request.TerminateSessionRequest = {
             "session_id": session_id
         }
@@ -3986,7 +4116,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_athena.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4033,7 +4165,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCapacityReservation")
+        )
         input_: capo_athena.types.update_capacity_reservation_input.UpdateCapacityReservationInput = {
             "target_dpus": target_dpus,
             "name": name,
@@ -4086,7 +4220,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataCatalog")
+        )
         input_: capo_athena.types.update_data_catalog_input.UpdateDataCatalogInput = {
             "name": name,
             "type": type,
@@ -4143,7 +4279,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNamedQuery")
+        )
         input_: capo_athena.types.update_named_query_input.UpdateNamedQueryInput = {
             "named_query_id": named_query_id,
             "name": name,
@@ -4202,7 +4340,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotebook")
+        )
         input_: capo_athena.types.update_notebook_input.UpdateNotebookInput = {
             "notebook_id": notebook_id,
             "payload": payload,
@@ -4261,7 +4401,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotebookMetadata")
+        )
         input_: capo_athena.types.update_notebook_metadata_input.UpdateNotebookMetadataInput = {
             "notebook_id": notebook_id,
             "name": name,
@@ -4317,7 +4459,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePreparedStatement")
+        )
         input_: capo_athena.types.update_prepared_statement_input.UpdatePreparedStatementInput = {
             "statement_name": statement_name,
             "work_group": work_group,
@@ -4375,7 +4519,9 @@ class AthenaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkGroup")
+        )
         input_: capo_athena.types.update_work_group_input.UpdateWorkGroupInput = {
             "work_group": work_group
         }

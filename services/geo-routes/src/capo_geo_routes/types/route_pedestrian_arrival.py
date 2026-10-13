@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePedestrianArrival``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> RoutePedestrianArrival:
         raise DeserializationError("RoutePedestrianArrival.place required")
     if data.get("Time") is not None:
         out["time"] = data["Time"]
+    return out
+
+
+def redact_sensitive(value: RoutePedestrianArrival) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place" in value:
+        import capo_geo_routes.types.route_pedestrian_place
+
+        out["place"] = capo_geo_routes.types.route_pedestrian_place.redact_sensitive(
+            value["place"]
+        )
+    if "time" in value:
+        out["time"] = "*** Sensitive Data Redacted ***"
     return out

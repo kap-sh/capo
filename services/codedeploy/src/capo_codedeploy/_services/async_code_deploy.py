@@ -24,7 +24,9 @@ from capo_codedeploy._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -249,7 +251,9 @@ class AsyncCodeDeployClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCodeDeployClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCodeDeployClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCodeDeployClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -257,8 +261,10 @@ class AsyncCodeDeployClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -314,7 +320,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToOnPremisesInstances")
+        )
         input_: capo_codedeploy.types.add_tags_to_on_premises_instances_input.AddTagsToOnPremisesInstancesInput = {
             "tags": tags,
             "instance_names": instance_names,
@@ -366,7 +374,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetApplicationRevisions")
+        )
         input_: capo_codedeploy.types.batch_get_application_revisions_input.BatchGetApplicationRevisionsInput = {
             "application_name": application_name,
             "revisions": revisions,
@@ -416,7 +426,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetApplications")
+        )
         input_: capo_codedeploy.types.batch_get_applications_input.BatchGetApplicationsInput = {
             "application_names": application_names
         }
@@ -468,7 +480,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDeploymentGroups")
+        )
         input_: capo_codedeploy.types.batch_get_deployment_groups_input.BatchGetDeploymentGroupsInput = {
             "application_name": application_name,
             "deployment_group_names": deployment_group_names,
@@ -521,7 +535,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDeploymentInstances")
+        )
         input_: capo_codedeploy.types.batch_get_deployment_instances_input.BatchGetDeploymentInstancesInput = {
             "deployment_id": deployment_id,
             "instance_ids": instance_ids,
@@ -568,7 +584,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDeployments")
+        )
         input_: capo_codedeploy.types.batch_get_deployments_input.BatchGetDeploymentsInput = {
             "deployment_ids": deployment_ids
         }
@@ -622,7 +640,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDeploymentTargets")
+        )
         input_: capo_codedeploy.types.batch_get_deployment_targets_input.BatchGetDeploymentTargetsInput = {
             "deployment_id": deployment_id,
             "target_ids": target_ids,
@@ -669,7 +689,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetOnPremisesInstances")
+        )
         input_: capo_codedeploy.types.batch_get_on_premises_instances_input.BatchGetOnPremisesInstancesInput = {
             "instance_names": instance_names
         }
@@ -724,7 +746,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ContinueDeployment")
+        )
         input_: capo_codedeploy.types.continue_deployment_input.ContinueDeploymentInput = {}
         if deployment_id is not None:
             input_["deployment_id"] = deployment_id
@@ -782,7 +806,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_codedeploy.types.create_application_input.CreateApplicationInput = {
             "application_name": application_name
         }
@@ -900,7 +926,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_codedeploy.types.create_deployment_input.CreateDeploymentInput = {
             "application_name": application_name
         }
@@ -989,7 +1017,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentConfig")
+        )
         input_: capo_codedeploy.types.create_deployment_config_input.CreateDeploymentConfigInput = {
             "deployment_config_name": deployment_config_name
         }
@@ -1137,7 +1167,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeploymentGroup")
+        )
         input_: capo_codedeploy.types.create_deployment_group_input.CreateDeploymentGroupInput = {
             "application_name": application_name,
             "deployment_group_name": deployment_group_name,
@@ -1219,7 +1251,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_codedeploy.types.delete_application_input.DeleteApplicationInput = {
             "application_name": application_name
         }
@@ -1264,7 +1298,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeploymentConfig")
+        )
         input_: capo_codedeploy.types.delete_deployment_config_input.DeleteDeploymentConfigInput = {
             "deployment_config_name": deployment_config_name
         }
@@ -1314,7 +1350,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeploymentGroup")
+        )
         input_: capo_codedeploy.types.delete_deployment_group_input.DeleteDeploymentGroupInput = {
             "application_name": application_name,
             "deployment_group_name": deployment_group_name,
@@ -1365,7 +1403,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGitHubAccountToken")
+        )
         input_: capo_codedeploy.types.delete_git_hub_account_token_input.DeleteGitHubAccountTokenInput = {}
         if token_name is not None:
             input_["token_name"] = token_name
@@ -1408,7 +1448,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcesByExternalId")
+        )
         input_: capo_codedeploy.types.delete_resources_by_external_id_input.DeleteResourcesByExternalIdInput = {}
         if external_id is not None:
             input_["external_id"] = external_id
@@ -1451,7 +1493,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterOnPremisesInstance")
+        )
         input_: capo_codedeploy.types.deregister_on_premises_instance_input.DeregisterOnPremisesInstanceInput = {
             "instance_name": instance_name
         }
@@ -1497,7 +1541,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_codedeploy.types.get_application_input.GetApplicationInput = {
             "application_name": application_name
         }
@@ -1548,7 +1594,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationRevision")
+        )
         input_: capo_codedeploy.types.get_application_revision_input.GetApplicationRevisionInput = {
             "application_name": application_name,
             "revision": revision,
@@ -1595,7 +1643,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_codedeploy.types.get_deployment_input.GetDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -1642,7 +1692,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentConfig")
+        )
         input_: capo_codedeploy.types.get_deployment_config_input.GetDeploymentConfigInput = {
             "deployment_config_name": deployment_config_name
         }
@@ -1694,7 +1746,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentGroup")
+        )
         input_: capo_codedeploy.types.get_deployment_group_input.GetDeploymentGroupInput = {
             "application_name": application_name,
             "deployment_group_name": deployment_group_name,
@@ -1747,7 +1801,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentInstance")
+        )
         input_: capo_codedeploy.types.get_deployment_instance_input.GetDeploymentInstanceInput = {
             "deployment_id": deployment_id,
             "instance_id": instance_id,
@@ -1801,7 +1857,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentTarget")
+        )
         input_: capo_codedeploy.types.get_deployment_target_input.GetDeploymentTargetInput = {
             "deployment_id": deployment_id,
             "target_id": target_id,
@@ -1848,7 +1906,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOnPremisesInstance")
+        )
         input_: capo_codedeploy.types.get_on_premises_instance_input.GetOnPremisesInstanceInput = {
             "instance_name": instance_name
         }
@@ -1917,7 +1977,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationRevisions")
+        )
         input_: capo_codedeploy.types.list_application_revisions_input.ListApplicationRevisionsInput = {
             "application_name": application_name
         }
@@ -2008,7 +2070,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_codedeploy.types.list_applications_input.ListApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2071,7 +2135,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentConfigs")
+        )
         input_: capo_codedeploy.types.list_deployment_configs_input.ListDeploymentConfigsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2141,7 +2207,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentGroups")
+        )
         input_: capo_codedeploy.types.list_deployment_groups_input.ListDeploymentGroupsInput = {
             "application_name": application_name
         }
@@ -2231,7 +2299,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentInstances")
+        )
         input_: capo_codedeploy.types.list_deployment_instances_input.ListDeploymentInstancesInput = {
             "deployment_id": deployment_id
         }
@@ -2338,7 +2408,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_codedeploy.types.list_deployments_input.ListDeploymentsInput = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -2445,7 +2517,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeploymentTargets")
+        )
         input_: capo_codedeploy.types.list_deployment_targets_input.ListDeploymentTargetsInput = {
             "deployment_id": deployment_id
         }
@@ -2495,7 +2569,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGitHubAccountTokenNames")
+        )
         input_: capo_codedeploy.types.list_git_hub_account_token_names_input.ListGitHubAccountTokenNamesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2549,7 +2625,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOnPremisesInstances")
+        )
         input_: capo_codedeploy.types.list_on_premises_instances_input.ListOnPremisesInstancesInput = {}
         if registration_status is not None:
             input_["registration_status"] = registration_status
@@ -2603,7 +2681,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codedeploy.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -2665,7 +2745,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLifecycleEventHookExecutionStatus")
+        )
         input_: capo_codedeploy.types.put_lifecycle_event_hook_execution_status_input.PutLifecycleEventHookExecutionStatusInput = {}
         if deployment_id is not None:
             input_["deployment_id"] = deployment_id
@@ -2722,7 +2804,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterApplicationRevision")
+        )
         input_: capo_codedeploy.types.register_application_revision_input.RegisterApplicationRevisionInput = {
             "application_name": application_name,
             "revision": revision,
@@ -2782,7 +2866,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterOnPremisesInstance")
+        )
         input_: capo_codedeploy.types.register_on_premises_instance_input.RegisterOnPremisesInstanceInput = {
             "instance_name": instance_name
         }
@@ -2836,7 +2922,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromOnPremisesInstances")
+        )
         input_: capo_codedeploy.types.remove_tags_from_on_premises_instances_input.RemoveTagsFromOnPremisesInstancesInput = {
             "tags": tags,
             "instance_names": instance_names,
@@ -2886,7 +2974,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SkipWaitTimeForInstanceTermination")
+        )
         input_: capo_codedeploy.types.skip_wait_time_for_instance_termination_input.SkipWaitTimeForInstanceTerminationInput = {}
         if deployment_id is not None:
             input_["deployment_id"] = deployment_id
@@ -2939,7 +3029,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDeployment")
+        )
         input_: capo_codedeploy.types.stop_deployment_input.StopDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -2994,7 +3086,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codedeploy.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3048,7 +3142,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codedeploy.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3100,7 +3196,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_codedeploy.types.update_application_input.UpdateApplicationInput = {}
         if application_name is not None:
             input_["application_name"] = application_name
@@ -3242,7 +3340,9 @@ class AsyncCodeDeployClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeploymentGroup")
+        )
         input_: capo_codedeploy.types.update_deployment_group_input.UpdateDeploymentGroupInput = {
             "application_name": application_name,
             "current_deployment_group_name": current_deployment_group_name,

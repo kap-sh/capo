@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#ListCommandsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_aws_json_1_1(data: dict) -> ListCommandsResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListCommandsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "commands" in value:
+        import capo_ssm.types.command_list
+
+        out["commands"] = capo_ssm.types.command_list.redact_sensitive(
+            value["commands"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FlowTraceConditions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.flow_trace_condition
@@ -33,3 +33,7 @@ def deserialize_json(data: list) -> FlowTraceConditions:
             capo_bedrock_agent_runtime.types.flow_trace_condition.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: FlowTraceConditions) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

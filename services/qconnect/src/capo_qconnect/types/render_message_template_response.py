@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RenderMessageTemplateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,37 @@ def deserialize_json(data: dict) -> RenderMessageTemplateResponse:
         out["attachments"] = (
             capo_qconnect.types.message_template_attachment_list.deserialize_json(
                 data["attachments"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RenderMessageTemplateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_qconnect.types.message_template_content_provider
+
+        out["content"] = (
+            capo_qconnect.types.message_template_content_provider.redact_sensitive(
+                value["content"]
+            )
+        )
+    if "source_configuration_summary" in value:
+        import capo_qconnect.types.message_template_source_configuration_summary
+
+        out["source_configuration_summary"] = (
+            capo_qconnect.types.message_template_source_configuration_summary.redact_sensitive(
+                value["source_configuration_summary"]
+            )
+        )
+    if "attributes_not_interpolated" in value:
+        out["attributes_not_interpolated"] = "*** Sensitive Data Redacted ***"
+    if "attachments" in value:
+        import capo_qconnect.types.message_template_attachment_list
+
+        out["attachments"] = (
+            capo_qconnect.types.message_template_attachment_list.redact_sensitive(
+                value["attachments"]
             )
         )
     return out

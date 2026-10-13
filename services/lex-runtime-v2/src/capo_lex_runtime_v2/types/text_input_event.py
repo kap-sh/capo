@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#TextInputEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_event_json(message: Message) -> TextInputEvent:
     out: TextInputEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: TextInputEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

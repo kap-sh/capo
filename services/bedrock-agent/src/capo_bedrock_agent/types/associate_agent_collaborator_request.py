@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#AssociateAgentCollaboratorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -96,4 +96,11 @@ def deserialize_json(data: dict) -> AssociateAgentCollaboratorRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: AssociateAgentCollaboratorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "collaboration_instruction" in value:
+        out["collaboration_instruction"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#SearchRecord``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -318,5 +318,22 @@ def deserialize_aws_json_1_1(data: dict) -> SearchRecord:
 
         out["hub_content"] = capo_sagemaker.types.hub_content.deserialize_aws_json_1_1(
             data["HubContent"]
+        )
+    return out
+
+
+def redact_sensitive(value: SearchRecord) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "model_package" in value:
+        import capo_sagemaker.types.model_package
+
+        out["model_package"] = capo_sagemaker.types.model_package.redact_sensitive(
+            value["model_package"]
+        )
+    if "model_card" in value:
+        import capo_sagemaker.types.model_card
+
+        out["model_card"] = capo_sagemaker.types.model_card.redact_sensitive(
+            value["model_card"]
         )
     return out

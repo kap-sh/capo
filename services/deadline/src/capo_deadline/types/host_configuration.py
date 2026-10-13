@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#HostConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> HostConfiguration:
         out["script_timeout_seconds"] = data["scriptTimeoutSeconds"]
     else:
         out["script_timeout_seconds"] = 300
+    return out
+
+
+def redact_sensitive(value: HostConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "script_body" in value:
+        out["script_body"] = "*** Sensitive Data Redacted ***"
     return out

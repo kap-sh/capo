@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentity#GetOpenIdTokenInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,5 +42,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetOpenIdTokenInput:
 
         out["logins"] = capo_cognito_identity.types.logins_map.deserialize_aws_json_1_1(
             data["Logins"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetOpenIdTokenInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "logins" in value:
+        import capo_cognito_identity.types.logins_map
+
+        out["logins"] = capo_cognito_identity.types.logins_map.redact_sensitive(
+            value["logins"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.forecast#ListTagsForResourceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_aws_json_1_1(data: dict) -> ListTagsForResourceResponse:
         import capo_forecast.types.tags
 
         out["tags"] = capo_forecast.types.tags.deserialize_aws_json_1_1(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: ListTagsForResourceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        import capo_forecast.types.tags
+
+        out["tags"] = capo_forecast.types.tags.redact_sensitive(value["tags"])
     return out

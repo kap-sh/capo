@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#ListModelInvocationJobsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,19 @@ def deserialize_json(data: dict) -> ListModelInvocationJobsResponse:
         out["invocation_job_summaries"] = (
             capo_bedrock.types.model_invocation_job_summaries.deserialize_json(
                 data["invocationJobSummaries"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListModelInvocationJobsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invocation_job_summaries" in value:
+        import capo_bedrock.types.model_invocation_job_summaries
+
+        out["invocation_job_summaries"] = (
+            capo_bedrock.types.model_invocation_job_summaries.redact_sensitive(
+                value["invocation_job_summaries"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DBProxyTargetGroup``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,5 +110,18 @@ def deserialize_query(el: Element) -> DBProxyTargetGroup:
 
         out["updated_date"] = capo_rds.types.t_stamp.deserialize_query(
             child_updated_date
+        )
+    return out
+
+
+def redact_sensitive(value: DBProxyTargetGroup) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_pool_config" in value:
+        import capo_rds.types.connection_pool_configuration_info
+
+        out["connection_pool_config"] = (
+            capo_rds.types.connection_pool_configuration_info.redact_sensitive(
+                value["connection_pool_config"]
+            )
         )
     return out

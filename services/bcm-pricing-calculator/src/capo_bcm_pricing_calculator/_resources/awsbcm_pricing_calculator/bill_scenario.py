@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_bcm_pricing_calculator._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class BillScenario:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_scenario_request.CreateBillScenarioRequest = {
             "name": name
         }
@@ -158,7 +161,9 @@ class BillScenario:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_scenario_request.GetBillScenarioRequest = {
             "identifier": identifier
         }
@@ -221,7 +226,9 @@ class BillScenario:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_scenario_request.UpdateBillScenarioRequest = {
             "identifier": identifier
         }
@@ -279,7 +286,9 @@ class BillScenario:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_scenario_request.DeleteBillScenarioRequest = {
             "identifier": identifier
         }
@@ -344,7 +353,9 @@ class BillScenario:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBillScenarios")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_scenarios_request.ListBillScenariosRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -421,7 +432,9 @@ class AsyncBillScenario:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_scenario_request.CreateBillScenarioRequest = {
             "name": name
         }
@@ -481,7 +494,9 @@ class AsyncBillScenario:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_scenario_request.GetBillScenarioRequest = {
             "identifier": identifier
         }
@@ -545,7 +560,9 @@ class AsyncBillScenario:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_scenario_request.UpdateBillScenarioRequest = {
             "identifier": identifier
         }
@@ -604,7 +621,9 @@ class AsyncBillScenario:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_scenario_request.DeleteBillScenarioRequest = {
             "identifier": identifier
         }
@@ -670,7 +689,9 @@ class AsyncBillScenario:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBillScenarios")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_scenarios_request.ListBillScenariosRequest = {}
         if filters is not None:
             input_["filters"] = filters

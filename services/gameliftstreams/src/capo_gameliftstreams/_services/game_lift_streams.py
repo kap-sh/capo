@@ -30,10 +30,12 @@ from capo_gameliftstreams._resources.game_lift_streams.stream_group_resource imp
 from capo_gameliftstreams._services._aws_config import aws_config
 from capo_gameliftstreams._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 from capo_gameliftstreams.errors import (
@@ -211,7 +213,9 @@ class GameLiftStreamsClient:
         self.stream_group_resource = StreamGroupResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[GameLiftStreamsClientConfig] = None
+        self,
+        config_overrides: Optional[GameLiftStreamsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: GameLiftStreamsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -219,8 +223,10 @@ class GameLiftStreamsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -273,7 +279,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddStreamGroupLocations")
+        )
         input_: capo_gameliftstreams.types.add_stream_group_locations_input.AddStreamGroupLocationsInput = {
             "identifier": identifier,
             "location_configurations": location_configurations,
@@ -324,7 +332,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApplications")
+        )
         input_: capo_gameliftstreams.types.associate_applications_input.AssociateApplicationsInput = {
             "identifier": identifier,
             "application_identifiers": application_identifiers,
@@ -375,7 +385,21 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.create_stream_session_admin_shell_output.CreateStreamSessionAdminShellOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.create_stream_session_admin_shell_output
+
+            return capo_gameliftstreams.types.create_stream_session_admin_shell_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateStreamSessionAdminShell", redact_output=_redact_output
+            ),
+        )
         input_: capo_gameliftstreams.types.create_stream_session_admin_shell_input.CreateStreamSessionAdminShellInput = {
             "identifier": identifier,
             "stream_session_identifier": stream_session_identifier,
@@ -432,7 +456,32 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gameliftstreams.types.create_stream_session_connection_input.CreateStreamSessionConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.create_stream_session_connection_input
+
+            return capo_gameliftstreams.types.create_stream_session_connection_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gameliftstreams.types.create_stream_session_connection_output.CreateStreamSessionConnectionOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.create_stream_session_connection_output
+
+            return capo_gameliftstreams.types.create_stream_session_connection_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateStreamSessionConnection",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gameliftstreams.types.create_stream_session_connection_input.CreateStreamSessionConnectionInput = {
             "identifier": identifier,
             "stream_session_identifier": stream_session_identifier,
@@ -524,7 +573,32 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gameliftstreams.types.create_stream_url_input.CreateStreamUrlInput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.create_stream_url_input
+
+            return capo_gameliftstreams.types.create_stream_url_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_gameliftstreams.types.create_stream_url_output.CreateStreamUrlOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.create_stream_url_output
+
+            return capo_gameliftstreams.types.create_stream_url_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateStreamUrl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gameliftstreams.types.create_stream_url_input.CreateStreamUrlInput = {
             "identifier": identifier,
             "application_identifier": application_identifier,
@@ -596,7 +670,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApplications")
+        )
         input_: capo_gameliftstreams.types.disassociate_applications_input.DisassociateApplicationsInput = {
             "identifier": identifier,
             "application_identifiers": application_identifiers,
@@ -648,7 +724,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportStreamSessionFiles")
+        )
         input_: capo_gameliftstreams.types.export_stream_session_files_input.ExportStreamSessionFilesInput = {
             "identifier": identifier,
             "stream_session_identifier": stream_session_identifier,
@@ -699,7 +777,21 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.get_stream_session_output.GetStreamSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.get_stream_session_output
+
+            return (
+                capo_gameliftstreams.types.get_stream_session_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStreamSession", redact_output=_redact_output),
+        )
         input_: capo_gameliftstreams.types.get_stream_session_input.GetStreamSessionInput = {
             "identifier": identifier,
             "stream_session_identifier": stream_session_identifier,
@@ -749,7 +841,19 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.get_stream_url_output.GetStreamUrlOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.get_stream_url_output
+
+            return capo_gameliftstreams.types.get_stream_url_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetStreamUrl", redact_output=_redact_output),
+        )
         input_: capo_gameliftstreams.types.get_stream_url_input.GetStreamUrlInput = {
             "identifier": identifier,
             "stream_url_identifier": stream_url_identifier,
@@ -797,7 +901,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationShaderCaches")
+        )
         input_: capo_gameliftstreams.types.list_application_shader_caches_input.ListApplicationShaderCachesInput = {
             "identifier": identifier
         }
@@ -858,7 +964,21 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.list_stream_sessions_output.ListStreamSessionsOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.list_stream_sessions_output
+
+            return (
+                capo_gameliftstreams.types.list_stream_sessions_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListStreamSessions", redact_output=_redact_output),
+        )
         input_: capo_gameliftstreams.types.list_stream_sessions_input.ListStreamSessionsInput = {
             "identifier": identifier
         }
@@ -957,7 +1077,21 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.list_stream_sessions_by_account_output.ListStreamSessionsByAccountOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.list_stream_sessions_by_account_output
+
+            return capo_gameliftstreams.types.list_stream_sessions_by_account_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListStreamSessionsByAccount", redact_output=_redact_output
+            ),
+        )
         input_: capo_gameliftstreams.types.list_stream_sessions_by_account_input.ListStreamSessionsByAccountInput = {}
         if status is not None:
             input_["status"] = status
@@ -1052,7 +1186,19 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_gameliftstreams.types.list_stream_urls_output.ListStreamUrlsOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.list_stream_urls_output
+
+            return capo_gameliftstreams.types.list_stream_urls_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListStreamUrls", redact_output=_redact_output),
+        )
         input_: capo_gameliftstreams.types.list_stream_urls_input.ListStreamUrlsInput = {}
         if status is not None:
             input_["status"] = status
@@ -1135,7 +1281,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_gameliftstreams.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1182,7 +1330,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveStreamGroupLocations")
+        )
         input_: capo_gameliftstreams.types.remove_stream_group_locations_input.RemoveStreamGroupLocationsInput = {
             "identifier": identifier,
             "locations": locations,
@@ -1234,7 +1384,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeStreamUrl")
+        )
         input_: capo_gameliftstreams.types.revoke_stream_url_input.RevokeStreamUrlInput = {
             "identifier": identifier,
             "stream_url_identifier": stream_url_identifier,
@@ -1331,7 +1483,36 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_gameliftstreams.types.start_stream_session_input.StartStreamSessionInput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.start_stream_session_input
+
+            return (
+                capo_gameliftstreams.types.start_stream_session_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_gameliftstreams.types.start_stream_session_output.StartStreamSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_gameliftstreams.types.start_stream_session_output
+
+            return (
+                capo_gameliftstreams.types.start_stream_session_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartStreamSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_gameliftstreams.types.start_stream_session_input.StartStreamSessionInput = {
             "identifier": identifier,
             "protocol": protocol,
@@ -1407,7 +1588,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_gameliftstreams.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1455,7 +1638,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateStreamSession")
+        )
         input_: capo_gameliftstreams.types.terminate_stream_session_input.TerminateStreamSessionInput = {
             "identifier": identifier,
             "stream_session_identifier": stream_session_identifier,
@@ -1504,7 +1689,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_gameliftstreams.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1573,7 +1760,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_gameliftstreams.types.create_application_input.CreateApplicationInput = {
             "description": description,
             "runtime_environment": runtime_environment,
@@ -1632,7 +1821,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_gameliftstreams.types.get_application_input.GetApplicationInput = {
             "identifier": identifier
         }
@@ -1734,7 +1925,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_gameliftstreams.types.update_application_input.UpdateApplicationInput = {
             "identifier": identifier
         }
@@ -1786,7 +1979,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_gameliftstreams.types.delete_application_input.DeleteApplicationInput = {
             "identifier": identifier
         }
@@ -1836,7 +2031,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_gameliftstreams.types.list_applications_input.ListApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1928,7 +2125,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.create_stream_group_input.CreateStreamGroupInput = {
             "description": description,
             "stream_class": stream_class,
@@ -1985,7 +2184,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStreamGroup")
+        )
         input_: capo_gameliftstreams.types.get_stream_group_input.GetStreamGroupInput = {
             "identifier": identifier
         }
@@ -2091,7 +2292,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateStreamGroup")
+        )
         input_: capo_gameliftstreams.types.update_stream_group_input.UpdateStreamGroupInput = {
             "identifier": identifier
         }
@@ -2143,7 +2346,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStreamGroup")
+        )
         input_: capo_gameliftstreams.types.delete_stream_group_input.DeleteStreamGroupInput = {
             "identifier": identifier
         }
@@ -2193,7 +2398,9 @@ class GameLiftStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreamGroups")
+        )
         input_: capo_gameliftstreams.types.list_stream_groups_input.ListStreamGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

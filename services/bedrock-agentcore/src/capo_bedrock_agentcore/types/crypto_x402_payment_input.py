@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#CryptoX402PaymentInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,11 @@ def deserialize_json(data: dict) -> CryptoX402PaymentInput:
         raise DeserializationError("CryptoX402PaymentInput.payload required")
     if data.get("permit2AllowanceLimit") is not None:
         out["permit2_allowance_limit"] = data["permit2AllowanceLimit"]
+    return out
+
+
+def redact_sensitive(value: CryptoX402PaymentInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        out["payload"] = "*** Sensitive Data Redacted ***"
     return out

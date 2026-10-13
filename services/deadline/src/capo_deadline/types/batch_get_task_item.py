@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#BatchGetTaskItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -202,4 +202,11 @@ def deserialize_json(data: dict) -> BatchGetTaskItem:
         out["parameters"] = capo_deadline.types.task_parameters.deserialize_json(
             data["parameters"]
         )
+    return out
+
+
+def redact_sensitive(value: BatchGetTaskItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

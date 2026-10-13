@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#FlowNodeConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -374,3 +374,56 @@ def deserialize_json(data: dict) -> FlowNodeConfiguration:
         }
     else:
         raise DeserializationError("FlowNodeConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: FlowNodeConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledgeBase" in value:
+        import capo_bedrock_agent.types.knowledge_base_flow_node_configuration
+
+        out["knowledgeBase"] = (
+            capo_bedrock_agent.types.knowledge_base_flow_node_configuration.redact_sensitive(
+                value["knowledgeBase"]
+            )
+        )
+    if "condition" in value:
+        import capo_bedrock_agent.types.condition_flow_node_configuration
+
+        out["condition"] = (
+            capo_bedrock_agent.types.condition_flow_node_configuration.redact_sensitive(
+                value["condition"]
+            )
+        )
+    if "prompt" in value:
+        import capo_bedrock_agent.types.prompt_flow_node_configuration
+
+        out["prompt"] = (
+            capo_bedrock_agent.types.prompt_flow_node_configuration.redact_sensitive(
+                value["prompt"]
+            )
+        )
+    if "inlineCode" in value:
+        import capo_bedrock_agent.types.inline_code_flow_node_configuration
+
+        out["inlineCode"] = (
+            capo_bedrock_agent.types.inline_code_flow_node_configuration.redact_sensitive(
+                value["inlineCode"]
+            )
+        )
+    if "loop" in value:
+        import capo_bedrock_agent.types.loop_flow_node_configuration
+
+        out["loop"] = (
+            capo_bedrock_agent.types.loop_flow_node_configuration.redact_sensitive(
+                value["loop"]
+            )
+        )
+    if "loopController" in value:
+        import capo_bedrock_agent.types.loop_controller_flow_node_configuration
+
+        out["loopController"] = (
+            capo_bedrock_agent.types.loop_controller_flow_node_configuration.redact_sensitive(
+                value["loopController"]
+            )
+        )
+    return out

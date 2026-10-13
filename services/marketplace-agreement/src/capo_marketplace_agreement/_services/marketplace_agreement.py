@@ -22,10 +22,12 @@ from capo_marketplace_agreement._pagination import resolve_path as _resolve_path
 from capo_marketplace_agreement._services._aws_config import aws_config
 from capo_marketplace_agreement._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -200,7 +202,9 @@ class MarketplaceAgreementClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceAgreementClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceAgreementClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceAgreementClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class MarketplaceAgreementClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -265,7 +271,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.accept_agreement_cancellation_request_output.AcceptAgreementCancellationRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.accept_agreement_cancellation_request_output
+
+            return capo_marketplace_agreement.types.accept_agreement_cancellation_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptAgreementCancellationRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.accept_agreement_cancellation_request_input.AcceptAgreementCancellationRequestInput = {
             "agreement_id": agreement_id,
             "agreement_cancellation_request_id": agreement_cancellation_request_id,
@@ -320,7 +340,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.accept_agreement_payment_request_output.AcceptAgreementPaymentRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.accept_agreement_payment_request_output
+
+            return capo_marketplace_agreement.types.accept_agreement_payment_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "AcceptAgreementPaymentRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.accept_agreement_payment_request_input.AcceptAgreementPaymentRequestInput = {
             "payment_request_id": payment_request_id,
             "agreement_id": agreement_id,
@@ -375,7 +409,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptAgreementRequest")
+        )
         input_: capo_marketplace_agreement.types.accept_agreement_request_input.AcceptAgreementRequestInput = {
             "agreement_request_id": agreement_request_id
         }
@@ -429,7 +465,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.batch_create_billing_adjustment_request_input.BatchCreateBillingAdjustmentRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.batch_create_billing_adjustment_request_input
+
+            return capo_marketplace_agreement.types.batch_create_billing_adjustment_request_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchCreateBillingAdjustmentRequest", redact_input=_redact_input
+            ),
+        )
         input_: capo_marketplace_agreement.types.batch_create_billing_adjustment_request_input.BatchCreateBillingAdjustmentRequestInput = {
             "billing_adjustment_request_entries": billing_adjustment_request_entries
         }
@@ -479,7 +529,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelAgreement")
+        )
         input_: capo_marketplace_agreement.types.cancel_agreement_input.CancelAgreementInput = {
             "agreement_id": agreement_id
         }
@@ -536,7 +588,32 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.cancel_agreement_cancellation_request_input.CancelAgreementCancellationRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.cancel_agreement_cancellation_request_input
+
+            return capo_marketplace_agreement.types.cancel_agreement_cancellation_request_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.cancel_agreement_cancellation_request_output.CancelAgreementCancellationRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.cancel_agreement_cancellation_request_output
+
+            return capo_marketplace_agreement.types.cancel_agreement_cancellation_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CancelAgreementCancellationRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_marketplace_agreement.types.cancel_agreement_cancellation_request_input.CancelAgreementCancellationRequestInput = {
             "agreement_id": agreement_id,
             "agreement_cancellation_request_id": agreement_cancellation_request_id,
@@ -588,7 +665,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.cancel_agreement_payment_request_output.CancelAgreementPaymentRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.cancel_agreement_payment_request_output
+
+            return capo_marketplace_agreement.types.cancel_agreement_payment_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CancelAgreementPaymentRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.cancel_agreement_payment_request_input.CancelAgreementPaymentRequestInput = {
             "payment_request_id": payment_request_id,
             "agreement_id": agreement_id,
@@ -656,7 +747,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgreementRequest")
+        )
         input_: capo_marketplace_agreement.types.create_agreement_request_input.CreateAgreementRequestInput = {
             "intent": intent,
             "requested_terms": requested_terms,
@@ -713,7 +806,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAgreement")
+        )
         input_: capo_marketplace_agreement.types.describe_agreement_input.DescribeAgreementInput = {
             "agreement_id": agreement_id
         }
@@ -767,7 +862,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_cancellation_request_output.GetAgreementCancellationRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_cancellation_request_output
+
+            return capo_marketplace_agreement.types.get_agreement_cancellation_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAgreementCancellationRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.get_agreement_cancellation_request_input.GetAgreementCancellationRequestInput = {
             "agreement_cancellation_request_id": agreement_cancellation_request_id,
             "agreement_id": agreement_id,
@@ -823,7 +932,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgreementEntitlements")
+        )
         input_: capo_marketplace_agreement.types.get_agreement_entitlements_input.GetAgreementEntitlementsInput = {
             "agreement_id": agreement_id
         }
@@ -903,7 +1014,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.get_agreement_payment_request_output.GetAgreementPaymentRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.get_agreement_payment_request_output
+
+            return capo_marketplace_agreement.types.get_agreement_payment_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetAgreementPaymentRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.get_agreement_payment_request_input.GetAgreementPaymentRequestInput = {
             "payment_request_id": payment_request_id,
             "agreement_id": agreement_id,
@@ -959,7 +1084,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAgreementTerms")
+        )
         input_: capo_marketplace_agreement.types.get_agreement_terms_input.GetAgreementTermsInput = {
             "agreement_id": agreement_id
         }
@@ -1044,7 +1171,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBillingAdjustmentRequest")
+        )
         input_: capo_marketplace_agreement.types.get_billing_adjustment_request_input.GetBillingAdjustmentRequestInput = {
             "agreement_id": agreement_id,
             "billing_adjustment_request_id": billing_adjustment_request_id,
@@ -1118,7 +1247,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementCancellationRequests")
+        )
         input_: capo_marketplace_agreement.types.list_agreement_cancellation_requests_input.ListAgreementCancellationRequestsInput = {
             "party_type": party_type
         }
@@ -1233,7 +1364,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementCharges")
+        )
         input_: capo_marketplace_agreement.types.list_agreement_charges_input.ListAgreementChargesInput = {}
         if catalog is not None:
             input_["catalog"] = catalog
@@ -1358,7 +1491,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementInvoiceLineItems")
+        )
         input_: capo_marketplace_agreement.types.list_agreement_invoice_line_items_input.ListAgreementInvoiceLineItemsInput = {
             "agreement_id": agreement_id,
             "group_by": group_by,
@@ -1492,7 +1627,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgreementPaymentRequests")
+        )
         input_: capo_marketplace_agreement.types.list_agreement_payment_requests_input.ListAgreementPaymentRequestsInput = {
             "party_type": party_type
         }
@@ -1624,7 +1761,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillingAdjustmentRequests")
+        )
         input_: capo_marketplace_agreement.types.list_billing_adjustment_requests_input.ListBillingAdjustmentRequestsInput = {}
         if agreement_id is not None:
             input_["agreement_id"] = agreement_id
@@ -1737,7 +1876,32 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.reject_agreement_cancellation_request_input.RejectAgreementCancellationRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.reject_agreement_cancellation_request_input
+
+            return capo_marketplace_agreement.types.reject_agreement_cancellation_request_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.reject_agreement_cancellation_request_output.RejectAgreementCancellationRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.reject_agreement_cancellation_request_output
+
+            return capo_marketplace_agreement.types.reject_agreement_cancellation_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RejectAgreementCancellationRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_marketplace_agreement.types.reject_agreement_cancellation_request_input.RejectAgreementCancellationRequestInput = {
             "agreement_id": agreement_id,
             "agreement_cancellation_request_id": agreement_cancellation_request_id,
@@ -1793,7 +1957,21 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.reject_agreement_payment_request_output.RejectAgreementPaymentRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.reject_agreement_payment_request_output
+
+            return capo_marketplace_agreement.types.reject_agreement_payment_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RejectAgreementPaymentRequest", redact_output=_redact_output
+            ),
+        )
         input_: capo_marketplace_agreement.types.reject_agreement_payment_request_input.RejectAgreementPaymentRequestInput = {
             "payment_request_id": payment_request_id,
             "agreement_id": agreement_id,
@@ -1856,7 +2034,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchAgreements")
+        )
         input_: capo_marketplace_agreement.types.search_agreements_input.SearchAgreementsInput = {}
         if catalog is not None:
             input_["catalog"] = catalog
@@ -1960,7 +2140,32 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.send_agreement_cancellation_request_input.SendAgreementCancellationRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.send_agreement_cancellation_request_input
+
+            return capo_marketplace_agreement.types.send_agreement_cancellation_request_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.send_agreement_cancellation_request_output.SendAgreementCancellationRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.send_agreement_cancellation_request_output
+
+            return capo_marketplace_agreement.types.send_agreement_cancellation_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SendAgreementCancellationRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_marketplace_agreement.types.send_agreement_cancellation_request_input.SendAgreementCancellationRequestInput = {
             "agreement_id": agreement_id,
             "reason_code": reason_code,
@@ -2028,7 +2233,32 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_agreement.types.send_agreement_payment_request_input.SendAgreementPaymentRequestInput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.send_agreement_payment_request_input
+
+            return capo_marketplace_agreement.types.send_agreement_payment_request_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_marketplace_agreement.types.send_agreement_payment_request_output.SendAgreementPaymentRequestOutput",
+        ) -> dict[str, Any]:
+            import capo_marketplace_agreement.types.send_agreement_payment_request_output
+
+            return capo_marketplace_agreement.types.send_agreement_payment_request_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SendAgreementPaymentRequest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_marketplace_agreement.types.send_agreement_payment_request_input.SendAgreementPaymentRequestInput = {
             "agreement_id": agreement_id,
             "term_id": term_id,
@@ -2084,7 +2314,9 @@ class MarketplaceAgreementClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePurchaseOrders")
+        )
         input_: capo_marketplace_agreement.types.update_purchase_orders_input.UpdatePurchaseOrdersInput = {
             "purchase_orders": purchase_orders
         }

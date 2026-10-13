@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#GetServiceViewOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> GetServiceViewOutput:
         )
     else:
         raise DeserializationError("GetServiceViewOutput.view required")
+    return out
+
+
+def redact_sensitive(value: GetServiceViewOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "view" in value:
+        import capo_resource_explorer_2.types.service_view
+
+        out["view"] = capo_resource_explorer_2.types.service_view.redact_sensitive(
+            value["view"]
+        )
     return out

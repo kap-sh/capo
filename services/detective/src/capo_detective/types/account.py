@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.detective#Account``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> Account:
         out["email_address"] = data["EmailAddress"]
     else:
         raise DeserializationError("Account.email_address required")
+    return out
+
+
+def redact_sensitive(value: Account) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

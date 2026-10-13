@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#KnowledgeBaseConfigurations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.knowledge_base_configuration
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> KnowledgeBaseConfigurations:
             )
         )
     return out
+
+
+def redact_sensitive(value: KnowledgeBaseConfigurations) -> list[Any]:
+    import capo_bedrock_agent_runtime.types.knowledge_base_configuration
+
+    return [
+        capo_bedrock_agent_runtime.types.knowledge_base_configuration.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

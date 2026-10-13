@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#DescribeCustomKeyStoresResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeCustomKeyStoresResponse:
         out["truncated"] = data["Truncated"]
     else:
         out["truncated"] = False
+    return out
+
+
+def redact_sensitive(value: DescribeCustomKeyStoresResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_key_stores" in value:
+        import capo_kms.types.custom_key_stores_list
+
+        out["custom_key_stores"] = (
+            capo_kms.types.custom_key_stores_list.redact_sensitive(
+                value["custom_key_stores"]
+            )
+        )
     return out

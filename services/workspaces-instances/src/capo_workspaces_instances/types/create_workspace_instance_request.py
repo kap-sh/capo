@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#CreateWorkspaceInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -85,6 +85,21 @@ def deserialize_aws_json_1_0(data: dict) -> CreateWorkspaceInstanceRequest:
         out["billing_configuration"] = (
             capo_workspaces_instances.types.billing_configuration.deserialize_aws_json_1_0(
                 data["BillingConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateWorkspaceInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_token" in value:
+        out["client_token"] = "*** Sensitive Data Redacted ***"
+    if "managed_instance" in value:
+        import capo_workspaces_instances.types.managed_instance_request
+
+        out["managed_instance"] = (
+            capo_workspaces_instances.types.managed_instance_request.redact_sensitive(
+                value["managed_instance"]
             )
         )
     return out

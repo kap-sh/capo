@@ -7,6 +7,7 @@ import capo_artifact._auth._sigv4
 from capo_artifact._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,9 @@ class CustomerAgreementResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomerAgreements")
+        )
         input_: capo_artifact.types.list_customer_agreements_request.ListCustomerAgreementsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -141,7 +144,9 @@ class AsyncCustomerAgreementResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomerAgreements")
+        )
         input_: capo_artifact.types.list_customer_agreements_request.ListCustomerAgreementsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

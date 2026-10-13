@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#CreateBranchRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -208,4 +208,13 @@ def deserialize_json(data: dict) -> CreateBranchRequest:
         out["backend"] = capo_amplify.types.backend.deserialize_json(data["backend"])
     if data.get("computeRoleArn") is not None:
         out["compute_role_arn"] = data["computeRoleArn"]
+    return out
+
+
+def redact_sensitive(value: CreateBranchRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "basic_auth_credentials" in value:
+        out["basic_auth_credentials"] = "*** Sensitive Data Redacted ***"
+    if "build_spec" in value:
+        out["build_spec"] = "*** Sensitive Data Redacted ***"
     return out

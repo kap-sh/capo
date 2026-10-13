@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#DBInstance``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -1316,5 +1316,18 @@ def deserialize_query(el: Element) -> DBInstance:
     if child_storage_operation_percent_progress is not None:
         out["storage_operation_percent_progress"] = int(
             child_storage_operation_percent_progress.text or ""
+        )
+    return out
+
+
+def redact_sensitive(value: DBInstance) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pending_modified_values" in value:
+        import capo_rds.types.pending_modified_values
+
+        out["pending_modified_values"] = (
+            capo_rds.types.pending_modified_values.redact_sensitive(
+                value["pending_modified_values"]
+            )
         )
     return out

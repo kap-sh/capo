@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#CreateJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -177,4 +177,21 @@ def deserialize_json(data: dict) -> CreateJobRequest:
         import capo_deadline.types.tags
 
         out["tags"] = capo_deadline.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreateJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "template" in value:
+        out["template"] = "*** Sensitive Data Redacted ***"
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
+    if "attachments" in value:
+        import capo_deadline.types.attachments
+
+        out["attachments"] = capo_deadline.types.attachments.redact_sensitive(
+            value["attachments"]
+        )
+    if "description_override" in value:
+        out["description_override"] = "*** Sensitive Data Redacted ***"
     return out

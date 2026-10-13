@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notifications#NotificationEventAttachment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_json(data: dict) -> NotificationEventAttachment:
         out["content_type"] = data["contentType"]
     else:
         raise DeserializationError("NotificationEventAttachment.content_type required")
+    return out
+
+
+def redact_sensitive(value: NotificationEventAttachment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attachment_download_url" in value:
+        out["attachment_download_url"] = "*** Sensitive Data Redacted ***"
     return out

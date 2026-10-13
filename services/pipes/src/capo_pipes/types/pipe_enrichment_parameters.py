@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeEnrichmentParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,21 @@ def deserialize_json(data: dict) -> PipeEnrichmentParameters:
         out["http_parameters"] = (
             capo_pipes.types.pipe_enrichment_http_parameters.deserialize_json(
                 data["HttpParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PipeEnrichmentParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_template" in value:
+        out["input_template"] = "*** Sensitive Data Redacted ***"
+    if "http_parameters" in value:
+        import capo_pipes.types.pipe_enrichment_http_parameters
+
+        out["http_parameters"] = (
+            capo_pipes.types.pipe_enrichment_http_parameters.redact_sensitive(
+                value["http_parameters"]
             )
         )
     return out

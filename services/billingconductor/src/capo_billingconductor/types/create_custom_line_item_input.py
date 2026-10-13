@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#CreateCustomLineItemInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -150,4 +150,13 @@ def deserialize_json(data: dict) -> CreateCustomLineItemInput:
                 data["PresentationDetails"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateCustomLineItemInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

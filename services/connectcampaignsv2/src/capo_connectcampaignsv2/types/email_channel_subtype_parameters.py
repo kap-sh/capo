@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#EmailChannelSubtypeParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,15 @@ def deserialize_json(data: dict) -> EmailChannelSubtypeParameters:
         raise DeserializationError(
             "EmailChannelSubtypeParameters.template_parameters required"
         )
+    return out
+
+
+def redact_sensitive(value: EmailChannelSubtypeParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destination_email_address" in value:
+        out["destination_email_address"] = "*** Sensitive Data Redacted ***"
+    if "connect_source_email_address" in value:
+        out["connect_source_email_address"] = "*** Sensitive Data Redacted ***"
+    if "template_parameters" in value:
+        out["template_parameters"] = "*** Sensitive Data Redacted ***"
     return out

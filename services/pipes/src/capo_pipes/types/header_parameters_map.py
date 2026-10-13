@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#HeaderParametersMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.header_key
@@ -26,3 +26,7 @@ def deserialize_json(data: dict) -> HeaderParametersMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: HeaderParametersMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

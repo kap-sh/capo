@@ -26,7 +26,9 @@ from capo_lex_runtime_v2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -131,7 +133,9 @@ class AsyncLexRuntimeV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncLexRuntimeV2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncLexRuntimeV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLexRuntimeV2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -139,8 +143,10 @@ class AsyncLexRuntimeV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -201,7 +207,9 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSession")
+        )
         input_: capo_lex_runtime_v2.types.delete_session_request.DeleteSessionRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,
@@ -258,7 +266,19 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lex_runtime_v2.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.get_session_response
+
+            return capo_lex_runtime_v2.types.get_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_lex_runtime_v2.types.get_session_request.GetSessionRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,
@@ -331,7 +351,30 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_v2.types.put_session_request.PutSessionRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.put_session_request
+
+            return capo_lex_runtime_v2.types.put_session_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_v2.types.put_session_response.PutSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.put_session_response
+
+            return capo_lex_runtime_v2.types.put_session_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutSession", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_lex_runtime_v2.types.put_session_request.PutSessionRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,
@@ -410,7 +453,32 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_v2.types.recognize_text_request.RecognizeTextRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.recognize_text_request
+
+            return capo_lex_runtime_v2.types.recognize_text_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_v2.types.recognize_text_response.RecognizeTextResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.recognize_text_response
+
+            return capo_lex_runtime_v2.types.recognize_text_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RecognizeText",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lex_runtime_v2.types.recognize_text_request.RecognizeTextRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,
@@ -494,7 +562,36 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_v2.types.recognize_utterance_request.RecognizeUtteranceRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.recognize_utterance_request
+
+            return (
+                capo_lex_runtime_v2.types.recognize_utterance_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_v2.types.recognize_utterance_response.RecognizeUtteranceResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.recognize_utterance_response
+
+            return (
+                capo_lex_runtime_v2.types.recognize_utterance_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RecognizeUtterance",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lex_runtime_v2.types.recognize_utterance_request.RecognizeUtteranceRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,
@@ -568,7 +665,36 @@ class AsyncLexRuntimeV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lex_runtime_v2.types.start_conversation_request.StartConversationRequest",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.start_conversation_request
+
+            return (
+                capo_lex_runtime_v2.types.start_conversation_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_lex_runtime_v2.types.start_conversation_response.StartConversationResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_runtime_v2.types.start_conversation_response
+
+            return (
+                capo_lex_runtime_v2.types.start_conversation_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartConversation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lex_runtime_v2.types.start_conversation_request.StartConversationRequest = {
             "bot_id": bot_id,
             "bot_alias_id": bot_alias_id,

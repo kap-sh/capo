@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -177,4 +177,15 @@ def deserialize_json(data: dict) -> GetJobResponse:
         import capo_location.types.tag_map
 
         out["tags"] = capo_location.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: GetJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "created_at" in value:
+        out["created_at"] = "*** Sensitive Data Redacted ***"
+    if "ended_at" in value:
+        out["ended_at"] = "*** Sensitive Data Redacted ***"
+    if "updated_at" in value:
+        out["updated_at"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#DescribeRecoveryInstancesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,6 +42,19 @@ def deserialize_json(data: dict) -> DescribeRecoveryInstancesResponse:
         out["items"] = (
             capo_drs.types.describe_recovery_instances_items.deserialize_json(
                 data["items"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeRecoveryInstancesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_drs.types.describe_recovery_instances_items
+
+        out["items"] = (
+            capo_drs.types.describe_recovery_instances_items.redact_sensitive(
+                value["items"]
             )
         )
     return out

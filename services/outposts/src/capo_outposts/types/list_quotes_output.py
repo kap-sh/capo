@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.outposts#ListQuotesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListQuotesOutput:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListQuotesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "quotes" in value:
+        import capo_outposts.types.quote_summary_list_definition
+
+        out["quotes"] = (
+            capo_outposts.types.quote_summary_list_definition.redact_sensitive(
+                value["quotes"]
+            )
+        )
     return out

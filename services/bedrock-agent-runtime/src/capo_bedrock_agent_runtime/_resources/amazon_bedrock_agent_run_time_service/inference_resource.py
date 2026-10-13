@@ -2,13 +2,14 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, Generator
 from contextlib import asynccontextmanager, contextmanager
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent_runtime._auth._signers
 import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -118,7 +119,34 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.invoke_agent_request.InvokeAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.invoke_agent_request
+
+            return (
+                capo_bedrock_agent_runtime.types.invoke_agent_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.invoke_agent_response.InvokeAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.invoke_agent_response
+
+            return (
+                capo_bedrock_agent_runtime.types.invoke_agent_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeAgent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.invoke_agent_request.InvokeAgentRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,
@@ -235,7 +263,34 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.invoke_agent_request.InvokeAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.invoke_agent_request
+
+            return (
+                capo_bedrock_agent_runtime.types.invoke_agent_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.invoke_agent_response.InvokeAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.invoke_agent_response
+
+            return (
+                capo_bedrock_agent_runtime.types.invoke_agent_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeAgent", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.invoke_agent_request.InvokeAgentRequest = {
             "agent_id": agent_id,
             "agent_alias_id": agent_alias_id,

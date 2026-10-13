@@ -24,7 +24,9 @@ from capo_amplify._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -245,7 +247,9 @@ class AsyncAmplifyClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAmplifyClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAmplifyClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAmplifyClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -253,8 +257,10 @@ class AsyncAmplifyClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -372,7 +378,26 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplify.types.create_app_request.CreateAppRequest",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.create_app_request
+
+            return capo_amplify.types.create_app_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_amplify.types.create_app_result.CreateAppResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.create_app_result
+
+            return capo_amplify.types.create_app_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateApp", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_amplify.types.create_app_request.CreateAppRequest = {"name": name}
         if description is not None:
             input_["description"] = description
@@ -468,7 +493,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBackendEnvironment")
+        )
         input_: capo_amplify.types.create_backend_environment_request.CreateBackendEnvironmentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -584,7 +611,26 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplify.types.create_branch_request.CreateBranchRequest",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.create_branch_request
+
+            return capo_amplify.types.create_branch_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_amplify.types.create_branch_result.CreateBranchResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.create_branch_result
+
+            return capo_amplify.types.create_branch_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBranch", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_amplify.types.create_branch_request.CreateBranchRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -674,7 +720,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_amplify.types.create_deployment_request.CreateDeploymentRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -746,7 +794,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainAssociation")
+        )
         input_: capo_amplify.types.create_domain_association_request.CreateDomainAssociationRequest = {
             "app_id": app_id,
             "domain_name": domain_name,
@@ -811,7 +861,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebhook")
+        )
         input_: capo_amplify.types.create_webhook_request.CreateWebhookRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -862,7 +914,17 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.delete_app_result.DeleteAppResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.delete_app_result
+
+            return capo_amplify.types.delete_app_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteApp", redact_output=_redact_output),
+        )
         input_: capo_amplify.types.delete_app_request.DeleteAppRequest = {
             "app_id": app_id
         }
@@ -912,7 +974,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackendEnvironment")
+        )
         input_: capo_amplify.types.delete_backend_environment_request.DeleteBackendEnvironmentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -963,7 +1027,17 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.delete_branch_result.DeleteBranchResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.delete_branch_result
+
+            return capo_amplify.types.delete_branch_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteBranch", redact_output=_redact_output),
+        )
         input_: capo_amplify.types.delete_branch_request.DeleteBranchRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1014,7 +1088,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainAssociation")
+        )
         input_: capo_amplify.types.delete_domain_association_request.DeleteDomainAssociationRequest = {
             "app_id": app_id,
             "domain_name": domain_name,
@@ -1067,7 +1143,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteJob")
+        )
         input_: capo_amplify.types.delete_job_request.DeleteJobRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1117,7 +1195,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebhook")
+        )
         input_: capo_amplify.types.delete_webhook_request.DeleteWebhookRequest = {
             "webhook_id": webhook_id
         }
@@ -1170,7 +1250,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateAccessLogs")
+        )
         input_: capo_amplify.types.generate_access_logs_request.GenerateAccessLogsRequest = {
             "domain_name": domain_name,
             "app_id": app_id,
@@ -1220,7 +1302,16 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.get_app_result.GetAppResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.get_app_result
+
+            return capo_amplify.types.get_app_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApp", redact_output=_redact_output)
+        )
         input_: capo_amplify.types.get_app_request.GetAppRequest = {"app_id": app_id}
 
         response = await aexecute_pipeline(
@@ -1266,7 +1357,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArtifactUrl")
+        )
         input_: capo_amplify.types.get_artifact_url_request.GetArtifactUrlRequest = {
             "artifact_id": artifact_id
         }
@@ -1317,7 +1410,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBackendEnvironment")
+        )
         input_: capo_amplify.types.get_backend_environment_request.GetBackendEnvironmentRequest = {
             "app_id": app_id,
             "environment_name": environment_name,
@@ -1367,7 +1462,17 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.get_branch_result.GetBranchResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.get_branch_result
+
+            return capo_amplify.types.get_branch_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBranch", redact_output=_redact_output),
+        )
         input_: capo_amplify.types.get_branch_request.GetBranchRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1417,7 +1522,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainAssociation")
+        )
         input_: capo_amplify.types.get_domain_association_request.GetDomainAssociationRequest = {
             "app_id": app_id,
             "domain_name": domain_name,
@@ -1468,7 +1575,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_amplify.types.get_job_request.GetJobRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1518,7 +1627,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWebhook")
+        )
         input_: capo_amplify.types.get_webhook_request.GetWebhookRequest = {
             "webhook_id": webhook_id
         }
@@ -1568,7 +1679,16 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.list_apps_result.ListAppsResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.list_apps_result
+
+            return capo_amplify.types.list_apps_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApps", redact_output=_redact_output)
+        )
         input_: capo_amplify.types.list_apps_request.ListAppsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1648,7 +1768,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArtifacts")
+        )
         input_: capo_amplify.types.list_artifacts_request.ListArtifactsRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1708,7 +1830,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBackendEnvironments")
+        )
         input_: capo_amplify.types.list_backend_environments_request.ListBackendEnvironmentsRequest = {
             "app_id": app_id
         }
@@ -1764,7 +1888,17 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_amplify.types.list_branches_result.ListBranchesResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.list_branches_result
+
+            return capo_amplify.types.list_branches_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBranches", redact_output=_redact_output),
+        )
         input_: capo_amplify.types.list_branches_request.ListBranchesRequest = {
             "app_id": app_id
         }
@@ -1841,7 +1975,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainAssociations")
+        )
         input_: capo_amplify.types.list_domain_associations_request.ListDomainAssociationsRequest = {
             "app_id": app_id
         }
@@ -1921,7 +2057,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_amplify.types.list_jobs_request.ListJobsRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -1999,7 +2137,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_amplify.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2050,7 +2190,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebhooks")
+        )
         input_: capo_amplify.types.list_webhooks_request.ListWebhooksRequest = {
             "app_id": app_id
         }
@@ -2112,7 +2254,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDeployment")
+        )
         input_: capo_amplify.types.start_deployment_request.StartDeploymentRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -2183,7 +2327,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJob")
+        )
         input_: capo_amplify.types.start_job_request.StartJobRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -2245,7 +2391,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopJob")
+        )
         input_: capo_amplify.types.stop_job_request.StopJobRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -2295,7 +2443,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_amplify.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2344,7 +2494,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_amplify.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2456,7 +2608,26 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplify.types.update_app_request.UpdateAppRequest",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.update_app_request
+
+            return capo_amplify.types.update_app_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_amplify.types.update_app_result.UpdateAppResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.update_app_result
+
+            return capo_amplify.types.update_app_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateApp", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_amplify.types.update_app_request.UpdateAppRequest = {
             "app_id": app_id
         }
@@ -2606,7 +2777,26 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_amplify.types.update_branch_request.UpdateBranchRequest",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.update_branch_request
+
+            return capo_amplify.types.update_branch_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_amplify.types.update_branch_result.UpdateBranchResult",
+        ) -> dict[str, Any]:
+            import capo_amplify.types.update_branch_result
+
+            return capo_amplify.types.update_branch_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBranch", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_amplify.types.update_branch_request.UpdateBranchRequest = {
             "app_id": app_id,
             "branch_name": branch_name,
@@ -2713,7 +2903,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainAssociation")
+        )
         input_: capo_amplify.types.update_domain_association_request.UpdateDomainAssociationRequest = {
             "app_id": app_id,
             "domain_name": domain_name,
@@ -2778,7 +2970,9 @@ class AsyncAmplifyClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebhook")
+        )
         input_: capo_amplify.types.update_webhook_request.UpdateWebhookRequest = {
             "webhook_id": webhook_id
         }

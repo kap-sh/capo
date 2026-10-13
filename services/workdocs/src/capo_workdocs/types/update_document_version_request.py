@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#UpdateDocumentVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> UpdateDocumentVersionRequest:
                 data["VersionStatus"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateDocumentVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
     return out

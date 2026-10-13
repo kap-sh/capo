@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_bedrock_data_automation_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,9 @@ class AutomationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeDataAutomationAsync")
+        )
         input_: capo_bedrock_data_automation_runtime.types.invoke_data_automation_async_request.InvokeDataAutomationAsyncRequest = {
             "input_configuration": input_configuration,
             "output_configuration": output_configuration,
@@ -165,7 +168,9 @@ class AutomationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationStatus")
+        )
         input_: capo_bedrock_data_automation_runtime.types.get_data_automation_status_request.GetDataAutomationStatusRequest = {
             "invocation_arn": invocation_arn
         }
@@ -248,7 +253,9 @@ class AsyncAutomationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeDataAutomationAsync")
+        )
         input_: capo_bedrock_data_automation_runtime.types.invoke_data_automation_async_request.InvokeDataAutomationAsyncRequest = {
             "input_configuration": input_configuration,
             "output_configuration": output_configuration,
@@ -313,7 +320,9 @@ class AsyncAutomationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataAutomationStatus")
+        )
         input_: capo_bedrock_data_automation_runtime.types.get_data_automation_status_request.GetDataAutomationStatusRequest = {
             "invocation_arn": invocation_arn
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#ActorMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,4 +61,15 @@ def deserialize_json(data: dict) -> ActorMessage:
         out["received_at"] = datetime.datetime.fromisoformat(
             data["receivedAt"].replace("Z", "+00:00")
         )
+    return out
+
+
+def redact_sensitive(value: ActorMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender" in value:
+        out["sender"] = "*** Sensitive Data Redacted ***"
+    if "subject" in value:
+        out["subject"] = "*** Sensitive Data Redacted ***"
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

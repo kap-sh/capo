@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudcontrol#ProgressEvent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,11 @@ def deserialize_aws_json_1_0(data: dict) -> ProgressEvent:
         out["retry_after"] = capo_cloudcontrol.types.timestamp.deserialize_aws_json_1_0(
             data["RetryAfter"]
         )
+    return out
+
+
+def redact_sensitive(value: ProgressEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "resource_model" in value:
+        out["resource_model"] = "*** Sensitive Data Redacted ***"
     return out

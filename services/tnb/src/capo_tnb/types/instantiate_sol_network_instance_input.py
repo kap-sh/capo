@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.tnb#InstantiateSolNetworkInstanceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> InstantiateSolNetworkInstanceInput:
         import capo_tnb.types.tag_map
 
         out["tags"] = capo_tnb.types.tag_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: InstantiateSolNetworkInstanceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

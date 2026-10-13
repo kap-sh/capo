@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#DirectoryDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -474,6 +474,29 @@ def deserialize_aws_json_1_1(data: dict) -> DirectoryDescription:
         out["network_type"] = (
             capo_directory_service.types.network_type.deserialize_aws_json_1_1(
                 data["NetworkType"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DirectoryDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "share_notes" in value:
+        out["share_notes"] = "*** Sensitive Data Redacted ***"
+    if "radius_settings" in value:
+        import capo_directory_service.types.radius_settings
+
+        out["radius_settings"] = (
+            capo_directory_service.types.radius_settings.redact_sensitive(
+                value["radius_settings"]
+            )
+        )
+    if "owner_directory_description" in value:
+        import capo_directory_service.types.owner_directory_description
+
+        out["owner_directory_description"] = (
+            capo_directory_service.types.owner_directory_description.redact_sensitive(
+                value["owner_directory_description"]
             )
         )
     return out

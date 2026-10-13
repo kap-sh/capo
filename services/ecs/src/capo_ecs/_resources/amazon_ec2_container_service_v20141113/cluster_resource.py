@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_ecs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -122,7 +123,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_ecs.types.update_cluster_request.UpdateClusterRequest = {
             "cluster": cluster
         }
@@ -186,7 +189,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_ecs.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster": cluster
         }
@@ -253,7 +258,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutClusterCapacityProviders")
+        )
         input_: capo_ecs.types.put_cluster_capacity_providers_request.PutClusterCapacityProvidersRequest = {
             "cluster": cluster,
             "capacity_providers": capacity_providers,
@@ -313,7 +320,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateClusterSettings")
+        )
         input_: capo_ecs.types.update_cluster_settings_request.UpdateClusterSettingsRequest = {
             "cluster": cluster,
             "settings": settings,
@@ -385,7 +394,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_ecs.types.create_cluster_request.CreateClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -456,7 +467,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterContainerInstance")
+        )
         input_: capo_ecs.types.deregister_container_instance_request.DeregisterContainerInstanceRequest = {
             "container_instance": container_instance
         }
@@ -514,7 +527,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_ecs.types.describe_clusters_request.DescribeClustersRequest = {}
         if clusters is not None:
             input_["clusters"] = clusters
@@ -578,7 +593,17 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.execute_command_response.ExecuteCommandResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.execute_command_response
+
+            return capo_ecs.types.execute_command_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ExecuteCommand", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.execute_command_request.ExecuteCommandRequest = {
             "command": command,
             "interactive": interactive,
@@ -647,7 +672,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAttributes")
+        )
         input_: capo_ecs.types.list_attributes_request.ListAttributesRequest = {
             "target_type": target_type
         }
@@ -711,7 +738,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_ecs.types.list_clusters_request.ListClustersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -776,7 +805,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContainerInstances")
+        )
         input_: capo_ecs.types.list_container_instances_request.ListContainerInstancesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -833,7 +864,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitAttachmentStateChanges")
+        )
         input_: capo_ecs.types.submit_attachment_state_changes_request.SubmitAttachmentStateChangesRequest = {
             "attachments": attachments
         }
@@ -898,7 +931,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitContainerStateChange")
+        )
         input_: capo_ecs.types.submit_container_state_change_request.SubmitContainerStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -985,7 +1020,9 @@ class ClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitTaskStateChange")
+        )
         input_: capo_ecs.types.submit_task_state_change_request.SubmitTaskStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -1077,7 +1114,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_ecs.types.update_cluster_request.UpdateClusterRequest = {
             "cluster": cluster
         }
@@ -1142,7 +1181,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_ecs.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster": cluster
         }
@@ -1210,7 +1251,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutClusterCapacityProviders")
+        )
         input_: capo_ecs.types.put_cluster_capacity_providers_request.PutClusterCapacityProvidersRequest = {
             "cluster": cluster,
             "capacity_providers": capacity_providers,
@@ -1271,7 +1314,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateClusterSettings")
+        )
         input_: capo_ecs.types.update_cluster_settings_request.UpdateClusterSettingsRequest = {
             "cluster": cluster,
             "settings": settings,
@@ -1344,7 +1389,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_ecs.types.create_cluster_request.CreateClusterRequest = {}
         if cluster_name is not None:
             input_["cluster_name"] = cluster_name
@@ -1416,7 +1463,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterContainerInstance")
+        )
         input_: capo_ecs.types.deregister_container_instance_request.DeregisterContainerInstanceRequest = {
             "container_instance": container_instance
         }
@@ -1475,7 +1524,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_ecs.types.describe_clusters_request.DescribeClustersRequest = {}
         if clusters is not None:
             input_["clusters"] = clusters
@@ -1540,7 +1591,17 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ecs.types.execute_command_response.ExecuteCommandResponse",
+        ) -> dict[str, Any]:
+            import capo_ecs.types.execute_command_response
+
+            return capo_ecs.types.execute_command_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ExecuteCommand", redact_output=_redact_output),
+        )
         input_: capo_ecs.types.execute_command_request.ExecuteCommandRequest = {
             "command": command,
             "interactive": interactive,
@@ -1610,7 +1671,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAttributes")
+        )
         input_: capo_ecs.types.list_attributes_request.ListAttributesRequest = {
             "target_type": target_type
         }
@@ -1675,7 +1738,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_ecs.types.list_clusters_request.ListClustersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1741,7 +1806,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListContainerInstances")
+        )
         input_: capo_ecs.types.list_container_instances_request.ListContainerInstancesRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -1799,7 +1866,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitAttachmentStateChanges")
+        )
         input_: capo_ecs.types.submit_attachment_state_changes_request.SubmitAttachmentStateChangesRequest = {
             "attachments": attachments
         }
@@ -1865,7 +1934,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitContainerStateChange")
+        )
         input_: capo_ecs.types.submit_container_state_change_request.SubmitContainerStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster
@@ -1953,7 +2024,9 @@ class AsyncClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SubmitTaskStateChange")
+        )
         input_: capo_ecs.types.submit_task_state_change_request.SubmitTaskStateChangeRequest = {}
         if cluster is not None:
             input_["cluster"] = cluster

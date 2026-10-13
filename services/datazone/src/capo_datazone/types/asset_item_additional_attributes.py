@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AssetItemAdditionalAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,5 +88,24 @@ def deserialize_json(data: dict) -> AssetItemAdditionalAttributes:
 
         out["match_rationale"] = capo_datazone.types.match_rationale.deserialize_json(
             data["matchRationale"]
+        )
+    return out
+
+
+def redact_sensitive(value: AssetItemAdditionalAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "forms_output" in value:
+        import capo_datazone.types.form_output_list
+
+        out["forms_output"] = capo_datazone.types.form_output_list.redact_sensitive(
+            value["forms_output"]
+        )
+    if "read_only_forms_output" in value:
+        import capo_datazone.types.form_output_list
+
+        out["read_only_forms_output"] = (
+            capo_datazone.types.form_output_list.redact_sensitive(
+                value["read_only_forms_output"]
+            )
         )
     return out

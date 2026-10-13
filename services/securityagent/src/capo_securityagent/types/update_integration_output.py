@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#UpdateIntegrationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_json(data: dict) -> UpdateIntegrationOutput:
         out["webhook_url"] = data["webhookUrl"]
     if data.get("secret") is not None:
         out["secret"] = data["secret"]
+    return out
+
+
+def redact_sensitive(value: UpdateIntegrationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret" in value:
+        out["secret"] = "*** Sensitive Data Redacted ***"
     return out

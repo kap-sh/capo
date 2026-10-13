@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#ListResourceSnapshotsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_aws_json_1_0(data: dict) -> ListResourceSnapshotsRequest:
         ]
     if data.get("CreatedBy") is not None:
         out["created_by"] = data["CreatedBy"]
+    return out
+
+
+def redact_sensitive(value: ListResourceSnapshotsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "created_by" in value:
+        out["created_by"] = "*** Sensitive Data Redacted ***"
     return out

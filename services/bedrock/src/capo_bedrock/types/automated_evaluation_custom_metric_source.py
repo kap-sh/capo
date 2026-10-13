@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedEvaluationCustomMetricSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -52,3 +52,10 @@ def deserialize_json(data: dict) -> AutomatedEvaluationCustomMetricSource:
         raise DeserializationError(
             "AutomatedEvaluationCustomMetricSource: no recognized variant key"
         )
+
+
+def redact_sensitive(value: AutomatedEvaluationCustomMetricSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customMetricDefinition" in value:
+        out["customMetricDefinition"] = "*** Sensitive Data Redacted ***"
+    return out

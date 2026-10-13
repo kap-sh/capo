@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_sso_admin._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,9 @@ class ApplicationAccessScopeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.put_application_access_scope_request.PutApplicationAccessScopeRequest = {
             "scope": scope,
             "application_arn": application_arn,
@@ -126,7 +129,9 @@ class ApplicationAccessScopeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.get_application_access_scope_request.GetApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -175,7 +180,9 @@ class ApplicationAccessScopeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.delete_application_access_scope_request.DeleteApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -227,7 +234,9 @@ class ApplicationAccessScopeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationAccessScopes")
+        )
         input_: capo_sso_admin.types.list_application_access_scopes_request.ListApplicationAccessScopesRequest = {
             "application_arn": application_arn
         }
@@ -289,7 +298,9 @@ class AsyncApplicationAccessScopeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.put_application_access_scope_request.PutApplicationAccessScopeRequest = {
             "scope": scope,
             "application_arn": application_arn,
@@ -342,7 +353,9 @@ class AsyncApplicationAccessScopeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.get_application_access_scope_request.GetApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -392,7 +405,9 @@ class AsyncApplicationAccessScopeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationAccessScope")
+        )
         input_: capo_sso_admin.types.delete_application_access_scope_request.DeleteApplicationAccessScopeRequest = {
             "application_arn": application_arn,
             "scope": scope,
@@ -445,7 +460,9 @@ class AsyncApplicationAccessScopeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationAccessScopes")
+        )
         input_: capo_sso_admin.types.list_application_access_scopes_request.ListApplicationAccessScopesRequest = {
             "application_arn": application_arn
         }

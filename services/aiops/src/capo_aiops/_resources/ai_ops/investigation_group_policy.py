@@ -7,6 +7,7 @@ import capo_aiops._auth._sigv4
 from capo_aiops._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class InvestigationGroupPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.put_investigation_group_policy_request.PutInvestigationGroupPolicyRequest = {
             "identifier": identifier,
             "policy": policy,
@@ -121,7 +124,9 @@ class InvestigationGroupPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.get_investigation_group_policy_request.GetInvestigationGroupPolicyRequest = {
             "identifier": identifier
         }
@@ -170,7 +175,9 @@ class InvestigationGroupPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.delete_investigation_group_policy_request.DeleteInvestigationGroupPolicyRequest = {
             "identifier": identifier
         }
@@ -227,7 +234,9 @@ class AsyncInvestigationGroupPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.put_investigation_group_policy_request.PutInvestigationGroupPolicyRequest = {
             "identifier": identifier,
             "policy": policy,
@@ -278,7 +287,9 @@ class AsyncInvestigationGroupPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.get_investigation_group_policy_request.GetInvestigationGroupPolicyRequest = {
             "identifier": identifier
         }
@@ -328,7 +339,9 @@ class AsyncInvestigationGroupPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteInvestigationGroupPolicy")
+        )
         input_: capo_aiops.types.delete_investigation_group_policy_request.DeleteInvestigationGroupPolicyRequest = {
             "identifier": identifier
         }

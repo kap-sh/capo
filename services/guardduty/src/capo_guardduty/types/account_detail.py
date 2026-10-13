@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#AccountDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> AccountDetail:
         out["account_id"] = data["accountId"]
     if data.get("email") is not None:
         out["email"] = data["email"]
+    return out
+
+
+def redact_sensitive(value: AccountDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
     return out

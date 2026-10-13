@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePassThroughWaypointList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_pass_through_waypoint
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> RoutePassThroughWaypointList:
             capo_geo_routes.types.route_pass_through_waypoint.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: RoutePassThroughWaypointList) -> list[Any]:
+    import capo_geo_routes.types.route_pass_through_waypoint
+
+    return [
+        capo_geo_routes.types.route_pass_through_waypoint.redact_sensitive(item)
+        for item in value
+    ]

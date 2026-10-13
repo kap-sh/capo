@@ -21,10 +21,12 @@ from capo_service_catalog_appregistry._pagination import resolve_path as _resolv
 from capo_service_catalog_appregistry._services._aws_config import aws_config
 from capo_service_catalog_appregistry._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -171,7 +173,9 @@ class ServiceCatalogAppRegistryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ServiceCatalogAppRegistryClientConfig] = None
+        self,
+        config_overrides: Optional[ServiceCatalogAppRegistryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ServiceCatalogAppRegistryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -179,8 +183,10 @@ class ServiceCatalogAppRegistryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -235,7 +241,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.associate_attribute_group_request.AssociateAttributeGroupRequest = {
             "application": application,
             "attribute_group": attribute_group,
@@ -292,7 +300,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResource")
+        )
         input_: capo_service_catalog_appregistry.types.associate_resource_request.AssociateResourceRequest = {
             "application": application,
             "resource_type": resource_type,
@@ -351,7 +361,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_service_catalog_appregistry.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "client_token": client_token,
@@ -412,7 +424,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.create_attribute_group_request.CreateAttributeGroupRequest = {
             "name": name,
             "attributes": attributes,
@@ -463,7 +477,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_service_catalog_appregistry.types.delete_application_request.DeleteApplicationRequest = {
             "application": application
         }
@@ -508,7 +524,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.delete_attribute_group_request.DeleteAttributeGroupRequest = {
             "attribute_group": attribute_group
         }
@@ -555,7 +573,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.disassociate_attribute_group_request.DisassociateAttributeGroupRequest = {
             "application": application,
             "attribute_group": attribute_group,
@@ -606,7 +626,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResource")
+        )
         input_: capo_service_catalog_appregistry.types.disassociate_resource_request.DisassociateResourceRequest = {
             "application": application,
             "resource_type": resource_type,
@@ -654,7 +676,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_service_catalog_appregistry.types.get_application_request.GetApplicationRequest = {
             "application": application
         }
@@ -715,7 +739,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssociatedResource")
+        )
         input_: capo_service_catalog_appregistry.types.get_associated_resource_request.GetAssociatedResourceRequest = {
             "application": application,
             "resource_type": resource_type,
@@ -769,7 +795,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.get_attribute_group_request.GetAttributeGroupRequest = {
             "attribute_group": attribute_group
         }
@@ -808,7 +836,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguration")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -855,7 +885,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_service_catalog_appregistry.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -935,7 +967,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedAttributeGroups")
+        )
         input_: capo_service_catalog_appregistry.types.list_associated_attribute_groups_request.ListAssociatedAttributeGroupsRequest = {
             "application": application
         }
@@ -1019,7 +1053,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedResources")
+        )
         input_: capo_service_catalog_appregistry.types.list_associated_resources_request.ListAssociatedResourcesRequest = {
             "application": application
         }
@@ -1100,7 +1136,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttributeGroups")
+        )
         input_: capo_service_catalog_appregistry.types.list_attribute_groups_request.ListAttributeGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1180,7 +1218,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttributeGroupsForApplication")
+        )
         input_: capo_service_catalog_appregistry.types.list_attribute_groups_for_application_request.ListAttributeGroupsForApplicationRequest = {
             "application": application
         }
@@ -1256,7 +1296,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_service_catalog_appregistry.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1299,7 +1341,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfiguration")
+        )
         input_: capo_service_catalog_appregistry.types.put_configuration_request.PutConfigurationRequest = {
             "configuration": configuration
         }
@@ -1348,7 +1392,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SyncResource")
+        )
         input_: capo_service_catalog_appregistry.types.sync_resource_request.SyncResourceRequest = {
             "resource_type": resource_type,
             "resource": resource,
@@ -1396,7 +1442,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_service_catalog_appregistry.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1444,7 +1492,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_service_catalog_appregistry.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1498,7 +1548,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_service_catalog_appregistry.types.update_application_request.UpdateApplicationRequest = {
             "application": application
         }
@@ -1558,7 +1610,9 @@ class ServiceCatalogAppRegistryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAttributeGroup")
+        )
         input_: capo_service_catalog_appregistry.types.update_attribute_group_request.UpdateAttributeGroupRequest = {
             "attribute_group": attribute_group
         }

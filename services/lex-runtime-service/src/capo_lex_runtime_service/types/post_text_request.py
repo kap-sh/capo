@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#PostTextRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,17 @@ def deserialize_json(data: dict) -> PostTextRequest:
                 data["activeContexts"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PostTextRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_attributes" in value:
+        out["session_attributes"] = "*** Sensitive Data Redacted ***"
+    if "request_attributes" in value:
+        out["request_attributes"] = "*** Sensitive Data Redacted ***"
+    if "input_text" in value:
+        out["input_text"] = "*** Sensitive Data Redacted ***"
+    if "active_contexts" in value:
+        out["active_contexts"] = "*** Sensitive Data Redacted ***"
     return out

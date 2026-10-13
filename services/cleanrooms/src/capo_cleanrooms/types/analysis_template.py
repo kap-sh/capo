@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#AnalysisTemplate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -267,6 +267,25 @@ def deserialize_json(data: dict) -> AnalysisTemplate:
         out["synthetic_data_parameters"] = (
             capo_cleanrooms.types.synthetic_data_parameters.deserialize_json(
                 data["syntheticDataParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AnalysisTemplate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_cleanrooms.types.analysis_source
+
+        out["source"] = capo_cleanrooms.types.analysis_source.redact_sensitive(
+            value["source"]
+        )
+    if "analysis_parameters" in value:
+        import capo_cleanrooms.types.analysis_parameter_list
+
+        out["analysis_parameters"] = (
+            capo_cleanrooms.types.analysis_parameter_list.redact_sensitive(
+                value["analysis_parameters"]
             )
         )
     return out

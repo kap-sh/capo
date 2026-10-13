@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#PutAlternateContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,17 @@ def deserialize_json(data: dict) -> PutAlternateContactRequest:
         )
     if data.get("AccountId") is not None:
         out["account_id"] = data["AccountId"]
+    return out
+
+
+def redact_sensitive(value: PutAlternateContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

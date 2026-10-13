@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ComponentState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,13 @@ def deserialize_aws_json_1_0(data: dict) -> ComponentState:
         out["service_spec"] = data["serviceSpec"]
     if data.get("templateFile") is not None:
         out["template_file"] = data["templateFile"]
+    return out
+
+
+def redact_sensitive(value: ComponentState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_spec" in value:
+        out["service_spec"] = "*** Sensitive Data Redacted ***"
+    if "template_file" in value:
+        out["template_file"] = "*** Sensitive Data Redacted ***"
     return out

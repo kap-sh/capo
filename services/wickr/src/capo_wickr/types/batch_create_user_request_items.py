@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#BatchCreateUserRequestItems``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_wickr.types.batch_create_user_request_item
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> BatchCreateUserRequestItems:
             capo_wickr.types.batch_create_user_request_item.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BatchCreateUserRequestItems) -> list[Any]:
+    import capo_wickr.types.batch_create_user_request_item
+
+    return [
+        capo_wickr.types.batch_create_user_request_item.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ContainerDefinitions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ecs.types.container_definition
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> ContainerDefinitions:
             continue
         out.append(capo_ecs.types.container_definition.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: ContainerDefinitions) -> list[Any]:
+    import capo_ecs.types.container_definition
+
+    return [
+        capo_ecs.types.container_definition.redact_sensitive(item) for item in value
+    ]

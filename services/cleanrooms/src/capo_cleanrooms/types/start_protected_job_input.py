@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanrooms#StartProtectedJobInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,17 @@ def deserialize_json(data: dict) -> StartProtectedJobInput:
         )
     if data.get("jobComputePayerAccountId") is not None:
         out["job_compute_payer_account_id"] = data["jobComputePayerAccountId"]
+    return out
+
+
+def redact_sensitive(value: StartProtectedJobInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_parameters" in value:
+        import capo_cleanrooms.types.protected_job_parameters
+
+        out["job_parameters"] = (
+            capo_cleanrooms.types.protected_job_parameters.redact_sensitive(
+                value["job_parameters"]
+            )
+        )
     return out

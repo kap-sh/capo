@@ -24,7 +24,9 @@ from capo_translate._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -167,7 +169,9 @@ class AsyncTranslateClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncTranslateClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncTranslateClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncTranslateClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -175,8 +179,10 @@ class AsyncTranslateClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -246,7 +252,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateParallelData")
+        )
         input_: capo_translate.types.create_parallel_data_request.CreateParallelDataRequest = {
             "name": name,
             "parallel_data_config": parallel_data_config,
@@ -303,7 +311,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteParallelData")
+        )
         input_: capo_translate.types.delete_parallel_data_request.DeleteParallelDataRequest = {
             "name": name
         }
@@ -348,7 +358,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTerminology")
+        )
         input_: capo_translate.types.delete_terminology_request.DeleteTerminologyRequest = {
             "name": name
         }
@@ -394,7 +406,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTextTranslationJob")
+        )
         input_: capo_translate.types.describe_text_translation_job_request.DescribeTextTranslationJobRequest = {
             "job_id": job_id
         }
@@ -441,7 +455,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetParallelData")
+        )
         input_: capo_translate.types.get_parallel_data_request.GetParallelDataRequest = {
             "name": name
         }
@@ -492,7 +508,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTerminology")
+        )
         input_: capo_translate.types.get_terminology_request.GetTerminologyRequest = {
             "name": name
         }
@@ -555,7 +573,19 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_translate.types.import_terminology_request.ImportTerminologyRequest",
+        ) -> dict[str, Any]:
+            import capo_translate.types.import_terminology_request
+
+            return capo_translate.types.import_terminology_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportTerminology", redact_input=_redact_input),
+        )
         input_: capo_translate.types.import_terminology_request.ImportTerminologyRequest = {
             "name": name,
             "merge_strategy": merge_strategy,
@@ -618,7 +648,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLanguages")
+        )
         input_: capo_translate.types.list_languages_request.ListLanguagesRequest = {}
         if display_language_code is not None:
             input_["display_language_code"] = display_language_code
@@ -697,7 +729,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListParallelData")
+        )
         input_: capo_translate.types.list_parallel_data_request.ListParallelDataRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -766,7 +800,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_translate.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -816,7 +852,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTerminologies")
+        )
         input_: capo_translate.types.list_terminologies_request.ListTerminologiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -894,7 +932,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTextTranslationJobs")
+        )
         input_: capo_translate.types.list_text_translation_jobs_request.ListTextTranslationJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -996,7 +1036,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTextTranslationJob")
+        )
         input_: capo_translate.types.start_text_translation_job_request.StartTextTranslationJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1055,7 +1097,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopTextTranslationJob")
+        )
         input_: capo_translate.types.stop_text_translation_job_request.StopTextTranslationJobRequest = {
             "job_id": job_id
         }
@@ -1105,7 +1149,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_translate.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1168,7 +1214,32 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_translate.types.translate_document_request.TranslateDocumentRequest",
+        ) -> dict[str, Any]:
+            import capo_translate.types.translate_document_request
+
+            return capo_translate.types.translate_document_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_translate.types.translate_document_response.TranslateDocumentResponse",
+        ) -> dict[str, Any]:
+            import capo_translate.types.translate_document_response
+
+            return capo_translate.types.translate_document_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TranslateDocument",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_translate.types.translate_document_request.TranslateDocumentRequest = {
             "document": document,
             "source_language_code": source_language_code,
@@ -1237,7 +1308,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TranslateText")
+        )
         input_: capo_translate.types.translate_text_request.TranslateTextRequest = {
             "text": text,
             "source_language_code": source_language_code,
@@ -1292,7 +1365,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_translate.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1352,7 +1427,9 @@ class AsyncTranslateClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateParallelData")
+        )
         input_: capo_translate.types.update_parallel_data_request.UpdateParallelDataRequest = {
             "name": name,
             "parallel_data_config": parallel_data_config,

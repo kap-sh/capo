@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_b2bi._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,28 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_request
+
+            return capo_b2bi.types.create_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_profile_response.CreateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_response
+
+            return capo_b2bi.types.create_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "phone": phone,
@@ -153,7 +175,17 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_profile_response.GetProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_profile_response
+
+            return capo_b2bi.types.get_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProfile", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_profile_request.GetProfileRequest = {
             "profile_id": profile_id
         }
@@ -215,7 +247,28 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.update_profile_request.UpdateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_request
+
+            return capo_b2bi.types.update_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.update_profile_response.UpdateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_response
+
+            return capo_b2bi.types.update_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -274,7 +327,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_b2bi.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -327,7 +382,9 @@ class Profile:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_b2bi.types.list_profiles_request.ListProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -401,7 +458,28 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_request
+
+            return capo_b2bi.types.create_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_profile_response.CreateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_response
+
+            return capo_b2bi.types.create_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "phone": phone,
@@ -464,7 +542,17 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_profile_response.GetProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_profile_response
+
+            return capo_b2bi.types.get_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetProfile", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_profile_request.GetProfileRequest = {
             "profile_id": profile_id
         }
@@ -527,7 +615,28 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.update_profile_request.UpdateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_request
+
+            return capo_b2bi.types.update_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.update_profile_response.UpdateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_response
+
+            return capo_b2bi.types.update_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -587,7 +696,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_b2bi.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -641,7 +752,9 @@ class AsyncProfile:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_b2bi.types.list_profiles_request.ListProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaigns#DialRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -68,4 +68,13 @@ def deserialize_json(data: dict) -> DialRequest:
         )
     else:
         raise DeserializationError("DialRequest.attributes required")
+    return out
+
+
+def redact_sensitive(value: DialRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
     return out

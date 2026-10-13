@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#RunMicrovmRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -136,4 +136,11 @@ def deserialize_json(data: dict) -> RunMicrovmRequest:
         out["maximum_duration_in_seconds"] = data["maximumDurationInSeconds"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: RunMicrovmRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "run_hook_payload" in value:
+        out["run_hook_payload"] = "*** Sensitive Data Redacted ***"
     return out

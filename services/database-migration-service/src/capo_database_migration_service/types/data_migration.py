@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#DataMigration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -281,4 +281,19 @@ def deserialize_aws_json_1_1(data: dict) -> DataMigration:
         out["last_failure_message"] = data["LastFailureMessage"]
     if data.get("StopReason") is not None:
         out["stop_reason"] = data["StopReason"]
+    return out
+
+
+def redact_sensitive(value: DataMigration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data_migration_settings" in value:
+        import capo_database_migration_service.types.data_migration_settings
+
+        out["data_migration_settings"] = (
+            capo_database_migration_service.types.data_migration_settings.redact_sensitive(
+                value["data_migration_settings"]
+            )
+        )
+    if "public_ip_addresses" in value:
+        out["public_ip_addresses"] = "*** Sensitive Data Redacted ***"
     return out

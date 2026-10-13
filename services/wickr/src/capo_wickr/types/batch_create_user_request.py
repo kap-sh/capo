@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#BatchCreateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> BatchCreateUserRequest:
         )
     else:
         raise DeserializationError("BatchCreateUserRequest.users required")
+    return out
+
+
+def redact_sensitive(value: BatchCreateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "users" in value:
+        import capo_wickr.types.batch_create_user_request_items
+
+        out["users"] = (
+            capo_wickr.types.batch_create_user_request_items.redact_sensitive(
+                value["users"]
+            )
+        )
     return out

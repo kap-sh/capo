@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#CreateCustomMetadataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_json(data: dict) -> CreateCustomMetadataRequest:
         raise DeserializationError(
             "CreateCustomMetadataRequest.custom_metadata required"
         )
+    return out
+
+
+def redact_sensitive(value: CreateCustomMetadataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
     return out

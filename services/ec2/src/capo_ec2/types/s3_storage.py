@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#S3Storage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,13 @@ def deserialize_ec2_query(el: Element) -> S3Storage:
     child_upload_policy_signature = el.find("uploadPolicySignature")
     if child_upload_policy_signature is not None:
         out["upload_policy_signature"] = str(child_upload_policy_signature.text or "")
+    return out
+
+
+def redact_sensitive(value: S3Storage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "upload_policy" in value:
+        out["upload_policy"] = "*** Sensitive Data Redacted ***"
+    if "upload_policy_signature" in value:
+        out["upload_policy_signature"] = "*** Sensitive Data Redacted ***"
     return out

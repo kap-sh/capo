@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#GetArchiveMessageResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,5 +56,16 @@ def deserialize_aws_json_1_0(data: dict) -> GetArchiveMessageResponse:
 
         out["envelope"] = capo_mailmanager.types.envelope.deserialize_aws_json_1_0(
             data["Envelope"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetArchiveMessageResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        import capo_mailmanager.types.metadata
+
+        out["metadata"] = capo_mailmanager.types.metadata.redact_sensitive(
+            value["metadata"]
         )
     return out

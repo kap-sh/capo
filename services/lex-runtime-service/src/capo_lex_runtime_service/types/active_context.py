@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#ActiveContext``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -68,4 +68,17 @@ def deserialize_json(data: dict) -> ActiveContext:
         )
     else:
         raise DeserializationError("ActiveContext.parameters required")
+    return out
+
+
+def redact_sensitive(value: ActiveContext) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        import capo_lex_runtime_service.types.active_context_parameters_map
+
+        out["parameters"] = (
+            capo_lex_runtime_service.types.active_context_parameters_map.redact_sensitive(
+                value["parameters"]
+            )
+        )
     return out

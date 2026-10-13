@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#ScheduleRunResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_aws_json_1_1(data: dict) -> ScheduleRunResult:
         import capo_device_farm.types.run
 
         out["run"] = capo_device_farm.types.run.deserialize_aws_json_1_1(data["run"])
+    return out
+
+
+def redact_sensitive(value: ScheduleRunResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "run" in value:
+        import capo_device_farm.types.run
+
+        out["run"] = capo_device_farm.types.run.redact_sensitive(value["run"])
     return out

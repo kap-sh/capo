@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class ControlOperationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetControlOperation")
+        )
         input_: capo_controltower.types.get_control_operation_input.GetControlOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -129,7 +132,9 @@ class ControlOperationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListControlOperations")
+        )
         input_: capo_controltower.types.list_control_operations_input.ListControlOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -188,7 +193,9 @@ class AsyncControlOperationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetControlOperation")
+        )
         input_: capo_controltower.types.get_control_operation_input.GetControlOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -245,7 +252,9 @@ class AsyncControlOperationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListControlOperations")
+        )
         input_: capo_controltower.types.list_control_operations_input.ListControlOperationsInput = {}
         if filter is not None:
             input_["filter"] = filter

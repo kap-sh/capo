@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#DiskImageDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_ec2_query(el: Element) -> DiskImageDetail:
     child_import_manifest_url = el.find("importManifestUrl")
     if child_import_manifest_url is not None:
         out["import_manifest_url"] = str(child_import_manifest_url.text or "")
+    return out
+
+
+def redact_sensitive(value: DiskImageDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "import_manifest_url" in value:
+        out["import_manifest_url"] = "*** Sensitive Data Redacted ***"
     return out

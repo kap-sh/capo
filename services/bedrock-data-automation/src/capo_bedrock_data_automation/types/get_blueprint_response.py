@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#GetBlueprintResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,4 +37,17 @@ def deserialize_json(data: dict) -> GetBlueprintResponse:
         )
     else:
         raise DeserializationError("GetBlueprintResponse.blueprint required")
+    return out
+
+
+def redact_sensitive(value: GetBlueprintResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "blueprint" in value:
+        import capo_bedrock_data_automation.types.blueprint
+
+        out["blueprint"] = (
+            capo_bedrock_data_automation.types.blueprint.redact_sensitive(
+                value["blueprint"]
+            )
+        )
     return out

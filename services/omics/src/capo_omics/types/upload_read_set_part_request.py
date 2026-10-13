@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.omics#UploadReadSetPartRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -22,3 +22,10 @@ class UploadReadSetPartRequest(TypedDict, closed=True):
     """<p>The number of the part being uploaded.</p>"""
     payload: "capo_omics.types.read_set_part_streaming_blob.ReadSetPartStreamingBlob"
     """<p>The read set data to upload for a part.</p>"""
+
+
+def redact_sensitive(value: UploadReadSetPartRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "payload" in value:
+        out["payload"] = "*** Streaming Data Redacted ***"
+    return out

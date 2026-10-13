@@ -21,10 +21,12 @@ from capo_iotsecuretunneling._pagination import resolve_path as _resolve_path
 from capo_iotsecuretunneling._services._aws_config import aws_config
 from capo_iotsecuretunneling._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -132,7 +134,9 @@ class IoTSecureTunnelingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[IoTSecureTunnelingClientConfig] = None
+        self,
+        config_overrides: Optional[IoTSecureTunnelingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IoTSecureTunnelingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -140,8 +144,10 @@ class IoTSecureTunnelingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -192,7 +198,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CloseTunnel")
+        )
         input_: capo_iotsecuretunneling.types.close_tunnel_request.CloseTunnelRequest = {
             "tunnel_id": tunnel_id
         }
@@ -239,7 +247,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTunnel")
+        )
         input_: capo_iotsecuretunneling.types.describe_tunnel_request.DescribeTunnelRequest = {
             "tunnel_id": tunnel_id
         }
@@ -282,7 +292,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_iotsecuretunneling.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -334,7 +346,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTunnels")
+        )
         input_: capo_iotsecuretunneling.types.list_tunnels_request.ListTunnelsRequest = {}
         if thing_name is not None:
             input_["thing_name"] = thing_name
@@ -420,7 +434,19 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsecuretunneling.types.open_tunnel_response.OpenTunnelResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsecuretunneling.types.open_tunnel_response
+
+            return capo_iotsecuretunneling.types.open_tunnel_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("OpenTunnel", redact_output=_redact_output),
+        )
         input_: capo_iotsecuretunneling.types.open_tunnel_request.OpenTunnelRequest = {}
         if description is not None:
             input_["description"] = description
@@ -474,7 +500,19 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iotsecuretunneling.types.rotate_tunnel_access_token_response.RotateTunnelAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_iotsecuretunneling.types.rotate_tunnel_access_token_response
+
+            return capo_iotsecuretunneling.types.rotate_tunnel_access_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RotateTunnelAccessToken", redact_output=_redact_output),
+        )
         input_: capo_iotsecuretunneling.types.rotate_tunnel_access_token_request.RotateTunnelAccessTokenRequest = {
             "tunnel_id": tunnel_id,
             "client_mode": client_mode,
@@ -522,7 +560,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_iotsecuretunneling.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -568,7 +608,9 @@ class IoTSecureTunnelingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iotsecuretunneling.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

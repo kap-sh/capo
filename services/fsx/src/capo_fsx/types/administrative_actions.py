@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#AdministrativeActions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_fsx.types.administrative_action
@@ -29,3 +29,11 @@ def deserialize_aws_json_1_1(data: list) -> AdministrativeActions:
             continue
         out.append(capo_fsx.types.administrative_action.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: AdministrativeActions) -> list[Any]:
+    import capo_fsx.types.administrative_action
+
+    return [
+        capo_fsx.types.administrative_action.redact_sensitive(item) for item in value
+    ]

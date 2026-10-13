@@ -24,7 +24,9 @@ from capo_lex_model_building_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -233,6 +235,7 @@ class AsyncLexModelBuildingServiceClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncLexModelBuildingServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLexModelBuildingServiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -240,8 +243,10 @@ class AsyncLexModelBuildingServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -300,7 +305,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBotVersion")
+        )
         input_: capo_lex_model_building_service.types.create_bot_version_request.CreateBotVersionRequest = {
             "name": name
         }
@@ -355,7 +362,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntentVersion")
+        )
         input_: capo_lex_model_building_service.types.create_intent_version_request.CreateIntentVersionRequest = {
             "name": name
         }
@@ -410,7 +419,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSlotTypeVersion")
+        )
         input_: capo_lex_model_building_service.types.create_slot_type_version_request.CreateSlotTypeVersionRequest = {
             "name": name
         }
@@ -459,7 +470,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBot")
+        )
         input_: capo_lex_model_building_service.types.delete_bot_request.DeleteBotRequest = {
             "name": name
         }
@@ -508,7 +521,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBotAlias")
+        )
         input_: capo_lex_model_building_service.types.delete_bot_alias_request.DeleteBotAliasRequest = {
             "name": name,
             "bot_name": bot_name,
@@ -559,7 +574,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBotChannelAssociation")
+        )
         input_: capo_lex_model_building_service.types.delete_bot_channel_association_request.DeleteBotChannelAssociationRequest = {
             "name": name,
             "bot_name": bot_name,
@@ -610,7 +627,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBotVersion")
+        )
         input_: capo_lex_model_building_service.types.delete_bot_version_request.DeleteBotVersionRequest = {
             "name": name,
             "version": version,
@@ -658,7 +677,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntent")
+        )
         input_: capo_lex_model_building_service.types.delete_intent_request.DeleteIntentRequest = {
             "name": name
         }
@@ -707,7 +728,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntentVersion")
+        )
         input_: capo_lex_model_building_service.types.delete_intent_version_request.DeleteIntentVersionRequest = {
             "name": name,
             "version": version,
@@ -755,7 +778,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSlotType")
+        )
         input_: capo_lex_model_building_service.types.delete_slot_type_request.DeleteSlotTypeRequest = {
             "name": name
         }
@@ -804,7 +829,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSlotTypeVersion")
+        )
         input_: capo_lex_model_building_service.types.delete_slot_type_version_request.DeleteSlotTypeVersionRequest = {
             "name": name,
             "version": version,
@@ -852,7 +879,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUtterances")
+        )
         input_: capo_lex_model_building_service.types.delete_utterances_request.DeleteUtterancesRequest = {
             "bot_name": bot_name,
             "user_id": user_id,
@@ -908,7 +937,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBot")
+        )
         input_: capo_lex_model_building_service.types.get_bot_request.GetBotRequest = {
             "name": name,
             "version_or_alias": version_or_alias,
@@ -958,7 +989,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBotAlias")
+        )
         input_: capo_lex_model_building_service.types.get_bot_alias_request.GetBotAliasRequest = {
             "name": name,
             "bot_name": bot_name,
@@ -1017,7 +1050,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBotAliases")
+        )
         input_: capo_lex_model_building_service.types.get_bot_aliases_request.GetBotAliasesRequest = {
             "bot_name": bot_name
         }
@@ -1103,7 +1138,19 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lex_model_building_service.types.get_bot_channel_association_response.GetBotChannelAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_model_building_service.types.get_bot_channel_association_response
+
+            return capo_lex_model_building_service.types.get_bot_channel_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBotChannelAssociation", redact_output=_redact_output),
+        )
         input_: capo_lex_model_building_service.types.get_bot_channel_association_request.GetBotChannelAssociationRequest = {
             "name": name,
             "bot_name": bot_name,
@@ -1165,7 +1212,19 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lex_model_building_service.types.get_bot_channel_associations_response.GetBotChannelAssociationsResponse",
+        ) -> dict[str, Any]:
+            import capo_lex_model_building_service.types.get_bot_channel_associations_response
+
+            return capo_lex_model_building_service.types.get_bot_channel_associations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetBotChannelAssociations", redact_output=_redact_output),
+        )
         input_: capo_lex_model_building_service.types.get_bot_channel_associations_request.GetBotChannelAssociationsRequest = {
             "bot_name": bot_name,
             "bot_alias": bot_alias,
@@ -1266,7 +1325,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBots")
+        )
         input_: capo_lex_model_building_service.types.get_bots_request.GetBotsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1352,7 +1413,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBotVersions")
+        )
         input_: capo_lex_model_building_service.types.get_bot_versions_request.GetBotVersionsRequest = {
             "name": name
         }
@@ -1428,7 +1491,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuiltinIntent")
+        )
         input_: capo_lex_model_building_service.types.get_builtin_intent_request.GetBuiltinIntentRequest = {
             "signature": signature
         }
@@ -1486,7 +1551,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuiltinIntents")
+        )
         input_: capo_lex_model_building_service.types.get_builtin_intents_request.GetBuiltinIntentsRequest = {}
         if locale is not None:
             input_["locale"] = locale
@@ -1579,7 +1646,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBuiltinSlotTypes")
+        )
         input_: capo_lex_model_building_service.types.get_builtin_slot_types_request.GetBuiltinSlotTypesRequest = {}
         if locale is not None:
             input_["locale"] = locale
@@ -1667,7 +1736,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_lex_model_building_service.types.get_export_request.GetExportRequest = {
             "name": name,
             "version": version,
@@ -1717,7 +1788,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImport")
+        )
         input_: capo_lex_model_building_service.types.get_import_request.GetImportRequest = {
             "import_id": import_id
         }
@@ -1772,7 +1845,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntent")
+        )
         input_: capo_lex_model_building_service.types.get_intent_request.GetIntentRequest = {
             "name": name,
             "version": version,
@@ -1838,7 +1913,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntents")
+        )
         input_: capo_lex_model_building_service.types.get_intents_request.GetIntentsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1924,7 +2001,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntentVersions")
+        )
         input_: capo_lex_model_building_service.types.get_intent_versions_request.GetIntentVersionsRequest = {
             "name": name
         }
@@ -2000,7 +2079,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMigration")
+        )
         input_: capo_lex_model_building_service.types.get_migration_request.GetMigrationRequest = {
             "migration_id": migration_id
         }
@@ -2068,7 +2149,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMigrations")
+        )
         input_: capo_lex_model_building_service.types.get_migrations_request.GetMigrationsRequest = {}
         if sort_by_attribute is not None:
             input_["sort_by_attribute"] = sort_by_attribute
@@ -2172,7 +2255,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSlotType")
+        )
         input_: capo_lex_model_building_service.types.get_slot_type_request.GetSlotTypeRequest = {
             "name": name,
             "version": version,
@@ -2236,7 +2321,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSlotTypes")
+        )
         input_: capo_lex_model_building_service.types.get_slot_types_request.GetSlotTypesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2322,7 +2409,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSlotTypeVersions")
+        )
         input_: capo_lex_model_building_service.types.get_slot_type_versions_request.GetSlotTypeVersionsRequest = {
             "name": name
         }
@@ -2401,7 +2490,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUtterancesView")
+        )
         input_: capo_lex_model_building_service.types.get_utterances_view_request.GetUtterancesViewRequest = {
             "bot_name": bot_name,
             "bot_versions": bot_versions,
@@ -2450,7 +2541,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_lex_model_building_service.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2558,7 +2651,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBot")
+        )
         input_: capo_lex_model_building_service.types.put_bot_request.PutBotRequest = {
             "name": name,
             "locale": locale,
@@ -2652,7 +2747,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBotAlias")
+        )
         input_: capo_lex_model_building_service.types.put_bot_alias_request.PutBotAliasRequest = {
             "name": name,
             "bot_version": bot_version,
@@ -2776,7 +2873,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutIntent")
+        )
         input_: capo_lex_model_building_service.types.put_intent_request.PutIntentRequest = {
             "name": name
         }
@@ -2888,7 +2987,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSlotType")
+        )
         input_: capo_lex_model_building_service.types.put_slot_type_request.PutSlotTypeRequest = {
             "name": name
         }
@@ -2954,7 +3055,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImport")
+        )
         input_: capo_lex_model_building_service.types.start_import_request.StartImportRequest = {
             "payload": payload,
             "resource_type": resource_type,
@@ -3014,7 +3117,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMigration")
+        )
         input_: capo_lex_model_building_service.types.start_migration_request.StartMigrationRequest = {
             "v1_bot_name": v1_bot_name,
             "v1_bot_version": v1_bot_version,
@@ -3068,7 +3173,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_lex_model_building_service.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3119,7 +3226,9 @@ class AsyncLexModelBuildingServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_lex_model_building_service.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

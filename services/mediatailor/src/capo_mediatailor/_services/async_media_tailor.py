@@ -45,7 +45,9 @@ from capo_mediatailor._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -290,7 +292,9 @@ class AsyncMediaTailorClient:
         self.vod_source_resource = AsyncVodSourceResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMediaTailorClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMediaTailorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMediaTailorClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -298,8 +302,10 @@ class AsyncMediaTailorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -362,7 +368,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureLogsForPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.configure_logs_for_playback_configuration_request.ConfigureLogsForPlaybackConfigurationRequest = {
             "percent_enabled": percent_enabled,
             "playback_configuration_name": playback_configuration_name,
@@ -418,7 +426,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlerts")
+        )
         input_: capo_mediatailor.types.list_alerts_request.ListAlertsRequest = {
             "resource_arn": resource_arn
         }
@@ -489,7 +499,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mediatailor.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -533,7 +545,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mediatailor.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -578,7 +592,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mediatailor.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -642,7 +658,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_mediatailor.types.create_channel_request.CreateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -697,7 +715,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_mediatailor.types.describe_channel_request.DescribeChannelRequest = {
             "channel_name": channel_name
         }
@@ -752,7 +772,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_mediatailor.types.update_channel_request.UpdateChannelRequest = {
             "channel_name": channel_name,
             "outputs": outputs,
@@ -802,7 +824,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_mediatailor.types.delete_channel_request.DeleteChannelRequest = {
             "channel_name": channel_name
         }
@@ -847,7 +871,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_mediatailor.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -915,7 +941,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureLogsForChannel")
+        )
         input_: capo_mediatailor.types.configure_logs_for_channel_request.ConfigureLogsForChannelRequest = {
             "channel_name": channel_name,
             "log_types": log_types,
@@ -967,7 +995,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelSchedule")
+        )
         input_: capo_mediatailor.types.get_channel_schedule_request.GetChannelScheduleRequest = {
             "channel_name": channel_name
         }
@@ -1045,7 +1075,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartChannel")
+        )
         input_: capo_mediatailor.types.start_channel_request.StartChannelRequest = {
             "channel_name": channel_name
         }
@@ -1088,7 +1120,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopChannel")
+        )
         input_: capo_mediatailor.types.stop_channel_request.StopChannelRequest = {
             "channel_name": channel_name
         }
@@ -1133,7 +1167,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutChannelPolicy")
+        )
         input_: capo_mediatailor.types.put_channel_policy_request.PutChannelPolicyRequest = {
             "channel_name": channel_name,
             "policy": policy,
@@ -1177,7 +1213,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelPolicy")
+        )
         input_: capo_mediatailor.types.get_channel_policy_request.GetChannelPolicyRequest = {
             "channel_name": channel_name
         }
@@ -1220,7 +1258,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelPolicy")
+        )
         input_: capo_mediatailor.types.delete_channel_policy_request.DeleteChannelPolicyRequest = {
             "channel_name": channel_name
         }
@@ -1285,7 +1325,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProgram")
+        )
         input_: capo_mediatailor.types.create_program_request.CreateProgramRequest = {
             "channel_name": channel_name,
             "program_name": program_name,
@@ -1343,7 +1385,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProgram")
+        )
         input_: capo_mediatailor.types.describe_program_request.DescribeProgramRequest = {
             "channel_name": channel_name,
             "program_name": program_name,
@@ -1399,7 +1443,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProgram")
+        )
         input_: capo_mediatailor.types.update_program_request.UpdateProgramRequest = {
             "channel_name": channel_name,
             "program_name": program_name,
@@ -1450,7 +1496,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProgram")
+        )
         input_: capo_mediatailor.types.delete_program_request.DeleteProgramRequest = {
             "channel_name": channel_name,
             "program_name": program_name,
@@ -1526,7 +1574,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFunction")
+        )
         input_: capo_mediatailor.types.put_function_request.PutFunctionRequest = {
             "function_id": function_id,
             "function_type": function_type,
@@ -1592,7 +1642,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunction")
+        )
         input_: capo_mediatailor.types.get_function_request.GetFunctionRequest = {
             "function_id": function_id
         }
@@ -1635,7 +1687,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunction")
+        )
         input_: capo_mediatailor.types.delete_function_request.DeleteFunctionRequest = {
             "function_id": function_id
         }
@@ -1680,7 +1734,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctions")
+        )
         input_: capo_mediatailor.types.list_functions_request.ListFunctionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1754,7 +1810,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLiveSource")
+        )
         input_: capo_mediatailor.types.create_live_source_request.CreateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -1803,7 +1861,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLiveSource")
+        )
         input_: capo_mediatailor.types.describe_live_source_request.DescribeLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -1851,7 +1911,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLiveSource")
+        )
         input_: capo_mediatailor.types.update_live_source_request.UpdateLiveSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "live_source_name": live_source_name,
@@ -1898,7 +1960,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLiveSource")
+        )
         input_: capo_mediatailor.types.delete_live_source_request.DeleteLiveSourceRequest = {
             "live_source_name": live_source_name,
             "source_location_name": source_location_name,
@@ -1946,7 +2010,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLiveSources")
+        )
         input_: capo_mediatailor.types.list_live_sources_request.ListLiveSourcesRequest = {
             "source_location_name": source_location_name
         }
@@ -2096,7 +2162,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.put_playback_configuration_request.PutPlaybackConfigurationRequest = {
             "name": name
         }
@@ -2187,7 +2255,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.get_playback_configuration_request.GetPlaybackConfigurationRequest = {
             "name": name
         }
@@ -2230,7 +2300,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.delete_playback_configuration_request.DeletePlaybackConfigurationRequest = {
             "name": name
         }
@@ -2275,7 +2347,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlaybackConfigurations")
+        )
         input_: capo_mediatailor.types.list_playback_configurations_request.ListPlaybackConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2365,7 +2439,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.create_prefetch_schedule_request.CreatePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -2425,7 +2501,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPrefetchSchedule")
+        )
         input_: capo_mediatailor.types.get_prefetch_schedule_request.GetPrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -2471,7 +2549,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.delete_prefetch_schedule_request.DeletePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -2527,7 +2607,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrefetchSchedules")
+        )
         input_: capo_mediatailor.types.list_prefetch_schedules_request.ListPrefetchSchedulesRequest = {
             "playback_configuration_name": playback_configuration_name
         }
@@ -2627,7 +2709,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSourceLocation")
+        )
         input_: capo_mediatailor.types.create_source_location_request.CreateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -2681,7 +2765,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSourceLocation")
+        )
         input_: capo_mediatailor.types.describe_source_location_request.DescribeSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -2738,7 +2824,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSourceLocation")
+        )
         input_: capo_mediatailor.types.update_source_location_request.UpdateSourceLocationRequest = {
             "http_configuration": http_configuration,
             "source_location_name": source_location_name,
@@ -2790,7 +2878,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceLocation")
+        )
         input_: capo_mediatailor.types.delete_source_location_request.DeleteSourceLocationRequest = {
             "source_location_name": source_location_name
         }
@@ -2835,7 +2925,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceLocations")
+        )
         input_: capo_mediatailor.types.list_source_locations_request.ListSourceLocationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2909,7 +3001,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateVodSource")
+        )
         input_: capo_mediatailor.types.create_vod_source_request.CreateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -2960,7 +3054,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeVodSource")
+        )
         input_: capo_mediatailor.types.describe_vod_source_request.DescribeVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -3008,7 +3104,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateVodSource")
+        )
         input_: capo_mediatailor.types.update_vod_source_request.UpdateVodSourceRequest = {
             "http_package_configurations": http_package_configurations,
             "source_location_name": source_location_name,
@@ -3055,7 +3153,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVodSource")
+        )
         input_: capo_mediatailor.types.delete_vod_source_request.DeleteVodSourceRequest = {
             "source_location_name": source_location_name,
             "vod_source_name": vod_source_name,
@@ -3103,7 +3203,9 @@ class AsyncMediaTailorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVodSources")
+        )
         input_: capo_mediatailor.types.list_vod_sources_request.ListVodSourcesRequest = {
             "source_location_name": source_location_name
         }

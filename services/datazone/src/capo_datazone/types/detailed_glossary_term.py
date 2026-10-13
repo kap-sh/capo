@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DetailedGlossaryTerm``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,13 @@ def deserialize_json(data: dict) -> DetailedGlossaryTerm:
         out["name"] = data["name"]
     if data.get("shortDescription") is not None:
         out["short_description"] = data["shortDescription"]
+    return out
+
+
+def redact_sensitive(value: DetailedGlossaryTerm) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "short_description" in value:
+        out["short_description"] = "*** Sensitive Data Redacted ***"
     return out

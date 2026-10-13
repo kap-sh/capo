@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ListSpacesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,15 @@ def deserialize_json(data: dict) -> ListSpacesResponse:
         out["next_token"] = data["NextToken"]
     if data.get("RequestId") is not None:
         out["request_id"] = data["RequestId"]
+    return out
+
+
+def redact_sensitive(value: ListSpacesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "space_summaries" in value:
+        import capo_quicksight.types.space_summaries
+
+        out["space_summaries"] = capo_quicksight.types.space_summaries.redact_sensitive(
+            value["space_summaries"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#VisualCustomActionOperation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,19 @@ def deserialize_json(data: dict) -> VisualCustomActionOperation:
         out["set_parameters_operation"] = (
             capo_quicksight.types.custom_action_set_parameters_operation.deserialize_json(
                 data["SetParametersOperation"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: VisualCustomActionOperation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "set_parameters_operation" in value:
+        import capo_quicksight.types.custom_action_set_parameters_operation
+
+        out["set_parameters_operation"] = (
+            capo_quicksight.types.custom_action_set_parameters_operation.redact_sensitive(
+                value["set_parameters_operation"]
             )
         )
     return out

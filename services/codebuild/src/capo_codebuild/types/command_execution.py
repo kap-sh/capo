@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codebuild#CommandExecution``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,4 +146,15 @@ def deserialize_aws_json_1_1(data: dict) -> CommandExecution:
         )
     if data.get("sandboxArn") is not None:
         out["sandbox_arn"] = data["sandboxArn"]
+    return out
+
+
+def redact_sensitive(value: CommandExecution) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "command" in value:
+        out["command"] = "*** Sensitive Data Redacted ***"
+    if "standard_output_content" in value:
+        out["standard_output_content"] = "*** Sensitive Data Redacted ***"
+    if "standard_err_content" in value:
+        out["standard_err_content"] = "*** Sensitive Data Redacted ***"
     return out

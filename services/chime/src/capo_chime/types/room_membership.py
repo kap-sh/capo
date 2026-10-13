@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#RoomMembership``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -74,4 +74,13 @@ def deserialize_json(data: dict) -> RoomMembership:
         out["updated_timestamp"] = capo_chime.types.iso8601_timestamp.deserialize_json(
             data["UpdatedTimestamp"]
         )
+    return out
+
+
+def redact_sensitive(value: RoomMembership) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "member" in value:
+        import capo_chime.types.member
+
+        out["member"] = capo_chime.types.member.redact_sensitive(value["member"])
     return out

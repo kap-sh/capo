@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wellarchitected#ContextContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -188,4 +188,17 @@ def deserialize_json(data: dict) -> ContextContent:
         out["architecture_overview"] = data["architectureOverview"]
     if data.get("additionalContext") is not None:
         out["additional_context"] = data["additionalContext"]
+    return out
+
+
+def redact_sensitive(value: ContextContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "application_overview" in value:
+        out["application_overview"] = "*** Sensitive Data Redacted ***"
+    if "industry" in value:
+        out["industry"] = "*** Sensitive Data Redacted ***"
+    if "architecture_overview" in value:
+        out["architecture_overview"] = "*** Sensitive Data Redacted ***"
+    if "additional_context" in value:
+        out["additional_context"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#CreateIngestConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,6 +52,19 @@ def deserialize_json(data: dict) -> CreateIngestConfigurationResponse:
         out["ingest_configuration"] = (
             capo_ivs_realtime.types.ingest_configuration.deserialize_json(
                 data["ingestConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateIngestConfigurationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ingest_configuration" in value:
+        import capo_ivs_realtime.types.ingest_configuration
+
+        out["ingest_configuration"] = (
+            capo_ivs_realtime.types.ingest_configuration.redact_sensitive(
+                value["ingest_configuration"]
             )
         )
     return out

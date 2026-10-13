@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#CopyOptionGroupResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,5 +35,16 @@ def deserialize_query(el: Element) -> CopyOptionGroupResult:
 
         out["option_group"] = capo_rds.types.option_group.deserialize_query(
             child_option_group
+        )
+    return out
+
+
+def redact_sensitive(value: CopyOptionGroupResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "option_group" in value:
+        import capo_rds.types.option_group
+
+        out["option_group"] = capo_rds.types.option_group.redact_sensitive(
+            value["option_group"]
         )
     return out

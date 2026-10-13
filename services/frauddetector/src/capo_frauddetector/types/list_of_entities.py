@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#listOfEntities``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_frauddetector.types.entity
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_1(data: list) -> listOfEntities:
             continue
         out.append(capo_frauddetector.types.entity.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: listOfEntities) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

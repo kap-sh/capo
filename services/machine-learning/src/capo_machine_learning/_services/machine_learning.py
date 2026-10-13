@@ -21,10 +21,12 @@ from capo_machine_learning._pagination import resolve_path as _resolve_path
 from capo_machine_learning._services._aws_config import aws_config
 from capo_machine_learning._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -190,7 +192,9 @@ class MachineLearningClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MachineLearningClientConfig] = None
+        self,
+        config_overrides: Optional[MachineLearningClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MachineLearningClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -198,8 +202,10 @@ class MachineLearningClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -256,7 +262,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_machine_learning.types.add_tags_input.AddTagsInput = {
             "tags": tags,
             "resource_id": resource_id,
@@ -313,7 +321,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBatchPrediction")
+        )
         input_: capo_machine_learning.types.create_batch_prediction_input.CreateBatchPredictionInput = {
             "batch_prediction_id": batch_prediction_id,
             "ml_model_id": ml_model_id,
@@ -375,7 +385,19 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_machine_learning.types.create_data_source_from_rds_input.CreateDataSourceFromRDSInput",
+        ) -> dict[str, Any]:
+            import capo_machine_learning.types.create_data_source_from_rds_input
+
+            return capo_machine_learning.types.create_data_source_from_rds_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataSourceFromRDS", redact_input=_redact_input),
+        )
         input_: capo_machine_learning.types.create_data_source_from_rds_input.CreateDataSourceFromRDSInput = {
             "data_source_id": data_source_id,
             "rds_data": rds_data,
@@ -438,7 +460,21 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_machine_learning.types.create_data_source_from_redshift_input.CreateDataSourceFromRedshiftInput",
+        ) -> dict[str, Any]:
+            import capo_machine_learning.types.create_data_source_from_redshift_input
+
+            return capo_machine_learning.types.create_data_source_from_redshift_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataSourceFromRedshift", redact_input=_redact_input
+            ),
+        )
         input_: capo_machine_learning.types.create_data_source_from_redshift_input.CreateDataSourceFromRedshiftInput = {
             "data_source_id": data_source_id,
             "data_spec": data_spec,
@@ -499,7 +535,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSourceFromS3")
+        )
         input_: capo_machine_learning.types.create_data_source_from_s3_input.CreateDataSourceFromS3Input = {
             "data_source_id": data_source_id,
             "data_spec": data_spec,
@@ -557,7 +595,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEvaluation")
+        )
         input_: capo_machine_learning.types.create_evaluation_input.CreateEvaluationInput = {
             "evaluation_id": evaluation_id,
             "ml_model_id": ml_model_id,
@@ -622,7 +662,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMLModel")
+        )
         input_: capo_machine_learning.types.create_ml_model_input.CreateMLModelInput = {
             "ml_model_id": ml_model_id,
             "ml_model_type": ml_model_type,
@@ -677,7 +719,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRealtimeEndpoint")
+        )
         input_: capo_machine_learning.types.create_realtime_endpoint_input.CreateRealtimeEndpointInput = {
             "ml_model_id": ml_model_id
         }
@@ -722,7 +766,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBatchPrediction")
+        )
         input_: capo_machine_learning.types.delete_batch_prediction_input.DeleteBatchPredictionInput = {
             "batch_prediction_id": batch_prediction_id
         }
@@ -767,7 +813,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_machine_learning.types.delete_data_source_input.DeleteDataSourceInput = {
             "data_source_id": data_source_id
         }
@@ -812,7 +860,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEvaluation")
+        )
         input_: capo_machine_learning.types.delete_evaluation_input.DeleteEvaluationInput = {
             "evaluation_id": evaluation_id
         }
@@ -857,7 +907,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMLModel")
+        )
         input_: capo_machine_learning.types.delete_ml_model_input.DeleteMLModelInput = {
             "ml_model_id": ml_model_id
         }
@@ -902,7 +954,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRealtimeEndpoint")
+        )
         input_: capo_machine_learning.types.delete_realtime_endpoint_input.DeleteRealtimeEndpointInput = {
             "ml_model_id": ml_model_id
         }
@@ -952,7 +1006,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_machine_learning.types.delete_tags_input.DeleteTagsInput = {
             "tag_keys": tag_keys,
             "resource_id": resource_id,
@@ -1036,7 +1092,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBatchPredictions")
+        )
         input_: capo_machine_learning.types.describe_batch_predictions_input.DescribeBatchPredictionsInput = {}
         if filter_variable is not None:
             input_["filter_variable"] = filter_variable
@@ -1195,7 +1253,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSources")
+        )
         input_: capo_machine_learning.types.describe_data_sources_input.DescribeDataSourcesInput = {}
         if filter_variable is not None:
             input_["filter_variable"] = filter_variable
@@ -1354,7 +1414,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvaluations")
+        )
         input_: capo_machine_learning.types.describe_evaluations_input.DescribeEvaluationsInput = {}
         if filter_variable is not None:
             input_["filter_variable"] = filter_variable
@@ -1513,7 +1575,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMLModels")
+        )
         input_: capo_machine_learning.types.describe_ml_models_input.DescribeMLModelsInput = {}
         if filter_variable is not None:
             input_["filter_variable"] = filter_variable
@@ -1637,7 +1701,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_machine_learning.types.describe_tags_input.DescribeTagsInput = {
             "resource_id": resource_id,
             "resource_type": resource_type,
@@ -1683,7 +1749,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBatchPrediction")
+        )
         input_: capo_machine_learning.types.get_batch_prediction_input.GetBatchPredictionInput = {
             "batch_prediction_id": batch_prediction_id
         }
@@ -1730,7 +1798,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSource")
+        )
         input_: capo_machine_learning.types.get_data_source_input.GetDataSourceInput = {
             "data_source_id": data_source_id
         }
@@ -1777,7 +1847,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvaluation")
+        )
         input_: capo_machine_learning.types.get_evaluation_input.GetEvaluationInput = {
             "evaluation_id": evaluation_id
         }
@@ -1824,7 +1896,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMLModel")
+        )
         input_: capo_machine_learning.types.get_ml_model_input.GetMLModelInput = {
             "ml_model_id": ml_model_id
         }
@@ -1875,7 +1949,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Predict")
+        )
         input_: capo_machine_learning.types.predict_input.PredictInput = {
             "ml_model_id": ml_model_id,
             "record": record,
@@ -1924,7 +2000,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBatchPrediction")
+        )
         input_: capo_machine_learning.types.update_batch_prediction_input.UpdateBatchPredictionInput = {
             "batch_prediction_id": batch_prediction_id,
             "batch_prediction_name": batch_prediction_name,
@@ -1972,7 +2050,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSource")
+        )
         input_: capo_machine_learning.types.update_data_source_input.UpdateDataSourceInput = {
             "data_source_id": data_source_id,
             "data_source_name": data_source_name,
@@ -2020,7 +2100,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEvaluation")
+        )
         input_: capo_machine_learning.types.update_evaluation_input.UpdateEvaluationInput = {
             "evaluation_id": evaluation_id,
             "evaluation_name": evaluation_name,
@@ -2074,7 +2156,9 @@ class MachineLearningClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMLModel")
+        )
         input_: capo_machine_learning.types.update_ml_model_input.UpdateMLModelInput = {
             "ml_model_id": ml_model_id
         }

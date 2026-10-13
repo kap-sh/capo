@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ForecastGeofenceEventsDeviceState``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> ForecastGeofenceEventsDeviceState:
         )
     if data.get("Speed") is not None:
         out["speed"] = float(data["Speed"])
+    return out
+
+
+def redact_sensitive(value: ForecastGeofenceEventsDeviceState) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
     return out

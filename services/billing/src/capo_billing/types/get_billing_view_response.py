@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billing#GetBillingViewResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetBillingViewResponse:
         )
     else:
         raise DeserializationError("GetBillingViewResponse.billing_view required")
+    return out
+
+
+def redact_sensitive(value: GetBillingViewResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "billing_view" in value:
+        import capo_billing.types.billing_view_element
+
+        out["billing_view"] = capo_billing.types.billing_view_element.redact_sensitive(
+            value["billing_view"]
+        )
     return out

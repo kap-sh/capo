@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.neptune#CreateDBInstanceMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -496,4 +496,11 @@ def deserialize_query(el: Element) -> CreateDBInstanceMessage:
         out["deletion_protection"] = (
             child_deletion_protection.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: CreateDBInstanceMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tde_credential_password" in value:
+        out["tde_credential_password"] = "*** Sensitive Data Redacted ***"
     return out

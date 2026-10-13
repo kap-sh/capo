@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeFilterPlaceTypeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.geocode_filter_place_type
@@ -31,3 +31,7 @@ def deserialize_json(data: list) -> GeocodeFilterPlaceTypeList:
             capo_geo_places.types.geocode_filter_place_type.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: GeocodeFilterPlaceTypeList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

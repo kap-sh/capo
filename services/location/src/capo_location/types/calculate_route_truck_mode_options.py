@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CalculateRouteTruckModeOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,26 @@ def deserialize_json(data: dict) -> CalculateRouteTruckModeOptions:
 
         out["weight"] = capo_location.types.truck_weight.deserialize_json(
             data["Weight"]
+        )
+    return out
+
+
+def redact_sensitive(value: CalculateRouteTruckModeOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "avoid_ferries" in value:
+        out["avoid_ferries"] = "*** Sensitive Data Redacted ***"
+    if "avoid_tolls" in value:
+        out["avoid_tolls"] = "*** Sensitive Data Redacted ***"
+    if "dimensions" in value:
+        import capo_location.types.truck_dimensions
+
+        out["dimensions"] = capo_location.types.truck_dimensions.redact_sensitive(
+            value["dimensions"]
+        )
+    if "weight" in value:
+        import capo_location.types.truck_weight
+
+        out["weight"] = capo_location.types.truck_weight.redact_sensitive(
+            value["weight"]
         )
     return out

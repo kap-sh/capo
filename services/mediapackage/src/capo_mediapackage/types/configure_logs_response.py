@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediapackage#ConfigureLogsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,4 +107,15 @@ def deserialize_json(data: dict) -> ConfigureLogsResponse:
         import capo_mediapackage.types.tags
 
         out["tags"] = capo_mediapackage.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: ConfigureLogsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "hls_ingest" in value:
+        import capo_mediapackage.types.hls_ingest
+
+        out["hls_ingest"] = capo_mediapackage.types.hls_ingest.redact_sensitive(
+            value["hls_ingest"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#KnowledgeBaseRetrieverConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,6 +51,19 @@ def deserialize_json(data: dict) -> KnowledgeBaseRetrieverConfiguration:
         out["retrieval_overrides"] = (
             capo_bedrock_agent_runtime.types.retrieval_overrides.deserialize_json(
                 data["retrievalOverrides"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseRetrieverConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieval_overrides" in value:
+        import capo_bedrock_agent_runtime.types.retrieval_overrides
+
+        out["retrieval_overrides"] = (
+            capo_bedrock_agent_runtime.types.retrieval_overrides.redact_sensitive(
+                value["retrieval_overrides"]
             )
         )
     return out

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -79,7 +80,9 @@ class ServiceSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceSyncConfig")
+        )
         input_: capo_proton.types.create_service_sync_config_input.CreateServiceSyncConfigInput = {
             "service_name": service_name,
             "repository_provider": repository_provider,
@@ -130,7 +133,9 @@ class ServiceSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceSyncConfig")
+        )
         input_: capo_proton.types.get_service_sync_config_input.GetServiceSyncConfigInput = {
             "service_name": service_name
         }
@@ -186,7 +191,9 @@ class ServiceSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSyncConfig")
+        )
         input_: capo_proton.types.update_service_sync_config_input.UpdateServiceSyncConfigInput = {
             "service_name": service_name,
             "repository_provider": repository_provider,
@@ -238,7 +245,9 @@ class ServiceSyncConfigResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceSyncConfig")
+        )
         input_: capo_proton.types.delete_service_sync_config_input.DeleteServiceSyncConfigInput = {
             "service_name": service_name
         }
@@ -300,7 +309,9 @@ class AsyncServiceSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateServiceSyncConfig")
+        )
         input_: capo_proton.types.create_service_sync_config_input.CreateServiceSyncConfigInput = {
             "service_name": service_name,
             "repository_provider": repository_provider,
@@ -352,7 +363,9 @@ class AsyncServiceSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetServiceSyncConfig")
+        )
         input_: capo_proton.types.get_service_sync_config_input.GetServiceSyncConfigInput = {
             "service_name": service_name
         }
@@ -409,7 +422,9 @@ class AsyncServiceSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSyncConfig")
+        )
         input_: capo_proton.types.update_service_sync_config_input.UpdateServiceSyncConfigInput = {
             "service_name": service_name,
             "repository_provider": repository_provider,
@@ -462,7 +477,9 @@ class AsyncServiceSyncConfigResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteServiceSyncConfig")
+        )
         input_: capo_proton.types.delete_service_sync_config_input.DeleteServiceSyncConfigInput = {
             "service_name": service_name
         }

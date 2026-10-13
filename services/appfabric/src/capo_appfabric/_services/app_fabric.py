@@ -22,10 +22,12 @@ from capo_appfabric._pagination import resolve_path as _resolve_path
 from capo_appfabric._services._aws_config import aws_config
 from capo_appfabric._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class AppFabricClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AppFabricClientConfig] = None
+        self,
+        config_overrides: Optional[AppFabricClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppFabricClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class AppFabricClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -243,7 +249,19 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appfabric.types.batch_get_user_access_tasks_response.BatchGetUserAccessTasksResponse",
+        ) -> dict[str, Any]:
+            import capo_appfabric.types.batch_get_user_access_tasks_response
+
+            return capo_appfabric.types.batch_get_user_access_tasks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetUserAccessTasks", redact_output=_redact_output),
+        )
         input_: capo_appfabric.types.batch_get_user_access_tasks_request.BatchGetUserAccessTasksRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "task_id_list": task_id_list,
@@ -295,7 +313,21 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appfabric.types.connect_app_authorization_request.ConnectAppAuthorizationRequest",
+        ) -> dict[str, Any]:
+            import capo_appfabric.types.connect_app_authorization_request
+
+            return (
+                capo_appfabric.types.connect_app_authorization_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ConnectAppAuthorization", redact_input=_redact_input),
+        )
         input_: capo_appfabric.types.connect_app_authorization_request.ConnectAppAuthorizationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app_authorization_identifier": app_authorization_identifier,
@@ -359,7 +391,21 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appfabric.types.create_app_authorization_request.CreateAppAuthorizationRequest",
+        ) -> dict[str, Any]:
+            import capo_appfabric.types.create_app_authorization_request
+
+            return (
+                capo_appfabric.types.create_app_authorization_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAppAuthorization", redact_input=_redact_input),
+        )
         input_: capo_appfabric.types.create_app_authorization_request.CreateAppAuthorizationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app": app,
@@ -422,7 +468,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppBundle")
+        )
         input_: capo_appfabric.types.create_app_bundle_request.CreateAppBundleRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -485,7 +533,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIngestion")
+        )
         input_: capo_appfabric.types.create_ingestion_request.CreateIngestionRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app": app,
@@ -551,7 +601,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIngestionDestination")
+        )
         input_: capo_appfabric.types.create_ingestion_destination_request.CreateIngestionDestinationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -608,7 +660,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppAuthorization")
+        )
         input_: capo_appfabric.types.delete_app_authorization_request.DeleteAppAuthorizationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app_authorization_identifier": app_authorization_identifier,
@@ -656,7 +710,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppBundle")
+        )
         input_: capo_appfabric.types.delete_app_bundle_request.DeleteAppBundleRequest = {
             "app_bundle_identifier": app_bundle_identifier
         }
@@ -705,7 +761,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIngestion")
+        )
         input_: capo_appfabric.types.delete_ingestion_request.DeleteIngestionRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -757,7 +815,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIngestionDestination")
+        )
         input_: capo_appfabric.types.delete_ingestion_destination_request.DeleteIngestionDestinationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -808,7 +868,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppAuthorization")
+        )
         input_: capo_appfabric.types.get_app_authorization_request.GetAppAuthorizationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app_authorization_identifier": app_authorization_identifier,
@@ -856,7 +918,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppBundle")
+        )
         input_: capo_appfabric.types.get_app_bundle_request.GetAppBundleRequest = {
             "app_bundle_identifier": app_bundle_identifier
         }
@@ -905,7 +969,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIngestion")
+        )
         input_: capo_appfabric.types.get_ingestion_request.GetIngestionRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -957,7 +1023,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIngestionDestination")
+        )
         input_: capo_appfabric.types.get_ingestion_destination_request.GetIngestionDestinationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -1010,7 +1078,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppAuthorizations")
+        )
         input_: capo_appfabric.types.list_app_authorizations_request.ListAppAuthorizationsRequest = {
             "app_bundle_identifier": app_bundle_identifier
         }
@@ -1085,7 +1155,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAppBundles")
+        )
         input_: capo_appfabric.types.list_app_bundles_request.ListAppBundlesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1161,7 +1233,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngestionDestinations")
+        )
         input_: capo_appfabric.types.list_ingestion_destinations_request.ListIngestionDestinationsRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,
@@ -1242,7 +1316,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIngestions")
+        )
         input_: capo_appfabric.types.list_ingestions_request.ListIngestionsRequest = {
             "app_bundle_identifier": app_bundle_identifier
         }
@@ -1316,7 +1392,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appfabric.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1366,7 +1444,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartIngestion")
+        )
         input_: capo_appfabric.types.start_ingestion_request.StartIngestionRequest = {
             "ingestion_identifier": ingestion_identifier,
             "app_bundle_identifier": app_bundle_identifier,
@@ -1416,7 +1496,21 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appfabric.types.start_user_access_tasks_request.StartUserAccessTasksRequest",
+        ) -> dict[str, Any]:
+            import capo_appfabric.types.start_user_access_tasks_request
+
+            return (
+                capo_appfabric.types.start_user_access_tasks_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartUserAccessTasks", redact_input=_redact_input),
+        )
         input_: capo_appfabric.types.start_user_access_tasks_request.StartUserAccessTasksRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "email": email,
@@ -1467,7 +1561,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopIngestion")
+        )
         input_: capo_appfabric.types.stop_ingestion_request.StopIngestionRequest = {
             "ingestion_identifier": ingestion_identifier,
             "app_bundle_identifier": app_bundle_identifier,
@@ -1517,7 +1613,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appfabric.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1567,7 +1665,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appfabric.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1621,7 +1721,21 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_appfabric.types.update_app_authorization_request.UpdateAppAuthorizationRequest",
+        ) -> dict[str, Any]:
+            import capo_appfabric.types.update_app_authorization_request
+
+            return (
+                capo_appfabric.types.update_app_authorization_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAppAuthorization", redact_input=_redact_input),
+        )
         input_: capo_appfabric.types.update_app_authorization_request.UpdateAppAuthorizationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "app_authorization_identifier": app_authorization_identifier,
@@ -1681,7 +1795,9 @@ class AppFabricClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIngestionDestination")
+        )
         input_: capo_appfabric.types.update_ingestion_destination_request.UpdateIngestionDestinationRequest = {
             "app_bundle_identifier": app_bundle_identifier,
             "ingestion_identifier": ingestion_identifier,

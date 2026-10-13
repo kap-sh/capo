@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#CreateLaunchTemplateVersionResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,18 @@ def deserialize_ec2_query(el: Element) -> CreateLaunchTemplateVersionResult:
 
         out["warning"] = capo_ec2.types.validation_warning.deserialize_ec2_query(
             child_warning
+        )
+    return out
+
+
+def redact_sensitive(value: CreateLaunchTemplateVersionResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_version" in value:
+        import capo_ec2.types.launch_template_version
+
+        out["launch_template_version"] = (
+            capo_ec2.types.launch_template_version.redact_sensitive(
+                value["launch_template_version"]
+            )
         )
     return out

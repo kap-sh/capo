@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CreateAgentRuntimeEndpointRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_json(data: dict) -> CreateAgentRuntimeEndpointRequest:
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.deserialize_json(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateAgentRuntimeEndpointRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDNSView")
+        )
         input_: capo_route53globalresolver.types.create_dns_view_input.CreateDNSViewInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -173,7 +176,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDNSView")
+        )
         input_: capo_route53globalresolver.types.get_dns_view_input.GetDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -242,7 +247,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDNSView")
+        )
         input_: capo_route53globalresolver.types.update_dns_view_input.UpdateDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -300,7 +307,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDNSView")
+        )
         input_: capo_route53globalresolver.types.delete_dns_view_input.DeleteDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -351,7 +360,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDNSViews")
+        )
         input_: capo_route53globalresolver.types.list_dns_views_input.ListDNSViewsInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -406,7 +417,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableDNSView")
+        )
         input_: capo_route53globalresolver.types.disable_dns_view_input.DisableDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -455,7 +468,9 @@ class DNSView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableDNSView")
+        )
         input_: capo_route53globalresolver.types.enable_dns_view_input.EnableDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -534,7 +549,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDNSView")
+        )
         input_: capo_route53globalresolver.types.create_dns_view_input.CreateDNSViewInput = {
             "global_resolver_id": global_resolver_id,
             "name": name,
@@ -596,7 +613,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDNSView")
+        )
         input_: capo_route53globalresolver.types.get_dns_view_input.GetDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -666,7 +685,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDNSView")
+        )
         input_: capo_route53globalresolver.types.update_dns_view_input.UpdateDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -725,7 +746,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDNSView")
+        )
         input_: capo_route53globalresolver.types.delete_dns_view_input.DeleteDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -777,7 +800,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDNSViews")
+        )
         input_: capo_route53globalresolver.types.list_dns_views_input.ListDNSViewsInput = {
             "global_resolver_id": global_resolver_id
         }
@@ -833,7 +858,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisableDNSView")
+        )
         input_: capo_route53globalresolver.types.disable_dns_view_input.DisableDNSViewInput = {
             "dns_view_id": dns_view_id
         }
@@ -883,7 +910,9 @@ class AsyncDNSView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("EnableDNSView")
+        )
         input_: capo_route53globalresolver.types.enable_dns_view_input.EnableDNSViewInput = {
             "dns_view_id": dns_view_id
         }

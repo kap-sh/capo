@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#BundleInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,13 @@ def deserialize_ec2_query(el: Element) -> BundleInstanceRequest:
     child_dry_run = el.find("dryRun")
     if child_dry_run is not None:
         out["dry_run"] = (child_dry_run.text or "").lower() == "true"
+    return out
+
+
+def redact_sensitive(value: BundleInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "storage" in value:
+        import capo_ec2.types.storage
+
+        out["storage"] = capo_ec2.types.storage.redact_sensitive(value["storage"])
     return out

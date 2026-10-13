@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#IsAuthorizedInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -130,6 +130,51 @@ def deserialize_aws_json_1_0(data: dict) -> IsAuthorizedInput:
         out["entities"] = (
             capo_verifiedpermissions.types.entities_definition.deserialize_aws_json_1_0(
                 data["entities"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: IsAuthorizedInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "principal" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["principal"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["principal"]
+            )
+        )
+    if "action" in value:
+        import capo_verifiedpermissions.types.action_identifier
+
+        out["action"] = (
+            capo_verifiedpermissions.types.action_identifier.redact_sensitive(
+                value["action"]
+            )
+        )
+    if "resource" in value:
+        import capo_verifiedpermissions.types.entity_identifier
+
+        out["resource"] = (
+            capo_verifiedpermissions.types.entity_identifier.redact_sensitive(
+                value["resource"]
+            )
+        )
+    if "context" in value:
+        import capo_verifiedpermissions.types.context_definition
+
+        out["context"] = (
+            capo_verifiedpermissions.types.context_definition.redact_sensitive(
+                value["context"]
+            )
+        )
+    if "entities" in value:
+        import capo_verifiedpermissions.types.entities_definition
+
+        out["entities"] = (
+            capo_verifiedpermissions.types.entities_definition.redact_sensitive(
+                value["entities"]
             )
         )
     return out

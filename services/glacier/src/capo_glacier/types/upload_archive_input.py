@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glacier#UploadArchiveInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -20,3 +20,10 @@ class UploadArchiveInput(TypedDict, closed=True):
     """<p>The SHA256 tree hash of the data being uploaded.</p>"""
     body: "capo_glacier.types.stream.Stream"
     """<p>The data to upload.</p>"""
+
+
+def redact_sensitive(value: UploadArchiveInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

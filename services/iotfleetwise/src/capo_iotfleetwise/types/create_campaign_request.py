@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#CreateCampaignRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -292,4 +292,31 @@ def deserialize_aws_json_1_0(data: dict) -> CreateCampaignRequest:
                 data["signalsToFetch"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateCampaignRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "signals_to_collect" in value:
+        out["signals_to_collect"] = "*** Sensitive Data Redacted ***"
+    if "collection_scheme" in value:
+        import capo_iotfleetwise.types.collection_scheme
+
+        out["collection_scheme"] = (
+            capo_iotfleetwise.types.collection_scheme.redact_sensitive(
+                value["collection_scheme"]
+            )
+        )
+    if "data_extra_dimensions" in value:
+        out["data_extra_dimensions"] = "*** Sensitive Data Redacted ***"
+    if "data_partitions" in value:
+        import capo_iotfleetwise.types.data_partitions
+
+        out["data_partitions"] = (
+            capo_iotfleetwise.types.data_partitions.redact_sensitive(
+                value["data_partitions"]
+            )
+        )
+    if "signals_to_fetch" in value:
+        out["signals_to_fetch"] = "*** Sensitive Data Redacted ***"
     return out

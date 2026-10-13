@@ -7,6 +7,7 @@ import capo_elementalinference._auth._sigv4
 from capo_elementalinference._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFeed")
+        )
         input_: capo_elementalinference.types.create_feed_request.CreateFeedRequest = {
             "name": name,
             "outputs": outputs,
@@ -150,7 +153,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFeed")
+        )
         input_: capo_elementalinference.types.get_feed_request.GetFeedRequest = {
             "id": id
         }
@@ -207,7 +212,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFeed")
+        )
         input_: capo_elementalinference.types.update_feed_request.UpdateFeedRequest = {
             "name": name,
             "id": id,
@@ -259,7 +266,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFeed")
+        )
         input_: capo_elementalinference.types.delete_feed_request.DeleteFeedRequest = {
             "id": id
         }
@@ -308,7 +317,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFeeds")
+        )
         input_: capo_elementalinference.types.list_feeds_request.ListFeedsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -365,7 +376,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateFeed")
+        )
         input_: capo_elementalinference.types.associate_feed_request.AssociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -414,7 +427,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFeedPolicy")
+        )
         input_: capo_elementalinference.types.delete_feed_policy_request.DeleteFeedPolicyRequest = {
             "id": id
         }
@@ -466,7 +481,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateFeed")
+        )
         input_: capo_elementalinference.types.disassociate_feed_request.DisassociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -516,7 +533,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFeedPolicy")
+        )
         input_: capo_elementalinference.types.get_feed_policy_request.GetFeedPolicyRequest = {
             "id": id
         }
@@ -566,7 +585,9 @@ class FeedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFeedPolicy")
+        )
         input_: capo_elementalinference.types.put_feed_policy_request.PutFeedPolicyRequest = {
             "id": id,
             "policy": policy,
@@ -629,7 +650,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFeed")
+        )
         input_: capo_elementalinference.types.create_feed_request.CreateFeedRequest = {
             "name": name,
             "outputs": outputs,
@@ -681,7 +704,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFeed")
+        )
         input_: capo_elementalinference.types.get_feed_request.GetFeedRequest = {
             "id": id
         }
@@ -739,7 +764,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFeed")
+        )
         input_: capo_elementalinference.types.update_feed_request.UpdateFeedRequest = {
             "name": name,
             "id": id,
@@ -792,7 +819,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFeed")
+        )
         input_: capo_elementalinference.types.delete_feed_request.DeleteFeedRequest = {
             "id": id
         }
@@ -842,7 +871,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFeeds")
+        )
         input_: capo_elementalinference.types.list_feeds_request.ListFeedsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -900,7 +931,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateFeed")
+        )
         input_: capo_elementalinference.types.associate_feed_request.AssociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -950,7 +983,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFeedPolicy")
+        )
         input_: capo_elementalinference.types.delete_feed_policy_request.DeleteFeedPolicyRequest = {
             "id": id
         }
@@ -1003,7 +1038,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateFeed")
+        )
         input_: capo_elementalinference.types.disassociate_feed_request.DisassociateFeedRequest = {
             "id": id,
             "associated_resource_name": associated_resource_name,
@@ -1054,7 +1091,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFeedPolicy")
+        )
         input_: capo_elementalinference.types.get_feed_policy_request.GetFeedPolicyRequest = {
             "id": id
         }
@@ -1105,7 +1144,9 @@ class AsyncFeedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFeedPolicy")
+        )
         input_: capo_elementalinference.types.put_feed_policy_request.PutFeedPolicyRequest = {
             "id": id,
             "policy": policy,

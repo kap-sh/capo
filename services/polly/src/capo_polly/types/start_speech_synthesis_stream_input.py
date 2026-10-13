@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.polly#StartSpeechSynthesisStreamInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,3 +31,10 @@ class StartSpeechSynthesisStreamInput(TypedDict, closed=True):
         "capo_polly.types.start_speech_synthesis_stream_action_stream.StartSpeechSynthesisStreamActionStream"
     ]
     """<p>The input event stream that contains text events and stream control events.</p>"""
+
+
+def redact_sensitive(value: StartSpeechSynthesisStreamInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "action_stream" in value:
+        out["action_stream"] = "*** Streaming Data Redacted ***"
+    return out

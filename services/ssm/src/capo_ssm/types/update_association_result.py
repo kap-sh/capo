@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#UpdateAssociationResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateAssociationResult:
         out["association_description"] = (
             capo_ssm.types.association_description.deserialize_aws_json_1_1(
                 data["AssociationDescription"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateAssociationResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "association_description" in value:
+        import capo_ssm.types.association_description
+
+        out["association_description"] = (
+            capo_ssm.types.association_description.redact_sensitive(
+                value["association_description"]
             )
         )
     return out

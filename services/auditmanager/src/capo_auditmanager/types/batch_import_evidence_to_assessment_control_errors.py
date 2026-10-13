@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#BatchImportEvidenceToAssessmentControlErrors``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_auditmanager.types.batch_import_evidence_to_assessment_control_error
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> BatchImportEvidenceToAssessmentControlErrors
             )
         )
     return out
+
+
+def redact_sensitive(value: BatchImportEvidenceToAssessmentControlErrors) -> list[Any]:
+    import capo_auditmanager.types.batch_import_evidence_to_assessment_control_error
+
+    return [
+        capo_auditmanager.types.batch_import_evidence_to_assessment_control_error.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

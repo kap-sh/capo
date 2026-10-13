@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetSemanticMetadataList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.data_set_semantic_metadata
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> DataSetSemanticMetadataList:
             capo_quicksight.types.data_set_semantic_metadata.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: DataSetSemanticMetadataList) -> list[Any]:
+    import capo_quicksight.types.data_set_semantic_metadata
+
+    return [
+        capo_quicksight.types.data_set_semantic_metadata.redact_sensitive(item)
+        for item in value
+    ]

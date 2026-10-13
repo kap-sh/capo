@@ -25,7 +25,9 @@ from capo_dataexchange._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -207,7 +209,9 @@ class AsyncDataExchangeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDataExchangeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDataExchangeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDataExchangeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -215,8 +219,10 @@ class AsyncDataExchangeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -271,7 +277,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptDataGrant")
+        )
         input_: capo_dataexchange.types.accept_data_grant_request.AcceptDataGrantRequest = {
             "data_grant_arn": data_grant_arn
         }
@@ -317,7 +325,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_dataexchange.types.cancel_job_request.CancelJobRequest = {
             "job_id": job_id
         }
@@ -378,7 +388,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataGrant")
+        )
         input_: capo_dataexchange.types.create_data_grant_request.CreateDataGrantRequest = {
             "name": name,
             "grant_distribution_scope": grant_distribution_scope,
@@ -441,7 +453,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSet")
+        )
         input_: capo_dataexchange.types.create_data_set_request.CreateDataSetRequest = {
             "asset_type": asset_type,
             "description": description,
@@ -499,7 +513,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventAction")
+        )
         input_: capo_dataexchange.types.create_event_action_request.CreateEventActionRequest = {
             "action": action,
             "event": event,
@@ -557,7 +573,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob")
+        )
         input_: capo_dataexchange.types.create_job_request.CreateJobRequest = {
             "details": details,
             "type": type,
@@ -614,7 +632,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRevision")
+        )
         input_: capo_dataexchange.types.create_revision_request.CreateRevisionRequest = {
             "data_set_id": data_set_id
         }
@@ -669,7 +689,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAsset")
+        )
         input_: capo_dataexchange.types.delete_asset_request.DeleteAssetRequest = {
             "asset_id": asset_id,
             "data_set_id": data_set_id,
@@ -717,7 +739,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataGrant")
+        )
         input_: capo_dataexchange.types.delete_data_grant_request.DeleteDataGrantRequest = {
             "data_grant_id": data_grant_id
         }
@@ -764,7 +788,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSet")
+        )
         input_: capo_dataexchange.types.delete_data_set_request.DeleteDataSetRequest = {
             "data_set_id": data_set_id
         }
@@ -809,7 +835,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventAction")
+        )
         input_: capo_dataexchange.types.delete_event_action_request.DeleteEventActionRequest = {
             "event_action_id": event_action_id
         }
@@ -858,7 +886,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRevision")
+        )
         input_: capo_dataexchange.types.delete_revision_request.DeleteRevisionRequest = {
             "data_set_id": data_set_id,
             "revision_id": revision_id,
@@ -910,7 +940,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAsset")
+        )
         input_: capo_dataexchange.types.get_asset_request.GetAssetRequest = {
             "asset_id": asset_id,
             "data_set_id": data_set_id,
@@ -960,7 +992,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataGrant")
+        )
         input_: capo_dataexchange.types.get_data_grant_request.GetDataGrantRequest = {
             "data_grant_id": data_grant_id
         }
@@ -1007,7 +1041,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSet")
+        )
         input_: capo_dataexchange.types.get_data_set_request.GetDataSetRequest = {
             "data_set_id": data_set_id
         }
@@ -1054,7 +1090,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventAction")
+        )
         input_: capo_dataexchange.types.get_event_action_request.GetEventActionRequest = {
             "event_action_id": event_action_id
         }
@@ -1101,7 +1139,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_dataexchange.types.get_job_request.GetJobRequest = {
             "job_id": job_id
         }
@@ -1149,7 +1189,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReceivedDataGrant")
+        )
         input_: capo_dataexchange.types.get_received_data_grant_request.GetReceivedDataGrantRequest = {
             "data_grant_arn": data_grant_arn
         }
@@ -1198,7 +1240,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevision")
+        )
         input_: capo_dataexchange.types.get_revision_request.GetRevisionRequest = {
             "data_set_id": data_set_id,
             "revision_id": revision_id,
@@ -1249,7 +1293,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataGrants")
+        )
         input_: capo_dataexchange.types.list_data_grants_request.ListDataGrantsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1323,7 +1369,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSetRevisions")
+        )
         input_: capo_dataexchange.types.list_data_set_revisions_request.ListDataSetRevisionsRequest = {
             "data_set_id": data_set_id
         }
@@ -1401,7 +1449,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSets")
+        )
         input_: capo_dataexchange.types.list_data_sets_request.ListDataSetsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1479,7 +1529,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventActions")
+        )
         input_: capo_dataexchange.types.list_event_actions_request.ListEventActionsRequest = {}
         if event_source_id is not None:
             input_["event_source_id"] = event_source_id
@@ -1559,7 +1611,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_dataexchange.types.list_jobs_request.ListJobsRequest = {}
         if data_set_id is not None:
             input_["data_set_id"] = data_set_id
@@ -1644,7 +1698,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceivedDataGrants")
+        )
         input_: capo_dataexchange.types.list_received_data_grants_request.ListReceivedDataGrantsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1726,7 +1782,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRevisionAssets")
+        )
         input_: capo_dataexchange.types.list_revision_assets_request.ListRevisionAssetsRequest = {
             "data_set_id": data_set_id,
             "revision_id": revision_id,
@@ -1799,7 +1857,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_dataexchange.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1852,7 +1912,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RevokeRevision")
+        )
         input_: capo_dataexchange.types.revoke_revision_request.RevokeRevisionRequest = {
             "data_set_id": data_set_id,
             "revision_id": revision_id,
@@ -1920,7 +1982,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendApiAsset")
+        )
         input_: capo_dataexchange.types.send_api_asset_request.SendApiAssetRequest = {
             "asset_id": asset_id,
             "data_set_id": data_set_id,
@@ -1997,7 +2061,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendDataSetNotification")
+        )
         input_: capo_dataexchange.types.send_data_set_notification_request.SendDataSetNotificationRequest = {
             "data_set_id": data_set_id,
             "type": type,
@@ -2056,7 +2122,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartJob")
+        )
         input_: capo_dataexchange.types.start_job_request.StartJobRequest = {
             "job_id": job_id
         }
@@ -2099,7 +2167,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_dataexchange.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2143,7 +2213,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_dataexchange.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2199,7 +2271,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAsset")
+        )
         input_: capo_dataexchange.types.update_asset_request.UpdateAssetRequest = {
             "asset_id": asset_id,
             "data_set_id": data_set_id,
@@ -2254,7 +2328,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSet")
+        )
         input_: capo_dataexchange.types.update_data_set_request.UpdateDataSetRequest = {
             "data_set_id": data_set_id
         }
@@ -2310,7 +2386,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventAction")
+        )
         input_: capo_dataexchange.types.update_event_action_request.UpdateEventActionRequest = {
             "event_action_id": event_action_id
         }
@@ -2369,7 +2447,9 @@ class AsyncDataExchangeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRevision")
+        )
         input_: capo_dataexchange.types.update_revision_request.UpdateRevisionRequest = {
             "data_set_id": data_set_id,
             "revision_id": revision_id,

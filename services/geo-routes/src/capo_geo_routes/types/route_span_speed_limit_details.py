@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteSpanSpeedLimitDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,13 @@ def deserialize_json(data: dict) -> RouteSpanSpeedLimitDetails:
         out["max_speed"] = 0
     if data.get("Unlimited") is not None:
         out["unlimited"] = data["Unlimited"]
+    return out
+
+
+def redact_sensitive(value: RouteSpanSpeedLimitDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "max_speed" in value:
+        out["max_speed"] = "*** Sensitive Data Redacted ***"
+    if "unlimited" in value:
+        out["unlimited"] = "*** Sensitive Data Redacted ***"
     return out

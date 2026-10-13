@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#GetMaintenanceWindowResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -155,4 +155,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetMaintenanceWindowResult:
         out["modified_date"] = capo_ssm.types.date_time.deserialize_aws_json_1_1(
             data["ModifiedDate"]
         )
+    return out
+
+
+def redact_sensitive(value: GetMaintenanceWindowResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

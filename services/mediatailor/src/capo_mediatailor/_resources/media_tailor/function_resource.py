@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,9 @@ class FunctionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunction")
+        )
         input_: capo_mediatailor.types.put_function_request.PutFunctionRequest = {
             "function_id": function_id,
             "function_type": function_type,
@@ -173,7 +176,9 @@ class FunctionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunction")
+        )
         input_: capo_mediatailor.types.get_function_request.GetFunctionRequest = {
             "function_id": function_id
         }
@@ -215,7 +220,9 @@ class FunctionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunction")
+        )
         input_: capo_mediatailor.types.delete_function_request.DeleteFunctionRequest = {
             "function_id": function_id
         }
@@ -259,7 +266,9 @@ class FunctionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctions")
+        )
         input_: capo_mediatailor.types.list_functions_request.ListFunctionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -341,7 +350,9 @@ class AsyncFunctionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutFunction")
+        )
         input_: capo_mediatailor.types.put_function_request.PutFunctionRequest = {
             "function_id": function_id,
             "function_type": function_type,
@@ -407,7 +418,9 @@ class AsyncFunctionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFunction")
+        )
         input_: capo_mediatailor.types.get_function_request.GetFunctionRequest = {
             "function_id": function_id
         }
@@ -450,7 +463,9 @@ class AsyncFunctionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFunction")
+        )
         input_: capo_mediatailor.types.delete_function_request.DeleteFunctionRequest = {
             "function_id": function_id
         }
@@ -495,7 +510,9 @@ class AsyncFunctionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFunctions")
+        )
         input_: capo_mediatailor.types.list_functions_request.ListFunctionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

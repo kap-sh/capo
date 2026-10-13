@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#OtaTaskConfigurationListDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.ota_task_configuration_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> OtaTaskConfigurationListDefinition:
             )
         )
     return out
+
+
+def redact_sensitive(value: OtaTaskConfigurationListDefinition) -> list[Any]:
+    import capo_iot_managed_integrations.types.ota_task_configuration_summary
+
+    return [
+        capo_iot_managed_integrations.types.ota_task_configuration_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

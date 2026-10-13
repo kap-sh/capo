@@ -8,6 +8,7 @@ import capo_gameliftstreams._auth._sigv4
 from capo_gameliftstreams._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_gameliftstreams.types.create_application_input.CreateApplicationInput = {
             "description": description,
             "runtime_environment": runtime_environment,
@@ -164,7 +167,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_gameliftstreams.types.get_application_input.GetApplicationInput = {
             "identifier": identifier
         }
@@ -223,7 +228,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_gameliftstreams.types.update_application_input.UpdateApplicationInput = {
             "identifier": identifier
         }
@@ -275,7 +282,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_gameliftstreams.types.delete_application_input.DeleteApplicationInput = {
             "identifier": identifier
         }
@@ -325,7 +334,9 @@ class ApplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_gameliftstreams.types.list_applications_input.ListApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -401,7 +412,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_gameliftstreams.types.create_application_input.CreateApplicationInput = {
             "description": description,
             "runtime_environment": runtime_environment,
@@ -461,7 +474,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_gameliftstreams.types.get_application_input.GetApplicationInput = {
             "identifier": identifier
         }
@@ -521,7 +536,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_gameliftstreams.types.update_application_input.UpdateApplicationInput = {
             "identifier": identifier
         }
@@ -574,7 +591,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_gameliftstreams.types.delete_application_input.DeleteApplicationInput = {
             "identifier": identifier
         }
@@ -625,7 +644,9 @@ class AsyncApplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_gameliftstreams.types.list_applications_input.ListApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

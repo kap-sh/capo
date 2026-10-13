@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_interconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_interconnect.types.get_environment_request.GetEnvironmentRequest = {
             "id": id
         }
@@ -137,7 +140,9 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_interconnect.types.list_environments_request.ListEnvironmentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -203,7 +208,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEnvironment")
+        )
         input_: capo_interconnect.types.get_environment_request.GetEnvironmentRequest = {
             "id": id
         }
@@ -264,7 +271,9 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEnvironments")
+        )
         input_: capo_interconnect.types.list_environments_request.ListEnvironmentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

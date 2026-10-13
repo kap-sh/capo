@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationExclusionOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,5 +37,16 @@ def deserialize_json(data: dict) -> WaypointOptimizationExclusionOptions:
     else:
         raise DeserializationError(
             "WaypointOptimizationExclusionOptions.countries required"
+        )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationExclusionOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "countries" in value:
+        import capo_geo_routes.types.country_code_list
+
+        out["countries"] = capo_geo_routes.types.country_code_list.redact_sensitive(
+            value["countries"]
         )
     return out

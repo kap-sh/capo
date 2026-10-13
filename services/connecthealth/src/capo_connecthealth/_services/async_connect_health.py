@@ -27,7 +27,9 @@ from capo_connecthealth._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -156,7 +158,9 @@ class AsyncConnectHealthClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncConnectHealthClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncConnectHealthClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncConnectHealthClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -164,8 +168,10 @@ class AsyncConnectHealthClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -217,7 +223,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivateSubscription")
+        )
         input_: capo_connecthealth.types.activate_subscription_input.ActivateSubscriptionInput = {
             "domain_id": domain_id,
             "subscription_id": subscription_id,
@@ -270,7 +278,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomain")
+        )
         input_: capo_connecthealth.types.create_domain_input.CreateDomainInput = {
             "name": name
         }
@@ -324,7 +334,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscription")
+        )
         input_: capo_connecthealth.types.create_subscription_input.CreateSubscriptionInput = {
             "domain_id": domain_id
         }
@@ -373,7 +385,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivateSubscription")
+        )
         input_: capo_connecthealth.types.deactivate_subscription_input.DeactivateSubscriptionInput = {
             "domain_id": domain_id,
             "subscription_id": subscription_id,
@@ -418,7 +432,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomain")
+        )
         input_: capo_connecthealth.types.delete_domain_input.DeleteDomainInput = {
             "domain_id": domain_id
         }
@@ -462,7 +478,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomain")
+        )
         input_: capo_connecthealth.types.get_domain_input.GetDomainInput = {
             "domain_id": domain_id
         }
@@ -514,7 +532,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedicalScribeListeningSession")
+        )
         input_: capo_connecthealth.types.get_medical_scribe_listening_session_input.GetMedicalScribeListeningSessionInput = {
             "session_id": session_id,
             "domain_id": domain_id,
@@ -566,7 +586,19 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_connecthealth.types.get_patient_insights_job_response.GetPatientInsightsJobResponse",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.get_patient_insights_job_response
+
+            return capo_connecthealth.types.get_patient_insights_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPatientInsightsJob", redact_output=_redact_output),
+        )
         input_: capo_connecthealth.types.get_patient_insights_job_request.GetPatientInsightsJobRequest = {
             "domain_id": domain_id,
             "job_id": job_id,
@@ -616,7 +648,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscription")
+        )
         input_: capo_connecthealth.types.get_subscription_input.GetSubscriptionInput = {
             "domain_id": domain_id,
             "subscription_id": subscription_id,
@@ -664,7 +698,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomains")
+        )
         input_: capo_connecthealth.types.list_domains_input.ListDomainsInput = {}
         if status is not None:
             input_["status"] = status
@@ -742,7 +778,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptions")
+        )
         input_: capo_connecthealth.types.list_subscriptions_input.ListSubscriptionsInput = {
             "domain_id": domain_id
         }
@@ -812,7 +850,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_connecthealth.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -876,7 +916,32 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connecthealth.types.start_medical_scribe_listening_session_input.StartMedicalScribeListeningSessionInput",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.start_medical_scribe_listening_session_input
+
+            return capo_connecthealth.types.start_medical_scribe_listening_session_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_connecthealth.types.start_medical_scribe_listening_session_output.StartMedicalScribeListeningSessionOutput",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.start_medical_scribe_listening_session_output
+
+            return capo_connecthealth.types.start_medical_scribe_listening_session_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMedicalScribeListeningSession",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_connecthealth.types.start_medical_scribe_listening_session_input.StartMedicalScribeListeningSessionInput = {
             "session_id": session_id,
             "domain_id": domain_id,
@@ -950,7 +1015,19 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_connecthealth.types.start_patient_insights_job_request.StartPatientInsightsJobRequest",
+        ) -> dict[str, Any]:
+            import capo_connecthealth.types.start_patient_insights_job_request
+
+            return capo_connecthealth.types.start_patient_insights_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartPatientInsightsJob", redact_input=_redact_input),
+        )
         input_: capo_connecthealth.types.start_patient_insights_job_request.StartPatientInsightsJobRequest = {
             "domain_id": domain_id,
             "patient_context": patient_context,
@@ -1002,7 +1079,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_connecthealth.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1046,7 +1125,9 @@ class AsyncConnectHealthClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_connecthealth.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambdamicrovms#CreateMicrovmAuthTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> CreateMicrovmAuthTokenResponse:
         )
     else:
         raise DeserializationError("CreateMicrovmAuthTokenResponse.auth_token required")
+    return out
+
+
+def redact_sensitive(value: CreateMicrovmAuthTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_token" in value:
+        import capo_lambda_microvms.types.token_parts
+
+        out["auth_token"] = capo_lambda_microvms.types.token_parts.redact_sensitive(
+            value["auth_token"]
+        )
     return out

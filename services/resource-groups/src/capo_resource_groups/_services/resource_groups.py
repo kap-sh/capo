@@ -21,10 +21,12 @@ from capo_resource_groups._pagination import resolve_path as _resolve_path
 from capo_resource_groups._services._aws_config import aws_config
 from capo_resource_groups._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -177,7 +179,9 @@ class ResourceGroupsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ResourceGroupsClientConfig] = None
+        self,
+        config_overrides: Optional[ResourceGroupsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ResourceGroupsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -185,8 +189,10 @@ class ResourceGroupsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -238,7 +244,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelTagSyncTask")
+        )
         input_: capo_resource_groups.types.cancel_tag_sync_task_input.CancelTagSyncTaskInput = {
             "task_arn": task_arn
         }
@@ -309,7 +317,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_resource_groups.types.create_group_input.CreateGroupInput = {
             "name": name
         }
@@ -375,7 +385,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_resource_groups.types.delete_group_input.DeleteGroupInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -418,7 +430,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -467,7 +481,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_resource_groups.types.get_group_input.GetGroupInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -517,7 +533,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupConfiguration")
+        )
         input_: capo_resource_groups.types.get_group_configuration_input.GetGroupConfigurationInput = {}
         if group is not None:
             input_["group"] = group
@@ -567,7 +585,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupQuery")
+        )
         input_: capo_resource_groups.types.get_group_query_input.GetGroupQueryInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -617,7 +637,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTags")
+        )
         input_: capo_resource_groups.types.get_tags_input.GetTagsInput = {"arn": arn}
 
         response = execute_pipeline(
@@ -664,7 +686,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTagSyncTask")
+        )
         input_: capo_resource_groups.types.get_tag_sync_task_input.GetTagSyncTaskInput = {
             "task_arn": task_arn
         }
@@ -714,7 +738,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GroupResources")
+        )
         input_: capo_resource_groups.types.group_resources_input.GroupResourcesInput = {
             "group": group,
             "resource_arns": resource_arns,
@@ -772,7 +798,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupingStatuses")
+        )
         input_: capo_resource_groups.types.list_grouping_statuses_input.ListGroupingStatusesInput = {
             "group": group
         }
@@ -870,7 +898,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupResources")
+        )
         input_: capo_resource_groups.types.list_group_resources_input.ListGroupResourcesInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -966,7 +996,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_resource_groups.types.list_groups_input.ListGroupsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1053,7 +1085,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagSyncTasks")
+        )
         input_: capo_resource_groups.types.list_tag_sync_tasks_input.ListTagSyncTasksInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1136,7 +1170,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGroupConfiguration")
+        )
         input_: capo_resource_groups.types.put_group_configuration_input.PutGroupConfigurationInput = {}
         if group is not None:
             input_["group"] = group
@@ -1192,7 +1228,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchResources")
+        )
         input_: capo_resource_groups.types.search_resources_input.SearchResourcesInput = {
             "resource_query": resource_query
         }
@@ -1280,7 +1318,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTagSyncTask")
+        )
         input_: capo_resource_groups.types.start_tag_sync_task_input.StartTagSyncTaskInput = {
             "group": group,
             "role_arn": role_arn,
@@ -1333,7 +1373,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Tag")
+        )
         input_: capo_resource_groups.types.tag_input.TagInput = {
             "arn": arn,
             "tags": tags,
@@ -1384,7 +1426,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UngroupResources")
+        )
         input_: capo_resource_groups.types.ungroup_resources_input.UngroupResourcesInput = {
             "group": group,
             "resource_arns": resource_arns,
@@ -1431,7 +1475,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Untag")
+        )
         input_: capo_resource_groups.types.untag_input.UntagInput = {
             "arn": arn,
             "keys": keys,
@@ -1481,7 +1527,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_resource_groups.types.update_account_settings_input.UpdateAccountSettingsInput = {}
         if group_lifecycle_events_desired_status is not None:
             input_["group_lifecycle_events_desired_status"] = (
@@ -1549,7 +1597,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_resource_groups.types.update_group_input.UpdateGroupInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -1611,7 +1661,9 @@ class ResourceGroupsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroupQuery")
+        )
         input_: capo_resource_groups.types.update_group_query_input.UpdateGroupQueryInput = {
             "resource_query": resource_query
         }

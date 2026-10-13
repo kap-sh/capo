@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#CookieSpecification``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> CookieSpecification:
         out["name"] = data["name"]
     if data.get("path") is not None:
         out["path"] = data["path"]
+    return out
+
+
+def redact_sensitive(value: CookieSpecification) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "domain" in value:
+        out["domain"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "path" in value:
+        out["path"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ContainerDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -561,4 +561,13 @@ def deserialize_aws_json_1_1(data: dict) -> ContainerDefinition:
         out["credential_specs"] = capo_ecs.types.string_list.deserialize_aws_json_1_1(
             data["credentialSpecs"]
         )
+    return out
+
+
+def redact_sensitive(value: ContainerDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "repository_credentials" in value:
+        out["repository_credentials"] = "*** Sensitive Data Redacted ***"
+    if "environment" in value:
+        out["environment"] = "*** Sensitive Data Redacted ***"
     return out

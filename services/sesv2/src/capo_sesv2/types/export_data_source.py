@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sesv2#ExportDataSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,6 +54,19 @@ def deserialize_json(data: dict) -> ExportDataSource:
         out["message_insights_data_source"] = (
             capo_sesv2.types.message_insights_data_source.deserialize_json(
                 data["MessageInsightsDataSource"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ExportDataSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message_insights_data_source" in value:
+        import capo_sesv2.types.message_insights_data_source
+
+        out["message_insights_data_source"] = (
+            capo_sesv2.types.message_insights_data_source.redact_sensitive(
+                value["message_insights_data_source"]
             )
         )
     return out

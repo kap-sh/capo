@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_notifications._auth._signers
 import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,21 @@ class ManagedNotificationEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notifications.types.get_managed_notification_event_response.GetManagedNotificationEventResponse",
+        ) -> dict[str, Any]:
+            import capo_notifications.types.get_managed_notification_event_response
+
+            return capo_notifications.types.get_managed_notification_event_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetManagedNotificationEvent", redact_output=_redact_output
+            ),
+        )
         input_: capo_notifications.types.get_managed_notification_event_request.GetManagedNotificationEventRequest = {
             "arn": arn
         }
@@ -144,7 +159,9 @@ class ManagedNotificationEventResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_events_request.ListManagedNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time
@@ -215,7 +232,21 @@ class AsyncManagedNotificationEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_notifications.types.get_managed_notification_event_response.GetManagedNotificationEventResponse",
+        ) -> dict[str, Any]:
+            import capo_notifications.types.get_managed_notification_event_response
+
+            return capo_notifications.types.get_managed_notification_event_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetManagedNotificationEvent", redact_output=_redact_output
+            ),
+        )
         input_: capo_notifications.types.get_managed_notification_event_request.GetManagedNotificationEventRequest = {
             "arn": arn
         }
@@ -284,7 +315,9 @@ class AsyncManagedNotificationEventResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationEvents")
+        )
         input_: capo_notifications.types.list_managed_notification_events_request.ListManagedNotificationEventsRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time

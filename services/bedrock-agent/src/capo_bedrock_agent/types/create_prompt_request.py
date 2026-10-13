@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#CreatePromptRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,11 @@ def deserialize_json(data: dict) -> CreatePromptRequest:
         import capo_bedrock_agent.types.tags_map
 
         out["tags"] = capo_bedrock_agent.types.tags_map.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: CreatePromptRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "variants" in value:
+        out["variants"] = "*** Sensitive Data Redacted ***"
     return out

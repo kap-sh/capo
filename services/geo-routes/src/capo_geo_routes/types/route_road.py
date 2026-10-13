@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteRoad``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,29 @@ def deserialize_json(data: dict) -> RouteRoad:
         out["type"] = capo_geo_routes.types.route_road_type.deserialize_json(
             data["Type"]
         )
+    return out
+
+
+def redact_sensitive(value: RouteRoad) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "road_name" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["road_name"] = capo_geo_routes.types.localized_string_list.redact_sensitive(
+            value["road_name"]
+        )
+    if "route_number" in value:
+        import capo_geo_routes.types.route_number_list
+
+        out["route_number"] = capo_geo_routes.types.route_number_list.redact_sensitive(
+            value["route_number"]
+        )
+    if "towards" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["towards"] = capo_geo_routes.types.localized_string_list.redact_sensitive(
+            value["towards"]
+        )
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

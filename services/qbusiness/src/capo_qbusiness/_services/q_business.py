@@ -25,10 +25,12 @@ from capo_qbusiness._resources.expert_q.application_resource import ApplicationR
 from capo_qbusiness._services._aws_config import aws_config
 from capo_qbusiness._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -416,7 +418,9 @@ class QBusinessClient:
         self.application_resource = ApplicationResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[QBusinessClientConfig] = None
+        self,
+        config_overrides: Optional[QBusinessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: QBusinessClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -424,8 +428,10 @@ class QBusinessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -489,7 +495,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePermission")
+        )
         input_: capo_qbusiness.types.associate_permission_request.AssociatePermissionRequest = {
             "application_id": application_id,
             "statement_id": statement_id,
@@ -550,7 +558,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDocument")
+        )
         input_: capo_qbusiness.types.batch_delete_document_request.BatchDeleteDocumentRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -613,7 +623,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutDocument")
+        )
         input_: capo_qbusiness.types.batch_put_document_request.BatchPutDocumentRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -668,7 +680,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelSubscription")
+        )
         input_: capo_qbusiness.types.cancel_subscription_request.CancelSubscriptionRequest = {
             "application_id": application_id,
             "subscription_id": subscription_id,
@@ -732,7 +746,26 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.chat_input.ChatInput",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.chat_input
+
+            return capo_qbusiness.types.chat_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_qbusiness.types.chat_output.ChatOutput",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.chat_output
+
+            return capo_qbusiness.types.chat_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Chat", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_qbusiness.types.chat_input.ChatInput = {
             "application_id": application_id
         }
@@ -831,7 +864,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ChatSync")
+        )
         input_: capo_qbusiness.types.chat_sync_input.ChatSyncInput = {
             "application_id": application_id
         }
@@ -913,7 +948,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckDocumentAccess")
+        )
         input_: capo_qbusiness.types.check_document_access_request.CheckDocumentAccessRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -972,7 +1009,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAnonymousWebExperienceUrl")
+        )
         input_: capo_qbusiness.types.create_anonymous_web_experience_url_request.CreateAnonymousWebExperienceUrlRequest = {
             "application_id": application_id,
             "web_experience_id": web_experience_id,
@@ -1032,7 +1071,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChatResponseConfiguration")
+        )
         input_: capo_qbusiness.types.create_chat_response_configuration_request.CreateChatResponseConfigurationRequest = {
             "application_id": application_id,
             "display_name": display_name,
@@ -1093,7 +1134,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscription")
+        )
         input_: capo_qbusiness.types.create_subscription_request.CreateSubscriptionRequest = {
             "application_id": application_id,
             "principal": principal,
@@ -1153,7 +1196,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser")
+        )
         input_: capo_qbusiness.types.create_user_request.CreateUserRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -1213,7 +1258,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAttachment")
+        )
         input_: capo_qbusiness.types.delete_attachment_request.DeleteAttachmentRequest = {
             "application_id": application_id,
             "conversation_id": conversation_id,
@@ -1264,7 +1311,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChatControlsConfiguration")
+        )
         input_: capo_qbusiness.types.delete_chat_controls_configuration_request.DeleteChatControlsConfigurationRequest = {
             "application_id": application_id
         }
@@ -1314,7 +1363,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChatResponseConfiguration")
+        )
         input_: capo_qbusiness.types.delete_chat_response_configuration_request.DeleteChatResponseConfigurationRequest = {
             "application_id": application_id,
             "chat_response_configuration_id": chat_response_configuration_id,
@@ -1368,7 +1419,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConversation")
+        )
         input_: capo_qbusiness.types.delete_conversation_request.DeleteConversationRequest = {
             "conversation_id": conversation_id,
             "application_id": application_id,
@@ -1427,7 +1480,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_qbusiness.types.delete_group_request.DeleteGroupRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -1481,7 +1536,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_qbusiness.types.delete_user_request.DeleteUserRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -1532,7 +1589,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociatePermission")
+        )
         input_: capo_qbusiness.types.disassociate_permission_request.DisassociatePermissionRequest = {
             "application_id": application_id,
             "statement_id": statement_id,
@@ -1586,7 +1645,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChatControlsConfiguration")
+        )
         input_: capo_qbusiness.types.get_chat_controls_configuration_request.GetChatControlsConfigurationRequest = {
             "application_id": application_id
         }
@@ -1664,7 +1725,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChatResponseConfiguration")
+        )
         input_: capo_qbusiness.types.get_chat_response_configuration_request.GetChatResponseConfigurationRequest = {
             "application_id": application_id,
             "chat_response_configuration_id": chat_response_configuration_id,
@@ -1726,7 +1789,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentContent")
+        )
         input_: capo_qbusiness.types.get_document_content_request.GetDocumentContentRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -1788,7 +1853,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_qbusiness.types.get_group_request.GetGroupRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -1847,7 +1914,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedia")
+        )
         input_: capo_qbusiness.types.get_media_request.GetMediaRequest = {
             "application_id": application_id,
             "conversation_id": conversation_id,
@@ -1897,7 +1966,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_qbusiness.types.get_policy_request.GetPolicyRequest = {
             "application_id": application_id
         }
@@ -1947,7 +2018,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUser")
+        )
         input_: capo_qbusiness.types.get_user_request.GetUserRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -2008,7 +2081,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAttachments")
+        )
         input_: capo_qbusiness.types.list_attachments_request.ListAttachmentsRequest = {
             "application_id": application_id
         }
@@ -2098,7 +2173,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChatResponseConfigurations")
+        )
         input_: capo_qbusiness.types.list_chat_response_configurations_request.ListChatResponseConfigurationsRequest = {
             "application_id": application_id
         }
@@ -2181,7 +2258,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConversations")
+        )
         input_: capo_qbusiness.types.list_conversations_request.ListConversationsRequest = {
             "application_id": application_id
         }
@@ -2280,7 +2359,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSourceSyncJobs")
+        )
         input_: capo_qbusiness.types.list_data_source_sync_jobs_request.ListDataSourceSyncJobsRequest = {
             "data_source_id": data_source_id,
             "application_id": application_id,
@@ -2388,7 +2469,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocuments")
+        )
         input_: capo_qbusiness.types.list_documents_request.ListDocumentsRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -2488,7 +2571,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_qbusiness.types.list_groups_request.ListGroupsRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -2587,7 +2672,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMessages")
+        )
         input_: capo_qbusiness.types.list_messages_request.ListMessagesRequest = {
             "conversation_id": conversation_id,
             "application_id": application_id,
@@ -2678,7 +2765,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPluginActions")
+        )
         input_: capo_qbusiness.types.list_plugin_actions_request.ListPluginActionsRequest = {
             "application_id": application_id,
             "plugin_id": plugin_id,
@@ -2762,7 +2851,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPluginTypeActions")
+        )
         input_: capo_qbusiness.types.list_plugin_type_actions_request.ListPluginTypeActionsRequest = {
             "plugin_type": plugin_type
         }
@@ -2841,7 +2932,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPluginTypeMetadata")
+        )
         input_: capo_qbusiness.types.list_plugin_type_metadata_request.ListPluginTypeMetadataRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2920,7 +3013,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptions")
+        )
         input_: capo_qbusiness.types.list_subscriptions_request.ListSubscriptionsRequest = {
             "application_id": application_id
         }
@@ -2996,7 +3091,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_qbusiness.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3053,7 +3150,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFeedback")
+        )
         input_: capo_qbusiness.types.put_feedback_request.PutFeedbackRequest = {
             "application_id": application_id,
             "conversation_id": conversation_id,
@@ -3123,7 +3222,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGroup")
+        )
         input_: capo_qbusiness.types.put_group_request.PutGroupRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -3190,7 +3291,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchRelevantContent")
+        )
         input_: capo_qbusiness.types.search_relevant_content_request.SearchRelevantContentRequest = {
             "application_id": application_id,
             "query_text": query_text,
@@ -3282,7 +3385,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataSourceSyncJob")
+        )
         input_: capo_qbusiness.types.start_data_source_sync_job_request.StartDataSourceSyncJobRequest = {
             "data_source_id": data_source_id,
             "application_id": application_id,
@@ -3336,7 +3441,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDataSourceSyncJob")
+        )
         input_: capo_qbusiness.types.stop_data_source_sync_job_request.StopDataSourceSyncJobRequest = {
             "data_source_id": data_source_id,
             "application_id": application_id,
@@ -3388,7 +3495,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_qbusiness.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3438,7 +3547,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_qbusiness.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3518,7 +3629,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChatControlsConfiguration")
+        )
         input_: capo_qbusiness.types.update_chat_controls_configuration_request.UpdateChatControlsConfigurationRequest = {
             "application_id": application_id
         }
@@ -3597,7 +3710,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChatResponseConfiguration")
+        )
         input_: capo_qbusiness.types.update_chat_response_configuration_request.UpdateChatResponseConfigurationRequest = {
             "application_id": application_id,
             "chat_response_configuration_id": chat_response_configuration_id,
@@ -3656,7 +3771,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscription")
+        )
         input_: capo_qbusiness.types.update_subscription_request.UpdateSubscriptionRequest = {
             "application_id": application_id,
             "subscription_id": subscription_id,
@@ -3717,7 +3834,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_qbusiness.types.update_user_request.UpdateUserRequest = {
             "application_id": application_id,
             "user_id": user_id,
@@ -3815,7 +3934,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.create_application_request.CreateApplicationRequest",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.create_application_request
+
+            return capo_qbusiness.types.create_application_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateApplication", redact_input=_redact_input),
+        )
         input_: capo_qbusiness.types.create_application_request.CreateApplicationRequest = {
             "display_name": display_name
         }
@@ -3889,7 +4020,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qbusiness.types.get_application_response.GetApplicationResponse",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.get_application_response
+
+            return capo_qbusiness.types.get_application_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetApplication", redact_output=_redact_output),
+        )
         input_: capo_qbusiness.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -3965,7 +4108,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_qbusiness.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -4029,7 +4174,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_qbusiness.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -4079,7 +4226,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_qbusiness.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4169,7 +4318,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.create_data_accessor_request.CreateDataAccessorRequest",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.create_data_accessor_request
+
+            return capo_qbusiness.types.create_data_accessor_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataAccessor", redact_input=_redact_input),
+        )
         input_: capo_qbusiness.types.create_data_accessor_request.CreateDataAccessorRequest = {
             "application_id": application_id,
             "principal": principal,
@@ -4228,7 +4389,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qbusiness.types.get_data_accessor_response.GetDataAccessorResponse",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.get_data_accessor_response
+
+            return capo_qbusiness.types.get_data_accessor_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDataAccessor", redact_output=_redact_output),
+        )
         input_: capo_qbusiness.types.get_data_accessor_request.GetDataAccessorRequest = {
             "application_id": application_id,
             "data_accessor_id": data_accessor_id,
@@ -4291,7 +4464,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.update_data_accessor_request.UpdateDataAccessorRequest",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.update_data_accessor_request
+
+            return capo_qbusiness.types.update_data_accessor_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDataAccessor", redact_input=_redact_input),
+        )
         input_: capo_qbusiness.types.update_data_accessor_request.UpdateDataAccessorRequest = {
             "application_id": application_id,
             "data_accessor_id": data_accessor_id,
@@ -4349,7 +4534,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataAccessor")
+        )
         input_: capo_qbusiness.types.delete_data_accessor_request.DeleteDataAccessorRequest = {
             "application_id": application_id,
             "data_accessor_id": data_accessor_id,
@@ -4405,7 +4592,19 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qbusiness.types.list_data_accessors_response.ListDataAccessorsResponse",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.list_data_accessors_response
+
+            return capo_qbusiness.types.list_data_accessors_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDataAccessors", redact_output=_redact_output),
+        )
         input_: capo_qbusiness.types.list_data_accessors_request.ListDataAccessorsRequest = {
             "application_id": application_id
         }
@@ -4499,7 +4698,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_qbusiness.types.create_index_request.CreateIndexRequest = {
             "application_id": application_id,
             "display_name": display_name,
@@ -4560,7 +4761,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIndex")
+        )
         input_: capo_qbusiness.types.get_index_request.GetIndexRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -4626,7 +4829,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_qbusiness.types.update_index_request.UpdateIndexRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -4687,7 +4892,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_qbusiness.types.delete_index_request.DeleteIndexRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -4741,7 +4948,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndices")
+        )
         input_: capo_qbusiness.types.list_indices_request.ListIndicesRequest = {
             "application_id": application_id
         }
@@ -4848,7 +5057,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSource")
+        )
         input_: capo_qbusiness.types.create_data_source_request.CreateDataSourceRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -4921,7 +5132,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSource")
+        )
         input_: capo_qbusiness.types.get_data_source_request.GetDataSourceRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -5000,7 +5213,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSource")
+        )
         input_: capo_qbusiness.types.update_data_source_request.UpdateDataSourceRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -5072,7 +5287,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_qbusiness.types.delete_data_source_request.DeleteDataSourceRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -5129,7 +5346,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_qbusiness.types.list_data_sources_request.ListDataSourcesRequest = {
             "application_id": application_id,
             "index_id": index_id,
@@ -5225,7 +5444,17 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.create_plugin_request.CreatePluginRequest",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.create_plugin_request
+
+            return capo_qbusiness.types.create_plugin_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePlugin", redact_input=_redact_input),
+        )
         input_: capo_qbusiness.types.create_plugin_request.CreatePluginRequest = {
             "application_id": application_id,
             "display_name": display_name,
@@ -5286,7 +5515,17 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_qbusiness.types.get_plugin_response.GetPluginResponse",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.get_plugin_response
+
+            return capo_qbusiness.types.get_plugin_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPlugin", redact_output=_redact_output),
+        )
         input_: capo_qbusiness.types.get_plugin_request.GetPluginRequest = {
             "application_id": application_id,
             "plugin_id": plugin_id,
@@ -5352,7 +5591,17 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_qbusiness.types.update_plugin_request.UpdatePluginRequest",
+        ) -> dict[str, Any]:
+            import capo_qbusiness.types.update_plugin_request
+
+            return capo_qbusiness.types.update_plugin_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePlugin", redact_input=_redact_input),
+        )
         input_: capo_qbusiness.types.update_plugin_request.UpdatePluginRequest = {
             "application_id": application_id,
             "plugin_id": plugin_id,
@@ -5413,7 +5662,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePlugin")
+        )
         input_: capo_qbusiness.types.delete_plugin_request.DeletePluginRequest = {
             "application_id": application_id,
             "plugin_id": plugin_id,
@@ -5467,7 +5718,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPlugins")
+        )
         input_: capo_qbusiness.types.list_plugins_request.ListPluginsRequest = {
             "application_id": application_id
         }
@@ -5556,7 +5809,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRetriever")
+        )
         input_: capo_qbusiness.types.create_retriever_request.CreateRetrieverRequest = {
             "application_id": application_id,
             "type": type,
@@ -5615,7 +5870,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRetriever")
+        )
         input_: capo_qbusiness.types.get_retriever_request.GetRetrieverRequest = {
             "application_id": application_id,
             "retriever_id": retriever_id,
@@ -5676,7 +5933,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRetriever")
+        )
         input_: capo_qbusiness.types.update_retriever_request.UpdateRetrieverRequest = {
             "application_id": application_id,
             "retriever_id": retriever_id,
@@ -5733,7 +5992,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRetriever")
+        )
         input_: capo_qbusiness.types.delete_retriever_request.DeleteRetrieverRequest = {
             "application_id": application_id,
             "retriever_id": retriever_id,
@@ -5787,7 +6048,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRetrievers")
+        )
         input_: capo_qbusiness.types.list_retrievers_request.ListRetrieversRequest = {
             "application_id": application_id
         }
@@ -5903,7 +6166,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebExperience")
+        )
         input_: capo_qbusiness.types.create_web_experience_request.CreateWebExperienceRequest = {
             "application_id": application_id
         }
@@ -5975,7 +6240,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWebExperience")
+        )
         input_: capo_qbusiness.types.get_web_experience_request.GetWebExperienceRequest = {
             "application_id": application_id,
             "web_experience_id": web_experience_id,
@@ -6064,7 +6331,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebExperience")
+        )
         input_: capo_qbusiness.types.update_web_experience_request.UpdateWebExperienceRequest = {
             "application_id": application_id,
             "web_experience_id": web_experience_id,
@@ -6135,7 +6404,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebExperience")
+        )
         input_: capo_qbusiness.types.delete_web_experience_request.DeleteWebExperienceRequest = {
             "application_id": application_id,
             "web_experience_id": web_experience_id,
@@ -6191,7 +6462,9 @@ class QBusinessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebExperiences")
+        )
         input_: capo_qbusiness.types.list_web_experiences_request.ListWebExperiencesRequest = {
             "application_id": application_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#UpdatePromptRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_json(data: dict) -> UpdatePromptRequest:
         out["variants"] = capo_bedrock_agent.types.prompt_variant_list.deserialize_json(
             data["variants"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdatePromptRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "variants" in value:
+        out["variants"] = "*** Sensitive Data Redacted ***"
     return out

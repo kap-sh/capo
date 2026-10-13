@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#EmailOutboundConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> EmailOutboundConfig:
         out["wisdom_template_arn"] = data["wisdomTemplateArn"]
     else:
         raise DeserializationError("EmailOutboundConfig.wisdom_template_arn required")
+    return out
+
+
+def redact_sensitive(value: EmailOutboundConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connect_source_email_address" in value:
+        out["connect_source_email_address"] = "*** Sensitive Data Redacted ***"
+    if "source_email_address_display_name" in value:
+        out["source_email_address_display_name"] = "*** Sensitive Data Redacted ***"
     return out

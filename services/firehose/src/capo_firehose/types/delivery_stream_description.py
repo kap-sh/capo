@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#DeliveryStreamDescription``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -217,5 +217,18 @@ def deserialize_aws_json_1_1(data: dict) -> DeliveryStreamDescription:
     else:
         raise DeserializationError(
             "DeliveryStreamDescription.has_more_destinations required"
+        )
+    return out
+
+
+def redact_sensitive(value: DeliveryStreamDescription) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "destinations" in value:
+        import capo_firehose.types.destination_description_list
+
+        out["destinations"] = (
+            capo_firehose.types.destination_description_list.redact_sensitive(
+                value["destinations"]
+            )
         )
     return out

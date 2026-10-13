@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#Document``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,5 +60,20 @@ def deserialize_json(data: dict) -> Document:
 
         out["excerpt"] = capo_wisdom.types.document_text.deserialize_json(
             data["excerpt"]
+        )
+    return out
+
+
+def redact_sensitive(value: Document) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        import capo_wisdom.types.document_text
+
+        out["title"] = capo_wisdom.types.document_text.redact_sensitive(value["title"])
+    if "excerpt" in value:
+        import capo_wisdom.types.document_text
+
+        out["excerpt"] = capo_wisdom.types.document_text.redact_sensitive(
+            value["excerpt"]
         )
     return out

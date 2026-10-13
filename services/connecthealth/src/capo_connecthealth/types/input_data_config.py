@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#InputDataConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,16 @@ def deserialize_json(data: dict) -> InputDataConfig:
 
         out["s3_sources"] = capo_connecthealth.types.s3_sources.deserialize_json(
             data["s3Sources"]
+        )
+    return out
+
+
+def redact_sensitive(value: InputDataConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fhir_server" in value:
+        import capo_connecthealth.types.fhir_server
+
+        out["fhir_server"] = capo_connecthealth.types.fhir_server.redact_sensitive(
+            value["fhir_server"]
         )
     return out

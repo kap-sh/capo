@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#RegisterOpentdfConfigRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> RegisterOpentdfConfigRequest:
         out["provider"] = data["provider"]
     else:
         raise DeserializationError("RegisterOpentdfConfigRequest.provider required")
+    return out
+
+
+def redact_sensitive(value: RegisterOpentdfConfigRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

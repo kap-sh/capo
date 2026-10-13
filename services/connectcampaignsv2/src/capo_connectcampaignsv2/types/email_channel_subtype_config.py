@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#EmailChannelSubtypeConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,5 +75,18 @@ def deserialize_json(data: dict) -> EmailChannelSubtypeConfig:
     else:
         raise DeserializationError(
             "EmailChannelSubtypeConfig.default_outbound_config required"
+        )
+    return out
+
+
+def redact_sensitive(value: EmailChannelSubtypeConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "default_outbound_config" in value:
+        import capo_connectcampaignsv2.types.email_outbound_config
+
+        out["default_outbound_config"] = (
+            capo_connectcampaignsv2.types.email_outbound_config.redact_sensitive(
+                value["default_outbound_config"]
+            )
         )
     return out

@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,9 @@ class Service:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_vpc_lattice.types.create_service_request.CreateServiceRequest = {
             "name": name
         }
@@ -166,7 +169,9 @@ class Service:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetService")
+        )
         input_: capo_vpc_lattice.types.get_service_request.GetServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -225,7 +230,9 @@ class Service:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_vpc_lattice.types.update_service_request.UpdateServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -279,7 +286,9 @@ class Service:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_vpc_lattice.types.delete_service_request.DeleteServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -327,7 +336,9 @@ class Service:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_vpc_lattice.types.list_services_request.ListServicesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -404,7 +415,9 @@ class AsyncService:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_vpc_lattice.types.create_service_request.CreateServiceRequest = {
             "name": name
         }
@@ -465,7 +478,9 @@ class AsyncService:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetService")
+        )
         input_: capo_vpc_lattice.types.get_service_request.GetServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -525,7 +540,9 @@ class AsyncService:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_vpc_lattice.types.update_service_request.UpdateServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -580,7 +597,9 @@ class AsyncService:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_vpc_lattice.types.delete_service_request.DeleteServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -629,7 +648,9 @@ class AsyncService:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_vpc_lattice.types.list_services_request.ListServicesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

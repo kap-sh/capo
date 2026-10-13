@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.create_target_group_request.CreateTargetGroupRequest = {
             "name": name,
             "type": type,
@@ -163,7 +166,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTargetGroup")
+        )
         input_: capo_vpc_lattice.types.get_target_group_request.GetTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -216,7 +221,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.update_target_group_request.UpdateTargetGroupRequest = {
             "target_group_identifier": target_group_identifier,
             "health_check": health_check,
@@ -266,7 +273,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTargetGroup")
+        )
         input_: capo_vpc_lattice.types.delete_target_group_request.DeleteTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -320,7 +329,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargetGroups")
+        )
         input_: capo_vpc_lattice.types.list_target_groups_request.ListTargetGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -376,7 +387,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterTargets")
+        )
         input_: capo_vpc_lattice.types.deregister_targets_request.DeregisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,
@@ -430,7 +443,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargets")
+        )
         input_: capo_vpc_lattice.types.list_targets_request.ListTargetsRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -487,7 +502,9 @@ class TargetGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterTargets")
+        )
         input_: capo_vpc_lattice.types.register_targets_request.RegisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,
@@ -557,7 +574,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.create_target_group_request.CreateTargetGroupRequest = {
             "name": name,
             "type": type,
@@ -613,7 +632,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTargetGroup")
+        )
         input_: capo_vpc_lattice.types.get_target_group_request.GetTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -667,7 +688,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.update_target_group_request.UpdateTargetGroupRequest = {
             "target_group_identifier": target_group_identifier,
             "health_check": health_check,
@@ -718,7 +741,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTargetGroup")
+        )
         input_: capo_vpc_lattice.types.delete_target_group_request.DeleteTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -773,7 +798,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargetGroups")
+        )
         input_: capo_vpc_lattice.types.list_target_groups_request.ListTargetGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -830,7 +857,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeregisterTargets")
+        )
         input_: capo_vpc_lattice.types.deregister_targets_request.DeregisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,
@@ -885,7 +914,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargets")
+        )
         input_: capo_vpc_lattice.types.list_targets_request.ListTargetsRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -943,7 +974,9 @@ class AsyncTargetGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RegisterTargets")
+        )
         input_: capo_vpc_lattice.types.register_targets_request.RegisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,

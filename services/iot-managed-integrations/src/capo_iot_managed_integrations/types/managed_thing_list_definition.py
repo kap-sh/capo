@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#ManagedThingListDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_iot_managed_integrations.types.managed_thing_summary
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> ManagedThingListDefinition:
             )
         )
     return out
+
+
+def redact_sensitive(value: ManagedThingListDefinition) -> list[Any]:
+    import capo_iot_managed_integrations.types.managed_thing_summary
+
+    return [
+        capo_iot_managed_integrations.types.managed_thing_summary.redact_sensitive(item)
+        for item in value
+    ]

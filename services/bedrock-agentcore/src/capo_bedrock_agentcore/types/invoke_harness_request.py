@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#InvokeHarnessRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -176,4 +176,39 @@ def deserialize_json(data: dict) -> InvokeHarnessRequest:
         out["timeout_seconds"] = data["timeoutSeconds"]
     if data.get("actorId") is not None:
         out["actor_id"] = data["actorId"]
+    return out
+
+
+def redact_sensitive(value: InvokeHarnessRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_bedrock_agentcore.types.harness_messages
+
+        out["messages"] = (
+            capo_bedrock_agentcore.types.harness_messages.redact_sensitive(
+                value["messages"]
+            )
+        )
+    if "model" in value:
+        import capo_bedrock_agentcore.types.harness_model_configuration
+
+        out["model"] = (
+            capo_bedrock_agentcore.types.harness_model_configuration.redact_sensitive(
+                value["model"]
+            )
+        )
+    if "system_prompt" in value:
+        import capo_bedrock_agentcore.types.harness_system_prompt
+
+        out["system_prompt"] = (
+            capo_bedrock_agentcore.types.harness_system_prompt.redact_sensitive(
+                value["system_prompt"]
+            )
+        )
+    if "tools" in value:
+        import capo_bedrock_agentcore.types.harness_tools
+
+        out["tools"] = capo_bedrock_agentcore.types.harness_tools.redact_sensitive(
+            value["tools"]
+        )
     return out

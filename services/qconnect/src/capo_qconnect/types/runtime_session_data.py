@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RuntimeSessionData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,17 @@ def deserialize_json(data: dict) -> RuntimeSessionData:
         )
     else:
         raise DeserializationError("RuntimeSessionData.value required")
+    return out
+
+
+def redact_sensitive(value: RuntimeSessionData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "value" in value:
+        import capo_qconnect.types.runtime_session_data_value
+
+        out["value"] = capo_qconnect.types.runtime_session_data_value.redact_sensitive(
+            value["value"]
+        )
     return out

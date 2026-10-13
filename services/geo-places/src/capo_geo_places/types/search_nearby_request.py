@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SearchNearbyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -130,4 +130,23 @@ def deserialize_json(data: dict) -> SearchNearbyRequest:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: SearchNearbyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_position" in value:
+        out["query_position"] = "*** Sensitive Data Redacted ***"
+    if "query_radius" in value:
+        out["query_radius"] = "*** Sensitive Data Redacted ***"
+    if "filter" in value:
+        import capo_geo_places.types.search_nearby_filter
+
+        out["filter"] = capo_geo_places.types.search_nearby_filter.redact_sensitive(
+            value["filter"]
+        )
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

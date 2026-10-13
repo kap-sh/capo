@@ -21,10 +21,12 @@ from capo_auditmanager._pagination import resolve_path as _resolve_path
 from capo_auditmanager._services._aws_config import aws_config
 from capo_auditmanager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -283,7 +285,9 @@ class AuditManagerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AuditManagerClientConfig] = None
+        self,
+        config_overrides: Optional[AuditManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AuditManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -291,8 +295,10 @@ class AuditManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -346,7 +352,10 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateAssessmentReportEvidenceFolder"),
+        )
         input_: capo_auditmanager.types.associate_assessment_report_evidence_folder_request.AssociateAssessmentReportEvidenceFolderRequest = {
             "assessment_id": assessment_id,
             "evidence_folder_id": evidence_folder_id,
@@ -397,7 +406,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAssociateAssessmentReportEvidence")
+        )
         input_: capo_auditmanager.types.batch_associate_assessment_report_evidence_request.BatchAssociateAssessmentReportEvidenceRequest = {
             "assessment_id": assessment_id,
             "evidence_folder_id": evidence_folder_id,
@@ -447,7 +458,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.batch_create_delegation_by_assessment_request.BatchCreateDelegationByAssessmentRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.batch_create_delegation_by_assessment_request
+
+            return capo_auditmanager.types.batch_create_delegation_by_assessment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.batch_create_delegation_by_assessment_response.BatchCreateDelegationByAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.batch_create_delegation_by_assessment_response
+
+            return capo_auditmanager.types.batch_create_delegation_by_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchCreateDelegationByAssessment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.batch_create_delegation_by_assessment_request.BatchCreateDelegationByAssessmentRequest = {
             "create_delegation_requests": create_delegation_requests,
             "assessment_id": assessment_id,
@@ -496,7 +532,21 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.batch_delete_delegation_by_assessment_response.BatchDeleteDelegationByAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.batch_delete_delegation_by_assessment_response
+
+            return capo_auditmanager.types.batch_delete_delegation_by_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDeleteDelegationByAssessment", redact_output=_redact_output
+            ),
+        )
         input_: capo_auditmanager.types.batch_delete_delegation_by_assessment_request.BatchDeleteDelegationByAssessmentRequest = {
             "delegation_ids": delegation_ids,
             "assessment_id": assessment_id,
@@ -547,7 +597,10 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateAssessmentReportEvidence"),
+        )
         input_: capo_auditmanager.types.batch_disassociate_assessment_report_evidence_request.BatchDisassociateAssessmentReportEvidenceRequest = {
             "assessment_id": assessment_id,
             "evidence_folder_id": evidence_folder_id,
@@ -602,7 +655,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.batch_import_evidence_to_assessment_control_request.BatchImportEvidenceToAssessmentControlRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.batch_import_evidence_to_assessment_control_request
+
+            return capo_auditmanager.types.batch_import_evidence_to_assessment_control_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.batch_import_evidence_to_assessment_control_response.BatchImportEvidenceToAssessmentControlResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.batch_import_evidence_to_assessment_control_response
+
+            return capo_auditmanager.types.batch_import_evidence_to_assessment_control_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchImportEvidenceToAssessmentControl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.batch_import_evidence_to_assessment_control_request.BatchImportEvidenceToAssessmentControlRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -666,7 +744,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.create_assessment_request.CreateAssessmentRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_request
+
+            return capo_auditmanager.types.create_assessment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.create_assessment_response.CreateAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_response
+
+            return capo_auditmanager.types.create_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssessment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.create_assessment_request.CreateAssessmentRequest = {
             "name": name,
             "assessment_reports_destination": assessment_reports_destination,
@@ -733,7 +836,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.create_assessment_framework_request.CreateAssessmentFrameworkRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_framework_request
+
+            return capo_auditmanager.types.create_assessment_framework_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.create_assessment_framework_response.CreateAssessmentFrameworkResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_framework_response
+
+            return capo_auditmanager.types.create_assessment_framework_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssessmentFramework",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.create_assessment_framework_request.CreateAssessmentFrameworkRequest = {
             "name": name,
             "control_sets": control_sets,
@@ -796,7 +924,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.create_assessment_report_request.CreateAssessmentReportRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_report_request
+
+            return capo_auditmanager.types.create_assessment_report_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.create_assessment_report_response.CreateAssessmentReportResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_assessment_report_response
+
+            return capo_auditmanager.types.create_assessment_report_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssessmentReport",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.create_assessment_report_request.CreateAssessmentReportRequest = {
             "name": name,
             "assessment_id": assessment_id,
@@ -868,7 +1021,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.create_control_request.CreateControlRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_control_request
+
+            return capo_auditmanager.types.create_control_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.create_control_response.CreateControlResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.create_control_response
+
+            return capo_auditmanager.types.create_control_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateControl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.create_control_request.CreateControlRequest = {
             "name": name,
             "control_mapping_sources": control_mapping_sources,
@@ -925,7 +1103,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessment")
+        )
         input_: capo_auditmanager.types.delete_assessment_request.DeleteAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -971,7 +1151,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentFramework")
+        )
         input_: capo_auditmanager.types.delete_assessment_framework_request.DeleteAssessmentFrameworkRequest = {
             "framework_id": framework_id
         }
@@ -1019,7 +1201,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentFrameworkShare")
+        )
         input_: capo_auditmanager.types.delete_assessment_framework_share_request.DeleteAssessmentFrameworkShareRequest = {
             "request_id": request_id,
             "request_type": request_type,
@@ -1068,7 +1252,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssessmentReport")
+        )
         input_: capo_auditmanager.types.delete_assessment_report_request.DeleteAssessmentReportRequest = {
             "assessment_id": assessment_id,
             "assessment_report_id": assessment_report_id,
@@ -1115,7 +1301,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteControl")
+        )
         input_: capo_auditmanager.types.delete_control_request.DeleteControlRequest = {
             "control_id": control_id
         }
@@ -1157,7 +1345,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterAccount")
+        )
         input_: capo_auditmanager.types.deregister_account_request.DeregisterAccountRequest = {}
 
         response = execute_pipeline(
@@ -1203,7 +1393,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterOrganizationAdminAccount")
+        )
         input_: capo_auditmanager.types.deregister_organization_admin_account_request.DeregisterOrganizationAdminAccountRequest = {}
         if admin_account_id is not None:
             input_["admin_account_id"] = admin_account_id
@@ -1251,7 +1443,10 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateAssessmentReportEvidenceFolder"),
+        )
         input_: capo_auditmanager.types.disassociate_assessment_report_evidence_folder_request.DisassociateAssessmentReportEvidenceFolderRequest = {
             "assessment_id": assessment_id,
             "evidence_folder_id": evidence_folder_id,
@@ -1289,7 +1484,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountStatus")
+        )
         input_: capo_auditmanager.types.get_account_status_request.GetAccountStatusRequest = {}
 
         response = execute_pipeline(
@@ -1333,7 +1530,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.get_assessment_response.GetAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_assessment_response
+
+            return capo_auditmanager.types.get_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAssessment", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.get_assessment_request.GetAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -1379,7 +1588,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.get_assessment_framework_response.GetAssessmentFrameworkResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_assessment_framework_response
+
+            return capo_auditmanager.types.get_assessment_framework_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAssessmentFramework", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.get_assessment_framework_request.GetAssessmentFrameworkRequest = {
             "framework_id": framework_id
         }
@@ -1427,7 +1648,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssessmentReportUrl")
+        )
         input_: capo_auditmanager.types.get_assessment_report_url_request.GetAssessmentReportUrlRequest = {
             "assessment_report_id": assessment_report_id,
             "assessment_id": assessment_id,
@@ -1484,7 +1707,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChangeLogs")
+        )
         input_: capo_auditmanager.types.get_change_logs_request.GetChangeLogsRequest = {
             "assessment_id": assessment_id
         }
@@ -1565,7 +1790,17 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.get_control_response.GetControlResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_control_response
+
+            return capo_auditmanager.types.get_control_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetControl", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.get_control_request.GetControlRequest = {
             "control_id": control_id
         }
@@ -1612,7 +1847,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.get_delegations_response.GetDelegationsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_delegations_response
+
+            return capo_auditmanager.types.get_delegations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDelegations", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.get_delegations_request.GetDelegationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1685,7 +1932,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvidence")
+        )
         input_: capo_auditmanager.types.get_evidence_request.GetEvidenceRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -1742,7 +1991,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvidenceByEvidenceFolder")
+        )
         input_: capo_auditmanager.types.get_evidence_by_evidence_folder_request.GetEvidenceByEvidenceFolderRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -1819,7 +2070,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.get_evidence_file_upload_url_request.GetEvidenceFileUploadUrlRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_evidence_file_upload_url_request
+
+            return capo_auditmanager.types.get_evidence_file_upload_url_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEvidenceFileUploadUrl", redact_input=_redact_input),
+        )
         input_: capo_auditmanager.types.get_evidence_file_upload_url_request.GetEvidenceFileUploadUrlRequest = {
             "file_name": file_name
         }
@@ -1871,7 +2134,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvidenceFolder")
+        )
         input_: capo_auditmanager.types.get_evidence_folder_request.GetEvidenceFolderRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -1923,7 +2188,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvidenceFoldersByAssessment")
+        )
         input_: capo_auditmanager.types.get_evidence_folders_by_assessment_request.GetEvidenceFoldersByAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -2002,7 +2269,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEvidenceFoldersByAssessmentControl")
+        )
         input_: capo_auditmanager.types.get_evidence_folders_by_assessment_control_request.GetEvidenceFoldersByAssessmentControlRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -2071,7 +2340,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsights")
+        )
         input_: capo_auditmanager.types.get_insights_request.GetInsightsRequest = {}
 
         response = execute_pipeline(
@@ -2115,7 +2386,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightsByAssessment")
+        )
         input_: capo_auditmanager.types.get_insights_by_assessment_request.GetInsightsByAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -2155,7 +2428,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOrganizationAdminAccount")
+        )
         input_: capo_auditmanager.types.get_organization_admin_account_request.GetOrganizationAdminAccountRequest = {}
 
         response = execute_pipeline(
@@ -2192,7 +2467,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServicesInScope")
+        )
         input_: capo_auditmanager.types.get_services_in_scope_request.GetServicesInScopeRequest = {}
 
         response = execute_pipeline(
@@ -2234,7 +2511,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.get_settings_response.GetSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.get_settings_response
+
+            return capo_auditmanager.types.get_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetSettings", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.get_settings_request.GetSettingsRequest = {
             "attribute": attribute
         }
@@ -2286,7 +2575,10 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssessmentControlInsightsByControlDomain"),
+        )
         input_: capo_auditmanager.types.list_assessment_control_insights_by_control_domain_request.ListAssessmentControlInsightsByControlDomainRequest = {
             "control_domain_id": control_domain_id,
             "assessment_id": assessment_id,
@@ -2363,7 +2655,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.list_assessment_frameworks_response.ListAssessmentFrameworksResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.list_assessment_frameworks_response
+
+            return capo_auditmanager.types.list_assessment_frameworks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssessmentFrameworks", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.list_assessment_frameworks_request.ListAssessmentFrameworksRequest = {
             "framework_type": framework_type
         }
@@ -2437,7 +2741,21 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.list_assessment_framework_share_requests_response.ListAssessmentFrameworkShareRequestsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.list_assessment_framework_share_requests_response
+
+            return capo_auditmanager.types.list_assessment_framework_share_requests_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAssessmentFrameworkShareRequests", redact_output=_redact_output
+            ),
+        )
         input_: capo_auditmanager.types.list_assessment_framework_share_requests_request.ListAssessmentFrameworkShareRequestsRequest = {
             "request_type": request_type
         }
@@ -2509,7 +2827,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.list_assessment_reports_response.ListAssessmentReportsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.list_assessment_reports_response
+
+            return capo_auditmanager.types.list_assessment_reports_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssessmentReports", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.list_assessment_reports_request.ListAssessmentReportsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2581,7 +2911,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.list_assessments_response.ListAssessmentsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.list_assessments_response
+
+            return capo_auditmanager.types.list_assessments_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssessments", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.list_assessments_request.ListAssessmentsRequest = {}
         if status is not None:
             input_["status"] = status
@@ -2656,7 +2998,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlDomainInsights")
+        )
         input_: capo_auditmanager.types.list_control_domain_insights_request.ListControlDomainInsightsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2727,7 +3071,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlDomainInsightsByAssessment")
+        )
         input_: capo_auditmanager.types.list_control_domain_insights_by_assessment_request.ListControlDomainInsightsByAssessmentRequest = {
             "assessment_id": assessment_id
         }
@@ -2802,7 +3148,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlInsightsByControlDomain")
+        )
         input_: capo_auditmanager.types.list_control_insights_by_control_domain_request.ListControlInsightsByControlDomainRequest = {
             "control_domain_id": control_domain_id
         }
@@ -2880,7 +3228,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControls")
+        )
         input_: capo_auditmanager.types.list_controls_request.ListControlsRequest = {
             "control_type": control_type
         }
@@ -2962,7 +3312,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListKeywordsForDataSource")
+        )
         input_: capo_auditmanager.types.list_keywords_for_data_source_request.ListKeywordsForDataSourceRequest = {
             "source": source
         }
@@ -3036,7 +3388,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.list_notifications_response.ListNotificationsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.list_notifications_response
+
+            return capo_auditmanager.types.list_notifications_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNotifications", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.list_notifications_request.ListNotificationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3102,7 +3466,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_auditmanager.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3153,7 +3519,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterAccount")
+        )
         input_: capo_auditmanager.types.register_account_request.RegisterAccountRequest = {}
         if kms_key is not None:
             input_["kms_key"] = kms_key
@@ -3202,7 +3570,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterOrganizationAdminAccount")
+        )
         input_: capo_auditmanager.types.register_organization_admin_account_request.RegisterOrganizationAdminAccountRequest = {
             "admin_account_id": admin_account_id
         }
@@ -3256,7 +3626,21 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.start_assessment_framework_share_response.StartAssessmentFrameworkShareResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.start_assessment_framework_share_response
+
+            return capo_auditmanager.types.start_assessment_framework_share_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAssessmentFrameworkShare", redact_output=_redact_output
+            ),
+        )
         input_: capo_auditmanager.types.start_assessment_framework_share_request.StartAssessmentFrameworkShareRequest = {
             "framework_id": framework_id,
             "destination_account": destination_account,
@@ -3307,7 +3691,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_auditmanager.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3355,7 +3741,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_auditmanager.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3420,7 +3808,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_assessment_request.UpdateAssessmentRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_request
+
+            return capo_auditmanager.types.update_assessment_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_response.UpdateAssessmentResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_response
+
+            return capo_auditmanager.types.update_assessment_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssessment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_assessment_request.UpdateAssessmentRequest = {
             "assessment_id": assessment_id,
             "scope": scope,
@@ -3487,7 +3900,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_assessment_control_request.UpdateAssessmentControlRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_control_request
+
+            return capo_auditmanager.types.update_assessment_control_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_control_response.UpdateAssessmentControlResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_control_response
+
+            return capo_auditmanager.types.update_assessment_control_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssessmentControl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_assessment_control_request.UpdateAssessmentControlRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -3545,7 +3983,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_assessment_control_set_status_request.UpdateAssessmentControlSetStatusRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_control_set_status_request
+
+            return capo_auditmanager.types.update_assessment_control_set_status_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_control_set_status_response.UpdateAssessmentControlSetStatusResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_control_set_status_response
+
+            return capo_auditmanager.types.update_assessment_control_set_status_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssessmentControlSetStatus",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_assessment_control_set_status_request.UpdateAssessmentControlSetStatusRequest = {
             "assessment_id": assessment_id,
             "control_set_id": control_set_id,
@@ -3607,7 +4070,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_assessment_framework_request.UpdateAssessmentFrameworkRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_framework_request
+
+            return capo_auditmanager.types.update_assessment_framework_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_framework_response.UpdateAssessmentFrameworkResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_framework_response
+
+            return capo_auditmanager.types.update_assessment_framework_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssessmentFramework",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_assessment_framework_request.UpdateAssessmentFrameworkRequest = {
             "framework_id": framework_id,
             "name": name,
@@ -3664,7 +4152,21 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_framework_share_response.UpdateAssessmentFrameworkShareResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_framework_share_response
+
+            return capo_auditmanager.types.update_assessment_framework_share_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssessmentFrameworkShare", redact_output=_redact_output
+            ),
+        )
         input_: capo_auditmanager.types.update_assessment_framework_share_request.UpdateAssessmentFrameworkShareRequest = {
             "request_id": request_id,
             "request_type": request_type,
@@ -3715,7 +4217,19 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_auditmanager.types.update_assessment_status_response.UpdateAssessmentStatusResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_assessment_status_response
+
+            return capo_auditmanager.types.update_assessment_status_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAssessmentStatus", redact_output=_redact_output),
+        )
         input_: capo_auditmanager.types.update_assessment_status_request.UpdateAssessmentStatusRequest = {
             "assessment_id": assessment_id,
             "status": status,
@@ -3782,7 +4296,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_control_request.UpdateControlRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_control_request
+
+            return capo_auditmanager.types.update_control_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_control_response.UpdateControlResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_control_response
+
+            return capo_auditmanager.types.update_control_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateControl",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_control_request.UpdateControlRequest = {
             "control_id": control_id,
             "name": name,
@@ -3857,7 +4396,32 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_auditmanager.types.update_settings_request.UpdateSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_settings_request
+
+            return capo_auditmanager.types.update_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_auditmanager.types.update_settings_response.UpdateSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_auditmanager.types.update_settings_response
+
+            return capo_auditmanager.types.update_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_auditmanager.types.update_settings_request.UpdateSettingsRequest = {}
         if sns_topic is not None:
             input_["sns_topic"] = sns_topic
@@ -3917,7 +4481,9 @@ class AuditManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateAssessmentReportIntegrity")
+        )
         input_: capo_auditmanager.types.validate_assessment_report_integrity_request.ValidateAssessmentReportIntegrityRequest = {
             "s3_relative_path": s3_relative_path
         }

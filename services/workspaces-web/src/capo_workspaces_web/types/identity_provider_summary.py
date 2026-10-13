@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#IdentityProviderSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,11 @@ def deserialize_json(data: dict) -> IdentityProviderSummary:
         out["identity_provider_name"] = data["identityProviderName"]
     if data.get("identityProviderType") is not None:
         out["identity_provider_type"] = data["identityProviderType"]
+    return out
+
+
+def redact_sensitive(value: IdentityProviderSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "identity_provider_name" in value:
+        out["identity_provider_name"] = "*** Sensitive Data Redacted ***"
     return out

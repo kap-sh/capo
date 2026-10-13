@@ -24,7 +24,9 @@ from capo_rbin._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -138,7 +140,9 @@ class AsyncrbinClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncrbinClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncrbinClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncrbinClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -146,8 +150,10 @@ class AsyncrbinClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -215,7 +221,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_rbin.types.create_rule_request.CreateRuleRequest = {
             "retention_period": retention_period,
             "resource_type": resource_type,
@@ -273,7 +281,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_rbin.types.delete_rule_request.DeleteRuleRequest = {
             "identifier": identifier
         }
@@ -319,7 +329,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_rbin.types.get_rule_request.GetRuleRequest = {
             "identifier": identifier
         }
@@ -376,7 +388,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_rbin.types.list_rules_request.ListRulesRequest = {
             "resource_type": resource_type
         }
@@ -463,7 +477,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_rbin.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -512,7 +528,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LockRule")
+        )
         input_: capo_rbin.types.lock_rule_request.LockRuleRequest = {
             "identifier": identifier,
             "lock_configuration": lock_configuration,
@@ -562,7 +580,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_rbin.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -610,7 +630,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnlockRule")
+        )
         input_: capo_rbin.types.unlock_rule_request.UnlockRuleRequest = {
             "identifier": identifier
         }
@@ -658,7 +680,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_rbin.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -721,7 +745,9 @@ class AsyncrbinClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_rbin.types.update_rule_request.UpdateRuleRequest = {
             "identifier": identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sso#LogoutRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -21,4 +21,11 @@ def serialize_json(value: LogoutRequest) -> dict:
 
 def deserialize_json(data: dict) -> LogoutRequest:
     out: LogoutRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: LogoutRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

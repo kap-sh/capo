@@ -21,10 +21,12 @@ from capo_marketplace_discovery._pagination import resolve_path as _resolve_path
 from capo_marketplace_discovery._services._aws_config import aws_config
 from capo_marketplace_discovery._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -137,7 +139,9 @@ class MarketplaceDiscoveryClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MarketplaceDiscoveryClientConfig] = None
+        self,
+        config_overrides: Optional[MarketplaceDiscoveryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceDiscoveryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -145,8 +149,10 @@ class MarketplaceDiscoveryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -209,7 +215,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetListing")
+        )
         input_: capo_marketplace_discovery.types.get_listing_input.GetListingInput = {
             "listing_id": listing_id
         }
@@ -274,7 +282,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOffer")
+        )
         input_: capo_marketplace_discovery.types.get_offer_input.GetOfferInput = {
             "offer_id": offer_id
         }
@@ -336,7 +346,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOfferSet")
+        )
         input_: capo_marketplace_discovery.types.get_offer_set_input.GetOfferSetInput = {
             "offer_set_id": offer_set_id
         }
@@ -431,7 +443,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOfferTerms")
+        )
         input_: capo_marketplace_discovery.types.get_offer_terms_input.GetOfferTermsInput = {
             "offer_id": offer_id
         }
@@ -524,7 +538,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProduct")
+        )
         input_: capo_marketplace_discovery.types.get_product_input.GetProductInput = {
             "product_id": product_id
         }
@@ -622,7 +638,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFulfillmentOptions")
+        )
         input_: capo_marketplace_discovery.types.list_fulfillment_options_input.ListFulfillmentOptionsInput = {
             "product_id": product_id
         }
@@ -721,7 +739,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPurchaseOptions")
+        )
         input_: capo_marketplace_discovery.types.list_purchase_options_input.ListPurchaseOptionsInput = {}
         if locale is not None:
             input_["locale"] = locale
@@ -830,7 +850,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchFacets")
+        )
         input_: capo_marketplace_discovery.types.search_facets_input.SearchFacetsInput = {}
         if locale is not None:
             input_["locale"] = locale
@@ -949,7 +971,9 @@ class MarketplaceDiscoveryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchListings")
+        )
         input_: capo_marketplace_discovery.types.search_listings_input.SearchListingsInput = {}
         if locale is not None:
             input_["locale"] = locale

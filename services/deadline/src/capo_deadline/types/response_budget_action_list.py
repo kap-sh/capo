@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#ResponseBudgetActionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_deadline.types.response_budget_action
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> ResponseBudgetActionList:
             continue
         out.append(capo_deadline.types.response_budget_action.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ResponseBudgetActionList) -> list[Any]:
+    import capo_deadline.types.response_budget_action
+
+    return [
+        capo_deadline.types.response_budget_action.redact_sensitive(item)
+        for item in value
+    ]

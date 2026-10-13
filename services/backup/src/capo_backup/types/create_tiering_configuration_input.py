@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#CreateTieringConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,11 @@ def deserialize_json(data: dict) -> CreateTieringConfigurationInput:
         )
     if data.get("CreatorRequestId") is not None:
         out["creator_request_id"] = data["CreatorRequestId"]
+    return out
+
+
+def redact_sensitive(value: CreateTieringConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tiering_configuration_tags" in value:
+        out["tiering_configuration_tags"] = "*** Sensitive Data Redacted ***"
     return out

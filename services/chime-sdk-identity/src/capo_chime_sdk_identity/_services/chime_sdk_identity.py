@@ -21,10 +21,12 @@ from capo_chime_sdk_identity._pagination import resolve_path as _resolve_path
 from capo_chime_sdk_identity._services._aws_config import aws_config
 from capo_chime_sdk_identity._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -178,7 +180,9 @@ class ChimeSDKIdentityClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ChimeSDKIdentityClientConfig] = None
+        self,
+        config_overrides: Optional[ChimeSDKIdentityClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ChimeSDKIdentityClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -186,8 +190,10 @@ class ChimeSDKIdentityClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -249,7 +255,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.create_app_instance_request.CreateAppInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.create_app_instance_request
+
+            return capo_chime_sdk_identity.types.create_app_instance_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAppInstance", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.create_app_instance_request.CreateAppInstanceRequest = {
             "name": name,
             "client_request_token": client_request_token,
@@ -306,7 +324,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.create_app_instance_admin_response.CreateAppInstanceAdminResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.create_app_instance_admin_response
+
+            return capo_chime_sdk_identity.types.create_app_instance_admin_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAppInstanceAdmin", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.create_app_instance_admin_request.CreateAppInstanceAdminRequest = {
             "app_instance_admin_arn": app_instance_admin_arn,
             "app_instance_arn": app_instance_arn,
@@ -369,7 +399,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.create_app_instance_bot_request.CreateAppInstanceBotRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.create_app_instance_bot_request
+
+            return capo_chime_sdk_identity.types.create_app_instance_bot_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAppInstanceBot", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.create_app_instance_bot_request.CreateAppInstanceBotRequest = {
             "app_instance_arn": app_instance_arn,
             "client_request_token": client_request_token,
@@ -441,7 +483,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.create_app_instance_user_request.CreateAppInstanceUserRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.create_app_instance_user_request
+
+            return capo_chime_sdk_identity.types.create_app_instance_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateAppInstanceUser", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.create_app_instance_user_request.CreateAppInstanceUserRequest = {
             "app_instance_arn": app_instance_arn,
             "app_instance_user_id": app_instance_user_id,
@@ -497,7 +551,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppInstance")
+        )
         input_: capo_chime_sdk_identity.types.delete_app_instance_request.DeleteAppInstanceRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -547,7 +603,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppInstanceAdmin")
+        )
         input_: capo_chime_sdk_identity.types.delete_app_instance_admin_request.DeleteAppInstanceAdminRequest = {
             "app_instance_admin_arn": app_instance_admin_arn,
             "app_instance_arn": app_instance_arn,
@@ -596,7 +654,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppInstanceBot")
+        )
         input_: capo_chime_sdk_identity.types.delete_app_instance_bot_request.DeleteAppInstanceBotRequest = {
             "app_instance_bot_arn": app_instance_bot_arn
         }
@@ -644,7 +704,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAppInstanceUser")
+        )
         input_: capo_chime_sdk_identity.types.delete_app_instance_user_request.DeleteAppInstanceUserRequest = {
             "app_instance_user_arn": app_instance_user_arn
         }
@@ -692,7 +754,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterAppInstanceUserEndpoint")
+        )
         input_: capo_chime_sdk_identity.types.deregister_app_instance_user_endpoint_request.DeregisterAppInstanceUserEndpointRequest = {
             "app_instance_user_arn": app_instance_user_arn,
             "endpoint_id": endpoint_id,
@@ -741,7 +805,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.describe_app_instance_response.DescribeAppInstanceResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.describe_app_instance_response
+
+            return capo_chime_sdk_identity.types.describe_app_instance_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppInstance", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.describe_app_instance_request.DescribeAppInstanceRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -791,7 +867,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.describe_app_instance_admin_response.DescribeAppInstanceAdminResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.describe_app_instance_admin_response
+
+            return capo_chime_sdk_identity.types.describe_app_instance_admin_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppInstanceAdmin", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.describe_app_instance_admin_request.DescribeAppInstanceAdminRequest = {
             "app_instance_admin_arn": app_instance_admin_arn,
             "app_instance_arn": app_instance_arn,
@@ -841,7 +929,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.describe_app_instance_bot_response.DescribeAppInstanceBotResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.describe_app_instance_bot_response
+
+            return capo_chime_sdk_identity.types.describe_app_instance_bot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppInstanceBot", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.describe_app_instance_bot_request.DescribeAppInstanceBotRequest = {
             "app_instance_bot_arn": app_instance_bot_arn
         }
@@ -889,7 +989,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.describe_app_instance_user_response.DescribeAppInstanceUserResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.describe_app_instance_user_response
+
+            return capo_chime_sdk_identity.types.describe_app_instance_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAppInstanceUser", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.describe_app_instance_user_request.DescribeAppInstanceUserRequest = {
             "app_instance_user_arn": app_instance_user_arn
         }
@@ -939,7 +1051,21 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.describe_app_instance_user_endpoint_response.DescribeAppInstanceUserEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.describe_app_instance_user_endpoint_response
+
+            return capo_chime_sdk_identity.types.describe_app_instance_user_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeAppInstanceUserEndpoint", redact_output=_redact_output
+            ),
+        )
         input_: capo_chime_sdk_identity.types.describe_app_instance_user_endpoint_request.DescribeAppInstanceUserEndpointRequest = {
             "app_instance_user_arn": app_instance_user_arn,
             "endpoint_id": endpoint_id,
@@ -988,7 +1114,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAppInstanceRetentionSettings")
+        )
         input_: capo_chime_sdk_identity.types.get_app_instance_retention_settings_request.GetAppInstanceRetentionSettingsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1045,7 +1173,32 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.list_app_instance_admins_request.ListAppInstanceAdminsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_admins_request
+
+            return capo_chime_sdk_identity.types.list_app_instance_admins_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_app_instance_admins_response.ListAppInstanceAdminsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_admins_response
+
+            return capo_chime_sdk_identity.types.list_app_instance_admins_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAppInstanceAdmins",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_identity.types.list_app_instance_admins_request.ListAppInstanceAdminsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1131,7 +1284,32 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.list_app_instance_bots_request.ListAppInstanceBotsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_bots_request
+
+            return capo_chime_sdk_identity.types.list_app_instance_bots_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_app_instance_bots_response.ListAppInstanceBotsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_bots_response
+
+            return capo_chime_sdk_identity.types.list_app_instance_bots_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAppInstanceBots",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_identity.types.list_app_instance_bots_request.ListAppInstanceBotsRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1214,7 +1392,32 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.list_app_instances_request.ListAppInstancesRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instances_request
+
+            return capo_chime_sdk_identity.types.list_app_instances_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_app_instances_response.ListAppInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instances_response
+
+            return capo_chime_sdk_identity.types.list_app_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAppInstances",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_identity.types.list_app_instances_request.ListAppInstancesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1295,7 +1498,32 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.list_app_instance_user_endpoints_request.ListAppInstanceUserEndpointsRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_user_endpoints_request
+
+            return capo_chime_sdk_identity.types.list_app_instance_user_endpoints_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_app_instance_user_endpoints_response.ListAppInstanceUserEndpointsResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_user_endpoints_response
+
+            return capo_chime_sdk_identity.types.list_app_instance_user_endpoints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAppInstanceUserEndpoints",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_identity.types.list_app_instance_user_endpoints_request.ListAppInstanceUserEndpointsRequest = {
             "app_instance_user_arn": app_instance_user_arn
         }
@@ -1380,7 +1608,32 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.list_app_instance_users_request.ListAppInstanceUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_users_request
+
+            return capo_chime_sdk_identity.types.list_app_instance_users_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_app_instance_users_response.ListAppInstanceUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_app_instance_users_response
+
+            return capo_chime_sdk_identity.types.list_app_instance_users_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListAppInstanceUsers",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_chime_sdk_identity.types.list_app_instance_users_request.ListAppInstanceUsersRequest = {
             "app_instance_arn": app_instance_arn
         }
@@ -1457,7 +1710,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_chime_sdk_identity.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.list_tags_for_resource_response
+
+            return capo_chime_sdk_identity.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_chime_sdk_identity.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1507,7 +1772,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAppInstanceRetentionSettings")
+        )
         input_: capo_chime_sdk_identity.types.put_app_instance_retention_settings_request.PutAppInstanceRetentionSettingsRequest = {
             "app_instance_arn": app_instance_arn,
             "app_instance_retention_settings": app_instance_retention_settings,
@@ -1561,7 +1828,9 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAppInstanceUserExpirationSettings")
+        )
         input_: capo_chime_sdk_identity.types.put_app_instance_user_expiration_settings_request.PutAppInstanceUserExpirationSettingsRequest = {
             "app_instance_user_arn": app_instance_user_arn
         }
@@ -1629,7 +1898,21 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.register_app_instance_user_endpoint_request.RegisterAppInstanceUserEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.register_app_instance_user_endpoint_request
+
+            return capo_chime_sdk_identity.types.register_app_instance_user_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterAppInstanceUserEndpoint", redact_input=_redact_input
+            ),
+        )
         input_: capo_chime_sdk_identity.types.register_app_instance_user_endpoint_request.RegisterAppInstanceUserEndpointRequest = {
             "app_instance_user_arn": app_instance_user_arn,
             "type": type,
@@ -1686,7 +1969,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.tag_resource_request
+
+            return capo_chime_sdk_identity.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1735,7 +2030,21 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.untag_resource_request
+
+            return (
+                capo_chime_sdk_identity.types.untag_resource_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1789,7 +2098,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.update_app_instance_request.UpdateAppInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.update_app_instance_request
+
+            return capo_chime_sdk_identity.types.update_app_instance_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAppInstance", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.update_app_instance_request.UpdateAppInstanceRequest = {
             "app_instance_arn": app_instance_arn,
             "name": name,
@@ -1849,7 +2170,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.update_app_instance_bot_request.UpdateAppInstanceBotRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.update_app_instance_bot_request
+
+            return capo_chime_sdk_identity.types.update_app_instance_bot_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAppInstanceBot", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.update_app_instance_bot_request.UpdateAppInstanceBotRequest = {
             "app_instance_bot_arn": app_instance_bot_arn,
             "name": name,
@@ -1907,7 +2240,19 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.update_app_instance_user_request.UpdateAppInstanceUserRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.update_app_instance_user_request
+
+            return capo_chime_sdk_identity.types.update_app_instance_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAppInstanceUser", redact_input=_redact_input),
+        )
         input_: capo_chime_sdk_identity.types.update_app_instance_user_request.UpdateAppInstanceUserRequest = {
             "app_instance_user_arn": app_instance_user_arn,
             "name": name,
@@ -1968,7 +2313,21 @@ class ChimeSDKIdentityClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_chime_sdk_identity.types.update_app_instance_user_endpoint_request.UpdateAppInstanceUserEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_chime_sdk_identity.types.update_app_instance_user_endpoint_request
+
+            return capo_chime_sdk_identity.types.update_app_instance_user_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAppInstanceUserEndpoint", redact_input=_redact_input
+            ),
+        )
         input_: capo_chime_sdk_identity.types.update_app_instance_user_endpoint_request.UpdateAppInstanceUserEndpointRequest = {
             "app_instance_user_arn": app_instance_user_arn,
             "endpoint_id": endpoint_id,

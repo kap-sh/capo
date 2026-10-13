@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#GitLabDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -57,4 +57,11 @@ def deserialize_json(data: dict) -> GitLabDetails:
         raise DeserializationError("GitLabDetails.token_value required")
     if data.get("groupId") is not None:
         out["group_id"] = data["groupId"]
+    return out
+
+
+def redact_sensitive(value: GitLabDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token_value" in value:
+        out["token_value"] = "*** Sensitive Data Redacted ***"
     return out

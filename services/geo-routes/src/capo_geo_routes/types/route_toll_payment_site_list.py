@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollPaymentSiteList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.route_toll_payment_site
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> RouteTollPaymentSiteList:
             continue
         out.append(capo_geo_routes.types.route_toll_payment_site.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: RouteTollPaymentSiteList) -> list[Any]:
+    import capo_geo_routes.types.route_toll_payment_site
+
+    return [
+        capo_geo_routes.types.route_toll_payment_site.redact_sensitive(item)
+        for item in value
+    ]

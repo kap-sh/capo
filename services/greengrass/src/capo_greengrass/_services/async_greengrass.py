@@ -22,7 +22,9 @@ from capo_greengrass._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -313,7 +315,9 @@ class AsyncGreengrassClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGreengrassClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGreengrassClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGreengrassClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -321,8 +325,10 @@ class AsyncGreengrassClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -375,7 +381,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateRoleToGroup")
+        )
         input_: capo_greengrass.types.associate_role_to_group_request.AssociateRoleToGroupRequest = {
             "group_id": group_id
         }
@@ -422,7 +430,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateServiceRoleToAccount")
+        )
         input_: capo_greengrass.types.associate_service_role_to_account_request.AssociateServiceRoleToAccountRequest = {}
         if role_arn is not None:
             input_["role_arn"] = role_arn
@@ -474,7 +484,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectorDefinition")
+        )
         input_: capo_greengrass.types.create_connector_definition_request.CreateConnectorDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -530,7 +542,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectorDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_connector_definition_version_request.CreateConnectorDefinitionVersionRequest = {
             "connector_definition_id": connector_definition_id
         }
@@ -586,7 +600,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCoreDefinition")
+        )
         input_: capo_greengrass.types.create_core_definition_request.CreateCoreDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -640,7 +656,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCoreDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_core_definition_version_request.CreateCoreDefinitionVersionRequest = {
             "core_definition_id": core_definition_id
         }
@@ -698,7 +716,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_greengrass.types.create_deployment_request.CreateDeploymentRequest = {
             "group_id": group_id
         }
@@ -758,7 +778,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeviceDefinition")
+        )
         input_: capo_greengrass.types.create_device_definition_request.CreateDeviceDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -814,7 +836,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDeviceDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_device_definition_version_request.CreateDeviceDefinitionVersionRequest = {
             "device_definition_id": device_definition_id
         }
@@ -870,7 +894,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFunctionDefinition")
+        )
         input_: capo_greengrass.types.create_function_definition_request.CreateFunctionDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -930,7 +956,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFunctionDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_function_definition_version_request.CreateFunctionDefinitionVersionRequest = {
             "function_definition_id": function_definition_id
         }
@@ -988,7 +1016,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroup")
+        )
         input_: capo_greengrass.types.create_group_request.CreateGroupRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -1041,7 +1071,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroupCertificateAuthority")
+        )
         input_: capo_greengrass.types.create_group_certificate_authority_request.CreateGroupCertificateAuthorityRequest = {
             "group_id": group_id
         }
@@ -1119,7 +1151,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroupVersion")
+        )
         input_: capo_greengrass.types.create_group_version_request.CreateGroupVersionRequest = {
             "group_id": group_id
         }
@@ -1191,7 +1225,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoggerDefinition")
+        )
         input_: capo_greengrass.types.create_logger_definition_request.CreateLoggerDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -1247,7 +1283,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoggerDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_logger_definition_version_request.CreateLoggerDefinitionVersionRequest = {
             "logger_definition_id": logger_definition_id
         }
@@ -1303,7 +1341,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceDefinition")
+        )
         input_: capo_greengrass.types.create_resource_definition_request.CreateResourceDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -1359,7 +1399,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_resource_definition_version_request.CreateResourceDefinitionVersionRequest = {
             "resource_definition_id": resource_definition_id
         }
@@ -1426,7 +1468,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSoftwareUpdateJob")
+        )
         input_: capo_greengrass.types.create_software_update_job_request.CreateSoftwareUpdateJobRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -1490,7 +1534,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscriptionDefinition")
+        )
         input_: capo_greengrass.types.create_subscription_definition_request.CreateSubscriptionDefinitionRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -1546,7 +1592,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubscriptionDefinitionVersion")
+        )
         input_: capo_greengrass.types.create_subscription_definition_version_request.CreateSubscriptionDefinitionVersionRequest = {
             "subscription_definition_id": subscription_definition_id
         }
@@ -1594,7 +1642,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectorDefinition")
+        )
         input_: capo_greengrass.types.delete_connector_definition_request.DeleteConnectorDefinitionRequest = {
             "connector_definition_id": connector_definition_id
         }
@@ -1638,7 +1688,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCoreDefinition")
+        )
         input_: capo_greengrass.types.delete_core_definition_request.DeleteCoreDefinitionRequest = {
             "core_definition_id": core_definition_id
         }
@@ -1682,7 +1734,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeviceDefinition")
+        )
         input_: capo_greengrass.types.delete_device_definition_request.DeleteDeviceDefinitionRequest = {
             "device_definition_id": device_definition_id
         }
@@ -1726,7 +1780,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunctionDefinition")
+        )
         input_: capo_greengrass.types.delete_function_definition_request.DeleteFunctionDefinitionRequest = {
             "function_definition_id": function_definition_id
         }
@@ -1770,7 +1826,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_greengrass.types.delete_group_request.DeleteGroupRequest = {
             "group_id": group_id
         }
@@ -1814,7 +1872,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoggerDefinition")
+        )
         input_: capo_greengrass.types.delete_logger_definition_request.DeleteLoggerDefinitionRequest = {
             "logger_definition_id": logger_definition_id
         }
@@ -1858,7 +1918,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceDefinition")
+        )
         input_: capo_greengrass.types.delete_resource_definition_request.DeleteResourceDefinitionRequest = {
             "resource_definition_id": resource_definition_id
         }
@@ -1902,7 +1964,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubscriptionDefinition")
+        )
         input_: capo_greengrass.types.delete_subscription_definition_request.DeleteSubscriptionDefinitionRequest = {
             "subscription_definition_id": subscription_definition_id
         }
@@ -1947,7 +2011,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateRoleFromGroup")
+        )
         input_: capo_greengrass.types.disassociate_role_from_group_request.DisassociateRoleFromGroupRequest = {
             "group_id": group_id
         }
@@ -1985,7 +2051,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateServiceRoleFromAccount")
+        )
         input_: capo_greengrass.types.disassociate_service_role_from_account_request.DisassociateServiceRoleFromAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -2028,7 +2096,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssociatedRole")
+        )
         input_: capo_greengrass.types.get_associated_role_request.GetAssociatedRoleRequest = {
             "group_id": group_id
         }
@@ -2072,7 +2142,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBulkDeploymentStatus")
+        )
         input_: capo_greengrass.types.get_bulk_deployment_status_request.GetBulkDeploymentStatusRequest = {
             "bulk_deployment_id": bulk_deployment_id
         }
@@ -2117,7 +2189,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectivityInfo")
+        )
         input_: capo_greengrass.types.get_connectivity_info_request.GetConnectivityInfoRequest = {
             "thing_name": thing_name
         }
@@ -2161,7 +2235,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectorDefinition")
+        )
         input_: capo_greengrass.types.get_connector_definition_request.GetConnectorDefinitionRequest = {
             "connector_definition_id": connector_definition_id
         }
@@ -2209,7 +2285,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectorDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_connector_definition_version_request.GetConnectorDefinitionVersionRequest = {
             "connector_definition_id": connector_definition_id,
             "connector_definition_version_id": connector_definition_version_id,
@@ -2256,7 +2334,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreDefinition")
+        )
         input_: capo_greengrass.types.get_core_definition_request.GetCoreDefinitionRequest = {
             "core_definition_id": core_definition_id
         }
@@ -2302,7 +2382,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCoreDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_core_definition_version_request.GetCoreDefinitionVersionRequest = {
             "core_definition_id": core_definition_id,
             "core_definition_version_id": core_definition_version_id,
@@ -2349,7 +2431,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeploymentStatus")
+        )
         input_: capo_greengrass.types.get_deployment_status_request.GetDeploymentStatusRequest = {
             "deployment_id": deployment_id,
             "group_id": group_id,
@@ -2394,7 +2478,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeviceDefinition")
+        )
         input_: capo_greengrass.types.get_device_definition_request.GetDeviceDefinitionRequest = {
             "device_definition_id": device_definition_id
         }
@@ -2442,7 +2528,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDeviceDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_device_definition_version_request.GetDeviceDefinitionVersionRequest = {
             "device_definition_id": device_definition_id,
             "device_definition_version_id": device_definition_version_id,
@@ -2489,7 +2577,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionDefinition")
+        )
         input_: capo_greengrass.types.get_function_definition_request.GetFunctionDefinitionRequest = {
             "function_definition_id": function_definition_id
         }
@@ -2537,7 +2627,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunctionDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_function_definition_version_request.GetFunctionDefinitionVersionRequest = {
             "function_definition_id": function_definition_id,
             "function_definition_version_id": function_definition_version_id,
@@ -2584,7 +2676,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroup")
+        )
         input_: capo_greengrass.types.get_group_request.GetGroupRequest = {
             "group_id": group_id
         }
@@ -2631,7 +2725,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupCertificateAuthority")
+        )
         input_: capo_greengrass.types.get_group_certificate_authority_request.GetGroupCertificateAuthorityRequest = {
             "certificate_authority_id": certificate_authority_id,
             "group_id": group_id,
@@ -2677,7 +2773,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupCertificateConfiguration")
+        )
         input_: capo_greengrass.types.get_group_certificate_configuration_request.GetGroupCertificateConfigurationRequest = {
             "group_id": group_id
         }
@@ -2723,7 +2821,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupVersion")
+        )
         input_: capo_greengrass.types.get_group_version_request.GetGroupVersionRequest = {
             "group_id": group_id,
             "group_version_id": group_version_id,
@@ -2768,7 +2868,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggerDefinition")
+        )
         input_: capo_greengrass.types.get_logger_definition_request.GetLoggerDefinitionRequest = {
             "logger_definition_id": logger_definition_id
         }
@@ -2816,7 +2918,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggerDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_logger_definition_version_request.GetLoggerDefinitionVersionRequest = {
             "logger_definition_id": logger_definition_id,
             "logger_definition_version_id": logger_definition_version_id,
@@ -2863,7 +2967,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceDefinition")
+        )
         input_: capo_greengrass.types.get_resource_definition_request.GetResourceDefinitionRequest = {
             "resource_definition_id": resource_definition_id
         }
@@ -2909,7 +3015,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_resource_definition_version_request.GetResourceDefinitionVersionRequest = {
             "resource_definition_id": resource_definition_id,
             "resource_definition_version_id": resource_definition_version_id,
@@ -2948,7 +3056,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceRoleForAccount")
+        )
         input_: capo_greengrass.types.get_service_role_for_account_request.GetServiceRoleForAccountRequest = {}
 
         response = await aexecute_pipeline(
@@ -2990,7 +3100,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscriptionDefinition")
+        )
         input_: capo_greengrass.types.get_subscription_definition_request.GetSubscriptionDefinitionRequest = {
             "subscription_definition_id": subscription_definition_id
         }
@@ -3038,7 +3150,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSubscriptionDefinitionVersion")
+        )
         input_: capo_greengrass.types.get_subscription_definition_version_request.GetSubscriptionDefinitionVersionRequest = {
             "subscription_definition_id": subscription_definition_id,
             "subscription_definition_version_id": subscription_definition_version_id,
@@ -3086,7 +3200,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetThingRuntimeConfiguration")
+        )
         input_: capo_greengrass.types.get_thing_runtime_configuration_request.GetThingRuntimeConfigurationRequest = {
             "thing_name": thing_name
         }
@@ -3134,7 +3250,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBulkDeploymentDetailedReports")
+        )
         input_: capo_greengrass.types.list_bulk_deployment_detailed_reports_request.ListBulkDeploymentDetailedReportsRequest = {
             "bulk_deployment_id": bulk_deployment_id
         }
@@ -3184,7 +3302,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBulkDeployments")
+        )
         input_: capo_greengrass.types.list_bulk_deployments_request.ListBulkDeploymentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3231,7 +3351,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectorDefinitions")
+        )
         input_: capo_greengrass.types.list_connector_definitions_request.ListConnectorDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3281,7 +3403,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectorDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_connector_definition_versions_request.ListConnectorDefinitionVersionsRequest = {
             "connector_definition_id": connector_definition_id
         }
@@ -3330,7 +3454,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreDefinitions")
+        )
         input_: capo_greengrass.types.list_core_definitions_request.ListCoreDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3380,7 +3506,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCoreDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_core_definition_versions_request.ListCoreDefinitionVersionsRequest = {
             "core_definition_id": core_definition_id
         }
@@ -3432,7 +3560,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_greengrass.types.list_deployments_request.ListDeploymentsRequest = {
             "group_id": group_id
         }
@@ -3481,7 +3611,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceDefinitions")
+        )
         input_: capo_greengrass.types.list_device_definitions_request.ListDeviceDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3531,7 +3663,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_device_definition_versions_request.ListDeviceDefinitionVersionsRequest = {
             "device_definition_id": device_definition_id
         }
@@ -3580,7 +3714,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionDefinitions")
+        )
         input_: capo_greengrass.types.list_function_definitions_request.ListFunctionDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3630,7 +3766,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctionDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_function_definition_versions_request.ListFunctionDefinitionVersionsRequest = {
             "function_definition_id": function_definition_id
         }
@@ -3679,7 +3817,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupCertificateAuthorities")
+        )
         input_: capo_greengrass.types.list_group_certificate_authorities_request.ListGroupCertificateAuthoritiesRequest = {
             "group_id": group_id
         }
@@ -3724,7 +3864,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroups")
+        )
         input_: capo_greengrass.types.list_groups_request.ListGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3774,7 +3916,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupVersions")
+        )
         input_: capo_greengrass.types.list_group_versions_request.ListGroupVersionsRequest = {
             "group_id": group_id
         }
@@ -3823,7 +3967,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoggerDefinitions")
+        )
         input_: capo_greengrass.types.list_logger_definitions_request.ListLoggerDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3873,7 +4019,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoggerDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_logger_definition_versions_request.ListLoggerDefinitionVersionsRequest = {
             "logger_definition_id": logger_definition_id
         }
@@ -3922,7 +4070,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceDefinitions")
+        )
         input_: capo_greengrass.types.list_resource_definitions_request.ListResourceDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3972,7 +4122,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_resource_definition_versions_request.ListResourceDefinitionVersionsRequest = {
             "resource_definition_id": resource_definition_id
         }
@@ -4021,7 +4173,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptionDefinitions")
+        )
         input_: capo_greengrass.types.list_subscription_definitions_request.ListSubscriptionDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4071,7 +4225,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubscriptionDefinitionVersions")
+        )
         input_: capo_greengrass.types.list_subscription_definition_versions_request.ListSubscriptionDefinitionVersionsRequest = {
             "subscription_definition_id": subscription_definition_id
         }
@@ -4119,7 +4275,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_greengrass.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4167,7 +4325,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetDeployments")
+        )
         input_: capo_greengrass.types.reset_deployments_request.ResetDeploymentsRequest = {
             "group_id": group_id
         }
@@ -4221,7 +4381,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBulkDeployment")
+        )
         input_: capo_greengrass.types.start_bulk_deployment_request.StartBulkDeploymentRequest = {}
         if amzn_client_token is not None:
             input_["amzn_client_token"] = amzn_client_token
@@ -4273,7 +4435,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBulkDeployment")
+        )
         input_: capo_greengrass.types.stop_bulk_deployment_request.StopBulkDeploymentRequest = {
             "bulk_deployment_id": bulk_deployment_id
         }
@@ -4316,7 +4480,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_greengrass.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4364,7 +4530,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_greengrass.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4415,7 +4583,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectivityInfo")
+        )
         input_: capo_greengrass.types.update_connectivity_info_request.UpdateConnectivityInfoRequest = {
             "thing_name": thing_name
         }
@@ -4463,7 +4633,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorDefinition")
+        )
         input_: capo_greengrass.types.update_connector_definition_request.UpdateConnectorDefinitionRequest = {
             "connector_definition_id": connector_definition_id
         }
@@ -4511,7 +4683,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCoreDefinition")
+        )
         input_: capo_greengrass.types.update_core_definition_request.UpdateCoreDefinitionRequest = {
             "core_definition_id": core_definition_id
         }
@@ -4559,7 +4733,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeviceDefinition")
+        )
         input_: capo_greengrass.types.update_device_definition_request.UpdateDeviceDefinitionRequest = {
             "device_definition_id": device_definition_id
         }
@@ -4607,7 +4783,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFunctionDefinition")
+        )
         input_: capo_greengrass.types.update_function_definition_request.UpdateFunctionDefinitionRequest = {
             "function_definition_id": function_definition_id
         }
@@ -4655,7 +4833,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_greengrass.types.update_group_request.UpdateGroupRequest = {
             "group_id": group_id
         }
@@ -4706,7 +4886,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroupCertificateConfiguration")
+        )
         input_: capo_greengrass.types.update_group_certificate_configuration_request.UpdateGroupCertificateConfigurationRequest = {
             "group_id": group_id
         }
@@ -4756,7 +4938,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLoggerDefinition")
+        )
         input_: capo_greengrass.types.update_logger_definition_request.UpdateLoggerDefinitionRequest = {
             "logger_definition_id": logger_definition_id
         }
@@ -4804,7 +4988,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceDefinition")
+        )
         input_: capo_greengrass.types.update_resource_definition_request.UpdateResourceDefinitionRequest = {
             "resource_definition_id": resource_definition_id
         }
@@ -4852,7 +5038,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriptionDefinition")
+        )
         input_: capo_greengrass.types.update_subscription_definition_request.UpdateSubscriptionDefinitionRequest = {
             "subscription_definition_id": subscription_definition_id
         }
@@ -4903,7 +5091,9 @@ class AsyncGreengrassClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThingRuntimeConfiguration")
+        )
         input_: capo_greengrass.types.update_thing_runtime_configuration_request.UpdateThingRuntimeConfigurationRequest = {
             "thing_name": thing_name
         }

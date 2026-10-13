@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -195,7 +196,9 @@ class EventSourceMapping:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventSourceMapping")
+        )
         input_: capo_lambda.types.create_event_source_mapping_request.CreateEventSourceMappingRequest = {
             "function_name": function_name
         }
@@ -307,7 +310,9 @@ class EventSourceMapping:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventSourceMapping")
+        )
         input_: capo_lambda.types.get_event_source_mapping_request.GetEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -436,7 +441,9 @@ class EventSourceMapping:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventSourceMapping")
+        )
         input_: capo_lambda.types.update_event_source_mapping_request.UpdateEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -538,7 +545,9 @@ class EventSourceMapping:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventSourceMapping")
+        )
         input_: capo_lambda.types.delete_event_source_mapping_request.DeleteEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -598,7 +607,9 @@ class EventSourceMapping:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventSourceMappings")
+        )
         input_: capo_lambda.types.list_event_source_mappings_request.ListEventSourceMappingsRequest = {}
         if event_source_arn is not None:
             input_["event_source_arn"] = event_source_arn
@@ -755,7 +766,9 @@ class AsyncEventSourceMapping:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEventSourceMapping")
+        )
         input_: capo_lambda.types.create_event_source_mapping_request.CreateEventSourceMappingRequest = {
             "function_name": function_name
         }
@@ -868,7 +881,9 @@ class AsyncEventSourceMapping:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEventSourceMapping")
+        )
         input_: capo_lambda.types.get_event_source_mapping_request.GetEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -998,7 +1013,9 @@ class AsyncEventSourceMapping:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateEventSourceMapping")
+        )
         input_: capo_lambda.types.update_event_source_mapping_request.UpdateEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -1101,7 +1118,9 @@ class AsyncEventSourceMapping:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEventSourceMapping")
+        )
         input_: capo_lambda.types.delete_event_source_mapping_request.DeleteEventSourceMappingRequest = {
             "uuid": uuid
         }
@@ -1162,7 +1181,9 @@ class AsyncEventSourceMapping:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEventSourceMappings")
+        )
         input_: capo_lambda.types.list_event_source_mappings_request.ListEventSourceMappingsRequest = {}
         if event_source_arn is not None:
             input_["event_source_arn"] = event_source_arn

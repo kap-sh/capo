@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#PlayerConnectionDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,5 +67,20 @@ def deserialize_aws_json_1_1(data: dict) -> PlayerConnectionDetail:
 
         out["expiration"] = capo_gamelift.types.timestamp.deserialize_aws_json_1_1(
             data["Expiration"]
+        )
+    return out
+
+
+def redact_sensitive(value: PlayerConnectionDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "player_id" in value:
+        out["player_id"] = "*** Sensitive Data Redacted ***"
+    if "endpoints" in value:
+        import capo_gamelift.types.player_connection_endpoint_list
+
+        out["endpoints"] = (
+            capo_gamelift.types.player_connection_endpoint_list.redact_sensitive(
+                value["endpoints"]
+            )
         )
     return out

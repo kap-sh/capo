@@ -21,10 +21,12 @@ from capo_data_pipeline._pagination import resolve_path as _resolve_path
 from capo_data_pipeline._services._aws_config import aws_config
 from capo_data_pipeline._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -161,7 +163,9 @@ class DataPipelineClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DataPipelineClientConfig] = None
+        self,
+        config_overrides: Optional[DataPipelineClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DataPipelineClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -169,8 +173,10 @@ class DataPipelineClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -230,7 +236,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ActivatePipeline")
+        )
         input_: capo_data_pipeline.types.activate_pipeline_input.ActivatePipelineInput = {
             "pipeline_id": pipeline_id
         }
@@ -282,7 +290,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_data_pipeline.types.add_tags_input.AddTagsInput = {
             "pipeline_id": pipeline_id,
             "tags": tags,
@@ -333,7 +343,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePipeline")
+        )
         input_: capo_data_pipeline.types.create_pipeline_input.CreatePipelineInput = {
             "name": name,
             "unique_id": unique_id,
@@ -388,7 +400,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeactivatePipeline")
+        )
         input_: capo_data_pipeline.types.deactivate_pipeline_input.DeactivatePipelineInput = {
             "pipeline_id": pipeline_id
         }
@@ -433,7 +447,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePipeline")
+        )
         input_: capo_data_pipeline.types.delete_pipeline_input.DeletePipelineInput = {
             "pipeline_id": pipeline_id
         }
@@ -487,7 +503,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeObjects")
+        )
         input_: capo_data_pipeline.types.describe_objects_input.DescribeObjectsInput = {
             "pipeline_id": pipeline_id,
             "object_ids": object_ids,
@@ -565,7 +583,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePipelines")
+        )
         input_: capo_data_pipeline.types.describe_pipelines_input.DescribePipelinesInput = {
             "pipeline_ids": pipeline_ids
         }
@@ -616,7 +636,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvaluateExpression")
+        )
         input_: capo_data_pipeline.types.evaluate_expression_input.EvaluateExpressionInput = {
             "pipeline_id": pipeline_id,
             "object_id": object_id,
@@ -666,7 +688,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPipelineDefinition")
+        )
         input_: capo_data_pipeline.types.get_pipeline_definition_input.GetPipelineDefinitionInput = {
             "pipeline_id": pipeline_id
         }
@@ -712,7 +736,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPipelines")
+        )
         input_: capo_data_pipeline.types.list_pipelines_input.ListPipelinesInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -782,7 +808,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PollForTask")
+        )
         input_: capo_data_pipeline.types.poll_for_task_input.PollForTaskInput = {
             "worker_group": worker_group
         }
@@ -842,7 +870,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPipelineDefinition")
+        )
         input_: capo_data_pipeline.types.put_pipeline_definition_input.PutPipelineDefinitionInput = {
             "pipeline_id": pipeline_id,
             "pipeline_objects": pipeline_objects,
@@ -901,7 +931,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("QueryObjects")
+        )
         input_: capo_data_pipeline.types.query_objects_input.QueryObjectsInput = {
             "pipeline_id": pipeline_id,
             "sphere": sphere,
@@ -983,7 +1015,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_data_pipeline.types.remove_tags_input.RemoveTagsInput = {
             "pipeline_id": pipeline_id,
             "tag_keys": tag_keys,
@@ -1035,7 +1069,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReportTaskProgress")
+        )
         input_: capo_data_pipeline.types.report_task_progress_input.ReportTaskProgressInput = {
             "task_id": task_id
         }
@@ -1085,7 +1121,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReportTaskRunnerHeartbeat")
+        )
         input_: capo_data_pipeline.types.report_task_runner_heartbeat_input.ReportTaskRunnerHeartbeatInput = {
             "taskrunner_id": taskrunner_id
         }
@@ -1137,7 +1175,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetStatus")
+        )
         input_: capo_data_pipeline.types.set_status_input.SetStatusInput = {
             "pipeline_id": pipeline_id,
             "object_ids": object_ids,
@@ -1196,7 +1236,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetTaskStatus")
+        )
         input_: capo_data_pipeline.types.set_task_status_input.SetTaskStatusInput = {
             "task_id": task_id,
             "task_status": task_status,
@@ -1259,7 +1301,9 @@ class DataPipelineClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidatePipelineDefinition")
+        )
         input_: capo_data_pipeline.types.validate_pipeline_definition_input.ValidatePipelineDefinitionInput = {
             "pipeline_id": pipeline_id,
             "pipeline_objects": pipeline_objects,

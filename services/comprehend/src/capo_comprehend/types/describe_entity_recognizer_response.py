@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#DescribeEntityRecognizerResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEntityRecognizerResponse:
         out["entity_recognizer_properties"] = (
             capo_comprehend.types.entity_recognizer_properties.deserialize_aws_json_1_1(
                 data["EntityRecognizerProperties"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeEntityRecognizerResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entity_recognizer_properties" in value:
+        import capo_comprehend.types.entity_recognizer_properties
+
+        out["entity_recognizer_properties"] = (
+            capo_comprehend.types.entity_recognizer_properties.redact_sensitive(
+                value["entity_recognizer_properties"]
             )
         )
     return out

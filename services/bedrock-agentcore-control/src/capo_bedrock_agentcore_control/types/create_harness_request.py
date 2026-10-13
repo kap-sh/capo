@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CreateHarnessRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -328,5 +328,36 @@ def deserialize_json(data: dict) -> CreateHarnessRequest:
 
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.deserialize_json(
             data["tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateHarnessRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment_variables" in value:
+        out["environment_variables"] = "*** Sensitive Data Redacted ***"
+    if "model" in value:
+        import capo_bedrock_agentcore_control.types.harness_model_configuration
+
+        out["model"] = (
+            capo_bedrock_agentcore_control.types.harness_model_configuration.redact_sensitive(
+                value["model"]
+            )
+        )
+    if "system_prompt" in value:
+        import capo_bedrock_agentcore_control.types.harness_system_prompt
+
+        out["system_prompt"] = (
+            capo_bedrock_agentcore_control.types.harness_system_prompt.redact_sensitive(
+                value["system_prompt"]
+            )
+        )
+    if "tools" in value:
+        import capo_bedrock_agentcore_control.types.harness_tools
+
+        out["tools"] = (
+            capo_bedrock_agentcore_control.types.harness_tools.redact_sensitive(
+                value["tools"]
+            )
         )
     return out

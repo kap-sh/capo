@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TooltipSheetDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -108,5 +108,30 @@ def deserialize_json(data: dict) -> TooltipSheetDefinition:
 
         out["layouts"] = capo_quicksight.types.layout_list.deserialize_json(
             data["Layouts"]
+        )
+    return out
+
+
+def redact_sensitive(value: TooltipSheetDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "visuals" in value:
+        import capo_quicksight.types.tooltip_sheet_visual_list
+
+        out["visuals"] = (
+            capo_quicksight.types.tooltip_sheet_visual_list.redact_sensitive(
+                value["visuals"]
+            )
+        )
+    if "images" in value:
+        import capo_quicksight.types.tooltip_sheet_image_list
+
+        out["images"] = capo_quicksight.types.tooltip_sheet_image_list.redact_sensitive(
+            value["images"]
+        )
+    if "layouts" in value:
+        import capo_quicksight.types.layout_list
+
+        out["layouts"] = capo_quicksight.types.layout_list.redact_sensitive(
+            value["layouts"]
         )
     return out

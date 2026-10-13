@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemakerruntime#InvokeEndpointInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,13 @@ def deserialize_json(data: dict) -> InvokeEndpointInput:
         out["body"] = capo_sagemaker_runtime.types.body_blob.deserialize_json(
             data["Body"]
         )
+    return out
+
+
+def redact_sensitive(value: InvokeEndpointInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
+    if "custom_attributes" in value:
+        out["custom_attributes"] = "*** Sensitive Data Redacted ***"
     return out

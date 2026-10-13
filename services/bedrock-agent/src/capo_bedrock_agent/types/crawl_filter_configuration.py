@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#CrawlFilterConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,6 +59,19 @@ def deserialize_json(data: dict) -> CrawlFilterConfiguration:
         out["pattern_object_filter"] = (
             capo_bedrock_agent.types.pattern_object_filter_configuration.deserialize_json(
                 data["patternObjectFilter"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CrawlFilterConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pattern_object_filter" in value:
+        import capo_bedrock_agent.types.pattern_object_filter_configuration
+
+        out["pattern_object_filter"] = (
+            capo_bedrock_agent.types.pattern_object_filter_configuration.redact_sensitive(
+                value["pattern_object_filter"]
             )
         )
     return out

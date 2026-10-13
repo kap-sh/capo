@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#Database``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -150,6 +150,19 @@ def deserialize_json(data: dict) -> Database:
         out["connected_component_arns"] = (
             capo_ssm_sap.types.component_arn_list.deserialize_json(
                 data["ConnectedComponentArns"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Database) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credentials" in value:
+        import capo_ssm_sap.types.application_credential_list
+
+        out["credentials"] = (
+            capo_ssm_sap.types.application_credential_list.redact_sensitive(
+                value["credentials"]
             )
         )
     return out

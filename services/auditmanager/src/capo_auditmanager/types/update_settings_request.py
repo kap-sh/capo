@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#UpdateSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -117,4 +117,15 @@ def deserialize_json(data: dict) -> UpdateSettingsRequest:
                 data["defaultExportDestination"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "default_assessment_reports_destination" in value:
+        out["default_assessment_reports_destination"] = (
+            "*** Sensitive Data Redacted ***"
+        )
+    if "default_process_owners" in value:
+        out["default_process_owners"] = "*** Sensitive Data Redacted ***"
     return out

@@ -22,10 +22,12 @@ from capo_codecommit._pagination import resolve_path as _resolve_path
 from capo_codecommit._services._aws_config import aws_config
 from capo_codecommit._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -312,7 +314,9 @@ class CodeCommitClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodeCommitClientConfig] = None
+        self,
+        config_overrides: Optional[CodeCommitClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodeCommitClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -320,8 +324,10 @@ class CodeCommitClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -381,7 +387,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateApprovalRuleTemplateWithRepository"),
+        )
         input_: capo_codecommit.types.associate_approval_rule_template_with_repository_input.AssociateApprovalRuleTemplateWithRepositoryInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "repository_name": repository_name,
@@ -436,7 +445,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateApprovalRuleTemplateWithRepositories"),
+        )
         input_: capo_codecommit.types.batch_associate_approval_rule_template_with_repositories_input.BatchAssociateApprovalRuleTemplateWithRepositoriesInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "repository_names": repository_names,
@@ -526,7 +538,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDescribeMergeConflicts")
+        )
         input_: capo_codecommit.types.batch_describe_merge_conflicts_input.BatchDescribeMergeConflictsInput = {
             "repository_name": repository_name,
             "destination_commit_specifier": destination_commit_specifier,
@@ -595,7 +609,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateApprovalRuleTemplateFromRepositories"),
+        )
         input_: capo_codecommit.types.batch_disassociate_approval_rule_template_from_repositories_input.BatchDisassociateApprovalRuleTemplateFromRepositoriesInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "repository_names": repository_names,
@@ -650,7 +667,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCommits")
+        )
         input_: capo_codecommit.types.batch_get_commits_input.BatchGetCommitsInput = {
             "commit_ids": commit_ids,
             "repository_name": repository_name,
@@ -703,7 +722,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRepositories")
+        )
         input_: capo_codecommit.types.batch_get_repositories_input.BatchGetRepositoriesInput = {
             "repository_names": repository_names
         }
@@ -758,7 +779,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApprovalRuleTemplate")
+        )
         input_: capo_codecommit.types.create_approval_rule_template_input.CreateApprovalRuleTemplateInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "approval_rule_template_content": approval_rule_template_content,
@@ -821,7 +844,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBranch")
+        )
         input_: capo_codecommit.types.create_branch_input.CreateBranchInput = {
             "repository_name": repository_name,
             "branch_name": branch_name,
@@ -929,7 +954,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCommit")
+        )
         input_: capo_codecommit.types.create_commit_input.CreateCommitInput = {
             "repository_name": repository_name,
             "branch_name": branch_name,
@@ -1021,7 +1048,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePullRequest")
+        )
         input_: capo_codecommit.types.create_pull_request_input.CreatePullRequestInput = {
             "title": title,
             "targets": targets,
@@ -1088,7 +1117,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePullRequestApprovalRule")
+        )
         input_: capo_codecommit.types.create_pull_request_approval_rule_input.CreatePullRequestApprovalRuleInput = {
             "pull_request_id": pull_request_id,
             "approval_rule_name": approval_rule_name,
@@ -1157,7 +1188,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRepository")
+        )
         input_: capo_codecommit.types.create_repository_input.CreateRepositoryInput = {
             "repository_name": repository_name
         }
@@ -1269,7 +1302,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUnreferencedMergeCommit")
+        )
         input_: capo_codecommit.types.create_unreferenced_merge_commit_input.CreateUnreferencedMergeCommitInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -1331,7 +1366,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApprovalRuleTemplate")
+        )
         input_: capo_codecommit.types.delete_approval_rule_template_input.DeleteApprovalRuleTemplateInput = {
             "approval_rule_template_name": approval_rule_template_name
         }
@@ -1386,7 +1423,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBranch")
+        )
         input_: capo_codecommit.types.delete_branch_input.DeleteBranchInput = {
             "repository_name": repository_name,
             "branch_name": branch_name,
@@ -1435,7 +1474,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCommentContent")
+        )
         input_: capo_codecommit.types.delete_comment_content_input.DeleteCommentContentInput = {
             "comment_id": comment_id
         }
@@ -1515,7 +1556,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFile")
+        )
         input_: capo_codecommit.types.delete_file_input.DeleteFileInput = {
             "repository_name": repository_name,
             "branch_name": branch_name,
@@ -1582,7 +1625,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePullRequestApprovalRule")
+        )
         input_: capo_codecommit.types.delete_pull_request_approval_rule_input.DeletePullRequestApprovalRuleInput = {
             "pull_request_id": pull_request_id,
             "approval_rule_name": approval_rule_name,
@@ -1632,7 +1677,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRepository")
+        )
         input_: capo_codecommit.types.delete_repository_input.DeleteRepositoryInput = {
             "repository_name": repository_name
         }
@@ -1719,7 +1766,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMergeConflicts")
+        )
         input_: capo_codecommit.types.describe_merge_conflicts_input.DescribeMergeConflictsInput = {
             "repository_name": repository_name,
             "destination_commit_specifier": destination_commit_specifier,
@@ -1835,7 +1884,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePullRequestEvents")
+        )
         input_: capo_codecommit.types.describe_pull_request_events_input.DescribePullRequestEventsInput = {
             "pull_request_id": pull_request_id
         }
@@ -1923,7 +1974,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateApprovalRuleTemplateFromRepository"),
+        )
         input_: capo_codecommit.types.disassociate_approval_rule_template_from_repository_input.DisassociateApprovalRuleTemplateFromRepositoryInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "repository_name": repository_name,
@@ -1979,7 +2033,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvaluatePullRequestApprovalRules")
+        )
         input_: capo_codecommit.types.evaluate_pull_request_approval_rules_input.EvaluatePullRequestApprovalRulesInput = {
             "pull_request_id": pull_request_id,
             "revision_id": revision_id,
@@ -2025,7 +2081,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApprovalRuleTemplate")
+        )
         input_: capo_codecommit.types.get_approval_rule_template_input.GetApprovalRuleTemplateInput = {
             "approval_rule_template_name": approval_rule_template_name
         }
@@ -2079,7 +2137,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlob")
+        )
         input_: capo_codecommit.types.get_blob_input.GetBlobInput = {
             "repository_name": repository_name,
             "blob_id": blob_id,
@@ -2153,7 +2213,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBlobDifferences")
+        )
         input_: capo_codecommit.types.get_blob_differences_input.GetBlobDifferencesInput = {
             "repository_name": repository_name,
             "after_blob_id": after_blob_id,
@@ -2256,7 +2318,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBranch")
+        )
         input_: capo_codecommit.types.get_branch_input.GetBranchInput = {}
         if repository_name is not None:
             input_["repository_name"] = repository_name
@@ -2309,7 +2373,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComment")
+        )
         input_: capo_codecommit.types.get_comment_input.GetCommentInput = {
             "comment_id": comment_id
         }
@@ -2364,7 +2430,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommentReactions")
+        )
         input_: capo_codecommit.types.get_comment_reactions_input.GetCommentReactionsInput = {
             "comment_id": comment_id
         }
@@ -2456,7 +2524,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommentsForComparedCommit")
+        )
         input_: capo_codecommit.types.get_comments_for_compared_commit_input.GetCommentsForComparedCommitInput = {
             "repository_name": repository_name,
             "after_commit_id": after_commit_id,
@@ -2559,7 +2629,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommentsForPullRequest")
+        )
         input_: capo_codecommit.types.get_comments_for_pull_request_input.GetCommentsForPullRequestInput = {
             "pull_request_id": pull_request_id
         }
@@ -2653,7 +2725,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommit")
+        )
         input_: capo_codecommit.types.get_commit_input.GetCommitInput = {
             "repository_name": repository_name,
             "commit_id": commit_id,
@@ -2726,7 +2800,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDifferences")
+        )
         input_: capo_codecommit.types.get_differences_input.GetDifferencesInput = {
             "repository_name": repository_name,
             "after_commit_specifier": after_commit_specifier,
@@ -2828,7 +2904,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFile")
+        )
         input_: capo_codecommit.types.get_file_input.GetFileInput = {
             "repository_name": repository_name,
             "file_path": file_path,
@@ -2892,7 +2970,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFolder")
+        )
         input_: capo_codecommit.types.get_folder_input.GetFolderInput = {
             "repository_name": repository_name,
             "folder_path": folder_path,
@@ -2962,7 +3042,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMergeCommit")
+        )
         input_: capo_codecommit.types.get_merge_commit_input.GetMergeCommitInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -3052,7 +3134,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMergeConflicts")
+        )
         input_: capo_codecommit.types.get_merge_conflicts_input.GetMergeConflictsInput = {
             "repository_name": repository_name,
             "destination_commit_specifier": destination_commit_specifier,
@@ -3170,7 +3254,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMergeOptions")
+        )
         input_: capo_codecommit.types.get_merge_options_input.GetMergeOptionsInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -3226,7 +3312,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPullRequest")
+        )
         input_: capo_codecommit.types.get_pull_request_input.GetPullRequestInput = {
             "pull_request_id": pull_request_id
         }
@@ -3280,7 +3368,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPullRequestApprovalStates")
+        )
         input_: capo_codecommit.types.get_pull_request_approval_states_input.GetPullRequestApprovalStatesInput = {
             "pull_request_id": pull_request_id,
             "revision_id": revision_id,
@@ -3335,7 +3425,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPullRequestOverrideState")
+        )
         input_: capo_codecommit.types.get_pull_request_override_state_input.GetPullRequestOverrideStateInput = {
             "pull_request_id": pull_request_id,
             "revision_id": revision_id,
@@ -3386,7 +3478,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepository")
+        )
         input_: capo_codecommit.types.get_repository_input.GetRepositoryInput = {
             "repository_name": repository_name
         }
@@ -3436,7 +3530,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRepositoryTriggers")
+        )
         input_: capo_codecommit.types.get_repository_triggers_input.GetRepositoryTriggersInput = {
             "repository_name": repository_name
         }
@@ -3482,7 +3578,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApprovalRuleTemplates")
+        )
         input_: capo_codecommit.types.list_approval_rule_templates_input.ListApprovalRuleTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3559,7 +3657,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssociatedApprovalRuleTemplatesForRepository"),
+        )
         input_: capo_codecommit.types.list_associated_approval_rule_templates_for_repository_input.ListAssociatedApprovalRuleTemplatesForRepositoryInput = {
             "repository_name": repository_name
         }
@@ -3637,7 +3738,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBranches")
+        )
         input_: capo_codecommit.types.list_branches_input.ListBranchesInput = {
             "repository_name": repository_name
         }
@@ -3726,7 +3829,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFileCommitHistory")
+        )
         input_: capo_codecommit.types.list_file_commit_history_request.ListFileCommitHistoryRequest = {
             "repository_name": repository_name,
             "file_path": file_path,
@@ -3825,7 +3930,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPullRequests")
+        )
         input_: capo_codecommit.types.list_pull_requests_input.ListPullRequestsInput = {
             "repository_name": repository_name
         }
@@ -3909,7 +4016,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRepositories")
+        )
         input_: capo_codecommit.types.list_repositories_input.ListRepositoriesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3992,7 +4101,10 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRepositoriesForApprovalRuleTemplate"),
+        )
         input_: capo_codecommit.types.list_repositories_for_approval_rule_template_input.ListRepositoriesForApprovalRuleTemplateInput = {
             "approval_rule_template_name": approval_rule_template_name
         }
@@ -4067,7 +4179,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_codecommit.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -4136,7 +4250,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeBranchesByFastForward")
+        )
         input_: capo_codecommit.types.merge_branches_by_fast_forward_input.MergeBranchesByFastForwardInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -4249,7 +4365,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeBranchesBySquash")
+        )
         input_: capo_codecommit.types.merge_branches_by_squash_input.MergeBranchesBySquashInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -4376,7 +4494,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergeBranchesByThreeWay")
+        )
         input_: capo_codecommit.types.merge_branches_by_three_way_input.MergeBranchesByThreeWayInput = {
             "repository_name": repository_name,
             "source_commit_specifier": source_commit_specifier,
@@ -4459,7 +4579,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergePullRequestByFastForward")
+        )
         input_: capo_codecommit.types.merge_pull_request_by_fast_forward_input.MergePullRequestByFastForwardInput = {
             "pull_request_id": pull_request_id,
             "repository_name": repository_name,
@@ -4568,7 +4690,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergePullRequestBySquash")
+        )
         input_: capo_codecommit.types.merge_pull_request_by_squash_input.MergePullRequestBySquashInput = {
             "pull_request_id": pull_request_id,
             "repository_name": repository_name,
@@ -4691,7 +4815,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MergePullRequestByThreeWay")
+        )
         input_: capo_codecommit.types.merge_pull_request_by_three_way_input.MergePullRequestByThreeWayInput = {
             "pull_request_id": pull_request_id,
             "repository_name": repository_name,
@@ -4767,7 +4893,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("OverridePullRequestApprovalRules")
+        )
         input_: capo_codecommit.types.override_pull_request_approval_rules_input.OverridePullRequestApprovalRulesInput = {
             "pull_request_id": pull_request_id,
             "revision_id": revision_id,
@@ -4846,7 +4974,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostCommentForComparedCommit")
+        )
         input_: capo_codecommit.types.post_comment_for_compared_commit_input.PostCommentForComparedCommitInput = {
             "repository_name": repository_name,
             "after_commit_id": after_commit_id,
@@ -4938,7 +5068,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostCommentForPullRequest")
+        )
         input_: capo_codecommit.types.post_comment_for_pull_request_input.PostCommentForPullRequestInput = {
             "pull_request_id": pull_request_id,
             "repository_name": repository_name,
@@ -5003,7 +5135,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PostCommentReply")
+        )
         input_: capo_codecommit.types.post_comment_reply_input.PostCommentReplyInput = {
             "in_reply_to": in_reply_to,
             "content": content,
@@ -5056,7 +5190,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCommentReaction")
+        )
         input_: capo_codecommit.types.put_comment_reaction_input.PutCommentReactionInput = {
             "comment_id": comment_id,
             "reaction_value": reaction_value,
@@ -5145,7 +5281,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFile")
+        )
         input_: capo_codecommit.types.put_file_input.PutFileInput = {
             "repository_name": repository_name,
             "branch_name": branch_name,
@@ -5223,7 +5361,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRepositoryTriggers")
+        )
         input_: capo_codecommit.types.put_repository_triggers_input.PutRepositoryTriggersInput = {
             "repository_name": repository_name,
             "triggers": triggers,
@@ -5275,7 +5415,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_codecommit.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -5341,7 +5483,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestRepositoryTriggers")
+        )
         input_: capo_codecommit.types.test_repository_triggers_input.TestRepositoryTriggersInput = {
             "repository_name": repository_name,
             "triggers": triggers,
@@ -5393,7 +5537,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_codecommit.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -5448,7 +5594,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApprovalRuleTemplateContent")
+        )
         input_: capo_codecommit.types.update_approval_rule_template_content_input.UpdateApprovalRuleTemplateContentInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "new_rule_content": new_rule_content,
@@ -5499,7 +5647,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApprovalRuleTemplateDescription")
+        )
         input_: capo_codecommit.types.update_approval_rule_template_description_input.UpdateApprovalRuleTemplateDescriptionInput = {
             "approval_rule_template_name": approval_rule_template_name,
             "approval_rule_template_description": approval_rule_template_description,
@@ -5548,7 +5698,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApprovalRuleTemplateName")
+        )
         input_: capo_codecommit.types.update_approval_rule_template_name_input.UpdateApprovalRuleTemplateNameInput = {
             "old_approval_rule_template_name": old_approval_rule_template_name,
             "new_approval_rule_template_name": new_approval_rule_template_name,
@@ -5600,7 +5752,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComment")
+        )
         input_: capo_codecommit.types.update_comment_input.UpdateCommentInput = {
             "comment_id": comment_id,
             "content": content,
@@ -5654,7 +5808,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDefaultBranch")
+        )
         input_: capo_codecommit.types.update_default_branch_input.UpdateDefaultBranchInput = {
             "repository_name": repository_name,
             "default_branch_name": default_branch_name,
@@ -5721,7 +5877,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullRequestApprovalRuleContent")
+        )
         input_: capo_codecommit.types.update_pull_request_approval_rule_content_input.UpdatePullRequestApprovalRuleContentInput = {
             "pull_request_id": pull_request_id,
             "approval_rule_name": approval_rule_name,
@@ -5785,7 +5943,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullRequestApprovalState")
+        )
         input_: capo_codecommit.types.update_pull_request_approval_state_input.UpdatePullRequestApprovalStateInput = {
             "pull_request_id": pull_request_id,
             "revision_id": revision_id,
@@ -5836,7 +5996,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullRequestDescription")
+        )
         input_: capo_codecommit.types.update_pull_request_description_input.UpdatePullRequestDescriptionInput = {
             "pull_request_id": pull_request_id,
             "description": description,
@@ -5892,7 +6054,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullRequestStatus")
+        )
         input_: capo_codecommit.types.update_pull_request_status_input.UpdatePullRequestStatusInput = {
             "pull_request_id": pull_request_id,
             "pull_request_status": pull_request_status,
@@ -5943,7 +6107,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePullRequestTitle")
+        )
         input_: capo_codecommit.types.update_pull_request_title_input.UpdatePullRequestTitleInput = {
             "pull_request_id": pull_request_id,
             "title": title,
@@ -5997,7 +6163,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepositoryDescription")
+        )
         input_: capo_codecommit.types.update_repository_description_input.UpdateRepositoryDescriptionInput = {
             "repository_name": repository_name
         }
@@ -6054,7 +6222,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepositoryEncryptionKey")
+        )
         input_: capo_codecommit.types.update_repository_encryption_key_input.UpdateRepositoryEncryptionKeyInput = {
             "repository_name": repository_name,
             "kms_key_id": kms_key_id,
@@ -6101,7 +6271,9 @@ class CodeCommitClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRepositoryName")
+        )
         input_: capo_codecommit.types.update_repository_name_input.UpdateRepositoryNameInput = {
             "old_name": old_name,
             "new_name": new_name,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#ConnectAppAuthorizationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,5 +37,16 @@ def deserialize_json(data: dict) -> ConnectAppAuthorizationRequest:
 
         out["auth_request"] = capo_appfabric.types.auth_request.deserialize_json(
             data["authRequest"]
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectAppAuthorizationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_request" in value:
+        import capo_appfabric.types.auth_request
+
+        out["auth_request"] = capo_appfabric.types.auth_request.redact_sensitive(
+            value["auth_request"]
         )
     return out

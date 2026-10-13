@@ -7,6 +7,7 @@ import capo_marketplace_reporting._auth._sigv4
 from capo_marketplace_reporting._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,9 @@ class Dashboard:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBuyerDashboard")
+        )
         input_: capo_marketplace_reporting.types.get_buyer_dashboard_input.GetBuyerDashboardInput = {
             "dashboard_identifier": dashboard_identifier,
             "embedding_domains": embedding_domains,
@@ -142,7 +145,9 @@ class AsyncDashboard:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBuyerDashboard")
+        )
         input_: capo_marketplace_reporting.types.get_buyer_dashboard_input.GetBuyerDashboardInput = {
             "dashboard_identifier": dashboard_identifier,
             "embedding_domains": embedding_domains,

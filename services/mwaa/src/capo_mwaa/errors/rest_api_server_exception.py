@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#RestApiServerException``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,3 +56,10 @@ class RestApiServerException(ServiceError):
         cls, data: dict, message: str | None = None
     ) -> "RestApiServerException":
         return cls(deserialize_json(data), message)
+
+
+def redact_sensitive(value: RestApiServerException_) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rest_api_response" in value:
+        out["rest_api_response"] = "*** Sensitive Data Redacted ***"
+    return out

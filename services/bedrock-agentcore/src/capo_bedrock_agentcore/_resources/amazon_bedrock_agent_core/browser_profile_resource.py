@@ -8,6 +8,7 @@ import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class BrowserProfileResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SaveBrowserSessionProfile")
+        )
         input_: capo_bedrock_agentcore.types.save_browser_session_profile_request.SaveBrowserSessionProfileRequest = {
             "profile_identifier": profile_identifier,
             "browser_identifier": browser_identifier,
@@ -156,7 +159,9 @@ class AsyncBrowserProfileResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SaveBrowserSessionProfile")
+        )
         input_: capo_bedrock_agentcore.types.save_browser_session_profile_request.SaveBrowserSessionProfileRequest = {
             "profile_identifier": profile_identifier,
             "browser_identifier": browser_identifier,

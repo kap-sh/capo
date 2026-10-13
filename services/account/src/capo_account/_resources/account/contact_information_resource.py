@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_account._auth._signers
 import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -63,7 +64,19 @@ class ContactInformationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_contact_information_request.PutContactInformationRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_contact_information_request
+
+            return capo_account.types.put_contact_information_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutContactInformation", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_contact_information_request.PutContactInformationRequest = {
             "contact_information": contact_information
         }
@@ -112,7 +125,19 @@ class ContactInformationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_contact_information_response.GetContactInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_contact_information_response
+
+            return capo_account.types.get_contact_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetContactInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_contact_information_request.GetContactInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -164,7 +189,19 @@ class AsyncContactInformationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.put_contact_information_request.PutContactInformationRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.put_contact_information_request
+
+            return capo_account.types.put_contact_information_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PutContactInformation", redact_input=_redact_input),
+        )
         input_: capo_account.types.put_contact_information_request.PutContactInformationRequest = {
             "contact_information": contact_information
         }
@@ -214,7 +251,19 @@ class AsyncContactInformationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_contact_information_response.GetContactInformationResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_contact_information_response
+
+            return capo_account.types.get_contact_information_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetContactInformation", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_contact_information_request.GetContactInformationRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id

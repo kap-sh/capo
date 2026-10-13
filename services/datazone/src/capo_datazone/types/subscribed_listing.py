@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SubscribedListing``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,17 @@ def deserialize_json(data: dict) -> SubscribedListing:
         raise DeserializationError("SubscribedListing.owner_project_id required")
     if data.get("ownerProjectName") is not None:
         out["owner_project_name"] = data["ownerProjectName"]
+    return out
+
+
+def redact_sensitive(value: SubscribedListing) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "item" in value:
+        import capo_datazone.types.subscribed_listing_item
+
+        out["item"] = capo_datazone.types.subscribed_listing_item.redact_sensitive(
+            value["item"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanCitation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> SpanCitation:
         out["knowledge_base_id"] = data["knowledgeBaseId"]
     if data.get("knowledgeBaseArn") is not None:
         out["knowledge_base_arn"] = data["knowledgeBaseArn"]
+    return out
+
+
+def redact_sensitive(value: SpanCitation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
     return out

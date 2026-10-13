@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#PrivateIpAddresses``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.private_ip_address_specification
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_0(data: list) -> PrivateIpAddresses:
             )
         )
     return out
+
+
+def redact_sensitive(value: PrivateIpAddresses) -> list[Any]:
+    import capo_workspaces_instances.types.private_ip_address_specification
+
+    return [
+        capo_workspaces_instances.types.private_ip_address_specification.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

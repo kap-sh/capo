@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#TrendmicroConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> TrendmicroConnectorProfileCredentials:
         raise DeserializationError(
             "TrendmicroConnectorProfileCredentials.api_secret_key required"
         )
+    return out
+
+
+def redact_sensitive(value: TrendmicroConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "api_secret_key" in value:
+        out["api_secret_key"] = "*** Sensitive Data Redacted ***"
     return out

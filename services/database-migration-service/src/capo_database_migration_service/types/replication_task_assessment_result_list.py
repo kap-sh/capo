@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#ReplicationTaskAssessmentResultList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_database_migration_service.types.replication_task_assessment_result
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_1(data: list) -> ReplicationTaskAssessmentResultList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ReplicationTaskAssessmentResultList) -> list[Any]:
+    import capo_database_migration_service.types.replication_task_assessment_result
+
+    return [
+        capo_database_migration_service.types.replication_task_assessment_result.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#MaintenanceWindowExecutionTaskInvocationIdentityList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.maintenance_window_execution_task_invocation_identity
@@ -41,3 +41,16 @@ def deserialize_aws_json_1_1(
             )
         )
     return out
+
+
+def redact_sensitive(
+    value: MaintenanceWindowExecutionTaskInvocationIdentityList,
+) -> list[Any]:
+    import capo_ssm.types.maintenance_window_execution_task_invocation_identity
+
+    return [
+        capo_ssm.types.maintenance_window_execution_task_invocation_identity.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

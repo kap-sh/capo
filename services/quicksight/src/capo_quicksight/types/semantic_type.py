@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SemanticType``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,6 +102,31 @@ def deserialize_json(data: dict) -> SemanticType:
         out["falsey_cell_value_synonyms"] = (
             capo_quicksight.types.sensitive_string_list.deserialize_json(
                 data["FalseyCellValueSynonyms"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SemanticType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "truthy_cell_value" in value:
+        out["truthy_cell_value"] = "*** Sensitive Data Redacted ***"
+    if "truthy_cell_value_synonyms" in value:
+        import capo_quicksight.types.sensitive_string_list
+
+        out["truthy_cell_value_synonyms"] = (
+            capo_quicksight.types.sensitive_string_list.redact_sensitive(
+                value["truthy_cell_value_synonyms"]
+            )
+        )
+    if "falsey_cell_value" in value:
+        out["falsey_cell_value"] = "*** Sensitive Data Redacted ***"
+    if "falsey_cell_value_synonyms" in value:
+        import capo_quicksight.types.sensitive_string_list
+
+        out["falsey_cell_value_synonyms"] = (
+            capo_quicksight.types.sensitive_string_list.redact_sensitive(
+                value["falsey_cell_value_synonyms"]
             )
         )
     return out

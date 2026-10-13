@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ContentBlockDeltaEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -70,4 +70,15 @@ def deserialize_event_json(message: Message) -> ContentBlockDeltaEvent:
     out: ContentBlockDeltaEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: ContentBlockDeltaEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "delta" in value:
+        import capo_bedrock_runtime.types.content_block_delta
+
+        out["delta"] = capo_bedrock_runtime.types.content_block_delta.redact_sensitive(
+            value["delta"]
+        )
     return out

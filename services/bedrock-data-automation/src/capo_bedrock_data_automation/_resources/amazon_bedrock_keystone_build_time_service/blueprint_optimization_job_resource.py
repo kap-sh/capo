@@ -7,6 +7,7 @@ import capo_bedrock_data_automation._auth._sigv4
 from capo_bedrock_data_automation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,9 @@ class BlueprintOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeBlueprintOptimizationAsync")
+        )
         input_: capo_bedrock_data_automation.types.invoke_blueprint_optimization_async_request.InvokeBlueprintOptimizationAsyncRequest = {
             "blueprint": blueprint,
             "samples": samples,
@@ -140,7 +143,9 @@ class BlueprintOptimizationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBlueprintOptimizationStatus")
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_optimization_status_request.GetBlueprintOptimizationStatusRequest = {
             "invocation_arn": invocation_arn
         }
@@ -206,7 +211,9 @@ class AsyncBlueprintOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("InvokeBlueprintOptimizationAsync")
+        )
         input_: capo_bedrock_data_automation.types.invoke_blueprint_optimization_async_request.InvokeBlueprintOptimizationAsyncRequest = {
             "blueprint": blueprint,
             "samples": samples,
@@ -261,7 +268,9 @@ class AsyncBlueprintOptimizationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBlueprintOptimizationStatus")
+        )
         input_: capo_bedrock_data_automation.types.get_blueprint_optimization_status_request.GetBlueprintOptimizationStatusRequest = {
             "invocation_arn": invocation_arn
         }

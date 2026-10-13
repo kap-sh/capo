@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#Attributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.attribute_input
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> Attributes:
             continue
         out.append(capo_datazone.types.attribute_input.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Attributes) -> list[Any]:
+    import capo_datazone.types.attribute_input
+
+    return [
+        capo_datazone.types.attribute_input.redact_sensitive(item) for item in value
+    ]

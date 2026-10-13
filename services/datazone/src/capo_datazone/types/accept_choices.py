@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AcceptChoices``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.accept_choice
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> AcceptChoices:
             continue
         out.append(capo_datazone.types.accept_choice.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AcceptChoices) -> list[Any]:
+    import capo_datazone.types.accept_choice
+
+    return [capo_datazone.types.accept_choice.redact_sensitive(item) for item in value]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#ConnectionFunctionTestResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,4 +100,15 @@ def deserialize_xml(el: Element) -> ConnectionFunctionTestResult:
         out["connection_function_output"] = str(
             child_connection_function_output.text or ""
         )
+    return out
+
+
+def redact_sensitive(value: ConnectionFunctionTestResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_function_execution_logs" in value:
+        out["connection_function_execution_logs"] = "*** Sensitive Data Redacted ***"
+    if "connection_function_error_message" in value:
+        out["connection_function_error_message"] = "*** Sensitive Data Redacted ***"
+    if "connection_function_output" in value:
+        out["connection_function_output"] = "*** Sensitive Data Redacted ***"
     return out

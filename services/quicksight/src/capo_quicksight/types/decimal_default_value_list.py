@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DecimalDefaultValueList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.sensitive_double_object
@@ -28,3 +28,7 @@ def serialize_json(value: DecimalDefaultValueList) -> list:
 
 def deserialize_json(data: list) -> DecimalDefaultValueList:
     return [float(item) for item in data if item is not None]
+
+
+def redact_sensitive(value: DecimalDefaultValueList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

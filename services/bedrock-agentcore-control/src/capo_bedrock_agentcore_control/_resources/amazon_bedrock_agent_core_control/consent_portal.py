@@ -7,6 +7,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class ConsentPortal:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.create_consent_portal_request.CreateConsentPortalRequest = {
             "execution_role_arn": execution_role_arn,
             "idp_config": idp_config,
@@ -150,7 +153,9 @@ class ConsentPortal:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.get_consent_portal_request.GetConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -211,7 +216,9 @@ class ConsentPortal:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.update_consent_portal_request.UpdateConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -266,7 +273,9 @@ class ConsentPortal:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_consent_portal_request.DeleteConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -315,7 +324,9 @@ class ConsentPortal:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConsentPortals")
+        )
         input_: capo_bedrock_agentcore_control.types.list_consent_portals_request.ListConsentPortalsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -385,7 +396,9 @@ class AsyncConsentPortal:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.create_consent_portal_request.CreateConsentPortalRequest = {
             "execution_role_arn": execution_role_arn,
             "idp_config": idp_config,
@@ -441,7 +454,9 @@ class AsyncConsentPortal:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.get_consent_portal_request.GetConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -503,7 +518,9 @@ class AsyncConsentPortal:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.update_consent_portal_request.UpdateConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -559,7 +576,9 @@ class AsyncConsentPortal:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConsentPortal")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_consent_portal_request.DeleteConsentPortalRequest = {
             "consent_portal_identifier": consent_portal_identifier
         }
@@ -609,7 +628,9 @@ class AsyncConsentPortal:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConsentPortals")
+        )
         input_: capo_bedrock_agentcore_control.types.list_consent_portals_request.ListConsentPortalsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

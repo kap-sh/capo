@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#ListUsersRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -76,5 +76,16 @@ def deserialize_aws_json_1_1(data: dict) -> ListUsersRequest:
 
         out["filters"] = capo_identitystore.types.filters.deserialize_aws_json_1_1(
             data["Filters"]
+        )
+    return out
+
+
+def redact_sensitive(value: ListUsersRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_identitystore.types.filters
+
+        out["filters"] = capo_identitystore.types.filters.redact_sensitive(
+            value["filters"]
         )
     return out

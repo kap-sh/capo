@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#GetExecutionHistoryOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_aws_json_1_0(data: dict) -> GetExecutionHistoryOutput:
         raise DeserializationError("GetExecutionHistoryOutput.events required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: GetExecutionHistoryOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "events" in value:
+        import capo_sfn.types.history_event_list
+
+        out["events"] = capo_sfn.types.history_event_list.redact_sensitive(
+            value["events"]
+        )
     return out

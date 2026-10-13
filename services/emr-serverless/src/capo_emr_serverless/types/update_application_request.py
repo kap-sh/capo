@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#UpdateApplicationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -336,6 +336,19 @@ def deserialize_json(data: dict) -> UpdateApplicationRequest:
         out["job_level_cost_allocation_configuration"] = (
             capo_emr_serverless.types.job_level_cost_allocation_configuration.deserialize_json(
                 data["jobLevelCostAllocationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateApplicationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "runtime_configuration" in value:
+        import capo_emr_serverless.types.configuration_list
+
+        out["runtime_configuration"] = (
+            capo_emr_serverless.types.configuration_list.redact_sensitive(
+                value["runtime_configuration"]
             )
         )
     return out

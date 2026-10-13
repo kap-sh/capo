@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetrieveTraceEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -76,4 +76,17 @@ def deserialize_event_json(message: Message) -> AgenticRetrieveTraceEvent:
     out: AgenticRetrieveTraceEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: AgenticRetrieveTraceEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attributes" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_trace_event_attributes
+
+        out["attributes"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_trace_event_attributes.redact_sensitive(
+                value["attributes"]
+            )
+        )
     return out

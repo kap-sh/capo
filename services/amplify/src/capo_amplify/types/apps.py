@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#Apps``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_amplify.types.app
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Apps:
             continue
         out.append(capo_amplify.types.app.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Apps) -> list[Any]:
+    import capo_amplify.types.app
+
+    return [capo_amplify.types.app.redact_sensitive(item) for item in value]

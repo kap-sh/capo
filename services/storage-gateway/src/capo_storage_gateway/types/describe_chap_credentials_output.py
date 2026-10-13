@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#DescribeChapCredentialsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeChapCredentialsOutput:
         out["chap_credentials"] = (
             capo_storage_gateway.types.chap_credentials.deserialize_aws_json_1_1(
                 data["ChapCredentials"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeChapCredentialsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "chap_credentials" in value:
+        import capo_storage_gateway.types.chap_credentials
+
+        out["chap_credentials"] = (
+            capo_storage_gateway.types.chap_credentials.redact_sensitive(
+                value["chap_credentials"]
             )
         )
     return out

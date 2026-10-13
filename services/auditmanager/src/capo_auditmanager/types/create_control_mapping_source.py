@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#CreateControlMappingSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -114,4 +114,11 @@ def deserialize_json(data: dict) -> CreateControlMappingSource:
         )
     if data.get("troubleshootingText") is not None:
         out["troubleshooting_text"] = data["troubleshootingText"]
+    return out
+
+
+def redact_sensitive(value: CreateControlMappingSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "troubleshooting_text" in value:
+        out["troubleshooting_text"] = "*** Sensitive Data Redacted ***"
     return out

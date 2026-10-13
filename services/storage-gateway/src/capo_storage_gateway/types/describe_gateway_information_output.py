@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.storagegateway#DescribeGatewayInformationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -254,4 +254,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGatewayInformationOutput:
         out["host_environment_id"] = data["HostEnvironmentId"]
     if data.get("SoftwareVersion") is not None:
         out["software_version"] = data["SoftwareVersion"]
+    return out
+
+
+def redact_sensitive(value: DescribeGatewayInformationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "gateway_network_interfaces" in value:
+        import capo_storage_gateway.types.gateway_network_interfaces
+
+        out["gateway_network_interfaces"] = (
+            capo_storage_gateway.types.gateway_network_interfaces.redact_sensitive(
+                value["gateway_network_interfaces"]
+            )
+        )
     return out

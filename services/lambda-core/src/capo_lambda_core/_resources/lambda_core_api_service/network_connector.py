@@ -8,6 +8,7 @@ import capo_lambda_core._auth._sigv4
 from capo_lambda_core._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class NetworkConnector:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateNetworkConnector")
+        )
         input_: capo_lambda_core.types.create_network_connector_request.CreateNetworkConnectorRequest = {
             "name": name,
             "configuration": configuration,
@@ -148,7 +151,9 @@ class NetworkConnector:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNetworkConnector")
+        )
         input_: capo_lambda_core.types.get_network_connector_request.GetNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -206,7 +211,9 @@ class NetworkConnector:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkConnector")
+        )
         input_: capo_lambda_core.types.update_network_connector_request.UpdateNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -257,7 +264,9 @@ class NetworkConnector:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkConnector")
+        )
         input_: capo_lambda_core.types.delete_network_connector_request.DeleteNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -310,7 +319,9 @@ class NetworkConnector:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkConnectors")
+        )
         input_: capo_lambda_core.types.list_network_connectors_request.ListNetworkConnectorsRequest = {}
         if state is not None:
             input_["state"] = state
@@ -381,7 +392,9 @@ class AsyncNetworkConnector:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateNetworkConnector")
+        )
         input_: capo_lambda_core.types.create_network_connector_request.CreateNetworkConnectorRequest = {
             "name": name,
             "configuration": configuration,
@@ -433,7 +446,9 @@ class AsyncNetworkConnector:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetNetworkConnector")
+        )
         input_: capo_lambda_core.types.get_network_connector_request.GetNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -492,7 +507,9 @@ class AsyncNetworkConnector:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateNetworkConnector")
+        )
         input_: capo_lambda_core.types.update_network_connector_request.UpdateNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -544,7 +561,9 @@ class AsyncNetworkConnector:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteNetworkConnector")
+        )
         input_: capo_lambda_core.types.delete_network_connector_request.DeleteNetworkConnectorRequest = {
             "identifier": identifier
         }
@@ -598,7 +617,9 @@ class AsyncNetworkConnector:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListNetworkConnectors")
+        )
         input_: capo_lambda_core.types.list_network_connectors_request.ListNetworkConnectorsRequest = {}
         if state is not None:
             input_["state"] = state

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#Origin``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,4 +171,15 @@ def deserialize_xml(el: Element) -> Origin:
     child_origin_access_control_id = el.find("OriginAccessControlId")
     if child_origin_access_control_id is not None:
         out["origin_access_control_id"] = str(child_origin_access_control_id.text or "")
+    return out
+
+
+def redact_sensitive(value: Origin) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_headers" in value:
+        import capo_cloudfront.types.custom_headers
+
+        out["custom_headers"] = capo_cloudfront.types.custom_headers.redact_sensitive(
+            value["custom_headers"]
+        )
     return out

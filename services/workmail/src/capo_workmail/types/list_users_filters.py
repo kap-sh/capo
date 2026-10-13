@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#ListUsersFilters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,11 @@ def deserialize_aws_json_1_1(data: dict) -> ListUsersFilters:
         )
     if data.get("IdentityProviderUserIdPrefix") is not None:
         out["identity_provider_user_id_prefix"] = data["IdentityProviderUserIdPrefix"]
+    return out
+
+
+def redact_sensitive(value: ListUsersFilters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name_prefix" in value:
+        out["display_name_prefix"] = "*** Sensitive Data Redacted ***"
     return out

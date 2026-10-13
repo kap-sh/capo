@@ -27,7 +27,9 @@ from capo_marketplace_deployment._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -125,7 +127,9 @@ class AsyncMarketplaceDeploymentClient:
         self.deployment_parameter = AsyncDeploymentParameter(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncMarketplaceDeploymentClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncMarketplaceDeploymentClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncMarketplaceDeploymentClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -133,8 +137,10 @@ class AsyncMarketplaceDeploymentClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -194,7 +200,9 @@ class AsyncMarketplaceDeploymentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_marketplace_deployment.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -251,7 +259,9 @@ class AsyncMarketplaceDeploymentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_marketplace_deployment.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -310,7 +320,9 @@ class AsyncMarketplaceDeploymentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_marketplace_deployment.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -385,7 +397,19 @@ class AsyncMarketplaceDeploymentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest",
+        ) -> dict[str, Any]:
+            import capo_marketplace_deployment.types.put_deployment_parameter_request
+
+            return capo_marketplace_deployment.types.put_deployment_parameter_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutDeploymentParameter", redact_input=_redact_input),
+        )
         input_: capo_marketplace_deployment.types.put_deployment_parameter_request.PutDeploymentParameterRequest = {
             "catalog": catalog,
             "product_id": product_id,

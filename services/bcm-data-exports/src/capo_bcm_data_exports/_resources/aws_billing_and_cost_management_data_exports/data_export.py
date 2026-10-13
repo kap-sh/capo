@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_bcm_data_exports._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class DataExport:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExport")
+        )
         input_: capo_bcm_data_exports.types.create_export_request.CreateExportRequest = {
             "export": export
         }
@@ -128,7 +131,9 @@ class DataExport:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_bcm_data_exports.types.get_export_request.GetExportRequest = {
             "export_arn": export_arn
         }
@@ -176,7 +181,9 @@ class DataExport:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExport")
+        )
         input_: capo_bcm_data_exports.types.update_export_request.UpdateExportRequest = {
             "export_arn": export_arn,
             "export": export,
@@ -223,7 +230,9 @@ class DataExport:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExport")
+        )
         input_: capo_bcm_data_exports.types.delete_export_request.DeleteExportRequest = {
             "export_arn": export_arn
         }
@@ -274,7 +283,9 @@ class DataExport:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_bcm_data_exports.types.list_exports_request.ListExportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -333,7 +344,9 @@ class AsyncDataExport:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExport")
+        )
         input_: capo_bcm_data_exports.types.create_export_request.CreateExportRequest = {
             "export": export
         }
@@ -382,7 +395,9 @@ class AsyncDataExport:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExport")
+        )
         input_: capo_bcm_data_exports.types.get_export_request.GetExportRequest = {
             "export_arn": export_arn
         }
@@ -431,7 +446,9 @@ class AsyncDataExport:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExport")
+        )
         input_: capo_bcm_data_exports.types.update_export_request.UpdateExportRequest = {
             "export_arn": export_arn,
             "export": export,
@@ -479,7 +496,9 @@ class AsyncDataExport:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExport")
+        )
         input_: capo_bcm_data_exports.types.delete_export_request.DeleteExportRequest = {
             "export_arn": export_arn
         }
@@ -531,7 +550,9 @@ class AsyncDataExport:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExports")
+        )
         input_: capo_bcm_data_exports.types.list_exports_request.ListExportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

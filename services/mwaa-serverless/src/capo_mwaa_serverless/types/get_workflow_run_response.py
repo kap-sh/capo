@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaaserverless#GetWorkflowRunResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,4 +94,11 @@ def deserialize_aws_json_1_0(data: dict) -> GetWorkflowRunResponse:
                 data["RunDetail"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetWorkflowRunResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "override_parameters" in value:
+        out["override_parameters"] = "*** Sensitive Data Redacted ***"
     return out

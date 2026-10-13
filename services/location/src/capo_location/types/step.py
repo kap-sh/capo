@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#Step``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,17 @@ def deserialize_json(data: dict) -> Step:
         raise DeserializationError("Step.duration_seconds required")
     if data.get("GeometryOffset") is not None:
         out["geometry_offset"] = data["GeometryOffset"]
+    return out
+
+
+def redact_sensitive(value: Step) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "start_position" in value:
+        out["start_position"] = "*** Sensitive Data Redacted ***"
+    if "end_position" in value:
+        out["end_position"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration_seconds" in value:
+        out["duration_seconds"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,24 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_wave_request.CreateWaveRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_wave_request
+
+            return capo_mgn.types.create_wave_request.redact_sensitive(input_)
+
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWave", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.create_wave_request.CreateWaveRequest = {"name": name}
         if description is not None:
             input_["description"] = description
@@ -131,7 +149,9 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWave")
+        )
         input_: capo_mgn.types.delete_wave_request.DeleteWaveRequest = {
             "wave_id": wave_id
         }
@@ -182,7 +202,17 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_waves_response.ListWavesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_waves_response
+
+            return capo_mgn.types.list_waves_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListWaves", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_waves_request.ListWavesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -234,7 +264,15 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_wave_request.ArchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -286,7 +324,9 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateApplications")
+        )
         input_: capo_mgn.types.associate_applications_request.AssociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -338,7 +378,9 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateApplications")
+        )
         input_: capo_mgn.types.disassociate_applications_request.DisassociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -386,7 +428,15 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_wave_request.UnarchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -437,7 +487,15 @@ class WaveResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_wave_request.UpdateWaveRequest = {
             "wave_id": wave_id
         }
@@ -498,7 +556,24 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.create_wave_request.CreateWaveRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.create_wave_request
+
+            return capo_mgn.types.create_wave_request.redact_sensitive(input_)
+
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWave", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.create_wave_request.CreateWaveRequest = {"name": name}
         if description is not None:
             input_["description"] = description
@@ -550,7 +625,9 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWave")
+        )
         input_: capo_mgn.types.delete_wave_request.DeleteWaveRequest = {
             "wave_id": wave_id
         }
@@ -604,7 +681,17 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_waves_response.ListWavesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_waves_response
+
+            return capo_mgn.types.list_waves_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListWaves", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_waves_request.ListWavesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -657,7 +744,15 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ArchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.archive_wave_request.ArchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -710,7 +805,9 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateApplications")
+        )
         input_: capo_mgn.types.associate_applications_request.AssociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -763,7 +860,9 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateApplications")
+        )
         input_: capo_mgn.types.disassociate_applications_request.DisassociateApplicationsRequest = {
             "wave_id": wave_id,
             "application_i_ds": application_i_ds,
@@ -812,7 +911,15 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UnarchiveWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.unarchive_wave_request.UnarchiveWaveRequest = {
             "wave_id": wave_id
         }
@@ -864,7 +971,15 @@ class AsyncWaveResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(output: "capo_mgn.types.wave.Wave") -> dict[str, Any]:
+            import capo_mgn.types.wave
+
+            return capo_mgn.types.wave.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateWave", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_wave_request.UpdateWaveRequest = {
             "wave_id": wave_id
         }

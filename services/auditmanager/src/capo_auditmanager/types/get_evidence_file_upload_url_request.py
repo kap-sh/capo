@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#GetEvidenceFileUploadUrlRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -21,4 +21,11 @@ def serialize_json(value: GetEvidenceFileUploadUrlRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetEvidenceFileUploadUrlRequest:
     out: GetEvidenceFileUploadUrlRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetEvidenceFileUploadUrlRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_name" in value:
+        out["file_name"] = "*** Sensitive Data Redacted ***"
     return out

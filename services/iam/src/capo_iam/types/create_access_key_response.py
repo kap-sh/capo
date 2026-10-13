@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#CreateAccessKeyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,15 @@ def deserialize_query(el: Element) -> CreateAccessKeyResponse:
         )
     else:
         raise DeserializationError("CreateAccessKeyResponse.access_key required")
+    return out
+
+
+def redact_sensitive(value: CreateAccessKeyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_key" in value:
+        import capo_iam.types.access_key
+
+        out["access_key"] = capo_iam.types.access_key.redact_sensitive(
+            value["access_key"]
+        )
     return out

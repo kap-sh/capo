@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GeofenceGeometry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,5 +75,26 @@ def deserialize_json(data: dict) -> GeofenceGeometry:
 
         out["multi_polygon"] = capo_location.types.multi_linear_rings.deserialize_json(
             data["MultiPolygon"]
+        )
+    return out
+
+
+def redact_sensitive(value: GeofenceGeometry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "polygon" in value:
+        import capo_location.types.linear_rings
+
+        out["polygon"] = capo_location.types.linear_rings.redact_sensitive(
+            value["polygon"]
+        )
+    if "circle" in value:
+        out["circle"] = "*** Sensitive Data Redacted ***"
+    if "geobuf" in value:
+        out["geobuf"] = "*** Sensitive Data Redacted ***"
+    if "multi_polygon" in value:
+        import capo_location.types.multi_linear_rings
+
+        out["multi_polygon"] = capo_location.types.multi_linear_rings.redact_sensitive(
+            value["multi_polygon"]
         )
     return out

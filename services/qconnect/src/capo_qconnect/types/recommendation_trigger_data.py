@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RecommendationTriggerData``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -44,3 +44,16 @@ def deserialize_json(data: dict) -> RecommendationTriggerData:
         raise DeserializationError(
             "RecommendationTriggerData: no recognized variant key"
         )
+
+
+def redact_sensitive(value: RecommendationTriggerData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query" in value:
+        import capo_qconnect.types.query_recommendation_trigger_data
+
+        out["query"] = (
+            capo_qconnect.types.query_recommendation_trigger_data.redact_sensitive(
+                value["query"]
+            )
+        )
+    return out

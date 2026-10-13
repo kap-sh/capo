@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#UpdateBrowserSettingsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,21 @@ def deserialize_json(data: dict) -> UpdateBrowserSettingsRequest:
         out["web_content_filtering_policy"] = (
             capo_workspaces_web.types.web_content_filtering_policy.deserialize_json(
                 data["webContentFilteringPolicy"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateBrowserSettingsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "browser_policy" in value:
+        out["browser_policy"] = "*** Sensitive Data Redacted ***"
+    if "web_content_filtering_policy" in value:
+        import capo_workspaces_web.types.web_content_filtering_policy
+
+        out["web_content_filtering_policy"] = (
+            capo_workspaces_web.types.web_content_filtering_policy.redact_sensitive(
+                value["web_content_filtering_policy"]
             )
         )
     return out

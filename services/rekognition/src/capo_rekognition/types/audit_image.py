@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rekognition#AuditImage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,11 @@ def deserialize_aws_json_1_1(data: dict) -> AuditImage:
                 data["BoundingBox"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: AuditImage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bytes" in value:
+        out["bytes"] = "*** Sensitive Data Redacted ***"
     return out

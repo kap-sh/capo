@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_billingconductor._auth._signers
 import capo_billingconductor._auth._sigv4
 from capo_billingconductor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -109,7 +110,21 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.create_pricing_plan_input.CreatePricingPlanInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.create_pricing_plan_input
+
+            return (
+                capo_billingconductor.types.create_pricing_plan_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePricingPlan", redact_input=_redact_input),
+        )
         input_: capo_billingconductor.types.create_pricing_plan_input.CreatePricingPlanInput = {
             "name": name
         }
@@ -176,7 +191,36 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.update_pricing_plan_input.UpdatePricingPlanInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_pricing_plan_input
+
+            return (
+                capo_billingconductor.types.update_pricing_plan_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.update_pricing_plan_output.UpdatePricingPlanOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_pricing_plan_output
+
+            return (
+                capo_billingconductor.types.update_pricing_plan_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePricingPlan",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.update_pricing_plan_input.UpdatePricingPlanInput = {
             "arn": arn
         }
@@ -229,7 +273,9 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePricingPlan")
+        )
         input_: capo_billingconductor.types.delete_pricing_plan_input.DeletePricingPlanInput = {
             "arn": arn
         }
@@ -287,7 +333,21 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billingconductor.types.list_pricing_plans_output.ListPricingPlansOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_pricing_plans_output
+
+            return (
+                capo_billingconductor.types.list_pricing_plans_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPricingPlans", redact_output=_redact_output),
+        )
         input_: capo_billingconductor.types.list_pricing_plans_input.ListPricingPlansInput = {}
         if billing_period is not None:
             input_["billing_period"] = billing_period
@@ -344,7 +404,9 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociatePricingRules")
+        )
         input_: capo_billingconductor.types.associate_pricing_rules_input.AssociatePricingRulesInput = {
             "arn": arn,
             "pricing_rule_arns": pricing_rule_arns,
@@ -395,7 +457,9 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociatePricingRules")
+        )
         input_: capo_billingconductor.types.disassociate_pricing_rules_input.DisassociatePricingRulesInput = {
             "arn": arn,
             "pricing_rule_arns": pricing_rule_arns,
@@ -453,7 +517,10 @@ class PricingPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPricingPlansAssociatedWithPricingRule"),
+        )
         input_: capo_billingconductor.types.list_pricing_plans_associated_with_pricing_rule_input.ListPricingPlansAssociatedWithPricingRuleInput = {
             "pricing_rule_arn": pricing_rule_arn
         }
@@ -530,7 +597,21 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.create_pricing_plan_input.CreatePricingPlanInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.create_pricing_plan_input
+
+            return (
+                capo_billingconductor.types.create_pricing_plan_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreatePricingPlan", redact_input=_redact_input),
+        )
         input_: capo_billingconductor.types.create_pricing_plan_input.CreatePricingPlanInput = {
             "name": name
         }
@@ -598,7 +679,36 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_billingconductor.types.update_pricing_plan_input.UpdatePricingPlanInput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_pricing_plan_input
+
+            return (
+                capo_billingconductor.types.update_pricing_plan_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_billingconductor.types.update_pricing_plan_output.UpdatePricingPlanOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.update_pricing_plan_output
+
+            return (
+                capo_billingconductor.types.update_pricing_plan_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePricingPlan",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_billingconductor.types.update_pricing_plan_input.UpdatePricingPlanInput = {
             "arn": arn
         }
@@ -652,7 +762,9 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePricingPlan")
+        )
         input_: capo_billingconductor.types.delete_pricing_plan_input.DeletePricingPlanInput = {
             "arn": arn
         }
@@ -711,7 +823,21 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_billingconductor.types.list_pricing_plans_output.ListPricingPlansOutput",
+        ) -> dict[str, Any]:
+            import capo_billingconductor.types.list_pricing_plans_output
+
+            return (
+                capo_billingconductor.types.list_pricing_plans_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPricingPlans", redact_output=_redact_output),
+        )
         input_: capo_billingconductor.types.list_pricing_plans_input.ListPricingPlansInput = {}
         if billing_period is not None:
             input_["billing_period"] = billing_period
@@ -769,7 +895,9 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociatePricingRules")
+        )
         input_: capo_billingconductor.types.associate_pricing_rules_input.AssociatePricingRulesInput = {
             "arn": arn,
             "pricing_rule_arns": pricing_rule_arns,
@@ -821,7 +949,9 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociatePricingRules")
+        )
         input_: capo_billingconductor.types.disassociate_pricing_rules_input.DisassociatePricingRulesInput = {
             "arn": arn,
             "pricing_rule_arns": pricing_rule_arns,
@@ -880,7 +1010,10 @@ class AsyncPricingPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPricingPlansAssociatedWithPricingRule"),
+        )
         input_: capo_billingconductor.types.list_pricing_plans_associated_with_pricing_rule_input.ListPricingPlansAssociatedWithPricingRuleInput = {
             "pricing_rule_arn": pricing_rule_arn
         }

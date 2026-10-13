@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#DeletePhoneNumberRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -23,4 +23,11 @@ def serialize_json(value: DeletePhoneNumberRequest) -> dict:
 
 def deserialize_json(data: dict) -> DeletePhoneNumberRequest:
     out: DeletePhoneNumberRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: DeletePhoneNumberRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number_id" in value:
+        out["phone_number_id"] = "*** Sensitive Data Redacted ***"
     return out

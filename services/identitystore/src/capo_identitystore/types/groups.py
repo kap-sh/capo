@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.identitystore#Groups``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_identitystore.types.group
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Groups:
             continue
         out.append(capo_identitystore.types.group.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Groups) -> list[Any]:
+    import capo_identitystore.types.group
+
+    return [capo_identitystore.types.group.redact_sensitive(item) for item in value]

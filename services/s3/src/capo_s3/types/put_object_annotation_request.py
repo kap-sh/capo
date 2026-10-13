@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#PutObjectAnnotationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,3 +73,10 @@ class PutObjectAnnotationRequest(TypedDict, closed=True):
     request_payer: NotRequired["capo_s3.types.request_payer.RequestPayer"]
     expected_bucket_owner: NotRequired["capo_s3.types.account_id.AccountId"]
     """<p>The account ID of the expected bucket owner. If the bucket is owned by a different account, the request fails with an HTTP 403 (Access Denied) error.</p>"""
+
+
+def redact_sensitive(value: PutObjectAnnotationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "annotation_payload" in value:
+        out["annotation_payload"] = "*** Streaming Data Redacted ***"
+    return out

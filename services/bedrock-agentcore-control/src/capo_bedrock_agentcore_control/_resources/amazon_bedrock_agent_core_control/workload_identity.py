@@ -7,6 +7,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class WorkloadIdentity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.create_workload_identity_request.CreateWorkloadIdentityRequest = {
             "name": name
         }
@@ -137,7 +140,9 @@ class WorkloadIdentity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.get_workload_identity_request.GetWorkloadIdentityRequest = {
             "name": name
         }
@@ -189,7 +194,9 @@ class WorkloadIdentity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.update_workload_identity_request.UpdateWorkloadIdentityRequest = {
             "name": name
         }
@@ -241,7 +248,9 @@ class WorkloadIdentity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_workload_identity_request.DeleteWorkloadIdentityRequest = {
             "name": name
         }
@@ -291,7 +300,9 @@ class WorkloadIdentity:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloadIdentities")
+        )
         input_: capo_bedrock_agentcore_control.types.list_workload_identities_request.ListWorkloadIdentitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -353,7 +364,9 @@ class AsyncWorkloadIdentity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.create_workload_identity_request.CreateWorkloadIdentityRequest = {
             "name": name
         }
@@ -408,7 +421,9 @@ class AsyncWorkloadIdentity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.get_workload_identity_request.GetWorkloadIdentityRequest = {
             "name": name
         }
@@ -461,7 +476,9 @@ class AsyncWorkloadIdentity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.update_workload_identity_request.UpdateWorkloadIdentityRequest = {
             "name": name
         }
@@ -514,7 +531,9 @@ class AsyncWorkloadIdentity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadIdentity")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_workload_identity_request.DeleteWorkloadIdentityRequest = {
             "name": name
         }
@@ -565,7 +584,9 @@ class AsyncWorkloadIdentity:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloadIdentities")
+        )
         input_: capo_bedrock_agentcore_control.types.list_workload_identities_request.ListWorkloadIdentitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

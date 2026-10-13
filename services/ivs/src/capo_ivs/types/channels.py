@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#Channels``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ivs.types.channel
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Channels:
             continue
         out.append(capo_ivs.types.channel.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Channels) -> list[Any]:
+    import capo_ivs.types.channel
+
+    return [capo_ivs.types.channel.redact_sensitive(item) for item in value]

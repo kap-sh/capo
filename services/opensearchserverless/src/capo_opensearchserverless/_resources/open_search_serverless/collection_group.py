@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class CollectionGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.create_collection_group_request.CreateCollectionGroupRequest = {
             "name": name,
             "standby_replicas": standby_replicas,
@@ -161,7 +164,9 @@ class CollectionGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.update_collection_group_request.UpdateCollectionGroupRequest = {
             "id": id
         }
@@ -218,7 +223,9 @@ class CollectionGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.delete_collection_group_request.DeleteCollectionGroupRequest = {
             "id": id
         }
@@ -267,7 +274,9 @@ class CollectionGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollectionGroups")
+        )
         input_: capo_opensearchserverless.types.list_collection_groups_request.ListCollectionGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -339,7 +348,9 @@ class AsyncCollectionGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.create_collection_group_request.CreateCollectionGroupRequest = {
             "name": name,
             "standby_replicas": standby_replicas,
@@ -408,7 +419,9 @@ class AsyncCollectionGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.update_collection_group_request.UpdateCollectionGroupRequest = {
             "id": id
         }
@@ -466,7 +479,9 @@ class AsyncCollectionGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollectionGroup")
+        )
         input_: capo_opensearchserverless.types.delete_collection_group_request.DeleteCollectionGroupRequest = {
             "id": id
         }
@@ -516,7 +531,9 @@ class AsyncCollectionGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollectionGroups")
+        )
         input_: capo_opensearchserverless.types.list_collection_groups_request.ListCollectionGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

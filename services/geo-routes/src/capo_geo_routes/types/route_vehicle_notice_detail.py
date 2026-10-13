@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleNoticeDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,6 +44,21 @@ def deserialize_json(data: dict) -> RouteVehicleNoticeDetail:
         out["violated_constraints"] = (
             capo_geo_routes.types.route_violated_constraints.deserialize_json(
                 data["ViolatedConstraints"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteVehicleNoticeDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "violated_constraints" in value:
+        import capo_geo_routes.types.route_violated_constraints
+
+        out["violated_constraints"] = (
+            capo_geo_routes.types.route_violated_constraints.redact_sensitive(
+                value["violated_constraints"]
             )
         )
     return out

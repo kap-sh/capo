@@ -19,10 +19,12 @@ from capo_personalize_runtime._auth._zapros_handler import AuthMiddleware
 from capo_personalize_runtime._services._aws_config import aws_config
 from capo_personalize_runtime._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -117,7 +119,9 @@ class PersonalizeRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PersonalizeRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[PersonalizeRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PersonalizeRuntimeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -125,8 +129,10 @@ class PersonalizeRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -188,7 +194,19 @@ class PersonalizeRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_runtime.types.get_action_recommendations_request.GetActionRecommendationsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_runtime.types.get_action_recommendations_request
+
+            return capo_personalize_runtime.types.get_action_recommendations_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetActionRecommendations", redact_input=_redact_input),
+        )
         input_: capo_personalize_runtime.types.get_action_recommendations_request.GetActionRecommendationsRequest = {}
         if campaign_arn is not None:
             input_["campaign_arn"] = campaign_arn
@@ -256,7 +274,32 @@ class PersonalizeRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_runtime.types.get_personalized_ranking_request.GetPersonalizedRankingRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_runtime.types.get_personalized_ranking_request
+
+            return capo_personalize_runtime.types.get_personalized_ranking_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_personalize_runtime.types.get_personalized_ranking_response.GetPersonalizedRankingResponse",
+        ) -> dict[str, Any]:
+            import capo_personalize_runtime.types.get_personalized_ranking_response
+
+            return capo_personalize_runtime.types.get_personalized_ranking_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPersonalizedRanking",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_personalize_runtime.types.get_personalized_ranking_request.GetPersonalizedRankingRequest = {
             "campaign_arn": campaign_arn,
             "input_list": input_list,
@@ -336,7 +379,32 @@ class PersonalizeRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize_runtime.types.get_recommendations_request.GetRecommendationsRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize_runtime.types.get_recommendations_request
+
+            return capo_personalize_runtime.types.get_recommendations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_personalize_runtime.types.get_recommendations_response.GetRecommendationsResponse",
+        ) -> dict[str, Any]:
+            import capo_personalize_runtime.types.get_recommendations_response
+
+            return capo_personalize_runtime.types.get_recommendations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRecommendations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_personalize_runtime.types.get_recommendations_request.GetRecommendationsRequest = {}
         if campaign_arn is not None:
             input_["campaign_arn"] = campaign_arn

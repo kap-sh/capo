@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SearchTypesResultItem``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -90,3 +90,28 @@ def deserialize_json(data: dict) -> SearchTypesResultItem:
         }
     else:
         raise DeserializationError("SearchTypesResultItem: no recognized variant key")
+
+
+def redact_sensitive(value: SearchTypesResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assetTypeItem" in value:
+        import capo_datazone.types.asset_type_item
+
+        out["assetTypeItem"] = capo_datazone.types.asset_type_item.redact_sensitive(
+            value["assetTypeItem"]
+        )
+    if "formTypeItem" in value:
+        import capo_datazone.types.form_type_data
+
+        out["formTypeItem"] = capo_datazone.types.form_type_data.redact_sensitive(
+            value["formTypeItem"]
+        )
+    if "lineageNodeTypeItem" in value:
+        import capo_datazone.types.lineage_node_type_item
+
+        out["lineageNodeTypeItem"] = (
+            capo_datazone.types.lineage_node_type_item.redact_sensitive(
+                value["lineageNodeTypeItem"]
+            )
+        )
+    return out

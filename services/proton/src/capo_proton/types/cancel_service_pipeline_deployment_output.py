@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#CancelServicePipelineDeploymentOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -37,5 +37,16 @@ def deserialize_aws_json_1_0(data: dict) -> CancelServicePipelineDeploymentOutpu
     else:
         raise DeserializationError(
             "CancelServicePipelineDeploymentOutput.pipeline required"
+        )
+    return out
+
+
+def redact_sensitive(value: CancelServicePipelineDeploymentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pipeline" in value:
+        import capo_proton.types.service_pipeline
+
+        out["pipeline"] = capo_proton.types.service_pipeline.redact_sensitive(
+            value["pipeline"]
         )
     return out

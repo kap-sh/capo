@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#ListAccountAssociationsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> ListAccountAssociationsOutput:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListAccountAssociationsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "linked_accounts" in value:
+        import capo_billingconductor.types.account_associations_list
+
+        out["linked_accounts"] = (
+            capo_billingconductor.types.account_associations_list.redact_sensitive(
+                value["linked_accounts"]
+            )
+        )
     return out

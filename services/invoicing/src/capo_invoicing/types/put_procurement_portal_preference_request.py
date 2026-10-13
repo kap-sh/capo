@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.invoicing#PutProcurementPortalPreferenceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -187,4 +187,17 @@ def deserialize_aws_json_1_0(data: dict) -> PutProcurementPortalPreferenceReques
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: PutProcurementPortalPreferenceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "procurement_portal_shared_secret" in value:
+        out["procurement_portal_shared_secret"] = "*** Sensitive Data Redacted ***"
+    if "contacts" in value:
+        import capo_invoicing.types.contacts
+
+        out["contacts"] = capo_invoicing.types.contacts.redact_sensitive(
+            value["contacts"]
+        )
     return out

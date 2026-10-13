@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#CustomKeyStoresList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_kms.types.custom_key_stores_list_entry
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_1(data: list) -> CustomKeyStoresList:
             capo_kms.types.custom_key_stores_list_entry.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: CustomKeyStoresList) -> list[Any]:
+    import capo_kms.types.custom_key_stores_list_entry
+
+    return [
+        capo_kms.types.custom_key_stores_list_entry.redact_sensitive(item)
+        for item in value
+    ]

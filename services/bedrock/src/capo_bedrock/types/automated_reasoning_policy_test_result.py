@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyTestResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -154,5 +154,26 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyTestResult:
     else:
         raise DeserializationError(
             "AutomatedReasoningPolicyTestResult.updated_at required"
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyTestResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "test_case" in value:
+        import capo_bedrock.types.automated_reasoning_policy_test_case
+
+        out["test_case"] = (
+            capo_bedrock.types.automated_reasoning_policy_test_case.redact_sensitive(
+                value["test_case"]
+            )
+        )
+    if "test_findings" in value:
+        import capo_bedrock.types.automated_reasoning_check_finding_list
+
+        out["test_findings"] = (
+            capo_bedrock.types.automated_reasoning_check_finding_list.redact_sensitive(
+                value["test_findings"]
+            )
         )
     return out

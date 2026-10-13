@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lightsail#Session``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_aws_json_1_1(data: dict) -> Session:
         out["url"] = data["url"]
     if data.get("isPrimary") is not None:
         out["is_primary"] = data["isPrimary"]
+    return out
+
+
+def redact_sensitive(value: Session) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

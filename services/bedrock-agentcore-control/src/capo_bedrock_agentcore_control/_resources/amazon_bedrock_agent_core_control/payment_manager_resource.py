@@ -8,6 +8,7 @@ import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -108,7 +109,9 @@ class PaymentManagerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.create_payment_manager_request.CreatePaymentManagerRequest = {
             "name": name,
             "authorizer_type": authorizer_type,
@@ -168,7 +171,9 @@ class PaymentManagerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.get_payment_manager_request.GetPaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -241,7 +246,9 @@ class PaymentManagerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.update_payment_manager_request.UpdatePaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -305,7 +312,9 @@ class PaymentManagerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_payment_manager_request.DeletePaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -360,7 +369,9 @@ class PaymentManagerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentManagers")
+        )
         input_: capo_bedrock_agentcore_control.types.list_payment_managers_request.ListPaymentManagersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -438,7 +449,9 @@ class AsyncPaymentManagerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.create_payment_manager_request.CreatePaymentManagerRequest = {
             "name": name,
             "authorizer_type": authorizer_type,
@@ -499,7 +512,9 @@ class AsyncPaymentManagerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.get_payment_manager_request.GetPaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -573,7 +588,9 @@ class AsyncPaymentManagerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.update_payment_manager_request.UpdatePaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -638,7 +655,9 @@ class AsyncPaymentManagerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePaymentManager")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_payment_manager_request.DeletePaymentManagerRequest = {
             "payment_manager_id": payment_manager_id
         }
@@ -694,7 +713,9 @@ class AsyncPaymentManagerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPaymentManagers")
+        )
         input_: capo_bedrock_agentcore_control.types.list_payment_managers_request.ListPaymentManagersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

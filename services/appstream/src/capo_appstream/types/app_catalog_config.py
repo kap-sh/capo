@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#AppCatalogConfig``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_appstream.types.application_config
@@ -31,3 +31,7 @@ def deserialize_aws_json_1_1(data: list) -> AppCatalogConfig:
             capo_appstream.types.application_config.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: AppCatalogConfig) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

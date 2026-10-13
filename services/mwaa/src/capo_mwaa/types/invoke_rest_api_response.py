@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#InvokeRestApiResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,11 @@ def deserialize_json(data: dict) -> InvokeRestApiResponse:
         out["rest_api_status_code"] = data["RestApiStatusCode"]
     if data.get("RestApiResponse") is not None:
         out["rest_api_response"] = data["RestApiResponse"]
+    return out
+
+
+def redact_sensitive(value: InvokeRestApiResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rest_api_response" in value:
+        out["rest_api_response"] = "*** Sensitive Data Redacted ***"
     return out

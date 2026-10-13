@@ -8,6 +8,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,9 @@ class ProvisionedModelThroughputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.create_provisioned_model_throughput_request.CreateProvisionedModelThroughputRequest = {
             "model_units": model_units,
             "provisioned_model_name": provisioned_model_name,
@@ -158,7 +161,9 @@ class ProvisionedModelThroughputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.delete_provisioned_model_throughput_request.DeleteProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -205,7 +210,9 @@ class ProvisionedModelThroughputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.get_provisioned_model_throughput_request.GetProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -275,7 +282,9 @@ class ProvisionedModelThroughputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisionedModelThroughputs")
+        )
         input_: capo_bedrock.types.list_provisioned_model_throughputs_request.ListProvisionedModelThroughputsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -346,7 +355,9 @@ class ProvisionedModelThroughputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.update_provisioned_model_throughput_request.UpdateProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -419,7 +430,9 @@ class AsyncProvisionedModelThroughputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.create_provisioned_model_throughput_request.CreateProvisionedModelThroughputRequest = {
             "model_units": model_units,
             "provisioned_model_name": provisioned_model_name,
@@ -477,7 +490,9 @@ class AsyncProvisionedModelThroughputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.delete_provisioned_model_throughput_request.DeleteProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -525,7 +540,9 @@ class AsyncProvisionedModelThroughputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.get_provisioned_model_throughput_request.GetProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }
@@ -596,7 +613,9 @@ class AsyncProvisionedModelThroughputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListProvisionedModelThroughputs")
+        )
         input_: capo_bedrock.types.list_provisioned_model_throughputs_request.ListProvisionedModelThroughputsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -668,7 +687,9 @@ class AsyncProvisionedModelThroughputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedModelThroughput")
+        )
         input_: capo_bedrock.types.update_provisioned_model_throughput_request.UpdateProvisionedModelThroughputRequest = {
             "provisioned_model_id": provisioned_model_id
         }

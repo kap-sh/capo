@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#Call``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_json(data: dict) -> Call:
         out["name"] = data["name"]
     else:
         raise DeserializationError("Call.name required")
+    return out
+
+
+def redact_sensitive(value: Call) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

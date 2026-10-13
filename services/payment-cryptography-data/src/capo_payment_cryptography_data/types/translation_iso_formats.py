@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#TranslationIsoFormats``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -133,3 +133,40 @@ def deserialize_json(data: dict) -> TranslationIsoFormats:
         }
     else:
         raise DeserializationError("TranslationIsoFormats: no recognized variant key")
+
+
+def redact_sensitive(value: TranslationIsoFormats) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "IsoFormat0" in value:
+        import capo_payment_cryptography_data.types.translation_pin_data_iso_format034
+
+        out["IsoFormat0"] = (
+            capo_payment_cryptography_data.types.translation_pin_data_iso_format034.redact_sensitive(
+                value["IsoFormat0"]
+            )
+        )
+    if "IsoFormat3" in value:
+        import capo_payment_cryptography_data.types.translation_pin_data_iso_format034
+
+        out["IsoFormat3"] = (
+            capo_payment_cryptography_data.types.translation_pin_data_iso_format034.redact_sensitive(
+                value["IsoFormat3"]
+            )
+        )
+    if "IsoFormat4" in value:
+        import capo_payment_cryptography_data.types.translation_pin_data_iso_format034
+
+        out["IsoFormat4"] = (
+            capo_payment_cryptography_data.types.translation_pin_data_iso_format034.redact_sensitive(
+                value["IsoFormat4"]
+            )
+        )
+    if "As2805Format0" in value:
+        import capo_payment_cryptography_data.types.translation_pin_data_as2805_format0
+
+        out["As2805Format0"] = (
+            capo_payment_cryptography_data.types.translation_pin_data_as2805_format0.redact_sensitive(
+                value["As2805Format0"]
+            )
+        )
+    return out

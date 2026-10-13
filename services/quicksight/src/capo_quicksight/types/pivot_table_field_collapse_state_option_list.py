@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PivotTableFieldCollapseStateOptionList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.pivot_table_field_collapse_state_option
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> PivotTableFieldCollapseStateOptionList:
             )
         )
     return out
+
+
+def redact_sensitive(value: PivotTableFieldCollapseStateOptionList) -> list[Any]:
+    import capo_quicksight.types.pivot_table_field_collapse_state_option
+
+    return [
+        capo_quicksight.types.pivot_table_field_collapse_state_option.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

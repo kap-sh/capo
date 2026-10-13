@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -105,6 +105,43 @@ def deserialize_json(data: dict) -> RouteTransitOptions:
         out["pedestrian"] = (
             capo_geo_routes.types.route_transit_pedestrian_options.deserialize_json(
                 data["Pedestrian"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteTransitOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accessibility_attributes" in value:
+        import capo_geo_routes.types.route_accessibility_attribute_list
+
+        out["accessibility_attributes"] = (
+            capo_geo_routes.types.route_accessibility_attribute_list.redact_sensitive(
+                value["accessibility_attributes"]
+            )
+        )
+    if "allowed_modes" in value:
+        import capo_geo_routes.types.route_transit_mode_list
+
+        out["allowed_modes"] = (
+            capo_geo_routes.types.route_transit_mode_list.redact_sensitive(
+                value["allowed_modes"]
+            )
+        )
+    if "excluded_modes" in value:
+        import capo_geo_routes.types.route_transit_mode_list
+
+        out["excluded_modes"] = (
+            capo_geo_routes.types.route_transit_mode_list.redact_sensitive(
+                value["excluded_modes"]
+            )
+        )
+    if "pedestrian" in value:
+        import capo_geo_routes.types.route_transit_pedestrian_options
+
+        out["pedestrian"] = (
+            capo_geo_routes.types.route_transit_pedestrian_options.redact_sensitive(
+                value["pedestrian"]
             )
         )
     return out

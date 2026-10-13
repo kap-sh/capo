@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifybackend#CreateBackendAuthUserPoolConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -166,6 +166,35 @@ def deserialize_json(data: dict) -> CreateBackendAuthUserPoolConfig:
         out["verification_message"] = (
             capo_amplifybackend.types.create_backend_auth_verification_message_config.deserialize_json(
                 data["verificationMessage"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateBackendAuthUserPoolConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "forgot_password" in value:
+        import capo_amplifybackend.types.create_backend_auth_forgot_password_config
+
+        out["forgot_password"] = (
+            capo_amplifybackend.types.create_backend_auth_forgot_password_config.redact_sensitive(
+                value["forgot_password"]
+            )
+        )
+    if "o_auth" in value:
+        import capo_amplifybackend.types.create_backend_auth_o_auth_config
+
+        out["o_auth"] = (
+            capo_amplifybackend.types.create_backend_auth_o_auth_config.redact_sensitive(
+                value["o_auth"]
+            )
+        )
+    if "verification_message" in value:
+        import capo_amplifybackend.types.create_backend_auth_verification_message_config
+
+        out["verification_message"] = (
+            capo_amplifybackend.types.create_backend_auth_verification_message_config.redact_sensitive(
+                value["verification_message"]
             )
         )
     return out

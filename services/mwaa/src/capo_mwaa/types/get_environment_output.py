@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#GetEnvironmentOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetEnvironmentOutput:
 
         out["environment"] = capo_mwaa.types.environment.deserialize_json(
             data["Environment"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetEnvironmentOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        import capo_mwaa.types.environment
+
+        out["environment"] = capo_mwaa.types.environment.redact_sensitive(
+            value["environment"]
         )
     return out

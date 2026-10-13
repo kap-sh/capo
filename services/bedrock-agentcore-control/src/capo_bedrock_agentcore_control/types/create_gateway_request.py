@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CreateGatewayRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -226,5 +226,20 @@ def deserialize_json(data: dict) -> CreateGatewayRequest:
 
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.deserialize_json(
             data["tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateGatewayRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "protocol_configuration" in value:
+        import capo_bedrock_agentcore_control.types.gateway_protocol_configuration
+
+        out["protocol_configuration"] = (
+            capo_bedrock_agentcore_control.types.gateway_protocol_configuration.redact_sensitive(
+                value["protocol_configuration"]
+            )
         )
     return out

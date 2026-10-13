@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#UsersListType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_cognito_identity_provider.types.user_type
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_1(data: list) -> UsersListType:
             )
         )
     return out
+
+
+def redact_sensitive(value: UsersListType) -> list[Any]:
+    import capo_cognito_identity_provider.types.user_type
+
+    return [
+        capo_cognito_identity_provider.types.user_type.redact_sensitive(item)
+        for item in value
+    ]

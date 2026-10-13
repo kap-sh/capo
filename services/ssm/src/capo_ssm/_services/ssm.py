@@ -22,10 +22,12 @@ from capo_ssm._pagination import resolve_path as _resolve_path
 from capo_ssm._services._aws_config import aws_config
 from capo_ssm._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -715,7 +717,9 @@ class SSMClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SSMClientConfig] = None
+        self,
+        config_overrides: Optional[SSMClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SSMClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -723,8 +727,10 @@ class SSMClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -781,7 +787,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_ssm.types.add_tags_to_resource_request.AddTagsToResourceRequest = {
             "resource_type": resource_type,
             "resource_id": resource_id,
@@ -837,7 +845,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateOpsItemRelatedItem")
+        )
         input_: capo_ssm.types.associate_ops_item_related_item_request.AssociateOpsItemRelatedItemRequest = {
             "ops_item_id": ops_item_id,
             "association_type": association_type,
@@ -888,7 +898,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCommand")
+        )
         input_: capo_ssm.types.cancel_command_request.CancelCommandRequest = {
             "command_id": command_id
         }
@@ -934,7 +946,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMaintenanceWindowExecution")
+        )
         input_: capo_ssm.types.cancel_maintenance_window_execution_request.CancelMaintenanceWindowExecutionRequest = {
             "window_execution_id": window_execution_id
         }
@@ -1000,7 +1014,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateActivation")
+        )
         input_: capo_ssm.types.create_activation_request.CreateActivationRequest = {
             "iam_role": iam_role
         }
@@ -1136,7 +1152,28 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.create_association_request.CreateAssociationRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_association_request
+
+            return capo_ssm.types.create_association_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ssm.types.create_association_result.CreateAssociationResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_association_result
+
+            return capo_ssm.types.create_association_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.create_association_request.CreateAssociationRequest = {
             "name": name
         }
@@ -1240,7 +1277,32 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.create_association_batch_request.CreateAssociationBatchRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_association_batch_request
+
+            return capo_ssm.types.create_association_batch_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ssm.types.create_association_batch_result.CreateAssociationBatchResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_association_batch_result
+
+            return capo_ssm.types.create_association_batch_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAssociationBatch",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.create_association_batch_request.CreateAssociationBatchRequest = {
             "entries": entries
         }
@@ -1301,7 +1363,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudConnector")
+        )
         input_: capo_ssm.types.create_cloud_connector_request.CreateCloudConnectorRequest = {
             "display_name": display_name,
             "role_arn": role_arn,
@@ -1386,7 +1450,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDocument")
+        )
         input_: capo_ssm.types.create_document_request.CreateDocumentRequest = {
             "content": content,
             "name": name,
@@ -1482,7 +1548,19 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.create_maintenance_window_request.CreateMaintenanceWindowRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_maintenance_window_request
+
+            return capo_ssm.types.create_maintenance_window_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMaintenanceWindow", redact_input=_redact_input),
+        )
         input_: capo_ssm.types.create_maintenance_window_request.CreateMaintenanceWindowRequest = {
             "name": name,
             "schedule": schedule,
@@ -1586,7 +1664,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOpsItem")
+        )
         input_: capo_ssm.types.create_ops_item_request.CreateOpsItemRequest = {
             "description": description,
             "source": source,
@@ -1665,7 +1745,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateOpsMetadata")
+        )
         input_: capo_ssm.types.create_ops_metadata_request.CreateOpsMetadataRequest = {
             "resource_id": resource_id
         }
@@ -1756,7 +1838,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.create_patch_baseline_request.CreatePatchBaselineRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.create_patch_baseline_request
+
+            return capo_ssm.types.create_patch_baseline_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePatchBaseline", redact_input=_redact_input),
+        )
         input_: capo_ssm.types.create_patch_baseline_request.CreatePatchBaselineRequest = {
             "name": name
         }
@@ -1847,7 +1939,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceDataSync")
+        )
         input_: capo_ssm.types.create_resource_data_sync_request.CreateResourceDataSyncRequest = {
             "sync_name": sync_name
         }
@@ -1899,7 +1993,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteActivation")
+        )
         input_: capo_ssm.types.delete_activation_request.DeleteActivationRequest = {
             "activation_id": activation_id
         }
@@ -1950,7 +2046,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAssociation")
+        )
         input_: capo_ssm.types.delete_association_request.DeleteAssociationRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1999,7 +2097,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudConnector")
+        )
         input_: capo_ssm.types.delete_cloud_connector_request.DeleteCloudConnectorRequest = {
             "cloud_connector_id": cloud_connector_id
         }
@@ -2056,7 +2156,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDocument")
+        )
         input_: capo_ssm.types.delete_document_request.DeleteDocumentRequest = {
             "name": name
         }
@@ -2117,7 +2219,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInventory")
+        )
         input_: capo_ssm.types.delete_inventory_request.DeleteInventoryRequest = {
             "type_name": type_name
         }
@@ -2169,7 +2273,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMaintenanceWindow")
+        )
         input_: capo_ssm.types.delete_maintenance_window_request.DeleteMaintenanceWindowRequest = {
             "window_id": window_id
         }
@@ -2213,7 +2319,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOpsItem")
+        )
         input_: capo_ssm.types.delete_ops_item_request.DeleteOpsItemRequest = {
             "ops_item_id": ops_item_id
         }
@@ -2258,7 +2366,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOpsMetadata")
+        )
         input_: capo_ssm.types.delete_ops_metadata_request.DeleteOpsMetadataRequest = {
             "ops_metadata_arn": ops_metadata_arn
         }
@@ -2302,7 +2412,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteParameter")
+        )
         input_: capo_ssm.types.delete_parameter_request.DeleteParameterRequest = {
             "name": name
         }
@@ -2345,7 +2457,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteParameters")
+        )
         input_: capo_ssm.types.delete_parameters_request.DeleteParametersRequest = {
             "names": names
         }
@@ -2389,7 +2503,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePatchBaseline")
+        )
         input_: capo_ssm.types.delete_patch_baseline_request.DeletePatchBaselineRequest = {
             "baseline_id": baseline_id
         }
@@ -2438,7 +2554,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceDataSync")
+        )
         input_: capo_ssm.types.delete_resource_data_sync_request.DeleteResourceDataSyncRequest = {
             "sync_name": sync_name
         }
@@ -2494,7 +2612,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_ssm.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy_id": policy_id,
@@ -2542,7 +2662,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterManagedInstance")
+        )
         input_: capo_ssm.types.deregister_managed_instance_request.DeregisterManagedInstanceRequest = {
             "instance_id": instance_id
         }
@@ -2588,7 +2710,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterPatchBaselineForPatchGroup")
+        )
         input_: capo_ssm.types.deregister_patch_baseline_for_patch_group_request.DeregisterPatchBaselineForPatchGroupRequest = {
             "baseline_id": baseline_id,
             "patch_group": patch_group,
@@ -2638,7 +2762,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterTargetFromMaintenanceWindow")
+        )
         input_: capo_ssm.types.deregister_target_from_maintenance_window_request.DeregisterTargetFromMaintenanceWindowRequest = {
             "window_id": window_id,
             "window_target_id": window_target_id,
@@ -2687,7 +2813,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterTaskFromMaintenanceWindow")
+        )
         input_: capo_ssm.types.deregister_task_from_maintenance_window_request.DeregisterTaskFromMaintenanceWindowRequest = {
             "window_id": window_id,
             "window_task_id": window_task_id,
@@ -2739,7 +2867,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeActivations")
+        )
         input_: capo_ssm.types.describe_activations_request.DescribeActivationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2823,7 +2953,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_association_result.DescribeAssociationResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_association_result
+
+            return capo_ssm.types.describe_association_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAssociation", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.describe_association_request.DescribeAssociationRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2882,7 +3022,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssociationExecutions")
+        )
         input_: capo_ssm.types.describe_association_executions_request.DescribeAssociationExecutionsRequest = {
             "association_id": association_id
         }
@@ -2971,7 +3113,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAssociationExecutionTargets")
+        )
         input_: capo_ssm.types.describe_association_execution_targets_request.DescribeAssociationExecutionTargetsRequest = {
             "association_id": association_id,
             "execution_id": execution_id,
@@ -3059,7 +3203,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutomationExecutions")
+        )
         input_: capo_ssm.types.describe_automation_executions_request.DescribeAutomationExecutionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3145,7 +3291,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAutomationStepExecutions")
+        )
         input_: capo_ssm.types.describe_automation_step_executions_request.DescribeAutomationStepExecutionsRequest = {
             "automation_execution_id": automation_execution_id
         }
@@ -3233,7 +3381,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAvailablePatches")
+        )
         input_: capo_ssm.types.describe_available_patches_request.DescribeAvailablePatchesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3317,7 +3467,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDocument")
+        )
         input_: capo_ssm.types.describe_document_request.DescribeDocumentRequest = {
             "name": name
         }
@@ -3376,7 +3528,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDocumentPermission")
+        )
         input_: capo_ssm.types.describe_document_permission_request.DescribeDocumentPermissionRequest = {
             "name": name,
             "permission_type": permission_type,
@@ -3432,7 +3586,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEffectiveInstanceAssociations")
+        )
         input_: capo_ssm.types.describe_effective_instance_associations_request.DescribeEffectiveInstanceAssociationsRequest = {
             "instance_id": instance_id
         }
@@ -3513,7 +3669,10 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEffectivePatchesForPatchBaseline"),
+        )
         input_: capo_ssm.types.describe_effective_patches_for_patch_baseline_request.DescribeEffectivePatchesForPatchBaselineRequest = {
             "baseline_id": baseline_id
         }
@@ -3591,7 +3750,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceAssociationsStatus")
+        )
         input_: capo_ssm.types.describe_instance_associations_status_request.DescribeInstanceAssociationsStatusRequest = {
             "instance_id": instance_id
         }
@@ -3677,7 +3838,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_instance_information_result.DescribeInstanceInformationResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_instance_information_result
+
+            return capo_ssm.types.describe_instance_information_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeInstanceInformation", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_instance_information_request.DescribeInstanceInformationRequest = {}
         if instance_information_filter_list is not None:
             input_["instance_information_filter_list"] = (
@@ -3774,7 +3949,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstancePatches")
+        )
         input_: capo_ssm.types.describe_instance_patches_request.DescribeInstancePatchesRequest = {
             "instance_id": instance_id
         }
@@ -3859,7 +4036,23 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_instance_patch_states_result.DescribeInstancePatchStatesResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_instance_patch_states_result
+
+            return (
+                capo_ssm.types.describe_instance_patch_states_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeInstancePatchStates", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_instance_patch_states_request.DescribeInstancePatchStatesRequest = {
             "instance_ids": instance_ids
         }
@@ -3943,7 +4136,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_instance_patch_states_for_patch_group_result.DescribeInstancePatchStatesForPatchGroupResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_instance_patch_states_for_patch_group_result
+
+            return capo_ssm.types.describe_instance_patch_states_for_patch_group_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeInstancePatchStatesForPatchGroup", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_instance_patch_states_for_patch_group_request.DescribeInstancePatchStatesForPatchGroupRequest = {
             "patch_group": patch_group
         }
@@ -4039,7 +4246,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_instance_properties_result.DescribeInstancePropertiesResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_instance_properties_result
+
+            return capo_ssm.types.describe_instance_properties_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeInstanceProperties", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_instance_properties_request.DescribeInstancePropertiesRequest = {}
         if instance_property_filter_list is not None:
             input_["instance_property_filter_list"] = instance_property_filter_list
@@ -4125,7 +4346,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInventoryDeletions")
+        )
         input_: capo_ssm.types.describe_inventory_deletions_request.DescribeInventoryDeletionsRequest = {}
         if deletion_id is not None:
             input_["deletion_id"] = deletion_id
@@ -4205,7 +4428,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMaintenanceWindowExecutions")
+        )
         input_: capo_ssm.types.describe_maintenance_window_executions_request.DescribeMaintenanceWindowExecutionsRequest = {
             "window_id": window_id
         }
@@ -4296,7 +4521,22 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_maintenance_window_execution_task_invocations_result.DescribeMaintenanceWindowExecutionTaskInvocationsResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_maintenance_window_execution_task_invocations_result
+
+            return capo_ssm.types.describe_maintenance_window_execution_task_invocations_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeMaintenanceWindowExecutionTaskInvocations",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.describe_maintenance_window_execution_task_invocations_request.DescribeMaintenanceWindowExecutionTaskInvocationsRequest = {
             "window_execution_id": window_execution_id,
             "task_id": task_id,
@@ -4390,7 +4630,10 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMaintenanceWindowExecutionTasks"),
+        )
         input_: capo_ssm.types.describe_maintenance_window_execution_tasks_request.DescribeMaintenanceWindowExecutionTasksRequest = {
             "window_execution_id": window_execution_id
         }
@@ -4476,7 +4719,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_maintenance_windows_result.DescribeMaintenanceWindowsResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_maintenance_windows_result
+
+            return capo_ssm.types.describe_maintenance_windows_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeMaintenanceWindows", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_maintenance_windows_request.DescribeMaintenanceWindowsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4571,7 +4828,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMaintenanceWindowSchedule")
+        )
         input_: capo_ssm.types.describe_maintenance_window_schedule_request.DescribeMaintenanceWindowScheduleRequest = {}
         if window_id is not None:
             input_["window_id"] = window_id
@@ -4669,7 +4928,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMaintenanceWindowsForTarget")
+        )
         input_: capo_ssm.types.describe_maintenance_windows_for_target_request.DescribeMaintenanceWindowsForTargetRequest = {
             "targets": targets,
             "resource_type": resource_type,
@@ -4755,7 +5016,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_maintenance_window_targets_result.DescribeMaintenanceWindowTargetsResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_maintenance_window_targets_result
+
+            return capo_ssm.types.describe_maintenance_window_targets_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeMaintenanceWindowTargets", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_maintenance_window_targets_request.DescribeMaintenanceWindowTargetsRequest = {
             "window_id": window_id
         }
@@ -4844,7 +5119,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.describe_maintenance_window_tasks_result.DescribeMaintenanceWindowTasksResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.describe_maintenance_window_tasks_result
+
+            return capo_ssm.types.describe_maintenance_window_tasks_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeMaintenanceWindowTasks", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.describe_maintenance_window_tasks_request.DescribeMaintenanceWindowTasksRequest = {
             "window_id": window_id
         }
@@ -4930,7 +5219,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOpsItems")
+        )
         input_: capo_ssm.types.describe_ops_items_request.DescribeOpsItemsRequest = {}
         if ops_item_filters is not None:
             input_["ops_item_filters"] = ops_item_filters
@@ -5020,7 +5311,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeParameters")
+        )
         input_: capo_ssm.types.describe_parameters_request.DescribeParametersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5108,7 +5401,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePatchBaselines")
+        )
         input_: capo_ssm.types.describe_patch_baselines_request.DescribePatchBaselinesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5190,7 +5485,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePatchGroups")
+        )
         input_: capo_ssm.types.describe_patch_groups_request.DescribePatchGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5267,7 +5564,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePatchGroupState")
+        )
         input_: capo_ssm.types.describe_patch_group_state_request.DescribePatchGroupStateRequest = {
             "patch_group": patch_group
         }
@@ -5320,7 +5619,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePatchProperties")
+        )
         input_: capo_ssm.types.describe_patch_properties_request.DescribePatchPropertiesRequest = {
             "operating_system": operating_system,
             "property": property,
@@ -5409,7 +5710,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSessions")
+        )
         input_: capo_ssm.types.describe_sessions_request.DescribeSessionsRequest = {
             "state": state
         }
@@ -5493,7 +5796,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateOpsItemRelatedItem")
+        )
         input_: capo_ssm.types.disassociate_ops_item_related_item_request.DisassociateOpsItemRelatedItemRequest = {
             "ops_item_id": ops_item_id,
             "association_id": association_id,
@@ -5541,7 +5846,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_access_token_response.GetAccessTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_access_token_response
+
+            return capo_ssm.types.get_access_token_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccessToken", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_access_token_request.GetAccessTokenRequest = {
             "access_request_id": access_request_id
         }
@@ -5585,7 +5900,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutomationExecution")
+        )
         input_: capo_ssm.types.get_automation_execution_request.GetAutomationExecutionRequest = {
             "automation_execution_id": automation_execution_id
         }
@@ -5633,7 +5950,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCalendarState")
+        )
         input_: capo_ssm.types.get_calendar_state_request.GetCalendarStateRequest = {
             "calendar_names": calendar_names
         }
@@ -5679,7 +5998,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudConnector")
+        )
         input_: capo_ssm.types.get_cloud_connector_request.GetCloudConnectorRequest = {
             "cloud_connector_id": cloud_connector_id
         }
@@ -5732,7 +6053,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCommandInvocation")
+        )
         input_: capo_ssm.types.get_command_invocation_request.GetCommandInvocationRequest = {
             "command_id": command_id,
             "instance_id": instance_id,
@@ -5778,7 +6101,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectionStatus")
+        )
         input_: capo_ssm.types.get_connection_status_request.GetConnectionStatusRequest = {
             "target": target
         }
@@ -5825,7 +6150,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultPatchBaseline")
+        )
         input_: capo_ssm.types.get_default_patch_baseline_request.GetDefaultPatchBaselineRequest = {}
         if operating_system is not None:
             input_["operating_system"] = operating_system
@@ -5878,7 +6205,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.get_deployable_patch_snapshot_for_instance_request.GetDeployablePatchSnapshotForInstanceRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_deployable_patch_snapshot_for_instance_request
+
+            return capo_ssm.types.get_deployable_patch_snapshot_for_instance_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDeployablePatchSnapshotForInstance", redact_input=_redact_input
+            ),
+        )
         input_: capo_ssm.types.get_deployable_patch_snapshot_for_instance_request.GetDeployablePatchSnapshotForInstanceRequest = {
             "instance_id": instance_id,
             "snapshot_id": snapshot_id,
@@ -5938,7 +6279,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocument")
+        )
         input_: capo_ssm.types.get_document_request.GetDocumentRequest = {"name": name}
         if version_name is not None:
             input_["version_name"] = version_name
@@ -5986,7 +6329,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExecutionPreview")
+        )
         input_: capo_ssm.types.get_execution_preview_request.GetExecutionPreviewRequest = {
             "execution_preview_id": execution_preview_id
         }
@@ -6049,7 +6394,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInventory")
+        )
         input_: capo_ssm.types.get_inventory_request.GetInventoryRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6149,7 +6496,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInventorySchema")
+        )
         input_: capo_ssm.types.get_inventory_schema_request.GetInventorySchemaRequest = {}
         if type_name is not None:
             input_["type_name"] = type_name
@@ -6234,7 +6583,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_maintenance_window_result.GetMaintenanceWindowResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_maintenance_window_result
+
+            return capo_ssm.types.get_maintenance_window_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMaintenanceWindow", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_maintenance_window_request.GetMaintenanceWindowRequest = {
             "window_id": window_id
         }
@@ -6278,7 +6637,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMaintenanceWindowExecution")
+        )
         input_: capo_ssm.types.get_maintenance_window_execution_request.GetMaintenanceWindowExecutionRequest = {
             "window_execution_id": window_execution_id
         }
@@ -6324,7 +6685,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_maintenance_window_execution_task_result.GetMaintenanceWindowExecutionTaskResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_maintenance_window_execution_task_result
+
+            return capo_ssm.types.get_maintenance_window_execution_task_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMaintenanceWindowExecutionTask", redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.get_maintenance_window_execution_task_request.GetMaintenanceWindowExecutionTaskRequest = {
             "window_execution_id": window_execution_id,
             "task_id": task_id,
@@ -6373,7 +6748,22 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_maintenance_window_execution_task_invocation_result.GetMaintenanceWindowExecutionTaskInvocationResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_maintenance_window_execution_task_invocation_result
+
+            return capo_ssm.types.get_maintenance_window_execution_task_invocation_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetMaintenanceWindowExecutionTaskInvocation",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.get_maintenance_window_execution_task_invocation_request.GetMaintenanceWindowExecutionTaskInvocationRequest = {
             "window_execution_id": window_execution_id,
             "task_id": task_id,
@@ -6421,7 +6811,19 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_maintenance_window_task_result.GetMaintenanceWindowTaskResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_maintenance_window_task_result
+
+            return capo_ssm.types.get_maintenance_window_task_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetMaintenanceWindowTask", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_maintenance_window_task_request.GetMaintenanceWindowTaskRequest = {
             "window_id": window_id,
             "window_task_id": window_task_id,
@@ -6469,7 +6871,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOpsItem")
+        )
         input_: capo_ssm.types.get_ops_item_request.GetOpsItemRequest = {
             "ops_item_id": ops_item_id
         }
@@ -6522,7 +6926,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOpsMetadata")
+        )
         input_: capo_ssm.types.get_ops_metadata_request.GetOpsMetadataRequest = {
             "ops_metadata_arn": ops_metadata_arn
         }
@@ -6590,7 +6996,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOpsSummary")
+        )
         input_: capo_ssm.types.get_ops_summary_request.GetOpsSummaryRequest = {}
         if sync_name is not None:
             input_["sync_name"] = sync_name
@@ -6683,7 +7091,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_parameter_result.GetParameterResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_parameter_result
+
+            return capo_ssm.types.get_parameter_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetParameter", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_parameter_request.GetParameterRequest = {
             "name": name
         }
@@ -6737,7 +7155,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_parameter_history_result.GetParameterHistoryResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_parameter_history_result
+
+            return capo_ssm.types.get_parameter_history_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetParameterHistory", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_parameter_history_request.GetParameterHistoryRequest = {
             "name": name
         }
@@ -6812,7 +7240,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_parameters_result.GetParametersResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_parameters_result
+
+            return capo_ssm.types.get_parameters_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetParameters", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_parameters_request.GetParametersRequest = {
             "names": names
         }
@@ -6876,7 +7314,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_parameters_by_path_result.GetParametersByPathResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_parameters_by_path_result
+
+            return capo_ssm.types.get_parameters_by_path_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetParametersByPath", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_parameters_by_path_request.GetParametersByPathRequest = {
             "path": path
         }
@@ -6962,7 +7410,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.get_patch_baseline_result.GetPatchBaselineResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.get_patch_baseline_result
+
+            return capo_ssm.types.get_patch_baseline_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPatchBaseline", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.get_patch_baseline_request.GetPatchBaselineRequest = {
             "baseline_id": baseline_id
         }
@@ -7009,7 +7467,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPatchBaselineForPatchGroup")
+        )
         input_: capo_ssm.types.get_patch_baseline_for_patch_group_request.GetPatchBaselineForPatchGroupRequest = {
             "patch_group": patch_group
         }
@@ -7062,7 +7522,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicies")
+        )
         input_: capo_ssm.types.get_resource_policies_request.GetResourcePoliciesRequest = {
             "resource_arn": resource_arn
         }
@@ -7135,7 +7597,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceSetting")
+        )
         input_: capo_ssm.types.get_service_setting_request.GetServiceSettingRequest = {
             "setting_id": setting_id
         }
@@ -7188,7 +7652,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LabelParameterVersion")
+        )
         input_: capo_ssm.types.label_parameter_version_request.LabelParameterVersionRequest = {
             "name": name,
             "labels": labels,
@@ -7241,7 +7707,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociations")
+        )
         input_: capo_ssm.types.list_associations_request.ListAssociationsRequest = {}
         if association_filter_list is not None:
             input_["association_filter_list"] = association_filter_list
@@ -7321,7 +7789,19 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.list_association_versions_result.ListAssociationVersionsResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.list_association_versions_result
+
+            return capo_ssm.types.list_association_versions_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssociationVersions", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.list_association_versions_request.ListAssociationVersionsRequest = {
             "association_id": association_id
         }
@@ -7399,7 +7879,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCloudConnectors")
+        )
         input_: capo_ssm.types.list_cloud_connectors_request.ListCloudConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -7491,7 +7973,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCommandInvocations")
+        )
         input_: capo_ssm.types.list_command_invocations_request.ListCommandInvocationsRequest = {}
         if command_id is not None:
             input_["command_id"] = command_id
@@ -7593,7 +8077,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.list_commands_result.ListCommandsResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.list_commands_result
+
+            return capo_ssm.types.list_commands_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCommands", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.list_commands_request.ListCommandsRequest = {}
         if command_id is not None:
             input_["command_id"] = command_id
@@ -7693,7 +8187,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComplianceItems")
+        )
         input_: capo_ssm.types.list_compliance_items_request.ListComplianceItemsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -7787,7 +8283,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComplianceSummaries")
+        )
         input_: capo_ssm.types.list_compliance_summaries_request.ListComplianceSummariesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -7872,7 +8370,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocumentMetadataHistory")
+        )
         input_: capo_ssm.types.list_document_metadata_history_request.ListDocumentMetadataHistoryRequest = {
             "name": name,
             "metadata": metadata,
@@ -7934,7 +8434,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocuments")
+        )
         input_: capo_ssm.types.list_documents_request.ListDocumentsRequest = {}
         if document_filter_list is not None:
             input_["document_filter_list"] = document_filter_list
@@ -8018,7 +8520,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDocumentVersions")
+        )
         input_: capo_ssm.types.list_document_versions_request.ListDocumentVersionsRequest = {
             "name": name
         }
@@ -8102,7 +8606,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInventoryEntries")
+        )
         input_: capo_ssm.types.list_inventory_entries_request.ListInventoryEntriesRequest = {
             "instance_id": instance_id,
             "type_name": type_name,
@@ -8162,7 +8668,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.list_nodes_result.ListNodesResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.list_nodes_result
+
+            return capo_ssm.types.list_nodes_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListNodes", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.list_nodes_request.ListNodesRequest = {}
         if sync_name is not None:
             input_["sync_name"] = sync_name
@@ -8259,7 +8775,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodesSummary")
+        )
         input_: capo_ssm.types.list_nodes_summary_request.ListNodesSummaryRequest = {
             "aggregators": aggregators
         }
@@ -8350,7 +8868,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpsItemEvents")
+        )
         input_: capo_ssm.types.list_ops_item_events_request.ListOpsItemEventsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -8435,7 +8955,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpsItemRelatedItems")
+        )
         input_: capo_ssm.types.list_ops_item_related_items_request.ListOpsItemRelatedItemsRequest = {}
         if ops_item_id is not None:
             input_["ops_item_id"] = ops_item_id
@@ -8522,7 +9044,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpsMetadata")
+        )
         input_: capo_ssm.types.list_ops_metadata_request.ListOpsMetadataRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -8604,7 +9128,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceComplianceSummaries")
+        )
         input_: capo_ssm.types.list_resource_compliance_summaries_request.ListResourceComplianceSummariesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -8684,7 +9210,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceDataSync")
+        )
         input_: capo_ssm.types.list_resource_data_sync_request.ListResourceDataSyncRequest = {}
         if sync_type is not None:
             input_["sync_type"] = sync_type
@@ -8760,7 +9288,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ssm.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_type": resource_type,
             "resource_id": resource_id,
@@ -8822,7 +9352,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDocumentPermission")
+        )
         input_: capo_ssm.types.modify_document_permission_request.ModifyDocumentPermissionRequest = {
             "name": name,
             "permission_type": permission_type,
@@ -8894,7 +9426,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutComplianceItems")
+        )
         input_: capo_ssm.types.put_compliance_items_request.PutComplianceItemsRequest = {
             "resource_id": resource_id,
             "resource_type": resource_type,
@@ -8958,7 +9492,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInventory")
+        )
         input_: capo_ssm.types.put_inventory_request.PutInventoryRequest = {
             "instance_id": instance_id,
             "items": items,
@@ -9044,7 +9580,17 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.put_parameter_request.PutParameterRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.put_parameter_request
+
+            return capo_ssm.types.put_parameter_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutParameter", redact_input=_redact_input),
+        )
         input_: capo_ssm.types.put_parameter_request.PutParameterRequest = {
             "name": name,
             "value": value,
@@ -9118,7 +9664,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_ssm.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -9168,7 +9716,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterDefaultPatchBaseline")
+        )
         input_: capo_ssm.types.register_default_patch_baseline_request.RegisterDefaultPatchBaselineRequest = {
             "baseline_id": baseline_id
         }
@@ -9217,7 +9767,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterPatchBaselineForPatchGroup")
+        )
         input_: capo_ssm.types.register_patch_baseline_for_patch_group_request.RegisterPatchBaselineForPatchGroupRequest = {
             "baseline_id": baseline_id,
             "patch_group": patch_group,
@@ -9282,7 +9834,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.register_target_with_maintenance_window_request.RegisterTargetWithMaintenanceWindowRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.register_target_with_maintenance_window_request
+
+            return capo_ssm.types.register_target_with_maintenance_window_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterTargetWithMaintenanceWindow", redact_input=_redact_input
+            ),
+        )
         input_: capo_ssm.types.register_target_with_maintenance_window_request.RegisterTargetWithMaintenanceWindowRequest = {
             "window_id": window_id,
             "resource_type": resource_type,
@@ -9386,7 +9952,21 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.register_task_with_maintenance_window_request.RegisterTaskWithMaintenanceWindowRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.register_task_with_maintenance_window_request
+
+            return capo_ssm.types.register_task_with_maintenance_window_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterTaskWithMaintenanceWindow", redact_input=_redact_input
+            ),
+        )
         input_: capo_ssm.types.register_task_with_maintenance_window_request.RegisterTaskWithMaintenanceWindowRequest = {
             "window_id": window_id,
             "task_arn": task_arn,
@@ -9465,7 +10045,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_ssm.types.remove_tags_from_resource_request.RemoveTagsFromResourceRequest = {
             "resource_type": resource_type,
             "resource_id": resource_id,
@@ -9512,7 +10094,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetServiceSetting")
+        )
         input_: capo_ssm.types.reset_service_setting_request.ResetServiceSettingRequest = {
             "setting_id": setting_id
         }
@@ -9556,7 +10140,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResumeSession")
+        )
         input_: capo_ssm.types.resume_session_request.ResumeSessionRequest = {
             "session_id": session_id
         }
@@ -9608,7 +10194,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendAutomationSignal")
+        )
         input_: capo_ssm.types.send_automation_signal_request.SendAutomationSignalRequest = {
             "automation_execution_id": automation_execution_id,
             "signal_type": signal_type,
@@ -9714,7 +10302,26 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.send_command_request.SendCommandRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.send_command_request
+
+            return capo_ssm.types.send_command_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ssm.types.send_command_result.SendCommandResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.send_command_result
+
+            return capo_ssm.types.send_command_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SendCommand", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_ssm.types.send_command_request.SendCommandRequest = {
             "document_name": document_name
         }
@@ -9800,7 +10407,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAccessRequest")
+        )
         input_: capo_ssm.types.start_access_request_request.StartAccessRequestRequest = {
             "reason": reason,
             "targets": targets,
@@ -9847,7 +10456,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAssociationsOnce")
+        )
         input_: capo_ssm.types.start_associations_once_request.StartAssociationsOnceRequest = {
             "association_ids": association_ids
         }
@@ -9938,7 +10549,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAutomationExecution")
+        )
         input_: capo_ssm.types.start_automation_execution_request.StartAutomationExecutionRequest = {
             "document_name": document_name
         }
@@ -10044,7 +10657,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartChangeRequestExecution")
+        )
         input_: capo_ssm.types.start_change_request_execution_request.StartChangeRequestExecutionRequest = {
             "document_name": document_name,
             "runbooks": runbooks,
@@ -10123,7 +10738,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExecutionPreview")
+        )
         input_: capo_ssm.types.start_execution_preview_request.StartExecutionPreviewRequest = {
             "document_name": document_name
         }
@@ -10180,7 +10797,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSession")
+        )
         input_: capo_ssm.types.start_session_request.StartSessionRequest = {
             "target": target
         }
@@ -10235,7 +10854,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAutomationExecution")
+        )
         input_: capo_ssm.types.stop_automation_execution_request.StopAutomationExecutionRequest = {
             "automation_execution_id": automation_execution_id
         }
@@ -10280,7 +10901,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateSession")
+        )
         input_: capo_ssm.types.terminate_session_request.TerminateSessionRequest = {
             "session_id": session_id
         }
@@ -10332,7 +10955,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnlabelParameterVersion")
+        )
         input_: capo_ssm.types.unlabel_parameter_version_request.UnlabelParameterVersionRequest = {
             "name": name,
             "parameter_version": parameter_version,
@@ -10460,7 +11085,28 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.update_association_request.UpdateAssociationRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_association_request
+
+            return capo_ssm.types.update_association_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ssm.types.update_association_result.UpdateAssociationResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_association_result
+
+            return capo_ssm.types.update_association_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.update_association_request.UpdateAssociationRequest = {
             "association_id": association_id
         }
@@ -10560,7 +11206,19 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm.types.update_association_status_result.UpdateAssociationStatusResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_association_status_result
+
+            return capo_ssm.types.update_association_status_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAssociationStatus", redact_output=_redact_output),
+        )
         input_: capo_ssm.types.update_association_status_request.UpdateAssociationStatusRequest = {
             "name": name,
             "instance_id": instance_id,
@@ -10617,7 +11275,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCloudConnector")
+        )
         input_: capo_ssm.types.update_cloud_connector_request.UpdateCloudConnectorRequest = {
             "cloud_connector_id": cloud_connector_id
         }
@@ -10699,7 +11359,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDocument")
+        )
         input_: capo_ssm.types.update_document_request.UpdateDocumentRequest = {
             "content": content,
             "name": name,
@@ -10760,7 +11422,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDocumentDefaultVersion")
+        )
         input_: capo_ssm.types.update_document_default_version_request.UpdateDocumentDefaultVersionRequest = {
             "name": name,
             "document_version": document_version,
@@ -10814,7 +11478,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDocumentMetadata")
+        )
         input_: capo_ssm.types.update_document_metadata_request.UpdateDocumentMetadataRequest = {
             "name": name,
             "document_reviews": document_reviews,
@@ -10909,7 +11575,32 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.update_maintenance_window_request.UpdateMaintenanceWindowRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_request
+
+            return capo_ssm.types.update_maintenance_window_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ssm.types.update_maintenance_window_result.UpdateMaintenanceWindowResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_result
+
+            return capo_ssm.types.update_maintenance_window_result.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMaintenanceWindow",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.update_maintenance_window_request.UpdateMaintenanceWindowRequest = {
             "window_id": window_id
         }
@@ -10995,7 +11686,34 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.update_maintenance_window_target_request.UpdateMaintenanceWindowTargetRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_target_request
+
+            return capo_ssm.types.update_maintenance_window_target_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_ssm.types.update_maintenance_window_target_result.UpdateMaintenanceWindowTargetResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_target_result
+
+            return (
+                capo_ssm.types.update_maintenance_window_target_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMaintenanceWindowTarget",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.update_maintenance_window_target_request.UpdateMaintenanceWindowTargetRequest = {
             "window_id": window_id,
             "window_target_id": window_target_id,
@@ -11098,7 +11816,36 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.update_maintenance_window_task_request.UpdateMaintenanceWindowTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_task_request
+
+            return (
+                capo_ssm.types.update_maintenance_window_task_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_ssm.types.update_maintenance_window_task_result.UpdateMaintenanceWindowTaskResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_maintenance_window_task_result
+
+            return (
+                capo_ssm.types.update_maintenance_window_task_result.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMaintenanceWindowTask",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.update_maintenance_window_task_request.UpdateMaintenanceWindowTaskRequest = {
             "window_id": window_id,
             "window_task_id": window_task_id,
@@ -11173,7 +11920,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateManagedInstanceRole")
+        )
         input_: capo_ssm.types.update_managed_instance_role_request.UpdateManagedInstanceRoleRequest = {
             "instance_id": instance_id,
             "iam_role": iam_role,
@@ -11263,7 +12012,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOpsItem")
+        )
         input_: capo_ssm.types.update_ops_item_request.UpdateOpsItemRequest = {
             "ops_item_id": ops_item_id
         }
@@ -11346,7 +12097,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOpsMetadata")
+        )
         input_: capo_ssm.types.update_ops_metadata_request.UpdateOpsMetadataRequest = {
             "ops_metadata_arn": ops_metadata_arn
         }
@@ -11432,7 +12185,28 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm.types.update_patch_baseline_request.UpdatePatchBaselineRequest",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_patch_baseline_request
+
+            return capo_ssm.types.update_patch_baseline_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ssm.types.update_patch_baseline_result.UpdatePatchBaselineResult",
+        ) -> dict[str, Any]:
+            import capo_ssm.types.update_patch_baseline_result
+
+            return capo_ssm.types.update_patch_baseline_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePatchBaseline",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ssm.types.update_patch_baseline_request.UpdatePatchBaselineRequest = {
             "baseline_id": baseline_id
         }
@@ -11512,7 +12286,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceDataSync")
+        )
         input_: capo_ssm.types.update_resource_data_sync_request.UpdateResourceDataSyncRequest = {
             "sync_name": sync_name,
             "sync_type": sync_type,
@@ -11561,7 +12337,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSetting")
+        )
         input_: capo_ssm.types.update_service_setting_request.UpdateServiceSettingRequest = {
             "setting_id": setting_id,
             "setting_value": setting_value,
@@ -11612,7 +12390,9 @@ class SSMClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ValidateCloudConnector")
+        )
         input_: capo_ssm.types.validate_cloud_connector_request.ValidateCloudConnectorRequest = {
             "cloud_connector_id": cloud_connector_id
         }

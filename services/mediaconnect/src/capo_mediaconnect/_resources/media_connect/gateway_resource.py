@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_mediaconnect.types.create_gateway_request.CreateGatewayRequest = {}
         if egress_cidr_blocks is not None:
             input_["egress_cidr_blocks"] = egress_cidr_blocks
@@ -138,7 +141,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGateway")
+        )
         input_: capo_mediaconnect.types.describe_gateway_request.DescribeGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -187,7 +192,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_mediaconnect.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -236,7 +243,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_mediaconnect.types.list_gateways_request.ListGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -301,7 +310,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateGateway")
+        )
         input_: capo_mediaconnect.types.create_gateway_request.CreateGatewayRequest = {}
         if egress_cidr_blocks is not None:
             input_["egress_cidr_blocks"] = egress_cidr_blocks
@@ -355,7 +366,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeGateway")
+        )
         input_: capo_mediaconnect.types.describe_gateway_request.DescribeGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -405,7 +418,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_mediaconnect.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_arn": gateway_arn
         }
@@ -455,7 +470,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGateways")
+        )
         input_: capo_mediaconnect.types.list_gateways_request.ListGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

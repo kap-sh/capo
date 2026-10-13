@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#FHIRServer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> FHIRServer:
         raise DeserializationError("FHIRServer.fhir_endpoint required")
     if data.get("oauthToken") is not None:
         out["oauth_token"] = data["oauthToken"]
+    return out
+
+
+def redact_sensitive(value: FHIRServer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oauth_token" in value:
+        out["oauth_token"] = "*** Sensitive Data Redacted ***"
     return out

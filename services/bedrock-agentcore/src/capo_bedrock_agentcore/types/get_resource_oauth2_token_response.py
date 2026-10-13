@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#GetResourceOauth2TokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,13 @@ def deserialize_json(data: dict) -> GetResourceOauth2TokenResponse:
                 data["sessionStatus"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetResourceOauth2TokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_url" in value:
+        out["authorization_url"] = "*** Sensitive Data Redacted ***"
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

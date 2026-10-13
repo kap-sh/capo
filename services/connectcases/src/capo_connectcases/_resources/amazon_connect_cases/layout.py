@@ -7,6 +7,7 @@ import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class Layout:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLayout")
+        )
         input_: capo_connectcases.types.create_layout_request.CreateLayoutRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -135,7 +138,9 @@ class Layout:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayout")
+        )
         input_: capo_connectcases.types.get_layout_request.GetLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -193,7 +198,9 @@ class Layout:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLayout")
+        )
         input_: capo_connectcases.types.update_layout_request.UpdateLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -248,7 +255,9 @@ class Layout:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLayout")
+        )
         input_: capo_connectcases.types.delete_layout_request.DeleteLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -300,7 +309,9 @@ class Layout:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayouts")
+        )
         input_: capo_connectcases.types.list_layouts_request.ListLayoutsRequest = {
             "domain_id": domain_id
         }
@@ -363,7 +374,9 @@ class AsyncLayout:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLayout")
+        )
         input_: capo_connectcases.types.create_layout_request.CreateLayoutRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -415,7 +428,9 @@ class AsyncLayout:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLayout")
+        )
         input_: capo_connectcases.types.get_layout_request.GetLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -474,7 +489,9 @@ class AsyncLayout:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLayout")
+        )
         input_: capo_connectcases.types.update_layout_request.UpdateLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -530,7 +547,9 @@ class AsyncLayout:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLayout")
+        )
         input_: capo_connectcases.types.delete_layout_request.DeleteLayoutRequest = {
             "domain_id": domain_id,
             "layout_id": layout_id,
@@ -583,7 +602,9 @@ class AsyncLayout:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLayouts")
+        )
         input_: capo_connectcases.types.list_layouts_request.ListLayoutsRequest = {
             "domain_id": domain_id
         }

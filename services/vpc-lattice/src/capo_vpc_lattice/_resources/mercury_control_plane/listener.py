@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,9 @@ class Listener:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateListener")
+        )
         input_: capo_vpc_lattice.types.create_listener_request.CreateListenerRequest = {
             "service_identifier": service_identifier,
             "name": name,
@@ -159,7 +162,9 @@ class Listener:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetListener")
+        )
         input_: capo_vpc_lattice.types.get_listener_request.GetListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -213,7 +218,9 @@ class Listener:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateListener")
+        )
         input_: capo_vpc_lattice.types.update_listener_request.UpdateListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -265,7 +272,9 @@ class Listener:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteListener")
+        )
         input_: capo_vpc_lattice.types.delete_listener_request.DeleteListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -317,7 +326,9 @@ class Listener:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListListeners")
+        )
         input_: capo_vpc_lattice.types.list_listeners_request.ListListenersRequest = {
             "service_identifier": service_identifier
         }
@@ -390,7 +401,9 @@ class AsyncListener:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateListener")
+        )
         input_: capo_vpc_lattice.types.create_listener_request.CreateListenerRequest = {
             "service_identifier": service_identifier,
             "name": name,
@@ -450,7 +463,9 @@ class AsyncListener:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetListener")
+        )
         input_: capo_vpc_lattice.types.get_listener_request.GetListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -505,7 +520,9 @@ class AsyncListener:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateListener")
+        )
         input_: capo_vpc_lattice.types.update_listener_request.UpdateListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -558,7 +575,9 @@ class AsyncListener:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteListener")
+        )
         input_: capo_vpc_lattice.types.delete_listener_request.DeleteListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -611,7 +630,9 @@ class AsyncListener:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListListeners")
+        )
         input_: capo_vpc_lattice.types.list_listeners_request.ListListenersRequest = {
             "service_identifier": service_identifier
         }

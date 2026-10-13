@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#CapacityProviderStrategyItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> CapacityProviderStrategyItem:
         out["base"] = data["base"]
     else:
         out["base"] = 0
+    return out
+
+
+def redact_sensitive(value: CapacityProviderStrategyItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "capacity_provider" in value:
+        out["capacity_provider"] = "*** Sensitive Data Redacted ***"
     return out

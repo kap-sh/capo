@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#TestReport``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,4 +51,11 @@ def deserialize_aws_json_1_1(data: dict) -> TestReport:
         )
     if data.get("testDetailsUrl") is not None:
         out["test_details_url"] = data["testDetailsUrl"]
+    return out
+
+
+def redact_sensitive(value: TestReport) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "test_details_url" in value:
+        out["test_details_url"] = "*** Sensitive Data Redacted ***"
     return out

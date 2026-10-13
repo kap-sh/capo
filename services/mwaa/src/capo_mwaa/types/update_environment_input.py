@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mwaa#UpdateEnvironmentInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -224,4 +224,11 @@ def deserialize_json(data: dict) -> UpdateEnvironmentInput:
         out["webserver_access_mode"] = data["WebserverAccessMode"]
     if data.get("WeeklyMaintenanceWindowStart") is not None:
         out["weekly_maintenance_window_start"] = data["WeeklyMaintenanceWindowStart"]
+    return out
+
+
+def redact_sensitive(value: UpdateEnvironmentInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "airflow_configuration_options" in value:
+        out["airflow_configuration_options"] = "*** Sensitive Data Redacted ***"
     return out

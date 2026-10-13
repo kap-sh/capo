@@ -43,7 +43,9 @@ from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -180,7 +182,9 @@ class AsyncARCZonalShiftClient:
         self.zonal_shifts = AsyncZonalShifts(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncARCZonalShiftClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncARCZonalShiftClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncARCZonalShiftClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -188,8 +192,10 @@ class AsyncARCZonalShiftClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -250,7 +256,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAutoshifts")
+        )
         input_: capo_arc_zonal_shift.types.list_autoshifts_request.ListAutoshiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -321,7 +329,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoshiftObserverNotificationStatus")
+        )
         input_: capo_arc_zonal_shift.types.get_autoshift_observer_notification_status_request.GetAutoshiftObserverNotificationStatusRequest = {}
 
         response = await aexecute_pipeline(
@@ -366,7 +376,10 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAutoshiftObserverNotificationStatus"),
+        )
         input_: capo_arc_zonal_shift.types.update_autoshift_observer_notification_status_request.UpdateAutoshiftObserverNotificationStatusRequest = {
             "status": status
         }
@@ -414,7 +427,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedResource")
+        )
         input_: capo_arc_zonal_shift.types.get_managed_resource_request.GetManagedResourceRequest = {
             "resource_identifier": resource_identifier
         }
@@ -465,7 +480,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedResources")
+        )
         input_: capo_arc_zonal_shift.types.list_managed_resources_request.ListManagedResourcesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -541,7 +558,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateZonalAutoshiftConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_autoshift_configuration_request.UpdateZonalAutoshiftConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "zonal_autoshift_status": zonal_autoshift_status,
@@ -611,7 +630,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePracticeRunConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.update_practice_run_configuration_request.UpdatePracticeRunConfigurationRequest = {
             "resource_identifier": resource_identifier
         }
@@ -670,7 +691,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePracticeRunConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.delete_practice_run_configuration_request.DeletePracticeRunConfigurationRequest = {
             "resource_identifier": resource_identifier
         }
@@ -737,7 +760,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePracticeRunConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.create_practice_run_configuration_request.CreatePracticeRunConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "outcome_alarms": outcome_alarms,
@@ -795,7 +820,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.cancel_practice_run_request.CancelPracticeRunRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -844,7 +871,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.cancel_zonal_shift_request.CancelZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -899,7 +928,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_shift_request.UpdateZonalShiftRequest = {
             "zonal_shift_id": zonal_shift_id
         }
@@ -964,7 +995,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListZonalShifts")
+        )
         input_: capo_arc_zonal_shift.types.list_zonal_shifts_request.ListZonalShiftsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1054,7 +1087,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPracticeRun")
+        )
         input_: capo_arc_zonal_shift.types.start_practice_run_request.StartPracticeRunRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,
@@ -1111,7 +1146,9 @@ class AsyncARCZonalShiftClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartZonalShift")
+        )
         input_: capo_arc_zonal_shift.types.start_zonal_shift_request.StartZonalShiftRequest = {
             "resource_identifier": resource_identifier,
             "away_from": away_from,

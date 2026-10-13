@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SetParameterValueConfigurationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.set_parameter_value_configuration
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> SetParameterValueConfigurationList:
             )
         )
     return out
+
+
+def redact_sensitive(value: SetParameterValueConfigurationList) -> list[Any]:
+    import capo_quicksight.types.set_parameter_value_configuration
+
+    return [
+        capo_quicksight.types.set_parameter_value_configuration.redact_sensitive(item)
+        for item in value
+    ]

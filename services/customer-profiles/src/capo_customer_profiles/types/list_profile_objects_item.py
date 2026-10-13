@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ListProfileObjectsItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_json(data: dict) -> ListProfileObjectsItem:
         out["profile_object_unique_key"] = data["ProfileObjectUniqueKey"]
     if data.get("Object") is not None:
         out["object"] = data["Object"]
+    return out
+
+
+def redact_sensitive(value: ListProfileObjectsItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "object" in value:
+        out["object"] = "*** Sensitive Data Redacted ***"
     return out

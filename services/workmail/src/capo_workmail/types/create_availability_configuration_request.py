@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#CreateAvailabilityConfigurationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -89,6 +89,19 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAvailabilityConfigurationReque
         out["lambda_provider"] = (
             capo_workmail.types.lambda_availability_provider.deserialize_aws_json_1_1(
                 data["LambdaProvider"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateAvailabilityConfigurationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ews_provider" in value:
+        import capo_workmail.types.ews_availability_provider
+
+        out["ews_provider"] = (
+            capo_workmail.types.ews_availability_provider.redact_sensitive(
+                value["ews_provider"]
             )
         )
     return out

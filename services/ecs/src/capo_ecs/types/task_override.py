@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#TaskOverride``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,6 +102,19 @@ def deserialize_aws_json_1_1(data: dict) -> TaskOverride:
         out["ephemeral_storage"] = (
             capo_ecs.types.ephemeral_storage.deserialize_aws_json_1_1(
                 data["ephemeralStorage"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TaskOverride) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "container_overrides" in value:
+        import capo_ecs.types.container_overrides
+
+        out["container_overrides"] = (
+            capo_ecs.types.container_overrides.redact_sensitive(
+                value["container_overrides"]
             )
         )
     return out

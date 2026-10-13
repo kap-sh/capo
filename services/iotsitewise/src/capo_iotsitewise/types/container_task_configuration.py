@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ContainerTaskConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -159,4 +159,17 @@ def deserialize_json(data: dict) -> ContainerTaskConfiguration:
         out["mounts"] = capo_iotsitewise.types.mount_list.deserialize_json(
             data["mounts"]
         )
+    return out
+
+
+def redact_sensitive(value: ContainerTaskConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ecr_uri" in value:
+        out["ecr_uri"] = "*** Sensitive Data Redacted ***"
+    if "task_execution_role" in value:
+        out["task_execution_role"] = "*** Sensitive Data Redacted ***"
+    if "command" in value:
+        out["command"] = "*** Sensitive Data Redacted ***"
+    if "environment_variables" in value:
+        out["environment_variables"] = "*** Sensitive Data Redacted ***"
     return out

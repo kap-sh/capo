@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#EnableAllFeaturesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_1(data: dict) -> EnableAllFeaturesResponse:
 
         out["handshake"] = capo_organizations.types.handshake.deserialize_aws_json_1_1(
             data["Handshake"]
+        )
+    return out
+
+
+def redact_sensitive(value: EnableAllFeaturesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "handshake" in value:
+        import capo_organizations.types.handshake
+
+        out["handshake"] = capo_organizations.types.handshake.redact_sensitive(
+            value["handshake"]
         )
     return out

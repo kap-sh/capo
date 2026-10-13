@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.redshift#ModifyClusterMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -388,4 +388,11 @@ def deserialize_query(el: Element) -> ModifyClusterMessage:
         out["extra_compute_for_automatic_optimization"] = (
             child_extra_compute_for_automatic_optimization.text or ""
         ).lower() == "true"
+    return out
+
+
+def redact_sensitive(value: ModifyClusterMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
     return out

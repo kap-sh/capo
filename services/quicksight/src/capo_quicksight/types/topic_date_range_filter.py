@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicDateRangeFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,11 @@ def deserialize_json(data: dict) -> TopicDateRangeFilter:
         out["null_filter"] = capo_quicksight.types.null_filter_type.deserialize_json(
             data["NullFilter"]
         )
+    return out
+
+
+def redact_sensitive(value: TopicDateRangeFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "constant" in value:
+        out["constant"] = "*** Sensitive Data Redacted ***"
     return out

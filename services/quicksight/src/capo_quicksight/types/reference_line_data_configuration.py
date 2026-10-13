@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ReferenceLineDataConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,6 +94,19 @@ def deserialize_json(data: dict) -> ReferenceLineDataConfiguration:
         out["series_type"] = (
             capo_quicksight.types.reference_line_series_type.deserialize_json(
                 data["SeriesType"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ReferenceLineDataConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "static_configuration" in value:
+        import capo_quicksight.types.reference_line_static_data_configuration
+
+        out["static_configuration"] = (
+            capo_quicksight.types.reference_line_static_data_configuration.redact_sensitive(
+                value["static_configuration"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CredentialProviderConfigurations``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.credential_provider_configuration
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> CredentialProviderConfigurations:
             )
         )
     return out
+
+
+def redact_sensitive(value: CredentialProviderConfigurations) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.credential_provider_configuration
+
+    return [
+        capo_bedrock_agentcore_control.types.credential_provider_configuration.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

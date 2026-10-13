@@ -7,6 +7,7 @@ import capo_s3tables._auth._sigv4
 from capo_s3tables._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,9 @@ class TableReplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTableReplication")
+        )
         input_: capo_s3tables.types.delete_table_replication_request.DeleteTableReplicationRequest = {
             "table_arn": table_arn,
             "version_token": version_token,
@@ -122,7 +125,9 @@ class TableReplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableReplication")
+        )
         input_: capo_s3tables.types.get_table_replication_request.GetTableReplicationRequest = {
             "table_arn": table_arn
         }
@@ -170,7 +175,9 @@ class TableReplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableReplicationStatus")
+        )
         input_: capo_s3tables.types.get_table_replication_status_request.GetTableReplicationStatusRequest = {
             "table_arn": table_arn
         }
@@ -225,7 +232,9 @@ class TableReplicationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTableReplication")
+        )
         input_: capo_s3tables.types.put_table_replication_request.PutTableReplicationRequest = {
             "table_arn": table_arn,
             "configuration": configuration,
@@ -283,7 +292,9 @@ class AsyncTableReplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTableReplication")
+        )
         input_: capo_s3tables.types.delete_table_replication_request.DeleteTableReplicationRequest = {
             "table_arn": table_arn,
             "version_token": version_token,
@@ -336,7 +347,9 @@ class AsyncTableReplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableReplication")
+        )
         input_: capo_s3tables.types.get_table_replication_request.GetTableReplicationRequest = {
             "table_arn": table_arn
         }
@@ -385,7 +398,9 @@ class AsyncTableReplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTableReplicationStatus")
+        )
         input_: capo_s3tables.types.get_table_replication_status_request.GetTableReplicationStatusRequest = {
             "table_arn": table_arn
         }
@@ -441,7 +456,9 @@ class AsyncTableReplicationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutTableReplication")
+        )
         input_: capo_s3tables.types.put_table_replication_request.PutTableReplicationRequest = {
             "table_arn": table_arn,
             "configuration": configuration,

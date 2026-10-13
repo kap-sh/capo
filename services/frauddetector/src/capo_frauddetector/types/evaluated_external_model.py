@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#EvaluatedExternalModel``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,13 @@ def deserialize_aws_json_1_1(data: dict) -> EvaluatedExternalModel:
                 data["outputVariables"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EvaluatedExternalModel) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_variables" in value:
+        out["input_variables"] = "*** Sensitive Data Redacted ***"
+    if "output_variables" in value:
+        out["output_variables"] = "*** Sensitive Data Redacted ***"
     return out

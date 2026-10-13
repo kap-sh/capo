@@ -34,7 +34,9 @@ from capo_partnercentral_channel._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -189,7 +191,9 @@ class AsyncPartnerCentralChannelClient:
         self.relationship_resource = AsyncRelationshipResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPartnerCentralChannelClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPartnerCentralChannelClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPartnerCentralChannelClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class AsyncPartnerCentralChannelClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -254,7 +260,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_partnercentral_channel.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -310,7 +318,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_partnercentral_channel.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -367,7 +377,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_partnercentral_channel.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -446,7 +458,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.create_channel_handshake_request.CreateChannelHandshakeRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -540,7 +554,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannelHandshakes")
+        )
         input_: capo_partnercentral_channel.types.list_channel_handshakes_request.ListChannelHandshakesRequest = {
             "handshake_type": handshake_type,
             "catalog": catalog,
@@ -654,7 +670,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.accept_channel_handshake_request.AcceptChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -710,7 +728,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.cancel_channel_handshake_request.CancelChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -766,7 +786,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectChannelHandshake")
+        )
         input_: capo_partnercentral_channel.types.reject_channel_handshake_request.RejectChannelHandshakeRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -834,7 +856,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProgramManagementAccount")
+        )
         input_: capo_partnercentral_channel.types.create_program_management_account_request.CreateProgramManagementAccountRequest = {
             "catalog": catalog,
             "program": program,
@@ -906,7 +930,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProgramManagementAccount")
+        )
         input_: capo_partnercentral_channel.types.update_program_management_account_request.UpdateProgramManagementAccountRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -971,7 +997,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProgramManagementAccount")
+        )
         input_: capo_partnercentral_channel.types.delete_program_management_account_request.DeleteProgramManagementAccountRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1054,7 +1082,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProgramManagementAccounts")
+        )
         input_: capo_partnercentral_channel.types.list_program_management_accounts_request.ListProgramManagementAccountsRequest = {
             "catalog": catalog
         }
@@ -1192,7 +1222,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRelationship")
+        )
         input_: capo_partnercentral_channel.types.create_relationship_request.CreateRelationshipRequest = {
             "catalog": catalog,
             "association_type": association_type,
@@ -1263,7 +1295,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRelationship")
+        )
         input_: capo_partnercentral_channel.types.get_relationship_request.GetRelationshipRequest = {
             "catalog": catalog,
             "program_management_account_identifier": program_management_account_identifier,
@@ -1335,7 +1369,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRelationship")
+        )
         input_: capo_partnercentral_channel.types.update_relationship_request.UpdateRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1405,7 +1441,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRelationship")
+        )
         input_: capo_partnercentral_channel.types.delete_relationship_request.DeleteRelationshipRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1489,7 +1527,9 @@ class AsyncPartnerCentralChannelClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRelationships")
+        )
         input_: capo_partnercentral_channel.types.list_relationships_request.ListRelationshipsRequest = {
             "catalog": catalog
         }

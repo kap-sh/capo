@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeParsedQueryAddressComponents``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -296,6 +296,123 @@ def deserialize_json(data: dict) -> GeocodeParsedQueryAddressComponents:
         out["other_components"] = (
             capo_geo_places.types.parsed_query_component_list.deserialize_json(
                 data["OtherComponents"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeocodeParsedQueryAddressComponents) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "country" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["country"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["country"]
+            )
+        )
+    if "region" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["region"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["region"]
+            )
+        )
+    if "sub_region" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["sub_region"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["sub_region"]
+            )
+        )
+    if "locality" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["locality"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["locality"]
+            )
+        )
+    if "district" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["district"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["district"]
+            )
+        )
+    if "sub_district" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["sub_district"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["sub_district"]
+            )
+        )
+    if "postal_code" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["postal_code"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["postal_code"]
+            )
+        )
+    if "block" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["block"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["block"]
+            )
+        )
+    if "sub_block" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["sub_block"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["sub_block"]
+            )
+        )
+    if "street" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["street"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["street"]
+            )
+        )
+    if "address_number" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["address_number"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["address_number"]
+            )
+        )
+    if "building" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["building"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["building"]
+            )
+        )
+    if "secondary_address_components" in value:
+        import capo_geo_places.types.parsed_query_secondary_address_component_list
+
+        out["secondary_address_components"] = (
+            capo_geo_places.types.parsed_query_secondary_address_component_list.redact_sensitive(
+                value["secondary_address_components"]
+            )
+        )
+    if "other_components" in value:
+        import capo_geo_places.types.parsed_query_component_list
+
+        out["other_components"] = (
+            capo_geo_places.types.parsed_query_component_list.redact_sensitive(
+                value["other_components"]
             )
         )
     return out

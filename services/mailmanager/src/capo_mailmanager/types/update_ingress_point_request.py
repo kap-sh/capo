@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#UpdateIngressPointRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -111,5 +111,18 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateIngressPointRequest:
 
         out["tls_policy"] = capo_mailmanager.types.tls_policy.deserialize_aws_json_1_0(
             data["TlsPolicy"]
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateIngressPointRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ingress_point_configuration" in value:
+        import capo_mailmanager.types.ingress_point_configuration
+
+        out["ingress_point_configuration"] = (
+            capo_mailmanager.types.ingress_point_configuration.redact_sensitive(
+                value["ingress_point_configuration"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#GetIngestedDocumentAclResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> GetIngestedDocumentAclResponse:
         raise DeserializationError(
             "GetIngestedDocumentAclResponse.document_acl required"
         )
+    return out
+
+
+def redact_sensitive(value: GetIngestedDocumentAclResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document_acl" in value:
+        out["document_acl"] = "*** Sensitive Data Redacted ***"
     return out

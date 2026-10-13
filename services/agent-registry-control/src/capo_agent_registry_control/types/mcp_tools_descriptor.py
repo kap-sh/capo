@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistrycontrol#McpToolsDescriptor``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> McpToolsDescriptor:
         out["data"] = data["data"]
     if data.get("dataSchemaVersion") is not None:
         out["data_schema_version"] = data["dataSchemaVersion"]
+    return out
+
+
+def redact_sensitive(value: McpToolsDescriptor) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        out["data"] = "*** Sensitive Data Redacted ***"
     return out

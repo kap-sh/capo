@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#FrameworkMetadataList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_auditmanager.types.assessment_framework_metadata
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> FrameworkMetadataList:
             capo_auditmanager.types.assessment_framework_metadata.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: FrameworkMetadataList) -> list[Any]:
+    import capo_auditmanager.types.assessment_framework_metadata
+
+    return [
+        capo_auditmanager.types.assessment_framework_metadata.redact_sensitive(item)
+        for item in value
+    ]

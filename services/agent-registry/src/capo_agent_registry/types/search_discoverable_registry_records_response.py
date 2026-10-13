@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.agentregistry#SearchDiscoverableRegistryRecordsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,20 @@ def deserialize_json(data: dict) -> SearchDiscoverableRegistryRecordsResponse:
     else:
         raise DeserializationError(
             "SearchDiscoverableRegistryRecordsResponse.registry_records required"
+        )
+    return out
+
+
+def redact_sensitive(
+    value: SearchDiscoverableRegistryRecordsResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "registry_records" in value:
+        import capo_agent_registry.types.registry_record_summary_list
+
+        out["registry_records"] = (
+            capo_agent_registry.types.registry_record_summary_list.redact_sensitive(
+                value["registry_records"]
+            )
         )
     return out

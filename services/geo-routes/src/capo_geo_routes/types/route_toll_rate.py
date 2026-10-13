@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTollRate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -126,4 +126,51 @@ def deserialize_json(data: dict) -> RouteTollRate:
         )
     else:
         raise DeserializationError("RouteTollRate.transponders required")
+    return out
+
+
+def redact_sensitive(value: RouteTollRate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "applicable_times" in value:
+        out["applicable_times"] = "*** Sensitive Data Redacted ***"
+    if "converted_price" in value:
+        import capo_geo_routes.types.route_toll_price
+
+        out["converted_price"] = (
+            capo_geo_routes.types.route_toll_price.redact_sensitive(
+                value["converted_price"]
+            )
+        )
+    if "id" in value:
+        out["id"] = "*** Sensitive Data Redacted ***"
+    if "local_price" in value:
+        import capo_geo_routes.types.route_toll_price
+
+        out["local_price"] = capo_geo_routes.types.route_toll_price.redact_sensitive(
+            value["local_price"]
+        )
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "pass" in value:
+        import capo_geo_routes.types.route_toll_pass
+
+        out["pass"] = capo_geo_routes.types.route_toll_pass.redact_sensitive(
+            value["pass"]
+        )
+    if "payment_methods" in value:
+        import capo_geo_routes.types.route_toll_payment_method_list
+
+        out["payment_methods"] = (
+            capo_geo_routes.types.route_toll_payment_method_list.redact_sensitive(
+                value["payment_methods"]
+            )
+        )
+    if "transponders" in value:
+        import capo_geo_routes.types.route_transponder_list
+
+        out["transponders"] = (
+            capo_geo_routes.types.route_transponder_list.redact_sensitive(
+                value["transponders"]
+            )
+        )
     return out

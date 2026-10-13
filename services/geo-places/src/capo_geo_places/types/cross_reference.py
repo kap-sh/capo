@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#CrossReference``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,20 @@ def deserialize_json(data: dict) -> CrossReference:
 
         out["source_categories"] = capo_geo_places.types.category_list.deserialize_json(
             data["SourceCategories"]
+        )
+    return out
+
+
+def redact_sensitive(value: CrossReference) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        out["source"] = "*** Sensitive Data Redacted ***"
+    if "source_place_id" in value:
+        out["source_place_id"] = "*** Sensitive Data Redacted ***"
+    if "source_categories" in value:
+        import capo_geo_places.types.category_list
+
+        out["source_categories"] = capo_geo_places.types.category_list.redact_sensitive(
+            value["source_categories"]
         )
     return out

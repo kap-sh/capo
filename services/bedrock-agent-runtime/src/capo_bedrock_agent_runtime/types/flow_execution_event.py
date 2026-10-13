@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FlowExecutionEvent``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -232,3 +232,26 @@ def deserialize_json(data: dict) -> FlowExecutionEvent:
         }
     else:
         raise DeserializationError("FlowExecutionEvent: no recognized variant key")
+
+
+def redact_sensitive(value: FlowExecutionEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "flowInputEvent" in value:
+        out["flowInputEvent"] = "*** Sensitive Data Redacted ***"
+    if "flowOutputEvent" in value:
+        out["flowOutputEvent"] = "*** Sensitive Data Redacted ***"
+    if "nodeInputEvent" in value:
+        out["nodeInputEvent"] = "*** Sensitive Data Redacted ***"
+    if "nodeOutputEvent" in value:
+        out["nodeOutputEvent"] = "*** Sensitive Data Redacted ***"
+    if "conditionResultEvent" in value:
+        out["conditionResultEvent"] = "*** Sensitive Data Redacted ***"
+    if "nodeFailureEvent" in value:
+        out["nodeFailureEvent"] = "*** Sensitive Data Redacted ***"
+    if "flowFailureEvent" in value:
+        out["flowFailureEvent"] = "*** Sensitive Data Redacted ***"
+    if "nodeActionEvent" in value:
+        out["nodeActionEvent"] = "*** Sensitive Data Redacted ***"
+    if "nodeDependencyEvent" in value:
+        out["nodeDependencyEvent"] = "*** Sensitive Data Redacted ***"
+    return out

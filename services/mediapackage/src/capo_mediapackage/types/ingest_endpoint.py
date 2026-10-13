@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediapackage#IngestEndpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_json(data: dict) -> IngestEndpoint:
         out["url"] = data["url"]
     if data.get("username") is not None:
         out["username"] = data["username"]
+    return out
+
+
+def redact_sensitive(value: IngestEndpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "username" in value:
+        out["username"] = "*** Sensitive Data Redacted ***"
     return out

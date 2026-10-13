@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -130,7 +131,9 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExadbVmCluster")
+        )
         input_: capo_odb.types.create_exadb_vm_cluster_input.CreateExadbVmClusterInput = {
             "display_name": display_name,
             "enabled_ecpu_count": enabled_ecpu_count,
@@ -208,7 +211,9 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExadbVmCluster")
+        )
         input_: capo_odb.types.get_exadb_vm_cluster_input.GetExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -280,7 +285,9 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExadbVmCluster")
+        )
         input_: capo_odb.types.update_exadb_vm_cluster_input.UpdateExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -350,7 +357,9 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExadbVmCluster")
+        )
         input_: capo_odb.types.delete_exadb_vm_cluster_input.DeleteExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -403,7 +412,9 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExadbVmClusters")
+        )
         input_: capo_odb.types.list_exadb_vm_clusters_input.ListExadbVmClustersInput = {}
         if exascale_db_storage_vault_id is not None:
             input_["exascale_db_storage_vault_id"] = exascale_db_storage_vault_id
@@ -458,7 +469,10 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateVirtualMachinesToExadbVmCluster"),
+        )
         input_: capo_odb.types.associate_virtual_machines_to_exadb_vm_cluster_input.AssociateVirtualMachinesToExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "desired_node_count": desired_node_count,
@@ -509,7 +523,10 @@ class ExadbVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateVirtualMachinesFromExadbVmCluster"),
+        )
         input_: capo_odb.types.disassociate_virtual_machines_from_exadb_vm_cluster_input.DisassociateVirtualMachinesFromExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "db_node_ids": db_node_ids,
@@ -611,7 +628,9 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateExadbVmCluster")
+        )
         input_: capo_odb.types.create_exadb_vm_cluster_input.CreateExadbVmClusterInput = {
             "display_name": display_name,
             "enabled_ecpu_count": enabled_ecpu_count,
@@ -690,7 +709,9 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetExadbVmCluster")
+        )
         input_: capo_odb.types.get_exadb_vm_cluster_input.GetExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -763,7 +784,9 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateExadbVmCluster")
+        )
         input_: capo_odb.types.update_exadb_vm_cluster_input.UpdateExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -834,7 +857,9 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteExadbVmCluster")
+        )
         input_: capo_odb.types.delete_exadb_vm_cluster_input.DeleteExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id
         }
@@ -888,7 +913,9 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExadbVmClusters")
+        )
         input_: capo_odb.types.list_exadb_vm_clusters_input.ListExadbVmClustersInput = {}
         if exascale_db_storage_vault_id is not None:
             input_["exascale_db_storage_vault_id"] = exascale_db_storage_vault_id
@@ -944,7 +971,10 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateVirtualMachinesToExadbVmCluster"),
+        )
         input_: capo_odb.types.associate_virtual_machines_to_exadb_vm_cluster_input.AssociateVirtualMachinesToExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "desired_node_count": desired_node_count,
@@ -996,7 +1026,10 @@ class AsyncExadbVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateVirtualMachinesFromExadbVmCluster"),
+        )
         input_: capo_odb.types.disassociate_virtual_machines_from_exadb_vm_cluster_input.DisassociateVirtualMachinesFromExadbVmClusterInput = {
             "exadb_vm_cluster_id": exadb_vm_cluster_id,
             "db_node_ids": db_node_ids,

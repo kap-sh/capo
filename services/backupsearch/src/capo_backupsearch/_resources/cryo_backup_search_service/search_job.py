@@ -7,6 +7,7 @@ import capo_backupsearch._auth._sigv4
 from capo_backupsearch._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class SearchJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartSearchJob")
+        )
         input_: capo_backupsearch.types.start_search_job_input.StartSearchJobInput = {
             "search_scope": search_scope
         }
@@ -149,7 +152,9 @@ class SearchJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSearchJob")
+        )
         input_: capo_backupsearch.types.get_search_job_input.GetSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -197,7 +202,9 @@ class SearchJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopSearchJob")
+        )
         input_: capo_backupsearch.types.stop_search_job_input.StopSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -249,7 +256,9 @@ class SearchJob:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSearchJobs")
+        )
         input_: capo_backupsearch.types.list_search_jobs_input.ListSearchJobsInput = {}
         if by_status is not None:
             input_["by_status"] = by_status
@@ -322,7 +331,9 @@ class AsyncSearchJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartSearchJob")
+        )
         input_: capo_backupsearch.types.start_search_job_input.StartSearchJobInput = {
             "search_scope": search_scope
         }
@@ -380,7 +391,9 @@ class AsyncSearchJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSearchJob")
+        )
         input_: capo_backupsearch.types.get_search_job_input.GetSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -429,7 +442,9 @@ class AsyncSearchJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopSearchJob")
+        )
         input_: capo_backupsearch.types.stop_search_job_input.StopSearchJobInput = {
             "search_job_identifier": search_job_identifier
         }
@@ -482,7 +497,9 @@ class AsyncSearchJob:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSearchJobs")
+        )
         input_: capo_backupsearch.types.list_search_jobs_input.ListSearchJobsInput = {}
         if by_status is not None:
             input_["by_status"] = by_status

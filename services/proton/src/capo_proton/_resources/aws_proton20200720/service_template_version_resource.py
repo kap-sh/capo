@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,32 @@ class ServiceTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_service_template_version_input.CreateServiceTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_template_version_input
+
+            return capo_proton.types.create_service_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_service_template_version_output.CreateServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_template_version_output
+
+            return capo_proton.types.create_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateServiceTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_service_template_version_input.CreateServiceTemplateVersionInput = {
             "template_name": template_name,
             "source": source,
@@ -164,7 +190,21 @@ class ServiceTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_service_template_version_output.GetServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_service_template_version_output
+
+            return (
+                capo_proton.types.get_service_template_version_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetServiceTemplateVersion", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_service_template_version_input.GetServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -232,7 +272,32 @@ class ServiceTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_template_version_input.UpdateServiceTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_template_version_input
+
+            return capo_proton.types.update_service_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_template_version_output.UpdateServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_template_version_output
+
+            return capo_proton.types.update_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateServiceTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_template_version_input.UpdateServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -296,7 +361,21 @@ class ServiceTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_service_template_version_output.DeleteServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_service_template_version_output
+
+            return capo_proton.types.delete_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteServiceTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.delete_service_template_version_input.DeleteServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -355,7 +434,21 @@ class ServiceTemplateVersionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_service_template_versions_output.ListServiceTemplateVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_service_template_versions_output
+
+            return capo_proton.types.list_service_template_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListServiceTemplateVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.list_service_template_versions_input.ListServiceTemplateVersionsInput = {
             "template_name": template_name
         }
@@ -434,7 +527,32 @@ class AsyncServiceTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_service_template_version_input.CreateServiceTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_template_version_input
+
+            return capo_proton.types.create_service_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_service_template_version_output.CreateServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_template_version_output
+
+            return capo_proton.types.create_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateServiceTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_service_template_version_input.CreateServiceTemplateVersionInput = {
             "template_name": template_name,
             "source": source,
@@ -499,7 +617,21 @@ class AsyncServiceTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_service_template_version_output.GetServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_service_template_version_output
+
+            return (
+                capo_proton.types.get_service_template_version_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetServiceTemplateVersion", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_service_template_version_input.GetServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -568,7 +700,32 @@ class AsyncServiceTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_template_version_input.UpdateServiceTemplateVersionInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_template_version_input
+
+            return capo_proton.types.update_service_template_version_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_template_version_output.UpdateServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_template_version_output
+
+            return capo_proton.types.update_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateServiceTemplateVersion",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_template_version_input.UpdateServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -633,7 +790,21 @@ class AsyncServiceTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_service_template_version_output.DeleteServiceTemplateVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_service_template_version_output
+
+            return capo_proton.types.delete_service_template_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteServiceTemplateVersion", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.delete_service_template_version_input.DeleteServiceTemplateVersionInput = {
             "template_name": template_name,
             "major_version": major_version,
@@ -693,7 +864,21 @@ class AsyncServiceTemplateVersionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_service_template_versions_output.ListServiceTemplateVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_service_template_versions_output
+
+            return capo_proton.types.list_service_template_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListServiceTemplateVersions", redact_output=_redact_output
+            ),
+        )
         input_: capo_proton.types.list_service_template_versions_input.ListServiceTemplateVersionsInput = {
             "template_name": template_name
         }

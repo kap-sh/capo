@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,26 @@ class ExportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_export_request.StartExportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_request
+
+            return capo_mgn.types.start_export_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_export_response.StartExportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_response
+
+            return capo_mgn.types.start_export_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartExport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_export_request.StartExportRequest = {
             "s3_bucket": s3_bucket,
             "s3_key": s3_key,
@@ -129,7 +149,17 @@ class ExportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_exports_response.ListExportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_exports_response
+
+            return capo_mgn.types.list_exports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListExports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_exports_request.ListExportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -181,7 +211,9 @@ class ExportResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExportErrors")
+        )
         input_: capo_mgn.types.list_export_errors_request.ListExportErrorsRequest = {
             "export_id": export_id
         }
@@ -242,7 +274,26 @@ class AsyncExportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_export_request.StartExportRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_request
+
+            return capo_mgn.types.start_export_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_export_response.StartExportResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_export_response
+
+            return capo_mgn.types.start_export_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartExport", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_export_request.StartExportRequest = {
             "s3_bucket": s3_bucket,
             "s3_key": s3_key,
@@ -296,7 +347,17 @@ class AsyncExportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.list_exports_response.ListExportsResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.list_exports_response
+
+            return capo_mgn.types.list_exports_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListExports", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.list_exports_request.ListExportsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -349,7 +410,9 @@ class AsyncExportResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListExportErrors")
+        )
         input_: capo_mgn.types.list_export_errors_request.ListExportErrorsRequest = {
             "export_id": export_id
         }

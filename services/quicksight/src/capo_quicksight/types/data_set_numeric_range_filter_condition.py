@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetNumericRangeFilterCondition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,4 +72,25 @@ def deserialize_json(data: dict) -> DataSetNumericRangeFilterCondition:
         out["include_minimum"] = data["IncludeMinimum"]
     if data.get("IncludeMaximum") is not None:
         out["include_maximum"] = data["IncludeMaximum"]
+    return out
+
+
+def redact_sensitive(value: DataSetNumericRangeFilterCondition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "range_minimum" in value:
+        import capo_quicksight.types.data_set_numeric_filter_value
+
+        out["range_minimum"] = (
+            capo_quicksight.types.data_set_numeric_filter_value.redact_sensitive(
+                value["range_minimum"]
+            )
+        )
+    if "range_maximum" in value:
+        import capo_quicksight.types.data_set_numeric_filter_value
+
+        out["range_maximum"] = (
+            capo_quicksight.types.data_set_numeric_filter_value.redact_sensitive(
+                value["range_maximum"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#ExecutionStartedEventDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_aws_json_1_0(data: dict) -> ExecutionStartedEventDetails:
         out["state_machine_alias_arn"] = data["stateMachineAliasArn"]
     if data.get("stateMachineVersionArn") is not None:
         out["state_machine_version_arn"] = data["stateMachineVersionArn"]
+    return out
+
+
+def redact_sensitive(value: ExecutionStartedEventDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
     return out

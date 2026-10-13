@@ -22,10 +22,12 @@ from capo_application_discovery_service._pagination import resolve_path as _reso
 from capo_application_discovery_service._services._aws_config import aws_config
 from capo_application_discovery_service._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -200,7 +202,9 @@ class ApplicationDiscoveryServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ApplicationDiscoveryServiceClientConfig] = None
+        self,
+        config_overrides: Optional[ApplicationDiscoveryServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ApplicationDiscoveryServiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -208,8 +212,10 @@ class ApplicationDiscoveryServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -264,7 +270,10 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateConfigurationItemsToApplication"),
+        )
         input_: capo_application_discovery_service.types.associate_configuration_items_to_application_request.AssociateConfigurationItemsToApplicationRequest = {
             "application_configuration_id": application_configuration_id,
             "configuration_ids": configuration_ids,
@@ -311,7 +320,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteAgents")
+        )
         input_: capo_application_discovery_service.types.batch_delete_agents_request.BatchDeleteAgentsRequest = {
             "delete_agents": delete_agents
         }
@@ -362,7 +373,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteImportData")
+        )
         input_: capo_application_discovery_service.types.batch_delete_import_data_request.BatchDeleteImportDataRequest = {
             "import_task_ids": import_task_ids
         }
@@ -419,7 +432,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_application_discovery_service.types.create_application_request.CreateApplicationRequest = {
             "name": name
         }
@@ -473,7 +488,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_application_discovery_service.types.create_tags_request.CreateTagsRequest = {
             "configuration_ids": configuration_ids,
             "tags": tags,
@@ -521,7 +538,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplications")
+        )
         input_: capo_application_discovery_service.types.delete_applications_request.DeleteApplicationsRequest = {
             "configuration_ids": configuration_ids
         }
@@ -573,7 +592,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_application_discovery_service.types.delete_tags_request.DeleteTagsRequest = {
             "configuration_ids": configuration_ids
         }
@@ -636,7 +657,19 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_application_discovery_service.types.describe_agents_response.DescribeAgentsResponse",
+        ) -> dict[str, Any]:
+            import capo_application_discovery_service.types.describe_agents_response
+
+            return capo_application_discovery_service.types.describe_agents_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAgents", redact_output=_redact_output),
+        )
         input_: capo_application_discovery_service.types.describe_agents_request.DescribeAgentsRequest = {}
         if agent_ids is not None:
             input_["agent_ids"] = agent_ids
@@ -721,7 +754,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBatchDeleteConfigurationTask")
+        )
         input_: capo_application_discovery_service.types.describe_batch_delete_configuration_task_request.DescribeBatchDeleteConfigurationTaskRequest = {
             "task_id": task_id
         }
@@ -768,7 +803,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurations")
+        )
         input_: capo_application_discovery_service.types.describe_configurations_request.DescribeConfigurationsRequest = {
             "configuration_ids": configuration_ids
         }
@@ -827,7 +864,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeContinuousExports")
+        )
         input_: capo_application_discovery_service.types.describe_continuous_exports_request.DescribeContinuousExportsRequest = {}
         if export_ids is not None:
             input_["export_ids"] = export_ids
@@ -918,7 +957,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExportConfigurations")
+        )
         input_: capo_application_discovery_service.types.describe_export_configurations_request.DescribeExportConfigurationsRequest = {}
         if export_ids is not None:
             input_["export_ids"] = export_ids
@@ -1012,7 +1053,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExportTasks")
+        )
         input_: capo_application_discovery_service.types.describe_export_tasks_request.DescribeExportTasksRequest = {}
         if export_ids is not None:
             input_["export_ids"] = export_ids
@@ -1108,7 +1151,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeImportTasks")
+        )
         input_: capo_application_discovery_service.types.describe_import_tasks_request.DescribeImportTasksRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1199,7 +1244,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_application_discovery_service.types.describe_tags_request.DescribeTagsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1281,7 +1328,10 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateConfigurationItemsFromApplication"),
+        )
         input_: capo_application_discovery_service.types.disassociate_configuration_items_from_application_request.DisassociateConfigurationItemsFromApplicationRequest = {
             "application_configuration_id": application_configuration_id,
             "configuration_ids": configuration_ids,
@@ -1326,7 +1376,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportConfigurations")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -1366,7 +1418,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDiscoverySummary")
+        )
         input_: capo_application_discovery_service.types.get_discovery_summary_request.GetDiscoverySummaryRequest = {}
 
         response = execute_pipeline(
@@ -1428,7 +1482,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurations")
+        )
         input_: capo_application_discovery_service.types.list_configurations_request.ListConfigurationsRequest = {
             "configuration_type": configuration_type
         }
@@ -1536,7 +1592,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServerNeighbors")
+        )
         input_: capo_application_discovery_service.types.list_server_neighbors_request.ListServerNeighborsRequest = {
             "configuration_id": configuration_id
         }
@@ -1595,7 +1653,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBatchDeleteConfigurationTask")
+        )
         input_: capo_application_discovery_service.types.start_batch_delete_configuration_task_request.StartBatchDeleteConfigurationTaskRequest = {
             "configuration_type": configuration_type,
             "configuration_ids": configuration_ids,
@@ -1642,7 +1702,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartContinuousExport")
+        )
         input_: capo_application_discovery_service.types.start_continuous_export_request.StartContinuousExportRequest = {}
 
         response = execute_pipeline(
@@ -1687,7 +1749,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataCollectionByAgentIds")
+        )
         input_: capo_application_discovery_service.types.start_data_collection_by_agent_ids_request.StartDataCollectionByAgentIdsRequest = {
             "agent_ids": agent_ids
         }
@@ -1753,7 +1817,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExportTask")
+        )
         input_: capo_application_discovery_service.types.start_export_task_request.StartExportTaskRequest = {}
         if export_data_format is not None:
             input_["export_data_format"] = export_data_format
@@ -1815,7 +1881,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImportTask")
+        )
         input_: capo_application_discovery_service.types.start_import_task_request.StartImportTaskRequest = {
             "name": name,
             "import_url": import_url,
@@ -1869,7 +1937,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopContinuousExport")
+        )
         input_: capo_application_discovery_service.types.stop_continuous_export_request.StopContinuousExportRequest = {
             "export_id": export_id
         }
@@ -1916,7 +1986,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDataCollectionByAgentIds")
+        )
         input_: capo_application_discovery_service.types.stop_data_collection_by_agent_ids_request.StopDataCollectionByAgentIdsRequest = {
             "agent_ids": agent_ids
         }
@@ -1975,7 +2047,9 @@ class ApplicationDiscoveryServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_application_discovery_service.types.update_application_request.UpdateApplicationRequest = {
             "configuration_id": configuration_id
         }

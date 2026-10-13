@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#CaseAttachmentAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -87,4 +87,11 @@ def deserialize_json(data: dict) -> CaseAttachmentAttributes:
         )
     else:
         raise DeserializationError("CaseAttachmentAttributes.created_date required")
+    return out
+
+
+def redact_sensitive(value: CaseAttachmentAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_name" in value:
+        out["file_name"] = "*** Sensitive Data Redacted ***"
     return out

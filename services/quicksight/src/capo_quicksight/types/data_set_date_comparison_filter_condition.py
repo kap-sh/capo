@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataSetDateComparisonFilterCondition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,6 +59,19 @@ def deserialize_json(data: dict) -> DataSetDateComparisonFilterCondition:
         out["value"] = (
             capo_quicksight.types.data_set_date_filter_value.deserialize_json(
                 data["Value"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DataSetDateComparisonFilterCondition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_quicksight.types.data_set_date_filter_value
+
+        out["value"] = (
+            capo_quicksight.types.data_set_date_filter_value.redact_sensitive(
+                value["value"]
             )
         )
     return out

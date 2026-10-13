@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ListCodeInterpretersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,17 @@ def deserialize_json(data: dict) -> ListCodeInterpretersResponse:
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListCodeInterpretersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code_interpreter_summaries" in value:
+        import capo_bedrock_agentcore_control.types.code_interpreter_summaries
+
+        out["code_interpreter_summaries"] = (
+            capo_bedrock_agentcore_control.types.code_interpreter_summaries.redact_sensitive(
+                value["code_interpreter_summaries"]
+            )
+        )
     return out

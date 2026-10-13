@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaignsv2#OutboundRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,5 +64,18 @@ def deserialize_json(data: dict) -> OutboundRequest:
     else:
         raise DeserializationError(
             "OutboundRequest.channel_subtype_parameters required"
+        )
+    return out
+
+
+def redact_sensitive(value: OutboundRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel_subtype_parameters" in value:
+        import capo_connectcampaignsv2.types.channel_subtype_parameters
+
+        out["channel_subtype_parameters"] = (
+            capo_connectcampaignsv2.types.channel_subtype_parameters.redact_sensitive(
+                value["channel_subtype_parameters"]
+            )
         )
     return out

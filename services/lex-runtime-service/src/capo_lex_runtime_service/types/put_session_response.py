@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#PutSessionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,3 +54,16 @@ class PutSessionResponse(TypedDict, closed=True):
         "capo_lex_runtime_service.types.synthesized_json_active_contexts_string.SynthesizedJsonActiveContextsString"
     ]
     """<p>A list of active contexts for the session.</p>"""
+
+
+def redact_sensitive(value: PutSessionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    if "encoded_message" in value:
+        out["encoded_message"] = "*** Sensitive Data Redacted ***"
+    if "audio_stream" in value:
+        out["audio_stream"] = "*** Streaming Data Redacted ***"
+    if "active_contexts" in value:
+        out["active_contexts"] = "*** Sensitive Data Redacted ***"
+    return out

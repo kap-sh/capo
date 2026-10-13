@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#DocumentContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,15 @@ def deserialize_json(data: dict) -> DocumentContent:
         import capo_bedrock_agent.types.s3_content
 
         out["s3"] = capo_bedrock_agent.types.s3_content.deserialize_json(data["s3"])
+    return out
+
+
+def redact_sensitive(value: DocumentContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom" in value:
+        import capo_bedrock_agent.types.custom_content
+
+        out["custom"] = capo_bedrock_agent.types.custom_content.redact_sensitive(
+            value["custom"]
+        )
     return out

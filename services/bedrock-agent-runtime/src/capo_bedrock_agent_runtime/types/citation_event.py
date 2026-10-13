@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#CitationEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -98,4 +98,31 @@ def deserialize_event_json(message: Message) -> CitationEvent:
     out: CitationEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: CitationEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "citation" in value:
+        import capo_bedrock_agent_runtime.types.citation
+
+        out["citation"] = capo_bedrock_agent_runtime.types.citation.redact_sensitive(
+            value["citation"]
+        )
+    if "generated_response_part" in value:
+        import capo_bedrock_agent_runtime.types.generated_response_part
+
+        out["generated_response_part"] = (
+            capo_bedrock_agent_runtime.types.generated_response_part.redact_sensitive(
+                value["generated_response_part"]
+            )
+        )
+    if "retrieved_references" in value:
+        import capo_bedrock_agent_runtime.types.retrieved_references
+
+        out["retrieved_references"] = (
+            capo_bedrock_agent_runtime.types.retrieved_references.redact_sensitive(
+                value["retrieved_references"]
+            )
+        )
     return out

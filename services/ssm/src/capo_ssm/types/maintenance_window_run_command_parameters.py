@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#MaintenanceWindowRunCommandParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -144,4 +144,11 @@ def deserialize_aws_json_1_1(data: dict) -> MaintenanceWindowRunCommandParameter
         out["service_role_arn"] = data["ServiceRoleArn"]
     if data.get("TimeoutSeconds") is not None:
         out["timeout_seconds"] = data["TimeoutSeconds"]
+    return out
+
+
+def redact_sensitive(value: MaintenanceWindowRunCommandParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
     return out

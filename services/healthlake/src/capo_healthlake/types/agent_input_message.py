@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#AgentInputMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_aws_json_1_0(data: dict) -> AgentInputMessage:
         )
     else:
         raise DeserializationError("AgentInputMessage.type required")
+    return out
+
+
+def redact_sensitive(value: AgentInputMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

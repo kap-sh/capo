@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#DescribeInstancePatchStatesResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeInstancePatchStatesResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeInstancePatchStatesResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_patch_states" in value:
+        import capo_ssm.types.instance_patch_state_list
+
+        out["instance_patch_states"] = (
+            capo_ssm.types.instance_patch_state_list.redact_sensitive(
+                value["instance_patch_states"]
+            )
+        )
     return out

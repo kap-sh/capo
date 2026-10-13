@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_identitystore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class IdentityStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityStore")
+        )
         input_: capo_identitystore.types.describe_identity_store_request.DescribeIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -123,7 +126,9 @@ class IdentityStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityStore")
+        )
         input_: capo_identitystore.types.update_identity_store_request.UpdateIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -173,7 +178,9 @@ class IdentityStoreResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdentityStores")
+        )
         input_: capo_identitystore.types.list_identity_stores_request.ListIdentityStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -228,7 +235,9 @@ class AsyncIdentityStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityStore")
+        )
         input_: capo_identitystore.types.describe_identity_store_request.DescribeIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -281,7 +290,9 @@ class AsyncIdentityStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityStore")
+        )
         input_: capo_identitystore.types.update_identity_store_request.UpdateIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -332,7 +343,9 @@ class AsyncIdentityStoreResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdentityStores")
+        )
         input_: capo_identitystore.types.list_identity_stores_request.ListIdentityStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AssignOpportunityRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,17 @@ def deserialize_aws_json_1_0(data: dict) -> AssignOpportunityRequest:
         )
     else:
         raise DeserializationError("AssignOpportunityRequest.assignee required")
+    return out
+
+
+def redact_sensitive(value: AssignOpportunityRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assignee" in value:
+        import capo_partnercentral_selling.types.assignee_contact
+
+        out["assignee"] = (
+            capo_partnercentral_selling.types.assignee_contact.redact_sensitive(
+                value["assignee"]
+            )
+        )
     return out

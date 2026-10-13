@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#CompleteResourceTokenAuthRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -49,5 +49,18 @@ def deserialize_json(data: dict) -> CompleteResourceTokenAuthRequest:
     else:
         raise DeserializationError(
             "CompleteResourceTokenAuthRequest.session_uri required"
+        )
+    return out
+
+
+def redact_sensitive(value: CompleteResourceTokenAuthRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_identifier" in value:
+        import capo_bedrock_agentcore.types.user_identifier
+
+        out["user_identifier"] = (
+            capo_bedrock_agentcore.types.user_identifier.redact_sensitive(
+                value["user_identifier"]
+            )
         )
     return out

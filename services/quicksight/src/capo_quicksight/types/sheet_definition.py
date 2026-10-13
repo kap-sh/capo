@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SheetDefinition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -213,5 +213,28 @@ def deserialize_json(data: dict) -> SheetDefinition:
             capo_quicksight.types.visual_custom_action_defaults.deserialize_json(
                 data["CustomActionDefaults"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: SheetDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "visuals" in value:
+        import capo_quicksight.types.visual_list
+
+        out["visuals"] = capo_quicksight.types.visual_list.redact_sensitive(
+            value["visuals"]
+        )
+    if "images" in value:
+        import capo_quicksight.types.sheet_image_list
+
+        out["images"] = capo_quicksight.types.sheet_image_list.redact_sensitive(
+            value["images"]
+        )
+    if "layouts" in value:
+        import capo_quicksight.types.layout_list
+
+        out["layouts"] = capo_quicksight.types.layout_list.redact_sensitive(
+            value["layouts"]
         )
     return out

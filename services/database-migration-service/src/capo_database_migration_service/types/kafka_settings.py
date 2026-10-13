@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#KafkaSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -236,4 +236,13 @@ def deserialize_aws_json_1_1(data: dict) -> KafkaSettings:
         )
     if data.get("UseLargeIntegerValue") is not None:
         out["use_large_integer_value"] = data["UseLargeIntegerValue"]
+    return out
+
+
+def redact_sensitive(value: KafkaSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssl_client_key_password" in value:
+        out["ssl_client_key_password"] = "*** Sensitive Data Redacted ***"
+    if "sasl_password" in value:
+        out["sasl_password"] = "*** Sensitive Data Redacted ***"
     return out

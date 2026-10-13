@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#GetFolderResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,5 +51,16 @@ def deserialize_json(data: dict) -> GetFolderResponse:
             capo_workdocs.types.custom_metadata_map.deserialize_json(
                 data["CustomMetadata"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: GetFolderResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "metadata" in value:
+        import capo_workdocs.types.folder_metadata
+
+        out["metadata"] = capo_workdocs.types.folder_metadata.redact_sensitive(
+            value["metadata"]
         )
     return out

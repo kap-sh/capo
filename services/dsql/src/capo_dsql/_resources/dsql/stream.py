@@ -8,6 +8,7 @@ import capo_dsql._auth._sigv4
 from capo_dsql._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class Stream:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_dsql.types.create_stream_input.CreateStreamInput = {
             "cluster_identifier": cluster_identifier,
             "target_definition": target_definition,
@@ -140,7 +143,9 @@ class Stream:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStream")
+        )
         input_: capo_dsql.types.get_stream_input.GetStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -193,7 +198,9 @@ class Stream:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_dsql.types.delete_stream_input.DeleteStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -246,7 +253,9 @@ class Stream:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_dsql.types.list_streams_input.ListStreamsInput = {
             "cluster_identifier": cluster_identifier
         }
@@ -315,7 +324,9 @@ class AsyncStream:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_dsql.types.create_stream_input.CreateStreamInput = {
             "cluster_identifier": cluster_identifier,
             "target_definition": target_definition,
@@ -373,7 +384,9 @@ class AsyncStream:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetStream")
+        )
         input_: capo_dsql.types.get_stream_input.GetStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -427,7 +440,9 @@ class AsyncStream:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_dsql.types.delete_stream_input.DeleteStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -483,7 +498,9 @@ class AsyncStream:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_dsql.types.list_streams_input.ListStreamsInput = {
             "cluster_identifier": cluster_identifier
         }

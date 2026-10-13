@@ -7,6 +7,7 @@ import capo_resource_explorer_2._auth._sigv4
 from capo_resource_explorer_2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -64,7 +65,9 @@ class DefaultViewAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateDefaultView")
+        )
         input_: capo_resource_explorer_2.types.associate_default_view_input.AssociateDefaultViewInput = {
             "view_arn": view_arn
         }
@@ -117,7 +120,9 @@ class AsyncDefaultViewAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateDefaultView")
+        )
         input_: capo_resource_explorer_2.types.associate_default_view_input.AssociateDefaultViewInput = {
             "view_arn": view_arn
         }

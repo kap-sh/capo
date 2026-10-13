@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rtbfabric#ManagedEndpointConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -70,3 +70,16 @@ def deserialize_json(data: dict) -> ManagedEndpointConfiguration:
         raise DeserializationError(
             "ManagedEndpointConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ManagedEndpointConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "eksEndpoints" in value:
+        import capo_rtbfabric.types.eks_endpoints_configuration
+
+        out["eksEndpoints"] = (
+            capo_rtbfabric.types.eks_endpoints_configuration.redact_sensitive(
+                value["eksEndpoints"]
+            )
+        )
+    return out

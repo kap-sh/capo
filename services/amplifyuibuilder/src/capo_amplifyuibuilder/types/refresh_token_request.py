@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifyuibuilder#RefreshTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -45,4 +45,17 @@ def deserialize_json(data: dict) -> RefreshTokenRequest:
         )
     else:
         raise DeserializationError("RefreshTokenRequest.refresh_token_body required")
+    return out
+
+
+def redact_sensitive(value: RefreshTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "refresh_token_body" in value:
+        import capo_amplifyuibuilder.types.refresh_token_request_body
+
+        out["refresh_token_body"] = (
+            capo_amplifyuibuilder.types.refresh_token_request_body.redact_sensitive(
+                value["refresh_token_body"]
+            )
+        )
     return out

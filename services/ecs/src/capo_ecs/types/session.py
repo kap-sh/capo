@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#Session``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,11 @@ def deserialize_aws_json_1_1(data: dict) -> Session:
         out["stream_url"] = data["streamUrl"]
     if data.get("tokenValue") is not None:
         out["token_value"] = data["tokenValue"]
+    return out
+
+
+def redact_sensitive(value: Session) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token_value" in value:
+        out["token_value"] = "*** Sensitive Data Redacted ***"
     return out

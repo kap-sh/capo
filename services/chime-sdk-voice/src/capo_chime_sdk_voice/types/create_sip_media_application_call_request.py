@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#CreateSipMediaApplicationCallRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,17 @@ def deserialize_json(data: dict) -> CreateSipMediaApplicationCallRequest:
                 data["ArgumentsMap"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateSipMediaApplicationCallRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "from_phone_number" in value:
+        out["from_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "to_phone_number" in value:
+        out["to_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "sip_headers" in value:
+        out["sip_headers"] = "*** Sensitive Data Redacted ***"
+    if "arguments_map" in value:
+        out["arguments_map"] = "*** Sensitive Data Redacted ***"
     return out

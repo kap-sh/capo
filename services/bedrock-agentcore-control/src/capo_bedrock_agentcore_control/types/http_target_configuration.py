@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#HttpTargetConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -91,3 +91,24 @@ def deserialize_json(data: dict) -> HttpTargetConfiguration:
         }
     else:
         raise DeserializationError("HttpTargetConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: HttpTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "agentcoreRuntime" in value:
+        import capo_bedrock_agentcore_control.types.runtime_target_configuration
+
+        out["agentcoreRuntime"] = (
+            capo_bedrock_agentcore_control.types.runtime_target_configuration.redact_sensitive(
+                value["agentcoreRuntime"]
+            )
+        )
+    if "passthrough" in value:
+        import capo_bedrock_agentcore_control.types.passthrough_target_configuration
+
+        out["passthrough"] = (
+            capo_bedrock_agentcore_control.types.passthrough_target_configuration.redact_sensitive(
+                value["passthrough"]
+            )
+        )
+    return out

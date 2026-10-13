@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codeartifact#GetPackageVersionAssetResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -24,3 +24,10 @@ class GetPackageVersionAssetResult(TypedDict, closed=True):
         "capo_codeartifact.types.package_version_revision.PackageVersionRevision"
     ]
     """<p> The name of the package version revision that contains the downloaded asset. </p>"""
+
+
+def redact_sensitive(value: GetPackageVersionAssetResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "asset" in value:
+        out["asset"] = "*** Streaming Data Redacted ***"
+    return out

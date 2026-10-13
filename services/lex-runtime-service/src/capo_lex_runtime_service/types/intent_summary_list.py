@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#IntentSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_lex_runtime_service.types.intent_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> IntentSummaryList:
             continue
         out.append(capo_lex_runtime_service.types.intent_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: IntentSummaryList) -> list[Any]:
+    import capo_lex_runtime_service.types.intent_summary
+
+    return [
+        capo_lex_runtime_service.types.intent_summary.redact_sensitive(item)
+        for item in value
+    ]

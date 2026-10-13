@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#MatchedPlayerSession``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_aws_json_1_1(data: dict) -> MatchedPlayerSession:
         out["player_id"] = data["PlayerId"]
     if data.get("PlayerSessionId") is not None:
         out["player_session_id"] = data["PlayerSessionId"]
+    return out
+
+
+def redact_sensitive(value: MatchedPlayerSession) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "player_id" in value:
+        out["player_id"] = "*** Sensitive Data Redacted ***"
     return out

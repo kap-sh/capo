@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateEmailAddressMetadataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,13 @@ def deserialize_json(data: dict) -> UpdateEmailAddressMetadataRequest:
         out["display_name"] = data["DisplayName"]
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateEmailAddressMetadataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
     return out

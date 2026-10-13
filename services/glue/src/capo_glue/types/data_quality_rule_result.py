@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#DataQualityRuleResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,4 +118,19 @@ def deserialize_aws_json_1_1(data: dict) -> DataQualityRuleResult:
         import capo_glue.types.labels
 
         out["labels"] = capo_glue.types.labels.deserialize_aws_json_1_1(data["Labels"])
+    return out
+
+
+def redact_sensitive(value: DataQualityRuleResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "evaluation_message" in value:
+        out["evaluation_message"] = "*** Sensitive Data Redacted ***"
+    if "evaluated_metrics" in value:
+        out["evaluated_metrics"] = "*** Sensitive Data Redacted ***"
+    if "evaluated_rule" in value:
+        out["evaluated_rule"] = "*** Sensitive Data Redacted ***"
+    if "rule_metrics" in value:
+        out["rule_metrics"] = "*** Sensitive Data Redacted ***"
     return out

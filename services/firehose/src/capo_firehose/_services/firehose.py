@@ -19,10 +19,12 @@ from capo_firehose._auth._zapros_handler import AuthMiddleware
 from capo_firehose._services._aws_config import aws_config
 from capo_firehose._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -164,7 +166,9 @@ class FirehoseClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[FirehoseClientConfig] = None
+        self,
+        config_overrides: Optional[FirehoseClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: FirehoseClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -172,8 +176,10 @@ class FirehoseClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -292,7 +298,19 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_firehose.types.create_delivery_stream_input.CreateDeliveryStreamInput",
+        ) -> dict[str, Any]:
+            import capo_firehose.types.create_delivery_stream_input
+
+            return capo_firehose.types.create_delivery_stream_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDeliveryStream", redact_input=_redact_input),
+        )
         input_: capo_firehose.types.create_delivery_stream_input.CreateDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -396,7 +414,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeliveryStream")
+        )
         input_: capo_firehose.types.delete_delivery_stream_input.DeleteDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -449,7 +469,19 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_firehose.types.describe_delivery_stream_output.DescribeDeliveryStreamOutput",
+        ) -> dict[str, Any]:
+            import capo_firehose.types.describe_delivery_stream_output
+
+            return capo_firehose.types.describe_delivery_stream_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDeliveryStream", redact_output=_redact_output),
+        )
         input_: capo_firehose.types.describe_delivery_stream_input.DescribeDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -505,7 +537,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeliveryStreams")
+        )
         input_: capo_firehose.types.list_delivery_streams_input.ListDeliveryStreamsInput = {}
         if limit is not None:
             input_["limit"] = limit
@@ -562,7 +596,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForDeliveryStream")
+        )
         input_: capo_firehose.types.list_tags_for_delivery_stream_input.ListTagsForDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -613,7 +649,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecord")
+        )
         input_: capo_firehose.types.put_record_input.PutRecordInput = {
             "delivery_stream_name": delivery_stream_name,
             "record": record,
@@ -663,7 +701,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecordBatch")
+        )
         input_: capo_firehose.types.put_record_batch_input.PutRecordBatchInput = {
             "delivery_stream_name": delivery_stream_name,
             "records": records,
@@ -715,7 +755,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDeliveryStreamEncryption")
+        )
         input_: capo_firehose.types.start_delivery_stream_encryption_input.StartDeliveryStreamEncryptionInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -765,7 +807,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDeliveryStreamEncryption")
+        )
         input_: capo_firehose.types.stop_delivery_stream_encryption_input.StopDeliveryStreamEncryptionInput = {
             "delivery_stream_name": delivery_stream_name
         }
@@ -813,7 +857,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagDeliveryStream")
+        )
         input_: capo_firehose.types.tag_delivery_stream_input.TagDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name,
             "tags": tags,
@@ -862,7 +908,9 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagDeliveryStream")
+        )
         input_: capo_firehose.types.untag_delivery_stream_input.UntagDeliveryStreamInput = {
             "delivery_stream_name": delivery_stream_name,
             "tag_keys": tag_keys,
@@ -953,7 +1001,17 @@ class FirehoseClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_firehose.types.update_destination_input.UpdateDestinationInput",
+        ) -> dict[str, Any]:
+            import capo_firehose.types.update_destination_input
+
+            return capo_firehose.types.update_destination_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDestination", redact_input=_redact_input),
+        )
         input_: capo_firehose.types.update_destination_input.UpdateDestinationInput = {
             "delivery_stream_name": delivery_stream_name,
             "current_delivery_stream_version_id": current_delivery_stream_version_id,

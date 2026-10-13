@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#S3FilesLocation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,17 @@ def deserialize_json(data: dict) -> S3FilesLocation:
         )
     else:
         raise DeserializationError("S3FilesLocation.file_list required")
+    return out
+
+
+def redact_sensitive(value: S3FilesLocation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "bucket" in value:
+        out["bucket"] = "*** Sensitive Data Redacted ***"
+    if "file_list" in value:
+        import capo_datazone.types.s3_file_list
+
+        out["file_list"] = capo_datazone.types.s3_file_list.redact_sensitive(
+            value["file_list"]
+        )
     return out

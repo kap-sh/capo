@@ -19,10 +19,12 @@ from capo_sagemaker_metrics._auth._zapros_handler import AuthMiddleware
 from capo_sagemaker_metrics._services._aws_config import aws_config
 from capo_sagemaker_metrics._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -109,7 +111,9 @@ class SageMakerMetricsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SageMakerMetricsClientConfig] = None
+        self,
+        config_overrides: Optional[SageMakerMetricsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SageMakerMetricsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -117,8 +121,10 @@ class SageMakerMetricsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -168,7 +174,9 @@ class SageMakerMetricsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetMetrics")
+        )
         input_: capo_sagemaker_metrics.types.batch_get_metrics_request.BatchGetMetricsRequest = {}
         if metric_queries is not None:
             input_["metric_queries"] = metric_queries
@@ -216,7 +224,9 @@ class SageMakerMetricsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutMetrics")
+        )
         input_: capo_sagemaker_metrics.types.batch_put_metrics_request.BatchPutMetricsRequest = {}
         if trial_component_name is not None:
             input_["trial_component_name"] = trial_component_name

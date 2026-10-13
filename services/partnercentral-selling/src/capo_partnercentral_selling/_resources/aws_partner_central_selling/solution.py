@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_selling._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,9 @@ class Solution:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSolutions")
+        )
         input_: capo_partnercentral_selling.types.list_solutions_request.ListSolutionsRequest = {
             "catalog": catalog
         }
@@ -189,7 +192,9 @@ class AsyncSolution:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSolutions")
+        )
         input_: capo_partnercentral_selling.types.list_solutions_request.ListSolutionsRequest = {
             "catalog": catalog
         }

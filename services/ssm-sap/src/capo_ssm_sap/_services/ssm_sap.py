@@ -21,10 +21,12 @@ from capo_ssm_sap._pagination import resolve_path as _resolve_path
 from capo_ssm_sap._services._aws_config import aws_config
 from capo_ssm_sap._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -191,7 +193,9 @@ class SsmSapClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SsmSapClientConfig] = None
+        self,
+        config_overrides: Optional[SsmSapClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SsmSapClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -199,8 +203,10 @@ class SsmSapClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -257,7 +263,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePermission")
+        )
         input_: capo_ssm_sap.types.delete_resource_permission_input.DeleteResourcePermissionInput = {
             "resource_arn": resource_arn
         }
@@ -306,7 +314,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterApplication")
+        )
         input_: capo_ssm_sap.types.deregister_application_input.DeregisterApplicationInput = {
             "application_id": application_id
         }
@@ -358,7 +368,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_ssm_sap.types.get_application_input.GetApplicationInput = {}
         if application_id is not None:
             input_["application_id"] = application_id
@@ -409,7 +421,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComponent")
+        )
         input_: capo_ssm_sap.types.get_component_input.GetComponentInput = {
             "application_id": application_id,
             "component_id": component_id,
@@ -454,7 +468,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfigurationCheckOperation")
+        )
         input_: capo_ssm_sap.types.get_configuration_check_operation_input.GetConfigurationCheckOperationInput = {
             "operation_id": operation_id
         }
@@ -506,7 +522,17 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_ssm_sap.types.get_database_output.GetDatabaseOutput",
+        ) -> dict[str, Any]:
+            import capo_ssm_sap.types.get_database_output
+
+            return capo_ssm_sap.types.get_database_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDatabase", redact_output=_redact_output),
+        )
         input_: capo_ssm_sap.types.get_database_input.GetDatabaseInput = {}
         if application_id is not None:
             input_["application_id"] = application_id
@@ -556,7 +582,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOperation")
+        )
         input_: capo_ssm_sap.types.get_operation_input.GetOperationInput = {
             "operation_id": operation_id
         }
@@ -607,7 +635,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePermission")
+        )
         input_: capo_ssm_sap.types.get_resource_permission_input.GetResourcePermissionInput = {
             "resource_arn": resource_arn
         }
@@ -658,7 +688,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_ssm_sap.types.list_applications_input.ListApplicationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -737,7 +769,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_ssm_sap.types.list_components_input.ListComponentsInput = {}
         if application_id is not None:
             input_["application_id"] = application_id
@@ -812,7 +846,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationCheckDefinitions")
+        )
         input_: capo_ssm_sap.types.list_configuration_check_definitions_input.ListConfigurationCheckDefinitionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -890,7 +926,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationCheckOperations")
+        )
         input_: capo_ssm_sap.types.list_configuration_check_operations_input.ListConfigurationCheckOperationsInput = {
             "application_id": application_id
         }
@@ -980,7 +1018,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatabases")
+        )
         input_: capo_ssm_sap.types.list_databases_input.ListDatabasesInput = {}
         if application_id is not None:
             input_["application_id"] = application_id
@@ -1063,7 +1103,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOperationEvents")
+        )
         input_: capo_ssm_sap.types.list_operation_events_input.ListOperationEventsInput = {
             "operation_id": operation_id
         }
@@ -1144,7 +1186,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOperations")
+        )
         input_: capo_ssm_sap.types.list_operations_input.ListOperationsInput = {
             "application_id": application_id
         }
@@ -1223,7 +1267,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubCheckResults")
+        )
         input_: capo_ssm_sap.types.list_sub_check_results_input.ListSubCheckResultsInput = {
             "operation_id": operation_id
         }
@@ -1298,7 +1344,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSubCheckRuleResults")
+        )
         input_: capo_ssm_sap.types.list_sub_check_rule_results_input.ListSubCheckRuleResultsInput = {
             "sub_check_result_id": sub_check_result_id
         }
@@ -1372,7 +1420,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ssm_sap.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1423,7 +1473,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePermission")
+        )
         input_: capo_ssm_sap.types.put_resource_permission_input.PutResourcePermissionInput = {
             "action_type": action_type,
             "source_resource_arn": source_resource_arn,
@@ -1493,7 +1545,19 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm_sap.types.register_application_input.RegisterApplicationInput",
+        ) -> dict[str, Any]:
+            import capo_ssm_sap.types.register_application_input
+
+            return capo_ssm_sap.types.register_application_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterApplication", redact_input=_redact_input),
+        )
         input_: capo_ssm_sap.types.register_application_input.RegisterApplicationInput = {
             "application_id": application_id,
             "application_type": application_type,
@@ -1553,7 +1617,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_ssm_sap.types.start_application_input.StartApplicationInput = {
             "application_id": application_id
         }
@@ -1600,7 +1666,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartApplicationRefresh")
+        )
         input_: capo_ssm_sap.types.start_application_refresh_input.StartApplicationRefreshInput = {
             "application_id": application_id
         }
@@ -1650,7 +1718,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartConfigurationChecks")
+        )
         input_: capo_ssm_sap.types.start_configuration_checks_input.StartConfigurationChecksInput = {
             "application_id": application_id
         }
@@ -1704,7 +1774,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_ssm_sap.types.stop_application_input.StopApplicationInput = {
             "application_id": application_id
         }
@@ -1755,7 +1827,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ssm_sap.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1803,7 +1877,9 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ssm_sap.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1863,7 +1939,21 @@ class SsmSapClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ssm_sap.types.update_application_settings_input.UpdateApplicationSettingsInput",
+        ) -> dict[str, Any]:
+            import capo_ssm_sap.types.update_application_settings_input
+
+            return (
+                capo_ssm_sap.types.update_application_settings_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateApplicationSettings", redact_input=_redact_input),
+        )
         input_: capo_ssm_sap.types.update_application_settings_input.UpdateApplicationSettingsInput = {
             "application_id": application_id
         }

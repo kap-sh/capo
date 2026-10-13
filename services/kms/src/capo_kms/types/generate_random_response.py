@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#GenerateRandomResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,11 @@ def deserialize_aws_json_1_1(data: dict) -> GenerateRandomResponse:
                 data["CiphertextForRecipient"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GenerateRandomResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "plaintext" in value:
+        out["plaintext"] = "*** Sensitive Data Redacted ***"
     return out

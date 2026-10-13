@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.translate#ImportTerminologyRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -106,5 +106,18 @@ def deserialize_aws_json_1_1(data: dict) -> ImportTerminologyRequest:
 
         out["tags"] = capo_translate.types.tag_list.deserialize_aws_json_1_1(
             data["Tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: ImportTerminologyRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "terminology_data" in value:
+        import capo_translate.types.terminology_data
+
+        out["terminology_data"] = (
+            capo_translate.types.terminology_data.redact_sensitive(
+                value["terminology_data"]
+            )
         )
     return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_account._auth._signers
 import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,21 @@ class PrimaryEmailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.accept_primary_email_update_request
+
+            return (
+                capo_account.types.accept_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AcceptPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,
@@ -124,7 +139,19 @@ class PrimaryEmailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_primary_email_response.GetPrimaryEmailResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_primary_email_response
+
+            return capo_account.types.get_primary_email_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPrimaryEmail", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_primary_email_request.GetPrimaryEmailRequest = {
             "account_id": account_id
         }
@@ -171,7 +198,9 @@ class PrimaryEmailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrimaryEmailUpdateStatus")
+        )
         input_: capo_account.types.get_primary_email_update_status_request.GetPrimaryEmailUpdateStatusRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -221,7 +250,21 @@ class PrimaryEmailResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.start_primary_email_update_request
+
+            return (
+                capo_account.types.start_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,
@@ -280,7 +323,21 @@ class AsyncPrimaryEmailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.accept_primary_email_update_request
+
+            return (
+                capo_account.types.accept_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AcceptPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.accept_primary_email_update_request.AcceptPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,
@@ -330,7 +387,19 @@ class AsyncPrimaryEmailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_account.types.get_primary_email_response.GetPrimaryEmailResponse",
+        ) -> dict[str, Any]:
+            import capo_account.types.get_primary_email_response
+
+            return capo_account.types.get_primary_email_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPrimaryEmail", redact_output=_redact_output),
+        )
         input_: capo_account.types.get_primary_email_request.GetPrimaryEmailRequest = {
             "account_id": account_id
         }
@@ -378,7 +447,9 @@ class AsyncPrimaryEmailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrimaryEmailUpdateStatus")
+        )
         input_: capo_account.types.get_primary_email_update_status_request.GetPrimaryEmailUpdateStatusRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -429,7 +500,21 @@ class AsyncPrimaryEmailResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest",
+        ) -> dict[str, Any]:
+            import capo_account.types.start_primary_email_update_request
+
+            return (
+                capo_account.types.start_primary_email_update_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartPrimaryEmailUpdate", redact_input=_redact_input),
+        )
         input_: capo_account.types.start_primary_email_update_request.StartPrimaryEmailUpdateRequest = {
             "account_id": account_id,
             "primary_email": primary_email,

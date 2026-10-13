@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservicedata#CreateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,4 +84,23 @@ def deserialize_json(data: dict) -> CreateUserRequest:
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
+    if "other_attributes" in value:
+        import capo_directory_service_data.types.attributes
+
+        out["other_attributes"] = (
+            capo_directory_service_data.types.attributes.redact_sensitive(
+                value["other_attributes"]
+            )
+        )
     return out

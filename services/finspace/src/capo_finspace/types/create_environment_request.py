@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspace#CreateEnvironmentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,5 +124,18 @@ def deserialize_json(data: dict) -> CreateEnvironmentRequest:
 
         out["data_bundles"] = capo_finspace.types.data_bundle_arns.deserialize_json(
             data["dataBundles"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateEnvironmentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "superuser_parameters" in value:
+        import capo_finspace.types.superuser_parameters
+
+        out["superuser_parameters"] = (
+            capo_finspace.types.superuser_parameters.redact_sensitive(
+                value["superuser_parameters"]
+            )
         )
     return out

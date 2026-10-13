@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_iot_managed_integrations._auth._signers
 import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -164,7 +165,19 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_managed_thing_request
+
+            return capo_iot_managed_integrations.types.create_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest = {
             "role": role,
             "authentication_material": authentication_material,
@@ -246,7 +259,19 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_response.GetManagedThingResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThing", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_request.GetManagedThingRequest = {
             "identifier": identifier
         }
@@ -338,7 +363,19 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.update_managed_thing_request
+
+            return capo_iot_managed_integrations.types.update_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest = {
             "identifier": identifier
         }
@@ -416,7 +453,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteManagedThing")
+        )
         input_: capo_iot_managed_integrations.types.delete_managed_thing_request.DeleteManagedThingRequest = {
             "identifier": identifier
         }
@@ -506,7 +545,32 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_request
+
+            return capo_iot_managed_integrations.types.list_managed_things_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_response
+
+            return capo_iot_managed_integrations.types.list_managed_things_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListManagedThings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest = {}
         if owner_filter is not None:
             input_["owner_filter"] = owner_filter
@@ -577,7 +641,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCapabilities")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_capabilities_request.GetManagedThingCapabilitiesRequest = {
             "identifier": identifier
         }
@@ -631,7 +697,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCertificate")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_certificate_request.GetManagedThingCertificateRequest = {
             "identifier": identifier
         }
@@ -680,7 +748,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingConnectivityData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_connectivity_data_request.GetManagedThingConnectivityDataRequest = {
             "identifier": identifier
         }
@@ -729,7 +799,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingMetaData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_meta_data_request.GetManagedThingMetaDataRequest = {
             "identifier": identifier
         }
@@ -794,7 +866,9 @@ class ManagedThingResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedThingSchemas")
+        )
         input_: capo_iot_managed_integrations.types.list_managed_thing_schemas_request.ListManagedThingSchemasRequest = {
             "identifier": identifier
         }
@@ -908,7 +982,19 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_managed_thing_request
+
+            return capo_iot_managed_integrations.types.create_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest = {
             "role": role,
             "authentication_material": authentication_material,
@@ -991,7 +1077,19 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_response.GetManagedThingResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThing", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_request.GetManagedThingRequest = {
             "identifier": identifier
         }
@@ -1084,7 +1182,19 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.update_managed_thing_request
+
+            return capo_iot_managed_integrations.types.update_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest = {
             "identifier": identifier
         }
@@ -1163,7 +1273,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteManagedThing")
+        )
         input_: capo_iot_managed_integrations.types.delete_managed_thing_request.DeleteManagedThingRequest = {
             "identifier": identifier
         }
@@ -1254,7 +1366,32 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_request
+
+            return capo_iot_managed_integrations.types.list_managed_things_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_response
+
+            return capo_iot_managed_integrations.types.list_managed_things_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListManagedThings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest = {}
         if owner_filter is not None:
             input_["owner_filter"] = owner_filter
@@ -1326,7 +1463,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCapabilities")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_capabilities_request.GetManagedThingCapabilitiesRequest = {
             "identifier": identifier
         }
@@ -1381,7 +1520,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCertificate")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_certificate_request.GetManagedThingCertificateRequest = {
             "identifier": identifier
         }
@@ -1431,7 +1572,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingConnectivityData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_connectivity_data_request.GetManagedThingConnectivityDataRequest = {
             "identifier": identifier
         }
@@ -1481,7 +1624,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedThingMetaData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_meta_data_request.GetManagedThingMetaDataRequest = {
             "identifier": identifier
         }
@@ -1547,7 +1692,9 @@ class AsyncManagedThingResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedThingSchemas")
+        )
         input_: capo_iot_managed_integrations.types.list_managed_thing_schemas_request.ListManagedThingSchemasRequest = {
             "identifier": identifier
         }

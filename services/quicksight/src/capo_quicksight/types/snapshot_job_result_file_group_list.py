@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SnapshotJobResultFileGroupList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.snapshot_job_result_file_group
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SnapshotJobResultFileGroupList:
             capo_quicksight.types.snapshot_job_result_file_group.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SnapshotJobResultFileGroupList) -> list[Any]:
+    import capo_quicksight.types.snapshot_job_result_file_group
+
+    return [
+        capo_quicksight.types.snapshot_job_result_file_group.redact_sensitive(item)
+        for item in value
+    ]

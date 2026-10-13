@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssmsap#ApplicationCredential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> ApplicationCredential:
         out["secret_id"] = data["SecretId"]
     else:
         raise DeserializationError("ApplicationCredential.secret_id required")
+    return out
+
+
+def redact_sensitive(value: ApplicationCredential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_id" in value:
+        out["secret_id"] = "*** Sensitive Data Redacted ***"
     return out

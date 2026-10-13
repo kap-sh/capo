@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SemanticTable``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,6 +78,27 @@ def deserialize_json(data: dict) -> SemanticTable:
         out["semantic_metadata"] = (
             capo_quicksight.types.table_semantic_metadata.deserialize_json(
                 data["SemanticMetadata"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SemanticTable) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "row_level_permission_configuration" in value:
+        import capo_quicksight.types.row_level_permission_configuration
+
+        out["row_level_permission_configuration"] = (
+            capo_quicksight.types.row_level_permission_configuration.redact_sensitive(
+                value["row_level_permission_configuration"]
+            )
+        )
+    if "semantic_metadata" in value:
+        import capo_quicksight.types.table_semantic_metadata
+
+        out["semantic_metadata"] = (
+            capo_quicksight.types.table_semantic_metadata.redact_sensitive(
+                value["semantic_metadata"]
             )
         )
     return out

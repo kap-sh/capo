@@ -25,10 +25,12 @@ from capo_license_manager_linux_subscriptions._pagination import (
 from capo_license_manager_linux_subscriptions._services._aws_config import aws_config
 from capo_license_manager_linux_subscriptions._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -145,6 +147,7 @@ class LicenseManagerLinuxSubscriptionsClient:
     def operation_options(
         self,
         config_overrides: Optional[LicenseManagerLinuxSubscriptionsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LicenseManagerLinuxSubscriptionsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -152,8 +155,10 @@ class LicenseManagerLinuxSubscriptionsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -205,7 +210,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterSubscriptionProvider")
+        )
         input_: capo_license_manager_linux_subscriptions.types.deregister_subscription_provider_request.DeregisterSubscriptionProviderRequest = {
             "subscription_provider_arn": subscription_provider_arn
         }
@@ -251,7 +258,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegisteredSubscriptionProvider")
+        )
         input_: capo_license_manager_linux_subscriptions.types.get_registered_subscription_provider_request.GetRegisteredSubscriptionProviderRequest = {
             "subscription_provider_arn": subscription_provider_arn
         }
@@ -292,7 +301,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceSettings")
+        )
         input_: capo_license_manager_linux_subscriptions.types.get_service_settings_request.GetServiceSettingsRequest = {}
 
         response = execute_pipeline(
@@ -343,7 +354,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinuxSubscriptionInstances")
+        )
         input_: capo_license_manager_linux_subscriptions.types.list_linux_subscription_instances_request.ListLinuxSubscriptionInstancesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -427,7 +440,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLinuxSubscriptions")
+        )
         input_: capo_license_manager_linux_subscriptions.types.list_linux_subscriptions_request.ListLinuxSubscriptionsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -511,7 +526,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegisteredSubscriptionProviders")
+        )
         input_: capo_license_manager_linux_subscriptions.types.list_registered_subscription_providers_request.ListRegisteredSubscriptionProvidersRequest = {}
         if subscription_provider_sources is not None:
             input_["subscription_provider_sources"] = subscription_provider_sources
@@ -587,7 +604,19 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_license_manager_linux_subscriptions.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_license_manager_linux_subscriptions.types.list_tags_for_resource_response
+
+            return capo_license_manager_linux_subscriptions.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_license_manager_linux_subscriptions.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -638,7 +667,21 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_linux_subscriptions.types.register_subscription_provider_request.RegisterSubscriptionProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_linux_subscriptions.types.register_subscription_provider_request
+
+            return capo_license_manager_linux_subscriptions.types.register_subscription_provider_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "RegisterSubscriptionProvider", redact_input=_redact_input
+            ),
+        )
         input_: capo_license_manager_linux_subscriptions.types.register_subscription_provider_request.RegisterSubscriptionProviderRequest = {
             "subscription_provider_source": subscription_provider_source,
             "secret_arn": secret_arn,
@@ -688,7 +731,19 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_linux_subscriptions.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_linux_subscriptions.types.tag_resource_request
+
+            return capo_license_manager_linux_subscriptions.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_license_manager_linux_subscriptions.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -735,7 +790,19 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_linux_subscriptions.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_linux_subscriptions.types.untag_resource_request
+
+            return capo_license_manager_linux_subscriptions.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_license_manager_linux_subscriptions.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -785,7 +852,9 @@ class LicenseManagerLinuxSubscriptionsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSettings")
+        )
         input_: capo_license_manager_linux_subscriptions.types.update_service_settings_request.UpdateServiceSettingsRequest = {
             "linux_subscriptions_discovery": linux_subscriptions_discovery,
             "linux_subscriptions_discovery_settings": linux_subscriptions_discovery_settings,

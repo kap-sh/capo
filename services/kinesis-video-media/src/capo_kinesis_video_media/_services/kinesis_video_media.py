@@ -21,10 +21,12 @@ from capo_kinesis_video_media._auth._zapros_handler import AuthMiddleware
 from capo_kinesis_video_media._services._aws_config import aws_config
 from capo_kinesis_video_media._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -109,7 +111,9 @@ class KinesisVideoMediaClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KinesisVideoMediaClientConfig] = None
+        self,
+        config_overrides: Optional[KinesisVideoMediaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KinesisVideoMediaClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -117,8 +121,10 @@ class KinesisVideoMediaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -181,7 +187,18 @@ class KinesisVideoMediaClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kinesis_video_media.types.get_media_output.GetMediaOutput",
+        ) -> dict[str, Any]:
+            import capo_kinesis_video_media.types.get_media_output
+
+            return capo_kinesis_video_media.types.get_media_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMedia", redact_output=_redact_output)
+        )
         input_: capo_kinesis_video_media.types.get_media_input.GetMediaInput = {
             "start_selector": start_selector
         }

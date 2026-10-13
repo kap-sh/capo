@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#Upload``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,11 @@ def deserialize_aws_json_1_1(data: dict) -> Upload:
                 data["category"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Upload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

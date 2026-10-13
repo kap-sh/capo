@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networkmanager#UpdateDeviceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,11 @@ def deserialize_json(data: dict) -> UpdateDeviceRequest:
         )
     if data.get("SiteId") is not None:
         out["site_id"] = data["SiteId"]
+    return out
+
+
+def redact_sensitive(value: UpdateDeviceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "location" in value:
+        out["location"] = "*** Sensitive Data Redacted ***"
     return out

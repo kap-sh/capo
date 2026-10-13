@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -100,7 +101,28 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_service_input.CreateServiceInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_input
+
+            return capo_proton.types.create_service_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.create_service_output.CreateServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_output
+
+            return capo_proton.types.create_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_service_input.CreateServiceInput = {
             "name": name,
             "template_name": template_name,
@@ -160,7 +182,17 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_service_output.GetServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_service_output
+
+            return capo_proton.types.get_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_service_input.GetServiceInput = {"name": name}
 
         response = execute_pipeline(
@@ -211,7 +243,28 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_input.UpdateServiceInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_input
+
+            return capo_proton.types.update_service_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_output.UpdateServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_output
+
+            return capo_proton.types.update_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_input.UpdateServiceInput = {
             "name": name
         }
@@ -263,7 +316,17 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_service_output.DeleteServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_service_output
+
+            return capo_proton.types.delete_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteService", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_service_input.DeleteServiceInput = {
             "name": name
         }
@@ -313,7 +376,17 @@ class ServiceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_services_output.ListServicesOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_services_output
+
+            return capo_proton.types.list_services_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_services_input.ListServicesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -390,7 +463,28 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_service_input.CreateServiceInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_input
+
+            return capo_proton.types.create_service_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.create_service_output.CreateServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_service_output
+
+            return capo_proton.types.create_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_service_input.CreateServiceInput = {
             "name": name,
             "template_name": template_name,
@@ -453,7 +547,17 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_service_output.GetServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_service_output
+
+            return capo_proton.types.get_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetService", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_service_input.GetServiceInput = {"name": name}
 
         response = await aexecute_pipeline(
@@ -505,7 +609,28 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_service_input.UpdateServiceInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_input
+
+            return capo_proton.types.update_service_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.update_service_output.UpdateServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_service_output
+
+            return capo_proton.types.update_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateService",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_service_input.UpdateServiceInput = {
             "name": name
         }
@@ -558,7 +683,17 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_service_output.DeleteServiceOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_service_output
+
+            return capo_proton.types.delete_service_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteService", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_service_input.DeleteServiceInput = {
             "name": name
         }
@@ -609,7 +744,17 @@ class AsyncServiceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_services_output.ListServicesOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_services_output
+
+            return capo_proton.types.list_services_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListServices", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_services_input.ListServicesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

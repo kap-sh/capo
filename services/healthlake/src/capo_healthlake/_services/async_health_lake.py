@@ -25,7 +25,9 @@ from capo_healthlake._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -211,7 +213,9 @@ class AsyncHealthLakeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncHealthLakeClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncHealthLakeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncHealthLakeClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -219,8 +223,10 @@ class AsyncHealthLakeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -290,7 +296,21 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_healthlake.types.create_data_transformation_profile_request.CreateDataTransformationProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_healthlake.types.create_data_transformation_profile_request
+
+            return capo_healthlake.types.create_data_transformation_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataTransformationProfile", redact_input=_redact_input
+            ),
+        )
         input_: capo_healthlake.types.create_data_transformation_profile_request.CreateDataTransformationProfileRequest = {
             "source_format": source_format,
             "source": source,
@@ -386,7 +406,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFHIRDatastore")
+        )
         input_: capo_healthlake.types.create_fhir_datastore_request.CreateFHIRDatastoreRequest = {
             "datastore_type_version": datastore_type_version
         }
@@ -455,7 +477,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataTransformationProfile")
+        )
         input_: capo_healthlake.types.delete_data_transformation_profile_request.DeleteDataTransformationProfileRequest = {
             "profile_id": profile_id
         }
@@ -504,7 +528,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFHIRDatastore")
+        )
         input_: capo_healthlake.types.delete_fhir_datastore_request.DeleteFHIRDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -552,7 +578,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataTransformationJob")
+        )
         input_: capo_healthlake.types.describe_data_transformation_job_request.DescribeDataTransformationJobRequest = {
             "job_id": job_id
         }
@@ -599,7 +627,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFHIRDatastore")
+        )
         input_: capo_healthlake.types.describe_fhir_datastore_request.DescribeFHIRDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -648,7 +678,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFHIRExportJob")
+        )
         input_: capo_healthlake.types.describe_fhir_export_job_request.DescribeFHIRExportJobRequest = {
             "datastore_id": datastore_id,
             "job_id": job_id,
@@ -698,7 +730,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFHIRImportJob")
+        )
         input_: capo_healthlake.types.describe_fhir_import_job_request.DescribeFHIRImportJobRequest = {
             "datastore_id": datastore_id,
             "job_id": job_id,
@@ -751,7 +785,21 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_healthlake.types.get_data_transformation_profile_response.GetDataTransformationProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_healthlake.types.get_data_transformation_profile_response
+
+            return capo_healthlake.types.get_data_transformation_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDataTransformationProfile", redact_output=_redact_output
+            ),
+        )
         input_: capo_healthlake.types.get_data_transformation_profile_request.GetDataTransformationProfileRequest = {
             "profile_id": profile_id
         }
@@ -816,7 +864,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTransformationJobs")
+        )
         input_: capo_healthlake.types.list_data_transformation_jobs_request.ListDataTransformationJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -914,7 +964,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTransformationProfiles")
+        )
         input_: capo_healthlake.types.list_data_transformation_profiles_request.ListDataTransformationProfilesRequest = {
             "source_format": source_format
         }
@@ -997,7 +1049,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataTransformationProfileVersions")
+        )
         input_: capo_healthlake.types.list_data_transformation_profile_versions_request.ListDataTransformationProfileVersionsRequest = {
             "profile_id": profile_id
         }
@@ -1082,7 +1136,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFHIRDatastores")
+        )
         input_: capo_healthlake.types.list_fhir_datastores_request.ListFHIRDatastoresRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1177,7 +1233,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFHIRExportJobs")
+        )
         input_: capo_healthlake.types.list_fhir_export_jobs_request.ListFHIRExportJobsRequest = {
             "datastore_id": datastore_id
         }
@@ -1290,7 +1348,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFHIRImportJobs")
+        )
         input_: capo_healthlake.types.list_fhir_import_jobs_request.ListFHIRImportJobsRequest = {
             "datastore_id": datastore_id
         }
@@ -1382,7 +1442,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_healthlake.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1441,7 +1503,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PublishDataTransformationProfile")
+        )
         input_: capo_healthlake.types.publish_data_transformation_profile_request.PublishDataTransformationProfileRequest = {
             "profile_id": profile_id,
             "source_format": source_format,
@@ -1532,7 +1596,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreFHIRDatastore")
+        )
         input_: capo_healthlake.types.restore_fhir_datastore_request.RestoreFHIRDatastoreRequest = {
             "source_datastore_id": source_datastore_id,
             "restore_configuration": restore_configuration,
@@ -1614,7 +1680,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataTransformationJob")
+        )
         input_: capo_healthlake.types.start_data_transformation_job_request.StartDataTransformationJobRequest = {
             "input_data_config": input_data_config,
             "output_data_config": output_data_config,
@@ -1683,7 +1751,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFHIRExportJob")
+        )
         input_: capo_healthlake.types.start_fhir_export_job_request.StartFHIRExportJobRequest = {
             "output_data_config": output_data_config,
             "datastore_id": datastore_id,
@@ -1770,7 +1840,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartFHIRImportJob")
+        )
         input_: capo_healthlake.types.start_fhir_import_job_request.StartFHIRImportJobRequest = {
             "input_data_config": input_data_config,
             "job_output_data_config": job_output_data_config,
@@ -1835,7 +1907,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_healthlake.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1883,7 +1957,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_healthlake.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1938,7 +2014,21 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_healthlake.types.update_data_transformation_profile_request.UpdateDataTransformationProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_healthlake.types.update_data_transformation_profile_request
+
+            return capo_healthlake.types.update_data_transformation_profile_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateDataTransformationProfile", redact_input=_redact_input
+            ),
+        )
         input_: capo_healthlake.types.update_data_transformation_profile_request.UpdateDataTransformationProfileRequest = {
             "profile_id": profile_id,
             "profile_mapping": profile_mapping,
@@ -2019,7 +2109,9 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFHIRDatastore")
+        )
         input_: capo_healthlake.types.update_fhir_datastore_request.UpdateFHIRDatastoreRequest = {
             "datastore_id": datastore_id
         }
@@ -2092,7 +2184,32 @@ class AsyncHealthLakeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_healthlake.types.update_profile_with_agent_request.UpdateProfileWithAgentRequest",
+        ) -> dict[str, Any]:
+            import capo_healthlake.types.update_profile_with_agent_request
+
+            return capo_healthlake.types.update_profile_with_agent_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_healthlake.types.update_profile_with_agent_response.UpdateProfileWithAgentResponse",
+        ) -> dict[str, Any]:
+            import capo_healthlake.types.update_profile_with_agent_response
+
+            return capo_healthlake.types.update_profile_with_agent_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProfileWithAgent",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_healthlake.types.update_profile_with_agent_request.UpdateProfileWithAgentRequest = {
             "profile_id": profile_id,
             "source_format": source_format,

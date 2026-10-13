@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#BatchGetUserAccessTasksResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> BatchGetUserAccessTasksResponse:
         out["user_access_results_list"] = (
             capo_appfabric.types.user_access_results_list.deserialize_json(
                 data["userAccessResultsList"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetUserAccessTasksResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_access_results_list" in value:
+        import capo_appfabric.types.user_access_results_list
+
+        out["user_access_results_list"] = (
+            capo_appfabric.types.user_access_results_list.redact_sensitive(
+                value["user_access_results_list"]
             )
         )
     return out

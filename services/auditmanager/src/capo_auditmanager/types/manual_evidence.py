@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#ManualEvidence``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,13 @@ def deserialize_json(data: dict) -> ManualEvidence:
         out["text_response"] = data["textResponse"]
     if data.get("evidenceFileName") is not None:
         out["evidence_file_name"] = data["evidenceFileName"]
+    return out
+
+
+def redact_sensitive(value: ManualEvidence) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_response" in value:
+        out["text_response"] = "*** Sensitive Data Redacted ***"
+    if "evidence_file_name" in value:
+        out["evidence_file_name"] = "*** Sensitive Data Redacted ***"
     return out

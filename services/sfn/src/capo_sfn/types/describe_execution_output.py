@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sfn#DescribeExecutionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -228,4 +228,19 @@ def deserialize_aws_json_1_0(data: dict) -> DescribeExecutionOutput:
         )
     if data.get("redriveStatusReason") is not None:
         out["redrive_status_reason"] = data["redriveStatusReason"]
+    return out
+
+
+def redact_sensitive(value: DescribeExecutionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input" in value:
+        out["input"] = "*** Sensitive Data Redacted ***"
+    if "output" in value:
+        out["output"] = "*** Sensitive Data Redacted ***"
+    if "error" in value:
+        out["error"] = "*** Sensitive Data Redacted ***"
+    if "cause" in value:
+        out["cause"] = "*** Sensitive Data Redacted ***"
+    if "redrive_status_reason" in value:
+        out["redrive_status_reason"] = "*** Sensitive Data Redacted ***"
     return out

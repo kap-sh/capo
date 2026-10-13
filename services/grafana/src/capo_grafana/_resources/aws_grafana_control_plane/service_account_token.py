@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_grafana._auth._signers
 import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -77,7 +78,21 @@ class ServiceAccountToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_service_account_token_response.CreateWorkspaceServiceAccountTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_service_account_token_response
+
+            return capo_grafana.types.create_workspace_service_account_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspaceServiceAccountToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.create_workspace_service_account_token_request.CreateWorkspaceServiceAccountTokenRequest = {
             "name": name,
             "seconds_to_live": seconds_to_live,
@@ -132,7 +147,9 @@ class ServiceAccountToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccountToken")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_token_request.DeleteWorkspaceServiceAccountTokenRequest = {
             "token_id": token_id,
             "service_account_id": service_account_id,
@@ -190,7 +207,9 @@ class ServiceAccountToken:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccountTokens")
+        )
         input_: capo_grafana.types.list_workspace_service_account_tokens_request.ListWorkspaceServiceAccountTokensRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,
@@ -256,7 +275,21 @@ class AsyncServiceAccountToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_grafana.types.create_workspace_service_account_token_response.CreateWorkspaceServiceAccountTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_grafana.types.create_workspace_service_account_token_response
+
+            return capo_grafana.types.create_workspace_service_account_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateWorkspaceServiceAccountToken", redact_output=_redact_output
+            ),
+        )
         input_: capo_grafana.types.create_workspace_service_account_token_request.CreateWorkspaceServiceAccountTokenRequest = {
             "name": name,
             "seconds_to_live": seconds_to_live,
@@ -312,7 +345,9 @@ class AsyncServiceAccountToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkspaceServiceAccountToken")
+        )
         input_: capo_grafana.types.delete_workspace_service_account_token_request.DeleteWorkspaceServiceAccountTokenRequest = {
             "token_id": token_id,
             "service_account_id": service_account_id,
@@ -371,7 +406,9 @@ class AsyncServiceAccountToken:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkspaceServiceAccountTokens")
+        )
         input_: capo_grafana.types.list_workspace_service_account_tokens_request.ListWorkspaceServiceAccountTokensRequest = {
             "service_account_id": service_account_id,
             "workspace_id": workspace_id,

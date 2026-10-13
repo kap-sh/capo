@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#MeasureField``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,6 +100,43 @@ def deserialize_json(data: dict) -> MeasureField:
         out["calculated_measure_field"] = (
             capo_quicksight.types.calculated_measure_field.deserialize_json(
                 data["CalculatedMeasureField"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MeasureField) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "numerical_measure_field" in value:
+        import capo_quicksight.types.numerical_measure_field
+
+        out["numerical_measure_field"] = (
+            capo_quicksight.types.numerical_measure_field.redact_sensitive(
+                value["numerical_measure_field"]
+            )
+        )
+    if "categorical_measure_field" in value:
+        import capo_quicksight.types.categorical_measure_field
+
+        out["categorical_measure_field"] = (
+            capo_quicksight.types.categorical_measure_field.redact_sensitive(
+                value["categorical_measure_field"]
+            )
+        )
+    if "date_measure_field" in value:
+        import capo_quicksight.types.date_measure_field
+
+        out["date_measure_field"] = (
+            capo_quicksight.types.date_measure_field.redact_sensitive(
+                value["date_measure_field"]
+            )
+        )
+    if "calculated_measure_field" in value:
+        import capo_quicksight.types.calculated_measure_field
+
+        out["calculated_measure_field"] = (
+            capo_quicksight.types.calculated_measure_field.redact_sensitive(
+                value["calculated_measure_field"]
             )
         )
     return out

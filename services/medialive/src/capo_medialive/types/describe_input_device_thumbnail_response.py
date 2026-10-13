@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medialive#DescribeInputDeviceThumbnailResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -23,3 +23,10 @@ class DescribeInputDeviceThumbnailResponse(TypedDict, closed=True):
     """The unique, cacheable version of this thumbnail."""
     last_modified: NotRequired["capo_medialive.types.__timestamp.__timestamp"]
     """The date and time the thumbnail was last updated at the device."""
+
+
+def redact_sensitive(value: DescribeInputDeviceThumbnailResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Streaming Data Redacted ***"
+    return out

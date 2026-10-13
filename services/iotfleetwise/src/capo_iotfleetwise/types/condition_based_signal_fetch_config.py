@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#ConditionBasedSignalFetchConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_aws_json_1_0(data: dict) -> ConditionBasedSignalFetchConfig:
         raise DeserializationError(
             "ConditionBasedSignalFetchConfig.trigger_mode required"
         )
+    return out
+
+
+def redact_sensitive(value: ConditionBasedSignalFetchConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "condition_expression" in value:
+        out["condition_expression"] = "*** Sensitive Data Redacted ***"
     return out

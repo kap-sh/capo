@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#FilledMapConditionalFormatting``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -41,5 +41,18 @@ def deserialize_json(data: dict) -> FilledMapConditionalFormatting:
     else:
         raise DeserializationError(
             "FilledMapConditionalFormatting.conditional_formatting_options required"
+        )
+    return out
+
+
+def redact_sensitive(value: FilledMapConditionalFormatting) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "conditional_formatting_options" in value:
+        import capo_quicksight.types.filled_map_conditional_formatting_option_list
+
+        out["conditional_formatting_options"] = (
+            capo_quicksight.types.filled_map_conditional_formatting_option_list.redact_sensitive(
+                value["conditional_formatting_options"]
+            )
         )
     return out

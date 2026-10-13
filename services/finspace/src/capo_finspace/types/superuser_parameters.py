@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspace#SuperuserParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,4 +43,11 @@ def deserialize_json(data: dict) -> SuperuserParameters:
         out["last_name"] = data["lastName"]
     else:
         raise DeserializationError("SuperuserParameters.last_name required")
+    return out
+
+
+def redact_sensitive(value: SuperuserParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

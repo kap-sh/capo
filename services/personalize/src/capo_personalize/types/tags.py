@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalize#Tags``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_personalize.types.tag
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> Tags:
             continue
         out.append(capo_personalize.types.tag.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: Tags) -> list[Any]:
+    import capo_personalize.types.tag
+
+    return [capo_personalize.types.tag.redact_sensitive(item) for item in value]

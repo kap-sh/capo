@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteRoundaboutExitStepDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,4 +86,21 @@ def deserialize_json(data: dict) -> RouteRoundaboutExitStepDetails:
                 data["SteeringDirection"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RouteRoundaboutExitStepDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "intersection" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["intersection"] = (
+            capo_geo_routes.types.localized_string_list.redact_sensitive(
+                value["intersection"]
+            )
+        )
+    if "relative_exit" in value:
+        out["relative_exit"] = "*** Sensitive Data Redacted ***"
+    if "steering_direction" in value:
+        out["steering_direction"] = "*** Sensitive Data Redacted ***"
     return out

@@ -42,7 +42,9 @@ from capo_securityagent._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -419,7 +421,9 @@ class AsyncSecurityAgentClient:
         self.target_domain_resource = AsyncTargetDomainResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSecurityAgentClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSecurityAgentClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSecurityAgentClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -427,8 +431,10 @@ class AsyncSecurityAgentClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -485,7 +491,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddArtifact")
+        )
         input_: capo_securityagent.types.add_artifact_input.AddArtifactInput = {
             "agent_space_id": agent_space_id,
             "artifact_content": artifact_content,
@@ -540,7 +548,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateSecurityRequirements")
+        )
         input_: capo_securityagent.types.batch_create_security_requirements_input.BatchCreateSecurityRequirementsInput = {
             "pack_id": pack_id,
             "security_requirements": security_requirements,
@@ -586,7 +596,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteCodeReviews")
+        )
         input_: capo_securityagent.types.batch_delete_code_reviews_input.BatchDeleteCodeReviewsInput = {
             "code_review_ids": code_review_ids,
             "agent_space_id": agent_space_id,
@@ -632,7 +644,21 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.batch_delete_pentests_output.BatchDeletePentestsOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.batch_delete_pentests_output
+
+            return (
+                capo_securityagent.types.batch_delete_pentests_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeletePentests", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.batch_delete_pentests_input.BatchDeletePentestsInput = {
             "pentest_ids": pentest_ids,
             "agent_space_id": agent_space_id,
@@ -684,7 +710,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteSecurityRequirements")
+        )
         input_: capo_securityagent.types.batch_delete_security_requirements_input.BatchDeleteSecurityRequirementsInput = {
             "pack_id": pack_id,
             "security_requirement_names": security_requirement_names,
@@ -730,7 +758,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteThreatModels")
+        )
         input_: capo_securityagent.types.batch_delete_threat_models_input.BatchDeleteThreatModelsInput = {
             "threat_model_ids": threat_model_ids,
             "agent_space_id": agent_space_id,
@@ -781,7 +811,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetArtifactMetadata")
+        )
         input_: capo_securityagent.types.batch_get_artifact_metadata_input.BatchGetArtifactMetadataInput = {
             "agent_space_id": agent_space_id,
             "artifact_ids": artifact_ids,
@@ -827,7 +859,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCodeReviewJobs")
+        )
         input_: capo_securityagent.types.batch_get_code_review_jobs_input.BatchGetCodeReviewJobsInput = {
             "code_review_job_ids": code_review_job_ids,
             "agent_space_id": agent_space_id,
@@ -873,7 +907,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetCodeReviewJobTasks")
+        )
         input_: capo_securityagent.types.batch_get_code_review_job_tasks_input.BatchGetCodeReviewJobTasksInput = {
             "agent_space_id": agent_space_id,
             "code_review_job_task_ids": code_review_job_task_ids,
@@ -919,7 +955,21 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.batch_get_code_reviews_output.BatchGetCodeReviewsOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.batch_get_code_reviews_output
+
+            return (
+                capo_securityagent.types.batch_get_code_reviews_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetCodeReviews", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.batch_get_code_reviews_input.BatchGetCodeReviewsInput = {
             "code_review_ids": code_review_ids,
             "agent_space_id": agent_space_id,
@@ -965,7 +1015,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFindings")
+        )
         input_: capo_securityagent.types.batch_get_findings_input.BatchGetFindingsInput = {
             "finding_ids": finding_ids,
             "agent_space_id": agent_space_id,
@@ -1011,7 +1063,21 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.batch_get_pentest_jobs_output.BatchGetPentestJobsOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.batch_get_pentest_jobs_output
+
+            return (
+                capo_securityagent.types.batch_get_pentest_jobs_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetPentestJobs", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.batch_get_pentest_jobs_input.BatchGetPentestJobsInput = {
             "pentest_job_ids": pentest_job_ids,
             "agent_space_id": agent_space_id,
@@ -1057,7 +1123,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetPentestJobTasks")
+        )
         input_: capo_securityagent.types.batch_get_pentest_job_tasks_input.BatchGetPentestJobTasksInput = {
             "agent_space_id": agent_space_id,
             "task_ids": task_ids,
@@ -1103,7 +1171,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.batch_get_pentests_output.BatchGetPentestsOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.batch_get_pentests_output
+
+            return capo_securityagent.types.batch_get_pentests_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetPentests", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.batch_get_pentests_input.BatchGetPentestsInput = {
             "pentest_ids": pentest_ids,
             "agent_space_id": agent_space_id,
@@ -1154,7 +1234,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSecurityRequirements")
+        )
         input_: capo_securityagent.types.batch_get_security_requirements_input.BatchGetSecurityRequirementsInput = {
             "pack_id": pack_id,
             "security_requirement_names": security_requirement_names,
@@ -1200,7 +1282,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetThreatModelJobs")
+        )
         input_: capo_securityagent.types.batch_get_threat_model_jobs_input.BatchGetThreatModelJobsInput = {
             "threat_model_job_ids": threat_model_job_ids,
             "agent_space_id": agent_space_id,
@@ -1246,7 +1330,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetThreatModelJobTasks")
+        )
         input_: capo_securityagent.types.batch_get_threat_model_job_tasks_input.BatchGetThreatModelJobTasksInput = {
             "agent_space_id": agent_space_id,
             "threat_model_job_task_ids": threat_model_job_task_ids,
@@ -1292,7 +1378,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.batch_get_threat_models_output.BatchGetThreatModelsOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.batch_get_threat_models_output
+
+            return capo_securityagent.types.batch_get_threat_models_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetThreatModels", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.batch_get_threat_models_input.BatchGetThreatModelsInput = {
             "threat_model_ids": threat_model_ids,
             "agent_space_id": agent_space_id,
@@ -1338,7 +1436,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetThreats")
+        )
         input_: capo_securityagent.types.batch_get_threats_input.BatchGetThreatsInput = {
             "threat_ids": threat_ids,
             "agent_space_id": agent_space_id,
@@ -1390,7 +1490,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateSecurityRequirements")
+        )
         input_: capo_securityagent.types.batch_update_security_requirements_input.BatchUpdateSecurityRequirementsInput = {
             "pack_id": pack_id,
             "security_requirements": security_requirements,
@@ -1464,7 +1566,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_code_review_input.CreateCodeReviewInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_code_review_input
+
+            return capo_securityagent.types.create_code_review_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.create_code_review_output.CreateCodeReviewOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_code_review_output
+
+            return capo_securityagent.types.create_code_review_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateCodeReview",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.create_code_review_input.CreateCodeReviewInput = {
             "title": title,
             "agent_space_id": agent_space_id,
@@ -1533,7 +1660,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMembership")
+        )
         input_: capo_securityagent.types.create_membership_request.CreateMembershipRequest = {
             "application_id": application_id,
             "agent_space_id": agent_space_id,
@@ -1625,7 +1754,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_pentest_input.CreatePentestInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_pentest_input
+
+            return capo_securityagent.types.create_pentest_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.create_pentest_output.CreatePentestOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_pentest_output
+
+            return capo_securityagent.types.create_pentest_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePentest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.create_pentest_input.CreatePentestInput = {
             "title": title,
             "agent_space_id": agent_space_id,
@@ -1735,7 +1889,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThreat")
+        )
         input_: capo_securityagent.types.create_threat_input.CreateThreatInput = {
             "agent_space_id": agent_space_id,
             "threat_job_id": threat_job_id,
@@ -1827,7 +1983,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_threat_model_input.CreateThreatModelInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_threat_model_input
+
+            return capo_securityagent.types.create_threat_model_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.create_threat_model_output.CreateThreatModelOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_threat_model_output
+
+            return capo_securityagent.types.create_threat_model_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateThreatModel",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.create_threat_model_input.CreateThreatModelInput = {
             "title": title,
             "agent_space_id": agent_space_id,
@@ -1889,7 +2070,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteArtifact")
+        )
         input_: capo_securityagent.types.delete_artifact_input.DeleteArtifactInput = {
             "agent_space_id": agent_space_id,
             "artifact_id": artifact_id,
@@ -1941,7 +2124,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMembership")
+        )
         input_: capo_securityagent.types.delete_membership_request.DeleteMembershipRequest = {
             "application_id": application_id,
             "agent_space_id": agent_space_id,
@@ -1995,7 +2180,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetArtifact")
+        )
         input_: capo_securityagent.types.get_artifact_input.GetArtifactInput = {
             "agent_space_id": agent_space_id,
             "artifact_id": artifact_id,
@@ -2048,7 +2235,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.import_security_requirements_input.ImportSecurityRequirementsInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.import_security_requirements_input
+
+            return capo_securityagent.types.import_security_requirements_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportSecurityRequirements", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.import_security_requirements_input.ImportSecurityRequirementsInput = {
             "pack_id": pack_id,
             "input": input,
@@ -2108,7 +2307,21 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.initiate_provider_registration_input.InitiateProviderRegistrationInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.initiate_provider_registration_input
+
+            return capo_securityagent.types.initiate_provider_registration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InitiateProviderRegistration", redact_input=_redact_input
+            ),
+        )
         input_: capo_securityagent.types.initiate_provider_registration_input.InitiateProviderRegistrationInput = {
             "provider": provider
         }
@@ -2167,7 +2380,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.list_actor_messages_output.ListActorMessagesOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.list_actor_messages_output
+
+            return capo_securityagent.types.list_actor_messages_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListActorMessages", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.list_actor_messages_input.ListActorMessagesInput = {
             "agent_space_id": agent_space_id,
             "pentest_id": pentest_id,
@@ -2252,7 +2477,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListArtifacts")
+        )
         input_: capo_securityagent.types.list_artifacts_input.ListArtifactsInput = {
             "agent_space_id": agent_space_id
         }
@@ -2328,7 +2555,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeReviewJobsForCodeReview")
+        )
         input_: capo_securityagent.types.list_code_review_jobs_for_code_review_input.ListCodeReviewJobsForCodeReviewInput = {
             "code_review_id": code_review_id,
             "agent_space_id": agent_space_id,
@@ -2411,7 +2640,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeReviewJobTasks")
+        )
         input_: capo_securityagent.types.list_code_review_job_tasks_input.ListCodeReviewJobTasksInput = {
             "agent_space_id": agent_space_id
         }
@@ -2497,7 +2728,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCodeReviews")
+        )
         input_: capo_securityagent.types.list_code_reviews_input.ListCodeReviewsInput = {
             "agent_space_id": agent_space_id
         }
@@ -2577,7 +2810,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDiscoveredEndpoints")
+        )
         input_: capo_securityagent.types.list_discovered_endpoints_input.ListDiscoveredEndpointsInput = {
             "pentest_job_id": pentest_job_id,
             "agent_space_id": agent_space_id,
@@ -2678,7 +2913,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFindings")
+        )
         input_: capo_securityagent.types.list_findings_input.ListFindingsInput = {
             "agent_space_id": agent_space_id
         }
@@ -2797,7 +3034,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegratedResources")
+        )
         input_: capo_securityagent.types.list_integrated_resources_input.ListIntegratedResourcesInput = {
             "agent_space_id": agent_space_id
         }
@@ -2889,7 +3128,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_securityagent.types.list_memberships_request.ListMembershipsRequest = {
             "application_id": application_id,
             "agent_space_id": agent_space_id,
@@ -2976,7 +3217,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPentestJobsForPentest")
+        )
         input_: capo_securityagent.types.list_pentest_jobs_for_pentest_input.ListPentestJobsForPentestInput = {
             "pentest_id": pentest_id,
             "agent_space_id": agent_space_id,
@@ -3065,7 +3308,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPentestJobTasks")
+        )
         input_: capo_securityagent.types.list_pentest_job_tasks_input.ListPentestJobTasksInput = {
             "agent_space_id": agent_space_id
         }
@@ -3151,7 +3396,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPentests")
+        )
         input_: capo_securityagent.types.list_pentests_input.ListPentestsInput = {
             "agent_space_id": agent_space_id
         }
@@ -3230,7 +3477,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityRequirements")
+        )
         input_: capo_securityagent.types.list_security_requirements_input.ListSecurityRequirementsInput = {
             "pack_id": pack_id
         }
@@ -3300,7 +3549,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_securityagent.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -3349,7 +3600,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreatModelJobs")
+        )
         input_: capo_securityagent.types.list_threat_model_jobs_input.ListThreatModelJobsInput = {
             "threat_model_id": threat_model_id,
             "agent_space_id": agent_space_id,
@@ -3428,7 +3681,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreatModelJobTasks")
+        )
         input_: capo_securityagent.types.list_threat_model_job_tasks_input.ListThreatModelJobTasksInput = {
             "agent_space_id": agent_space_id,
             "threat_model_job_id": threat_model_job_id,
@@ -3505,7 +3760,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreatModels")
+        )
         input_: capo_securityagent.types.list_threat_models_input.ListThreatModelsInput = {
             "agent_space_id": agent_space_id
         }
@@ -3581,7 +3838,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThreats")
+        )
         input_: capo_securityagent.types.list_threats_input.ListThreatsInput = {
             "threat_job_id": threat_job_id,
             "agent_space_id": agent_space_id,
@@ -3660,7 +3919,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCodeRemediation")
+        )
         input_: capo_securityagent.types.start_code_remediation_input.StartCodeRemediationInput = {
             "agent_space_id": agent_space_id,
             "finding_ids": finding_ids,
@@ -3714,7 +3975,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartCodeReviewJob")
+        )
         input_: capo_securityagent.types.start_code_review_job_input.StartCodeReviewJobInput = {
             "agent_space_id": agent_space_id,
             "code_review_id": code_review_id,
@@ -3772,7 +4035,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartPentestJob")
+        )
         input_: capo_securityagent.types.start_pentest_job_input.StartPentestJobInput = {
             "agent_space_id": agent_space_id,
             "pentest_id": pentest_id,
@@ -3824,7 +4089,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartThreatModelJob")
+        )
         input_: capo_securityagent.types.start_threat_model_job_input.StartThreatModelJobInput = {
             "agent_space_id": agent_space_id,
             "threat_model_id": threat_model_id,
@@ -3870,7 +4137,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopCodeReviewJob")
+        )
         input_: capo_securityagent.types.stop_code_review_job_input.StopCodeReviewJobInput = {
             "agent_space_id": agent_space_id,
             "code_review_job_id": code_review_job_id,
@@ -3916,7 +4185,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopPentestJob")
+        )
         input_: capo_securityagent.types.stop_pentest_job_input.StopPentestJobInput = {
             "agent_space_id": agent_space_id,
             "pentest_job_id": pentest_job_id,
@@ -3964,7 +4235,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopThreatModelJob")
+        )
         input_: capo_securityagent.types.stop_threat_model_job_input.StopThreatModelJobInput = {
             "agent_space_id": agent_space_id,
             "threat_model_job_id": threat_model_job_id,
@@ -4010,7 +4283,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_securityagent.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4056,7 +4331,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_securityagent.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4132,7 +4409,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_code_review_input.UpdateCodeReviewInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_code_review_input
+
+            return capo_securityagent.types.update_code_review_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.update_code_review_output.UpdateCodeReviewOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_code_review_output
+
+            return capo_securityagent.types.update_code_review_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateCodeReview",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.update_code_review_input.UpdateCodeReviewInput = {
             "code_review_id": code_review_id,
             "agent_space_id": agent_space_id,
@@ -4216,7 +4518,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFinding")
+        )
         input_: capo_securityagent.types.update_finding_input.UpdateFindingInput = {
             "finding_id": finding_id,
             "agent_space_id": agent_space_id,
@@ -4288,7 +4592,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntegratedResources")
+        )
         input_: capo_securityagent.types.update_integrated_resources_input.UpdateIntegratedResourcesInput = {
             "agent_space_id": agent_space_id,
             "integration_id": integration_id,
@@ -4379,7 +4685,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_pentest_input.UpdatePentestInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_pentest_input
+
+            return capo_securityagent.types.update_pentest_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.update_pentest_output.UpdatePentestOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_pentest_output
+
+            return capo_securityagent.types.update_pentest_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePentest",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.update_pentest_input.UpdatePentestInput = {
             "pentest_id": pentest_id,
             "agent_space_id": agent_space_id,
@@ -4489,7 +4820,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThreat")
+        )
         input_: capo_securityagent.types.update_threat_input.UpdateThreatInput = {
             "threat_id": threat_id,
             "agent_space_id": agent_space_id,
@@ -4585,7 +4918,32 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_threat_model_input.UpdateThreatModelInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_threat_model_input
+
+            return capo_securityagent.types.update_threat_model_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_securityagent.types.update_threat_model_output.UpdateThreatModelOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_threat_model_output
+
+            return capo_securityagent.types.update_threat_model_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateThreatModel",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_securityagent.types.update_threat_model_input.UpdateThreatModelInput = {
             "threat_model_id": threat_model_id,
             "agent_space_id": agent_space_id,
@@ -4645,7 +5003,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyTargetDomain")
+        )
         input_: capo_securityagent.types.verify_target_domain_input.VerifyTargetDomainInput = {
             "target_domain_id": target_domain_id
         }
@@ -4706,7 +5066,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAgentSpace")
+        )
         input_: capo_securityagent.types.create_agent_space_input.CreateAgentSpaceInput = {
             "name": name
         }
@@ -4777,7 +5139,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAgentSpace")
+        )
         input_: capo_securityagent.types.update_agent_space_input.UpdateAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -4830,7 +5194,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAgentSpace")
+        )
         input_: capo_securityagent.types.delete_agent_space_input.DeleteAgentSpaceInput = {
             "agent_space_id": agent_space_id
         }
@@ -4875,7 +5241,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAgentSpaces")
+        )
         input_: capo_securityagent.types.list_agent_spaces_input.ListAgentSpacesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4943,7 +5311,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAgentSpaces")
+        )
         input_: capo_securityagent.types.batch_get_agent_spaces_input.BatchGetAgentSpacesInput = {
             "agent_space_ids": agent_space_ids
         }
@@ -4998,7 +5368,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_securityagent.types.create_application_request.CreateApplicationRequest = {}
         if idc_instance_arn is not None:
             input_["idc_instance_arn"] = idc_instance_arn
@@ -5047,7 +5419,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_securityagent.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -5098,7 +5472,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_securityagent.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }
@@ -5143,7 +5519,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_securityagent.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -5188,7 +5566,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_securityagent.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5274,7 +5654,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_integration_input.CreateIntegrationInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_integration_input
+
+            return capo_securityagent.types.create_integration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIntegration", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_integration_input.CreateIntegrationInput = {
             "provider": provider,
             "input": input,
@@ -5330,7 +5722,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntegration")
+        )
         input_: capo_securityagent.types.get_integration_input.GetIntegrationInput = {
             "integration_id": integration_id
         }
@@ -5381,7 +5775,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_securityagent.types.update_integration_output.UpdateIntegrationOutput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_integration_output
+
+            return capo_securityagent.types.update_integration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntegration", redact_output=_redact_output),
+        )
         input_: capo_securityagent.types.update_integration_input.UpdateIntegrationInput = {
             "integration_id": integration_id,
             "webhook_action": webhook_action,
@@ -5431,7 +5837,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntegration")
+        )
         input_: capo_securityagent.types.delete_integration_input.DeleteIntegrationInput = {
             "integration_id": integration_id
         }
@@ -5485,7 +5893,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntegrations")
+        )
         input_: capo_securityagent.types.list_integrations_input.ListIntegrationsInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -5564,7 +5974,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePrivateConnection")
+        )
         input_: capo_securityagent.types.describe_private_connection_input.DescribePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -5613,7 +6025,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrivateConnection")
+        )
         input_: capo_securityagent.types.delete_private_connection_input.DeletePrivateConnectionInput = {
             "private_connection_name": private_connection_name
         }
@@ -5662,7 +6076,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrivateConnections")
+        )
         input_: capo_securityagent.types.list_private_connections_input.ListPrivateConnectionsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5738,7 +6154,19 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.create_private_connection_input
+
+            return capo_securityagent.types.create_private_connection_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreatePrivateConnection", redact_input=_redact_input),
+        )
         input_: capo_securityagent.types.create_private_connection_input.CreatePrivateConnectionInput = {
             "private_connection_name": private_connection_name,
             "mode": mode,
@@ -5792,7 +6220,21 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput",
+        ) -> dict[str, Any]:
+            import capo_securityagent.types.update_private_connection_certificate_input
+
+            return capo_securityagent.types.update_private_connection_certificate_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePrivateConnectionCertificate", redact_input=_redact_input
+            ),
+        )
         input_: capo_securityagent.types.update_private_connection_certificate_input.UpdatePrivateConnectionCertificateInput = {
             "private_connection_name": private_connection_name,
             "certificate": certificate,
@@ -5852,7 +6294,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.create_security_requirement_pack_input.CreateSecurityRequirementPackInput = {
             "name": name
         }
@@ -5908,7 +6352,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.get_security_requirement_pack_input.GetSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -5967,7 +6413,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.update_security_requirement_pack_input.UpdateSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -6022,7 +6470,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityRequirementPack")
+        )
         input_: capo_securityagent.types.delete_security_requirement_pack_input.DeleteSecurityRequirementPackInput = {
             "pack_id": pack_id
         }
@@ -6075,7 +6525,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSecurityRequirementPacks")
+        )
         input_: capo_securityagent.types.list_security_requirement_packs_input.ListSecurityRequirementPacksInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -6153,7 +6605,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTargetDomain")
+        )
         input_: capo_securityagent.types.create_target_domain_input.CreateTargetDomainInput = {
             "target_domain_name": target_domain_name,
             "verification_method": verification_method,
@@ -6203,7 +6657,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTargetDomain")
+        )
         input_: capo_securityagent.types.update_target_domain_input.UpdateTargetDomainInput = {
             "target_domain_id": target_domain_id,
             "verification_method": verification_method,
@@ -6249,7 +6705,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTargetDomain")
+        )
         input_: capo_securityagent.types.delete_target_domain_input.DeleteTargetDomainInput = {
             "target_domain_id": target_domain_id
         }
@@ -6294,7 +6752,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetDomains")
+        )
         input_: capo_securityagent.types.list_target_domains_input.ListTargetDomainsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -6360,7 +6820,9 @@ class AsyncSecurityAgentClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetTargetDomains")
+        )
         input_: capo_securityagent.types.batch_get_target_domains_input.BatchGetTargetDomainsInput = {
             "target_domain_ids": target_domain_ids
         }

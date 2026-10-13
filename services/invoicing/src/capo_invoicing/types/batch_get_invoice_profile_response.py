@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.invoicing#BatchGetInvoiceProfileResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_0(data: dict) -> BatchGetInvoiceProfileResponse:
 
         out["profiles"] = capo_invoicing.types.profile_list.deserialize_aws_json_1_0(
             data["Profiles"]
+        )
+    return out
+
+
+def redact_sensitive(value: BatchGetInvoiceProfileResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "profiles" in value:
+        import capo_invoicing.types.profile_list
+
+        out["profiles"] = capo_invoicing.types.profile_list.redact_sensitive(
+            value["profiles"]
         )
     return out

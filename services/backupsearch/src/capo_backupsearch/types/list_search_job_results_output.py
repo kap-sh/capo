@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backupsearch#ListSearchJobResultsOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,15 @@ def deserialize_json(data: dict) -> ListSearchJobResultsOutput:
         raise DeserializationError("ListSearchJobResultsOutput.results required")
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSearchJobResultsOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "results" in value:
+        import capo_backupsearch.types.results
+
+        out["results"] = capo_backupsearch.types.results.redact_sensitive(
+            value["results"]
+        )
     return out

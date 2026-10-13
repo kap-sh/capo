@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ConnectionPropertiesInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -394,3 +394,32 @@ def deserialize_json(data: dict) -> ConnectionPropertiesInput:
         raise DeserializationError(
             "ConnectionPropertiesInput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: ConnectionPropertiesInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "glueProperties" in value:
+        import capo_datazone.types.glue_properties_input
+
+        out["glueProperties"] = (
+            capo_datazone.types.glue_properties_input.redact_sensitive(
+                value["glueProperties"]
+            )
+        )
+    if "redshiftProperties" in value:
+        import capo_datazone.types.redshift_properties_input
+
+        out["redshiftProperties"] = (
+            capo_datazone.types.redshift_properties_input.redact_sensitive(
+                value["redshiftProperties"]
+            )
+        )
+    if "snowflakeProperties" in value:
+        import capo_datazone.types.snowflake_properties_input
+
+        out["snowflakeProperties"] = (
+            capo_datazone.types.snowflake_properties_input.redact_sensitive(
+                value["snowflakeProperties"]
+            )
+        )
+    return out

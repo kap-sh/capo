@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TotalAggregationComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_json(data: dict) -> TotalAggregationComputation:
 
         out["value"] = capo_quicksight.types.measure_field.deserialize_json(
             data["Value"]
+        )
+    return out
+
+
+def redact_sensitive(value: TotalAggregationComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["value"]
         )
     return out

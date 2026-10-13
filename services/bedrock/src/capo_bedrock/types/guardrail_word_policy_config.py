@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailWordPolicyConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,6 +56,27 @@ def deserialize_json(data: dict) -> GuardrailWordPolicyConfig:
         out["managed_word_lists_config"] = (
             capo_bedrock.types.guardrail_managed_word_lists_config.deserialize_json(
                 data["managedWordListsConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GuardrailWordPolicyConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "words_config" in value:
+        import capo_bedrock.types.guardrail_words_config
+
+        out["words_config"] = (
+            capo_bedrock.types.guardrail_words_config.redact_sensitive(
+                value["words_config"]
+            )
+        )
+    if "managed_word_lists_config" in value:
+        import capo_bedrock.types.guardrail_managed_word_lists_config
+
+        out["managed_word_lists_config"] = (
+            capo_bedrock.types.guardrail_managed_word_lists_config.redact_sensitive(
+                value["managed_word_lists_config"]
             )
         )
     return out

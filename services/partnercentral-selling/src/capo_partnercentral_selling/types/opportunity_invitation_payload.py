@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#OpportunityInvitationPayload``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -103,4 +103,33 @@ def deserialize_aws_json_1_0(data: dict) -> OpportunityInvitationPayload:
         )
     else:
         raise DeserializationError("OpportunityInvitationPayload.project required")
+    return out
+
+
+def redact_sensitive(value: OpportunityInvitationPayload) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sender_contacts" in value:
+        import capo_partnercentral_selling.types.sender_contact_list
+
+        out["sender_contacts"] = (
+            capo_partnercentral_selling.types.sender_contact_list.redact_sensitive(
+                value["sender_contacts"]
+            )
+        )
+    if "customer" in value:
+        import capo_partnercentral_selling.types.engagement_customer
+
+        out["customer"] = (
+            capo_partnercentral_selling.types.engagement_customer.redact_sensitive(
+                value["customer"]
+            )
+        )
+    if "project" in value:
+        import capo_partnercentral_selling.types.project_details
+
+        out["project"] = (
+            capo_partnercentral_selling.types.project_details.redact_sensitive(
+                value["project"]
+            )
+        )
     return out

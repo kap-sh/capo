@@ -23,10 +23,12 @@ from capo_serverlessapplicationrepository._pagination import (
 from capo_serverlessapplicationrepository._services._aws_config import aws_config
 from capo_serverlessapplicationrepository._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -141,6 +143,7 @@ class ServerlessApplicationRepositoryClient:
     def operation_options(
         self,
         config_overrides: Optional[ServerlessApplicationRepositoryClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ServerlessApplicationRepositoryClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -148,8 +151,10 @@ class ServerlessApplicationRepositoryClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -260,7 +265,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_serverlessapplicationrepository.types.create_application_request.CreateApplicationRequest = {}
         if author is not None:
             input_["author"] = author
@@ -353,7 +360,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplicationVersion")
+        )
         input_: capo_serverlessapplicationrepository.types.create_application_version_request.CreateApplicationVersionRequest = {
             "application_id": application_id,
             "semantic_version": semantic_version,
@@ -456,7 +465,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudFormationChangeSet")
+        )
         input_: capo_serverlessapplicationrepository.types.create_cloud_formation_change_set_request.CreateCloudFormationChangeSetRequest = {
             "application_id": application_id
         }
@@ -531,7 +542,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudFormationTemplate")
+        )
         input_: capo_serverlessapplicationrepository.types.create_cloud_formation_template_request.CreateCloudFormationTemplateRequest = {
             "application_id": application_id
         }
@@ -579,7 +592,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_serverlessapplicationrepository.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -630,7 +645,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_serverlessapplicationrepository.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -679,7 +696,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApplicationPolicy")
+        )
         input_: capo_serverlessapplicationrepository.types.get_application_policy_request.GetApplicationPolicyRequest = {
             "application_id": application_id
         }
@@ -728,7 +747,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudFormationTemplate")
+        )
         input_: capo_serverlessapplicationrepository.types.get_cloud_formation_template_request.GetCloudFormationTemplateRequest = {
             "application_id": application_id,
             "template_id": template_id,
@@ -788,7 +809,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationDependencies")
+        )
         input_: capo_serverlessapplicationrepository.types.list_application_dependencies_request.ListApplicationDependenciesRequest = {
             "application_id": application_id
         }
@@ -875,7 +898,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_serverlessapplicationrepository.types.list_applications_request.ListApplicationsRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -955,7 +980,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationVersions")
+        )
         input_: capo_serverlessapplicationrepository.types.list_application_versions_request.ListApplicationVersionsRequest = {
             "application_id": application_id
         }
@@ -1035,7 +1062,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutApplicationPolicy")
+        )
         input_: capo_serverlessapplicationrepository.types.put_application_policy_request.PutApplicationPolicyRequest = {
             "application_id": application_id
         }
@@ -1086,7 +1115,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UnshareApplication")
+        )
         input_: capo_serverlessapplicationrepository.types.unshare_application_request.UnshareApplicationRequest = {
             "application_id": application_id
         }
@@ -1160,7 +1191,9 @@ class ServerlessApplicationRepositoryClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_serverlessapplicationrepository.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#DeleteBrandProfileAttributeInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -26,4 +26,11 @@ def serialize_json(value: DeleteBrandProfileAttributeInput) -> dict:
 
 def deserialize_json(data: dict) -> DeleteBrandProfileAttributeInput:
     out: DeleteBrandProfileAttributeInput = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: DeleteBrandProfileAttributeInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attribute_name" in value:
+        out["attribute_name"] = "*** Sensitive Data Redacted ***"
     return out

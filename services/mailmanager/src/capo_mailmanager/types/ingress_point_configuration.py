@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#IngressPointConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,18 @@ def deserialize_aws_json_1_0(data: dict) -> IngressPointConfiguration:
         raise DeserializationError(
             "IngressPointConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: IngressPointConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "SmtpPassword" in value:
+        out["SmtpPassword"] = "*** Sensitive Data Redacted ***"
+    if "TlsAuthConfiguration" in value:
+        import capo_mailmanager.types.tls_auth_configuration
+
+        out["TlsAuthConfiguration"] = (
+            capo_mailmanager.types.tls_auth_configuration.redact_sensitive(
+                value["TlsAuthConfiguration"]
+            )
+        )
+    return out

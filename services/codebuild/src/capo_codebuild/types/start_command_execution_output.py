@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codebuild#StartCommandExecutionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> StartCommandExecutionOutput:
         out["command_execution"] = (
             capo_codebuild.types.command_execution.deserialize_aws_json_1_1(
                 data["commandExecution"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StartCommandExecutionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "command_execution" in value:
+        import capo_codebuild.types.command_execution
+
+        out["command_execution"] = (
+            capo_codebuild.types.command_execution.redact_sensitive(
+                value["command_execution"]
             )
         )
     return out

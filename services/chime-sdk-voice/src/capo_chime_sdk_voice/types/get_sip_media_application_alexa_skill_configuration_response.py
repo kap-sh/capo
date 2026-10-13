@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#GetSipMediaApplicationAlexaSkillConfigurationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,6 +41,21 @@ def deserialize_json(
         out["sip_media_application_alexa_skill_configuration"] = (
             capo_chime_sdk_voice.types.sip_media_application_alexa_skill_configuration.deserialize_json(
                 data["SipMediaApplicationAlexaSkillConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: GetSipMediaApplicationAlexaSkillConfigurationResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sip_media_application_alexa_skill_configuration" in value:
+        import capo_chime_sdk_voice.types.sip_media_application_alexa_skill_configuration
+
+        out["sip_media_application_alexa_skill_configuration"] = (
+            capo_chime_sdk_voice.types.sip_media_application_alexa_skill_configuration.redact_sensitive(
+                value["sip_media_application_alexa_skill_configuration"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#ImageSetsMetadataSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_medical_imaging.types.image_sets_metadata_summary
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> ImageSetsMetadataSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: ImageSetsMetadataSummaries) -> list[Any]:
+    import capo_medical_imaging.types.image_sets_metadata_summary
+
+    return [
+        capo_medical_imaging.types.image_sets_metadata_summary.redact_sensitive(item)
+        for item in value
+    ]

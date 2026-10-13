@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ParentList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.entity_identifier
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_0(data: list) -> ParentList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ParentList) -> list[Any]:
+    import capo_verifiedpermissions.types.entity_identifier
+
+    return [
+        capo_verifiedpermissions.types.entity_identifier.redact_sensitive(item)
+        for item in value
+    ]

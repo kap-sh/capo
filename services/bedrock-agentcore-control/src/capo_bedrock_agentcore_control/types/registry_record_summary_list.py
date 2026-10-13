@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#RegistryRecordSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.registry_record_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> RegistryRecordSummaryList:
             )
         )
     return out
+
+
+def redact_sensitive(value: RegistryRecordSummaryList) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.registry_record_summary
+
+    return [
+        capo_bedrock_agentcore_control.types.registry_record_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

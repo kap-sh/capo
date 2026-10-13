@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TimeEqualityFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,6 +123,19 @@ def deserialize_json(data: dict) -> TimeEqualityFilter:
         out["default_filter_control_configuration"] = (
             capo_quicksight.types.default_filter_control_configuration.deserialize_json(
                 data["DefaultFilterControlConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: TimeEqualityFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "rolling_date" in value:
+        import capo_quicksight.types.rolling_date_configuration
+
+        out["rolling_date"] = (
+            capo_quicksight.types.rolling_date_configuration.redact_sensitive(
+                value["rolling_date"]
             )
         )
     return out

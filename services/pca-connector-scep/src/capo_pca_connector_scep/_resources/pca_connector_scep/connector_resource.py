@@ -8,6 +8,7 @@ import capo_pca_connector_scep._auth._sigv4
 from capo_pca_connector_scep._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConnector")
+        )
         input_: capo_pca_connector_scep.types.create_connector_request.CreateConnectorRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -151,7 +154,9 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
         input_: capo_pca_connector_scep.types.get_connector_request.GetConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -197,7 +202,9 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_pca_connector_scep.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -251,7 +258,9 @@ class ConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_pca_connector_scep.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -322,7 +331,9 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConnector")
+        )
         input_: capo_pca_connector_scep.types.create_connector_request.CreateConnectorRequest = {
             "certificate_authority_arn": certificate_authority_arn
         }
@@ -379,7 +390,9 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
         input_: capo_pca_connector_scep.types.get_connector_request.GetConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -426,7 +439,9 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_pca_connector_scep.types.delete_connector_request.DeleteConnectorRequest = {
             "connector_arn": connector_arn
         }
@@ -481,7 +496,9 @@ class AsyncConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_pca_connector_scep.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

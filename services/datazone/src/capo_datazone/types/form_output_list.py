@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#FormOutputList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.form_output
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> FormOutputList:
             continue
         out.append(capo_datazone.types.form_output.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: FormOutputList) -> list[Any]:
+    import capo_datazone.types.form_output
+
+    return [capo_datazone.types.form_output.redact_sensitive(item) for item in value]

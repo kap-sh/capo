@@ -22,10 +22,12 @@ from capo_sagemakerjobruntime._auth._zapros_handler import AuthMiddleware
 from capo_sagemakerjobruntime._services._aws_config import aws_config
 from capo_sagemakerjobruntime._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -114,7 +116,9 @@ class SagemakerJobRuntimeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SagemakerJobRuntimeClientConfig] = None
+        self,
+        config_overrides: Optional[SagemakerJobRuntimeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SagemakerJobRuntimeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -122,8 +126,10 @@ class SagemakerJobRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -189,7 +195,9 @@ class SagemakerJobRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CompleteRollout")
+        )
         input_: capo_sagemakerjobruntime.types.complete_rollout_request.CompleteRolloutRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -253,7 +261,30 @@ class SagemakerJobRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemakerjobruntime.types.sample_request.SampleRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_request
+
+            return capo_sagemakerjobruntime.types.sample_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemakerjobruntime.types.sample_response.SampleResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_response
+
+            return capo_sagemakerjobruntime.types.sample_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Sample", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_sagemakerjobruntime.types.sample_request.SampleRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -314,7 +345,32 @@ class SagemakerJobRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sagemakerjobruntime.types.sample_with_response_stream_request.SampleWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_with_response_stream_request
+
+            return capo_sagemakerjobruntime.types.sample_with_response_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_sagemakerjobruntime.types.sample_with_response_stream_response.SampleWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_sagemakerjobruntime.types.sample_with_response_stream_response
+
+            return capo_sagemakerjobruntime.types.sample_with_response_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SampleWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sagemakerjobruntime.types.sample_with_response_stream_request.SampleWithResponseStreamRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,
@@ -379,7 +435,9 @@ class SagemakerJobRuntimeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReward")
+        )
         input_: capo_sagemakerjobruntime.types.update_reward_request.UpdateRewardRequest = {
             "job_arn": job_arn,
             "trajectory_id": trajectory_id,

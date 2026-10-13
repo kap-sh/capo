@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#CreateDBClusterMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -817,4 +817,13 @@ def deserialize_query(el: Element) -> CreateDBClusterMessage:
                 child_associated_roles
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateDBClusterMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_password" in value:
+        out["master_user_password"] = "*** Sensitive Data Redacted ***"
+    if "pre_signed_url" in value:
+        out["pre_signed_url"] = "*** Sensitive Data Redacted ***"
     return out

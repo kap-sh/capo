@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#OpenSearchManagedClusterConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -72,4 +72,11 @@ def deserialize_json(data: dict) -> OpenSearchManagedClusterConfiguration:
         raise DeserializationError(
             "OpenSearchManagedClusterConfiguration.field_mapping required"
         )
+    return out
+
+
+def redact_sensitive(value: OpenSearchManagedClusterConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "vector_index_name" in value:
+        out["vector_index_name"] = "*** Sensitive Data Redacted ***"
     return out

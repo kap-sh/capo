@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#RecognizeTextRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,5 +71,18 @@ def deserialize_json(data: dict) -> RecognizeTextRequest:
             capo_lex_runtime_v2.types.string_map.deserialize_json(
                 data["requestAttributes"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: RecognizeTextRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "session_state" in value:
+        import capo_lex_runtime_v2.types.session_state
+
+        out["session_state"] = capo_lex_runtime_v2.types.session_state.redact_sensitive(
+            value["session_state"]
         )
     return out

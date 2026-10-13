@@ -22,7 +22,9 @@ from capo_dax._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -162,7 +164,9 @@ class AsyncDAXClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDAXClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDAXClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDAXClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -170,8 +174,10 @@ class AsyncDAXClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -271,7 +277,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_dax.types.create_cluster_request.CreateClusterRequest = {
             "cluster_name": cluster_name,
             "node_type": node_type,
@@ -349,7 +357,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateParameterGroup")
+        )
         input_: capo_dax.types.create_parameter_group_request.CreateParameterGroupRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -404,7 +414,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSubnetGroup")
+        )
         input_: capo_dax.types.create_subnet_group_request.CreateSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name,
             "subnet_ids": subnet_ids,
@@ -466,7 +478,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DecreaseReplicationFactor")
+        )
         input_: capo_dax.types.decrease_replication_factor_request.DecreaseReplicationFactorRequest = {
             "cluster_name": cluster_name,
             "new_replication_factor": new_replication_factor,
@@ -519,7 +533,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_dax.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_name": cluster_name
         }
@@ -567,7 +583,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteParameterGroup")
+        )
         input_: capo_dax.types.delete_parameter_group_request.DeleteParameterGroupRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -613,7 +631,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSubnetGroup")
+        )
         input_: capo_dax.types.delete_subnet_group_request.DeleteSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name
         }
@@ -666,7 +686,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeClusters")
+        )
         input_: capo_dax.types.describe_clusters_request.DescribeClustersRequest = {}
         if cluster_names is not None:
             input_["cluster_names"] = cluster_names
@@ -718,7 +740,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDefaultParameters")
+        )
         input_: capo_dax.types.describe_default_parameters_request.DescribeDefaultParametersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -778,7 +802,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_dax.types.describe_events_request.DescribeEventsRequest = {}
         if source_name is not None:
             input_["source_name"] = source_name
@@ -843,7 +869,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeParameterGroups")
+        )
         input_: capo_dax.types.describe_parameter_groups_request.DescribeParameterGroupsRequest = {}
         if parameter_group_names is not None:
             input_["parameter_group_names"] = parameter_group_names
@@ -900,7 +928,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeParameters")
+        )
         input_: capo_dax.types.describe_parameters_request.DescribeParametersRequest = {
             "parameter_group_name": parameter_group_name
         }
@@ -957,7 +987,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSubnetGroups")
+        )
         input_: capo_dax.types.describe_subnet_groups_request.DescribeSubnetGroupsRequest = {}
         if subnet_group_names is not None:
             input_["subnet_group_names"] = subnet_group_names
@@ -1019,7 +1051,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IncreaseReplicationFactor")
+        )
         input_: capo_dax.types.increase_replication_factor_request.IncreaseReplicationFactorRequest = {
             "cluster_name": cluster_name,
             "new_replication_factor": new_replication_factor,
@@ -1073,7 +1107,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_dax.types.list_tags_request.ListTagsRequest = {
             "resource_name": resource_name
         }
@@ -1126,7 +1162,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootNode")
+        )
         input_: capo_dax.types.reboot_node_request.RebootNodeRequest = {
             "cluster_name": cluster_name,
             "node_id": node_id,
@@ -1179,7 +1217,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_dax.types.tag_resource_request.TagResourceRequest = {
             "resource_name": resource_name,
             "tags": tags,
@@ -1232,7 +1272,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_dax.types.untag_resource_request.UntagResourceRequest = {
             "resource_name": resource_name,
             "tag_keys": tag_keys,
@@ -1297,7 +1339,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_dax.types.update_cluster_request.UpdateClusterRequest = {
             "cluster_name": cluster_name
         }
@@ -1359,7 +1403,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateParameterGroup")
+        )
         input_: capo_dax.types.update_parameter_group_request.UpdateParameterGroupRequest = {
             "parameter_group_name": parameter_group_name,
             "parameter_name_values": parameter_name_values,
@@ -1415,7 +1461,9 @@ class AsyncDAXClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubnetGroup")
+        )
         input_: capo_dax.types.update_subnet_group_request.UpdateSubnetGroupRequest = {
             "subnet_group_name": subnet_group_name
         }

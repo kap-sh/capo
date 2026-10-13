@@ -8,6 +8,7 @@ import capo_m2._auth._sigv4
 from capo_m2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -160,7 +161,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_m2.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "engine_type": engine_type,
@@ -220,7 +223,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_m2.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -276,7 +281,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_m2.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id,
             "current_application_version": current_application_version,
@@ -328,7 +335,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_m2.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -380,7 +389,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_m2.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -440,7 +451,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelBatchJobExecution")
+        )
         input_: capo_m2.types.cancel_batch_job_execution_request.CancelBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -498,7 +511,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataSetExportTask")
+        )
         input_: capo_m2.types.create_data_set_export_task_request.CreateDataSetExportTaskRequest = {
             "application_id": application_id,
             "export_config": export_config,
@@ -557,7 +572,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataSetImportTask")
+        )
         input_: capo_m2.types.create_data_set_import_task_request.CreateDataSetImportTaskRequest = {
             "application_id": application_id,
             "import_config": import_config,
@@ -616,7 +633,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_m2.types.create_deployment_request.CreateDeploymentRequest = {
             "environment_id": environment_id,
             "application_id": application_id,
@@ -671,7 +690,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationFromEnvironment")
+        )
         input_: capo_m2.types.delete_application_from_environment_request.DeleteApplicationFromEnvironmentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -721,7 +742,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationVersion")
+        )
         input_: capo_m2.types.get_application_version_request.GetApplicationVersionRequest = {
             "application_id": application_id,
             "application_version": application_version,
@@ -771,7 +794,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBatchJobExecution")
+        )
         input_: capo_m2.types.get_batch_job_execution_request.GetBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -824,7 +849,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetDetails")
+        )
         input_: capo_m2.types.get_data_set_details_request.GetDataSetDetailsRequest = {
             "application_id": application_id,
             "data_set_name": data_set_name,
@@ -874,7 +901,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetExportTask")
+        )
         input_: capo_m2.types.get_data_set_export_task_request.GetDataSetExportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -924,7 +953,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetImportTask")
+        )
         input_: capo_m2.types.get_data_set_import_task_request.GetDataSetImportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -974,7 +1005,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_m2.types.get_deployment_request.GetDeploymentRequest = {
             "deployment_id": deployment_id,
             "application_id": application_id,
@@ -1026,7 +1059,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationVersions")
+        )
         input_: capo_m2.types.list_application_versions_request.ListApplicationVersionsRequest = {
             "application_id": application_id
         }
@@ -1083,7 +1118,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobDefinitions")
+        )
         input_: capo_m2.types.list_batch_job_definitions_request.ListBatchJobDefinitionsRequest = {
             "application_id": application_id
         }
@@ -1152,7 +1189,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobExecutions")
+        )
         input_: capo_m2.types.list_batch_job_executions_request.ListBatchJobExecutionsRequest = {
             "application_id": application_id
         }
@@ -1220,7 +1259,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobRestartPoints")
+        )
         input_: capo_m2.types.list_batch_job_restart_points_request.ListBatchJobRestartPointsRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -1274,7 +1315,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSetExportHistory")
+        )
         input_: capo_m2.types.list_data_set_export_history_request.ListDataSetExportHistoryRequest = {
             "application_id": application_id
         }
@@ -1329,7 +1372,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSetImportHistory")
+        )
         input_: capo_m2.types.list_data_set_import_history_request.ListDataSetImportHistoryRequest = {
             "application_id": application_id
         }
@@ -1391,7 +1436,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSets")
+        )
         input_: capo_m2.types.list_data_sets_request.ListDataSetsRequest = {
             "application_id": application_id
         }
@@ -1450,7 +1497,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_m2.types.list_deployments_request.ListDeploymentsRequest = {
             "application_id": application_id
         }
@@ -1502,7 +1551,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_m2.types.start_application_request.StartApplicationRequest = {
             "application_id": application_id
         }
@@ -1560,7 +1611,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartBatchJob")
+        )
         input_: capo_m2.types.start_batch_job_request.StartBatchJobRequest = {
             "application_id": application_id,
             "batch_job_identifier": batch_job_identifier,
@@ -1615,7 +1668,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_m2.types.stop_application_request.StopApplicationRequest = {
             "application_id": application_id
         }
@@ -1687,7 +1742,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_m2.types.create_application_request.CreateApplicationRequest = {
             "name": name,
             "engine_type": engine_type,
@@ -1748,7 +1805,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_m2.types.get_application_request.GetApplicationRequest = {
             "application_id": application_id
         }
@@ -1805,7 +1864,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_m2.types.update_application_request.UpdateApplicationRequest = {
             "application_id": application_id,
             "current_application_version": current_application_version,
@@ -1858,7 +1919,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_m2.types.delete_application_request.DeleteApplicationRequest = {
             "application_id": application_id
         }
@@ -1911,7 +1974,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_m2.types.list_applications_request.ListApplicationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1972,7 +2037,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelBatchJobExecution")
+        )
         input_: capo_m2.types.cancel_batch_job_execution_request.CancelBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -2031,7 +2098,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataSetExportTask")
+        )
         input_: capo_m2.types.create_data_set_export_task_request.CreateDataSetExportTaskRequest = {
             "application_id": application_id,
             "export_config": export_config,
@@ -2091,7 +2160,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataSetImportTask")
+        )
         input_: capo_m2.types.create_data_set_import_task_request.CreateDataSetImportTaskRequest = {
             "application_id": application_id,
             "import_config": import_config,
@@ -2151,7 +2222,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDeployment")
+        )
         input_: capo_m2.types.create_deployment_request.CreateDeploymentRequest = {
             "environment_id": environment_id,
             "application_id": application_id,
@@ -2207,7 +2280,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationFromEnvironment")
+        )
         input_: capo_m2.types.delete_application_from_environment_request.DeleteApplicationFromEnvironmentRequest = {
             "application_id": application_id,
             "environment_id": environment_id,
@@ -2258,7 +2333,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplicationVersion")
+        )
         input_: capo_m2.types.get_application_version_request.GetApplicationVersionRequest = {
             "application_id": application_id,
             "application_version": application_version,
@@ -2309,7 +2386,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBatchJobExecution")
+        )
         input_: capo_m2.types.get_batch_job_execution_request.GetBatchJobExecutionRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -2363,7 +2442,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetDetails")
+        )
         input_: capo_m2.types.get_data_set_details_request.GetDataSetDetailsRequest = {
             "application_id": application_id,
             "data_set_name": data_set_name,
@@ -2414,7 +2495,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetExportTask")
+        )
         input_: capo_m2.types.get_data_set_export_task_request.GetDataSetExportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -2465,7 +2548,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataSetImportTask")
+        )
         input_: capo_m2.types.get_data_set_import_task_request.GetDataSetImportTaskRequest = {
             "application_id": application_id,
             "task_id": task_id,
@@ -2516,7 +2601,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDeployment")
+        )
         input_: capo_m2.types.get_deployment_request.GetDeploymentRequest = {
             "deployment_id": deployment_id,
             "application_id": application_id,
@@ -2569,7 +2656,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplicationVersions")
+        )
         input_: capo_m2.types.list_application_versions_request.ListApplicationVersionsRequest = {
             "application_id": application_id
         }
@@ -2627,7 +2716,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobDefinitions")
+        )
         input_: capo_m2.types.list_batch_job_definitions_request.ListBatchJobDefinitionsRequest = {
             "application_id": application_id
         }
@@ -2697,7 +2788,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobExecutions")
+        )
         input_: capo_m2.types.list_batch_job_executions_request.ListBatchJobExecutionsRequest = {
             "application_id": application_id
         }
@@ -2766,7 +2859,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatchJobRestartPoints")
+        )
         input_: capo_m2.types.list_batch_job_restart_points_request.ListBatchJobRestartPointsRequest = {
             "application_id": application_id,
             "execution_id": execution_id,
@@ -2821,7 +2916,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSetExportHistory")
+        )
         input_: capo_m2.types.list_data_set_export_history_request.ListDataSetExportHistoryRequest = {
             "application_id": application_id
         }
@@ -2877,7 +2974,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSetImportHistory")
+        )
         input_: capo_m2.types.list_data_set_import_history_request.ListDataSetImportHistoryRequest = {
             "application_id": application_id
         }
@@ -2940,7 +3039,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataSets")
+        )
         input_: capo_m2.types.list_data_sets_request.ListDataSetsRequest = {
             "application_id": application_id
         }
@@ -3000,7 +3101,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_m2.types.list_deployments_request.ListDeploymentsRequest = {
             "application_id": application_id
         }
@@ -3053,7 +3156,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_m2.types.start_application_request.StartApplicationRequest = {
             "application_id": application_id
         }
@@ -3112,7 +3217,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartBatchJob")
+        )
         input_: capo_m2.types.start_batch_job_request.StartBatchJobRequest = {
             "application_id": application_id,
             "batch_job_identifier": batch_job_identifier,
@@ -3168,7 +3275,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_m2.types.stop_application_request.StopApplicationRequest = {
             "application_id": application_id
         }

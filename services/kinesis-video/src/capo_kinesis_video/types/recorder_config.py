@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kinesisvideo#RecorderConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,6 +59,19 @@ def deserialize_json(data: dict) -> RecorderConfig:
         out["schedule_config"] = (
             capo_kinesis_video.types.schedule_config.deserialize_json(
                 data["ScheduleConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RecorderConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_source_config" in value:
+        import capo_kinesis_video.types.media_source_config
+
+        out["media_source_config"] = (
+            capo_kinesis_video.types.media_source_config.redact_sensitive(
+                value["media_source_config"]
             )
         )
     return out

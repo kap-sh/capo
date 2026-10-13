@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#DescribeConnectorResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -38,4 +38,15 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeConnectorResponse:
         )
     else:
         raise DeserializationError("DescribeConnectorResponse.connector required")
+    return out
+
+
+def redact_sensitive(value: DescribeConnectorResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connector" in value:
+        import capo_transfer.types.described_connector
+
+        out["connector"] = capo_transfer.types.described_connector.redact_sensitive(
+            value["connector"]
+        )
     return out

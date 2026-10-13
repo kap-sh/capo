@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#LayerMapVisual``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,17 @@ def deserialize_json(data: dict) -> LayerMapVisual:
         out["topic_identifier"] = data["TopicIdentifier"]
     if data.get("VisualContentAltText") is not None:
         out["visual_content_alt_text"] = data["VisualContentAltText"]
+    return out
+
+
+def redact_sensitive(value: LayerMapVisual) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "chart_configuration" in value:
+        import capo_quicksight.types.geospatial_layer_map_configuration
+
+        out["chart_configuration"] = (
+            capo_quicksight.types.geospatial_layer_map_configuration.redact_sensitive(
+                value["chart_configuration"]
+            )
+        )
     return out

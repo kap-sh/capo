@@ -7,6 +7,7 @@ import capo_arc_zonal_shift._auth._sigv4
 from capo_arc_zonal_shift._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -72,7 +73,9 @@ class ManagedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedResource")
+        )
         input_: capo_arc_zonal_shift.types.get_managed_resource_request.GetManagedResourceRequest = {
             "resource_identifier": resource_identifier
         }
@@ -122,7 +125,9 @@ class ManagedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedResources")
+        )
         input_: capo_arc_zonal_shift.types.list_managed_resources_request.ListManagedResourcesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -174,7 +179,9 @@ class ManagedResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateZonalAutoshiftConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_autoshift_configuration_request.UpdateZonalAutoshiftConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "zonal_autoshift_status": zonal_autoshift_status,
@@ -228,7 +235,9 @@ class AsyncManagedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedResource")
+        )
         input_: capo_arc_zonal_shift.types.get_managed_resource_request.GetManagedResourceRequest = {
             "resource_identifier": resource_identifier
         }
@@ -279,7 +288,9 @@ class AsyncManagedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedResources")
+        )
         input_: capo_arc_zonal_shift.types.list_managed_resources_request.ListManagedResourcesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -332,7 +343,9 @@ class AsyncManagedResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateZonalAutoshiftConfiguration")
+        )
         input_: capo_arc_zonal_shift.types.update_zonal_autoshift_configuration_request.UpdateZonalAutoshiftConfigurationRequest = {
             "resource_identifier": resource_identifier,
             "zonal_autoshift_status": zonal_autoshift_status,

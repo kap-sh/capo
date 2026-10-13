@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#ToolResultBlock``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,4 +73,17 @@ def deserialize_json(data: dict) -> ToolResultBlock:
         )
     if data.get("type") is not None:
         out["type"] = data["type"]
+    return out
+
+
+def redact_sensitive(value: ToolResultBlock) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_runtime.types.tool_result_content_blocks
+
+        out["content"] = (
+            capo_bedrock_runtime.types.tool_result_content_blocks.redact_sensitive(
+                value["content"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sso#GetRoleCredentialsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -27,4 +27,11 @@ def serialize_json(value: GetRoleCredentialsRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetRoleCredentialsRequest:
     out: GetRoleCredentialsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetRoleCredentialsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

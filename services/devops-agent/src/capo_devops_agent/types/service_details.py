@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ServiceDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -341,3 +341,98 @@ def deserialize_json(data: dict) -> ServiceDetails:
         }
     else:
         raise DeserializationError("ServiceDetails: no recognized variant key")
+
+
+def redact_sensitive(value: ServiceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dynatrace" in value:
+        import capo_devops_agent.types.dynatrace_service_details
+
+        out["dynatrace"] = (
+            capo_devops_agent.types.dynatrace_service_details.redact_sensitive(
+                value["dynatrace"]
+            )
+        )
+    if "servicenow" in value:
+        import capo_devops_agent.types.service_now_service_details
+
+        out["servicenow"] = (
+            capo_devops_agent.types.service_now_service_details.redact_sensitive(
+                value["servicenow"]
+            )
+        )
+    if "mcpserverdatadog" in value:
+        import capo_devops_agent.types.datadog_service_details
+
+        out["mcpserverdatadog"] = (
+            capo_devops_agent.types.datadog_service_details.redact_sensitive(
+                value["mcpserverdatadog"]
+            )
+        )
+    if "mcpserver" in value:
+        import capo_devops_agent.types.mcp_server_details
+
+        out["mcpserver"] = capo_devops_agent.types.mcp_server_details.redact_sensitive(
+            value["mcpserver"]
+        )
+    if "gitlab" in value:
+        import capo_devops_agent.types.git_lab_details
+
+        out["gitlab"] = capo_devops_agent.types.git_lab_details.redact_sensitive(
+            value["gitlab"]
+        )
+    if "mcpserversplunk" in value:
+        import capo_devops_agent.types.mcp_server_details
+
+        out["mcpserversplunk"] = (
+            capo_devops_agent.types.mcp_server_details.redact_sensitive(
+                value["mcpserversplunk"]
+            )
+        )
+    if "mcpservernewrelic" in value:
+        import capo_devops_agent.types.new_relic_service_details
+
+        out["mcpservernewrelic"] = (
+            capo_devops_agent.types.new_relic_service_details.redact_sensitive(
+                value["mcpservernewrelic"]
+            )
+        )
+    if "mcpservergrafana" in value:
+        import capo_devops_agent.types.grafana_service_details
+
+        out["mcpservergrafana"] = (
+            capo_devops_agent.types.grafana_service_details.redact_sensitive(
+                value["mcpservergrafana"]
+            )
+        )
+    if "pagerduty" in value:
+        import capo_devops_agent.types.pager_duty_details
+
+        out["pagerduty"] = capo_devops_agent.types.pager_duty_details.redact_sensitive(
+            value["pagerduty"]
+        )
+    if "mcpserversigv4" in value:
+        import capo_devops_agent.types.mcp_server_sig_v4_service_details
+
+        out["mcpserversigv4"] = (
+            capo_devops_agent.types.mcp_server_sig_v4_service_details.redact_sensitive(
+                value["mcpserversigv4"]
+            )
+        )
+    if "remoteagent" in value:
+        import capo_devops_agent.types.remote_agent_service_details
+
+        out["remoteagent"] = (
+            capo_devops_agent.types.remote_agent_service_details.redact_sensitive(
+                value["remoteagent"]
+            )
+        )
+    if "remoteagentsigv4" in value:
+        import capo_devops_agent.types.remote_agent_sig_v4_service_details
+
+        out["remoteagentsigv4"] = (
+            capo_devops_agent.types.remote_agent_sig_v4_service_details.redact_sensitive(
+                value["remoteagentsigv4"]
+            )
+        )
+    return out

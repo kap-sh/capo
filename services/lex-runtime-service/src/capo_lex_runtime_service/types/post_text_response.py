@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimeservice#PostTextResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -230,4 +230,25 @@ def deserialize_json(data: dict) -> PostTextResponse:
                 data["activeContexts"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: PostTextResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alternative_intents" in value:
+        import capo_lex_runtime_service.types.intent_list
+
+        out["alternative_intents"] = (
+            capo_lex_runtime_service.types.intent_list.redact_sensitive(
+                value["alternative_intents"]
+            )
+        )
+    if "slots" in value:
+        out["slots"] = "*** Sensitive Data Redacted ***"
+    if "session_attributes" in value:
+        out["session_attributes"] = "*** Sensitive Data Redacted ***"
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    if "active_contexts" in value:
+        out["active_contexts"] = "*** Sensitive Data Redacted ***"
     return out

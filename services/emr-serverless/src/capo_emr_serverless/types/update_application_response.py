@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emrserverless#UpdateApplicationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> UpdateApplicationResponse:
         )
     else:
         raise DeserializationError("UpdateApplicationResponse.application required")
+    return out
+
+
+def redact_sensitive(value: UpdateApplicationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "application" in value:
+        import capo_emr_serverless.types.application
+
+        out["application"] = capo_emr_serverless.types.application.redact_sensitive(
+            value["application"]
+        )
     return out

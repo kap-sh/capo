@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devicefarm#CreateTestGridUrlResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_aws_json_1_1(data: dict) -> CreateTestGridUrlResult:
         out["expires"] = capo_device_farm.types.date_time.deserialize_aws_json_1_1(
             data["expires"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateTestGridUrlResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

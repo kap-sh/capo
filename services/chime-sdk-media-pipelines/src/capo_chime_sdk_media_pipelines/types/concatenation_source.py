@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#ConcatenationSource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -61,5 +61,18 @@ def deserialize_json(data: dict) -> ConcatenationSource:
     else:
         raise DeserializationError(
             "ConcatenationSource.media_capture_pipeline_source_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: ConcatenationSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_capture_pipeline_source_configuration" in value:
+        import capo_chime_sdk_media_pipelines.types.media_capture_pipeline_source_configuration
+
+        out["media_capture_pipeline_source_configuration"] = (
+            capo_chime_sdk_media_pipelines.types.media_capture_pipeline_source_configuration.redact_sensitive(
+                value["media_capture_pipeline_source_configuration"]
+            )
         )
     return out

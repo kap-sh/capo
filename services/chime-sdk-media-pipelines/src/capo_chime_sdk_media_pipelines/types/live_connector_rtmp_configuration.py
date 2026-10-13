@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#LiveConnectorRTMPConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> LiveConnectorRTMPConfiguration:
         )
     if data.get("AudioSampleRate") is not None:
         out["audio_sample_rate"] = data["AudioSampleRate"]
+    return out
+
+
+def redact_sensitive(value: LiveConnectorRTMPConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "url" in value:
+        out["url"] = "*** Sensitive Data Redacted ***"
     return out

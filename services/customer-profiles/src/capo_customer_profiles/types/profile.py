@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#Profile``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -314,4 +314,59 @@ def deserialize_json(data: dict) -> Profile:
                 data["EngagementPreferences"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: Profile) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "account_number" in value:
+        out["account_number"] = "*** Sensitive Data Redacted ***"
+    if "additional_information" in value:
+        out["additional_information"] = "*** Sensitive Data Redacted ***"
+    if "party_type" in value:
+        out["party_type"] = "*** Sensitive Data Redacted ***"
+    if "business_name" in value:
+        out["business_name"] = "*** Sensitive Data Redacted ***"
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "middle_name" in value:
+        out["middle_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
+    if "birth_date" in value:
+        out["birth_date"] = "*** Sensitive Data Redacted ***"
+    if "gender" in value:
+        out["gender"] = "*** Sensitive Data Redacted ***"
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
+    if "mobile_phone_number" in value:
+        out["mobile_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "home_phone_number" in value:
+        out["home_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "business_phone_number" in value:
+        out["business_phone_number"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "personal_email_address" in value:
+        out["personal_email_address"] = "*** Sensitive Data Redacted ***"
+    if "business_email_address" in value:
+        out["business_email_address"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        out["address"] = "*** Sensitive Data Redacted ***"
+    if "shipping_address" in value:
+        out["shipping_address"] = "*** Sensitive Data Redacted ***"
+    if "mailing_address" in value:
+        out["mailing_address"] = "*** Sensitive Data Redacted ***"
+    if "billing_address" in value:
+        out["billing_address"] = "*** Sensitive Data Redacted ***"
+    if "attributes" in value:
+        out["attributes"] = "*** Sensitive Data Redacted ***"
+    if "party_type_string" in value:
+        out["party_type_string"] = "*** Sensitive Data Redacted ***"
+    if "gender_string" in value:
+        out["gender_string"] = "*** Sensitive Data Redacted ***"
+    if "profile_type" in value:
+        out["profile_type"] = "*** Sensitive Data Redacted ***"
+    if "engagement_preferences" in value:
+        out["engagement_preferences"] = "*** Sensitive Data Redacted ***"
     return out

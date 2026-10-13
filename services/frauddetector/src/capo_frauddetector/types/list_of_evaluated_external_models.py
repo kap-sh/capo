@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#ListOfEvaluatedExternalModels``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_frauddetector.types.evaluated_external_model
@@ -37,3 +37,12 @@ def deserialize_aws_json_1_1(data: list) -> ListOfEvaluatedExternalModels:
             )
         )
     return out
+
+
+def redact_sensitive(value: ListOfEvaluatedExternalModels) -> list[Any]:
+    import capo_frauddetector.types.evaluated_external_model
+
+    return [
+        capo_frauddetector.types.evaluated_external_model.redact_sensitive(item)
+        for item in value
+    ]

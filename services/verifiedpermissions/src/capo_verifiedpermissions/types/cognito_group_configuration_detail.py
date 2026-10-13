@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#CognitoGroupConfigurationDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_aws_json_1_0(data: dict) -> CognitoGroupConfigurationDetail:
     out: CognitoGroupConfigurationDetail = {}  # type: ignore[typeddict-item]
     if data.get("groupEntityType") is not None:
         out["group_entity_type"] = data["groupEntityType"]
+    return out
+
+
+def redact_sensitive(value: CognitoGroupConfigurationDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "group_entity_type" in value:
+        out["group_entity_type"] = "*** Sensitive Data Redacted ***"
     return out

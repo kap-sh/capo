@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomInstructions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> CustomInstructions:
         raise DeserializationError(
             "CustomInstructions.custom_instructions_string required"
         )
+    return out
+
+
+def redact_sensitive(value: CustomInstructions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_instructions_string" in value:
+        out["custom_instructions_string"] = "*** Sensitive Data Redacted ***"
     return out

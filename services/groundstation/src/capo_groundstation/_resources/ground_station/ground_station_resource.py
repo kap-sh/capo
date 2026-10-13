@@ -8,6 +8,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class GroundStationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroundStations")
+        )
         input_: capo_groundstation.types.list_ground_stations_request.ListGroundStationsRequest = {}
         if satellite_id is not None:
             input_["satellite_id"] = satellite_id
@@ -139,7 +142,9 @@ class GroundStationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAntennas")
+        )
         input_: capo_groundstation.types.list_antennas_request.ListAntennasRequest = {
             "ground_station_id": ground_station_id
         }
@@ -203,7 +208,9 @@ class GroundStationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroundStationReservations")
+        )
         input_: capo_groundstation.types.list_ground_station_reservations_request.ListGroundStationReservationsRequest = {
             "ground_station_id": ground_station_id,
             "start_time": start_time,
@@ -270,7 +277,9 @@ class AsyncGroundStationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroundStations")
+        )
         input_: capo_groundstation.types.list_ground_stations_request.ListGroundStationsRequest = {}
         if satellite_id is not None:
             input_["satellite_id"] = satellite_id
@@ -327,7 +336,9 @@ class AsyncGroundStationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAntennas")
+        )
         input_: capo_groundstation.types.list_antennas_request.ListAntennasRequest = {
             "ground_station_id": ground_station_id
         }
@@ -392,7 +403,9 @@ class AsyncGroundStationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListGroundStationReservations")
+        )
         input_: capo_groundstation.types.list_ground_station_reservations_request.ListGroundStationReservationsRequest = {
             "ground_station_id": ground_station_id,
             "start_time": start_time,

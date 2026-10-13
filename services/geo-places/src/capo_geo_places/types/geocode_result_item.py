@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#GeocodeResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -317,4 +317,101 @@ def deserialize_json(data: dict) -> GeocodeResultItem:
         )
     if data.get("EstimatedPointAddress") is not None:
         out["estimated_point_address"] = data["EstimatedPointAddress"]
+    return out
+
+
+def redact_sensitive(value: GeocodeResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place_id" in value:
+        out["place_id"] = "*** Sensitive Data Redacted ***"
+    if "place_type" in value:
+        out["place_type"] = "*** Sensitive Data Redacted ***"
+    if "title" in value:
+        out["title"] = "*** Sensitive Data Redacted ***"
+    if "address" in value:
+        import capo_geo_places.types.address
+
+        out["address"] = capo_geo_places.types.address.redact_sensitive(
+            value["address"]
+        )
+    if "address_number_corrected" in value:
+        out["address_number_corrected"] = "*** Sensitive Data Redacted ***"
+    if "postal_code_details" in value:
+        import capo_geo_places.types.postal_code_details_list
+
+        out["postal_code_details"] = (
+            capo_geo_places.types.postal_code_details_list.redact_sensitive(
+                value["postal_code_details"]
+            )
+        )
+    if "position" in value:
+        out["position"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "map_view" in value:
+        out["map_view"] = "*** Sensitive Data Redacted ***"
+    if "categories" in value:
+        import capo_geo_places.types.category_list
+
+        out["categories"] = capo_geo_places.types.category_list.redact_sensitive(
+            value["categories"]
+        )
+    if "food_types" in value:
+        import capo_geo_places.types.food_type_list
+
+        out["food_types"] = capo_geo_places.types.food_type_list.redact_sensitive(
+            value["food_types"]
+        )
+    if "access_points" in value:
+        import capo_geo_places.types.access_point_list
+
+        out["access_points"] = capo_geo_places.types.access_point_list.redact_sensitive(
+            value["access_points"]
+        )
+    if "time_zone" in value:
+        import capo_geo_places.types.time_zone
+
+        out["time_zone"] = capo_geo_places.types.time_zone.redact_sensitive(
+            value["time_zone"]
+        )
+    if "political_view" in value:
+        out["political_view"] = "*** Sensitive Data Redacted ***"
+    if "parsed_query" in value:
+        import capo_geo_places.types.geocode_parsed_query
+
+        out["parsed_query"] = (
+            capo_geo_places.types.geocode_parsed_query.redact_sensitive(
+                value["parsed_query"]
+            )
+        )
+    if "intersections" in value:
+        import capo_geo_places.types.intersection_list
+
+        out["intersections"] = capo_geo_places.types.intersection_list.redact_sensitive(
+            value["intersections"]
+        )
+    if "main_address" in value:
+        import capo_geo_places.types.related_place
+
+        out["main_address"] = capo_geo_places.types.related_place.redact_sensitive(
+            value["main_address"]
+        )
+    if "secondary_addresses" in value:
+        import capo_geo_places.types.related_place_list
+
+        out["secondary_addresses"] = (
+            capo_geo_places.types.related_place_list.redact_sensitive(
+                value["secondary_addresses"]
+            )
+        )
+    if "translations" in value:
+        import capo_geo_places.types.translation_details
+
+        out["translations"] = (
+            capo_geo_places.types.translation_details.redact_sensitive(
+                value["translations"]
+            )
+        )
+    if "estimated_point_address" in value:
+        out["estimated_point_address"] = "*** Sensitive Data Redacted ***"
     return out

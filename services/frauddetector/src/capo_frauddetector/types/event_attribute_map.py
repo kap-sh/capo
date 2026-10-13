@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#EventAttributeMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_frauddetector.types.attribute_key
@@ -27,3 +27,7 @@ def deserialize_aws_json_1_1(data: dict) -> EventAttributeMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: EventAttributeMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

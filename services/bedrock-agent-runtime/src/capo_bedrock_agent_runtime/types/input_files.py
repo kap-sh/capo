@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InputFiles``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agent_runtime.types.input_file
@@ -27,3 +27,12 @@ def deserialize_json(data: list) -> InputFiles:
             continue
         out.append(capo_bedrock_agent_runtime.types.input_file.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: InputFiles) -> list[Any]:
+    import capo_bedrock_agent_runtime.types.input_file
+
+    return [
+        capo_bedrock_agent_runtime.types.input_file.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#GetMapTileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,17 @@ def serialize_json(value: GetMapTileRequest) -> dict:
 
 def deserialize_json(data: dict) -> GetMapTileRequest:
     out: GetMapTileRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: GetMapTileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "z" in value:
+        out["z"] = "*** Sensitive Data Redacted ***"
+    if "x" in value:
+        out["x"] = "*** Sensitive Data Redacted ***"
+    if "y" in value:
+        out["y"] = "*** Sensitive Data Redacted ***"
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
     return out

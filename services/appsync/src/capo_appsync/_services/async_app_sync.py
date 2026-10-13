@@ -24,7 +24,9 @@ from capo_appsync._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -322,7 +324,9 @@ class AsyncAppSyncClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncAppSyncClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncAppSyncClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncAppSyncClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -330,8 +334,10 @@ class AsyncAppSyncClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -386,7 +392,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateApi")
+        )
         input_: capo_appsync.types.associate_api_request.AssociateApiRequest = {
             "domain_name": domain_name,
             "api_id": api_id,
@@ -444,7 +452,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateMergedGraphqlApi")
+        )
         input_: capo_appsync.types.associate_merged_graphql_api_request.AssociateMergedGraphqlApiRequest = {
             "source_api_identifier": source_api_identifier,
             "merged_api_identifier": merged_api_identifier,
@@ -506,7 +516,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSourceGraphqlApi")
+        )
         input_: capo_appsync.types.associate_source_graphql_api_request.AssociateSourceGraphqlApiRequest = {
             "merged_api_identifier": merged_api_identifier,
             "source_api_identifier": source_api_identifier,
@@ -564,7 +576,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApi")
+        )
         input_: capo_appsync.types.create_api_request.CreateApiRequest = {
             "name": name,
             "event_config": event_config,
@@ -635,7 +649,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApiCache")
+        )
         input_: capo_appsync.types.create_api_cache_request.CreateApiCacheRequest = {
             "api_id": api_id,
             "ttl": ttl,
@@ -698,7 +714,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApiKey")
+        )
         input_: capo_appsync.types.create_api_key_request.CreateApiKeyRequest = {
             "api_id": api_id
         }
@@ -767,7 +785,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannelNamespace")
+        )
         input_: capo_appsync.types.create_channel_namespace_request.CreateChannelNamespaceRequest = {
             "api_id": api_id,
             "name": name,
@@ -866,7 +886,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSource")
+        )
         input_: capo_appsync.types.create_data_source_request.CreateDataSourceRequest = {
             "api_id": api_id,
             "name": name,
@@ -939,7 +961,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDomainName")
+        )
         input_: capo_appsync.types.create_domain_name_request.CreateDomainNameRequest = {
             "domain_name": domain_name,
             "certificate_arn": certificate_arn,
@@ -1016,7 +1040,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFunction")
+        )
         input_: capo_appsync.types.create_function_request.CreateFunctionRequest = {
             "api_id": api_id,
             "name": name,
@@ -1137,7 +1163,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGraphqlApi")
+        )
         input_: capo_appsync.types.create_graphql_api_request.CreateGraphqlApiRequest = {
             "name": name,
             "authentication_type": authentication_type,
@@ -1257,7 +1285,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResolver")
+        )
         input_: capo_appsync.types.create_resolver_request.CreateResolverRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -1333,7 +1363,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateType")
+        )
         input_: capo_appsync.types.create_type_request.CreateTypeRequest = {
             "api_id": api_id,
             "definition": definition,
@@ -1384,7 +1416,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApi")
+        )
         input_: capo_appsync.types.delete_api_request.DeleteApiRequest = {
             "api_id": api_id
         }
@@ -1432,7 +1466,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApiCache")
+        )
         input_: capo_appsync.types.delete_api_cache_request.DeleteApiCacheRequest = {
             "api_id": api_id
         }
@@ -1481,7 +1517,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApiKey")
+        )
         input_: capo_appsync.types.delete_api_key_request.DeleteApiKeyRequest = {
             "api_id": api_id,
             "id": id,
@@ -1533,7 +1571,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelNamespace")
+        )
         input_: capo_appsync.types.delete_channel_namespace_request.DeleteChannelNamespaceRequest = {
             "api_id": api_id,
             "name": name,
@@ -1584,7 +1624,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_appsync.types.delete_data_source_request.DeleteDataSourceRequest = {
             "api_id": api_id,
             "name": name,
@@ -1633,7 +1675,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainName")
+        )
         input_: capo_appsync.types.delete_domain_name_request.DeleteDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -1683,7 +1727,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFunction")
+        )
         input_: capo_appsync.types.delete_function_request.DeleteFunctionRequest = {
             "api_id": api_id,
             "function_id": function_id,
@@ -1733,7 +1779,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGraphqlApi")
+        )
         input_: capo_appsync.types.delete_graphql_api_request.DeleteGraphqlApiRequest = {
             "api_id": api_id
         }
@@ -1785,7 +1833,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResolver")
+        )
         input_: capo_appsync.types.delete_resolver_request.DeleteResolverRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -1837,7 +1887,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteType")
+        )
         input_: capo_appsync.types.delete_type_request.DeleteTypeRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -1886,7 +1938,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateApi")
+        )
         input_: capo_appsync.types.disassociate_api_request.DisassociateApiRequest = {
             "domain_name": domain_name
         }
@@ -1936,7 +1990,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateMergedGraphqlApi")
+        )
         input_: capo_appsync.types.disassociate_merged_graphql_api_request.DisassociateMergedGraphqlApiRequest = {
             "source_api_identifier": source_api_identifier,
             "association_id": association_id,
@@ -1987,7 +2043,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceGraphqlApi")
+        )
         input_: capo_appsync.types.disassociate_source_graphql_api_request.DisassociateSourceGraphqlApiRequest = {
             "merged_api_identifier": merged_api_identifier,
             "association_id": association_id,
@@ -2040,7 +2098,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvaluateCode")
+        )
         input_: capo_appsync.types.evaluate_code_request.EvaluateCodeRequest = {
             "runtime": runtime,
             "code": code,
@@ -2092,7 +2152,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EvaluateMappingTemplate")
+        )
         input_: capo_appsync.types.evaluate_mapping_template_request.EvaluateMappingTemplateRequest = {
             "template": template,
             "context": context,
@@ -2141,7 +2203,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("FlushApiCache")
+        )
         input_: capo_appsync.types.flush_api_cache_request.FlushApiCacheRequest = {
             "api_id": api_id
         }
@@ -2189,7 +2253,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApi")
+        )
         input_: capo_appsync.types.get_api_request.GetApiRequest = {"api_id": api_id}
 
         response = await aexecute_pipeline(
@@ -2234,7 +2300,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApiAssociation")
+        )
         input_: capo_appsync.types.get_api_association_request.GetApiAssociationRequest = {
             "domain_name": domain_name
         }
@@ -2282,7 +2350,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetApiCache")
+        )
         input_: capo_appsync.types.get_api_cache_request.GetApiCacheRequest = {
             "api_id": api_id
         }
@@ -2334,7 +2404,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannelNamespace")
+        )
         input_: capo_appsync.types.get_channel_namespace_request.GetChannelNamespaceRequest = {
             "api_id": api_id,
             "name": name,
@@ -2385,7 +2457,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSource")
+        )
         input_: capo_appsync.types.get_data_source_request.GetDataSourceRequest = {
             "api_id": api_id,
             "name": name,
@@ -2440,7 +2514,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDataSourceIntrospection")
+        )
         input_: capo_appsync.types.get_data_source_introspection_request.GetDataSourceIntrospectionRequest = {
             "introspection_id": introspection_id
         }
@@ -2493,7 +2569,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainName")
+        )
         input_: capo_appsync.types.get_domain_name_request.GetDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -2541,7 +2619,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFunction")
+        )
         input_: capo_appsync.types.get_function_request.GetFunctionRequest = {
             "api_id": api_id,
             "function_id": function_id,
@@ -2590,7 +2670,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGraphqlApi")
+        )
         input_: capo_appsync.types.get_graphql_api_request.GetGraphqlApiRequest = {
             "api_id": api_id
         }
@@ -2638,7 +2720,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGraphqlApiEnvironmentVariables")
+        )
         input_: capo_appsync.types.get_graphql_api_environment_variables_request.GetGraphqlApiEnvironmentVariablesRequest = {
             "api_id": api_id
         }
@@ -2691,7 +2775,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntrospectionSchema")
+        )
         input_: capo_appsync.types.get_introspection_schema_request.GetIntrospectionSchemaRequest = {
             "api_id": api_id,
             "format": format,
@@ -2744,7 +2830,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResolver")
+        )
         input_: capo_appsync.types.get_resolver_request.GetResolverRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -2793,7 +2881,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaCreationStatus")
+        )
         input_: capo_appsync.types.get_schema_creation_status_request.GetSchemaCreationStatusRequest = {
             "api_id": api_id
         }
@@ -2842,7 +2932,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSourceApiAssociation")
+        )
         input_: capo_appsync.types.get_source_api_association_request.GetSourceApiAssociationRequest = {
             "merged_api_identifier": merged_api_identifier,
             "association_id": association_id,
@@ -2895,7 +2987,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetType")
+        )
         input_: capo_appsync.types.get_type_request.GetTypeRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -2950,7 +3044,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApiKeys")
+        )
         input_: capo_appsync.types.list_api_keys_request.ListApiKeysRequest = {
             "api_id": api_id
         }
@@ -3029,7 +3125,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApis")
+        )
         input_: capo_appsync.types.list_apis_request.ListApisRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3107,7 +3205,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannelNamespaces")
+        )
         input_: capo_appsync.types.list_channel_namespaces_request.ListChannelNamespacesRequest = {
             "api_id": api_id
         }
@@ -3189,7 +3289,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_appsync.types.list_data_sources_request.ListDataSourcesRequest = {
             "api_id": api_id
         }
@@ -3268,7 +3370,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainNames")
+        )
         input_: capo_appsync.types.list_domain_names_request.ListDomainNamesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3346,7 +3450,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFunctions")
+        )
         input_: capo_appsync.types.list_functions_request.ListFunctionsRequest = {
             "api_id": api_id
         }
@@ -3433,7 +3539,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGraphqlApis")
+        )
         input_: capo_appsync.types.list_graphql_apis_request.ListGraphqlApisRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3523,7 +3631,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResolvers")
+        )
         input_: capo_appsync.types.list_resolvers_request.ListResolversRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -3610,7 +3720,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResolversByFunction")
+        )
         input_: capo_appsync.types.list_resolvers_by_function_request.ListResolversByFunctionRequest = {
             "api_id": api_id,
             "function_id": function_id,
@@ -3695,7 +3807,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceApiAssociations")
+        )
         input_: capo_appsync.types.list_source_api_associations_request.ListSourceApiAssociationsRequest = {
             "api_id": api_id
         }
@@ -3775,7 +3889,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_appsync.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3831,7 +3947,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypes")
+        )
         input_: capo_appsync.types.list_types_request.ListTypesRequest = {
             "api_id": api_id,
             "format": format,
@@ -3921,7 +4039,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTypesByAssociation")
+        )
         input_: capo_appsync.types.list_types_by_association_request.ListTypesByAssociationRequest = {
             "merged_api_identifier": merged_api_identifier,
             "association_id": association_id,
@@ -4007,7 +4127,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutGraphqlApiEnvironmentVariables")
+        )
         input_: capo_appsync.types.put_graphql_api_environment_variables_request.PutGraphqlApiEnvironmentVariablesRequest = {
             "api_id": api_id,
             "environment_variables": environment_variables,
@@ -4057,7 +4179,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataSourceIntrospection")
+        )
         input_: capo_appsync.types.start_data_source_introspection_request.StartDataSourceIntrospectionRequest = {}
         if rds_data_api_config is not None:
             input_["rds_data_api_config"] = rds_data_api_config
@@ -4109,7 +4233,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSchemaCreation")
+        )
         input_: capo_appsync.types.start_schema_creation_request.StartSchemaCreationRequest = {
             "api_id": api_id,
             "definition": definition,
@@ -4160,7 +4286,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSchemaMerge")
+        )
         input_: capo_appsync.types.start_schema_merge_request.StartSchemaMergeRequest = {
             "association_id": association_id,
             "merged_api_identifier": merged_api_identifier,
@@ -4212,7 +4340,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_appsync.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4264,7 +4394,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_appsync.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4320,7 +4452,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApi")
+        )
         input_: capo_appsync.types.update_api_request.UpdateApiRequest = {
             "api_id": api_id,
             "name": name,
@@ -4382,7 +4516,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApiCache")
+        )
         input_: capo_appsync.types.update_api_cache_request.UpdateApiCacheRequest = {
             "api_id": api_id,
             "ttl": ttl,
@@ -4442,7 +4578,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApiKey")
+        )
         input_: capo_appsync.types.update_api_key_request.UpdateApiKeyRequest = {
             "api_id": api_id,
             "id": id,
@@ -4510,7 +4648,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannelNamespace")
+        )
         input_: capo_appsync.types.update_channel_namespace_request.UpdateChannelNamespaceRequest = {
             "api_id": api_id,
             "name": name,
@@ -4607,7 +4747,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSource")
+        )
         input_: capo_appsync.types.update_data_source_request.UpdateDataSourceRequest = {
             "api_id": api_id,
             "name": name,
@@ -4679,7 +4821,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDomainName")
+        )
         input_: capo_appsync.types.update_domain_name_request.UpdateDomainNameRequest = {
             "domain_name": domain_name
         }
@@ -4755,7 +4899,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFunction")
+        )
         input_: capo_appsync.types.update_function_request.UpdateFunctionRequest = {
             "api_id": api_id,
             "name": name,
@@ -4869,7 +5015,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGraphqlApi")
+        )
         input_: capo_appsync.types.update_graphql_api_request.UpdateGraphqlApiRequest = {
             "api_id": api_id,
             "name": name,
@@ -4984,7 +5132,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResolver")
+        )
         input_: capo_appsync.types.update_resolver_request.UpdateResolverRequest = {
             "api_id": api_id,
             "type_name": type_name,
@@ -5064,7 +5214,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSourceApiAssociation")
+        )
         input_: capo_appsync.types.update_source_api_association_request.UpdateSourceApiAssociationRequest = {
             "association_id": association_id,
             "merged_api_identifier": merged_api_identifier,
@@ -5123,7 +5275,9 @@ class AsyncAppSyncClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateType")
+        )
         input_: capo_appsync.types.update_type_request.UpdateTypeRequest = {
             "api_id": api_id,
             "type_name": type_name,

@@ -25,7 +25,9 @@ from capo_invoicing._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -181,7 +183,9 @@ class AsyncInvoicingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncInvoicingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncInvoicingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncInvoicingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -189,8 +193,10 @@ class AsyncInvoicingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -246,7 +252,19 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_invoicing.types.batch_get_invoice_profile_response.BatchGetInvoiceProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_invoicing.types.batch_get_invoice_profile_response
+
+            return capo_invoicing.types.batch_get_invoice_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetInvoiceProfile", redact_output=_redact_output),
+        )
         input_: capo_invoicing.types.batch_get_invoice_profile_request.BatchGetInvoiceProfileRequest = {
             "account_ids": account_ids
         }
@@ -318,7 +336,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInvoiceUnit")
+        )
         input_: capo_invoicing.types.create_invoice_unit_request.CreateInvoiceUnitRequest = {
             "name": name,
             "invoice_receiver": invoice_receiver,
@@ -430,7 +450,21 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_invoicing.types.create_procurement_portal_preference_request.CreateProcurementPortalPreferenceRequest",
+        ) -> dict[str, Any]:
+            import capo_invoicing.types.create_procurement_portal_preference_request
+
+            return capo_invoicing.types.create_procurement_portal_preference_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProcurementPortalPreference", redact_input=_redact_input
+            ),
+        )
         input_: capo_invoicing.types.create_procurement_portal_preference_request.CreateProcurementPortalPreferenceRequest = {
             "procurement_portal_name": procurement_portal_name,
             "buyer_domain": buyer_domain,
@@ -519,7 +553,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInvoiceUnit")
+        )
         input_: capo_invoicing.types.delete_invoice_unit_request.DeleteInvoiceUnitRequest = {
             "invoice_unit_arn": invoice_unit_arn
         }
@@ -581,7 +617,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProcurementPortalPreference")
+        )
         input_: capo_invoicing.types.delete_procurement_portal_preference_request.DeleteProcurementPortalPreferenceRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn
         }
@@ -640,7 +678,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInvoicePDF")
+        )
         input_: capo_invoicing.types.get_invoice_pdf_request.GetInvoicePDFRequest = {
             "invoice_id": invoice_id
         }
@@ -698,7 +738,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInvoiceUnit")
+        )
         input_: capo_invoicing.types.get_invoice_unit_request.GetInvoiceUnitRequest = {
             "invoice_unit_arn": invoice_unit_arn
         }
@@ -755,7 +797,21 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_invoicing.types.get_procurement_portal_preference_response.GetProcurementPortalPreferenceResponse",
+        ) -> dict[str, Any]:
+            import capo_invoicing.types.get_procurement_portal_preference_response
+
+            return capo_invoicing.types.get_procurement_portal_preference_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetProcurementPortalPreference", redact_output=_redact_output
+            ),
+        )
         input_: capo_invoicing.types.get_procurement_portal_preference_request.GetProcurementPortalPreferenceRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn
         }
@@ -835,7 +891,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvoiceSummaries")
+        )
         input_: capo_invoicing.types.list_invoice_summaries_request.ListInvoiceSummariesRequest = {
             "selector": selector
         }
@@ -943,7 +1001,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInvoiceUnits")
+        )
         input_: capo_invoicing.types.list_invoice_units_request.ListInvoiceUnitsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1039,7 +1099,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProcurementPortalPreferences")
+        )
         input_: capo_invoicing.types.list_procurement_portal_preferences_request.ListProcurementPortalPreferencesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1120,7 +1182,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProcurementPortals")
+        )
         input_: capo_invoicing.types.list_procurement_portals_request.ListProcurementPortalsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1204,7 +1268,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProcurementPortalSuppliers")
+        )
         input_: capo_invoicing.types.list_procurement_portal_suppliers_request.ListProcurementPortalSuppliersRequest = {
             "portal_identifier": portal_identifier
         }
@@ -1286,7 +1352,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_invoicing.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1376,7 +1444,21 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_invoicing.types.put_procurement_portal_preference_request.PutProcurementPortalPreferenceRequest",
+        ) -> dict[str, Any]:
+            import capo_invoicing.types.put_procurement_portal_preference_request
+
+            return capo_invoicing.types.put_procurement_portal_preference_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "PutProcurementPortalPreference", redact_input=_redact_input
+            ),
+        )
         input_: capo_invoicing.types.put_procurement_portal_preference_request.PutProcurementPortalPreferenceRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn,
             "einvoice_delivery_enabled": einvoice_delivery_enabled,
@@ -1459,7 +1541,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendProcurementPortalValidation")
+        )
         input_: capo_invoicing.types.send_procurement_portal_validation_request.SendProcurementPortalValidationRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn
         }
@@ -1518,7 +1602,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_invoicing.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -1574,7 +1660,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_invoicing.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -1645,7 +1733,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInvoiceUnit")
+        )
         input_: capo_invoicing.types.update_invoice_unit_request.UpdateInvoiceUnitRequest = {
             "invoice_unit_arn": invoice_unit_arn
         }
@@ -1729,7 +1819,10 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProcurementPortalPreferenceStatus"),
+        )
         input_: capo_invoicing.types.update_procurement_portal_preference_status_request.UpdateProcurementPortalPreferenceStatusRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn
         }
@@ -1807,7 +1900,9 @@ class AsyncInvoicingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("VerifyProcurementPortalValidation")
+        )
         input_: capo_invoicing.types.verify_procurement_portal_validation_request.VerifyProcurementPortalValidationRequest = {
             "procurement_portal_preference_arn": procurement_portal_preference_arn,
             "code": code,

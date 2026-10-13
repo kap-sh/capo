@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#TargetTrafficSplitEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,4 +69,11 @@ def deserialize_json(data: dict) -> TargetTrafficSplitEntry:
                 data["metadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: TargetTrafficSplitEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_name" in value:
+        out["target_name"] = "*** Sensitive Data Redacted ***"
     return out

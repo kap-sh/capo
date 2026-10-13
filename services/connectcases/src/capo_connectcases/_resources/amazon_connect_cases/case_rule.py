@@ -7,6 +7,7 @@ import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -91,7 +92,9 @@ class CaseRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCaseRule")
+        )
         input_: capo_connectcases.types.create_case_rule_request.CreateCaseRuleRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -156,7 +159,9 @@ class CaseRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCaseRule")
+        )
         input_: capo_connectcases.types.update_case_rule_request.UpdateCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -212,7 +217,9 @@ class CaseRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCaseRule")
+        )
         input_: capo_connectcases.types.delete_case_rule_request.DeleteCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -264,7 +271,9 @@ class CaseRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCaseRules")
+        )
         input_: capo_connectcases.types.list_case_rules_request.ListCaseRulesRequest = {
             "domain_id": domain_id
         }
@@ -319,7 +328,9 @@ class CaseRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetCaseRule")
+        )
         input_: capo_connectcases.types.batch_get_case_rule_request.BatchGetCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rules": case_rules,
@@ -383,7 +394,9 @@ class AsyncCaseRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCaseRule")
+        )
         input_: capo_connectcases.types.create_case_rule_request.CreateCaseRuleRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -449,7 +462,9 @@ class AsyncCaseRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCaseRule")
+        )
         input_: capo_connectcases.types.update_case_rule_request.UpdateCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -506,7 +521,9 @@ class AsyncCaseRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCaseRule")
+        )
         input_: capo_connectcases.types.delete_case_rule_request.DeleteCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rule_id": case_rule_id,
@@ -559,7 +576,9 @@ class AsyncCaseRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCaseRules")
+        )
         input_: capo_connectcases.types.list_case_rules_request.ListCaseRulesRequest = {
             "domain_id": domain_id
         }
@@ -615,7 +634,9 @@ class AsyncCaseRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetCaseRule")
+        )
         input_: capo_connectcases.types.batch_get_case_rule_request.BatchGetCaseRuleRequest = {
             "domain_id": domain_id,
             "case_rules": case_rules,

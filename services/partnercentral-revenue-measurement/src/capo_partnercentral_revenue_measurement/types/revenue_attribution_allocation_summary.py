@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralrevenuemeasurement#RevenueAttributionAllocationSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -141,4 +141,11 @@ def deserialize_cbor(data: dict) -> RevenueAttributionAllocationSummary:
         raise DeserializationError(
             "RevenueAttributionAllocationSummary.status required"
         )
+    return out
+
+
+def redact_sensitive(value: RevenueAttributionAllocationSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customer_aws_account_id" in value:
+        out["customer_aws_account_id"] = "*** Sensitive Data Redacted ***"
     return out

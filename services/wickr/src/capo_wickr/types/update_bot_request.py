@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#UpdateBotRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> UpdateBotRequest:
         out["challenge"] = data["challenge"]
     if data.get("suspend") is not None:
         out["suspend"] = data["suspend"]
+    return out
+
+
+def redact_sensitive(value: UpdateBotRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "challenge" in value:
+        out["challenge"] = "*** Sensitive Data Redacted ***"
     return out

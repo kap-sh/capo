@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#InvokeDataAutomationLibraryIngestionJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -157,5 +157,20 @@ def deserialize_json(data: dict) -> InvokeDataAutomationLibraryIngestionJobReque
 
         out["tags"] = capo_bedrock_data_automation.types.tag_list.deserialize_json(
             data["tags"]
+        )
+    return out
+
+
+def redact_sensitive(
+    value: InvokeDataAutomationLibraryIngestionJobRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_configuration" in value:
+        import capo_bedrock_data_automation.types.input_configuration
+
+        out["input_configuration"] = (
+            capo_bedrock_data_automation.types.input_configuration.redact_sensitive(
+                value["input_configuration"]
+            )
         )
     return out

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_geo_maps._auth._signers
 import capo_geo_maps._auth._sigv4
 from capo_geo_maps._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,9 @@ class ProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGlyphs")
+        )
         input_: capo_geo_maps.types.get_glyphs_request.GetGlyphsRequest = {
             "font_stack": font_stack,
             "font_unicode_range": font_unicode_range,
@@ -142,7 +145,9 @@ class ProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSprites")
+        )
         input_: capo_geo_maps.types.get_sprites_request.GetSpritesRequest = {
             "file_name": file_name,
             "style": style,
@@ -243,7 +248,17 @@ class ProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_static_map_request.GetStaticMapRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_static_map_request
+
+            return capo_geo_maps.types.get_static_map_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetStaticMap", redact_input=_redact_input),
+        )
         input_: capo_geo_maps.types.get_static_map_request.GetStaticMapRequest = {
             "height": height,
             "file_name": file_name,
@@ -347,7 +362,19 @@ class ProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_style_descriptor_request.GetStyleDescriptorRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_style_descriptor_request
+
+            return capo_geo_maps.types.get_style_descriptor_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetStyleDescriptor", redact_input=_redact_input),
+        )
         input_: capo_geo_maps.types.get_style_descriptor_request.GetStyleDescriptorRequest = {
             "style": style
         }
@@ -424,7 +451,16 @@ class ProviderResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_tile_request.GetTileRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_tile_request
+
+            return capo_geo_maps.types.get_tile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTile", redact_input=_redact_input)
+        )
         input_: capo_geo_maps.types.get_tile_request.GetTileRequest = {
             "tileset": tileset,
             "z": z,
@@ -481,7 +517,9 @@ class AsyncProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGlyphs")
+        )
         input_: capo_geo_maps.types.get_glyphs_request.GetGlyphsRequest = {
             "font_stack": font_stack,
             "font_unicode_range": font_unicode_range,
@@ -531,7 +569,9 @@ class AsyncProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSprites")
+        )
         input_: capo_geo_maps.types.get_sprites_request.GetSpritesRequest = {
             "file_name": file_name,
             "style": style,
@@ -633,7 +673,17 @@ class AsyncProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_static_map_request.GetStaticMapRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_static_map_request
+
+            return capo_geo_maps.types.get_static_map_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetStaticMap", redact_input=_redact_input),
+        )
         input_: capo_geo_maps.types.get_static_map_request.GetStaticMapRequest = {
             "height": height,
             "file_name": file_name,
@@ -738,7 +788,19 @@ class AsyncProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_style_descriptor_request.GetStyleDescriptorRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_style_descriptor_request
+
+            return capo_geo_maps.types.get_style_descriptor_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetStyleDescriptor", redact_input=_redact_input),
+        )
         input_: capo_geo_maps.types.get_style_descriptor_request.GetStyleDescriptorRequest = {
             "style": style
         }
@@ -818,7 +880,16 @@ class AsyncProviderResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_maps.types.get_tile_request.GetTileRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_maps.types.get_tile_request
+
+            return capo_geo_maps.types.get_tile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTile", redact_input=_redact_input)
+        )
         input_: capo_geo_maps.types.get_tile_request.GetTileRequest = {
             "tileset": tileset,
             "z": z,

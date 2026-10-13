@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MultiAgentConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -70,3 +70,24 @@ def deserialize_json(data: dict) -> MultiAgentConfiguration:
         }
     else:
         raise DeserializationError("MultiAgentConfiguration: no recognized variant key")
+
+
+def redact_sensitive(value: MultiAgentConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "delegateAgentConfiguration" in value:
+        import capo_qconnect.types.delegate_agent_configuration
+
+        out["delegateAgentConfiguration"] = (
+            capo_qconnect.types.delegate_agent_configuration.redact_sensitive(
+                value["delegateAgentConfiguration"]
+            )
+        )
+    if "handoffAgentConfiguration" in value:
+        import capo_qconnect.types.handoff_agent_configuration
+
+        out["handoffAgentConfiguration"] = (
+            capo_qconnect.types.handoff_agent_configuration.redact_sensitive(
+                value["handoffAgentConfiguration"]
+            )
+        )
+    return out

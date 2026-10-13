@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#GetDurableExecutionStateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_json(data: dict) -> GetDurableExecutionStateResponse:
         )
     if data.get("NextMarker") is not None:
         out["next_marker"] = data["NextMarker"]
+    return out
+
+
+def redact_sensitive(value: GetDurableExecutionStateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "operations" in value:
+        import capo_lambda.types.operations
+
+        out["operations"] = capo_lambda.types.operations.redact_sensitive(
+            value["operations"]
+        )
     return out

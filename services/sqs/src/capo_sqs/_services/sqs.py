@@ -21,10 +21,12 @@ from capo_sqs._pagination import resolve_path as _resolve_path
 from capo_sqs._services._aws_config import aws_config
 from capo_sqs._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -158,7 +160,9 @@ class SQSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SQSClientConfig] = None
+        self,
+        config_overrides: Optional[SQSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SQSClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -166,8 +170,10 @@ class SQSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -225,7 +231,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddPermission")
+        )
         input_: capo_sqs.types.add_permission_request.AddPermissionRequest = {
             "queue_url": queue_url,
             "label": label,
@@ -275,7 +283,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMessageMoveTask")
+        )
         input_: capo_sqs.types.cancel_message_move_task_request.CancelMessageMoveTaskRequest = {
             "task_handle": task_handle
         }
@@ -326,7 +336,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ChangeMessageVisibility")
+        )
         input_: capo_sqs.types.change_message_visibility_request.ChangeMessageVisibilityRequest = {
             "queue_url": queue_url,
             "receipt_handle": receipt_handle,
@@ -381,7 +393,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ChangeMessageVisibilityBatch")
+        )
         input_: capo_sqs.types.change_message_visibility_batch_request.ChangeMessageVisibilityBatchRequest = {
             "queue_url": queue_url,
             "entries": entries,
@@ -436,7 +450,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQueue")
+        )
         input_: capo_sqs.types.create_queue_request.CreateQueueRequest = {
             "queue_name": queue_name
         }
@@ -489,7 +505,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessage")
+        )
         input_: capo_sqs.types.delete_message_request.DeleteMessageRequest = {
             "queue_url": queue_url,
             "receipt_handle": receipt_handle,
@@ -543,7 +561,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessageBatch")
+        )
         input_: capo_sqs.types.delete_message_batch_request.DeleteMessageBatchRequest = {
             "queue_url": queue_url,
             "entries": entries,
@@ -589,7 +609,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQueue")
+        )
         input_: capo_sqs.types.delete_queue_request.DeleteQueueRequest = {
             "queue_url": queue_url
         }
@@ -641,7 +663,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueueAttributes")
+        )
         input_: capo_sqs.types.get_queue_attributes_request.GetQueueAttributesRequest = {
             "queue_url": queue_url
         }
@@ -690,7 +714,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueueUrl")
+        )
         input_: capo_sqs.types.get_queue_url_request.GetQueueUrlRequest = {
             "queue_name": queue_name
         }
@@ -743,7 +769,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeadLetterSourceQueues")
+        )
         input_: capo_sqs.types.list_dead_letter_source_queues_request.ListDeadLetterSourceQueuesRequest = {
             "queue_url": queue_url
         }
@@ -819,7 +847,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMessageMoveTasks")
+        )
         input_: capo_sqs.types.list_message_move_tasks_request.ListMessageMoveTasksRequest = {
             "source_arn": source_arn
         }
@@ -869,7 +899,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueues")
+        )
         input_: capo_sqs.types.list_queues_request.ListQueuesRequest = {}
         if queue_name_prefix is not None:
             input_["queue_name_prefix"] = queue_name_prefix
@@ -943,7 +975,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueueTags")
+        )
         input_: capo_sqs.types.list_queue_tags_request.ListQueueTagsRequest = {
             "queue_url": queue_url
         }
@@ -989,7 +1023,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurgeQueue")
+        )
         input_: capo_sqs.types.purge_queue_request.PurgeQueueRequest = {
             "queue_url": queue_url
         }
@@ -1070,7 +1106,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReceiveMessage")
+        )
         input_: capo_sqs.types.receive_message_request.ReceiveMessageRequest = {
             "queue_url": queue_url
         }
@@ -1131,7 +1169,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemovePermission")
+        )
         input_: capo_sqs.types.remove_permission_request.RemovePermissionRequest = {
             "queue_url": queue_url,
             "label": label,
@@ -1203,7 +1243,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendMessage")
+        )
         input_: capo_sqs.types.send_message_request.SendMessageRequest = {
             "queue_url": queue_url,
             "message_body": message_body,
@@ -1275,7 +1317,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendMessageBatch")
+        )
         input_: capo_sqs.types.send_message_batch_request.SendMessageBatchRequest = {
             "queue_url": queue_url,
             "entries": entries,
@@ -1326,7 +1370,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetQueueAttributes")
+        )
         input_: capo_sqs.types.set_queue_attributes_request.SetQueueAttributesRequest = {
             "queue_url": queue_url,
             "attributes": attributes,
@@ -1380,7 +1426,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMessageMoveTask")
+        )
         input_: capo_sqs.types.start_message_move_task_request.StartMessageMoveTaskRequest = {
             "source_arn": source_arn
         }
@@ -1431,7 +1479,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagQueue")
+        )
         input_: capo_sqs.types.tag_queue_request.TagQueueRequest = {
             "queue_url": queue_url,
             "tags": tags,
@@ -1479,7 +1529,9 @@ class SQSClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagQueue")
+        )
         input_: capo_sqs.types.untag_queue_request.UntagQueueRequest = {
             "queue_url": queue_url,
             "tag_keys": tag_keys,

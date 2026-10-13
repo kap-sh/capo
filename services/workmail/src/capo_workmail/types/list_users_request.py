@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#ListUsersRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,5 +58,16 @@ def deserialize_aws_json_1_1(data: dict) -> ListUsersRequest:
             capo_workmail.types.list_users_filters.deserialize_aws_json_1_1(
                 data["Filters"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ListUsersRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_workmail.types.list_users_filters
+
+        out["filters"] = capo_workmail.types.list_users_filters.redact_sensitive(
+            value["filters"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#CustomRequestParametersType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.custom_request_key_type
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> CustomRequestParametersType:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: CustomRequestParametersType) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

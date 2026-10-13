@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#ListEventTriggersResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> ListEventTriggersResponse:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListEventTriggersResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        out["items"] = "*** Sensitive Data Redacted ***"
     return out

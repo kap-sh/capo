@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.medicalimaging#SearchByAttributeValues``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_medical_imaging.types.search_by_attribute_value
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SearchByAttributeValues:
             capo_medical_imaging.types.search_by_attribute_value.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SearchByAttributeValues) -> list[Any]:
+    import capo_medical_imaging.types.search_by_attribute_value
+
+    return [
+        capo_medical_imaging.types.search_by_attribute_value.redact_sensitive(item)
+        for item in value
+    ]

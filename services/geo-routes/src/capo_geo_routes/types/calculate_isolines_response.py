@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#CalculateIsolinesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,23 @@ def deserialize_json(data: dict) -> CalculateIsolinesResponse:
         out["snapped_origin"] = capo_geo_routes.types.position.deserialize_json(
             data["SnappedOrigin"]
         )
+    return out
+
+
+def redact_sensitive(value: CalculateIsolinesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "arrival_time" in value:
+        out["arrival_time"] = "*** Sensitive Data Redacted ***"
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "isolines" in value:
+        import capo_geo_routes.types.isoline_list
+
+        out["isolines"] = capo_geo_routes.types.isoline_list.redact_sensitive(
+            value["isolines"]
+        )
+    if "snapped_destination" in value:
+        out["snapped_destination"] = "*** Sensitive Data Redacted ***"
+    if "snapped_origin" in value:
+        out["snapped_origin"] = "*** Sensitive Data Redacted ***"
     return out

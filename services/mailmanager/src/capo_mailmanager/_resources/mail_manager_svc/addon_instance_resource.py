@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,9 @@ class AddonInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddonInstance")
+        )
         input_: capo_mailmanager.types.create_addon_instance_request.CreateAddonInstanceRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -130,7 +133,9 @@ class AddonInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddonInstance")
+        )
         input_: capo_mailmanager.types.get_addon_instance_request.GetAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -174,7 +179,9 @@ class AddonInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddonInstance")
+        )
         input_: capo_mailmanager.types.delete_addon_instance_request.DeleteAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -221,7 +228,9 @@ class AddonInstanceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddonInstances")
+        )
         input_: capo_mailmanager.types.list_addon_instances_request.ListAddonInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -281,7 +290,9 @@ class AsyncAddonInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddonInstance")
+        )
         input_: capo_mailmanager.types.create_addon_instance_request.CreateAddonInstanceRequest = {
             "addon_subscription_id": addon_subscription_id
         }
@@ -331,7 +342,9 @@ class AsyncAddonInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddonInstance")
+        )
         input_: capo_mailmanager.types.get_addon_instance_request.GetAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -376,7 +389,9 @@ class AsyncAddonInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddonInstance")
+        )
         input_: capo_mailmanager.types.delete_addon_instance_request.DeleteAddonInstanceRequest = {
             "addon_instance_id": addon_instance_id
         }
@@ -424,7 +439,9 @@ class AsyncAddonInstanceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddonInstances")
+        )
         input_: capo_mailmanager.types.list_addon_instances_request.ListAddonInstancesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

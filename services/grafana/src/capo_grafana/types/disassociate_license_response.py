@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#DisassociateLicenseResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -36,4 +36,15 @@ def deserialize_json(data: dict) -> DisassociateLicenseResponse:
         )
     else:
         raise DeserializationError("DisassociateLicenseResponse.workspace required")
+    return out
+
+
+def redact_sensitive(value: DisassociateLicenseResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workspace" in value:
+        import capo_grafana.types.workspace_description
+
+        out["workspace"] = capo_grafana.types.workspace_description.redact_sensitive(
+            value["workspace"]
+        )
     return out

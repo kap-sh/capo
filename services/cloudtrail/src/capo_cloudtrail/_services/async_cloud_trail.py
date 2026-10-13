@@ -24,7 +24,9 @@ from capo_cloudtrail._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -299,7 +301,9 @@ class AsyncCloudTrailClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncCloudTrailClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncCloudTrailClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncCloudTrailClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -307,8 +311,10 @@ class AsyncCloudTrailClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -375,7 +381,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_cloudtrail.types.add_tags_request.AddTagsRequest = {
             "resource_id": resource_id,
             "tags_list": tags_list,
@@ -437,7 +445,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelQuery")
+        )
         input_: capo_cloudtrail.types.cancel_query_request.CancelQueryRequest = {
             "query_id": query_id
         }
@@ -503,7 +513,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_cloudtrail.types.create_channel_request.CreateChannelRequest = {
             "name": name,
             "source": source,
@@ -571,7 +583,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDashboard")
+        )
         input_: capo_cloudtrail.types.create_dashboard_request.CreateDashboardRequest = {
             "name": name
         }
@@ -666,7 +680,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventDataStore")
+        )
         input_: capo_cloudtrail.types.create_event_data_store_request.CreateEventDataStoreRequest = {
             "name": name
         }
@@ -791,7 +807,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTrail")
+        )
         input_: capo_cloudtrail.types.create_trail_request.CreateTrailRequest = {
             "name": name,
             "s3_bucket_name": s3_bucket_name,
@@ -861,7 +879,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_cloudtrail.types.delete_channel_request.DeleteChannelRequest = {
             "channel": channel
         }
@@ -907,7 +927,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDashboard")
+        )
         input_: capo_cloudtrail.types.delete_dashboard_request.DeleteDashboardRequest = {
             "dashboard_id": dashboard_id
         }
@@ -964,7 +986,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventDataStore")
+        )
         input_: capo_cloudtrail.types.delete_event_data_store_request.DeleteEventDataStoreRequest = {
             "event_data_store": event_data_store
         }
@@ -1014,7 +1038,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_cloudtrail.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1068,7 +1094,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTrail")
+        )
         input_: capo_cloudtrail.types.delete_trail_request.DeleteTrailRequest = {
             "name": name
         }
@@ -1122,7 +1150,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterOrganizationDelegatedAdmin")
+        )
         input_: capo_cloudtrail.types.deregister_organization_delegated_admin_request.DeregisterOrganizationDelegatedAdminRequest = {
             "delegated_admin_account_id": delegated_admin_account_id
         }
@@ -1185,7 +1215,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuery")
+        )
         input_: capo_cloudtrail.types.describe_query_request.DescribeQueryRequest = {}
         if event_data_store is not None:
             input_["event_data_store"] = event_data_store
@@ -1247,7 +1279,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTrails")
+        )
         input_: capo_cloudtrail.types.describe_trails_request.DescribeTrailsRequest = {}
         if trail_name_list is not None:
             input_["trail_name_list"] = trail_name_list
@@ -1306,7 +1340,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableFederation")
+        )
         input_: capo_cloudtrail.types.disable_federation_request.DisableFederationRequest = {
             "event_data_store": event_data_store
         }
@@ -1366,7 +1402,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableFederation")
+        )
         input_: capo_cloudtrail.types.enable_federation_request.EnableFederationRequest = {
             "event_data_store": event_data_store,
             "federation_role_arn": federation_role_arn,
@@ -1420,7 +1458,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateQuery")
+        )
         input_: capo_cloudtrail.types.generate_query_request.GenerateQueryRequest = {
             "event_data_stores": event_data_stores,
             "prompt": prompt,
@@ -1468,7 +1508,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetChannel")
+        )
         input_: capo_cloudtrail.types.get_channel_request.GetChannelRequest = {
             "channel": channel
         }
@@ -1513,7 +1555,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDashboard")
+        )
         input_: capo_cloudtrail.types.get_dashboard_request.GetDashboardRequest = {
             "dashboard_id": dashboard_id
         }
@@ -1570,7 +1614,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventConfiguration")
+        )
         input_: capo_cloudtrail.types.get_event_configuration_request.GetEventConfigurationRequest = {}
         if trail_name is not None:
             input_["trail_name"] = trail_name
@@ -1623,7 +1669,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventDataStore")
+        )
         input_: capo_cloudtrail.types.get_event_data_store_request.GetEventDataStoreRequest = {
             "event_data_store": event_data_store
         }
@@ -1672,7 +1720,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventSelectors")
+        )
         input_: capo_cloudtrail.types.get_event_selectors_request.GetEventSelectorsRequest = {
             "trail_name": trail_name
         }
@@ -1719,7 +1769,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetImport")
+        )
         input_: capo_cloudtrail.types.get_import_request.GetImportRequest = {
             "import_id": import_id
         }
@@ -1776,7 +1828,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetInsightSelectors")
+        )
         input_: capo_cloudtrail.types.get_insight_selectors_request.GetInsightSelectorsRequest = {}
         if trail_name is not None:
             input_["trail_name"] = trail_name
@@ -1848,7 +1902,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQueryResults")
+        )
         input_: capo_cloudtrail.types.get_query_results_request.GetQueryResultsRequest = {
             "query_id": query_id
         }
@@ -1940,7 +1996,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_cloudtrail.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1988,7 +2046,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrail")
+        )
         input_: capo_cloudtrail.types.get_trail_request.GetTrailRequest = {"name": name}
 
         response = await aexecute_pipeline(
@@ -2034,7 +2094,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTrailStatus")
+        )
         input_: capo_cloudtrail.types.get_trail_status_request.GetTrailStatusRequest = {
             "name": name
         }
@@ -2086,7 +2148,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_cloudtrail.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2167,7 +2231,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDashboards")
+        )
         input_: capo_cloudtrail.types.list_dashboards_request.ListDashboardsRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -2227,7 +2293,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventDataStores")
+        )
         input_: capo_cloudtrail.types.list_event_data_stores_request.ListEventDataStoresRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2309,7 +2377,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImportFailures")
+        )
         input_: capo_cloudtrail.types.list_import_failures_request.ListImportFailuresRequest = {
             "import_id": import_id
         }
@@ -2402,7 +2472,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListImports")
+        )
         input_: capo_cloudtrail.types.list_imports_request.ListImportsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2505,7 +2577,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInsightsData")
+        )
         input_: capo_cloudtrail.types.list_insights_data_request.ListInsightsDataRequest = {
             "insight_source": insight_source,
             "data_type": data_type,
@@ -2628,7 +2702,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInsightsMetricData")
+        )
         input_: capo_cloudtrail.types.list_insights_metric_data_request.ListInsightsMetricDataRequest = {
             "event_source": event_source,
             "event_name": event_name,
@@ -2742,7 +2818,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPublicKeys")
+        )
         input_: capo_cloudtrail.types.list_public_keys_request.ListPublicKeysRequest = {}
         if start_time is not None:
             input_["start_time"] = start_time
@@ -2837,7 +2915,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQueries")
+        )
         input_: capo_cloudtrail.types.list_queries_request.ListQueriesRequest = {
             "event_data_store": event_data_store
         }
@@ -2937,7 +3017,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTags")
+        )
         input_: capo_cloudtrail.types.list_tags_request.ListTagsRequest = {
             "resource_id_list": resource_id_list
         }
@@ -3005,7 +3087,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTrails")
+        )
         input_: capo_cloudtrail.types.list_trails_request.ListTrailsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3088,7 +3172,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("LookupEvents")
+        )
         input_: capo_cloudtrail.types.lookup_events_request.LookupEventsRequest = {}
         if lookup_attributes is not None:
             input_["lookup_attributes"] = lookup_attributes
@@ -3207,7 +3293,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEventConfiguration")
+        )
         input_: capo_cloudtrail.types.put_event_configuration_request.PutEventConfigurationRequest = {}
         if trail_name is not None:
             input_["trail_name"] = trail_name
@@ -3278,7 +3366,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEventSelectors")
+        )
         input_: capo_cloudtrail.types.put_event_selectors_request.PutEventSelectorsRequest = {
             "trail_name": trail_name
         }
@@ -3352,7 +3442,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutInsightSelectors")
+        )
         input_: capo_cloudtrail.types.put_insight_selectors_request.PutInsightSelectorsRequest = {
             "insight_selectors": insight_selectors
         }
@@ -3410,7 +3502,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_cloudtrail.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "resource_policy": resource_policy,
@@ -3468,7 +3562,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterOrganizationDelegatedAdmin")
+        )
         input_: capo_cloudtrail.types.register_organization_delegated_admin_request.RegisterOrganizationDelegatedAdminRequest = {
             "member_account_id": member_account_id
         }
@@ -3528,7 +3624,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_cloudtrail.types.remove_tags_request.RemoveTagsRequest = {
             "resource_id": resource_id,
             "tags_list": tags_list,
@@ -3585,7 +3683,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreEventDataStore")
+        )
         input_: capo_cloudtrail.types.restore_event_data_store_request.RestoreEventDataStoreRequest = {
             "event_data_store": event_data_store
         }
@@ -3639,7 +3739,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSampleQueries")
+        )
         input_: capo_cloudtrail.types.search_sample_queries_request.SearchSampleQueriesRequest = {
             "search_phrase": search_phrase
         }
@@ -3695,7 +3797,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDashboardRefresh")
+        )
         input_: capo_cloudtrail.types.start_dashboard_refresh_request.StartDashboardRefreshRequest = {
             "dashboard_id": dashboard_id
         }
@@ -3751,7 +3855,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEventDataStoreIngestion")
+        )
         input_: capo_cloudtrail.types.start_event_data_store_ingestion_request.StartEventDataStoreIngestionRequest = {
             "event_data_store": event_data_store
         }
@@ -3818,7 +3924,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartImport")
+        )
         input_: capo_cloudtrail.types.start_import_request.StartImportRequest = {}
         if destinations is not None:
             input_["destinations"] = destinations
@@ -3880,7 +3988,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartLogging")
+        )
         input_: capo_cloudtrail.types.start_logging_request.StartLoggingRequest = {
             "name": name
         }
@@ -3953,7 +4063,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQuery")
+        )
         input_: capo_cloudtrail.types.start_query_request.StartQueryRequest = {}
         if query_statement is not None:
             input_["query_statement"] = query_statement
@@ -4017,7 +4129,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopEventDataStoreIngestion")
+        )
         input_: capo_cloudtrail.types.stop_event_data_store_ingestion_request.StopEventDataStoreIngestionRequest = {
             "event_data_store": event_data_store
         }
@@ -4064,7 +4178,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopImport")
+        )
         input_: capo_cloudtrail.types.stop_import_request.StopImportRequest = {
             "import_id": import_id
         }
@@ -4118,7 +4234,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopLogging")
+        )
         input_: capo_cloudtrail.types.stop_logging_request.StopLoggingRequest = {
             "name": name
         }
@@ -4177,7 +4295,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_cloudtrail.types.update_channel_request.UpdateChannelRequest = {
             "channel": channel
         }
@@ -4244,7 +4364,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDashboard")
+        )
         input_: capo_cloudtrail.types.update_dashboard_request.UpdateDashboardRequest = {
             "dashboard_id": dashboard_id
         }
@@ -4341,7 +4463,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventDataStore")
+        )
         input_: capo_cloudtrail.types.update_event_data_store_request.UpdateEventDataStoreRequest = {
             "event_data_store": event_data_store
         }
@@ -4463,7 +4587,9 @@ class AsyncCloudTrailClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTrail")
+        )
         input_: capo_cloudtrail.types.update_trail_request.UpdateTrailRequest = {
             "name": name
         }

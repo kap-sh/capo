@@ -34,10 +34,12 @@ from capo_mwaa_serverless._resources.amazon_mwaa_serverless.workflow_version_res
 from capo_mwaa_serverless._services._aws_config import aws_config
 from capo_mwaa_serverless._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -172,7 +174,9 @@ class MWAAServerlessClient:
         self.workflow_version_resource = WorkflowVersionResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[MWAAServerlessClientConfig] = None
+        self,
+        config_overrides: Optional[MWAAServerlessClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MWAAServerlessClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -180,8 +184,10 @@ class MWAAServerlessClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -232,7 +238,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_mwaa_serverless.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -282,7 +290,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_mwaa_serverless.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -333,7 +343,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_mwaa_serverless.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -388,7 +400,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTaskInstance")
+        )
         input_: capo_mwaa_serverless.types.get_task_instance_request.GetTaskInstanceRequest = {
             "workflow_arn": workflow_arn,
             "task_instance_id": task_instance_id,
@@ -443,7 +457,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTaskInstances")
+        )
         input_: capo_mwaa_serverless.types.list_task_instances_request.ListTaskInstancesRequest = {
             "workflow_arn": workflow_arn,
             "run_id": run_id,
@@ -560,7 +576,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.create_workflow_request.CreateWorkflowRequest = {
             "name": name,
             "definition_s3_location": definition_s3_location,
@@ -633,7 +651,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkflow")
+        )
         input_: capo_mwaa_serverless.types.get_workflow_request.GetWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -711,7 +731,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkflow")
+        )
         input_: capo_mwaa_serverless.types.update_workflow_request.UpdateWorkflowRequest = {
             "workflow_arn": workflow_arn,
             "definition_s3_location": definition_s3_location,
@@ -777,7 +799,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflow")
+        )
         input_: capo_mwaa_serverless.types.delete_workflow_request.DeleteWorkflowRequest = {
             "workflow_arn": workflow_arn
         }
@@ -828,7 +852,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflows")
+        )
         input_: capo_mwaa_serverless.types.list_workflows_request.ListWorkflowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -913,7 +939,21 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mwaa_serverless.types.start_workflow_run_request.StartWorkflowRunRequest",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.start_workflow_run_request
+
+            return (
+                capo_mwaa_serverless.types.start_workflow_run_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartWorkflowRun", redact_input=_redact_input),
+        )
         input_: capo_mwaa_serverless.types.start_workflow_run_request.StartWorkflowRunRequest = {
             "workflow_arn": workflow_arn
         }
@@ -970,7 +1010,21 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mwaa_serverless.types.get_workflow_run_response.GetWorkflowRunResponse",
+        ) -> dict[str, Any]:
+            import capo_mwaa_serverless.types.get_workflow_run_response
+
+            return (
+                capo_mwaa_serverless.types.get_workflow_run_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflowRun", redact_output=_redact_output),
+        )
         input_: capo_mwaa_serverless.types.get_workflow_run_request.GetWorkflowRunRequest = {
             "workflow_arn": workflow_arn,
             "run_id": run_id,
@@ -1023,7 +1077,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopWorkflowRun")
+        )
         input_: capo_mwaa_serverless.types.stop_workflow_run_request.StopWorkflowRunRequest = {
             "workflow_arn": workflow_arn,
             "run_id": run_id,
@@ -1079,7 +1135,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowRuns")
+        )
         input_: capo_mwaa_serverless.types.list_workflow_runs_request.ListWorkflowRunsRequest = {
             "workflow_arn": workflow_arn
         }
@@ -1163,7 +1221,9 @@ class MWAAServerlessClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkflowVersions")
+        )
         input_: capo_mwaa_serverless.types.list_workflow_versions_request.ListWorkflowVersionsRequest = {
             "workflow_arn": workflow_arn
         }

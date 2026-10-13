@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageData``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,22 @@ def deserialize_json(data: dict) -> MessageData:
         return {"data": data["data"]}
     else:
         raise DeserializationError("MessageData: no recognized variant key")
+
+
+def redact_sensitive(value: MessageData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        import capo_qconnect.types.text_message
+
+        out["text"] = capo_qconnect.types.text_message.redact_sensitive(value["text"])
+    if "toolUseResult" in value:
+        import capo_qconnect.types.tool_use_result_data
+
+        out["toolUseResult"] = (
+            capo_qconnect.types.tool_use_result_data.redact_sensitive(
+                value["toolUseResult"]
+            )
+        )
+    if "data" in value:
+        out["data"] = "*** Sensitive Data Redacted ***"
+    return out

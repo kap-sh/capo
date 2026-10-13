@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#InvokeCodeInterpreterRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,5 +59,16 @@ def deserialize_json(data: dict) -> InvokeCodeInterpreterRequest:
 
         out["arguments"] = capo_bedrock_agentcore.types.tool_arguments.deserialize_json(
             data["arguments"]
+        )
+    return out
+
+
+def redact_sensitive(value: InvokeCodeInterpreterRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "arguments" in value:
+        import capo_bedrock_agentcore.types.tool_arguments
+
+        out["arguments"] = capo_bedrock_agentcore.types.tool_arguments.redact_sensitive(
+            value["arguments"]
         )
     return out

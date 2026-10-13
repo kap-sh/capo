@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#ImportKeyCryptogram``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_aws_json_1_0(data: dict) -> ImportKeyCryptogram:
         raise DeserializationError("ImportKeyCryptogram.import_token required")
     if data.get("WrappingSpec") is not None:
         out["wrapping_spec"] = data["WrappingSpec"]
+    return out
+
+
+def redact_sensitive(value: ImportKeyCryptogram) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "wrapped_key_cryptogram" in value:
+        out["wrapped_key_cryptogram"] = "*** Sensitive Data Redacted ***"
     return out

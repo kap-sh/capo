@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#ClinicalNoteGenerationSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_json(data: dict) -> ClinicalNoteGenerationSettings:
     else:
         raise DeserializationError(
             "ClinicalNoteGenerationSettings.note_template_settings required"
+        )
+    return out
+
+
+def redact_sensitive(value: ClinicalNoteGenerationSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "note_template_settings" in value:
+        import capo_connecthealth.types.note_template_settings
+
+        out["note_template_settings"] = (
+            capo_connecthealth.types.note_template_settings.redact_sensitive(
+                value["note_template_settings"]
+            )
         )
     return out

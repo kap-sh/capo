@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#StartDBInstanceAutomatedBackupsReplicationMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,13 @@ def deserialize_query(el: Element) -> StartDBInstanceAutomatedBackupsReplication
         import capo_rds.types.tag_list
 
         out["tags"] = capo_rds.types.tag_list.deserialize_query(child_tags)
+    return out
+
+
+def redact_sensitive(
+    value: StartDBInstanceAutomatedBackupsReplicationMessage,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pre_signed_url" in value:
+        out["pre_signed_url"] = "*** Sensitive Data Redacted ***"
     return out

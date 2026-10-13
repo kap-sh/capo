@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#AgentOutputMessage``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,6 +67,21 @@ def deserialize_aws_json_1_0(data: dict) -> AgentOutputMessage:
         out["options_list"] = (
             capo_healthlake.types.data_transformation_chat_options_list.deserialize_aws_json_1_0(
                 data["OptionsList"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AgentOutputMessage) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
+    if "options_list" in value:
+        import capo_healthlake.types.data_transformation_chat_options_list
+
+        out["options_list"] = (
+            capo_healthlake.types.data_transformation_chat_options_list.redact_sensitive(
+                value["options_list"]
             )
         )
     return out

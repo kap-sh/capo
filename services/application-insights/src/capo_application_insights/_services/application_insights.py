@@ -21,10 +21,12 @@ from capo_application_insights._pagination import resolve_path as _resolve_path
 from capo_application_insights._services._aws_config import aws_config
 from capo_application_insights._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -207,7 +209,9 @@ class ApplicationInsightsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ApplicationInsightsClientConfig] = None
+        self,
+        config_overrides: Optional[ApplicationInsightsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ApplicationInsightsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -215,8 +219,10 @@ class ApplicationInsightsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -272,7 +278,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddWorkload")
+        )
         input_: capo_application_insights.types.add_workload_request.AddWorkloadRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -358,7 +366,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_application_insights.types.create_application_request.CreateApplicationRequest = {}
         if resource_group_name is not None:
             input_["resource_group_name"] = resource_group_name
@@ -426,7 +436,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateComponent")
+        )
         input_: capo_application_insights.types.create_component_request.CreateComponentRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -482,7 +494,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLogPattern")
+        )
         input_: capo_application_insights.types.create_log_pattern_request.CreateLogPatternRequest = {
             "resource_group_name": resource_group_name,
             "pattern_set_name": pattern_set_name,
@@ -532,7 +546,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_application_insights.types.delete_application_request.DeleteApplicationRequest = {
             "resource_group_name": resource_group_name
         }
@@ -579,7 +595,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteComponent")
+        )
         input_: capo_application_insights.types.delete_component_request.DeleteComponentRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -630,7 +648,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLogPattern")
+        )
         input_: capo_application_insights.types.delete_log_pattern_request.DeleteLogPatternRequest = {
             "resource_group_name": resource_group_name,
             "pattern_set_name": pattern_set_name,
@@ -681,7 +701,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplication")
+        )
         input_: capo_application_insights.types.describe_application_request.DescribeApplicationRequest = {
             "resource_group_name": resource_group_name
         }
@@ -734,7 +756,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComponent")
+        )
         input_: capo_application_insights.types.describe_component_request.DescribeComponentRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -788,7 +812,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComponentConfiguration")
+        )
         input_: capo_application_insights.types.describe_component_configuration_request.DescribeComponentConfigurationRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -848,7 +874,10 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeComponentConfigurationRecommendation"),
+        )
         input_: capo_application_insights.types.describe_component_configuration_recommendation_request.DescribeComponentConfigurationRecommendationRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -907,7 +936,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLogPattern")
+        )
         input_: capo_application_insights.types.describe_log_pattern_request.DescribeLogPatternRequest = {
             "resource_group_name": resource_group_name,
             "pattern_set_name": pattern_set_name,
@@ -960,7 +991,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeObservation")
+        )
         input_: capo_application_insights.types.describe_observation_request.DescribeObservationRequest = {
             "observation_id": observation_id
         }
@@ -1011,7 +1044,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProblem")
+        )
         input_: capo_application_insights.types.describe_problem_request.DescribeProblemRequest = {
             "problem_id": problem_id
         }
@@ -1062,7 +1097,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProblemObservations")
+        )
         input_: capo_application_insights.types.describe_problem_observations_request.DescribeProblemObservationsRequest = {
             "problem_id": problem_id
         }
@@ -1117,7 +1154,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeWorkload")
+        )
         input_: capo_application_insights.types.describe_workload_request.DescribeWorkloadRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -1175,7 +1214,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_application_insights.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1263,7 +1304,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListComponents")
+        )
         input_: capo_application_insights.types.list_components_request.ListComponentsRequest = {
             "resource_group_name": resource_group_name
         }
@@ -1367,7 +1410,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationHistory")
+        )
         input_: capo_application_insights.types.list_configuration_history_request.ListConfigurationHistoryRequest = {}
         if resource_group_name is not None:
             input_["resource_group_name"] = resource_group_name
@@ -1481,7 +1526,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogPatterns")
+        )
         input_: capo_application_insights.types.list_log_patterns_request.ListLogPatternsRequest = {
             "resource_group_name": resource_group_name
         }
@@ -1579,7 +1626,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLogPatternSets")
+        )
         input_: capo_application_insights.types.list_log_pattern_sets_request.ListLogPatternSetsRequest = {
             "resource_group_name": resource_group_name
         }
@@ -1687,7 +1736,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProblems")
+        )
         input_: capo_application_insights.types.list_problems_request.ListProblemsRequest = {}
         if account_id is not None:
             input_["account_id"] = account_id
@@ -1790,7 +1841,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_application_insights.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1851,7 +1904,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloads")
+        )
         input_: capo_application_insights.types.list_workloads_request.ListWorkloadsRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -1938,7 +1993,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveWorkload")
+        )
         input_: capo_application_insights.types.remove_workload_request.RemoveWorkloadRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -1987,7 +2044,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_application_insights.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2036,7 +2095,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_application_insights.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2110,7 +2171,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_application_insights.types.update_application_request.UpdateApplicationRequest = {
             "resource_group_name": resource_group_name
         }
@@ -2180,7 +2243,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComponent")
+        )
         input_: capo_application_insights.types.update_component_request.UpdateComponentRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -2245,7 +2310,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateComponentConfiguration")
+        )
         input_: capo_application_insights.types.update_component_configuration_request.UpdateComponentConfigurationRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,
@@ -2312,7 +2379,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLogPattern")
+        )
         input_: capo_application_insights.types.update_log_pattern_request.UpdateLogPatternRequest = {
             "resource_group_name": resource_group_name,
             "pattern_set_name": pattern_set_name,
@@ -2373,7 +2442,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProblem")
+        )
         input_: capo_application_insights.types.update_problem_request.UpdateProblemRequest = {
             "problem_id": problem_id
         }
@@ -2430,7 +2501,9 @@ class ApplicationInsightsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkload")
+        )
         input_: capo_application_insights.types.update_workload_request.UpdateWorkloadRequest = {
             "resource_group_name": resource_group_name,
             "component_name": component_name,

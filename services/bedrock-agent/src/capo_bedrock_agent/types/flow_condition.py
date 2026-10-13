@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#FlowCondition``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> FlowCondition:
         raise DeserializationError("FlowCondition.name required")
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
+    return out
+
+
+def redact_sensitive(value: FlowCondition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

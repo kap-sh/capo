@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.grafana#ListWorkspacesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -43,4 +43,15 @@ def deserialize_json(data: dict) -> ListWorkspacesResponse:
         raise DeserializationError("ListWorkspacesResponse.workspaces required")
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(value: ListWorkspacesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "workspaces" in value:
+        import capo_grafana.types.workspace_list
+
+        out["workspaces"] = capo_grafana.types.workspace_list.redact_sensitive(
+            value["workspaces"]
+        )
     return out

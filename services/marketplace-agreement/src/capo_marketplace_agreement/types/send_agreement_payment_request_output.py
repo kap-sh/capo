@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplaceagreement#SendAgreementPaymentRequestOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_aws_json_1_0(data: dict) -> SendAgreementPaymentRequestOutput:
                 data["createdAt"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: SendAgreementPaymentRequestOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -57,7 +58,9 @@ class AccountSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_proton.types.get_account_settings_input.GetAccountSettingsInput = {}
 
         response = execute_pipeline(
@@ -114,7 +117,9 @@ class AccountSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_proton.types.update_account_settings_input.UpdateAccountSettingsInput = {}
         if pipeline_service_role_arn is not None:
             input_["pipeline_service_role_arn"] = pipeline_service_role_arn
@@ -171,7 +176,9 @@ class AsyncAccountSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountSettings")
+        )
         input_: capo_proton.types.get_account_settings_input.GetAccountSettingsInput = {}
 
         response = await aexecute_pipeline(
@@ -229,7 +236,9 @@ class AsyncAccountSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAccountSettings")
+        )
         input_: capo_proton.types.update_account_settings_input.UpdateAccountSettingsInput = {}
         if pipeline_service_role_arn is not None:
             input_["pipeline_service_role_arn"] = pipeline_service_role_arn

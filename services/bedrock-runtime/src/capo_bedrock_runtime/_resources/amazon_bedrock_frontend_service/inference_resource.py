@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from collections.abc import AsyncGenerator, AsyncIterator, Generator, Iterator
 from contextlib import asynccontextmanager, contextmanager
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_runtime._auth._signers
 import capo_bedrock_runtime._auth._sigv4
@@ -10,6 +10,7 @@ from capo_bedrock_runtime._iter import ensure_async_iterator, ensure_sync_iterat
 from capo_bedrock_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -146,7 +147,26 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.converse_request.ConverseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_request
+
+            return capo_bedrock_runtime.types.converse_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.converse_response.ConverseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_response
+
+            return capo_bedrock_runtime.types.converse_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Converse", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_runtime.types.converse_request.ConverseRequest = {
             "model_id": model_id
         }
@@ -268,7 +288,32 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.converse_stream_request.ConverseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_stream_request
+
+            return capo_bedrock_runtime.types.converse_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.converse_stream_response.ConverseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_stream_response
+
+            return capo_bedrock_runtime.types.converse_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ConverseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.converse_stream_request.ConverseStreamRequest = {
             "model_id": model_id
         }
@@ -376,7 +421,30 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_request.InvokeModelRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_request
+
+            return capo_bedrock_runtime.types.invoke_model_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_response.InvokeModelResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_response
+
+            return capo_bedrock_runtime.types.invoke_model_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModel", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_request.InvokeModelRequest = {
             "model_id": model_id
         }
@@ -450,7 +518,32 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.InvokeModelWithBidirectionalStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request
+
+            return capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response.InvokeModelWithBidirectionalStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response
+
+            return capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModelWithBidirectionalStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.InvokeModelWithBidirectionalStreamRequest = {
             "model_id": model_id,
             "body": ensure_sync_iterator(body),
@@ -535,7 +628,32 @@ class InferenceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_with_response_stream_request.InvokeModelWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_response_stream_request
+
+            return capo_bedrock_runtime.types.invoke_model_with_response_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_response_stream_response
+
+            return capo_bedrock_runtime.types.invoke_model_with_response_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModelWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_with_response_stream_request.InvokeModelWithResponseStreamRequest = {
             "model_id": model_id
         }
@@ -656,7 +774,26 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.converse_request.ConverseRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_request
+
+            return capo_bedrock_runtime.types.converse_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.converse_response.ConverseResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_response
+
+            return capo_bedrock_runtime.types.converse_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Converse", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_runtime.types.converse_request.ConverseRequest = {
             "model_id": model_id
         }
@@ -779,7 +916,32 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.converse_stream_request.ConverseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_stream_request
+
+            return capo_bedrock_runtime.types.converse_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.converse_stream_response.ConverseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.converse_stream_response
+
+            return capo_bedrock_runtime.types.converse_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ConverseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.converse_stream_request.ConverseStreamRequest = {
             "model_id": model_id
         }
@@ -888,7 +1050,30 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_request.InvokeModelRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_request
+
+            return capo_bedrock_runtime.types.invoke_model_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_response.InvokeModelResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_response
+
+            return capo_bedrock_runtime.types.invoke_model_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModel", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_request.InvokeModelRequest = {
             "model_id": model_id
         }
@@ -963,7 +1148,32 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.InvokeModelWithBidirectionalStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request
+
+            return capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response.InvokeModelWithBidirectionalStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response
+
+            return capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModelWithBidirectionalStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_with_bidirectional_stream_request.InvokeModelWithBidirectionalStreamRequest = {
             "model_id": model_id,
             "body": ensure_async_iterator(body),
@@ -1049,7 +1259,32 @@ class AsyncInferenceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_runtime.types.invoke_model_with_response_stream_request.InvokeModelWithResponseStreamRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_response_stream_request
+
+            return capo_bedrock_runtime.types.invoke_model_with_response_stream_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_runtime.types.invoke_model_with_response_stream_response.InvokeModelWithResponseStreamResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_runtime.types.invoke_model_with_response_stream_response
+
+            return capo_bedrock_runtime.types.invoke_model_with_response_stream_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "InvokeModelWithResponseStream",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_runtime.types.invoke_model_with_response_stream_request.InvokeModelWithResponseStreamRequest = {
             "model_id": model_id
         }

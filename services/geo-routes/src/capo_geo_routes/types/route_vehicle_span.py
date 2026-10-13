@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleSpan``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -342,4 +342,87 @@ def deserialize_json(data: dict) -> RouteVehicleSpan:
         import capo_geo_routes.types.index_list
 
         out["zones"] = capo_geo_routes.types.index_list.deserialize_json(data["Zones"])
+    return out
+
+
+def redact_sensitive(value: RouteVehicleSpan) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "best_case_duration" in value:
+        out["best_case_duration"] = "*** Sensitive Data Redacted ***"
+    if "car_access" in value:
+        import capo_geo_routes.types.route_span_car_access_attribute_list
+
+        out["car_access"] = (
+            capo_geo_routes.types.route_span_car_access_attribute_list.redact_sensitive(
+                value["car_access"]
+            )
+        )
+    if "country" in value:
+        out["country"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration" in value:
+        out["duration"] = "*** Sensitive Data Redacted ***"
+    if "dynamic_speed" in value:
+        import capo_geo_routes.types.route_span_dynamic_speed_details
+
+        out["dynamic_speed"] = (
+            capo_geo_routes.types.route_span_dynamic_speed_details.redact_sensitive(
+                value["dynamic_speed"]
+            )
+        )
+    if "functional_classification" in value:
+        out["functional_classification"] = "*** Sensitive Data Redacted ***"
+    if "gate" in value:
+        out["gate"] = "*** Sensitive Data Redacted ***"
+    if "names" in value:
+        import capo_geo_routes.types.localized_string_list
+
+        out["names"] = capo_geo_routes.types.localized_string_list.redact_sensitive(
+            value["names"]
+        )
+    if "railway_crossing" in value:
+        out["railway_crossing"] = "*** Sensitive Data Redacted ***"
+    if "region" in value:
+        out["region"] = "*** Sensitive Data Redacted ***"
+    if "road_attributes" in value:
+        import capo_geo_routes.types.route_span_road_attribute_list
+
+        out["road_attributes"] = (
+            capo_geo_routes.types.route_span_road_attribute_list.redact_sensitive(
+                value["road_attributes"]
+            )
+        )
+    if "route_numbers" in value:
+        import capo_geo_routes.types.route_number_list
+
+        out["route_numbers"] = capo_geo_routes.types.route_number_list.redact_sensitive(
+            value["route_numbers"]
+        )
+    if "scooter_access" in value:
+        import capo_geo_routes.types.route_span_scooter_access_attribute_list
+
+        out["scooter_access"] = (
+            capo_geo_routes.types.route_span_scooter_access_attribute_list.redact_sensitive(
+                value["scooter_access"]
+            )
+        )
+    if "speed_limit" in value:
+        import capo_geo_routes.types.route_span_speed_limit_details
+
+        out["speed_limit"] = (
+            capo_geo_routes.types.route_span_speed_limit_details.redact_sensitive(
+                value["speed_limit"]
+            )
+        )
+    if "truck_access" in value:
+        import capo_geo_routes.types.route_span_truck_access_attribute_list
+
+        out["truck_access"] = (
+            capo_geo_routes.types.route_span_truck_access_attribute_list.redact_sensitive(
+                value["truck_access"]
+            )
+        )
+    if "typical_duration" in value:
+        out["typical_duration"] = "*** Sensitive Data Redacted ***"
     return out

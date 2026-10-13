@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#EvaluationResultContent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,4 +143,11 @@ def deserialize_json(data: dict) -> EvaluationResultContent:
                 data["ignoredReferenceInputFields"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: EvaluationResultContent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "explanation" in value:
+        out["explanation"] = "*** Sensitive Data Redacted ***"
     return out

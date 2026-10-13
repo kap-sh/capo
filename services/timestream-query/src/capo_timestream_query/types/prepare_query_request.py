@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.timestreamquery#PrepareQueryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_aws_json_1_0(data: dict) -> PrepareQueryRequest:
         raise DeserializationError("PrepareQueryRequest.query_string required")
     if data.get("ValidateOnly") is not None:
         out["validate_only"] = data["ValidateOnly"]
+    return out
+
+
+def redact_sensitive(value: PrepareQueryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_string" in value:
+        out["query_string"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#DerivationMethodAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -139,3 +139,48 @@ def deserialize_json(data: dict) -> DerivationMethodAttributes:
         raise DeserializationError(
             "DerivationMethodAttributes: no recognized variant key"
         )
+
+
+def redact_sensitive(value: DerivationMethodAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "EmvCommon" in value:
+        import capo_payment_cryptography_data.types.emv_common_attributes
+
+        out["EmvCommon"] = (
+            capo_payment_cryptography_data.types.emv_common_attributes.redact_sensitive(
+                value["EmvCommon"]
+            )
+        )
+    if "Amex" in value:
+        import capo_payment_cryptography_data.types.amex_attributes
+
+        out["Amex"] = (
+            capo_payment_cryptography_data.types.amex_attributes.redact_sensitive(
+                value["Amex"]
+            )
+        )
+    if "Visa" in value:
+        import capo_payment_cryptography_data.types.visa_attributes
+
+        out["Visa"] = (
+            capo_payment_cryptography_data.types.visa_attributes.redact_sensitive(
+                value["Visa"]
+            )
+        )
+    if "Emv2000" in value:
+        import capo_payment_cryptography_data.types.emv2000_attributes
+
+        out["Emv2000"] = (
+            capo_payment_cryptography_data.types.emv2000_attributes.redact_sensitive(
+                value["Emv2000"]
+            )
+        )
+    if "Mastercard" in value:
+        import capo_payment_cryptography_data.types.master_card_attributes
+
+        out["Mastercard"] = (
+            capo_payment_cryptography_data.types.master_card_attributes.redact_sensitive(
+                value["Mastercard"]
+            )
+        )
+    return out

@@ -28,10 +28,12 @@ from capo_agent_registry_control._resources.agent_registry_control.registry_reso
 from capo_agent_registry_control._services._aws_config import aws_config
 from capo_agent_registry_control._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -172,7 +174,9 @@ class AgentRegistryControlClient:
         self.registry_resource = RegistryResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AgentRegistryControlClientConfig] = None
+        self,
+        config_overrides: Optional[AgentRegistryControlClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AgentRegistryControlClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -180,8 +184,10 @@ class AgentRegistryControlClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -230,7 +236,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_agent_registry_control.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -280,7 +288,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_agent_registry_control.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -330,7 +340,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_agent_registry_control.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -412,7 +424,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_agent_registry_control.types.create_registry_record_request.CreateRegistryRecordRequest",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.create_registry_record_request
+
+            return capo_agent_registry_control.types.create_registry_record_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRegistryRecord", redact_input=_redact_input),
+        )
         input_: capo_agent_registry_control.types.create_registry_record_request.CreateRegistryRecordRequest = {
             "registry_id": registry_id,
             "name": name,
@@ -480,7 +504,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry_control.types.get_registry_record_response.GetRegistryRecordResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.get_registry_record_response
+
+            return capo_agent_registry_control.types.get_registry_record_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRegistryRecord", redact_output=_redact_output),
+        )
         input_: capo_agent_registry_control.types.get_registry_record_request.GetRegistryRecordRequest = {
             "registry_id": registry_id,
             "record_id": record_id,
@@ -565,7 +601,32 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_agent_registry_control.types.update_registry_record_request.UpdateRegistryRecordRequest",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.update_registry_record_request
+
+            return capo_agent_registry_control.types.update_registry_record_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_agent_registry_control.types.update_registry_record_response.UpdateRegistryRecordResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.update_registry_record_response
+
+            return capo_agent_registry_control.types.update_registry_record_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRegistryRecord",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_agent_registry_control.types.update_registry_record_request.UpdateRegistryRecordRequest = {
             "registry_id": registry_id,
             "record_id": record_id,
@@ -634,7 +695,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistryRecord")
+        )
         input_: capo_agent_registry_control.types.delete_registry_record_request.DeleteRegistryRecordRequest = {
             "registry_id": registry_id,
             "record_id": record_id,
@@ -695,7 +758,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry_control.types.list_registry_records_response.ListRegistryRecordsResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.list_registry_records_response
+
+            return capo_agent_registry_control.types.list_registry_records_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRegistryRecords", redact_output=_redact_output),
+        )
         input_: capo_agent_registry_control.types.list_registry_records_request.ListRegistryRecordsRequest = {
             "registry_id": registry_id
         }
@@ -782,7 +857,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitRegistryRecordForApproval")
+        )
         input_: capo_agent_registry_control.types.submit_registry_record_for_approval_request.SubmitRegistryRecordForApprovalRequest = {
             "registry_id": registry_id,
             "record_id": record_id,
@@ -837,7 +914,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegistryRecordStatus")
+        )
         input_: capo_agent_registry_control.types.update_registry_record_status_request.UpdateRegistryRecordStatusRequest = {
             "registry_id": registry_id,
             "record_id": record_id,
@@ -918,7 +997,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_agent_registry_control.types.create_registry_request.CreateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.create_registry_request
+
+            return capo_agent_registry_control.types.create_registry_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRegistry", redact_input=_redact_input),
+        )
         input_: capo_agent_registry_control.types.create_registry_request.CreateRegistryRequest = {
             "name": name
         }
@@ -984,7 +1075,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry_control.types.get_registry_response.GetRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.get_registry_response
+
+            return capo_agent_registry_control.types.get_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetRegistry", redact_output=_redact_output),
+        )
         input_: capo_agent_registry_control.types.get_registry_request.GetRegistryRequest = {
             "registry_id": registry_id
         }
@@ -1057,7 +1160,32 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_agent_registry_control.types.update_registry_request.UpdateRegistryRequest",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.update_registry_request
+
+            return capo_agent_registry_control.types.update_registry_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_agent_registry_control.types.update_registry_response.UpdateRegistryResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.update_registry_response
+
+            return capo_agent_registry_control.types.update_registry_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRegistry",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_agent_registry_control.types.update_registry_request.UpdateRegistryRequest = {
             "registry_id": registry_id
         }
@@ -1119,7 +1247,9 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistry")
+        )
         input_: capo_agent_registry_control.types.delete_registry_request.DeleteRegistryRequest = {
             "registry_id": registry_id
         }
@@ -1175,7 +1305,19 @@ class AgentRegistryControlClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_agent_registry_control.types.list_registries_response.ListRegistriesResponse",
+        ) -> dict[str, Any]:
+            import capo_agent_registry_control.types.list_registries_response
+
+            return capo_agent_registry_control.types.list_registries_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRegistries", redact_output=_redact_output),
+        )
         input_: capo_agent_registry_control.types.list_registries_request.ListRegistriesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

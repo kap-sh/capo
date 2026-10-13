@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#MessageAttributeValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> MessageAttributeValue:
         out["string_values"] = (
             capo_chime_sdk_messaging.types.message_attribute_string_values.deserialize_json(
                 data["StringValues"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: MessageAttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "string_values" in value:
+        import capo_chime_sdk_messaging.types.message_attribute_string_values
+
+        out["string_values"] = (
+            capo_chime_sdk_messaging.types.message_attribute_string_values.redact_sensitive(
+                value["string_values"]
             )
         )
     return out

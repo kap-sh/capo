@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_partnercentral_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -67,7 +68,9 @@ class ConnectionPreferences:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectionPreferences")
+        )
         input_: capo_partnercentral_account.types.get_connection_preferences_request.GetConnectionPreferencesRequest = {
             "catalog": catalog
         }
@@ -122,7 +125,9 @@ class ConnectionPreferences:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionPreferences")
+        )
         input_: capo_partnercentral_account.types.update_connection_preferences_request.UpdateConnectionPreferencesRequest = {
             "catalog": catalog,
             "revision": revision,
@@ -180,7 +185,9 @@ class AsyncConnectionPreferences:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectionPreferences")
+        )
         input_: capo_partnercentral_account.types.get_connection_preferences_request.GetConnectionPreferencesRequest = {
             "catalog": catalog
         }
@@ -236,7 +243,9 @@ class AsyncConnectionPreferences:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectionPreferences")
+        )
         input_: capo_partnercentral_account.types.update_connection_preferences_request.UpdateConnectionPreferencesRequest = {
             "catalog": catalog,
             "revision": revision,

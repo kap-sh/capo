@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#AcceptPredictionsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,4 +64,15 @@ def deserialize_json(data: dict) -> AcceptPredictionsInput:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: AcceptPredictionsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "accept_choices" in value:
+        import capo_datazone.types.accept_choices
+
+        out["accept_choices"] = capo_datazone.types.accept_choices.redact_sensitive(
+            value["accept_choices"]
+        )
     return out

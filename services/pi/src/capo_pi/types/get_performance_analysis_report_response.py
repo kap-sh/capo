@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pi#GetPerformanceAnalysisReportResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_aws_json_1_1(data: dict) -> GetPerformanceAnalysisReportResponse
 
         out["analysis_report"] = capo_pi.types.analysis_report.deserialize_aws_json_1_1(
             data["AnalysisReport"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetPerformanceAnalysisReportResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "analysis_report" in value:
+        import capo_pi.types.analysis_report
+
+        out["analysis_report"] = capo_pi.types.analysis_report.redact_sensitive(
+            value["analysis_report"]
         )
     return out

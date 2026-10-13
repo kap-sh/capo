@@ -8,6 +8,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -97,7 +98,9 @@ class CustomModelDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.create_custom_model_deployment_request.CreateCustomModelDeploymentRequest = {
             "model_deployment_name": model_deployment_name,
             "model_arn": model_arn,
@@ -153,7 +156,9 @@ class CustomModelDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomModelDeployment")
+        )
         input_: capo_bedrock.types.delete_custom_model_deployment_request.DeleteCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -200,7 +205,9 @@ class CustomModelDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCustomModelDeployment")
+        )
         input_: capo_bedrock.types.get_custom_model_deployment_request.GetCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -270,7 +277,9 @@ class CustomModelDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomModelDeployments")
+        )
         input_: capo_bedrock.types.list_custom_model_deployments_request.ListCustomModelDeploymentsRequest = {}
         if created_before is not None:
             input_["created_before"] = created_before
@@ -335,7 +344,9 @@ class CustomModelDeploymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.update_custom_model_deployment_request.UpdateCustomModelDeploymentRequest = {
             "model_arn": model_arn,
             "custom_model_deployment_identifier": custom_model_deployment_identifier,
@@ -403,7 +414,9 @@ class AsyncCustomModelDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.create_custom_model_deployment_request.CreateCustomModelDeploymentRequest = {
             "model_deployment_name": model_deployment_name,
             "model_arn": model_arn,
@@ -460,7 +473,9 @@ class AsyncCustomModelDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCustomModelDeployment")
+        )
         input_: capo_bedrock.types.delete_custom_model_deployment_request.DeleteCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -508,7 +523,9 @@ class AsyncCustomModelDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCustomModelDeployment")
+        )
         input_: capo_bedrock.types.get_custom_model_deployment_request.GetCustomModelDeploymentRequest = {
             "custom_model_deployment_identifier": custom_model_deployment_identifier
         }
@@ -579,7 +596,9 @@ class AsyncCustomModelDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCustomModelDeployments")
+        )
         input_: capo_bedrock.types.list_custom_model_deployments_request.ListCustomModelDeploymentsRequest = {}
         if created_before is not None:
             input_["created_before"] = created_before
@@ -645,7 +664,9 @@ class AsyncCustomModelDeploymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCustomModelDeployment")
+        )
         input_: capo_bedrock.types.update_custom_model_deployment_request.UpdateCustomModelDeploymentRequest = {
             "model_arn": model_arn,
             "custom_model_deployment_identifier": custom_model_deployment_identifier,

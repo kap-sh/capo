@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#ChangePasswordRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -44,4 +44,15 @@ def deserialize_aws_json_1_1(data: dict) -> ChangePasswordRequest:
         out["access_token"] = data["AccessToken"]
     else:
         raise DeserializationError("ChangePasswordRequest.access_token required")
+    return out
+
+
+def redact_sensitive(value: ChangePasswordRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "previous_password" in value:
+        out["previous_password"] = "*** Sensitive Data Redacted ***"
+    if "proposed_password" in value:
+        out["proposed_password"] = "*** Sensitive Data Redacted ***"
+    if "access_token" in value:
+        out["access_token"] = "*** Sensitive Data Redacted ***"
     return out

@@ -8,6 +8,7 @@ import capo_network_security_manager._auth._sigv4
 from capo_network_security_manager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -119,7 +120,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_network_security_manager.types.create_rule_input.CreateRuleInput = {
             "rule_name": rule_name,
             "firewall_type": firewall_type,
@@ -188,7 +191,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_network_security_manager.types.get_rule_input.GetRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -263,7 +268,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_network_security_manager.types.update_rule_input.UpdateRuleInput = {
             "rule_identifier": rule_identifier,
             "update_token": update_token,
@@ -325,7 +332,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_network_security_manager.types.delete_rule_input.DeleteRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -387,7 +396,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_network_security_manager.types.list_rules_input.ListRulesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -452,7 +463,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRuleSnapshot")
+        )
         input_: capo_network_security_manager.types.create_rule_snapshot_input.CreateRuleSnapshotInput = {
             "rule_identifier": rule_identifier
         }
@@ -518,7 +531,9 @@ class Rule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuleSnapshots")
+        )
         input_: capo_network_security_manager.types.list_rule_snapshots_input.ListRuleSnapshotsInput = {
             "rule_identifier": rule_identifier
         }
@@ -604,7 +619,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_network_security_manager.types.create_rule_input.CreateRuleInput = {
             "rule_name": rule_name,
             "firewall_type": firewall_type,
@@ -674,7 +691,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_network_security_manager.types.get_rule_input.GetRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -750,7 +769,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_network_security_manager.types.update_rule_input.UpdateRuleInput = {
             "rule_identifier": rule_identifier,
             "update_token": update_token,
@@ -813,7 +834,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_network_security_manager.types.delete_rule_input.DeleteRuleInput = {
             "rule_identifier": rule_identifier
         }
@@ -876,7 +899,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_network_security_manager.types.list_rules_input.ListRulesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -942,7 +967,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRuleSnapshot")
+        )
         input_: capo_network_security_manager.types.create_rule_snapshot_input.CreateRuleSnapshotInput = {
             "rule_identifier": rule_identifier
         }
@@ -1009,7 +1036,9 @@ class AsyncRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRuleSnapshots")
+        )
         input_: capo_network_security_manager.types.list_rule_snapshots_input.ListRuleSnapshotsInput = {
             "rule_identifier": rule_identifier
         }

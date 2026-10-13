@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PredictQAResultsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,11 @@ def deserialize_json(data: dict) -> PredictQAResultsRequest:
         )
     if data.get("MaxTopicsToConsider") is not None:
         out["max_topics_to_consider"] = data["MaxTopicsToConsider"]
+    return out
+
+
+def redact_sensitive(value: PredictQAResultsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
     return out

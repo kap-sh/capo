@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#ServiceNowServiceDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,6 +49,19 @@ def deserialize_json(data: dict) -> ServiceNowServiceDetails:
         out["authorization_config"] = (
             capo_devops_agent.types.service_now_service_authorization_config.deserialize_json(
                 data["authorizationConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ServiceNowServiceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authorization_config" in value:
+        import capo_devops_agent.types.service_now_service_authorization_config
+
+        out["authorization_config"] = (
+            capo_devops_agent.types.service_now_service_authorization_config.redact_sensitive(
+                value["authorization_config"]
             )
         )
     return out

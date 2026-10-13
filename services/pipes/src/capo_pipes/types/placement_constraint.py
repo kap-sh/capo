@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PlacementConstraint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -36,4 +36,11 @@ def deserialize_json(data: dict) -> PlacementConstraint:
         out["type"] = data["type"]
     if data.get("expression") is not None:
         out["expression"] = data["expression"]
+    return out
+
+
+def redact_sensitive(value: PlacementConstraint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

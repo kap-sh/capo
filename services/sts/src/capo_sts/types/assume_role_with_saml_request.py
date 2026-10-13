@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sts#AssumeRoleWithSAMLRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -104,4 +104,11 @@ def deserialize_query(el: Element) -> AssumeRoleWithSAMLRequest:
         out["minimum_session_token_size"] = int(
             child_minimum_session_token_size.text or ""
         )
+    return out
+
+
+def redact_sensitive(value: AssumeRoleWithSAMLRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "saml_assertion" in value:
+        out["saml_assertion"] = "*** Sensitive Data Redacted ***"
     return out

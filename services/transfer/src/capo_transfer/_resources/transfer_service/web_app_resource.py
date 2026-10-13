@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_transfer._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class WebAppResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWebApp")
+        )
         input_: capo_transfer.types.create_web_app_request.CreateWebAppRequest = {
             "identity_provider_details": identity_provider_details
         }
@@ -151,7 +154,9 @@ class WebAppResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWebApp")
+        )
         input_: capo_transfer.types.describe_web_app_request.DescribeWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -213,7 +218,9 @@ class WebAppResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWebApp")
+        )
         input_: capo_transfer.types.update_web_app_request.UpdateWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -266,7 +273,9 @@ class WebAppResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWebApp")
+        )
         input_: capo_transfer.types.delete_web_app_request.DeleteWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -314,7 +323,9 @@ class WebAppResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWebApps")
+        )
         input_: capo_transfer.types.list_web_apps_request.ListWebAppsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -385,7 +396,9 @@ class AsyncWebAppResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateWebApp")
+        )
         input_: capo_transfer.types.create_web_app_request.CreateWebAppRequest = {
             "identity_provider_details": identity_provider_details
         }
@@ -443,7 +456,9 @@ class AsyncWebAppResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWebApp")
+        )
         input_: capo_transfer.types.describe_web_app_request.DescribeWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -506,7 +521,9 @@ class AsyncWebAppResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWebApp")
+        )
         input_: capo_transfer.types.update_web_app_request.UpdateWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -560,7 +577,9 @@ class AsyncWebAppResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWebApp")
+        )
         input_: capo_transfer.types.delete_web_app_request.DeleteWebAppRequest = {
             "web_app_id": web_app_id
         }
@@ -609,7 +628,9 @@ class AsyncWebAppResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWebApps")
+        )
         input_: capo_transfer.types.list_web_apps_request.ListWebAppsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

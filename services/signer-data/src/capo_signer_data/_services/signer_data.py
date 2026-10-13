@@ -20,10 +20,12 @@ from capo_signer_data._auth._zapros_handler import AuthMiddleware
 from capo_signer_data._services._aws_config import aws_config
 from capo_signer_data._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -108,7 +110,9 @@ class SignerDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[SignerDataClientConfig] = None
+        self,
+        config_overrides: Optional[SignerDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: SignerDataClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -116,8 +120,10 @@ class SignerDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -183,7 +189,9 @@ class SignerDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevocationStatus")
+        )
         input_: capo_signer_data.types.get_revocation_status_request.GetRevocationStatusRequest = {
             "signature_timestamp": signature_timestamp,
             "platform_id": platform_id,

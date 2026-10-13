@@ -21,10 +21,12 @@ from capo_migrationhub_config._pagination import resolve_path as _resolve_path
 from capo_migrationhub_config._services._aws_config import aws_config
 from capo_migrationhub_config._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -118,7 +120,9 @@ class MigrationHubConfigClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MigrationHubConfigClientConfig] = None
+        self,
+        config_overrides: Optional[MigrationHubConfigClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MigrationHubConfigClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -126,8 +130,10 @@ class MigrationHubConfigClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -185,7 +191,9 @@ class MigrationHubConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateHomeRegionControl")
+        )
         input_: capo_migrationhub_config.types.create_home_region_control_request.CreateHomeRegionControlRequest = {
             "home_region": home_region,
             "target": target,
@@ -235,7 +243,9 @@ class MigrationHubConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteHomeRegionControl")
+        )
         input_: capo_migrationhub_config.types.delete_home_region_control_request.DeleteHomeRegionControlRequest = {
             "control_id": control_id
         }
@@ -296,7 +306,9 @@ class MigrationHubConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeHomeRegionControls")
+        )
         input_: capo_migrationhub_config.types.describe_home_region_controls_request.DescribeHomeRegionControlsRequest = {}
         if control_id is not None:
             input_["control_id"] = control_id
@@ -376,7 +388,9 @@ class MigrationHubConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHomeRegion")
+        )
         input_: capo_migrationhub_config.types.get_home_region_request.GetHomeRegionRequest = {}
 
         response = execute_pipeline(

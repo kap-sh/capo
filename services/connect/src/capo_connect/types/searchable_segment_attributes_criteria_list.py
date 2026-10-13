@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#SearchableSegmentAttributesCriteriaList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connect.types.searchable_segment_attributes_criteria
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> SearchableSegmentAttributesCriteriaList:
             )
         )
     return out
+
+
+def redact_sensitive(value: SearchableSegmentAttributesCriteriaList) -> list[Any]:
+    import capo_connect.types.searchable_segment_attributes_criteria
+
+    return [
+        capo_connect.types.searchable_segment_attributes_criteria.redact_sensitive(item)
+        for item in value
+    ]

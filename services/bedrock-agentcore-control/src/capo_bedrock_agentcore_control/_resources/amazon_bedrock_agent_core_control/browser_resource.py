@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -124,7 +125,19 @@ class BrowserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_browser_request.CreateBrowserRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_browser_request
+
+            return capo_bedrock_agentcore_control.types.create_browser_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowser", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_browser_request.CreateBrowserRequest = {
             "name": name,
             "network_configuration": network_configuration,
@@ -191,7 +204,19 @@ class BrowserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_browser_response.GetBrowserResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_browser_response
+
+            return capo_bedrock_agentcore_control.types.get_browser_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowser", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_browser_request.GetBrowserRequest = {
             "browser_id": browser_id
         }
@@ -244,7 +269,9 @@ class BrowserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowser")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_browser_request.DeleteBrowserRequest = {
             "browser_id": browser_id
         }
@@ -303,7 +330,19 @@ class BrowserResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_browsers_response.ListBrowsersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_browsers_response
+
+            return capo_bedrock_agentcore_control.types.list_browsers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBrowsers", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_browsers_request.ListBrowsersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -397,7 +436,19 @@ class AsyncBrowserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_browser_request.CreateBrowserRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_browser_request
+
+            return capo_bedrock_agentcore_control.types.create_browser_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrowser", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_browser_request.CreateBrowserRequest = {
             "name": name,
             "network_configuration": network_configuration,
@@ -465,7 +516,19 @@ class AsyncBrowserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_browser_response.GetBrowserResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_browser_response
+
+            return capo_bedrock_agentcore_control.types.get_browser_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetBrowser", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_browser_request.GetBrowserRequest = {
             "browser_id": browser_id
         }
@@ -519,7 +582,9 @@ class AsyncBrowserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBrowser")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_browser_request.DeleteBrowserRequest = {
             "browser_id": browser_id
         }
@@ -579,7 +644,19 @@ class AsyncBrowserResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_browsers_response.ListBrowsersResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_browsers_response
+
+            return capo_bedrock_agentcore_control.types.list_browsers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListBrowsers", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_browsers_request.ListBrowsersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

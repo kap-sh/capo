@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#CreateActRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -60,4 +60,17 @@ def deserialize_json(data: dict) -> CreateActRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateActRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "task" in value:
+        out["task"] = "*** Sensitive Data Redacted ***"
+    if "tool_specs" in value:
+        import capo_nova_act.types.tool_specs
+
+        out["tool_specs"] = capo_nova_act.types.tool_specs.redact_sensitive(
+            value["tool_specs"]
+        )
     return out

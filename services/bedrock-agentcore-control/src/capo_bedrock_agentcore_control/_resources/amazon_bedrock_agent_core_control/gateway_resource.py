@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -135,7 +136,32 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_gateway_request.CreateGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_request
+
+            return capo_bedrock_agentcore_control.types.create_gateway_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_gateway_response.CreateGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_response
+
+            return capo_bedrock_agentcore_control.types.create_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGateway",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_request.CreateGatewayRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -206,7 +232,9 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -253,7 +281,19 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_gateway_response.GetGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_gateway_response
+
+            return capo_bedrock_agentcore_control.types.get_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGateway", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_request.GetGatewayRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -305,7 +345,19 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_gateways_response.ListGatewaysResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_gateways_response
+
+            return capo_bedrock_agentcore_control.types.list_gateways_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGateways", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateways_request.ListGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -401,7 +453,32 @@ class GatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_gateway_request.UpdateGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_request
+
+            return capo_bedrock_agentcore_control.types.update_gateway_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_response
+
+            return capo_bedrock_agentcore_control.types.update_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGateway",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_request.UpdateGatewayRequest = {
             "gateway_identifier": gateway_identifier,
             "name": name,
@@ -520,7 +597,32 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_gateway_request.CreateGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_request
+
+            return capo_bedrock_agentcore_control.types.create_gateway_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_gateway_response.CreateGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_gateway_response
+
+            return capo_bedrock_agentcore_control.types.create_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateGateway",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_gateway_request.CreateGatewayRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -592,7 +694,9 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteGateway")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_gateway_request.DeleteGatewayRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -640,7 +744,19 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_gateway_response.GetGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_gateway_response
+
+            return capo_bedrock_agentcore_control.types.get_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetGateway", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_gateway_request.GetGatewayRequest = {
             "gateway_identifier": gateway_identifier
         }
@@ -693,7 +809,19 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_gateways_response.ListGatewaysResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_gateways_response
+
+            return capo_bedrock_agentcore_control.types.list_gateways_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListGateways", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_gateways_request.ListGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -790,7 +918,32 @@ class AsyncGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_gateway_request.UpdateGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_request
+
+            return capo_bedrock_agentcore_control.types.update_gateway_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_gateway_response.UpdateGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_gateway_response
+
+            return capo_bedrock_agentcore_control.types.update_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateGateway",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_gateway_request.UpdateGatewayRequest = {
             "gateway_identifier": gateway_identifier,
             "name": name,

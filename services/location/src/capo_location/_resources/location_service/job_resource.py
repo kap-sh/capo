@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,16 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.start_job_response.StartJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.start_job_response
+
+            return capo_location.types.start_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.start_job_request.StartJobRequest = {
             "action": action,
             "execution_role_arn": execution_role_arn,
@@ -152,7 +162,16 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_job_response.GetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_job_response
+
+            return capo_location.types.get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.get_job_request.GetJobRequest = {"job_id": job_id}
 
         response = execute_pipeline(
@@ -200,7 +219,16 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_jobs_response.ListJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_jobs_response
+
+            return capo_location.types.list_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobs", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_jobs_request.ListJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -250,7 +278,9 @@ class JobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_location.types.cancel_job_request.CancelJobRequest = {
             "job_id": job_id
         }
@@ -318,7 +348,16 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.start_job_response.StartJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.start_job_response
+
+            return capo_location.types.start_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.start_job_request.StartJobRequest = {
             "action": action,
             "execution_role_arn": execution_role_arn,
@@ -378,7 +417,16 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_job_response.GetJobResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_job_response
+
+            return capo_location.types.get_job_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetJob", redact_output=_redact_output)
+        )
         input_: capo_location.types.get_job_request.GetJobRequest = {"job_id": job_id}
 
         response = await aexecute_pipeline(
@@ -427,7 +475,16 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_jobs_response.ListJobsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_jobs_response
+
+            return capo_location.types.list_jobs_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListJobs", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_jobs_request.ListJobsRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -478,7 +535,9 @@ class AsyncJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_location.types.cancel_job_request.CancelJobRequest = {
             "job_id": job_id
         }

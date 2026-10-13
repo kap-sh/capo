@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#GetClientTokenRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,13 @@ def deserialize_aws_json_1_1(data: dict) -> GetClientTokenRequest:
                 data["ClientMetadata"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: GetClientTokenRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
+    if "secret" in value:
+        out["secret"] = "*** Sensitive Data Redacted ***"
     return out

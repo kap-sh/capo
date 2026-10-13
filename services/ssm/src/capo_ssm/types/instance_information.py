@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#InstanceInformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -255,4 +255,11 @@ def deserialize_aws_json_1_1(data: dict) -> InstanceInformation:
         )
     if data.get("SourceLocation") is not None:
         out["source_location"] = data["SourceLocation"]
+    return out
+
+
+def redact_sensitive(value: InstanceInformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_address" in value:
+        out["ip_address"] = "*** Sensitive Data Redacted ***"
     return out

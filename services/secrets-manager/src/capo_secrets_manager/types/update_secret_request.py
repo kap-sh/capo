@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.secretsmanager#UpdateSecretRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -90,4 +90,13 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateSecretRequest:
         out["secret_string"] = data["SecretString"]
     if data.get("Type") is not None:
         out["type"] = data["Type"]
+    return out
+
+
+def redact_sensitive(value: UpdateSecretRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "secret_binary" in value:
+        out["secret_binary"] = "*** Sensitive Data Redacted ***"
+    if "secret_string" in value:
+        out["secret_string"] = "*** Sensitive Data Redacted ***"
     return out

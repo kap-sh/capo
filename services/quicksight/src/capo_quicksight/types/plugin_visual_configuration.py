@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PluginVisualConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,19 @@ def deserialize_json(data: dict) -> PluginVisualConfiguration:
         out["sort_configuration"] = (
             capo_quicksight.types.plugin_visual_sort_configuration.deserialize_json(
                 data["SortConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PluginVisualConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.plugin_visual_field_wells
+
+        out["field_wells"] = (
+            capo_quicksight.types.plugin_visual_field_wells.redact_sensitive(
+                value["field_wells"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyAnnotationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.automated_reasoning_policy_annotation
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> AutomatedReasoningPolicyAnnotationList:
             )
         )
     return out
+
+
+def redact_sensitive(value: AutomatedReasoningPolicyAnnotationList) -> list[Any]:
+    import capo_bedrock.types.automated_reasoning_policy_annotation
+
+    return [
+        capo_bedrock.types.automated_reasoning_policy_annotation.redact_sensitive(item)
+        for item in value
+    ]

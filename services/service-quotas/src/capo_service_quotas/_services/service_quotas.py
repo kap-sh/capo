@@ -21,10 +21,12 @@ from capo_service_quotas._pagination import resolve_path as _resolve_path
 from capo_service_quotas._services._aws_config import aws_config
 from capo_service_quotas._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -179,7 +181,9 @@ class ServiceQuotasClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ServiceQuotasClientConfig] = None
+        self,
+        config_overrides: Optional[ServiceQuotasClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ServiceQuotasClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -187,8 +191,10 @@ class ServiceQuotasClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -238,7 +244,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateServiceQuotaTemplate")
+        )
         input_: capo_service_quotas.types.associate_service_quota_template_request.AssociateServiceQuotaTemplateRequest = {}
 
         response = execute_pipeline(
@@ -286,7 +294,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSupportCase")
+        )
         input_: capo_service_quotas.types.create_support_case_request.CreateSupportCaseRequest = {
             "request_id": request_id
         }
@@ -341,7 +351,10 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteServiceQuotaIncreaseRequestFromTemplate"),
+        )
         input_: capo_service_quotas.types.delete_service_quota_increase_request_from_template_request.DeleteServiceQuotaIncreaseRequestFromTemplateRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -387,7 +400,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateServiceQuotaTemplate")
+        )
         input_: capo_service_quotas.types.disassociate_service_quota_template_request.DisassociateServiceQuotaTemplateRequest = {}
 
         response = execute_pipeline(
@@ -429,7 +444,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAssociationForServiceQuotaTemplate")
+        )
         input_: capo_service_quotas.types.get_association_for_service_quota_template_request.GetAssociationForServiceQuotaTemplateRequest = {}
 
         response = execute_pipeline(
@@ -468,7 +485,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAutoManagementConfiguration")
+        )
         input_: capo_service_quotas.types.get_auto_management_configuration_request.GetAutoManagementConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -515,7 +534,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAWSDefaultServiceQuota")
+        )
         input_: capo_service_quotas.types.get_aws_default_service_quota_request.GetAWSDefaultServiceQuotaRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -570,7 +591,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQuotaUtilizationReport")
+        )
         input_: capo_service_quotas.types.get_quota_utilization_report_request.GetQuotaUtilizationReportRequest = {
             "report_id": report_id
         }
@@ -621,7 +644,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRequestedServiceQuotaChange")
+        )
         input_: capo_service_quotas.types.get_requested_service_quota_change_request.GetRequestedServiceQuotaChangeRequest = {
             "request_id": request_id
         }
@@ -674,7 +699,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceQuota")
+        )
         input_: capo_service_quotas.types.get_service_quota_request.GetServiceQuotaRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -732,7 +759,10 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetServiceQuotaIncreaseRequestFromTemplate"),
+        )
         input_: capo_service_quotas.types.get_service_quota_increase_request_from_template_request.GetServiceQuotaIncreaseRequestFromTemplateRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -788,7 +818,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAWSDefaultServiceQuotas")
+        )
         input_: capo_service_quotas.types.list_aws_default_service_quotas_request.ListAWSDefaultServiceQuotasRequest = {
             "service_code": service_code
         }
@@ -881,7 +913,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRequestedServiceQuotaChangeHistory")
+        )
         input_: capo_service_quotas.types.list_requested_service_quota_change_history_request.ListRequestedServiceQuotaChangeHistoryRequest = {}
         if service_code is not None:
             input_["service_code"] = service_code
@@ -988,7 +1022,10 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListRequestedServiceQuotaChangeHistoryByQuota"),
+        )
         input_: capo_service_quotas.types.list_requested_service_quota_change_history_by_quota_request.ListRequestedServiceQuotaChangeHistoryByQuotaRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -1092,7 +1129,10 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceQuotaIncreaseRequestsInTemplate"),
+        )
         input_: capo_service_quotas.types.list_service_quota_increase_requests_in_template_request.ListServiceQuotaIncreaseRequestsInTemplateRequest = {}
         if service_code is not None:
             input_["service_code"] = service_code
@@ -1189,7 +1229,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceQuotas")
+        )
         input_: capo_service_quotas.types.list_service_quotas_request.ListServiceQuotasRequest = {
             "service_code": service_code
         }
@@ -1279,7 +1321,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_service_quotas.types.list_services_request.ListServicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1351,7 +1395,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_service_quotas.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1409,7 +1455,10 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutServiceQuotaIncreaseRequestIntoTemplate"),
+        )
         input_: capo_service_quotas.types.put_service_quota_increase_request_into_template_request.PutServiceQuotaIncreaseRequestIntoTemplateRequest = {
             "quota_code": quota_code,
             "service_code": service_code,
@@ -1475,7 +1524,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RequestServiceQuotaIncrease")
+        )
         input_: capo_service_quotas.types.request_service_quota_increase_request.RequestServiceQuotaIncreaseRequest = {
             "service_code": service_code,
             "quota_code": quota_code,
@@ -1538,7 +1589,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAutoManagement")
+        )
         input_: capo_service_quotas.types.start_auto_management_request.StartAutoManagementRequest = {
             "opt_in_level": opt_in_level,
             "opt_in_type": opt_in_type,
@@ -1585,7 +1638,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartQuotaUtilizationReport")
+        )
         input_: capo_service_quotas.types.start_quota_utilization_report_request.StartQuotaUtilizationReportRequest = {}
 
         response = execute_pipeline(
@@ -1624,7 +1679,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopAutoManagement")
+        )
         input_: capo_service_quotas.types.stop_auto_management_request.StopAutoManagementRequest = {}
 
         response = execute_pipeline(
@@ -1673,7 +1730,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_service_quotas.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1723,7 +1782,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_service_quotas.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1779,7 +1840,9 @@ class ServiceQuotasClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAutoManagement")
+        )
         input_: capo_service_quotas.types.update_auto_management_request.UpdateAutoManagementRequest = {}
         if opt_in_type is not None:
             input_["opt_in_type"] = opt_in_type

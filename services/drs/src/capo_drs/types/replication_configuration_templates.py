@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#ReplicationConfigurationTemplates``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_drs.types.replication_configuration_template
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> ReplicationConfigurationTemplates:
             capo_drs.types.replication_configuration_template.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: ReplicationConfigurationTemplates) -> list[Any]:
+    import capo_drs.types.replication_configuration_template
+
+    return [
+        capo_drs.types.replication_configuration_template.redact_sensitive(item)
+        for item in value
+    ]

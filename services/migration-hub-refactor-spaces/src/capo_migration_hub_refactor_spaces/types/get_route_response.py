@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#GetRouteResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -241,4 +241,11 @@ def deserialize_json(data: dict) -> GetRouteResponse:
         )
     if data.get("AppendSourcePath") is not None:
         out["append_source_path"] = data["AppendSourcePath"]
+    return out
+
+
+def redact_sensitive(value: GetRouteResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

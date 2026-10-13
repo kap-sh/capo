@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mgn._auth._signers
 import capo_mgn._auth._sigv4
 from capo_mgn._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -148,7 +149,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSourceServer", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_source_server_request.UpdateSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -205,7 +216,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceServer")
+        )
         input_: capo_mgn.types.delete_source_server_request.DeleteSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -261,7 +274,19 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_source_servers_response.DescribeSourceServersResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_source_servers_response
+
+            return capo_mgn.types.describe_source_servers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceServers", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_source_servers_request.DescribeSourceServersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -315,7 +340,19 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ChangeServerLifeCycleState", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.change_server_life_cycle_state_request.ChangeServerLifeCycleStateRequest = {
             "source_server_id": source_server_id,
             "life_cycle": life_cycle,
@@ -363,7 +400,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisconnectFromService", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.disconnect_from_service_request.DisconnectFromServiceRequest = {
             "source_server_id": source_server_id
         }
@@ -411,7 +458,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("FinalizeCutover", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.finalize_cutover_request.FinalizeCutoverRequest = {
             "source_server_id": source_server_id
         }
@@ -459,7 +516,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfiguration")
+        )
         input_: capo_mgn.types.get_launch_configuration_request.GetLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -507,7 +566,19 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetReplicationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -563,7 +634,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSourceServerActions")
+        )
         input_: capo_mgn.types.list_source_server_actions_request.ListSourceServerActionsRequest = {
             "source_server_id": source_server_id
         }
@@ -616,7 +689,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("MarkAsArchived", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.mark_as_archived_request.MarkAsArchivedRequest = {
             "source_server_id": source_server_id
         }
@@ -665,7 +748,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PauseReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.pause_replication_request.PauseReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -749,7 +842,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutSourceServerAction")
+        )
         input_: capo_mgn.types.put_source_server_action_request.PutSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_name": action_name,
@@ -820,7 +915,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveSourceServerAction")
+        )
         input_: capo_mgn.types.remove_source_server_action_request.RemoveSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_id": action_id,
@@ -870,7 +967,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ResumeReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.resume_replication_request.ResumeReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -917,7 +1024,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RetryDataReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.retry_data_replication_request.RetryDataReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -966,7 +1083,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.start_replication_request.StartReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -1015,7 +1142,17 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.stop_replication_request.StopReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -1090,7 +1227,9 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfiguration")
+        )
         input_: capo_mgn.types.update_launch_configuration_request.UpdateLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -1217,7 +1356,30 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_replication_configuration_request
+
+            return capo_mgn.types.update_replication_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -1311,7 +1473,19 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSourceServerReplicationType", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.update_source_server_replication_type_request.UpdateSourceServerReplicationTypeRequest = {
             "source_server_id": source_server_id,
             "replication_type": replication_type,
@@ -1363,7 +1537,26 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_cutover_request.StartCutoverRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_request
+
+            return capo_mgn.types.start_cutover_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_cutover_response.StartCutoverResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_response
+
+            return capo_mgn.types.start_cutover_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartCutover", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_cutover_request.StartCutoverRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -1414,7 +1607,26 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_test_request.StartTestRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_request
+
+            return capo_mgn.types.start_test_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_test_response.StartTestResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_response
+
+            return capo_mgn.types.start_test_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTest", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_test_request.StartTestRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -1467,7 +1679,32 @@ class SourceServerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_request
+
+            return capo_mgn.types.terminate_target_instances_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.terminate_target_instances_response.TerminateTargetInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_response
+
+            return capo_mgn.types.terminate_target_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateTargetInstances",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -1538,7 +1775,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSourceServer", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.update_source_server_request.UpdateSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -1596,7 +1843,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSourceServer")
+        )
         input_: capo_mgn.types.delete_source_server_request.DeleteSourceServerRequest = {
             "source_server_id": source_server_id
         }
@@ -1653,7 +1902,19 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.describe_source_servers_response.DescribeSourceServersResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.describe_source_servers_response
+
+            return capo_mgn.types.describe_source_servers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSourceServers", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.describe_source_servers_request.DescribeSourceServersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1708,7 +1969,19 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ChangeServerLifeCycleState", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.change_server_life_cycle_state_request.ChangeServerLifeCycleStateRequest = {
             "source_server_id": source_server_id,
             "life_cycle": life_cycle,
@@ -1757,7 +2030,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisconnectFromService", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.disconnect_from_service_request.DisconnectFromServiceRequest = {
             "source_server_id": source_server_id
         }
@@ -1806,7 +2089,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("FinalizeCutover", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.finalize_cutover_request.FinalizeCutoverRequest = {
             "source_server_id": source_server_id
         }
@@ -1855,7 +2148,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLaunchConfiguration")
+        )
         input_: capo_mgn.types.get_launch_configuration_request.GetLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -1904,7 +2199,19 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetReplicationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.get_replication_configuration_request.GetReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -1961,7 +2268,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSourceServerActions")
+        )
         input_: capo_mgn.types.list_source_server_actions_request.ListSourceServerActionsRequest = {
             "source_server_id": source_server_id
         }
@@ -2015,7 +2324,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("MarkAsArchived", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.mark_as_archived_request.MarkAsArchivedRequest = {
             "source_server_id": source_server_id
         }
@@ -2065,7 +2384,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("PauseReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.pause_replication_request.PauseReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -2150,7 +2479,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutSourceServerAction")
+        )
         input_: capo_mgn.types.put_source_server_action_request.PutSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_name": action_name,
@@ -2222,7 +2553,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveSourceServerAction")
+        )
         input_: capo_mgn.types.remove_source_server_action_request.RemoveSourceServerActionRequest = {
             "source_server_id": source_server_id,
             "action_id": action_id,
@@ -2273,7 +2606,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ResumeReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.resume_replication_request.ResumeReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -2321,7 +2664,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RetryDataReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.retry_data_replication_request.RetryDataReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -2371,7 +2724,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StartReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.start_replication_request.StartReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -2421,7 +2784,17 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopReplication", redact_output=_redact_output),
+        )
         input_: capo_mgn.types.stop_replication_request.StopReplicationRequest = {
             "source_server_id": source_server_id
         }
@@ -2497,7 +2870,9 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLaunchConfiguration")
+        )
         input_: capo_mgn.types.update_launch_configuration_request.UpdateLaunchConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -2625,7 +3000,30 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.update_replication_configuration_request
+
+            return capo_mgn.types.update_replication_configuration_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.replication_configuration.ReplicationConfiguration",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.replication_configuration
+
+            return capo_mgn.types.replication_configuration.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.update_replication_configuration_request.UpdateReplicationConfigurationRequest = {
             "source_server_id": source_server_id
         }
@@ -2720,7 +3118,19 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mgn.types.source_server.SourceServer",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.source_server
+
+            return capo_mgn.types.source_server.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateSourceServerReplicationType", redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.update_source_server_replication_type_request.UpdateSourceServerReplicationTypeRequest = {
             "source_server_id": source_server_id,
             "replication_type": replication_type,
@@ -2773,7 +3183,26 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_cutover_request.StartCutoverRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_request
+
+            return capo_mgn.types.start_cutover_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_cutover_response.StartCutoverResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_cutover_response
+
+            return capo_mgn.types.start_cutover_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartCutover", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_cutover_request.StartCutoverRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -2827,7 +3256,26 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.start_test_request.StartTestRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_request
+
+            return capo_mgn.types.start_test_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_mgn.types.start_test_response.StartTestResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.start_test_response
+
+            return capo_mgn.types.start_test_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartTest", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_mgn.types.start_test_request.StartTestRequest = {
             "source_server_i_ds": source_server_i_ds
         }
@@ -2881,7 +3329,32 @@ class AsyncSourceServerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_request
+
+            return capo_mgn.types.terminate_target_instances_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_mgn.types.terminate_target_instances_response.TerminateTargetInstancesResponse",
+        ) -> dict[str, Any]:
+            import capo_mgn.types.terminate_target_instances_response
+
+            return capo_mgn.types.terminate_target_instances_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TerminateTargetInstances",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_mgn.types.terminate_target_instances_request.TerminateTargetInstancesRequest = {
             "source_server_i_ds": source_server_i_ds
         }

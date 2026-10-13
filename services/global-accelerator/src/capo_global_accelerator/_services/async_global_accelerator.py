@@ -24,7 +24,9 @@ from capo_global_accelerator._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -248,7 +250,9 @@ class AsyncGlobalAcceleratorClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGlobalAcceleratorClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGlobalAcceleratorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGlobalAcceleratorClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -256,8 +260,10 @@ class AsyncGlobalAcceleratorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -315,7 +321,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddCustomRoutingEndpoints")
+        )
         input_: capo_global_accelerator.types.add_custom_routing_endpoints_request.AddCustomRoutingEndpointsRequest = {
             "endpoint_configurations": endpoint_configurations,
             "endpoint_group_arn": endpoint_group_arn,
@@ -367,7 +375,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddEndpoints")
+        )
         input_: capo_global_accelerator.types.add_endpoints_request.AddEndpointsRequest = {
             "endpoint_configurations": endpoint_configurations,
             "endpoint_group_arn": endpoint_group_arn,
@@ -416,7 +426,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AdvertiseByoipCidr")
+        )
         input_: capo_global_accelerator.types.advertise_byoip_cidr_request.AdvertiseByoipCidrRequest = {
             "cidr": cidr
         }
@@ -474,7 +486,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AllowCustomRoutingTraffic")
+        )
         input_: capo_global_accelerator.types.allow_custom_routing_traffic_request.AllowCustomRoutingTrafficRequest = {
             "endpoint_group_arn": endpoint_group_arn,
             "endpoint_id": endpoint_id,
@@ -545,7 +559,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccelerator")
+        )
         input_: capo_global_accelerator.types.create_accelerator_request.CreateAcceleratorRequest = {
             "name": name,
             "idempotency_token": idempotency_token,
@@ -612,7 +628,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCrossAccountAttachment")
+        )
         input_: capo_global_accelerator.types.create_cross_account_attachment_request.CreateCrossAccountAttachmentRequest = {
             "name": name,
             "idempotency_token": idempotency_token,
@@ -683,7 +701,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomRoutingAccelerator")
+        )
         input_: capo_global_accelerator.types.create_custom_routing_accelerator_request.CreateCustomRoutingAcceleratorRequest = {
             "name": name,
             "idempotency_token": idempotency_token,
@@ -749,7 +769,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomRoutingEndpointGroup")
+        )
         input_: capo_global_accelerator.types.create_custom_routing_endpoint_group_request.CreateCustomRoutingEndpointGroupRequest = {
             "listener_arn": listener_arn,
             "endpoint_group_region": endpoint_group_region,
@@ -804,7 +826,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCustomRoutingListener")
+        )
         input_: capo_global_accelerator.types.create_custom_routing_listener_request.CreateCustomRoutingListenerRequest = {
             "accelerator_arn": accelerator_arn,
             "port_ranges": port_ranges,
@@ -892,7 +916,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEndpointGroup")
+        )
         input_: capo_global_accelerator.types.create_endpoint_group_request.CreateEndpointGroupRequest = {
             "listener_arn": listener_arn,
             "endpoint_group_region": endpoint_group_region,
@@ -970,7 +996,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateListener")
+        )
         input_: capo_global_accelerator.types.create_listener_request.CreateListenerRequest = {
             "accelerator_arn": accelerator_arn,
             "port_ranges": port_ranges,
@@ -1022,7 +1050,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccelerator")
+        )
         input_: capo_global_accelerator.types.delete_accelerator_request.DeleteAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1068,7 +1098,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCrossAccountAttachment")
+        )
         input_: capo_global_accelerator.types.delete_cross_account_attachment_request.DeleteCrossAccountAttachmentRequest = {
             "attachment_arn": attachment_arn
         }
@@ -1115,7 +1147,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomRoutingAccelerator")
+        )
         input_: capo_global_accelerator.types.delete_custom_routing_accelerator_request.DeleteCustomRoutingAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1159,7 +1193,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomRoutingEndpointGroup")
+        )
         input_: capo_global_accelerator.types.delete_custom_routing_endpoint_group_request.DeleteCustomRoutingEndpointGroupRequest = {
             "endpoint_group_arn": endpoint_group_arn
         }
@@ -1204,7 +1240,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCustomRoutingListener")
+        )
         input_: capo_global_accelerator.types.delete_custom_routing_listener_request.DeleteCustomRoutingListenerRequest = {
             "listener_arn": listener_arn
         }
@@ -1248,7 +1286,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEndpointGroup")
+        )
         input_: capo_global_accelerator.types.delete_endpoint_group_request.DeleteEndpointGroupRequest = {
             "endpoint_group_arn": endpoint_group_arn
         }
@@ -1293,7 +1333,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteListener")
+        )
         input_: capo_global_accelerator.types.delete_listener_request.DeleteListenerRequest = {
             "listener_arn": listener_arn
         }
@@ -1351,7 +1393,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DenyCustomRoutingTraffic")
+        )
         input_: capo_global_accelerator.types.deny_custom_routing_traffic_request.DenyCustomRoutingTrafficRequest = {
             "endpoint_group_arn": endpoint_group_arn,
             "endpoint_id": endpoint_id,
@@ -1406,7 +1450,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeprovisionByoipCidr")
+        )
         input_: capo_global_accelerator.types.deprovision_byoip_cidr_request.DeprovisionByoipCidrRequest = {
             "cidr": cidr
         }
@@ -1452,7 +1498,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccelerator")
+        )
         input_: capo_global_accelerator.types.describe_accelerator_request.DescribeAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1498,7 +1546,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAcceleratorAttributes")
+        )
         input_: capo_global_accelerator.types.describe_accelerator_attributes_request.DescribeAcceleratorAttributesRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1545,7 +1595,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCrossAccountAttachment")
+        )
         input_: capo_global_accelerator.types.describe_cross_account_attachment_request.DescribeCrossAccountAttachmentRequest = {
             "attachment_arn": attachment_arn
         }
@@ -1591,7 +1643,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomRoutingAccelerator")
+        )
         input_: capo_global_accelerator.types.describe_custom_routing_accelerator_request.DescribeCustomRoutingAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1637,7 +1691,10 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeCustomRoutingAcceleratorAttributes"),
+        )
         input_: capo_global_accelerator.types.describe_custom_routing_accelerator_attributes_request.DescribeCustomRoutingAcceleratorAttributesRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -1683,7 +1740,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomRoutingEndpointGroup")
+        )
         input_: capo_global_accelerator.types.describe_custom_routing_endpoint_group_request.DescribeCustomRoutingEndpointGroupRequest = {
             "endpoint_group_arn": endpoint_group_arn
         }
@@ -1729,7 +1788,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCustomRoutingListener")
+        )
         input_: capo_global_accelerator.types.describe_custom_routing_listener_request.DescribeCustomRoutingListenerRequest = {
             "listener_arn": listener_arn
         }
@@ -1775,7 +1836,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointGroup")
+        )
         input_: capo_global_accelerator.types.describe_endpoint_group_request.DescribeEndpointGroupRequest = {
             "endpoint_group_arn": endpoint_group_arn
         }
@@ -1821,7 +1884,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeListener")
+        )
         input_: capo_global_accelerator.types.describe_listener_request.DescribeListenerRequest = {
             "listener_arn": listener_arn
         }
@@ -1873,7 +1938,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccelerators")
+        )
         input_: capo_global_accelerator.types.list_accelerators_request.ListAcceleratorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1955,7 +2022,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListByoipCidrs")
+        )
         input_: capo_global_accelerator.types.list_byoip_cidrs_request.ListByoipCidrsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2035,7 +2104,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrossAccountAttachments")
+        )
         input_: capo_global_accelerator.types.list_cross_account_attachments_request.ListCrossAccountAttachmentsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2101,7 +2172,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrossAccountResourceAccounts")
+        )
         input_: capo_global_accelerator.types.list_cross_account_resource_accounts_request.ListCrossAccountResourceAccountsRequest = {}
 
         response = await aexecute_pipeline(
@@ -2159,7 +2232,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCrossAccountResources")
+        )
         input_: capo_global_accelerator.types.list_cross_account_resources_request.ListCrossAccountResourcesRequest = {
             "resource_owner_aws_account_id": resource_owner_aws_account_id
         }
@@ -2248,7 +2323,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomRoutingAccelerators")
+        )
         input_: capo_global_accelerator.types.list_custom_routing_accelerators_request.ListCustomRoutingAcceleratorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2330,7 +2407,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomRoutingEndpointGroups")
+        )
         input_: capo_global_accelerator.types.list_custom_routing_endpoint_groups_request.ListCustomRoutingEndpointGroupsRequest = {
             "listener_arn": listener_arn
         }
@@ -2416,7 +2495,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomRoutingListeners")
+        )
         input_: capo_global_accelerator.types.list_custom_routing_listeners_request.ListCustomRoutingListenersRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -2507,7 +2588,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCustomRoutingPortMappings")
+        )
         input_: capo_global_accelerator.types.list_custom_routing_port_mappings_request.ListCustomRoutingPortMappingsRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -2601,7 +2684,10 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCustomRoutingPortMappingsByDestination"),
+        )
         input_: capo_global_accelerator.types.list_custom_routing_port_mappings_by_destination_request.ListCustomRoutingPortMappingsByDestinationRequest = {
             "endpoint_id": endpoint_id,
             "destination_address": destination_address,
@@ -2690,7 +2776,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEndpointGroups")
+        )
         input_: capo_global_accelerator.types.list_endpoint_groups_request.ListEndpointGroupsRequest = {
             "listener_arn": listener_arn
         }
@@ -2776,7 +2864,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListListeners")
+        )
         input_: capo_global_accelerator.types.list_listeners_request.ListListenersRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -2856,7 +2946,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_global_accelerator.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2906,7 +2998,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ProvisionByoipCidr")
+        )
         input_: capo_global_accelerator.types.provision_byoip_cidr_request.ProvisionByoipCidrRequest = {
             "cidr": cidr,
             "cidr_authorization_context": cidr_authorization_context,
@@ -2956,7 +3050,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveCustomRoutingEndpoints")
+        )
         input_: capo_global_accelerator.types.remove_custom_routing_endpoints_request.RemoveCustomRoutingEndpointsRequest = {
             "endpoint_ids": endpoint_ids,
             "endpoint_group_arn": endpoint_group_arn,
@@ -3005,7 +3101,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveEndpoints")
+        )
         input_: capo_global_accelerator.types.remove_endpoints_request.RemoveEndpointsRequest = {
             "endpoint_identifiers": endpoint_identifiers,
             "endpoint_group_arn": endpoint_group_arn,
@@ -3054,7 +3152,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_global_accelerator.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3103,7 +3203,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_global_accelerator.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3169,7 +3271,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccelerator")
+        )
         input_: capo_global_accelerator.types.update_accelerator_request.UpdateAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -3237,7 +3341,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAcceleratorAttributes")
+        )
         input_: capo_global_accelerator.types.update_accelerator_attributes_request.UpdateAcceleratorAttributesRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -3312,7 +3418,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCrossAccountAttachment")
+        )
         input_: capo_global_accelerator.types.update_cross_account_attachment_request.UpdateCrossAccountAttachmentRequest = {
             "attachment_arn": attachment_arn
         }
@@ -3386,7 +3494,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomRoutingAccelerator")
+        )
         input_: capo_global_accelerator.types.update_custom_routing_accelerator_request.UpdateCustomRoutingAcceleratorRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -3454,7 +3564,10 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateCustomRoutingAcceleratorAttributes"),
+        )
         input_: capo_global_accelerator.types.update_custom_routing_accelerator_attributes_request.UpdateCustomRoutingAcceleratorAttributesRequest = {
             "accelerator_arn": accelerator_arn
         }
@@ -3510,7 +3623,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCustomRoutingListener")
+        )
         input_: capo_global_accelerator.types.update_custom_routing_listener_request.UpdateCustomRoutingListenerRequest = {
             "listener_arn": listener_arn,
             "port_ranges": port_ranges,
@@ -3591,7 +3706,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEndpointGroup")
+        )
         input_: capo_global_accelerator.types.update_endpoint_group_request.UpdateEndpointGroupRequest = {
             "endpoint_group_arn": endpoint_group_arn
         }
@@ -3667,7 +3784,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateListener")
+        )
         input_: capo_global_accelerator.types.update_listener_request.UpdateListenerRequest = {
             "listener_arn": listener_arn
         }
@@ -3721,7 +3840,9 @@ class AsyncGlobalAcceleratorClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("WithdrawByoipCidr")
+        )
         input_: capo_global_accelerator.types.withdraw_byoip_cidr_request.WithdrawByoipCidrRequest = {
             "cidr": cidr
         }

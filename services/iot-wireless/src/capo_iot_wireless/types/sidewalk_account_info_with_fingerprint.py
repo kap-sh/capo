@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#SidewalkAccountInfoWithFingerprint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> SidewalkAccountInfoWithFingerprint:
         out["fingerprint"] = data["Fingerprint"]
     if data.get("Arn") is not None:
         out["arn"] = data["Arn"]
+    return out
+
+
+def redact_sensitive(value: SidewalkAccountInfoWithFingerprint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "fingerprint" in value:
+        out["fingerprint"] = "*** Sensitive Data Redacted ***"
     return out

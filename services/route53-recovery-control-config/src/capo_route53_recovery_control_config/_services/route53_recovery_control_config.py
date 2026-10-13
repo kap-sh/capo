@@ -24,10 +24,12 @@ from capo_route53_recovery_control_config._pagination import (
 from capo_route53_recovery_control_config._services._aws_config import aws_config
 from capo_route53_recovery_control_config._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -175,6 +177,7 @@ class Route53RecoveryControlConfigClient:
     def operation_options(
         self,
         config_overrides: Optional[Route53RecoveryControlConfigClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: Route53RecoveryControlConfigClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -182,8 +185,10 @@ class Route53RecoveryControlConfigClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -252,7 +257,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_route53_recovery_control_config.types.create_cluster_request.CreateClusterRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -322,7 +329,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateControlPanel")
+        )
         input_: capo_route53_recovery_control_config.types.create_control_panel_request.CreateControlPanelRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -392,7 +401,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoutingControl")
+        )
         input_: capo_route53_recovery_control_config.types.create_routing_control_request.CreateRoutingControlRequest = {}
         if client_token is None:
             client_token = str(uuid.uuid4())
@@ -457,7 +468,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSafetyRule")
+        )
         input_: capo_route53_recovery_control_config.types.create_safety_rule_request.CreateSafetyRuleRequest = {}
         if assertion_rule is not None:
             input_["assertion_rule"] = assertion_rule
@@ -512,7 +525,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_route53_recovery_control_config.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_arn": cluster_arn
         }
@@ -560,7 +575,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteControlPanel")
+        )
         input_: capo_route53_recovery_control_config.types.delete_control_panel_request.DeleteControlPanelRequest = {
             "control_panel_arn": control_panel_arn
         }
@@ -608,7 +625,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoutingControl")
+        )
         input_: capo_route53_recovery_control_config.types.delete_routing_control_request.DeleteRoutingControlRequest = {
             "routing_control_arn": routing_control_arn
         }
@@ -653,7 +672,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSafetyRule")
+        )
         input_: capo_route53_recovery_control_config.types.delete_safety_rule_request.DeleteSafetyRuleRequest = {
             "safety_rule_arn": safety_rule_arn
         }
@@ -701,7 +722,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_route53_recovery_control_config.types.describe_cluster_request.DescribeClusterRequest = {
             "cluster_arn": cluster_arn
         }
@@ -749,7 +772,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeControlPanel")
+        )
         input_: capo_route53_recovery_control_config.types.describe_control_panel_request.DescribeControlPanelRequest = {
             "control_panel_arn": control_panel_arn
         }
@@ -797,7 +822,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRoutingControl")
+        )
         input_: capo_route53_recovery_control_config.types.describe_routing_control_request.DescribeRoutingControlRequest = {
             "routing_control_arn": routing_control_arn
         }
@@ -841,7 +868,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSafetyRule")
+        )
         input_: capo_route53_recovery_control_config.types.describe_safety_rule_request.DescribeSafetyRuleRequest = {
             "safety_rule_arn": safety_rule_arn
         }
@@ -885,7 +914,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_route53_recovery_control_config.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -938,7 +969,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssociatedRoute53HealthChecks")
+        )
         input_: capo_route53_recovery_control_config.types.list_associated_route53_health_checks_request.ListAssociatedRoute53HealthChecksRequest = {
             "routing_control_arn": routing_control_arn
         }
@@ -1022,7 +1055,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_route53_recovery_control_config.types.list_clusters_request.ListClustersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1106,7 +1141,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListControlPanels")
+        )
         input_: capo_route53_recovery_control_config.types.list_control_panels_request.ListControlPanelsRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -1194,7 +1231,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRoutingControls")
+        )
         input_: capo_route53_recovery_control_config.types.list_routing_controls_request.ListRoutingControlsRequest = {
             "control_panel_arn": control_panel_arn
         }
@@ -1280,7 +1319,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSafetyRules")
+        )
         input_: capo_route53_recovery_control_config.types.list_safety_rules_request.ListSafetyRulesRequest = {
             "control_panel_arn": control_panel_arn
         }
@@ -1356,7 +1397,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_route53_recovery_control_config.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1405,7 +1448,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_route53_recovery_control_config.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1456,7 +1501,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_route53_recovery_control_config.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1512,7 +1559,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_route53_recovery_control_config.types.update_cluster_request.UpdateClusterRequest = {}
         if cluster_arn is not None:
             input_["cluster_arn"] = cluster_arn
@@ -1568,7 +1617,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateControlPanel")
+        )
         input_: capo_route53_recovery_control_config.types.update_control_panel_request.UpdateControlPanelRequest = {}
         if control_panel_arn is not None:
             input_["control_panel_arn"] = control_panel_arn
@@ -1624,7 +1675,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoutingControl")
+        )
         input_: capo_route53_recovery_control_config.types.update_routing_control_request.UpdateRoutingControlRequest = {}
         if routing_control_arn is not None:
             input_["routing_control_arn"] = routing_control_arn
@@ -1677,7 +1730,9 @@ class Route53RecoveryControlConfigClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSafetyRule")
+        )
         input_: capo_route53_recovery_control_config.types.update_safety_rule_request.UpdateSafetyRuleRequest = {}
         if assertion_rule_update is not None:
             input_["assertion_rule_update"] = assertion_rule_update

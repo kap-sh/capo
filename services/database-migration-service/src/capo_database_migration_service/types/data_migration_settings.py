@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.databasemigrationservice#DataMigrationSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_aws_json_1_1(data: dict) -> DataMigrationSettings:
         out["cloudwatch_logs_enabled"] = data["CloudwatchLogsEnabled"]
     if data.get("SelectionRules") is not None:
         out["selection_rules"] = data["SelectionRules"]
+    return out
+
+
+def redact_sensitive(value: DataMigrationSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "selection_rules" in value:
+        out["selection_rules"] = "*** Sensitive Data Redacted ***"
     return out

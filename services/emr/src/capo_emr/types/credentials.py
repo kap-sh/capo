@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.emr#Credentials``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,10 @@ def deserialize_aws_json_1_1(data: dict) -> Credentials:
         }
     else:
         raise DeserializationError("Credentials: no recognized variant key")
+
+
+def redact_sensitive(value: Credentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "UsernamePassword" in value:
+        out["UsernamePassword"] = "*** Sensitive Data Redacted ***"
+    return out

@@ -24,7 +24,9 @@ from capo_snowball._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -191,7 +193,9 @@ class AsyncSnowballClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSnowballClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSnowballClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSnowballClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -199,8 +203,10 @@ class AsyncSnowballClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -258,7 +264,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelCluster")
+        )
         input_: capo_snowball.types.cancel_cluster_request.CancelClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -310,7 +318,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelJob")
+        )
         input_: capo_snowball.types.cancel_job_request.CancelJobRequest = {
             "job_id": job_id
         }
@@ -361,7 +371,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAddress")
+        )
         input_: capo_snowball.types.create_address_request.CreateAddressRequest = {
             "address": address
         }
@@ -460,7 +472,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_snowball.types.create_cluster_request.CreateClusterRequest = {
             "job_type": job_type,
             "address_id": address_id,
@@ -599,7 +613,16 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_snowball.types.create_job_request.CreateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_snowball.types.create_job_request
+
+            return capo_snowball.types.create_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJob", redact_input=_redact_input)
+        )
         input_: capo_snowball.types.create_job_request.CreateJobRequest = {}
         if job_type is not None:
             input_["job_type"] = job_type
@@ -685,7 +708,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLongTermPricing")
+        )
         input_: capo_snowball.types.create_long_term_pricing_request.CreateLongTermPricingRequest = {
             "long_term_pricing_type": long_term_pricing_type,
             "snowball_type": snowball_type,
@@ -740,7 +765,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReturnShippingLabel")
+        )
         input_: capo_snowball.types.create_return_shipping_label_request.CreateReturnShippingLabelRequest = {
             "job_id": job_id
         }
@@ -792,7 +819,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAddress")
+        )
         input_: capo_snowball.types.describe_address_request.DescribeAddressRequest = {
             "address_id": address_id
         }
@@ -845,7 +874,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAddresses")
+        )
         input_: capo_snowball.types.describe_addresses_request.DescribeAddressesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -912,7 +943,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_snowball.types.describe_cluster_request.DescribeClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -956,7 +989,17 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_snowball.types.describe_job_result.DescribeJobResult",
+        ) -> dict[str, Any]:
+            import capo_snowball.types.describe_job_result
+
+            return capo_snowball.types.describe_job_result.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeJob", redact_output=_redact_output),
+        )
         input_: capo_snowball.types.describe_job_request.DescribeJobRequest = {
             "job_id": job_id
         }
@@ -1002,7 +1045,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReturnShippingLabel")
+        )
         input_: capo_snowball.types.describe_return_shipping_label_request.DescribeReturnShippingLabelRequest = {
             "job_id": job_id
         }
@@ -1059,7 +1104,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobManifest")
+        )
         input_: capo_snowball.types.get_job_manifest_request.GetJobManifestRequest = {
             "job_id": job_id
         }
@@ -1114,7 +1161,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJobUnlockCode")
+        )
         input_: capo_snowball.types.get_job_unlock_code_request.GetJobUnlockCodeRequest = {
             "job_id": job_id
         }
@@ -1159,7 +1208,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSnowballUsage")
+        )
         input_: capo_snowball.types.get_snowball_usage_request.GetSnowballUsageRequest = {}
 
         response = await aexecute_pipeline(
@@ -1202,7 +1253,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSoftwareUpdates")
+        )
         input_: capo_snowball.types.get_software_updates_request.GetSoftwareUpdatesRequest = {
             "job_id": job_id
         }
@@ -1251,7 +1304,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterJobs")
+        )
         input_: capo_snowball.types.list_cluster_jobs_request.ListClusterJobsRequest = {
             "cluster_id": cluster_id
         }
@@ -1324,7 +1379,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_snowball.types.list_clusters_request.ListClustersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1394,7 +1451,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCompatibleImages")
+        )
         input_: capo_snowball.types.list_compatible_images_request.ListCompatibleImagesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1463,7 +1522,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_snowball.types.list_jobs_request.ListJobsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1533,7 +1594,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLongTermPricing")
+        )
         input_: capo_snowball.types.list_long_term_pricing_request.ListLongTermPricingRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1608,7 +1671,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPickupLocations")
+        )
         input_: capo_snowball.types.list_pickup_locations_request.ListPickupLocationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1682,7 +1747,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceVersions")
+        )
         input_: capo_snowball.types.list_service_versions_request.ListServiceVersionsRequest = {
             "service_name": service_name
         }
@@ -1764,7 +1831,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_snowball.types.update_cluster_request.UpdateClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -1864,7 +1933,16 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_snowball.types.update_job_request.UpdateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_snowball.types.update_job_request
+
+            return capo_snowball.types.update_job_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJob", redact_input=_redact_input)
+        )
         input_: capo_snowball.types.update_job_request.UpdateJobRequest = {
             "job_id": job_id
         }
@@ -1931,7 +2009,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateJobShipmentState")
+        )
         input_: capo_snowball.types.update_job_shipment_state_request.UpdateJobShipmentStateRequest = {
             "job_id": job_id,
             "shipment_state": shipment_state,
@@ -1982,7 +2062,9 @@ class AsyncSnowballClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLongTermPricing")
+        )
         input_: capo_snowball.types.update_long_term_pricing_request.UpdateLongTermPricingRequest = {
             "long_term_pricing_id": long_term_pricing_id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteMatrixTravelModeOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,6 +73,33 @@ def deserialize_json(data: dict) -> RouteMatrixTravelModeOptions:
         out["truck"] = (
             capo_geo_routes.types.route_matrix_truck_options.deserialize_json(
                 data["Truck"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteMatrixTravelModeOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "car" in value:
+        import capo_geo_routes.types.route_matrix_car_options
+
+        out["car"] = capo_geo_routes.types.route_matrix_car_options.redact_sensitive(
+            value["car"]
+        )
+    if "scooter" in value:
+        import capo_geo_routes.types.route_matrix_scooter_options
+
+        out["scooter"] = (
+            capo_geo_routes.types.route_matrix_scooter_options.redact_sensitive(
+                value["scooter"]
+            )
+        )
+    if "truck" in value:
+        import capo_geo_routes.types.route_matrix_truck_options
+
+        out["truck"] = (
+            capo_geo_routes.types.route_matrix_truck_options.redact_sensitive(
+                value["truck"]
             )
         )
     return out

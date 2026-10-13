@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#StartNetworkMigrationMappingUpdateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,6 +84,21 @@ def deserialize_json(data: dict) -> StartNetworkMigrationMappingUpdateRequest:
         out["segments"] = (
             capo_mgn.types.start_network_migration_mapping_update_segments.deserialize_json(
                 data["segments"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: StartNetworkMigrationMappingUpdateRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "segments" in value:
+        import capo_mgn.types.start_network_migration_mapping_update_segments
+
+        out["segments"] = (
+            capo_mgn.types.start_network_migration_mapping_update_segments.redact_sensitive(
+                value["segments"]
             )
         )
     return out

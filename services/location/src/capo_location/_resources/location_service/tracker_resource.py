@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -129,7 +130,17 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_tracker_response.CreateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_tracker_response
+
+            return capo_location.types.create_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_tracker_request.CreateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -194,7 +205,19 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_tracker_response.DescribeTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_tracker_response
+
+            return capo_location.types.describe_tracker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_tracker_request.DescribeTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -257,7 +280,17 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_tracker_response.UpdateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_tracker_response
+
+            return capo_location.types.update_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_tracker_request.UpdateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -318,7 +351,9 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTracker")
+        )
         input_: capo_location.types.delete_tracker_request.DeleteTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -366,7 +401,17 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_trackers_response.ListTrackersResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_trackers_response
+
+            return capo_location.types.list_trackers_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListTrackers", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_trackers_request.ListTrackersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -419,7 +464,9 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateTrackerConsumer")
+        )
         input_: capo_location.types.associate_tracker_consumer_request.AssociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -469,7 +516,9 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDevicePositionHistory")
+        )
         input_: capo_location.types.batch_delete_device_position_history_request.BatchDeleteDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -519,7 +568,21 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.batch_get_device_position_response.BatchGetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_get_device_position_response
+
+            return (
+                capo_location.types.batch_get_device_position_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.batch_get_device_position_request.BatchGetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -569,7 +632,32 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_request
+
+            return capo_location.types.batch_update_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_update_device_position_response.BatchUpdateDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_response
+
+            return capo_location.types.batch_update_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchUpdateDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest = {
             "tracker_name": tracker_name,
             "updates": updates,
@@ -619,7 +707,9 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateTrackerConsumer")
+        )
         input_: capo_location.types.disassociate_tracker_consumer_request.DisassociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -669,7 +759,19 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_device_position_response.GetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_response
+
+            return capo_location.types.get_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_device_position_request.GetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -729,7 +831,32 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_request
+
+            return capo_location.types.get_device_position_history_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.get_device_position_history_response.GetDevicePositionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_response
+
+            return capo_location.types.get_device_position_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDevicePositionHistory",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -794,7 +921,32 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.list_device_positions_request.ListDevicePositionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_request
+
+            return capo_location.types.list_device_positions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.list_device_positions_response.ListDevicePositionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_response
+
+            return capo_location.types.list_device_positions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDevicePositions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.list_device_positions_request.ListDevicePositionsRequest = {
             "tracker_name": tracker_name
         }
@@ -851,7 +1003,9 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrackerConsumers")
+        )
         input_: capo_location.types.list_tracker_consumers_request.ListTrackerConsumersRequest = {
             "tracker_name": tracker_name
         }
@@ -908,7 +1062,32 @@ class TrackerResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.verify_device_position_request.VerifyDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_request
+
+            return capo_location.types.verify_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.verify_device_position_response.VerifyDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_response
+
+            return capo_location.types.verify_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "VerifyDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.verify_device_position_request.VerifyDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_state": device_state,
@@ -985,7 +1164,17 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.create_tracker_response.CreateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_tracker_response
+
+            return capo_location.types.create_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.create_tracker_request.CreateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -1051,7 +1240,19 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_tracker_response.DescribeTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_tracker_response
+
+            return capo_location.types.describe_tracker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_tracker_request.DescribeTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -1115,7 +1316,17 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.update_tracker_response.UpdateTrackerResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_tracker_response
+
+            return capo_location.types.update_tracker_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateTracker", redact_output=_redact_output),
+        )
         input_: capo_location.types.update_tracker_request.UpdateTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -1177,7 +1388,9 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTracker")
+        )
         input_: capo_location.types.delete_tracker_request.DeleteTrackerRequest = {
             "tracker_name": tracker_name
         }
@@ -1226,7 +1439,17 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_trackers_response.ListTrackersResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_trackers_response
+
+            return capo_location.types.list_trackers_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListTrackers", redact_output=_redact_output),
+        )
         input_: capo_location.types.list_trackers_request.ListTrackersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1280,7 +1503,9 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateTrackerConsumer")
+        )
         input_: capo_location.types.associate_tracker_consumer_request.AssociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -1331,7 +1556,9 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDevicePositionHistory")
+        )
         input_: capo_location.types.batch_delete_device_position_history_request.BatchDeleteDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -1382,7 +1609,21 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.batch_get_device_position_response.BatchGetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_get_device_position_response
+
+            return (
+                capo_location.types.batch_get_device_position_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.batch_get_device_position_request.BatchGetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_ids": device_ids,
@@ -1433,7 +1674,32 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_request
+
+            return capo_location.types.batch_update_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.batch_update_device_position_response.BatchUpdateDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.batch_update_device_position_response
+
+            return capo_location.types.batch_update_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchUpdateDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.batch_update_device_position_request.BatchUpdateDevicePositionRequest = {
             "tracker_name": tracker_name,
             "updates": updates,
@@ -1484,7 +1750,9 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateTrackerConsumer")
+        )
         input_: capo_location.types.disassociate_tracker_consumer_request.DisassociateTrackerConsumerRequest = {
             "tracker_name": tracker_name,
             "consumer_arn": consumer_arn,
@@ -1535,7 +1803,19 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.get_device_position_response.GetDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_response
+
+            return capo_location.types.get_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDevicePosition", redact_output=_redact_output),
+        )
         input_: capo_location.types.get_device_position_request.GetDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -1596,7 +1876,32 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_request
+
+            return capo_location.types.get_device_position_history_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.get_device_position_history_response.GetDevicePositionHistoryResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_device_position_history_response
+
+            return capo_location.types.get_device_position_history_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetDevicePositionHistory",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.get_device_position_history_request.GetDevicePositionHistoryRequest = {
             "tracker_name": tracker_name,
             "device_id": device_id,
@@ -1662,7 +1967,32 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.list_device_positions_request.ListDevicePositionsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_request
+
+            return capo_location.types.list_device_positions_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.list_device_positions_response.ListDevicePositionsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_device_positions_response
+
+            return capo_location.types.list_device_positions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListDevicePositions",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.list_device_positions_request.ListDevicePositionsRequest = {
             "tracker_name": tracker_name
         }
@@ -1720,7 +2050,9 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTrackerConsumers")
+        )
         input_: capo_location.types.list_tracker_consumers_request.ListTrackerConsumersRequest = {
             "tracker_name": tracker_name
         }
@@ -1778,7 +2110,32 @@ class AsyncTrackerResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.verify_device_position_request.VerifyDevicePositionRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_request
+
+            return capo_location.types.verify_device_position_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_location.types.verify_device_position_response.VerifyDevicePositionResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.verify_device_position_response
+
+            return capo_location.types.verify_device_position_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "VerifyDevicePosition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_location.types.verify_device_position_request.VerifyDevicePositionRequest = {
             "tracker_name": tracker_name,
             "device_state": device_state,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#Activity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -140,5 +140,42 @@ def deserialize_json(data: dict) -> Activity:
 
         out["comment_metadata"] = capo_workdocs.types.comment_metadata.deserialize_json(
             data["CommentMetadata"]
+        )
+    return out
+
+
+def redact_sensitive(value: Activity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "initiator" in value:
+        import capo_workdocs.types.user_metadata
+
+        out["initiator"] = capo_workdocs.types.user_metadata.redact_sensitive(
+            value["initiator"]
+        )
+    if "participants" in value:
+        import capo_workdocs.types.participants
+
+        out["participants"] = capo_workdocs.types.participants.redact_sensitive(
+            value["participants"]
+        )
+    if "resource_metadata" in value:
+        import capo_workdocs.types.resource_metadata
+
+        out["resource_metadata"] = (
+            capo_workdocs.types.resource_metadata.redact_sensitive(
+                value["resource_metadata"]
+            )
+        )
+    if "original_parent" in value:
+        import capo_workdocs.types.resource_metadata
+
+        out["original_parent"] = capo_workdocs.types.resource_metadata.redact_sensitive(
+            value["original_parent"]
+        )
+    if "comment_metadata" in value:
+        import capo_workdocs.types.comment_metadata
+
+        out["comment_metadata"] = capo_workdocs.types.comment_metadata.redact_sensitive(
+            value["comment_metadata"]
         )
     return out

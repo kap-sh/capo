@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.auditmanager#Controls``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_auditmanager.types.control
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> Controls:
             continue
         out.append(capo_auditmanager.types.control.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: Controls) -> list[Any]:
+    import capo_auditmanager.types.control
+
+    return [capo_auditmanager.types.control.redact_sensitive(item) for item in value]

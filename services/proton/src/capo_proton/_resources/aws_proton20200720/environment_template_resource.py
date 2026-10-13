@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,34 @@ class EnvironmentTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_template_input.CreateEnvironmentTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_input
+
+            return capo_proton.types.create_environment_template_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_template_output.CreateEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_output
+
+            return (
+                capo_proton.types.create_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_template_input.CreateEnvironmentTemplateInput = {
             "name": name
         }
@@ -146,7 +174,19 @@ class EnvironmentTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_template_output.GetEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_template_output
+
+            return capo_proton.types.get_environment_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironmentTemplate", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_environment_template_input.GetEnvironmentTemplateInput = {
             "name": name
         }
@@ -198,7 +238,34 @@ class EnvironmentTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_template_input.UpdateEnvironmentTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_input
+
+            return capo_proton.types.update_environment_template_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_template_output.UpdateEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_output
+
+            return (
+                capo_proton.types.update_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_template_input.UpdateEnvironmentTemplateInput = {
             "name": name
         }
@@ -250,7 +317,21 @@ class EnvironmentTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_template_output.DeleteEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_template_output
+
+            return (
+                capo_proton.types.delete_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironmentTemplate", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_environment_template_input.DeleteEnvironmentTemplateInput = {
             "name": name
         }
@@ -300,7 +381,19 @@ class EnvironmentTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_templates_output.ListEnvironmentTemplatesOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_templates_output
+
+            return capo_proton.types.list_environment_templates_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironmentTemplates", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environment_templates_input.ListEnvironmentTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -366,7 +459,34 @@ class AsyncEnvironmentTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_template_input.CreateEnvironmentTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_input
+
+            return capo_proton.types.create_environment_template_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_template_output.CreateEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_template_output
+
+            return (
+                capo_proton.types.create_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironmentTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_template_input.CreateEnvironmentTemplateInput = {
             "name": name
         }
@@ -426,7 +546,19 @@ class AsyncEnvironmentTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_template_output.GetEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_template_output
+
+            return capo_proton.types.get_environment_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironmentTemplate", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_environment_template_input.GetEnvironmentTemplateInput = {
             "name": name
         }
@@ -479,7 +611,34 @@ class AsyncEnvironmentTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_template_input.UpdateEnvironmentTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_input
+
+            return capo_proton.types.update_environment_template_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_template_output.UpdateEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_template_output
+
+            return (
+                capo_proton.types.update_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironmentTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_template_input.UpdateEnvironmentTemplateInput = {
             "name": name
         }
@@ -532,7 +691,21 @@ class AsyncEnvironmentTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_template_output.DeleteEnvironmentTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_template_output
+
+            return (
+                capo_proton.types.delete_environment_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironmentTemplate", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_environment_template_input.DeleteEnvironmentTemplateInput = {
             "name": name
         }
@@ -583,7 +756,19 @@ class AsyncEnvironmentTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environment_templates_output.ListEnvironmentTemplatesOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environment_templates_output
+
+            return capo_proton.types.list_environment_templates_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironmentTemplates", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environment_templates_input.ListEnvironmentTemplatesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

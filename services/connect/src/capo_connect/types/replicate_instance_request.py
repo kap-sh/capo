@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#ReplicateInstanceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> ReplicateInstanceRequest:
         out["client_token"] = data["ClientToken"]
     if data.get("ReplicaAlias") is not None:
         out["replica_alias"] = data["ReplicaAlias"]
+    return out
+
+
+def redact_sensitive(value: ReplicateInstanceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "replica_alias" in value:
+        out["replica_alias"] = "*** Sensitive Data Redacted ***"
     return out

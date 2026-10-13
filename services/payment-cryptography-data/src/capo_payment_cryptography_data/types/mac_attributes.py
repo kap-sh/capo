@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#MacAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -139,3 +139,16 @@ def deserialize_json(data: dict) -> MacAttributes:
         }
     else:
         raise DeserializationError("MacAttributes: no recognized variant key")
+
+
+def redact_sensitive(value: MacAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "EmvMac" in value:
+        import capo_payment_cryptography_data.types.mac_algorithm_emv
+
+        out["EmvMac"] = (
+            capo_payment_cryptography_data.types.mac_algorithm_emv.redact_sensitive(
+                value["EmvMac"]
+            )
+        )
+    return out

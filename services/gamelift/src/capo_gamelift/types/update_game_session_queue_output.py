@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#UpdateGameSessionQueueOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateGameSessionQueueOutput:
         out["game_session_queue"] = (
             capo_gamelift.types.game_session_queue.deserialize_aws_json_1_1(
                 data["GameSessionQueue"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateGameSessionQueueOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "game_session_queue" in value:
+        import capo_gamelift.types.game_session_queue
+
+        out["game_session_queue"] = (
+            capo_gamelift.types.game_session_queue.redact_sensitive(
+                value["game_session_queue"]
             )
         )
     return out

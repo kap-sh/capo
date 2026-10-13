@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#SchemaDefinition``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -30,3 +30,10 @@ def deserialize_aws_json_1_0(data: dict) -> SchemaDefinition:
         return {"cedarJson": data["cedarJson"]}
     else:
         raise DeserializationError("SchemaDefinition: no recognized variant key")
+
+
+def redact_sensitive(value: SchemaDefinition) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cedarJson" in value:
+        out["cedarJson"] = "*** Sensitive Data Redacted ***"
+    return out

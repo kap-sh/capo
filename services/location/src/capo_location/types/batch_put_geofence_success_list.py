@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#BatchPutGeofenceSuccessList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.batch_put_geofence_success
@@ -31,3 +31,12 @@ def deserialize_json(data: list) -> BatchPutGeofenceSuccessList:
             capo_location.types.batch_put_geofence_success.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BatchPutGeofenceSuccessList) -> list[Any]:
+    import capo_location.types.batch_put_geofence_success
+
+    return [
+        capo_location.types.batch_put_geofence_success.redact_sensitive(item)
+        for item in value
+    ]

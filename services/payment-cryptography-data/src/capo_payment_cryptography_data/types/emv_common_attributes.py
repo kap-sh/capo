@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#EmvCommonAttributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -136,4 +136,13 @@ def deserialize_json(data: dict) -> EmvCommonAttributes:
         raise DeserializationError(
             "EmvCommonAttributes.pin_block_length_position required"
         )
+    return out
+
+
+def redact_sensitive(value: EmvCommonAttributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
+    if "application_cryptogram" in value:
+        out["application_cryptogram"] = "*** Sensitive Data Redacted ***"
     return out

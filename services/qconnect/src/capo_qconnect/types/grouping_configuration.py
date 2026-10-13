@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#GroupingConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,5 +39,18 @@ def deserialize_json(data: dict) -> GroupingConfiguration:
 
         out["values"] = capo_qconnect.types.grouping_values.deserialize_json(
             data["values"]
+        )
+    return out
+
+
+def redact_sensitive(value: GroupingConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "criteria" in value:
+        out["criteria"] = "*** Sensitive Data Redacted ***"
+    if "values" in value:
+        import capo_qconnect.types.grouping_values
+
+        out["values"] = capo_qconnect.types.grouping_values.redact_sensitive(
+            value["values"]
         )
     return out

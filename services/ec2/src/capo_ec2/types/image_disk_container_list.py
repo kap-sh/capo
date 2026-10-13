@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ImageDiskContainerList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from capo_ec2._protocol.xml import Element
 
@@ -42,3 +42,11 @@ def deserialize_ec2_query_flat(parent: Element, tag: str) -> ImageDiskContainerL
     for child in parent.findall(tag):
         out.append(capo_ec2.types.image_disk_container.deserialize_ec2_query(child))
     return out
+
+
+def redact_sensitive(value: ImageDiskContainerList) -> list[Any]:
+    import capo_ec2.types.image_disk_container
+
+    return [
+        capo_ec2.types.image_disk_container.redact_sensitive(item) for item in value
+    ]

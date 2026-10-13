@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#VocabularyEntity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -80,6 +80,21 @@ def deserialize_json(data: dict) -> VocabularyEntity:
         out["last_modified_time"] = (
             capo_bedrock_data_automation.types.date_timestamp.deserialize_json(
                 data["lastModifiedTime"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: VocabularyEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "phrases" in value:
+        import capo_bedrock_data_automation.types.phrase_list
+
+        out["phrases"] = (
+            capo_bedrock_data_automation.types.phrase_list.redact_sensitive(
+                value["phrases"]
             )
         )
     return out

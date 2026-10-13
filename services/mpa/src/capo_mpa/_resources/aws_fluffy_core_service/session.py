@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_mpa._auth._signers
 import capo_mpa._auth._sigv4
 from capo_mpa._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,17 @@ class Session:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_session_response
+
+            return capo_mpa.types.get_session_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_session_request.GetSessionRequest = {
             "session_arn": session_arn
         }
@@ -116,7 +127,9 @@ class Session:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelSession")
+        )
         input_: capo_mpa.types.cancel_session_request.CancelSessionRequest = {
             "session_arn": session_arn
         }
@@ -169,7 +182,17 @@ class Session:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_sessions_response.ListSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_sessions_response
+
+            return capo_mpa.types.list_sessions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListSessions", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_sessions_request.ListSessionsRequest = {
             "approval_team_arn": approval_team_arn
         }
@@ -228,7 +251,17 @@ class AsyncSession:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.get_session_response.GetSessionResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.get_session_response
+
+            return capo_mpa.types.get_session_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetSession", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.get_session_request.GetSessionRequest = {
             "session_arn": session_arn
         }
@@ -277,7 +310,9 @@ class AsyncSession:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelSession")
+        )
         input_: capo_mpa.types.cancel_session_request.CancelSessionRequest = {
             "session_arn": session_arn
         }
@@ -331,7 +366,17 @@ class AsyncSession:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mpa.types.list_sessions_response.ListSessionsResponse",
+        ) -> dict[str, Any]:
+            import capo_mpa.types.list_sessions_response
+
+            return capo_mpa.types.list_sessions_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListSessions", redact_output=_redact_output),
+        )
         input_: capo_mpa.types.list_sessions_request.ListSessionsRequest = {
             "approval_team_arn": approval_team_arn
         }

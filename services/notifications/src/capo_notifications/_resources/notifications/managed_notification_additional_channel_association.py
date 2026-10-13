@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -74,7 +75,10 @@ class ManagedNotificationAdditionalChannelAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.associate_managed_notification_additional_channel_request.AssociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -126,7 +130,10 @@ class ManagedNotificationAdditionalChannelAssociation:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_additional_channel_request.DisassociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -186,7 +193,10 @@ class AsyncManagedNotificationAdditionalChannelAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("AssociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.associate_managed_notification_additional_channel_request.AssociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,
@@ -239,7 +249,10 @@ class AsyncManagedNotificationAdditionalChannelAssociation:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateManagedNotificationAdditionalChannel"),
+        )
         input_: capo_notifications.types.disassociate_managed_notification_additional_channel_request.DisassociateManagedNotificationAdditionalChannelRequest = {
             "channel_arn": channel_arn,
             "managed_notification_configuration_arn": managed_notification_configuration_arn,

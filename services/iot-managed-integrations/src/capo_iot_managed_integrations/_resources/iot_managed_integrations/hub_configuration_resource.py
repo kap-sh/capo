@@ -7,6 +7,7 @@ import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -62,7 +63,9 @@ class HubConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_hub_configuration_request.GetHubConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -108,7 +111,9 @@ class HubConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.put_hub_configuration_request.PutHubConfigurationRequest = {
             "hub_token_timer_expiry_setting_in_seconds": hub_token_timer_expiry_setting_in_seconds
         }
@@ -158,7 +163,9 @@ class AsyncHubConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_hub_configuration_request.GetHubConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -205,7 +212,9 @@ class AsyncHubConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.put_hub_configuration_request.PutHubConfigurationRequest = {
             "hub_token_timer_expiry_setting_in_seconds": hub_token_timer_expiry_setting_in_seconds
         }

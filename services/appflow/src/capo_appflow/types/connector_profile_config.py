@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#ConnectorProfileConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,6 +63,19 @@ def deserialize_json(data: dict) -> ConnectorProfileConfig:
         out["connector_profile_credentials"] = (
             capo_appflow.types.connector_profile_credentials.deserialize_json(
                 data["connectorProfileCredentials"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectorProfileConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connector_profile_credentials" in value:
+        import capo_appflow.types.connector_profile_credentials
+
+        out["connector_profile_credentials"] = (
+            capo_appflow.types.connector_profile_credentials.redact_sensitive(
+                value["connector_profile_credentials"]
             )
         )
     return out

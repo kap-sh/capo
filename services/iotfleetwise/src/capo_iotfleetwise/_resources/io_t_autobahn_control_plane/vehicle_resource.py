@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_iotfleetwise._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -109,7 +110,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVehicle")
+        )
         input_: capo_iotfleetwise.types.create_vehicle_request.CreateVehicleRequest = {
             "vehicle_name": vehicle_name,
             "model_manifest_arn": model_manifest_arn,
@@ -166,7 +169,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVehicle")
+        )
         input_: capo_iotfleetwise.types.get_vehicle_request.GetVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -239,7 +244,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVehicle")
+        )
         input_: capo_iotfleetwise.types.update_vehicle_request.UpdateVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -299,7 +306,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVehicle")
+        )
         input_: capo_iotfleetwise.types.delete_vehicle_request.DeleteVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -363,7 +372,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVehicles")
+        )
         input_: capo_iotfleetwise.types.list_vehicles_request.ListVehiclesRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -423,7 +434,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.associate_vehicle_fleet_request.AssociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,
@@ -473,7 +486,9 @@ class VehicleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.disassociate_vehicle_fleet_request.DisassociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,
@@ -547,7 +562,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateVehicle")
+        )
         input_: capo_iotfleetwise.types.create_vehicle_request.CreateVehicleRequest = {
             "vehicle_name": vehicle_name,
             "model_manifest_arn": model_manifest_arn,
@@ -605,7 +622,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetVehicle")
+        )
         input_: capo_iotfleetwise.types.get_vehicle_request.GetVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -679,7 +698,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateVehicle")
+        )
         input_: capo_iotfleetwise.types.update_vehicle_request.UpdateVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -740,7 +761,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteVehicle")
+        )
         input_: capo_iotfleetwise.types.delete_vehicle_request.DeleteVehicleRequest = {
             "vehicle_name": vehicle_name
         }
@@ -805,7 +828,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListVehicles")
+        )
         input_: capo_iotfleetwise.types.list_vehicles_request.ListVehiclesRequest = {}
         if model_manifest_arn is not None:
             input_["model_manifest_arn"] = model_manifest_arn
@@ -866,7 +891,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.associate_vehicle_fleet_request.AssociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,
@@ -917,7 +944,9 @@ class AsyncVehicleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateVehicleFleet")
+        )
         input_: capo_iotfleetwise.types.disassociate_vehicle_fleet_request.DisassociateVehicleFleetRequest = {
             "vehicle_name": vehicle_name,
             "fleet_id": fleet_id,

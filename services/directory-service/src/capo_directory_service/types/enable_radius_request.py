@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#EnableRadiusRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_aws_json_1_1(data: dict) -> EnableRadiusRequest:
         )
     else:
         raise DeserializationError("EnableRadiusRequest.radius_settings required")
+    return out
+
+
+def redact_sensitive(value: EnableRadiusRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "radius_settings" in value:
+        import capo_directory_service.types.radius_settings
+
+        out["radius_settings"] = (
+            capo_directory_service.types.radius_settings.redact_sensitive(
+                value["radius_settings"]
+            )
+        )
     return out

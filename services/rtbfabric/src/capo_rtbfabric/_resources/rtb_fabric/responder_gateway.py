@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_rtbfabric._auth._signers
 import capo_rtbfabric._auth._sigv4
 from capo_rtbfabric._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -132,7 +133,21 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.create_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.create_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -206,7 +221,19 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rtbfabric.types.get_responder_gateway_response.GetResponderGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.get_responder_gateway_response
+
+            return capo_rtbfabric.types.get_responder_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetResponderGateway", redact_output=_redact_output),
+        )
         input_: capo_rtbfabric.types.get_responder_gateway_request.GetResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -260,7 +287,9 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResponderGateway")
+        )
         input_: capo_rtbfabric.types.delete_responder_gateway_request.DeleteResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -319,7 +348,9 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateCertificate")
+        )
         input_: capo_rtbfabric.types.associate_certificate_request.AssociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -378,7 +409,9 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateCertificate")
+        )
         input_: capo_rtbfabric.types.disassociate_certificate_request.DisassociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -434,7 +467,9 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCertificateAssociation")
+        )
         input_: capo_rtbfabric.types.get_certificate_association_request.GetCertificateAssociationRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -492,7 +527,9 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCertificateAssociations")
+        )
         input_: capo_rtbfabric.types.list_certificate_associations_request.ListCertificateAssociationsRequest = {
             "gateway_id": gateway_id
         }
@@ -576,7 +613,21 @@ class ResponderGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.update_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.update_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest = {
             "port": port,
             "protocol": protocol,
@@ -684,7 +735,21 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.create_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.create_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.create_responder_gateway_request.CreateResponderGatewayRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -759,7 +824,19 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_rtbfabric.types.get_responder_gateway_response.GetResponderGatewayResponse",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.get_responder_gateway_response
+
+            return capo_rtbfabric.types.get_responder_gateway_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetResponderGateway", redact_output=_redact_output),
+        )
         input_: capo_rtbfabric.types.get_responder_gateway_request.GetResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -814,7 +891,9 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResponderGateway")
+        )
         input_: capo_rtbfabric.types.delete_responder_gateway_request.DeleteResponderGatewayRequest = {
             "gateway_id": gateway_id
         }
@@ -874,7 +953,9 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateCertificate")
+        )
         input_: capo_rtbfabric.types.associate_certificate_request.AssociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -934,7 +1015,9 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateCertificate")
+        )
         input_: capo_rtbfabric.types.disassociate_certificate_request.DisassociateCertificateRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -991,7 +1074,9 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCertificateAssociation")
+        )
         input_: capo_rtbfabric.types.get_certificate_association_request.GetCertificateAssociationRequest = {
             "gateway_id": gateway_id,
             "acm_certificate_arn": acm_certificate_arn,
@@ -1050,7 +1135,9 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCertificateAssociations")
+        )
         input_: capo_rtbfabric.types.list_certificate_associations_request.ListCertificateAssociationsRequest = {
             "gateway_id": gateway_id
         }
@@ -1135,7 +1222,21 @@ class AsyncResponderGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest",
+        ) -> dict[str, Any]:
+            import capo_rtbfabric.types.update_responder_gateway_request
+
+            return (
+                capo_rtbfabric.types.update_responder_gateway_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateResponderGateway", redact_input=_redact_input),
+        )
         input_: capo_rtbfabric.types.update_responder_gateway_request.UpdateResponderGatewayRequest = {
             "port": port,
             "protocol": protocol,

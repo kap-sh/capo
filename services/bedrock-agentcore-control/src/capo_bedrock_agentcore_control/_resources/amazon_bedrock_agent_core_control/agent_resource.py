@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -146,7 +147,19 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_agent_runtime_request.CreateAgentRuntimeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_request
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAgentRuntime", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_agent_runtime_request.CreateAgentRuntimeRequest = {
             "agent_runtime_name": agent_runtime_name,
             "agent_runtime_artifact": agent_runtime_artifact,
@@ -224,7 +237,19 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_agent_runtime_response.GetAgentRuntimeResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_response
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentRuntime", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_agent_runtime_request.GetAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -326,7 +351,19 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_agent_runtime_request.UpdateAgentRuntimeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_agent_runtime_request
+
+            return capo_bedrock_agentcore_control.types.update_agent_runtime_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgentRuntime", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_agent_runtime_request.UpdateAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id,
             "agent_runtime_artifact": agent_runtime_artifact,
@@ -408,7 +445,9 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentRuntime")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_agent_runtime_request.DeleteAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -465,7 +504,19 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtimes_response.ListAgentRuntimesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtimes_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtimes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimes", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtimes_request.ListAgentRuntimesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -522,7 +573,19 @@ class AgentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response.ListAgentRuntimeVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeVersions", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_versions_request.ListAgentRuntimeVersionsRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -629,7 +692,19 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_agent_runtime_request.CreateAgentRuntimeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_agent_runtime_request
+
+            return capo_bedrock_agentcore_control.types.create_agent_runtime_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateAgentRuntime", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.create_agent_runtime_request.CreateAgentRuntimeRequest = {
             "agent_runtime_name": agent_runtime_name,
             "agent_runtime_artifact": agent_runtime_artifact,
@@ -708,7 +783,19 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_agent_runtime_response.GetAgentRuntimeResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_agent_runtime_response
+
+            return capo_bedrock_agentcore_control.types.get_agent_runtime_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetAgentRuntime", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_agent_runtime_request.GetAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -811,7 +898,19 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_agent_runtime_request.UpdateAgentRuntimeRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_agent_runtime_request
+
+            return capo_bedrock_agentcore_control.types.update_agent_runtime_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAgentRuntime", redact_input=_redact_input),
+        )
         input_: capo_bedrock_agentcore_control.types.update_agent_runtime_request.UpdateAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id,
             "agent_runtime_artifact": agent_runtime_artifact,
@@ -894,7 +993,9 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAgentRuntime")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_agent_runtime_request.DeleteAgentRuntimeRequest = {
             "agent_runtime_id": agent_runtime_id
         }
@@ -952,7 +1053,19 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtimes_response.ListAgentRuntimesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtimes_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtimes_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimes", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtimes_request.ListAgentRuntimesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1010,7 +1123,19 @@ class AsyncAgentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response.ListAgentRuntimeVersionsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response
+
+            return capo_bedrock_agentcore_control.types.list_agent_runtime_versions_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListAgentRuntimeVersions", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_agent_runtime_versions_request.ListAgentRuntimeVersionsRequest = {
             "agent_runtime_id": agent_runtime_id
         }

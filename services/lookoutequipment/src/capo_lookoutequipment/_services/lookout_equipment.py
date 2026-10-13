@@ -21,10 +21,12 @@ from capo_lookoutequipment._pagination import resolve_path as _resolve_path
 from capo_lookoutequipment._services._aws_config import aws_config
 from capo_lookoutequipment._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -240,7 +242,9 @@ class LookoutEquipmentClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[LookoutEquipmentClientConfig] = None
+        self,
+        config_overrides: Optional[LookoutEquipmentClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LookoutEquipmentClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -248,8 +252,10 @@ class LookoutEquipmentClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -315,7 +321,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataset")
+        )
         input_: capo_lookoutequipment.types.create_dataset_request.CreateDatasetRequest = {
             "dataset_name": dataset_name,
             "client_token": client_token,
@@ -393,7 +401,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.create_inference_scheduler_request.CreateInferenceSchedulerRequest = {
             "model_name": model_name,
             "inference_scheduler_name": inference_scheduler_name,
@@ -468,7 +478,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLabel")
+        )
         input_: capo_lookoutequipment.types.create_label_request.CreateLabelRequest = {
             "label_group_name": label_group_name,
             "start_time": start_time,
@@ -534,7 +546,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLabelGroup")
+        )
         input_: capo_lookoutequipment.types.create_label_group_request.CreateLabelGroupRequest = {
             "label_group_name": label_group_name,
             "client_token": client_token,
@@ -638,7 +652,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateModel")
+        )
         input_: capo_lookoutequipment.types.create_model_request.CreateModelRequest = {
             "model_name": model_name,
             "dataset_name": dataset_name,
@@ -738,7 +754,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.create_retraining_scheduler_request.CreateRetrainingSchedulerRequest = {
             "model_name": model_name,
             "retraining_frequency": retraining_frequency,
@@ -791,7 +809,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_lookoutequipment.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_name": dataset_name
         }
@@ -837,7 +857,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.delete_inference_scheduler_request.DeleteInferenceSchedulerRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -885,7 +907,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLabel")
+        )
         input_: capo_lookoutequipment.types.delete_label_request.DeleteLabelRequest = {
             "label_group_name": label_group_name,
             "label_id": label_id,
@@ -932,7 +956,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLabelGroup")
+        )
         input_: capo_lookoutequipment.types.delete_label_group_request.DeleteLabelGroupRequest = {
             "label_group_name": label_group_name
         }
@@ -978,7 +1004,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteModel")
+        )
         input_: capo_lookoutequipment.types.delete_model_request.DeleteModelRequest = {
             "model_name": model_name
         }
@@ -1024,7 +1052,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_lookoutequipment.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1075,7 +1105,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.delete_retraining_scheduler_request.DeleteRetrainingSchedulerRequest = {
             "model_name": model_name
         }
@@ -1122,7 +1154,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataIngestionJob")
+        )
         input_: capo_lookoutequipment.types.describe_data_ingestion_job_request.DescribeDataIngestionJobRequest = {
             "job_id": job_id
         }
@@ -1171,7 +1205,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_lookoutequipment.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_name": dataset_name
         }
@@ -1218,7 +1254,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.describe_inference_scheduler_request.DescribeInferenceSchedulerRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -1267,7 +1305,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLabel")
+        )
         input_: capo_lookoutequipment.types.describe_label_request.DescribeLabelRequest = {
             "label_group_name": label_group_name,
             "label_id": label_id,
@@ -1315,7 +1355,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLabelGroup")
+        )
         input_: capo_lookoutequipment.types.describe_label_group_request.DescribeLabelGroupRequest = {
             "label_group_name": label_group_name
         }
@@ -1362,7 +1404,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModel")
+        )
         input_: capo_lookoutequipment.types.describe_model_request.DescribeModelRequest = {
             "model_name": model_name
         }
@@ -1411,7 +1455,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeModelVersion")
+        )
         input_: capo_lookoutequipment.types.describe_model_version_request.DescribeModelVersionRequest = {
             "model_name": model_name,
             "model_version": model_version,
@@ -1459,7 +1505,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeResourcePolicy")
+        )
         input_: capo_lookoutequipment.types.describe_resource_policy_request.DescribeResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1511,7 +1559,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.describe_retraining_scheduler_request.DescribeRetrainingSchedulerRequest = {
             "model_name": model_name
         }
@@ -1572,7 +1622,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportDataset")
+        )
         input_: capo_lookoutequipment.types.import_dataset_request.ImportDatasetRequest = {
             "source_dataset_arn": source_dataset_arn,
             "client_token": client_token,
@@ -1651,7 +1703,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportModelVersion")
+        )
         input_: capo_lookoutequipment.types.import_model_version_request.ImportModelVersionRequest = {
             "source_model_version_arn": source_model_version_arn,
             "dataset_name": dataset_name,
@@ -1723,7 +1777,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataIngestionJobs")
+        )
         input_: capo_lookoutequipment.types.list_data_ingestion_jobs_request.ListDataIngestionJobsRequest = {}
         if dataset_name is not None:
             input_["dataset_name"] = dataset_name
@@ -1812,7 +1868,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_lookoutequipment.types.list_datasets_request.ListDatasetsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1898,7 +1956,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceEvents")
+        )
         input_: capo_lookoutequipment.types.list_inference_events_request.ListInferenceEventsRequest = {
             "inference_scheduler_name": inference_scheduler_name,
             "interval_start_time": interval_start_time,
@@ -1996,7 +2056,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceExecutions")
+        )
         input_: capo_lookoutequipment.types.list_inference_executions_request.ListInferenceExecutionsRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -2101,7 +2163,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInferenceSchedulers")
+        )
         input_: capo_lookoutequipment.types.list_inference_schedulers_request.ListInferenceSchedulersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2198,7 +2262,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLabelGroups")
+        )
         input_: capo_lookoutequipment.types.list_label_groups_request.ListLabelGroupsRequest = {}
         if label_group_name_begins_with is not None:
             input_["label_group_name_begins_with"] = label_group_name_begins_with
@@ -2291,7 +2357,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLabels")
+        )
         input_: capo_lookoutequipment.types.list_labels_request.ListLabelsRequest = {
             "label_group_name": label_group_name
         }
@@ -2400,7 +2468,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModels")
+        )
         input_: capo_lookoutequipment.types.list_models_request.ListModelsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2518,7 +2588,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListModelVersions")
+        )
         input_: capo_lookoutequipment.types.list_model_versions_request.ListModelVersionsRequest = {
             "model_name": model_name
         }
@@ -2644,7 +2716,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRetrainingSchedulers")
+        )
         input_: capo_lookoutequipment.types.list_retraining_schedulers_request.ListRetrainingSchedulersRequest = {}
         if model_name_begins_with is not None:
             input_["model_name_begins_with"] = model_name_begins_with
@@ -2736,7 +2810,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSensorStatistics")
+        )
         input_: capo_lookoutequipment.types.list_sensor_statistics_request.ListSensorStatisticsRequest = {
             "dataset_name": dataset_name
         }
@@ -2816,7 +2892,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_lookoutequipment.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2873,7 +2951,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_lookoutequipment.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "resource_policy": resource_policy,
@@ -2932,7 +3012,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataIngestionJob")
+        )
         input_: capo_lookoutequipment.types.start_data_ingestion_job_request.StartDataIngestionJobRequest = {
             "dataset_name": dataset_name,
             "ingestion_input_configuration": ingestion_input_configuration,
@@ -2983,7 +3065,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.start_inference_scheduler_request.StartInferenceSchedulerRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -3036,7 +3120,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.start_retraining_scheduler_request.StartRetrainingSchedulerRequest = {
             "model_name": model_name
         }
@@ -3084,7 +3170,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.stop_inference_scheduler_request.StopInferenceSchedulerRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -3137,7 +3225,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.stop_retraining_scheduler_request.StopRetrainingSchedulerRequest = {
             "model_name": model_name
         }
@@ -3187,7 +3277,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_lookoutequipment.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3237,7 +3329,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_lookoutequipment.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3288,7 +3382,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateActiveModelVersion")
+        )
         input_: capo_lookoutequipment.types.update_active_model_version_request.UpdateActiveModelVersionRequest = {
             "model_name": model_name,
             "model_version": model_version,
@@ -3355,7 +3451,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInferenceScheduler")
+        )
         input_: capo_lookoutequipment.types.update_inference_scheduler_request.UpdateInferenceSchedulerRequest = {
             "inference_scheduler_name": inference_scheduler_name
         }
@@ -3415,7 +3513,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLabelGroup")
+        )
         input_: capo_lookoutequipment.types.update_label_group_request.UpdateLabelGroupRequest = {
             "label_group_name": label_group_name
         }
@@ -3479,7 +3579,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateModel")
+        )
         input_: capo_lookoutequipment.types.update_model_request.UpdateModelRequest = {
             "model_name": model_name
         }
@@ -3554,7 +3656,9 @@ class LookoutEquipmentClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRetrainingScheduler")
+        )
         input_: capo_lookoutequipment.types.update_retraining_scheduler_request.UpdateRetrainingSchedulerRequest = {
             "model_name": model_name
         }

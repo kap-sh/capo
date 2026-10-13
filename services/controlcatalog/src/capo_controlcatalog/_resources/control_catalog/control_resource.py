@@ -7,6 +7,7 @@ import capo_controlcatalog._auth._sigv4
 from capo_controlcatalog._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -71,7 +72,9 @@ class ControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetControl")
+        )
         input_: capo_controlcatalog.types.get_control_request.GetControlRequest = {
             "control_arn": control_arn
         }
@@ -127,7 +130,9 @@ class ControlResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListControls")
+        )
         input_: capo_controlcatalog.types.list_controls_request.ListControlsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -184,7 +189,9 @@ class AsyncControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetControl")
+        )
         input_: capo_controlcatalog.types.get_control_request.GetControlRequest = {
             "control_arn": control_arn
         }
@@ -241,7 +248,9 @@ class AsyncControlResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListControls")
+        )
         input_: capo_controlcatalog.types.list_controls_request.ListControlsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

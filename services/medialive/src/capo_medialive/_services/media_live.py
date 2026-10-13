@@ -23,10 +23,12 @@ from capo_medialive._pagination import resolve_path as _resolve_path
 from capo_medialive._services._aws_config import aws_config
 from capo_medialive._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -445,7 +447,9 @@ class MediaLiveClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MediaLiveClientConfig] = None
+        self,
+        config_overrides: Optional[MediaLiveClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MediaLiveClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -453,8 +457,10 @@ class MediaLiveClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -511,7 +517,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptInputDeviceTransfer")
+        )
         input_: capo_medialive.types.accept_input_device_transfer_request.AcceptInputDeviceTransferRequest = {
             "input_device_id": input_device_id
         }
@@ -575,7 +583,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDelete")
+        )
         input_: capo_medialive.types.batch_delete_request.BatchDeleteRequest = {}
         if channel_ids is not None:
             input_["channel_ids"] = channel_ids
@@ -637,7 +647,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStart")
+        )
         input_: capo_medialive.types.batch_start_request.BatchStartRequest = {}
         if channel_ids is not None:
             input_["channel_ids"] = channel_ids
@@ -695,7 +707,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStop")
+        )
         input_: capo_medialive.types.batch_stop_request.BatchStopRequest = {}
         if channel_ids is not None:
             input_["channel_ids"] = channel_ids
@@ -755,7 +769,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateSchedule")
+        )
         input_: capo_medialive.types.batch_update_schedule_request.BatchUpdateScheduleRequest = {
             "channel_id": channel_id
         }
@@ -810,7 +826,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelInputDeviceTransfer")
+        )
         input_: capo_medialive.types.cancel_input_device_transfer_request.CancelInputDeviceTransferRequest = {
             "input_device_id": input_device_id
         }
@@ -860,7 +878,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ClaimDevice")
+        )
         input_: capo_medialive.types.claim_device_request.ClaimDeviceRequest = {}
         if id is not None:
             input_["id"] = id
@@ -971,7 +991,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannel")
+        )
         input_: capo_medialive.types.create_channel_request.CreateChannelRequest = {}
         if cdi_input_specification is not None:
             input_["cdi_input_specification"] = cdi_input_specification
@@ -1069,7 +1091,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateChannelPlacementGroup")
+        )
         input_: capo_medialive.types.create_channel_placement_group_request.CreateChannelPlacementGroupRequest = {
             "cluster_id": cluster_id
         }
@@ -1171,7 +1195,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudWatchAlarmTemplate")
+        )
         input_: capo_medialive.types.create_cloud_watch_alarm_template_request.CreateCloudWatchAlarmTemplateRequest = {}
         if comparison_operator is not None:
             input_["comparison_operator"] = comparison_operator
@@ -1257,7 +1283,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudWatchAlarmTemplateGroup")
+        )
         input_: capo_medialive.types.create_cloud_watch_alarm_template_group_request.CreateCloudWatchAlarmTemplateGroupRequest = {}
         if description is not None:
             input_["description"] = description
@@ -1325,7 +1353,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_medialive.types.create_cluster_request.CreateClusterRequest = {}
         if cluster_type is not None:
             input_["cluster_type"] = cluster_type
@@ -1405,7 +1435,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventBridgeRuleTemplate")
+        )
         input_: capo_medialive.types.create_event_bridge_rule_template_request.CreateEventBridgeRuleTemplateRequest = {}
         if description is not None:
             input_["description"] = description
@@ -1477,7 +1509,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventBridgeRuleTemplateGroup")
+        )
         input_: capo_medialive.types.create_event_bridge_rule_template_group_request.CreateEventBridgeRuleTemplateGroupRequest = {}
         if description is not None:
             input_["description"] = description
@@ -1582,7 +1616,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInput")
+        )
         input_: capo_medialive.types.create_input_request.CreateInputRequest = {}
         if destinations is not None:
             input_["destinations"] = destinations
@@ -1669,7 +1705,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInputSecurityGroup")
+        )
         input_: capo_medialive.types.create_input_security_group_request.CreateInputSecurityGroupRequest = {}
         if tags is not None:
             input_["tags"] = tags
@@ -1733,7 +1771,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultiplex")
+        )
         input_: capo_medialive.types.create_multiplex_request.CreateMultiplexRequest = {}
         if availability_zones is not None:
             input_["availability_zones"] = availability_zones
@@ -1800,7 +1840,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMultiplexProgram")
+        )
         input_: capo_medialive.types.create_multiplex_program_request.CreateMultiplexProgramRequest = {
             "multiplex_id": multiplex_id
         }
@@ -1868,7 +1910,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNetwork")
+        )
         input_: capo_medialive.types.create_network_request.CreateNetworkRequest = {}
         if ip_pools is not None:
             input_["ip_pools"] = ip_pools
@@ -1938,7 +1982,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNode")
+        )
         input_: capo_medialive.types.create_node_request.CreateNodeRequest = {
             "cluster_id": cluster_id
         }
@@ -2010,7 +2056,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateNodeRegistrationScript")
+        )
         input_: capo_medialive.types.create_node_registration_script_request.CreateNodeRegistrationScriptRequest = {
             "cluster_id": cluster_id
         }
@@ -2075,7 +2123,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePartnerInput")
+        )
         input_: capo_medialive.types.create_partner_input_request.CreatePartnerInputRequest = {
             "input_id": input_id
         }
@@ -2137,7 +2187,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSdiSource")
+        )
         input_: capo_medialive.types.create_sdi_source_request.CreateSdiSourceRequest = {}
         if mode is not None:
             input_["mode"] = mode
@@ -2215,7 +2267,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSignalMap")
+        )
         input_: capo_medialive.types.create_signal_map_request.CreateSignalMapRequest = {}
         if cloud_watch_alarm_template_group_identifiers is not None:
             input_["cloud_watch_alarm_template_group_identifiers"] = (
@@ -2274,7 +2328,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_medialive.types.create_tags_request.CreateTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -2326,7 +2382,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannel")
+        )
         input_: capo_medialive.types.delete_channel_request.DeleteChannelRequest = {
             "channel_id": channel_id
         }
@@ -2378,7 +2436,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteChannelPlacementGroup")
+        )
         input_: capo_medialive.types.delete_channel_placement_group_request.DeleteChannelPlacementGroupRequest = {
             "channel_placement_group_id": channel_placement_group_id,
             "cluster_id": cluster_id,
@@ -2425,7 +2485,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudWatchAlarmTemplate")
+        )
         input_: capo_medialive.types.delete_cloud_watch_alarm_template_request.DeleteCloudWatchAlarmTemplateRequest = {
             "identifier": identifier
         }
@@ -2471,7 +2533,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudWatchAlarmTemplateGroup")
+        )
         input_: capo_medialive.types.delete_cloud_watch_alarm_template_group_request.DeleteCloudWatchAlarmTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -2521,7 +2585,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_medialive.types.delete_cluster_request.DeleteClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -2567,7 +2633,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventBridgeRuleTemplate")
+        )
         input_: capo_medialive.types.delete_event_bridge_rule_template_request.DeleteEventBridgeRuleTemplateRequest = {
             "identifier": identifier
         }
@@ -2613,7 +2681,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventBridgeRuleTemplateGroup")
+        )
         input_: capo_medialive.types.delete_event_bridge_rule_template_group_request.DeleteEventBridgeRuleTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -2663,7 +2733,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInput")
+        )
         input_: capo_medialive.types.delete_input_request.DeleteInputRequest = {
             "input_id": input_id
         }
@@ -2712,7 +2784,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInputSecurityGroup")
+        )
         input_: capo_medialive.types.delete_input_security_group_request.DeleteInputSecurityGroupRequest = {
             "input_security_group_id": input_security_group_id
         }
@@ -2762,7 +2836,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMultiplex")
+        )
         input_: capo_medialive.types.delete_multiplex_request.DeleteMultiplexRequest = {
             "multiplex_id": multiplex_id
         }
@@ -2814,7 +2890,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMultiplexProgram")
+        )
         input_: capo_medialive.types.delete_multiplex_program_request.DeleteMultiplexProgramRequest = {
             "multiplex_id": multiplex_id,
             "program_name": program_name,
@@ -2865,7 +2943,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNetwork")
+        )
         input_: capo_medialive.types.delete_network_request.DeleteNetworkRequest = {
             "network_id": network_id
         }
@@ -2917,7 +2997,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNode")
+        )
         input_: capo_medialive.types.delete_node_request.DeleteNodeRequest = {
             "cluster_id": cluster_id,
             "node_id": node_id,
@@ -2968,7 +3050,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReservation")
+        )
         input_: capo_medialive.types.delete_reservation_request.DeleteReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -3017,7 +3101,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchedule")
+        )
         input_: capo_medialive.types.delete_schedule_request.DeleteScheduleRequest = {
             "channel_id": channel_id
         }
@@ -3067,7 +3153,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSdiSource")
+        )
         input_: capo_medialive.types.delete_sdi_source_request.DeleteSdiSourceRequest = {
             "sdi_source_id": sdi_source_id
         }
@@ -3113,7 +3201,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSignalMap")
+        )
         input_: capo_medialive.types.delete_signal_map_request.DeleteSignalMapRequest = {
             "identifier": identifier
         }
@@ -3160,7 +3250,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_medialive.types.delete_tags_request.DeleteTagsRequest = {
             "resource_arn": resource_arn
         }
@@ -3204,7 +3296,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountConfiguration")
+        )
         input_: capo_medialive.types.describe_account_configuration_request.DescribeAccountConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -3251,7 +3345,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChannel")
+        )
         input_: capo_medialive.types.describe_channel_request.DescribeChannelRequest = {
             "channel_id": channel_id
         }
@@ -3302,7 +3398,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeChannelPlacementGroup")
+        )
         input_: capo_medialive.types.describe_channel_placement_group_request.DescribeChannelPlacementGroupRequest = {
             "channel_placement_group_id": channel_placement_group_id,
             "cluster_id": cluster_id,
@@ -3352,7 +3450,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCluster")
+        )
         input_: capo_medialive.types.describe_cluster_request.DescribeClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -3401,7 +3501,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInput")
+        )
         input_: capo_medialive.types.describe_input_request.DescribeInputRequest = {
             "input_id": input_id
         }
@@ -3450,7 +3552,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInputDevice")
+        )
         input_: capo_medialive.types.describe_input_device_request.DescribeInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -3502,7 +3606,21 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_medialive.types.describe_input_device_thumbnail_response.DescribeInputDeviceThumbnailResponse",
+        ) -> dict[str, Any]:
+            import capo_medialive.types.describe_input_device_thumbnail_response
+
+            return capo_medialive.types.describe_input_device_thumbnail_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeInputDeviceThumbnail", redact_output=_redact_output
+            ),
+        )
         input_: capo_medialive.types.describe_input_device_thumbnail_request.DescribeInputDeviceThumbnailRequest = {
             "input_device_id": input_device_id
         }
@@ -3555,7 +3673,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInputSecurityGroup")
+        )
         input_: capo_medialive.types.describe_input_security_group_request.DescribeInputSecurityGroupRequest = {
             "input_security_group_id": input_security_group_id
         }
@@ -3604,7 +3724,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMultiplex")
+        )
         input_: capo_medialive.types.describe_multiplex_request.DescribeMultiplexRequest = {
             "multiplex_id": multiplex_id
         }
@@ -3655,7 +3777,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMultiplexProgram")
+        )
         input_: capo_medialive.types.describe_multiplex_program_request.DescribeMultiplexProgramRequest = {
             "multiplex_id": multiplex_id,
             "program_name": program_name,
@@ -3705,7 +3829,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNetwork")
+        )
         input_: capo_medialive.types.describe_network_request.DescribeNetworkRequest = {
             "network_id": network_id
         }
@@ -3756,7 +3882,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNode")
+        )
         input_: capo_medialive.types.describe_node_request.DescribeNodeRequest = {
             "cluster_id": cluster_id,
             "node_id": node_id,
@@ -3806,7 +3934,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOffering")
+        )
         input_: capo_medialive.types.describe_offering_request.DescribeOfferingRequest = {
             "offering_id": offering_id
         }
@@ -3857,7 +3987,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReservation")
+        )
         input_: capo_medialive.types.describe_reservation_request.DescribeReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -3908,7 +4040,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchedule")
+        )
         input_: capo_medialive.types.describe_schedule_request.DescribeScheduleRequest = {
             "channel_id": channel_id
         }
@@ -3984,7 +4118,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSdiSource")
+        )
         input_: capo_medialive.types.describe_sdi_source_request.DescribeSdiSourceRequest = {
             "sdi_source_id": sdi_source_id
         }
@@ -4038,7 +4174,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThumbnails")
+        )
         input_: capo_medialive.types.describe_thumbnails_request.DescribeThumbnailsRequest = {
             "channel_id": channel_id
         }
@@ -4089,7 +4227,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudWatchAlarmTemplate")
+        )
         input_: capo_medialive.types.get_cloud_watch_alarm_template_request.GetCloudWatchAlarmTemplateRequest = {
             "identifier": identifier
         }
@@ -4136,7 +4276,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudWatchAlarmTemplateGroup")
+        )
         input_: capo_medialive.types.get_cloud_watch_alarm_template_group_request.GetCloudWatchAlarmTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -4183,7 +4325,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventBridgeRuleTemplate")
+        )
         input_: capo_medialive.types.get_event_bridge_rule_template_request.GetEventBridgeRuleTemplateRequest = {
             "identifier": identifier
         }
@@ -4230,7 +4374,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventBridgeRuleTemplateGroup")
+        )
         input_: capo_medialive.types.get_event_bridge_rule_template_group_request.GetEventBridgeRuleTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -4277,7 +4423,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSignalMap")
+        )
         input_: capo_medialive.types.get_signal_map_request.GetSignalMapRequest = {
             "identifier": identifier
         }
@@ -4332,7 +4480,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAlerts")
+        )
         input_: capo_medialive.types.list_alerts_request.ListAlertsRequest = {
             "channel_id": channel_id
         }
@@ -4415,7 +4565,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannelPlacementGroups")
+        )
         input_: capo_medialive.types.list_channel_placement_groups_request.ListChannelPlacementGroupsRequest = {
             "cluster_id": cluster_id
         }
@@ -4488,7 +4640,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_medialive.types.list_channels_request.ListChannelsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4565,7 +4719,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCloudWatchAlarmTemplateGroups")
+        )
         input_: capo_medialive.types.list_cloud_watch_alarm_template_groups_request.ListCloudWatchAlarmTemplateGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4654,7 +4810,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCloudWatchAlarmTemplates")
+        )
         input_: capo_medialive.types.list_cloud_watch_alarm_templates_request.ListCloudWatchAlarmTemplatesRequest = {}
         if group_identifier is not None:
             input_["group_identifier"] = group_identifier
@@ -4746,7 +4904,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusterAlerts")
+        )
         input_: capo_medialive.types.list_cluster_alerts_request.ListClusterAlertsRequest = {
             "cluster_id": cluster_id
         }
@@ -4827,7 +4987,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_medialive.types.list_clusters_request.ListClustersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4904,7 +5066,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventBridgeRuleTemplateGroups")
+        )
         input_: capo_medialive.types.list_event_bridge_rule_template_groups_request.ListEventBridgeRuleTemplateGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4987,7 +5151,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventBridgeRuleTemplates")
+        )
         input_: capo_medialive.types.list_event_bridge_rule_templates_request.ListEventBridgeRuleTemplatesRequest = {}
         if group_identifier is not None:
             input_["group_identifier"] = group_identifier
@@ -5066,7 +5232,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputDevices")
+        )
         input_: capo_medialive.types.list_input_devices_request.ListInputDevicesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5137,7 +5305,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputDeviceTransfers")
+        )
         input_: capo_medialive.types.list_input_device_transfers_request.ListInputDeviceTransfersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5210,7 +5380,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputs")
+        )
         input_: capo_medialive.types.list_inputs_request.ListInputsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5279,7 +5451,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInputSecurityGroups")
+        )
         input_: capo_medialive.types.list_input_security_groups_request.ListInputSecurityGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5357,7 +5531,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultiplexAlerts")
+        )
         input_: capo_medialive.types.list_multiplex_alerts_request.ListMultiplexAlertsRequest = {
             "multiplex_id": multiplex_id
         }
@@ -5438,7 +5614,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultiplexes")
+        )
         input_: capo_medialive.types.list_multiplexes_request.ListMultiplexesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5514,7 +5692,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMultiplexPrograms")
+        )
         input_: capo_medialive.types.list_multiplex_programs_request.ListMultiplexProgramsRequest = {
             "multiplex_id": multiplex_id
         }
@@ -5591,7 +5771,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNetworks")
+        )
         input_: capo_medialive.types.list_networks_request.ListNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5668,7 +5850,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodes")
+        )
         input_: capo_medialive.types.list_nodes_request.ListNodesRequest = {
             "cluster_id": cluster_id
         }
@@ -5765,7 +5949,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOfferings")
+        )
         input_: capo_medialive.types.list_offerings_request.ListOfferingsRequest = {}
         if channel_class is not None:
             input_["channel_class"] = channel_class
@@ -5894,7 +6080,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_medialive.types.list_reservations_request.ListReservationsRequest = {}
         if channel_class is not None:
             input_["channel_class"] = channel_class
@@ -5999,7 +6187,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSdiSources")
+        )
         input_: capo_medialive.types.list_sdi_sources_request.ListSdiSourcesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -6078,7 +6268,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSignalMaps")
+        )
         input_: capo_medialive.types.list_signal_maps_request.ListSignalMapsRequest = {}
         if cloud_watch_alarm_template_group_identifier is not None:
             input_["cloud_watch_alarm_template_group_identifier"] = (
@@ -6160,7 +6352,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_medialive.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -6204,7 +6398,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListVersions")
+        )
         input_: capo_medialive.types.list_versions_request.ListVersionsRequest = {}
 
         response = execute_pipeline(
@@ -6266,7 +6462,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PurchaseOffering")
+        )
         input_: capo_medialive.types.purchase_offering_request.PurchaseOfferingRequest = {
             "offering_id": offering_id
         }
@@ -6333,7 +6531,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootInputDevice")
+        )
         input_: capo_medialive.types.reboot_input_device_request.RebootInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -6386,7 +6586,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectInputDeviceTransfer")
+        )
         input_: capo_medialive.types.reject_input_device_transfer_request.RejectInputDeviceTransferRequest = {
             "input_device_id": input_device_id
         }
@@ -6440,7 +6642,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestartChannelPipelines")
+        )
         input_: capo_medialive.types.restart_channel_pipelines_request.RestartChannelPipelinesRequest = {
             "channel_id": channel_id
         }
@@ -6492,7 +6696,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartChannel")
+        )
         input_: capo_medialive.types.start_channel_request.StartChannelRequest = {
             "channel_id": channel_id
         }
@@ -6540,7 +6746,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDeleteMonitorDeployment")
+        )
         input_: capo_medialive.types.start_delete_monitor_deployment_request.StartDeleteMonitorDeploymentRequest = {
             "identifier": identifier
         }
@@ -6590,7 +6798,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInputDevice")
+        )
         input_: capo_medialive.types.start_input_device_request.StartInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -6640,7 +6850,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartInputDeviceMaintenanceWindow")
+        )
         input_: capo_medialive.types.start_input_device_maintenance_window_request.StartInputDeviceMaintenanceWindowRequest = {
             "input_device_id": input_device_id
         }
@@ -6689,7 +6901,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMonitorDeployment")
+        )
         input_: capo_medialive.types.start_monitor_deployment_request.StartMonitorDeploymentRequest = {
             "identifier": identifier
         }
@@ -6741,7 +6955,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMultiplex")
+        )
         input_: capo_medialive.types.start_multiplex_request.StartMultiplexRequest = {
             "multiplex_id": multiplex_id
         }
@@ -6809,7 +7025,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartUpdateSignalMap")
+        )
         input_: capo_medialive.types.start_update_signal_map_request.StartUpdateSignalMapRequest = {
             "identifier": identifier
         }
@@ -6875,7 +7093,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopChannel")
+        )
         input_: capo_medialive.types.stop_channel_request.StopChannelRequest = {
             "channel_id": channel_id
         }
@@ -6925,7 +7145,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopInputDevice")
+        )
         input_: capo_medialive.types.stop_input_device_request.StopInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -6975,7 +7197,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopMultiplex")
+        )
         input_: capo_medialive.types.stop_multiplex_request.StopMultiplexRequest = {
             "multiplex_id": multiplex_id
         }
@@ -7032,7 +7256,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TransferInputDevice")
+        )
         input_: capo_medialive.types.transfer_input_device_request.TransferInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -7086,7 +7312,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountConfiguration")
+        )
         input_: capo_medialive.types.update_account_configuration_request.UpdateAccountConfigurationRequest = {}
         if account_configuration is not None:
             input_["account_configuration"] = account_configuration
@@ -7189,7 +7417,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannel")
+        )
         input_: capo_medialive.types.update_channel_request.UpdateChannelRequest = {
             "channel_id": channel_id
         }
@@ -7282,7 +7512,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannelClass")
+        )
         input_: capo_medialive.types.update_channel_class_request.UpdateChannelClassRequest = {
             "channel_id": channel_id
         }
@@ -7344,7 +7576,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateChannelPlacementGroup")
+        )
         input_: capo_medialive.types.update_channel_placement_group_request.UpdateChannelPlacementGroupRequest = {
             "channel_placement_group_id": channel_placement_group_id,
             "cluster_id": cluster_id,
@@ -7439,7 +7673,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCloudWatchAlarmTemplate")
+        )
         input_: capo_medialive.types.update_cloud_watch_alarm_template_request.UpdateCloudWatchAlarmTemplateRequest = {
             "identifier": identifier
         }
@@ -7515,7 +7751,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCloudWatchAlarmTemplateGroup")
+        )
         input_: capo_medialive.types.update_cloud_watch_alarm_template_group_request.UpdateCloudWatchAlarmTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -7572,7 +7810,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_medialive.types.update_cluster_request.UpdateClusterRequest = {
             "cluster_id": cluster_id
         }
@@ -7642,7 +7882,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventBridgeRuleTemplate")
+        )
         input_: capo_medialive.types.update_event_bridge_rule_template_request.UpdateEventBridgeRuleTemplateRequest = {
             "identifier": identifier
         }
@@ -7704,7 +7946,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventBridgeRuleTemplateGroup")
+        )
         input_: capo_medialive.types.update_event_bridge_rule_template_group_request.UpdateEventBridgeRuleTemplateGroupRequest = {
             "identifier": identifier
         }
@@ -7798,7 +8042,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInput")
+        )
         input_: capo_medialive.types.update_input_request.UpdateInputRequest = {
             "input_id": input_id
         }
@@ -7886,7 +8132,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInputDevice")
+        )
         input_: capo_medialive.types.update_input_device_request.UpdateInputDeviceRequest = {
             "input_device_id": input_device_id
         }
@@ -7949,7 +8197,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateInputSecurityGroup")
+        )
         input_: capo_medialive.types.update_input_security_group_request.UpdateInputSecurityGroupRequest = {
             "input_security_group_id": input_security_group_id
         }
@@ -8012,7 +8262,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMultiplex")
+        )
         input_: capo_medialive.types.update_multiplex_request.UpdateMultiplexRequest = {
             "multiplex_id": multiplex_id
         }
@@ -8074,7 +8326,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMultiplexProgram")
+        )
         input_: capo_medialive.types.update_multiplex_program_request.UpdateMultiplexProgramRequest = {
             "multiplex_id": multiplex_id,
             "program_name": program_name,
@@ -8136,7 +8390,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNetwork")
+        )
         input_: capo_medialive.types.update_network_request.UpdateNetworkRequest = {
             "network_id": network_id
         }
@@ -8201,7 +8457,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNode")
+        )
         input_: capo_medialive.types.update_node_request.UpdateNodeRequest = {
             "cluster_id": cluster_id,
             "node_id": node_id,
@@ -8264,7 +8522,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNodeState")
+        )
         input_: capo_medialive.types.update_node_state_request.UpdateNodeStateRequest = {
             "cluster_id": cluster_id,
             "node_id": node_id,
@@ -8323,7 +8583,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReservation")
+        )
         input_: capo_medialive.types.update_reservation_request.UpdateReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -8382,7 +8644,9 @@ class MediaLiveClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSdiSource")
+        )
         input_: capo_medialive.types.update_sdi_source_request.UpdateSdiSourceRequest = {
             "sdi_source_id": sdi_source_id
         }

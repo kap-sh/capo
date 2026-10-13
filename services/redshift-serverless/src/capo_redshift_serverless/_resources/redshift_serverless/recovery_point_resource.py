@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class RecoveryPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ConvertRecoveryPointToSnapshot")
+        )
         input_: capo_redshift_serverless.types.convert_recovery_point_to_snapshot_request.ConvertRecoveryPointToSnapshotRequest = {
             "recovery_point_id": recovery_point_id,
             "snapshot_name": snapshot_name,
@@ -133,7 +136,9 @@ class RecoveryPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.get_recovery_point_request.GetRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id
         }
@@ -189,7 +194,9 @@ class RecoveryPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPoints")
+        )
         input_: capo_redshift_serverless.types.list_recovery_points_request.ListRecoveryPointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -251,7 +258,19 @@ class RecoveryPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_recovery_point_response.RestoreFromRecoveryPointResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_recovery_point_response
+
+            return capo_redshift_serverless.types.restore_from_recovery_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromRecoveryPoint", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_recovery_point_request.RestoreFromRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id,
             "namespace_name": namespace_name,
@@ -319,7 +338,9 @@ class RecoveryPointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_recovery_point_request.RestoreTableFromRecoveryPointRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,
@@ -394,7 +415,9 @@ class AsyncRecoveryPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ConvertRecoveryPointToSnapshot")
+        )
         input_: capo_redshift_serverless.types.convert_recovery_point_to_snapshot_request.ConvertRecoveryPointToSnapshotRequest = {
             "recovery_point_id": recovery_point_id,
             "snapshot_name": snapshot_name,
@@ -446,7 +469,9 @@ class AsyncRecoveryPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.get_recovery_point_request.GetRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id
         }
@@ -503,7 +528,9 @@ class AsyncRecoveryPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRecoveryPoints")
+        )
         input_: capo_redshift_serverless.types.list_recovery_points_request.ListRecoveryPointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -566,7 +593,19 @@ class AsyncRecoveryPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.restore_from_recovery_point_response.RestoreFromRecoveryPointResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.restore_from_recovery_point_response
+
+            return capo_redshift_serverless.types.restore_from_recovery_point_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("RestoreFromRecoveryPoint", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.restore_from_recovery_point_request.RestoreFromRecoveryPointRequest = {
             "recovery_point_id": recovery_point_id,
             "namespace_name": namespace_name,
@@ -635,7 +674,9 @@ class AsyncRecoveryPointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestoreTableFromRecoveryPoint")
+        )
         input_: capo_redshift_serverless.types.restore_table_from_recovery_point_request.RestoreTableFromRecoveryPointRequest = {
             "namespace_name": namespace_name,
             "workgroup_name": workgroup_name,

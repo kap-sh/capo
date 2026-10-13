@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class DomainVerification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDomainVerification")
+        )
         input_: capo_vpc_lattice.types.start_domain_verification_request.StartDomainVerificationRequest = {
             "domain_name": domain_name
         }
@@ -137,7 +140,9 @@ class DomainVerification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomainVerification")
+        )
         input_: capo_vpc_lattice.types.get_domain_verification_request.GetDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -184,7 +189,9 @@ class DomainVerification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomainVerification")
+        )
         input_: capo_vpc_lattice.types.delete_domain_verification_request.DeleteDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -233,7 +240,9 @@ class DomainVerification:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomainVerifications")
+        )
         input_: capo_vpc_lattice.types.list_domain_verifications_request.ListDomainVerificationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -295,7 +304,9 @@ class AsyncDomainVerification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartDomainVerification")
+        )
         input_: capo_vpc_lattice.types.start_domain_verification_request.StartDomainVerificationRequest = {
             "domain_name": domain_name
         }
@@ -348,7 +359,9 @@ class AsyncDomainVerification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDomainVerification")
+        )
         input_: capo_vpc_lattice.types.get_domain_verification_request.GetDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -396,7 +409,9 @@ class AsyncDomainVerification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDomainVerification")
+        )
         input_: capo_vpc_lattice.types.delete_domain_verification_request.DeleteDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -446,7 +461,9 @@ class AsyncDomainVerification:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDomainVerifications")
+        )
         input_: capo_vpc_lattice.types.list_domain_verifications_request.ListDomainVerificationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

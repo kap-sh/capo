@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#Conversational``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,15 @@ def deserialize_json(data: dict) -> Conversational:
         out["role"] = capo_bedrock_agentcore.types.role.deserialize_json(data["role"])
     else:
         raise DeserializationError("Conversational.role required")
+    return out
+
+
+def redact_sensitive(value: Conversational) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_agentcore.types.content
+
+        out["content"] = capo_bedrock_agentcore.types.content.redact_sensitive(
+            value["content"]
+        )
     return out

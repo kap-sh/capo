@@ -34,10 +34,12 @@ from capo_timestream_influxdb._resources.amazon_timestream_influx_db.db_paramete
 from capo_timestream_influxdb._services._aws_config import aws_config
 from capo_timestream_influxdb._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -212,7 +214,9 @@ class TimestreamInfluxDBClient:
         self.db_parameter_group_resource = DbParameterGroupResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[TimestreamInfluxDBClientConfig] = None
+        self,
+        config_overrides: Optional[TimestreamInfluxDBClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TimestreamInfluxDBClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -220,8 +224,10 @@ class TimestreamInfluxDBClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -270,7 +276,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_timestream_influxdb.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -314,7 +322,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_timestream_influxdb.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -358,7 +368,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_timestream_influxdb.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -418,7 +430,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDbBackup")
+        )
         input_: capo_timestream_influxdb.types.create_db_backup_input.CreateDbBackupInput = {
             "name": name,
             "db_resource_id": db_resource_id,
@@ -470,7 +484,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbBackup")
+        )
         input_: capo_timestream_influxdb.types.get_db_backup_input.GetDbBackupInput = {
             "identifier": identifier
         }
@@ -518,7 +534,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDbBackup")
+        )
         input_: capo_timestream_influxdb.types.delete_db_backup_input.DeleteDbBackupInput = {
             "identifier": identifier
         }
@@ -575,7 +593,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbBackups")
+        )
         input_: capo_timestream_influxdb.types.list_db_backups_input.ListDbBackupsInput = {}
         if db_resource_id is not None:
             input_["db_resource_id"] = db_resource_id
@@ -705,7 +725,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RestoreFromDbBackup")
+        )
         input_: capo_timestream_influxdb.types.restore_from_db_backup_input.RestoreFromDbBackupInput = {
             "name": name,
             "db_backup_id": db_backup_id,
@@ -847,7 +869,21 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput",
+        ) -> dict[str, Any]:
+            import capo_timestream_influxdb.types.create_db_cluster_input
+
+            return (
+                capo_timestream_influxdb.types.create_db_cluster_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDbCluster", redact_input=_redact_input),
+        )
         input_: capo_timestream_influxdb.types.create_db_cluster_input.CreateDbClusterInput = {
             "name": name,
             "db_instance_type": db_instance_type,
@@ -931,7 +967,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbCluster")
+        )
         input_: capo_timestream_influxdb.types.get_db_cluster_input.GetDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1007,7 +1045,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDbCluster")
+        )
         input_: capo_timestream_influxdb.types.update_db_cluster_input.UpdateDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1073,7 +1113,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDbCluster")
+        )
         input_: capo_timestream_influxdb.types.delete_db_cluster_input.DeleteDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1128,7 +1170,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbClusters")
+        )
         input_: capo_timestream_influxdb.types.list_db_clusters_input.ListDbClustersInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1210,7 +1254,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbInstancesForCluster")
+        )
         input_: capo_timestream_influxdb.types.list_db_instances_for_cluster_input.ListDbInstancesForClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1295,7 +1341,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootDbCluster")
+        )
         input_: capo_timestream_influxdb.types.reboot_db_cluster_input.RebootDbClusterInput = {
             "db_cluster_id": db_cluster_id
         }
@@ -1404,7 +1452,19 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_timestream_influxdb.types.create_db_instance_input.CreateDbInstanceInput",
+        ) -> dict[str, Any]:
+            import capo_timestream_influxdb.types.create_db_instance_input
+
+            return capo_timestream_influxdb.types.create_db_instance_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDbInstance", redact_input=_redact_input),
+        )
         input_: capo_timestream_influxdb.types.create_db_instance_input.CreateDbInstanceInput = {
             "name": name,
             "password": password,
@@ -1484,7 +1544,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbInstance")
+        )
         input_: capo_timestream_influxdb.types.get_db_instance_input.GetDbInstanceInput = {
             "identifier": identifier
         }
@@ -1566,7 +1628,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDbInstance")
+        )
         input_: capo_timestream_influxdb.types.update_db_instance_input.UpdateDbInstanceInput = {
             "identifier": identifier
         }
@@ -1634,7 +1698,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDbInstance")
+        )
         input_: capo_timestream_influxdb.types.delete_db_instance_input.DeleteDbInstanceInput = {
             "identifier": identifier
         }
@@ -1691,7 +1757,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbInstances")
+        )
         input_: capo_timestream_influxdb.types.list_db_instances_input.ListDbInstancesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1768,7 +1836,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootDbInstance")
+        )
         input_: capo_timestream_influxdb.types.reboot_db_instance_input.RebootDbInstanceInput = {
             "identifier": identifier
         }
@@ -1827,7 +1897,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.create_db_parameter_group_input.CreateDbParameterGroupInput = {
             "name": name
         }
@@ -1880,7 +1952,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDbParameterGroup")
+        )
         input_: capo_timestream_influxdb.types.get_db_parameter_group_input.GetDbParameterGroupInput = {
             "identifier": identifier
         }
@@ -1933,7 +2007,9 @@ class TimestreamInfluxDBClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDbParameterGroups")
+        )
         input_: capo_timestream_influxdb.types.list_db_parameter_groups_input.ListDbParameterGroupsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

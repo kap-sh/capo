@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#HarnessContentBlockDelta``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -122,3 +122,36 @@ def deserialize_json(data: dict) -> HarnessContentBlockDelta:
         raise DeserializationError(
             "HarnessContentBlockDelta: no recognized variant key"
         )
+
+
+def redact_sensitive(value: HarnessContentBlockDelta) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "toolUse" in value:
+        import capo_bedrock_agentcore.types.harness_tool_use_block_delta
+
+        out["toolUse"] = (
+            capo_bedrock_agentcore.types.harness_tool_use_block_delta.redact_sensitive(
+                value["toolUse"]
+            )
+        )
+    if "toolResult" in value:
+        import capo_bedrock_agentcore.types.harness_tool_result_blocks_delta
+
+        out["toolResult"] = (
+            capo_bedrock_agentcore.types.harness_tool_result_blocks_delta.redact_sensitive(
+                value["toolResult"]
+            )
+        )
+    if "reasoningContent" in value:
+        out["reasoningContent"] = "*** Sensitive Data Redacted ***"
+    if "toolResultMetadata" in value:
+        import capo_bedrock_agentcore.types.harness_tool_result_metadata_block_delta
+
+        out["toolResultMetadata"] = (
+            capo_bedrock_agentcore.types.harness_tool_result_metadata_block_delta.redact_sensitive(
+                value["toolResultMetadata"]
+            )
+        )
+    return out

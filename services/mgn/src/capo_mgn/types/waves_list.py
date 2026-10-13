@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#WavesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mgn.types.wave
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> WavesList:
             continue
         out.append(capo_mgn.types.wave.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: WavesList) -> list[Any]:
+    import capo_mgn.types.wave
+
+    return [capo_mgn.types.wave.redact_sensitive(item) for item in value]

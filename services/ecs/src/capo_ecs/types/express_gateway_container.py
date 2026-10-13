@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#ExpressGatewayContainer``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,11 @@ def deserialize_aws_json_1_1(data: dict) -> ExpressGatewayContainer:
         out["secrets"] = capo_ecs.types.secret_list.deserialize_aws_json_1_1(
             data["secrets"]
         )
+    return out
+
+
+def redact_sensitive(value: ExpressGatewayContainer) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environment" in value:
+        out["environment"] = "*** Sensitive Data Redacted ***"
     return out

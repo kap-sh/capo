@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#UpdateListRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,15 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateListRequest:
         )
     if data.get("variableType") is not None:
         out["variable_type"] = data["variableType"]
+    return out
+
+
+def redact_sensitive(value: UpdateListRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "elements" in value:
+        import capo_frauddetector.types.elements_list
+
+        out["elements"] = capo_frauddetector.types.elements_list.redact_sensitive(
+            value["elements"]
+        )
     return out

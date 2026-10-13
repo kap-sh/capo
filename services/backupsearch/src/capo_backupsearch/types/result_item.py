@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backupsearch#ResultItem``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,20 @@ def deserialize_json(data: dict) -> ResultItem:
         }
     else:
         raise DeserializationError("ResultItem: no recognized variant key")
+
+
+def redact_sensitive(value: ResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "S3ResultItem" in value:
+        import capo_backupsearch.types.s3_result_item
+
+        out["S3ResultItem"] = capo_backupsearch.types.s3_result_item.redact_sensitive(
+            value["S3ResultItem"]
+        )
+    if "EBSResultItem" in value:
+        import capo_backupsearch.types.ebs_result_item
+
+        out["EBSResultItem"] = capo_backupsearch.types.ebs_result_item.redact_sensitive(
+            value["EBSResultItem"]
+        )
+    return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#ResetUserPasswordResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> ResetUserPasswordResponse:
         out["user_id"] = data["userId"]
     if data.get("temporaryPassword") is not None:
         out["temporary_password"] = data["temporaryPassword"]
+    return out
+
+
+def redact_sensitive(value: ResetUserPasswordResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "temporary_password" in value:
+        out["temporary_password"] = "*** Sensitive Data Redacted ***"
     return out

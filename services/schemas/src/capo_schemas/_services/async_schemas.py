@@ -25,7 +25,9 @@ from capo_schemas._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -177,7 +179,9 @@ class AsyncschemasClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncschemasClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncschemasClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncschemasClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -185,8 +189,10 @@ class AsyncschemasClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -251,7 +257,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDiscoverer")
+        )
         input_: capo_schemas.types.create_discoverer_request.CreateDiscovererRequest = {}
         if description is not None:
             input_["description"] = description
@@ -312,7 +320,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegistry")
+        )
         input_: capo_schemas.types.create_registry_request.CreateRegistryRequest = {
             "registry_name": registry_name
         }
@@ -377,7 +387,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchema")
+        )
         input_: capo_schemas.types.create_schema_request.CreateSchemaRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -433,7 +445,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDiscoverer")
+        )
         input_: capo_schemas.types.delete_discoverer_request.DeleteDiscovererRequest = {
             "discoverer_id": discoverer_id
         }
@@ -480,7 +494,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegistry")
+        )
         input_: capo_schemas.types.delete_registry_request.DeleteRegistryRequest = {
             "registry_name": registry_name
         }
@@ -527,7 +543,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_schemas.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {}
         if registry_name is not None:
             input_["registry_name"] = registry_name
@@ -576,7 +594,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchema")
+        )
         input_: capo_schemas.types.delete_schema_request.DeleteSchemaRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -628,7 +648,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchemaVersion")
+        )
         input_: capo_schemas.types.delete_schema_version_request.DeleteSchemaVersionRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -687,7 +709,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCodeBinding")
+        )
         input_: capo_schemas.types.describe_code_binding_request.DescribeCodeBindingRequest = {
             "language": language,
             "registry_name": registry_name,
@@ -740,7 +764,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDiscoverer")
+        )
         input_: capo_schemas.types.describe_discoverer_request.DescribeDiscovererRequest = {
             "discoverer_id": discoverer_id
         }
@@ -789,7 +815,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRegistry")
+        )
         input_: capo_schemas.types.describe_registry_request.DescribeRegistryRequest = {
             "registry_name": registry_name
         }
@@ -842,7 +870,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchema")
+        )
         input_: capo_schemas.types.describe_schema_request.DescribeSchemaRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -900,7 +930,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportSchema")
+        )
         input_: capo_schemas.types.export_schema_request.ExportSchemaRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -960,7 +992,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCodeBindingSource")
+        )
         input_: capo_schemas.types.get_code_binding_source_request.GetCodeBindingSourceRequest = {
             "language": language,
             "registry_name": registry_name,
@@ -1018,7 +1052,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDiscoveredSchema")
+        )
         input_: capo_schemas.types.get_discovered_schema_request.GetDiscoveredSchemaRequest = {}
         if events is not None:
             input_["events"] = events
@@ -1069,7 +1105,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_schemas.types.get_resource_policy_request.GetResourcePolicyRequest = {}
         if registry_name is not None:
             input_["registry_name"] = registry_name
@@ -1122,7 +1160,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDiscoverers")
+        )
         input_: capo_schemas.types.list_discoverers_request.ListDiscoverersRequest = {}
         if discoverer_id_prefix is not None:
             input_["discoverer_id_prefix"] = discoverer_id_prefix
@@ -1206,7 +1246,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegistries")
+        )
         input_: capo_schemas.types.list_registries_request.ListRegistriesRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -1290,7 +1332,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_schemas.types.list_schemas_request.ListSchemasRequest = {
             "registry_name": registry_name
         }
@@ -1375,7 +1419,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemaVersions")
+        )
         input_: capo_schemas.types.list_schema_versions_request.ListSchemaVersionsRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,
@@ -1456,7 +1502,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_schemas.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1512,7 +1560,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutCodeBinding")
+        )
         input_: capo_schemas.types.put_code_binding_request.PutCodeBindingRequest = {
             "language": language,
             "registry_name": registry_name,
@@ -1572,7 +1622,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_schemas.types.put_resource_policy_request.PutResourcePolicyRequest = {}
         if policy is not None:
             input_["policy"] = policy
@@ -1629,7 +1681,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchSchemas")
+        )
         input_: capo_schemas.types.search_schemas_request.SearchSchemasRequest = {
             "registry_name": registry_name
         }
@@ -1709,7 +1763,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDiscoverer")
+        )
         input_: capo_schemas.types.start_discoverer_request.StartDiscovererRequest = {
             "discoverer_id": discoverer_id
         }
@@ -1758,7 +1814,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDiscoverer")
+        )
         input_: capo_schemas.types.stop_discoverer_request.StopDiscovererRequest = {
             "discoverer_id": discoverer_id
         }
@@ -1805,7 +1863,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_schemas.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1856,7 +1916,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_schemas.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1913,7 +1975,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDiscoverer")
+        )
         input_: capo_schemas.types.update_discoverer_request.UpdateDiscovererRequest = {
             "discoverer_id": discoverer_id
         }
@@ -1970,7 +2034,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegistry")
+        )
         input_: capo_schemas.types.update_registry_request.UpdateRegistryRequest = {
             "registry_name": registry_name
         }
@@ -2036,7 +2102,9 @@ class AsyncschemasClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSchema")
+        )
         input_: capo_schemas.types.update_schema_request.UpdateSchemaRequest = {
             "registry_name": registry_name,
             "schema_name": schema_name,

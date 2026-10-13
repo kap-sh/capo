@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#ServiceTemplateSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_proton.types.service_template_summary
@@ -33,3 +33,12 @@ def deserialize_aws_json_1_0(data: list) -> ServiceTemplateSummaryList:
             capo_proton.types.service_template_summary.deserialize_aws_json_1_0(item)
         )
     return out
+
+
+def redact_sensitive(value: ServiceTemplateSummaryList) -> list[Any]:
+    import capo_proton.types.service_template_summary
+
+    return [
+        capo_proton.types.service_template_summary.redact_sensitive(item)
+        for item in value
+    ]

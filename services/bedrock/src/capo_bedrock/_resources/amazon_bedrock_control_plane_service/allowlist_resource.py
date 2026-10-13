@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -57,7 +58,9 @@ class AllowlistResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.get_use_case_for_model_access_request.GetUseCaseForModelAccessRequest = {}
 
         response = execute_pipeline(
@@ -101,7 +104,9 @@ class AllowlistResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.put_use_case_for_model_access_request.PutUseCaseForModelAccessRequest = {
             "form_data": form_data
         }
@@ -147,7 +152,9 @@ class AsyncAllowlistResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.get_use_case_for_model_access_request.GetUseCaseForModelAccessRequest = {}
 
         response = await aexecute_pipeline(
@@ -192,7 +199,9 @@ class AsyncAllowlistResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutUseCaseForModelAccess")
+        )
         input_: capo_bedrock.types.put_use_case_for_model_access_request.PutUseCaseForModelAccessRequest = {
             "form_data": form_data
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ListRouteCalculatorsResponseEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,4 +91,13 @@ def deserialize_json(data: dict) -> ListRouteCalculatorsResponseEntry:
         raise DeserializationError(
             "ListRouteCalculatorsResponseEntry.update_time required"
         )
+    return out
+
+
+def redact_sensitive(value: ListRouteCalculatorsResponseEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#MediaCapturePipelineSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -52,4 +52,11 @@ def deserialize_json(data: dict) -> MediaCapturePipelineSourceConfiguration:
         raise DeserializationError(
             "MediaCapturePipelineSourceConfiguration.chime_sdk_meeting_configuration required"
         )
+    return out
+
+
+def redact_sensitive(value: MediaCapturePipelineSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "media_pipeline_arn" in value:
+        out["media_pipeline_arn"] = "*** Sensitive Data Redacted ***"
     return out

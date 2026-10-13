@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_pca_connector_scep._auth._signers
 import capo_pca_connector_scep._auth._sigv4
 from capo_pca_connector_scep._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,19 @@ class ChallengeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.create_challenge_response.CreateChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.create_challenge_response
+
+            return capo_pca_connector_scep.types.create_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateChallenge", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.create_challenge_request.CreateChallengeRequest = {
             "connector_arn": connector_arn
         }
@@ -140,7 +153,9 @@ class ChallengeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.get_challenge_metadata_request.GetChallengeMetadataRequest = {
             "challenge_arn": challenge_arn
         }
@@ -186,7 +201,9 @@ class ChallengeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChallenge")
+        )
         input_: capo_pca_connector_scep.types.delete_challenge_request.DeleteChallengeRequest = {
             "challenge_arn": challenge_arn
         }
@@ -241,7 +258,9 @@ class ChallengeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.list_challenge_metadata_request.ListChallengeMetadataRequest = {
             "connector_arn": connector_arn
         }
@@ -292,7 +311,19 @@ class ChallengeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.get_challenge_password_response.GetChallengePasswordResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.get_challenge_password_response
+
+            return capo_pca_connector_scep.types.get_challenge_password_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetChallengePassword", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.get_challenge_password_request.GetChallengePasswordRequest = {
             "challenge_arn": challenge_arn
         }
@@ -354,7 +385,19 @@ class AsyncChallengeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.create_challenge_response.CreateChallengeResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.create_challenge_response
+
+            return capo_pca_connector_scep.types.create_challenge_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateChallenge", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.create_challenge_request.CreateChallengeRequest = {
             "connector_arn": connector_arn
         }
@@ -407,7 +450,9 @@ class AsyncChallengeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.get_challenge_metadata_request.GetChallengeMetadataRequest = {
             "challenge_arn": challenge_arn
         }
@@ -454,7 +499,9 @@ class AsyncChallengeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteChallenge")
+        )
         input_: capo_pca_connector_scep.types.delete_challenge_request.DeleteChallengeRequest = {
             "challenge_arn": challenge_arn
         }
@@ -510,7 +557,9 @@ class AsyncChallengeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChallengeMetadata")
+        )
         input_: capo_pca_connector_scep.types.list_challenge_metadata_request.ListChallengeMetadataRequest = {
             "connector_arn": connector_arn
         }
@@ -562,7 +611,19 @@ class AsyncChallengeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pca_connector_scep.types.get_challenge_password_response.GetChallengePasswordResponse",
+        ) -> dict[str, Any]:
+            import capo_pca_connector_scep.types.get_challenge_password_response
+
+            return capo_pca_connector_scep.types.get_challenge_password_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetChallengePassword", redact_output=_redact_output),
+        )
         input_: capo_pca_connector_scep.types.get_challenge_password_request.GetChallengePasswordRequest = {
             "challenge_arn": challenge_arn
         }

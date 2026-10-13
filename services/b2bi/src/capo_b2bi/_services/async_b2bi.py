@@ -29,7 +29,9 @@ from capo_b2bi._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -214,7 +216,9 @@ class Asyncb2biClient:
         self.transformer = AsyncTransformer(self)
 
     def operation_options(
-        self, config_overrides: Optional[Asyncb2biClientConfig] = None
+        self,
+        config_overrides: Optional[Asyncb2biClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: Asyncb2biClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -222,8 +226,10 @@ class Asyncb2biClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -287,7 +293,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStarterMappingTemplate")
+        )
         input_: capo_b2bi.types.create_starter_mapping_template_request.CreateStarterMappingTemplateRequest = {
             "mapping_type": mapping_type,
             "template_details": template_details,
@@ -346,7 +354,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateMapping")
+        )
         input_: capo_b2bi.types.generate_mapping_request.GenerateMappingRequest = {
             "input_file_content": input_file_content,
             "output_file_content": output_file_content,
@@ -403,7 +413,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransformerJob")
+        )
         input_: capo_b2bi.types.get_transformer_job_request.GetTransformerJobRequest = {
             "transformer_job_id": transformer_job_id,
             "transformer_id": transformer_id,
@@ -455,7 +467,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_b2bi.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -515,7 +529,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartTransformerJob")
+        )
         input_: capo_b2bi.types.start_transformer_job_request.StartTransformerJobRequest = {
             "input_file": input_file,
             "output_location": output_location,
@@ -572,7 +588,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_b2bi.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -628,7 +646,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestConversion")
+        )
         input_: capo_b2bi.types.test_conversion_request.TestConversionRequest = {
             "source": source,
             "target": target,
@@ -686,7 +706,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestMapping")
+        )
         input_: capo_b2bi.types.test_mapping_request.TestMappingRequest = {
             "input_file_content": input_file_content,
             "mapping_template": mapping_template,
@@ -758,7 +780,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestParsing")
+        )
         input_: capo_b2bi.types.test_parsing_request.TestParsingRequest = {
             "input_file": input_file,
             "file_format": file_format,
@@ -813,7 +837,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_b2bi.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -881,7 +907,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCapability")
+        )
         input_: capo_b2bi.types.create_capability_request.CreateCapabilityRequest = {
             "name": name,
             "type": type,
@@ -943,7 +971,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCapability")
+        )
         input_: capo_b2bi.types.get_capability_request.GetCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -1008,7 +1038,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCapability")
+        )
         input_: capo_b2bi.types.update_capability_request.UpdateCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -1066,7 +1098,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCapability")
+        )
         input_: capo_b2bi.types.delete_capability_request.DeleteCapabilityRequest = {
             "capability_id": capability_id
         }
@@ -1120,7 +1154,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCapabilities")
+        )
         input_: capo_b2bi.types.list_capabilities_request.ListCapabilitiesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1214,7 +1250,28 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_partnership_request.CreatePartnershipRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_request
+
+            return capo_b2bi.types.create_partnership_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_partnership_response.CreatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_response
+
+            return capo_b2bi.types.create_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePartnership",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_partnership_request.CreatePartnershipRequest = {
             "profile_id": profile_id,
             "name": name,
@@ -1279,7 +1336,17 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_partnership_response.GetPartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_partnership_response
+
+            return capo_b2bi.types.get_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetPartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_partnership_request.GetPartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -1344,7 +1411,17 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.update_partnership_response.UpdatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_partnership_response
+
+            return capo_b2bi.types.update_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.update_partnership_request.UpdatePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -1402,7 +1479,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePartnership")
+        )
         input_: capo_b2bi.types.delete_partnership_request.DeletePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -1459,7 +1538,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPartnerships")
+        )
         input_: capo_b2bi.types.list_partnerships_request.ListPartnershipsRequest = {}
         if profile_id is not None:
             input_["profile_id"] = profile_id
@@ -1553,7 +1634,28 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_profile_request.CreateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_request
+
+            return capo_b2bi.types.create_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_profile_response.CreateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_profile_response
+
+            return capo_b2bi.types.create_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_profile_request.CreateProfileRequest = {
             "name": name,
             "phone": phone,
@@ -1616,7 +1718,17 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_profile_response.GetProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_profile_response
+
+            return capo_b2bi.types.get_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProfile", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_profile_request.GetProfileRequest = {
             "profile_id": profile_id
         }
@@ -1679,7 +1791,28 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.update_profile_request.UpdateProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_request
+
+            return capo_b2bi.types.update_profile_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.update_profile_response.UpdateProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_profile_response
+
+            return capo_b2bi.types.update_profile_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.update_profile_request.UpdateProfileRequest = {
             "profile_id": profile_id
         }
@@ -1739,7 +1872,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProfile")
+        )
         input_: capo_b2bi.types.delete_profile_request.DeleteProfileRequest = {
             "profile_id": profile_id
         }
@@ -1793,7 +1928,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProfiles")
+        )
         input_: capo_b2bi.types.list_profiles_request.ListProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1899,7 +2036,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTransformer")
+        )
         input_: capo_b2bi.types.create_transformer_request.CreateTransformerRequest = {
             "name": name
         }
@@ -1973,7 +2112,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTransformer")
+        )
         input_: capo_b2bi.types.get_transformer_request.GetTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -2056,7 +2197,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTransformer")
+        )
         input_: capo_b2bi.types.update_transformer_request.UpdateTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -2128,7 +2271,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTransformer")
+        )
         input_: capo_b2bi.types.delete_transformer_request.DeleteTransformerRequest = {
             "transformer_id": transformer_id
         }
@@ -2182,7 +2327,9 @@ class Asyncb2biClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTransformers")
+        )
         input_: capo_b2bi.types.list_transformers_request.ListTransformersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

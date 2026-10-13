@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class PrefetchScheduleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.create_prefetch_schedule_request.CreatePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -157,7 +160,9 @@ class PrefetchScheduleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrefetchSchedule")
+        )
         input_: capo_mediatailor.types.get_prefetch_schedule_request.GetPrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -202,7 +207,9 @@ class PrefetchScheduleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.delete_prefetch_schedule_request.DeletePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -257,7 +264,9 @@ class PrefetchScheduleResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrefetchSchedules")
+        )
         input_: capo_mediatailor.types.list_prefetch_schedules_request.ListPrefetchSchedulesRequest = {
             "playback_configuration_name": playback_configuration_name
         }
@@ -337,7 +346,9 @@ class AsyncPrefetchScheduleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.create_prefetch_schedule_request.CreatePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -397,7 +408,9 @@ class AsyncPrefetchScheduleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPrefetchSchedule")
+        )
         input_: capo_mediatailor.types.get_prefetch_schedule_request.GetPrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -443,7 +456,9 @@ class AsyncPrefetchScheduleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePrefetchSchedule")
+        )
         input_: capo_mediatailor.types.delete_prefetch_schedule_request.DeletePrefetchScheduleRequest = {
             "name": name,
             "playback_configuration_name": playback_configuration_name,
@@ -499,7 +514,9 @@ class AsyncPrefetchScheduleResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPrefetchSchedules")
+        )
         input_: capo_mediatailor.types.list_prefetch_schedules_request.ListPrefetchSchedulesRequest = {
             "playback_configuration_name": playback_configuration_name
         }

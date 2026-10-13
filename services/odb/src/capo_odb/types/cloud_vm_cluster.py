@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.odb#CloudVmCluster``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -426,5 +426,16 @@ def deserialize_aws_json_1_0(data: dict) -> CloudVmCluster:
 
         out["iam_roles"] = capo_odb.types.iam_role_list.deserialize_aws_json_1_0(
             data["iamRoles"]
+        )
+    return out
+
+
+def redact_sensitive(value: CloudVmCluster) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssh_public_keys" in value:
+        import capo_odb.types.sensitive_string_list
+
+        out["ssh_public_keys"] = capo_odb.types.sensitive_string_list.redact_sensitive(
+            value["ssh_public_keys"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ToolOverrideInputValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> ToolOverrideInputValue:
         )
     else:
         raise DeserializationError("ToolOverrideInputValue.value required")
+    return out
+
+
+def redact_sensitive(value: ToolOverrideInputValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        import capo_qconnect.types.tool_override_input_value_configuration
+
+        out["value"] = (
+            capo_qconnect.types.tool_override_input_value_configuration.redact_sensitive(
+                value["value"]
+            )
+        )
     return out

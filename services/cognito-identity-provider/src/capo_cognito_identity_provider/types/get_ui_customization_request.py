@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cognitoidentityprovider#GetUICustomizationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_aws_json_1_1(data: dict) -> GetUICustomizationRequest:
         raise DeserializationError("GetUICustomizationRequest.user_pool_id required")
     if data.get("ClientId") is not None:
         out["client_id"] = data["ClientId"]
+    return out
+
+
+def redact_sensitive(value: GetUICustomizationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
     return out

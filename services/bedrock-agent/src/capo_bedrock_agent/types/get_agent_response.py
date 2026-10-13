@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#GetAgentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -32,4 +32,13 @@ def deserialize_json(data: dict) -> GetAgentResponse:
         out["agent"] = capo_bedrock_agent.types.agent.deserialize_json(data["agent"])
     else:
         raise DeserializationError("GetAgentResponse.agent required")
+    return out
+
+
+def redact_sensitive(value: GetAgentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "agent" in value:
+        import capo_bedrock_agent.types.agent
+
+        out["agent"] = capo_bedrock_agent.types.agent.redact_sensitive(value["agent"])
     return out

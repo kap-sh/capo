@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agent_runtime._auth._signers
 import capo_bedrock_agent_runtime._auth._sigv4
 from capo_bedrock_agent_runtime._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -81,7 +82,30 @@ class RerankResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.rerank_request.RerankRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.rerank_request
+
+            return capo_bedrock_agent_runtime.types.rerank_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.rerank_response.RerankResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.rerank_response
+
+            return capo_bedrock_agent_runtime.types.rerank_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Rerank", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.rerank_request.RerankRequest = {
             "queries": queries,
             "sources": sources,
@@ -150,7 +174,30 @@ class AsyncRerankResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agent_runtime.types.rerank_request.RerankRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.rerank_request
+
+            return capo_bedrock_agent_runtime.types.rerank_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agent_runtime.types.rerank_response.RerankResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agent_runtime.types.rerank_response
+
+            return capo_bedrock_agent_runtime.types.rerank_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Rerank", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agent_runtime.types.rerank_request.RerankRequest = {
             "queries": queries,
             "sources": sources,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#ContentSource``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,16 @@ def deserialize_json(data: dict) -> ContentSource:
         }
     else:
         raise DeserializationError("ContentSource: no recognized variant key")
+
+
+def redact_sensitive(value: ContentSource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline" in value:
+        import capo_bedrock_agentcore.types.inline_memory_content
+
+        out["inline"] = (
+            capo_bedrock_agentcore.types.inline_memory_content.redact_sensitive(
+                value["inline"]
+            )
+        )
+    return out

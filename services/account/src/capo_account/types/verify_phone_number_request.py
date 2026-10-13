@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.account#VerifyPhoneNumberRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_json(data: dict) -> VerifyPhoneNumberRequest:
         out["otp"] = data["Otp"]
     else:
         raise DeserializationError("VerifyPhoneNumberRequest.otp required")
+    return out
+
+
+def redact_sensitive(value: VerifyPhoneNumberRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "otp" in value:
+        out["otp"] = "*** Sensitive Data Redacted ***"
     return out

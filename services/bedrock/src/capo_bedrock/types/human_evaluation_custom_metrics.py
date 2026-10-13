@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#HumanEvaluationCustomMetrics``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock.types.human_evaluation_custom_metric
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> HumanEvaluationCustomMetrics:
             capo_bedrock.types.human_evaluation_custom_metric.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: HumanEvaluationCustomMetrics) -> list[Any]:
+    import capo_bedrock.types.human_evaluation_custom_metric
+
+    return [
+        capo_bedrock.types.human_evaluation_custom_metric.redact_sensitive(item)
+        for item in value
+    ]

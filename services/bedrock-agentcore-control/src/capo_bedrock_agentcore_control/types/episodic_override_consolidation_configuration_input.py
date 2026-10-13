@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#EpisodicOverrideConsolidationConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,13 @@ def deserialize_json(data: dict) -> EpisodicOverrideConsolidationConfigurationIn
         raise DeserializationError(
             "EpisodicOverrideConsolidationConfigurationInput.model_id required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: EpisodicOverrideConsolidationConfigurationInput,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "append_to_prompt" in value:
+        out["append_to_prompt"] = "*** Sensitive Data Redacted ***"
     return out

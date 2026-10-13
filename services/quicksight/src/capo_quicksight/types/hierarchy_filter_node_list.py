@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#HierarchyFilterNodeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.hierarchy_filter_node
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> HierarchyFilterNodeList:
             continue
         out.append(capo_quicksight.types.hierarchy_filter_node.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: HierarchyFilterNodeList) -> list[Any]:
+    import capo_quicksight.types.hierarchy_filter_node
+
+    return [
+        capo_quicksight.types.hierarchy_filter_node.redact_sensitive(item)
+        for item in value
+    ]

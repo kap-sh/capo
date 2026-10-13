@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GetDatasetResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -225,4 +225,11 @@ def deserialize_json(data: dict) -> GetDatasetResponse:
         out["tags"] = capo_bedrock_agentcore_control.types.tags_map.deserialize_json(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: GetDatasetResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "download_url" in value:
+        out["download_url"] = "*** Sensitive Data Redacted ***"
     return out

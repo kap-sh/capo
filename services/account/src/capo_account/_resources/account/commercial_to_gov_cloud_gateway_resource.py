@@ -7,6 +7,7 @@ import capo_account._auth._sigv4
 from capo_account._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -63,7 +64,9 @@ class CommercialToGovCloudGatewayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGovCloudAccountInformation")
+        )
         input_: capo_account.types.get_gov_cloud_account_information_request.GetGovCloudAccountInformationRequest = {}
         if standard_account_id is not None:
             input_["standard_account_id"] = standard_account_id
@@ -117,7 +120,9 @@ class AsyncCommercialToGovCloudGatewayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetGovCloudAccountInformation")
+        )
         input_: capo_account.types.get_gov_cloud_account_information_request.GetGovCloudAccountInformationRequest = {}
         if standard_account_id is not None:
             input_["standard_account_id"] = standard_account_id

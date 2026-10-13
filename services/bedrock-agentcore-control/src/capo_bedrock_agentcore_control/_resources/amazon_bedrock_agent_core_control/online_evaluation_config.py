@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -121,7 +122,21 @@ class OnlineEvaluationConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.CreateOnlineEvaluationConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_online_evaluation_config_request
+
+            return capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOnlineEvaluationConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.CreateOnlineEvaluationConfigRequest = {
             "online_evaluation_config_name": online_evaluation_config_name,
             "rule": rule,
@@ -187,7 +202,19 @@ class OnlineEvaluationConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_online_evaluation_config_response.GetOnlineEvaluationConfigResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_online_evaluation_config_response
+
+            return capo_bedrock_agentcore_control.types.get_online_evaluation_config_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOnlineEvaluationConfig", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_online_evaluation_config_request.GetOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -273,7 +300,21 @@ class OnlineEvaluationConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.UpdateOnlineEvaluationConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_online_evaluation_config_request
+
+            return capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOnlineEvaluationConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.UpdateOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -342,7 +383,9 @@ class OnlineEvaluationConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOnlineEvaluationConfig")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_online_evaluation_config_request.DeleteOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -390,7 +433,21 @@ class OnlineEvaluationConfig:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response.ListOnlineEvaluationConfigsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response
+
+            return capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListOnlineEvaluationConfigs", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.list_online_evaluation_configs_request.ListOnlineEvaluationConfigsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -479,7 +536,21 @@ class AsyncOnlineEvaluationConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.CreateOnlineEvaluationConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_online_evaluation_config_request
+
+            return capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateOnlineEvaluationConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_online_evaluation_config_request.CreateOnlineEvaluationConfigRequest = {
             "online_evaluation_config_name": online_evaluation_config_name,
             "rule": rule,
@@ -546,7 +617,19 @@ class AsyncOnlineEvaluationConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_online_evaluation_config_response.GetOnlineEvaluationConfigResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_online_evaluation_config_response
+
+            return capo_bedrock_agentcore_control.types.get_online_evaluation_config_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetOnlineEvaluationConfig", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_online_evaluation_config_request.GetOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -633,7 +716,21 @@ class AsyncOnlineEvaluationConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.UpdateOnlineEvaluationConfigRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_online_evaluation_config_request
+
+            return capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateOnlineEvaluationConfig", redact_input=_redact_input
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_online_evaluation_config_request.UpdateOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -703,7 +800,9 @@ class AsyncOnlineEvaluationConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOnlineEvaluationConfig")
+        )
         input_: capo_bedrock_agentcore_control.types.delete_online_evaluation_config_request.DeleteOnlineEvaluationConfigRequest = {
             "online_evaluation_config_id": online_evaluation_config_id
         }
@@ -752,7 +851,21 @@ class AsyncOnlineEvaluationConfig:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response.ListOnlineEvaluationConfigsResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response
+
+            return capo_bedrock_agentcore_control.types.list_online_evaluation_configs_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListOnlineEvaluationConfigs", redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.list_online_evaluation_configs_request.ListOnlineEvaluationConfigsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

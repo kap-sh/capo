@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#ConnectionOAuthResponseParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,6 +88,19 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionOAuthResponseParameters:
         out["o_auth_http_parameters"] = (
             capo_eventbridge.types.connection_http_parameters.deserialize_aws_json_1_1(
                 data["OAuthHttpParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectionOAuthResponseParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "o_auth_http_parameters" in value:
+        import capo_eventbridge.types.connection_http_parameters
+
+        out["o_auth_http_parameters"] = (
+            capo_eventbridge.types.connection_http_parameters.redact_sensitive(
+                value["o_auth_http_parameters"]
             )
         )
     return out

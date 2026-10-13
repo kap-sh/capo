@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssooidc#RegisterClientResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,11 @@ def deserialize_json(data: dict) -> RegisterClientResponse:
         out["authorization_endpoint"] = data["authorizationEndpoint"]
     if data.get("tokenEndpoint") is not None:
         out["token_endpoint"] = data["tokenEndpoint"]
+    return out
+
+
+def redact_sensitive(value: RegisterClientResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#BatchGetSessionActionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -62,4 +62,17 @@ def deserialize_json(data: dict) -> BatchGetSessionActionResponse:
         )
     else:
         raise DeserializationError("BatchGetSessionActionResponse.errors required")
+    return out
+
+
+def redact_sensitive(value: BatchGetSessionActionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_actions" in value:
+        import capo_deadline.types.batch_get_session_action_items
+
+        out["session_actions"] = (
+            capo_deadline.types.batch_get_session_action_items.redact_sensitive(
+                value["session_actions"]
+            )
+        )
     return out

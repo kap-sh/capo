@@ -22,7 +22,9 @@ from capo_wafv2._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -276,7 +278,9 @@ class AsyncWAFV2Client:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncWAFV2ClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncWAFV2ClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncWAFV2ClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -284,8 +288,10 @@ class AsyncWAFV2Client:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -343,7 +349,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateWebACL")
+        )
         input_: capo_wafv2.types.associate_web_acl_request.AssociateWebACLRequest = {
             "web_acl_arn": web_acl_arn,
             "resource_arn": resource_arn,
@@ -398,7 +406,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckCapacity")
+        )
         input_: capo_wafv2.types.check_capacity_request.CheckCapacityRequest = {
             "scope": scope,
             "rules": rules,
@@ -448,7 +458,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAPIKey")
+        )
         input_: capo_wafv2.types.create_api_key_request.CreateAPIKeyRequest = {
             "scope": scope,
             "token_domains": token_domains,
@@ -512,7 +524,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIPSet")
+        )
         input_: capo_wafv2.types.create_ip_set_request.CreateIPSetRequest = {
             "name": name,
             "scope": scope,
@@ -580,7 +594,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRegexPatternSet")
+        )
         input_: capo_wafv2.types.create_regex_pattern_set_request.CreateRegexPatternSetRequest = {
             "name": name,
             "scope": scope,
@@ -662,7 +678,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRuleGroup")
+        )
         input_: capo_wafv2.types.create_rule_group_request.CreateRuleGroupRequest = {
             "name": name,
             "scope": scope,
@@ -780,7 +798,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebACL")
+        )
         input_: capo_wafv2.types.create_web_acl_request.CreateWebACLRequest = {
             "name": name,
             "scope": scope,
@@ -859,7 +879,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAPIKey")
+        )
         input_: capo_wafv2.types.delete_api_key_request.DeleteAPIKeyRequest = {
             "scope": scope,
             "api_key": api_key,
@@ -910,7 +932,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallManagerRuleGroups")
+        )
         input_: capo_wafv2.types.delete_firewall_manager_rule_groups_request.DeleteFirewallManagerRuleGroupsRequest = {
             "web_acl_arn": web_acl_arn,
             "web_acl_lock_token": web_acl_lock_token,
@@ -968,7 +992,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIPSet")
+        )
         input_: capo_wafv2.types.delete_ip_set_request.DeleteIPSetRequest = {
             "name": name,
             "scope": scope,
@@ -1023,7 +1049,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoggingConfiguration")
+        )
         input_: capo_wafv2.types.delete_logging_configuration_request.DeleteLoggingConfigurationRequest = {
             "resource_arn": resource_arn
         }
@@ -1073,7 +1101,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePermissionPolicy")
+        )
         input_: capo_wafv2.types.delete_permission_policy_request.DeletePermissionPolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1130,7 +1160,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRegexPatternSet")
+        )
         input_: capo_wafv2.types.delete_regex_pattern_set_request.DeleteRegexPatternSetRequest = {
             "name": name,
             "scope": scope,
@@ -1190,7 +1222,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRuleGroup")
+        )
         input_: capo_wafv2.types.delete_rule_group_request.DeleteRuleGroupRequest = {
             "name": name,
             "scope": scope,
@@ -1250,7 +1284,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebACL")
+        )
         input_: capo_wafv2.types.delete_web_acl_request.DeleteWebACLRequest = {
             "name": name,
             "scope": scope,
@@ -1299,7 +1335,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAllManagedProducts")
+        )
         input_: capo_wafv2.types.describe_all_managed_products_request.DescribeAllManagedProductsRequest = {
             "scope": scope
         }
@@ -1347,7 +1385,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeManagedProductsByVendor")
+        )
         input_: capo_wafv2.types.describe_managed_products_by_vendor_request.DescribeManagedProductsByVendorRequest = {
             "vendor_name": vendor_name,
             "scope": scope,
@@ -1405,7 +1445,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeManagedRuleGroup")
+        )
         input_: capo_wafv2.types.describe_managed_rule_group_request.DescribeManagedRuleGroupRequest = {
             "vendor_name": vendor_name,
             "name": name,
@@ -1456,7 +1498,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateWebACL")
+        )
         input_: capo_wafv2.types.disassociate_web_acl_request.DisassociateWebACLRequest = {
             "resource_arn": resource_arn
         }
@@ -1505,7 +1549,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateMobileSdkReleaseUrl")
+        )
         input_: capo_wafv2.types.generate_mobile_sdk_release_url_request.GenerateMobileSdkReleaseUrlRequest = {
             "platform": platform,
             "release_version": release_version,
@@ -1556,7 +1602,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDecryptedAPIKey")
+        )
         input_: capo_wafv2.types.get_decrypted_api_key_request.GetDecryptedAPIKeyRequest = {
             "scope": scope,
             "api_key": api_key,
@@ -1608,7 +1656,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIPSet")
+        )
         input_: capo_wafv2.types.get_ip_set_request.GetIPSetRequest = {
             "name": name,
             "scope": scope,
@@ -1661,7 +1711,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggingConfiguration")
+        )
         input_: capo_wafv2.types.get_logging_configuration_request.GetLoggingConfigurationRequest = {
             "resource_arn": resource_arn
         }
@@ -1716,7 +1768,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedRuleSet")
+        )
         input_: capo_wafv2.types.get_managed_rule_set_request.GetManagedRuleSetRequest = {
             "name": name,
             "scope": scope,
@@ -1767,7 +1821,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMobileSdkRelease")
+        )
         input_: capo_wafv2.types.get_mobile_sdk_release_request.GetMobileSdkReleaseRequest = {
             "platform": platform,
             "release_version": release_version,
@@ -1814,7 +1870,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPermissionPolicy")
+        )
         input_: capo_wafv2.types.get_permission_policy_request.GetPermissionPolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -1872,7 +1930,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRateBasedStatementManagedKeys")
+        )
         input_: capo_wafv2.types.get_rate_based_statement_managed_keys_request.GetRateBasedStatementManagedKeysRequest = {
             "scope": scope,
             "web_acl_name": web_acl_name,
@@ -1928,7 +1988,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRegexPatternSet")
+        )
         input_: capo_wafv2.types.get_regex_pattern_set_request.GetRegexPatternSetRequest = {
             "name": name,
             "scope": scope,
@@ -2001,7 +2063,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevenueStatistics")
+        )
         input_: capo_wafv2.types.get_revenue_statistics_request.GetRevenueStatisticsRequest = {
             "statistic_type": statistic_type,
             "time_window": time_window,
@@ -2071,7 +2135,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevenueStatisticsSummary")
+        )
         input_: capo_wafv2.types.get_revenue_statistics_summary_request.GetRevenueStatisticsSummaryRequest = {
             "time_window": time_window,
             "scope": scope,
@@ -2140,7 +2206,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevenueStatisticsTimeSeries")
+        )
         input_: capo_wafv2.types.get_revenue_statistics_time_series_request.GetRevenueStatisticsTimeSeriesRequest = {
             "statistic_type": statistic_type,
             "time_window": time_window,
@@ -2205,7 +2273,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuleGroup")
+        )
         input_: capo_wafv2.types.get_rule_group_request.GetRuleGroupRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2265,7 +2335,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSampledRequests")
+        )
         input_: capo_wafv2.types.get_sampled_requests_request.GetSampledRequestsRequest = {
             "web_acl_arn": web_acl_arn,
             "rule_metric_name": rule_metric_name,
@@ -2339,7 +2411,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTopPathStatisticsByTraffic")
+        )
         input_: capo_wafv2.types.get_top_path_statistics_by_traffic_request.GetTopPathStatisticsByTrafficRequest = {
             "web_acl_arn": web_acl_arn,
             "scope": scope,
@@ -2406,7 +2480,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWebACL")
+        )
         input_: capo_wafv2.types.get_web_acl_request.GetWebACLRequest = {}
         if name is not None:
             input_["name"] = name
@@ -2460,7 +2536,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWebACLForResource")
+        )
         input_: capo_wafv2.types.get_web_acl_for_resource_request.GetWebACLForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2511,7 +2589,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAPIKeys")
+        )
         input_: capo_wafv2.types.list_api_keys_request.ListAPIKeysRequest = {
             "scope": scope
         }
@@ -2565,7 +2645,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableManagedRuleGroups")
+        )
         input_: capo_wafv2.types.list_available_managed_rule_groups_request.ListAvailableManagedRuleGroupsRequest = {
             "scope": scope
         }
@@ -2624,7 +2706,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAvailableManagedRuleGroupVersions")
+        )
         input_: capo_wafv2.types.list_available_managed_rule_group_versions_request.ListAvailableManagedRuleGroupVersionsRequest = {
             "vendor_name": vendor_name,
             "name": name,
@@ -2680,7 +2764,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIPSets")
+        )
         input_: capo_wafv2.types.list_ip_sets_request.ListIPSetsRequest = {
             "scope": scope
         }
@@ -2736,7 +2822,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoggingConfigurations")
+        )
         input_: capo_wafv2.types.list_logging_configurations_request.ListLoggingConfigurationsRequest = {
             "scope": scope
         }
@@ -2792,7 +2880,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedRuleSets")
+        )
         input_: capo_wafv2.types.list_managed_rule_sets_request.ListManagedRuleSetsRequest = {
             "scope": scope
         }
@@ -2846,7 +2936,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMobileSdkReleases")
+        )
         input_: capo_wafv2.types.list_mobile_sdk_releases_request.ListMobileSdkReleasesRequest = {
             "platform": platform
         }
@@ -2902,7 +2994,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegexPatternSets")
+        )
         input_: capo_wafv2.types.list_regex_pattern_sets_request.ListRegexPatternSetsRequest = {
             "scope": scope
         }
@@ -2955,7 +3049,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcesForWebACL")
+        )
         input_: capo_wafv2.types.list_resources_for_web_acl_request.ListResourcesForWebACLRequest = {
             "web_acl_arn": web_acl_arn
         }
@@ -3007,7 +3103,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRuleGroups")
+        )
         input_: capo_wafv2.types.list_rule_groups_request.ListRuleGroupsRequest = {
             "scope": scope
         }
@@ -3078,7 +3176,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSettlementRecords")
+        )
         input_: capo_wafv2.types.list_settlement_records_request.ListSettlementRecordsRequest = {
             "time_window": time_window,
             "scope": scope,
@@ -3143,7 +3243,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_wafv2.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3197,7 +3299,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWebACLs")
+        )
         input_: capo_wafv2.types.list_web_ac_ls_request.ListWebACLsRequest = {
             "scope": scope
         }
@@ -3253,7 +3357,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLoggingConfiguration")
+        )
         input_: capo_wafv2.types.put_logging_configuration_request.PutLoggingConfigurationRequest = {
             "logging_configuration": logging_configuration
         }
@@ -3315,7 +3421,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutManagedRuleSetVersions")
+        )
         input_: capo_wafv2.types.put_managed_rule_set_versions_request.PutManagedRuleSetVersionsRequest = {
             "name": name,
             "scope": scope,
@@ -3371,7 +3479,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPermissionPolicy")
+        )
         input_: capo_wafv2.types.put_permission_policy_request.PutPermissionPolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -3424,7 +3534,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_wafv2.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3476,7 +3588,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_wafv2.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3539,7 +3653,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIPSet")
+        )
         input_: capo_wafv2.types.update_ip_set_request.UpdateIPSetRequest = {
             "name": name,
             "scope": scope,
@@ -3603,7 +3719,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateManagedRuleSetVersionExpiryDate")
+        )
         input_: capo_wafv2.types.update_managed_rule_set_version_expiry_date_request.UpdateManagedRuleSetVersionExpiryDateRequest = {
             "name": name,
             "scope": scope,
@@ -3670,7 +3788,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRegexPatternSet")
+        )
         input_: capo_wafv2.types.update_regex_pattern_set_request.UpdateRegexPatternSetRequest = {
             "name": name,
             "scope": scope,
@@ -3751,7 +3871,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRuleGroup")
+        )
         input_: capo_wafv2.types.update_rule_group_request.UpdateRuleGroupRequest = {
             "name": name,
             "scope": scope,
@@ -3869,7 +3991,9 @@ class AsyncWAFV2Client:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebACL")
+        )
         input_: capo_wafv2.types.update_web_acl_request.UpdateWebACLRequest = {
             "name": name,
             "scope": scope,

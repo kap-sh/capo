@@ -36,7 +36,9 @@ from capo_identitystore._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -192,7 +194,9 @@ class AsyncidentitystoreClient:
         self.user_resource = AsyncUserResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncidentitystoreClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncidentitystoreClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncidentitystoreClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -200,8 +204,10 @@ class AsyncidentitystoreClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -261,7 +267,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGroupMembership")
+        )
         input_: capo_identitystore.types.create_group_membership_request.CreateGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -313,7 +321,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeGroupMembership")
+        )
         input_: capo_identitystore.types.describe_group_membership_request.DescribeGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -365,7 +375,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroupMembership")
+        )
         input_: capo_identitystore.types.delete_group_membership_request.DeleteGroupMembershipRequest = {
             "identity_store_id": identity_store_id,
             "membership_id": membership_id,
@@ -420,7 +432,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupMemberships")
+        )
         input_: capo_identitystore.types.list_group_memberships_request.ListGroupMembershipsRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -502,7 +516,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupMembershipId")
+        )
         input_: capo_identitystore.types.get_group_membership_id_request.GetGroupMembershipIdRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -558,7 +574,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("IsMemberInGroups")
+        )
         input_: capo_identitystore.types.is_member_in_groups_request.IsMemberInGroupsRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,
@@ -614,7 +632,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupMembershipsForMember")
+        )
         input_: capo_identitystore.types.list_group_memberships_for_member_request.ListGroupMembershipsForMemberRequest = {
             "identity_store_id": identity_store_id,
             "member_id": member_id,
@@ -702,7 +722,19 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_group_request.CreateGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_group_request
+
+            return capo_identitystore.types.create_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateGroup", redact_input=_redact_input),
+        )
         input_: capo_identitystore.types.create_group_request.CreateGroupRequest = {
             "identity_store_id": identity_store_id
         }
@@ -756,7 +788,19 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_group_response.DescribeGroupResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_group_response
+
+            return capo_identitystore.types.describe_group_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeGroup", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_group_request.DescribeGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -815,7 +859,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateGroup")
+        )
         input_: capo_identitystore.types.update_group_request.UpdateGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -874,7 +920,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGroup")
+        )
         input_: capo_identitystore.types.delete_group_request.DeleteGroupRequest = {
             "identity_store_id": identity_store_id,
             "group_id": group_id,
@@ -931,7 +979,28 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_groups_request.ListGroupsRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_request
+
+            return capo_identitystore.types.list_groups_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_groups_response.ListGroupsResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_groups_response
+
+            return capo_identitystore.types.list_groups_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListGroups", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_groups_request.ListGroupsRequest = {
             "identity_store_id": identity_store_id
         }
@@ -1012,7 +1081,18 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_group_id_request.GetGroupIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_group_id_request
+
+            return capo_identitystore.types.get_group_id_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGroupId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_group_id_request.GetGroupIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,
@@ -1061,7 +1141,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeIdentityStore")
+        )
         input_: capo_identitystore.types.describe_identity_store_request.DescribeIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -1114,7 +1196,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityStore")
+        )
         input_: capo_identitystore.types.update_identity_store_request.UpdateIdentityStoreRequest = {
             "identity_store_id": identity_store_id
         }
@@ -1165,7 +1249,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityStores")
+        )
         input_: capo_identitystore.types.list_identity_stores_request.ListIdentityStoresRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1296,7 +1382,16 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.create_user_request.CreateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.create_user_request
+
+            return capo_identitystore.types.create_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateUser", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.create_user_request.CreateUserRequest = {
             "identity_store_id": identity_store_id
         }
@@ -1386,7 +1481,19 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_identitystore.types.describe_user_response.DescribeUserResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.describe_user_response
+
+            return capo_identitystore.types.describe_user_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeUser", redact_output=_redact_output),
+        )
         input_: capo_identitystore.types.describe_user_request.DescribeUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -1447,7 +1554,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateUser")
+        )
         input_: capo_identitystore.types.update_user_request.UpdateUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -1506,7 +1615,9 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteUser")
+        )
         input_: capo_identitystore.types.delete_user_request.DeleteUserRequest = {
             "identity_store_id": identity_store_id,
             "user_id": user_id,
@@ -1567,7 +1678,26 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.list_users_request.ListUsersRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_request
+
+            return capo_identitystore.types.list_users_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_identitystore.types.list_users_response.ListUsersResponse",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.list_users_response
+
+            return capo_identitystore.types.list_users_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListUsers", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_identitystore.types.list_users_request.ListUsersRequest = {
             "identity_store_id": identity_store_id
         }
@@ -1654,7 +1784,16 @@ class AsyncidentitystoreClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_identitystore.types.get_user_id_request.GetUserIdRequest",
+        ) -> dict[str, Any]:
+            import capo_identitystore.types.get_user_id_request
+
+            return capo_identitystore.types.get_user_id_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetUserId", redact_input=_redact_input)
+        )
         input_: capo_identitystore.types.get_user_id_request.GetUserIdRequest = {
             "identity_store_id": identity_store_id,
             "alternate_identifier": alternate_identifier,

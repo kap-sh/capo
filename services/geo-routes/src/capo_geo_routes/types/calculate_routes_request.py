@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#CalculateRoutesRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -409,5 +409,96 @@ def deserialize_json(data: dict) -> CalculateRoutesRequest:
 
         out["waypoints"] = capo_geo_routes.types.route_waypoint_list.deserialize_json(
             data["Waypoints"]
+        )
+    return out
+
+
+def redact_sensitive(value: CalculateRoutesRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allow" in value:
+        import capo_geo_routes.types.route_allow_options
+
+        out["allow"] = capo_geo_routes.types.route_allow_options.redact_sensitive(
+            value["allow"]
+        )
+    if "arrival_time" in value:
+        out["arrival_time"] = "*** Sensitive Data Redacted ***"
+    if "avoid" in value:
+        import capo_geo_routes.types.route_avoidance_options
+
+        out["avoid"] = capo_geo_routes.types.route_avoidance_options.redact_sensitive(
+            value["avoid"]
+        )
+    if "depart_now" in value:
+        out["depart_now"] = "*** Sensitive Data Redacted ***"
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "destination" in value:
+        out["destination"] = "*** Sensitive Data Redacted ***"
+    if "destination_options" in value:
+        import capo_geo_routes.types.route_destination_options
+
+        out["destination_options"] = (
+            capo_geo_routes.types.route_destination_options.redact_sensitive(
+                value["destination_options"]
+            )
+        )
+    if "driver" in value:
+        import capo_geo_routes.types.route_driver_options
+
+        out["driver"] = capo_geo_routes.types.route_driver_options.redact_sensitive(
+            value["driver"]
+        )
+    if "exclude" in value:
+        import capo_geo_routes.types.route_exclusion_options
+
+        out["exclude"] = capo_geo_routes.types.route_exclusion_options.redact_sensitive(
+            value["exclude"]
+        )
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "leg_additional_features" in value:
+        import capo_geo_routes.types.route_leg_additional_feature_list
+
+        out["leg_additional_features"] = (
+            capo_geo_routes.types.route_leg_additional_feature_list.redact_sensitive(
+                value["leg_additional_features"]
+            )
+        )
+    if "origin" in value:
+        out["origin"] = "*** Sensitive Data Redacted ***"
+    if "origin_options" in value:
+        import capo_geo_routes.types.route_origin_options
+
+        out["origin_options"] = (
+            capo_geo_routes.types.route_origin_options.redact_sensitive(
+                value["origin_options"]
+            )
+        )
+    if "tolls" in value:
+        import capo_geo_routes.types.route_toll_options
+
+        out["tolls"] = capo_geo_routes.types.route_toll_options.redact_sensitive(
+            value["tolls"]
+        )
+    if "traffic" in value:
+        import capo_geo_routes.types.route_traffic_options
+
+        out["traffic"] = capo_geo_routes.types.route_traffic_options.redact_sensitive(
+            value["traffic"]
+        )
+    if "travel_mode_options" in value:
+        import capo_geo_routes.types.route_travel_mode_options
+
+        out["travel_mode_options"] = (
+            capo_geo_routes.types.route_travel_mode_options.redact_sensitive(
+                value["travel_mode_options"]
+            )
+        )
+    if "waypoints" in value:
+        import capo_geo_routes.types.route_waypoint_list
+
+        out["waypoints"] = capo_geo_routes.types.route_waypoint_list.redact_sensitive(
+            value["waypoints"]
         )
     return out

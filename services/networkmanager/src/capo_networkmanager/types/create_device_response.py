@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networkmanager#CreateDeviceResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,5 +30,16 @@ def deserialize_json(data: dict) -> CreateDeviceResponse:
 
         out["device"] = capo_networkmanager.types.device.deserialize_json(
             data["Device"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateDeviceResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "device" in value:
+        import capo_networkmanager.types.device
+
+        out["device"] = capo_networkmanager.types.device.redact_sensitive(
+            value["device"]
         )
     return out

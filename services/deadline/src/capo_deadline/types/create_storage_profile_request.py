@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#CreateStorageProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -73,6 +73,19 @@ def deserialize_json(data: dict) -> CreateStorageProfileRequest:
         out["file_system_locations"] = (
             capo_deadline.types.file_system_locations_list.deserialize_json(
                 data["fileSystemLocations"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateStorageProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "file_system_locations" in value:
+        import capo_deadline.types.file_system_locations_list
+
+        out["file_system_locations"] = (
+            capo_deadline.types.file_system_locations_list.redact_sensitive(
+                value["file_system_locations"]
             )
         )
     return out

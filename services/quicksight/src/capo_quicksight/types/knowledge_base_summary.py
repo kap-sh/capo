@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#KnowledgeBaseSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -132,4 +132,11 @@ def deserialize_json(data: dict) -> KnowledgeBaseSummary:
         out["primary_owner_arn"] = data["PrimaryOwnerArn"]
     if data.get("PrimaryOwnerUsername") is not None:
         out["primary_owner_username"] = data["PrimaryOwnerUsername"]
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_owner_username" in value:
+        out["primary_owner_username"] = "*** Sensitive Data Redacted ***"
     return out

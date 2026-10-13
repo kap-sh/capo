@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#RestoreTestingSelectionForCreate``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -112,4 +112,11 @@ def deserialize_json(data: dict) -> RestoreTestingSelectionForCreate:
         out["validation_window_hours"] = data["ValidationWindowHours"]
     else:
         out["validation_window_hours"] = 0
+    return out
+
+
+def redact_sensitive(value: RestoreTestingSelectionForCreate) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "restore_metadata_overrides" in value:
+        out["restore_metadata_overrides"] = "*** Sensitive Data Redacted ***"
     return out

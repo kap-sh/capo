@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplify#DeleteAppResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_json(data: dict) -> DeleteAppResult:
         out["app"] = capo_amplify.types.app.deserialize_json(data["app"])
     else:
         raise DeserializationError("DeleteAppResult.app required")
+    return out
+
+
+def redact_sensitive(value: DeleteAppResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app" in value:
+        import capo_amplify.types.app
+
+        out["app"] = capo_amplify.types.app.redact_sensitive(value["app"])
     return out

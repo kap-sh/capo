@@ -8,6 +8,7 @@ import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class ConnectorDestinationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.create_connector_destination_request.CreateConnectorDestinationRequest = {
             "cloud_connector_id": cloud_connector_id,
             "auth_config": auth_config,
@@ -166,7 +169,9 @@ class ConnectorDestinationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.get_connector_destination_request.GetConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -231,7 +236,9 @@ class ConnectorDestinationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.update_connector_destination_request.UpdateConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -286,7 +293,9 @@ class ConnectorDestinationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.delete_connector_destination_request.DeleteConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -342,7 +351,9 @@ class ConnectorDestinationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectorDestinations")
+        )
         input_: capo_iot_managed_integrations.types.list_connector_destinations_request.ListConnectorDestinationsRequest = {}
         if cloud_connector_id is not None:
             input_["cloud_connector_id"] = cloud_connector_id
@@ -423,7 +434,9 @@ class AsyncConnectorDestinationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.create_connector_destination_request.CreateConnectorDestinationRequest = {
             "cloud_connector_id": cloud_connector_id,
             "auth_config": auth_config,
@@ -483,7 +496,9 @@ class AsyncConnectorDestinationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.get_connector_destination_request.GetConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -549,7 +564,9 @@ class AsyncConnectorDestinationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.update_connector_destination_request.UpdateConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -605,7 +622,9 @@ class AsyncConnectorDestinationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.delete_connector_destination_request.DeleteConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -662,7 +681,9 @@ class AsyncConnectorDestinationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConnectorDestinations")
+        )
         input_: capo_iot_managed_integrations.types.list_connector_destinations_request.ListConnectorDestinationsRequest = {}
         if cloud_connector_id is not None:
             input_["cloud_connector_id"] = cloud_connector_id

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mediapackage#HlsIngest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> HlsIngest:
         out["ingest_endpoints"] = (
             capo_mediapackage.types.__list_of_ingest_endpoint.deserialize_json(
                 data["ingestEndpoints"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: HlsIngest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ingest_endpoints" in value:
+        import capo_mediapackage.types.__list_of_ingest_endpoint
+
+        out["ingest_endpoints"] = (
+            capo_mediapackage.types.__list_of_ingest_endpoint.redact_sensitive(
+                value["ingest_endpoints"]
             )
         )
     return out

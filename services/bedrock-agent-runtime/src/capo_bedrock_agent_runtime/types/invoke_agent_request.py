@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeAgentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -142,4 +142,19 @@ def deserialize_json(data: dict) -> InvokeAgentRequest:
                 data["promptCreationConfigurations"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: InvokeAgentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "session_state" in value:
+        import capo_bedrock_agent_runtime.types.session_state
+
+        out["session_state"] = (
+            capo_bedrock_agent_runtime.types.session_state.redact_sensitive(
+                value["session_state"]
+            )
+        )
+    if "input_text" in value:
+        out["input_text"] = "*** Sensitive Data Redacted ***"
     return out

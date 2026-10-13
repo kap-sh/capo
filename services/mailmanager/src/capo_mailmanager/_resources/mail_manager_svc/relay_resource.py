@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,9 @@ class RelayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRelay")
+        )
         input_: capo_mailmanager.types.create_relay_request.CreateRelayRequest = {
             "relay_name": relay_name,
             "server_name": server_name,
@@ -142,7 +145,9 @@ class RelayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRelay")
+        )
         input_: capo_mailmanager.types.get_relay_request.GetRelayRequest = {
             "relay_id": relay_id
         }
@@ -201,7 +206,9 @@ class RelayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRelay")
+        )
         input_: capo_mailmanager.types.update_relay_request.UpdateRelayRequest = {
             "relay_id": relay_id
         }
@@ -254,7 +261,9 @@ class RelayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRelay")
+        )
         input_: capo_mailmanager.types.delete_relay_request.DeleteRelayRequest = {
             "relay_id": relay_id
         }
@@ -301,7 +310,9 @@ class RelayResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRelays")
+        )
         input_: capo_mailmanager.types.list_relays_request.ListRelaysRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size
@@ -366,7 +377,9 @@ class AsyncRelayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRelay")
+        )
         input_: capo_mailmanager.types.create_relay_request.CreateRelayRequest = {
             "relay_name": relay_name,
             "server_name": server_name,
@@ -419,7 +432,9 @@ class AsyncRelayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRelay")
+        )
         input_: capo_mailmanager.types.get_relay_request.GetRelayRequest = {
             "relay_id": relay_id
         }
@@ -479,7 +494,9 @@ class AsyncRelayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRelay")
+        )
         input_: capo_mailmanager.types.update_relay_request.UpdateRelayRequest = {
             "relay_id": relay_id
         }
@@ -533,7 +550,9 @@ class AsyncRelayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRelay")
+        )
         input_: capo_mailmanager.types.delete_relay_request.DeleteRelayRequest = {
             "relay_id": relay_id
         }
@@ -581,7 +600,9 @@ class AsyncRelayResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRelays")
+        )
         input_: capo_mailmanager.types.list_relays_request.ListRelaysRequest = {}
         if page_size is not None:
             input_["page_size"] = page_size

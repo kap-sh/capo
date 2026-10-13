@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteDriverOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> RouteDriverOptions:
         out["schedule"] = (
             capo_geo_routes.types.route_driver_schedule_interval_list.deserialize_json(
                 data["Schedule"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteDriverOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "schedule" in value:
+        import capo_geo_routes.types.route_driver_schedule_interval_list
+
+        out["schedule"] = (
+            capo_geo_routes.types.route_driver_schedule_interval_list.redact_sensitive(
+                value["schedule"]
             )
         )
     return out

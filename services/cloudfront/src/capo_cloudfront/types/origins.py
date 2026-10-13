@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#Origins``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_xml(el: Element) -> Origins:
         out["items"] = capo_cloudfront.types.origin_list.deserialize_xml(child_items)
     else:
         raise DeserializationError("Origins.items required")
+    return out
+
+
+def redact_sensitive(value: Origins) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "items" in value:
+        import capo_cloudfront.types.origin_list
+
+        out["items"] = capo_cloudfront.types.origin_list.redact_sensitive(
+            value["items"]
+        )
     return out

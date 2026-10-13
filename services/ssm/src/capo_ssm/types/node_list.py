@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ssm#NodeList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_ssm.types.node
@@ -27,3 +27,9 @@ def deserialize_aws_json_1_1(data: list) -> NodeList:
             continue
         out.append(capo_ssm.types.node.deserialize_aws_json_1_1(item))
     return out
+
+
+def redact_sensitive(value: NodeList) -> list[Any]:
+    import capo_ssm.types.node
+
+    return [capo_ssm.types.node.redact_sensitive(item) for item in value]

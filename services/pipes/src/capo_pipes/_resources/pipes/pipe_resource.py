@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_pipes._auth._signers
 import capo_pipes._auth._sigv4
 from capo_pipes._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -131,7 +132,16 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.create_pipe_request.CreatePipeRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.create_pipe_request
+
+            return capo_pipes.types.create_pipe_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePipe", redact_input=_redact_input)
+        )
         input_: capo_pipes.types.create_pipe_request.CreatePipeRequest = {
             "name": name,
             "source": source,
@@ -198,7 +208,17 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pipes.types.describe_pipe_response.DescribePipeResponse",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.describe_pipe_response
+
+            return capo_pipes.types.describe_pipe_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribePipe", redact_output=_redact_output),
+        )
         input_: capo_pipes.types.describe_pipe_request.DescribePipeRequest = {
             "name": name
         }
@@ -279,7 +299,16 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.update_pipe_request.UpdatePipeRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.update_pipe_request
+
+            return capo_pipes.types.update_pipe_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePipe", redact_input=_redact_input)
+        )
         input_: capo_pipes.types.update_pipe_request.UpdatePipeRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -345,7 +374,9 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePipe")
+        )
         input_: capo_pipes.types.delete_pipe_request.DeletePipeRequest = {"name": name}
 
         response = execute_pipeline(
@@ -400,7 +431,26 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.list_pipes_request.ListPipesRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.list_pipes_request
+
+            return capo_pipes.types.list_pipes_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_pipes.types.list_pipes_response.ListPipesResponse",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.list_pipes_response
+
+            return capo_pipes.types.list_pipes_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListPipes", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_pipes.types.list_pipes_request.ListPipesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -457,7 +507,9 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPipe")
+        )
         input_: capo_pipes.types.start_pipe_request.StartPipeRequest = {"name": name}
 
         response = execute_pipeline(
@@ -498,7 +550,9 @@ class PipeResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopPipe")
+        )
         input_: capo_pipes.types.stop_pipe_request.StopPipeRequest = {"name": name}
 
         response = execute_pipeline(
@@ -588,7 +642,16 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.create_pipe_request.CreatePipeRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.create_pipe_request
+
+            return capo_pipes.types.create_pipe_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePipe", redact_input=_redact_input)
+        )
         input_: capo_pipes.types.create_pipe_request.CreatePipeRequest = {
             "name": name,
             "source": source,
@@ -656,7 +719,17 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_pipes.types.describe_pipe_response.DescribePipeResponse",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.describe_pipe_response
+
+            return capo_pipes.types.describe_pipe_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribePipe", redact_output=_redact_output),
+        )
         input_: capo_pipes.types.describe_pipe_request.DescribePipeRequest = {
             "name": name
         }
@@ -738,7 +811,16 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.update_pipe_request.UpdatePipeRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.update_pipe_request
+
+            return capo_pipes.types.update_pipe_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePipe", redact_input=_redact_input)
+        )
         input_: capo_pipes.types.update_pipe_request.UpdatePipeRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -805,7 +887,9 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePipe")
+        )
         input_: capo_pipes.types.delete_pipe_request.DeletePipeRequest = {"name": name}
 
         response = await aexecute_pipeline(
@@ -863,7 +947,26 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_pipes.types.list_pipes_request.ListPipesRequest",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.list_pipes_request
+
+            return capo_pipes.types.list_pipes_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_pipes.types.list_pipes_response.ListPipesResponse",
+        ) -> dict[str, Any]:
+            import capo_pipes.types.list_pipes_response
+
+            return capo_pipes.types.list_pipes_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListPipes", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_pipes.types.list_pipes_request.ListPipesRequest = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -923,7 +1026,9 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartPipe")
+        )
         input_: capo_pipes.types.start_pipe_request.StartPipeRequest = {"name": name}
 
         response = await aexecute_pipeline(
@@ -969,7 +1074,9 @@ class AsyncPipeResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopPipe")
+        )
         input_: capo_pipes.types.stop_pipe_request.StopPipeRequest = {"name": name}
 
         response = await aexecute_pipeline(

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SpanMessageValueList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_qconnect.types.span_message_value
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> SpanMessageValueList:
             continue
         out.append(capo_qconnect.types.span_message_value.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: SpanMessageValueList) -> list[Any]:
+    import capo_qconnect.types.span_message_value
+
+    return [
+        capo_qconnect.types.span_message_value.redact_sensitive(item) for item in value
+    ]

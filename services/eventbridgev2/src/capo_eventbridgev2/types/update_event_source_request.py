@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#UpdateEventSourceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,17 @@ def deserialize_cbor(data: dict) -> UpdateEventSourceRequest:
         )
     if data.get("Description") is not None:
         out["description"] = data["Description"]
+    return out
+
+
+def redact_sensitive(value: UpdateEventSourceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_eventbridgev2.types.event_source_configuration
+
+        out["configuration"] = (
+            capo_eventbridgev2.types.event_source_configuration.redact_sensitive(
+                value["configuration"]
+            )
+        )
     return out

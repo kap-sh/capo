@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#EmailAddressInfo``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,13 @@ def deserialize_json(data: dict) -> EmailAddressInfo:
         raise DeserializationError("EmailAddressInfo.email_address required")
     if data.get("DisplayName") is not None:
         out["display_name"] = data["DisplayName"]
+    return out
+
+
+def redact_sensitive(value: EmailAddressInfo) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
     return out

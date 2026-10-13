@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.amplifyuibuilder#ExchangeCodeForTokenRequestBody``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,13 @@ def deserialize_json(data: dict) -> ExchangeCodeForTokenRequestBody:
         )
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
+    return out
+
+
+def redact_sensitive(value: ExchangeCodeForTokenRequestBody) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "client_id" in value:
+        out["client_id"] = "*** Sensitive Data Redacted ***"
     return out

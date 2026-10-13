@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.healthlake#CreateDataTransformationProfileRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDataTransformationProfileReque
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateDataTransformationProfileRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "source" in value:
+        import capo_healthlake.types.create_data_transformation_profile_source
+
+        out["source"] = (
+            capo_healthlake.types.create_data_transformation_profile_source.redact_sensitive(
+                value["source"]
+            )
+        )
     return out

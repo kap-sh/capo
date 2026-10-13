@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ReportInstanceStatusRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -118,4 +118,11 @@ def deserialize_ec2_query(el: Element) -> ReportInstanceStatusRequest:
     child_description = el.find("description")
     if child_description is not None:
         out["description"] = str(child_description.text or "")
+    return out
+
+
+def redact_sensitive(value: ReportInstanceStatusRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

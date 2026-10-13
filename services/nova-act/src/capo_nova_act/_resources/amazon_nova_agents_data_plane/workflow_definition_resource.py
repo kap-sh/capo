@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_nova_act._auth._signers
 import capo_nova_act._auth._sigv4
 from capo_nova_act._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,21 @@ class WorkflowDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.create_workflow_definition_request.CreateWorkflowDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.create_workflow_definition_request
+
+            return (
+                capo_nova_act.types.create_workflow_definition_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkflowDefinition", redact_input=_redact_input),
+        )
         input_: capo_nova_act.types.create_workflow_definition_request.CreateWorkflowDefinitionRequest = {
             "name": name
         }
@@ -141,7 +156,21 @@ class WorkflowDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_nova_act.types.get_workflow_definition_response.GetWorkflowDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.get_workflow_definition_response
+
+            return (
+                capo_nova_act.types.get_workflow_definition_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflowDefinition", redact_output=_redact_output),
+        )
         input_: capo_nova_act.types.get_workflow_definition_request.GetWorkflowDefinitionRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -189,7 +218,9 @@ class WorkflowDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowDefinition")
+        )
         input_: capo_nova_act.types.delete_workflow_definition_request.DeleteWorkflowDefinitionRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -239,7 +270,9 @@ class WorkflowDefinitionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowDefinitions")
+        )
         input_: capo_nova_act.types.list_workflow_definitions_request.ListWorkflowDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -307,7 +340,21 @@ class AsyncWorkflowDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_nova_act.types.create_workflow_definition_request.CreateWorkflowDefinitionRequest",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.create_workflow_definition_request
+
+            return (
+                capo_nova_act.types.create_workflow_definition_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateWorkflowDefinition", redact_input=_redact_input),
+        )
         input_: capo_nova_act.types.create_workflow_definition_request.CreateWorkflowDefinitionRequest = {
             "name": name
         }
@@ -362,7 +409,21 @@ class AsyncWorkflowDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_nova_act.types.get_workflow_definition_response.GetWorkflowDefinitionResponse",
+        ) -> dict[str, Any]:
+            import capo_nova_act.types.get_workflow_definition_response
+
+            return (
+                capo_nova_act.types.get_workflow_definition_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetWorkflowDefinition", redact_output=_redact_output),
+        )
         input_: capo_nova_act.types.get_workflow_definition_request.GetWorkflowDefinitionRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -411,7 +472,9 @@ class AsyncWorkflowDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteWorkflowDefinition")
+        )
         input_: capo_nova_act.types.delete_workflow_definition_request.DeleteWorkflowDefinitionRequest = {
             "workflow_definition_name": workflow_definition_name
         }
@@ -462,7 +525,9 @@ class AsyncWorkflowDefinitionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkflowDefinitions")
+        )
         input_: capo_nova_act.types.list_workflow_definitions_request.ListWorkflowDefinitionsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

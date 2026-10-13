@@ -7,6 +7,7 @@ import capo_lambda._auth._sigv4
 from capo_lambda._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -90,7 +91,9 @@ class FunctionAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_lambda.types.create_alias_request.CreateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -150,7 +153,9 @@ class FunctionAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_lambda.types.get_alias_request.GetAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -219,7 +224,9 @@ class FunctionAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_lambda.types.update_alias_request.UpdateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -281,7 +288,9 @@ class FunctionAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_lambda.types.delete_alias_request.DeleteAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -342,7 +351,9 @@ class FunctionAlias:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_lambda.types.list_aliases_request.ListAliasesRequest = {
             "function_name": function_name
         }
@@ -418,7 +429,9 @@ class AsyncFunctionAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAlias")
+        )
         input_: capo_lambda.types.create_alias_request.CreateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -479,7 +492,9 @@ class AsyncFunctionAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAlias")
+        )
         input_: capo_lambda.types.get_alias_request.GetAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -549,7 +564,9 @@ class AsyncFunctionAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAlias")
+        )
         input_: capo_lambda.types.update_alias_request.UpdateAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -612,7 +629,9 @@ class AsyncFunctionAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAlias")
+        )
         input_: capo_lambda.types.delete_alias_request.DeleteAliasRequest = {
             "function_name": function_name,
             "name": name,
@@ -674,7 +693,9 @@ class AsyncFunctionAlias:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAliases")
+        )
         input_: capo_lambda.types.list_aliases_request.ListAliasesRequest = {
             "function_name": function_name
         }

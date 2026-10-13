@@ -25,7 +25,9 @@ from capo_kendra._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -318,7 +320,9 @@ class AsynckendraClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsynckendraClientConfig] = None
+        self,
+        config_overrides: Optional[AsynckendraClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsynckendraClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -326,8 +330,10 @@ class AsynckendraClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -386,7 +392,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateEntitiesToExperience")
+        )
         input_: capo_kendra.types.associate_entities_to_experience_request.AssociateEntitiesToExperienceRequest = {
             "id": id,
             "index_id": index_id,
@@ -441,7 +449,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePersonasToEntities")
+        )
         input_: capo_kendra.types.associate_personas_to_entities_request.AssociatePersonasToEntitiesRequest = {
             "id": id,
             "index_id": index_id,
@@ -497,7 +507,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteDocument")
+        )
         input_: capo_kendra.types.batch_delete_document_request.BatchDeleteDocumentRequest = {
             "index_id": index_id,
             "document_id_list": document_id_list,
@@ -552,7 +564,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteFeaturedResultsSet")
+        )
         input_: capo_kendra.types.batch_delete_featured_results_set_request.BatchDeleteFeaturedResultsSetRequest = {
             "index_id": index_id,
             "featured_results_set_ids": featured_results_set_ids,
@@ -604,7 +618,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetDocumentStatus")
+        )
         input_: capo_kendra.types.batch_get_document_status_request.BatchGetDocumentStatusRequest = {
             "index_id": index_id,
             "document_info_list": document_info_list,
@@ -663,7 +679,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchPutDocument")
+        )
         input_: capo_kendra.types.batch_put_document_request.BatchPutDocumentRequest = {
             "index_id": index_id,
             "documents": documents,
@@ -717,7 +735,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ClearQuerySuggestions")
+        )
         input_: capo_kendra.types.clear_query_suggestions_request.ClearQuerySuggestionsRequest = {
             "index_id": index_id
         }
@@ -783,7 +803,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessControlConfiguration")
+        )
         input_: capo_kendra.types.create_access_control_configuration_request.CreateAccessControlConfigurationRequest = {
             "index_id": index_id,
             "name": name,
@@ -876,7 +898,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataSource")
+        )
         input_: capo_kendra.types.create_data_source_request.CreateDataSourceRequest = {
             "name": name,
             "index_id": index_id,
@@ -963,7 +987,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateExperience")
+        )
         input_: capo_kendra.types.create_experience_request.CreateExperienceRequest = {
             "name": name,
             "index_id": index_id,
@@ -1041,7 +1067,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFaq")
+        )
         input_: capo_kendra.types.create_faq_request.CreateFaqRequest = {
             "index_id": index_id,
             "name": name,
@@ -1127,7 +1155,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFeaturedResultsSet")
+        )
         input_: capo_kendra.types.create_featured_results_set_request.CreateFeaturedResultsSetRequest = {
             "index_id": index_id,
             "featured_results_set_name": featured_results_set_name,
@@ -1218,7 +1248,17 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_kendra.types.create_index_request.CreateIndexRequest",
+        ) -> dict[str, Any]:
+            import capo_kendra.types.create_index_request
+
+            return capo_kendra.types.create_index_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateIndex", redact_input=_redact_input),
+        )
         input_: capo_kendra.types.create_index_request.CreateIndexRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -1304,7 +1344,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateQuerySuggestionsBlockList")
+        )
         input_: capo_kendra.types.create_query_suggestions_block_list_request.CreateQuerySuggestionsBlockListRequest = {
             "index_id": index_id,
             "name": name,
@@ -1378,7 +1420,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateThesaurus")
+        )
         input_: capo_kendra.types.create_thesaurus_request.CreateThesaurusRequest = {
             "index_id": index_id,
             "name": name,
@@ -1439,7 +1483,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessControlConfiguration")
+        )
         input_: capo_kendra.types.delete_access_control_configuration_request.DeleteAccessControlConfigurationRequest = {
             "index_id": index_id,
             "id": id,
@@ -1489,7 +1535,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataSource")
+        )
         input_: capo_kendra.types.delete_data_source_request.DeleteDataSourceRequest = {
             "id": id,
             "index_id": index_id,
@@ -1541,7 +1589,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteExperience")
+        )
         input_: capo_kendra.types.delete_experience_request.DeleteExperienceRequest = {
             "id": id,
             "index_id": index_id,
@@ -1591,7 +1641,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFaq")
+        )
         input_: capo_kendra.types.delete_faq_request.DeleteFaqRequest = {
             "id": id,
             "index_id": index_id,
@@ -1639,7 +1691,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_kendra.types.delete_index_request.DeleteIndexRequest = {"id": id}
 
         response = await aexecute_pipeline(
@@ -1694,7 +1748,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrincipalMapping")
+        )
         input_: capo_kendra.types.delete_principal_mapping_request.DeletePrincipalMappingRequest = {
             "index_id": index_id,
             "group_id": group_id,
@@ -1748,7 +1804,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteQuerySuggestionsBlockList")
+        )
         input_: capo_kendra.types.delete_query_suggestions_block_list_request.DeleteQuerySuggestionsBlockListRequest = {
             "index_id": index_id,
             "id": id,
@@ -1798,7 +1856,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteThesaurus")
+        )
         input_: capo_kendra.types.delete_thesaurus_request.DeleteThesaurusRequest = {
             "id": id,
             "index_id": index_id,
@@ -1849,7 +1909,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccessControlConfiguration")
+        )
         input_: capo_kendra.types.describe_access_control_configuration_request.DescribeAccessControlConfigurationRequest = {
             "index_id": index_id,
             "id": id,
@@ -1900,7 +1962,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataSource")
+        )
         input_: capo_kendra.types.describe_data_source_request.DescribeDataSourceRequest = {
             "id": id,
             "index_id": index_id,
@@ -1951,7 +2015,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExperience")
+        )
         input_: capo_kendra.types.describe_experience_request.DescribeExperienceRequest = {
             "id": id,
             "index_id": index_id,
@@ -2002,7 +2068,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFaq")
+        )
         input_: capo_kendra.types.describe_faq_request.DescribeFaqRequest = {
             "id": id,
             "index_id": index_id,
@@ -2053,7 +2121,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFeaturedResultsSet")
+        )
         input_: capo_kendra.types.describe_featured_results_set_request.DescribeFeaturedResultsSetRequest = {
             "index_id": index_id,
             "featured_results_set_id": featured_results_set_id,
@@ -2102,7 +2172,17 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kendra.types.describe_index_response.DescribeIndexResponse",
+        ) -> dict[str, Any]:
+            import capo_kendra.types.describe_index_response
+
+            return capo_kendra.types.describe_index_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeIndex", redact_output=_redact_output),
+        )
         input_: capo_kendra.types.describe_index_request.DescribeIndexRequest = {
             "id": id
         }
@@ -2156,7 +2236,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePrincipalMapping")
+        )
         input_: capo_kendra.types.describe_principal_mapping_request.DescribePrincipalMappingRequest = {
             "index_id": index_id,
             "group_id": group_id,
@@ -2209,7 +2291,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuerySuggestionsBlockList")
+        )
         input_: capo_kendra.types.describe_query_suggestions_block_list_request.DescribeQuerySuggestionsBlockListRequest = {
             "index_id": index_id,
             "id": id,
@@ -2258,7 +2342,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeQuerySuggestionsConfig")
+        )
         input_: capo_kendra.types.describe_query_suggestions_config_request.DescribeQuerySuggestionsConfigRequest = {
             "index_id": index_id
         }
@@ -2308,7 +2394,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeThesaurus")
+        )
         input_: capo_kendra.types.describe_thesaurus_request.DescribeThesaurusRequest = {
             "id": id,
             "index_id": index_id,
@@ -2361,7 +2449,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateEntitiesFromExperience")
+        )
         input_: capo_kendra.types.disassociate_entities_from_experience_request.DisassociateEntitiesFromExperienceRequest = {
             "id": id,
             "index_id": index_id,
@@ -2415,7 +2505,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociatePersonasFromEntities")
+        )
         input_: capo_kendra.types.disassociate_personas_from_entities_request.DisassociatePersonasFromEntitiesRequest = {
             "id": id,
             "index_id": index_id,
@@ -2479,7 +2571,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetQuerySuggestions")
+        )
         input_: capo_kendra.types.get_query_suggestions_request.GetQuerySuggestionsRequest = {
             "index_id": index_id,
             "query_text": query_text,
@@ -2541,7 +2635,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSnapshots")
+        )
         input_: capo_kendra.types.get_snapshots_request.GetSnapshotsRequest = {
             "index_id": index_id,
             "interval": interval,
@@ -2626,7 +2722,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessControlConfigurations")
+        )
         input_: capo_kendra.types.list_access_control_configurations_request.ListAccessControlConfigurationsRequest = {
             "index_id": index_id
         }
@@ -2707,7 +2805,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSources")
+        )
         input_: capo_kendra.types.list_data_sources_request.ListDataSourcesRequest = {
             "index_id": index_id
         }
@@ -2797,7 +2897,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataSourceSyncJobs")
+        )
         input_: capo_kendra.types.list_data_source_sync_jobs_request.ListDataSourceSyncJobsRequest = {
             "id": id,
             "index_id": index_id,
@@ -2893,7 +2995,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEntityPersonas")
+        )
         input_: capo_kendra.types.list_entity_personas_request.ListEntityPersonasRequest = {
             "id": id,
             "index_id": index_id,
@@ -2975,7 +3079,19 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_kendra.types.list_experience_entities_response.ListExperienceEntitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_kendra.types.list_experience_entities_response
+
+            return capo_kendra.types.list_experience_entities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListExperienceEntities", redact_output=_redact_output),
+        )
         input_: capo_kendra.types.list_experience_entities_request.ListExperienceEntitiesRequest = {
             "id": id,
             "index_id": index_id,
@@ -3053,7 +3169,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExperiences")
+        )
         input_: capo_kendra.types.list_experiences_request.ListExperiencesRequest = {
             "index_id": index_id
         }
@@ -3134,7 +3252,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFaqs")
+        )
         input_: capo_kendra.types.list_faqs_request.ListFaqsRequest = {
             "index_id": index_id
         }
@@ -3215,7 +3335,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFeaturedResultsSets")
+        )
         input_: capo_kendra.types.list_featured_results_sets_request.ListFeaturedResultsSetsRequest = {
             "index_id": index_id
         }
@@ -3280,7 +3402,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListGroupsOlderThanOrderingId")
+        )
         input_: capo_kendra.types.list_groups_older_than_ordering_id_request.ListGroupsOlderThanOrderingIdRequest = {
             "index_id": index_id,
             "ordering_id": ordering_id,
@@ -3367,7 +3491,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIndices")
+        )
         input_: capo_kendra.types.list_indices_request.ListIndicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3444,7 +3570,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListQuerySuggestionsBlockLists")
+        )
         input_: capo_kendra.types.list_query_suggestions_block_lists_request.ListQuerySuggestionsBlockListsRequest = {
             "index_id": index_id
         }
@@ -3521,7 +3649,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kendra.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3575,7 +3705,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListThesauri")
+        )
         input_: capo_kendra.types.list_thesauri_request.ListThesauriRequest = {
             "index_id": index_id
         }
@@ -3664,7 +3796,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutPrincipalMapping")
+        )
         input_: capo_kendra.types.put_principal_mapping_request.PutPrincipalMappingRequest = {
             "index_id": index_id,
             "group_id": group_id,
@@ -3764,7 +3898,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Query")
+        )
         input_: capo_kendra.types.query_request.QueryRequest = {"index_id": index_id}
         if query_text is not None:
             input_["query_text"] = query_text
@@ -3860,7 +3996,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("Retrieve")
+        )
         input_: capo_kendra.types.retrieve_request.RetrieveRequest = {
             "index_id": index_id,
             "query_text": query_text,
@@ -3927,7 +4065,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDataSourceSyncJob")
+        )
         input_: capo_kendra.types.start_data_source_sync_job_request.StartDataSourceSyncJobRequest = {
             "id": id,
             "index_id": index_id,
@@ -3976,7 +4116,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopDataSourceSyncJob")
+        )
         input_: capo_kendra.types.stop_data_source_sync_job_request.StopDataSourceSyncJobRequest = {
             "id": id,
             "index_id": index_id,
@@ -4034,7 +4176,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitFeedback")
+        )
         input_: capo_kendra.types.submit_feedback_request.SubmitFeedbackRequest = {
             "index_id": index_id,
             "query_id": query_id,
@@ -4089,7 +4233,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kendra.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4140,7 +4286,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kendra.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4207,7 +4355,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessControlConfiguration")
+        )
         input_: capo_kendra.types.update_access_control_configuration_request.UpdateAccessControlConfigurationRequest = {
             "index_id": index_id,
             "id": id,
@@ -4289,7 +4439,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataSource")
+        )
         input_: capo_kendra.types.update_data_source_request.UpdateDataSourceRequest = {
             "id": id,
             "index_id": index_id,
@@ -4367,7 +4519,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateExperience")
+        )
         input_: capo_kendra.types.update_experience_request.UpdateExperienceRequest = {
             "id": id,
             "index_id": index_id,
@@ -4445,7 +4599,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFeaturedResultsSet")
+        )
         input_: capo_kendra.types.update_featured_results_set_request.UpdateFeaturedResultsSetRequest = {
             "index_id": index_id,
             "featured_results_set_id": featured_results_set_id,
@@ -4530,7 +4686,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_kendra.types.update_index_request.UpdateIndexRequest = {"id": id}
         if name is not None:
             input_["name"] = name
@@ -4607,7 +4765,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuerySuggestionsBlockList")
+        )
         input_: capo_kendra.types.update_query_suggestions_block_list_request.UpdateQuerySuggestionsBlockListRequest = {
             "index_id": index_id,
             "id": id,
@@ -4685,7 +4845,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateQuerySuggestionsConfig")
+        )
         input_: capo_kendra.types.update_query_suggestions_config_request.UpdateQuerySuggestionsConfigRequest = {
             "index_id": index_id
         }
@@ -4759,7 +4921,9 @@ class AsynckendraClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateThesaurus")
+        )
         input_: capo_kendra.types.update_thesaurus_request.UpdateThesaurusRequest = {
             "id": id,
             "index_id": index_id,

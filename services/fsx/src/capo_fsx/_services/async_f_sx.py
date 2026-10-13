@@ -25,7 +25,9 @@ from capo_fsx._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -298,7 +300,9 @@ class AsyncFSxClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncFSxClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncFSxClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncFSxClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -306,8 +310,10 @@ class AsyncFSxClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -366,7 +372,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateFileSystemAliases")
+        )
         input_: capo_fsx.types.associate_file_system_aliases_request.AssociateFileSystemAliasesRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -419,7 +427,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelDataRepositoryTask")
+        )
         input_: capo_fsx.types.cancel_data_repository_task_request.CancelDataRepositoryTaskRequest = {}
         if task_id is not None:
             input_["task_id"] = task_id
@@ -490,7 +500,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.copy_backup_response.CopyBackupResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.copy_backup_response
+
+            return capo_fsx.types.copy_backup_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CopyBackup", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.copy_backup_request.CopyBackupRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -560,7 +580,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.copy_snapshot_and_update_volume_response.CopySnapshotAndUpdateVolumeResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.copy_snapshot_and_update_volume_response
+
+            return capo_fsx.types.copy_snapshot_and_update_volume_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CopySnapshotAndUpdateVolume", redact_output=_redact_output
+            ),
+        )
         input_: capo_fsx.types.copy_snapshot_and_update_volume_request.CopySnapshotAndUpdateVolumeRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -641,7 +675,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAndAttachS3AccessPoint")
+        )
         input_: capo_fsx.types.create_and_attach_s3_access_point_request.CreateAndAttachS3AccessPointRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -711,7 +747,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.create_backup_response.CreateBackupResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_backup_response
+
+            return capo_fsx.types.create_backup_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBackup", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.create_backup_request.CreateBackupRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -786,7 +832,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataRepositoryAssociation")
+        )
         input_: capo_fsx.types.create_data_repository_association_request.CreateDataRepositoryAssociationRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -874,7 +922,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataRepositoryTask")
+        )
         input_: capo_fsx.types.create_data_repository_task_request.CreateDataRepositoryTaskRequest = {}
         if type is not None:
             input_["type"] = type
@@ -973,7 +1023,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFileCache")
+        )
         input_: capo_fsx.types.create_file_cache_request.CreateFileCacheRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1090,7 +1142,28 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_fsx.types.create_file_system_request.CreateFileSystemRequest",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_file_system_request
+
+            return capo_fsx.types.create_file_system_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_fsx.types.create_file_system_response.CreateFileSystemResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_file_system_response
+
+            return capo_fsx.types.create_file_system_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFileSystem",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_fsx.types.create_file_system_request.CreateFileSystemRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1204,7 +1277,36 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_fsx.types.create_file_system_from_backup_request.CreateFileSystemFromBackupRequest",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_file_system_from_backup_request
+
+            return (
+                capo_fsx.types.create_file_system_from_backup_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_fsx.types.create_file_system_from_backup_response.CreateFileSystemFromBackupResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_file_system_from_backup_response
+
+            return (
+                capo_fsx.types.create_file_system_from_backup_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateFileSystemFromBackup",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_fsx.types.create_file_system_from_backup_request.CreateFileSystemFromBackupRequest = {}
         if backup_id is not None:
             input_["backup_id"] = backup_id
@@ -1282,7 +1384,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.create_snapshot_response.CreateSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_snapshot_response
+
+            return capo_fsx.types.create_snapshot_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSnapshot", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.create_snapshot_request.CreateSnapshotRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1358,7 +1470,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_fsx.types.create_storage_virtual_machine_request.CreateStorageVirtualMachineRequest",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_storage_virtual_machine_request
+
+            return (
+                capo_fsx.types.create_storage_virtual_machine_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateStorageVirtualMachine", redact_input=_redact_input),
+        )
         input_: capo_fsx.types.create_storage_virtual_machine_request.CreateStorageVirtualMachineRequest = {}
         if active_directory_configuration is not None:
             input_["active_directory_configuration"] = active_directory_configuration
@@ -1436,7 +1562,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.create_volume_response.CreateVolumeResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_volume_response
+
+            return capo_fsx.types.create_volume_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateVolume", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.create_volume_request.CreateVolumeRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1507,7 +1643,19 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.create_volume_from_backup_response.CreateVolumeFromBackupResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.create_volume_from_backup_response
+
+            return capo_fsx.types.create_volume_from_backup_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateVolumeFromBackup", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.create_volume_from_backup_request.CreateVolumeFromBackupRequest = {}
         if backup_id is not None:
             input_["backup_id"] = backup_id
@@ -1576,7 +1724,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBackup")
+        )
         input_: capo_fsx.types.delete_backup_request.DeleteBackupRequest = {}
         if backup_id is not None:
             input_["backup_id"] = backup_id
@@ -1636,7 +1786,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataRepositoryAssociation")
+        )
         input_: capo_fsx.types.delete_data_repository_association_request.DeleteDataRepositoryAssociationRequest = {}
         if association_id is not None:
             input_["association_id"] = association_id
@@ -1692,7 +1844,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileCache")
+        )
         input_: capo_fsx.types.delete_file_cache_request.DeleteFileCacheRequest = {}
         if file_cache_id is not None:
             input_["file_cache_id"] = file_cache_id
@@ -1763,7 +1917,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileSystem")
+        )
         input_: capo_fsx.types.delete_file_system_request.DeleteFileSystemRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -1821,7 +1977,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSnapshot")
+        )
         input_: capo_fsx.types.delete_snapshot_request.DeleteSnapshotRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1876,7 +2034,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStorageVirtualMachine")
+        )
         input_: capo_fsx.types.delete_storage_virtual_machine_request.DeleteStorageVirtualMachineRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1938,7 +2098,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteVolume")
+        )
         input_: capo_fsx.types.delete_volume_request.DeleteVolumeRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -1999,7 +2161,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.describe_backups_response.DescribeBackupsResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.describe_backups_response
+
+            return capo_fsx.types.describe_backups_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeBackups", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.describe_backups_request.DescribeBackupsRequest = {}
         if backup_ids is not None:
             input_["backup_ids"] = backup_ids
@@ -2084,7 +2256,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataRepositoryAssociations")
+        )
         input_: capo_fsx.types.describe_data_repository_associations_request.DescribeDataRepositoryAssociationsRequest = {}
         if association_ids is not None:
             input_["association_ids"] = association_ids
@@ -2170,7 +2344,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataRepositoryTasks")
+        )
         input_: capo_fsx.types.describe_data_repository_tasks_request.DescribeDataRepositoryTasksRequest = {}
         if task_ids is not None:
             input_["task_ids"] = task_ids
@@ -2249,7 +2425,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFileCaches")
+        )
         input_: capo_fsx.types.describe_file_caches_request.DescribeFileCachesRequest = {}
         if file_cache_ids is not None:
             input_["file_cache_ids"] = file_cache_ids
@@ -2327,7 +2505,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFileSystemAliases")
+        )
         input_: capo_fsx.types.describe_file_system_aliases_request.DescribeFileSystemAliasesRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -2411,7 +2591,19 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.describe_file_systems_response.DescribeFileSystemsResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.describe_file_systems_response
+
+            return capo_fsx.types.describe_file_systems_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFileSystems", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.describe_file_systems_request.DescribeFileSystemsRequest = {}
         if file_system_ids is not None:
             input_["file_system_ids"] = file_system_ids
@@ -2493,7 +2685,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeS3AccessPointAttachments")
+        )
         input_: capo_fsx.types.describe_s3_access_point_attachments_request.DescribeS3AccessPointAttachmentsRequest = {}
         if names is not None:
             input_["names"] = names
@@ -2567,7 +2761,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSharedVpcConfiguration")
+        )
         input_: capo_fsx.types.describe_shared_vpc_configuration_request.DescribeSharedVpcConfigurationRequest = {}
 
         response = await aexecute_pipeline(
@@ -2617,7 +2813,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.describe_snapshots_response.DescribeSnapshotsResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.describe_snapshots_response
+
+            return capo_fsx.types.describe_snapshots_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeSnapshots", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.describe_snapshots_request.DescribeSnapshotsRequest = {}
         if snapshot_ids is not None:
             input_["snapshot_ids"] = snapshot_ids
@@ -2706,7 +2912,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStorageVirtualMachines")
+        )
         input_: capo_fsx.types.describe_storage_virtual_machines_request.DescribeStorageVirtualMachinesRequest = {}
         if storage_virtual_machine_ids is not None:
             input_["storage_virtual_machine_ids"] = storage_virtual_machine_ids
@@ -2791,7 +2999,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.describe_volumes_response.DescribeVolumesResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.describe_volumes_response
+
+            return capo_fsx.types.describe_volumes_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeVolumes", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.describe_volumes_request.DescribeVolumesRequest = {}
         if volume_ids is not None:
             input_["volume_ids"] = volume_ids
@@ -2875,7 +3093,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachAndDeleteS3AccessPoint")
+        )
         input_: capo_fsx.types.detach_and_delete_s3_access_point_request.DetachAndDeleteS3AccessPointRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -2931,7 +3151,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateFileSystemAliases")
+        )
         input_: capo_fsx.types.disassociate_file_system_aliases_request.DisassociateFileSystemAliasesRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -2994,7 +3216,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_fsx.types.list_tags_for_resource_request.ListTagsForResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3067,7 +3291,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.release_file_system_nfs_v3_locks_response.ReleaseFileSystemNfsV3LocksResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.release_file_system_nfs_v3_locks_response
+
+            return capo_fsx.types.release_file_system_nfs_v3_locks_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ReleaseFileSystemNfsV3Locks", redact_output=_redact_output
+            ),
+        )
         input_: capo_fsx.types.release_file_system_nfs_v3_locks_request.ReleaseFileSystemNfsV3LocksRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -3125,7 +3363,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.restore_volume_from_snapshot_response.RestoreVolumeFromSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.restore_volume_from_snapshot_response
+
+            return (
+                capo_fsx.types.restore_volume_from_snapshot_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RestoreVolumeFromSnapshot", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.restore_volume_from_snapshot_request.RestoreVolumeFromSnapshotRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -3178,7 +3430,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.start_misconfigured_state_recovery_response.StartMisconfiguredStateRecoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.start_misconfigured_state_recovery_response
+
+            return capo_fsx.types.start_misconfigured_state_recovery_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartMisconfiguredStateRecovery", redact_output=_redact_output
+            ),
+        )
         input_: capo_fsx.types.start_misconfigured_state_recovery_request.StartMisconfiguredStateRecoveryRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -3237,7 +3503,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_fsx.types.tag_resource_request.TagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3295,7 +3563,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_fsx.types.untag_resource_request.UntagResourceRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -3356,7 +3626,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataRepositoryAssociation")
+        )
         input_: capo_fsx.types.update_data_repository_association_request.UpdateDataRepositoryAssociationRequest = {}
         if association_id is not None:
             input_["association_id"] = association_id
@@ -3420,7 +3692,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFileCache")
+        )
         input_: capo_fsx.types.update_file_cache_request.UpdateFileCacheRequest = {}
         if file_cache_id is not None:
             input_["file_cache_id"] = file_cache_id
@@ -3505,7 +3779,28 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_fsx.types.update_file_system_request.UpdateFileSystemRequest",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.update_file_system_request
+
+            return capo_fsx.types.update_file_system_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_fsx.types.update_file_system_response.UpdateFileSystemResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.update_file_system_response
+
+            return capo_fsx.types.update_file_system_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateFileSystem",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_fsx.types.update_file_system_request.UpdateFileSystemRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -3575,7 +3870,9 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSharedVpcConfiguration")
+        )
         input_: capo_fsx.types.update_shared_vpc_configuration_request.UpdateSharedVpcConfigurationRequest = {}
         if enable_fsx_route_table_updates_from_participant_accounts is not None:
             input_["enable_fsx_route_table_updates_from_participant_accounts"] = (
@@ -3631,7 +3928,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.update_snapshot_response.UpdateSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.update_snapshot_response
+
+            return capo_fsx.types.update_snapshot_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSnapshot", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.update_snapshot_request.UpdateSnapshotRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())
@@ -3697,7 +4004,21 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_fsx.types.update_storage_virtual_machine_request.UpdateStorageVirtualMachineRequest",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.update_storage_virtual_machine_request
+
+            return (
+                capo_fsx.types.update_storage_virtual_machine_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateStorageVirtualMachine", redact_input=_redact_input),
+        )
         input_: capo_fsx.types.update_storage_virtual_machine_request.UpdateStorageVirtualMachineRequest = {}
         if active_directory_configuration is not None:
             input_["active_directory_configuration"] = active_directory_configuration
@@ -3765,7 +4086,17 @@ class AsyncFSxClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_fsx.types.update_volume_response.UpdateVolumeResponse",
+        ) -> dict[str, Any]:
+            import capo_fsx.types.update_volume_response
+
+            return capo_fsx.types.update_volume_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateVolume", redact_output=_redact_output),
+        )
         input_: capo_fsx.types.update_volume_request.UpdateVolumeRequest = {}
         if client_request_token is None:
             client_request_token = str(uuid.uuid4())

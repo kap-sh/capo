@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataPathValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,11 @@ def deserialize_json(data: dict) -> DataPathValue:
         out["data_path_type"] = capo_quicksight.types.data_path_type.deserialize_json(
             data["DataPathType"]
         )
+    return out
+
+
+def redact_sensitive(value: DataPathValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_value" in value:
+        out["field_value"] = "*** Sensitive Data Redacted ***"
     return out

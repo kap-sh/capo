@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RoutePassThroughWaypoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,15 @@ def deserialize_json(data: dict) -> RoutePassThroughWaypoint:
         )
     else:
         raise DeserializationError("RoutePassThroughWaypoint.place required")
+    return out
+
+
+def redact_sensitive(value: RoutePassThroughWaypoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "place" in value:
+        import capo_geo_routes.types.route_pass_through_place
+
+        out["place"] = capo_geo_routes.types.route_pass_through_place.redact_sensitive(
+            value["place"]
+        )
     return out

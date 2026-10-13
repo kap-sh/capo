@@ -21,10 +21,12 @@ from capo_migration_hub._pagination import resolve_path as _resolve_path
 from capo_migration_hub._services._aws_config import aws_config
 from capo_migration_hub._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -172,7 +174,9 @@ class MigrationHubClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MigrationHubClientConfig] = None
+        self,
+        config_overrides: Optional[MigrationHubClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MigrationHubClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -180,8 +184,10 @@ class MigrationHubClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -244,7 +250,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateCreatedArtifact")
+        )
         input_: capo_migration_hub.types.associate_created_artifact_request.AssociateCreatedArtifactRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -306,7 +314,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateDiscoveredResource")
+        )
         input_: capo_migration_hub.types.associate_discovered_resource_request.AssociateDiscoveredResourceRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -366,7 +376,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateSourceResource")
+        )
         input_: capo_migration_hub.types.associate_source_resource_request.AssociateSourceResourceRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -422,7 +434,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProgressUpdateStream")
+        )
         input_: capo_migration_hub.types.create_progress_update_stream_request.CreateProgressUpdateStreamRequest = {
             "progress_update_stream_name": progress_update_stream_name
         }
@@ -477,7 +491,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProgressUpdateStream")
+        )
         input_: capo_migration_hub.types.delete_progress_update_stream_request.DeleteProgressUpdateStreamRequest = {
             "progress_update_stream_name": progress_update_stream_name
         }
@@ -529,7 +545,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationState")
+        )
         input_: capo_migration_hub.types.describe_application_state_request.DescribeApplicationStateRequest = {
             "application_id": application_id
         }
@@ -580,7 +598,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMigrationTask")
+        )
         input_: capo_migration_hub.types.describe_migration_task_request.DescribeMigrationTaskRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -638,7 +658,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateCreatedArtifact")
+        )
         input_: capo_migration_hub.types.disassociate_created_artifact_request.DisassociateCreatedArtifactRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -699,7 +721,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateDiscoveredResource")
+        )
         input_: capo_migration_hub.types.disassociate_discovered_resource_request.DisassociateDiscoveredResourceRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -759,7 +783,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateSourceResource")
+        )
         input_: capo_migration_hub.types.disassociate_source_resource_request.DisassociateSourceResourceRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -818,7 +844,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportMigrationTask")
+        )
         input_: capo_migration_hub.types.import_migration_task_request.ImportMigrationTaskRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -875,7 +903,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationStates")
+        )
         input_: capo_migration_hub.types.list_application_states_request.ListApplicationStatesRequest = {}
         if application_ids is not None:
             input_["application_ids"] = application_ids
@@ -961,7 +991,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCreatedArtifacts")
+        )
         input_: capo_migration_hub.types.list_created_artifacts_request.ListCreatedArtifactsRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -1050,7 +1082,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDiscoveredResources")
+        )
         input_: capo_migration_hub.types.list_discovered_resources_request.ListDiscoveredResourcesRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -1140,7 +1174,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMigrationTasks")
+        )
         input_: capo_migration_hub.types.list_migration_tasks_request.ListMigrationTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1225,7 +1261,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMigrationTaskUpdates")
+        )
         input_: capo_migration_hub.types.list_migration_task_updates_request.ListMigrationTaskUpdatesRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -1305,7 +1343,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProgressUpdateStreams")
+        )
         input_: capo_migration_hub.types.list_progress_update_streams_request.ListProgressUpdateStreamsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1384,7 +1424,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceResources")
+        )
         input_: capo_migration_hub.types.list_source_resources_request.ListSourceResourcesRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -1476,7 +1518,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyApplicationState")
+        )
         input_: capo_migration_hub.types.notify_application_state_request.NotifyApplicationStateRequest = {
             "application_id": application_id,
             "status": status,
@@ -1542,7 +1586,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("NotifyMigrationTaskState")
+        )
         input_: capo_migration_hub.types.notify_migration_task_state_request.NotifyMigrationTaskStateRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,
@@ -1605,7 +1651,9 @@ class MigrationHubClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourceAttributes")
+        )
         input_: capo_migration_hub.types.put_resource_attributes_request.PutResourceAttributesRequest = {
             "progress_update_stream": progress_update_stream,
             "migration_task_name": migration_task_name,

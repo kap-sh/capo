@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ResponseLaunchTemplateData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -617,4 +617,11 @@ def deserialize_ec2_query(el: Element) -> ResponseLaunchTemplateData:
                 child_secondary_interfaces
             )
         )
+    return out
+
+
+def redact_sensitive(value: ResponseLaunchTemplateData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "user_data" in value:
+        out["user_data"] = "*** Sensitive Data Redacted ***"
     return out

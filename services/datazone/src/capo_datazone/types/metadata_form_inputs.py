@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#MetadataFormInputs``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.form_input
@@ -27,3 +27,7 @@ def deserialize_json(data: list) -> MetadataFormInputs:
             continue
         out.append(capo_datazone.types.form_input.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: MetadataFormInputs) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

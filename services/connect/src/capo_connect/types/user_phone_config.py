@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UserPhoneConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -70,4 +70,11 @@ def deserialize_json(data: dict) -> UserPhoneConfig:
         out["desk_phone_number"] = data["DeskPhoneNumber"]
     if data.get("PersistentConnection") is not None:
         out["persistent_connection"] = data["PersistentConnection"]
+    return out
+
+
+def redact_sensitive(value: UserPhoneConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "desk_phone_number" in value:
+        out["desk_phone_number"] = "*** Sensitive Data Redacted ***"
     return out

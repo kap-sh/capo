@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#UploadServerCertificateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -91,4 +91,11 @@ def deserialize_query(el: Element) -> UploadServerCertificateRequest:
         import capo_iam.types.tag_list_type
 
         out["tags"] = capo_iam.types.tag_list_type.deserialize_query(child_tags)
+    return out
+
+
+def redact_sensitive(value: UploadServerCertificateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_key" in value:
+        out["private_key"] = "*** Sensitive Data Redacted ***"
     return out

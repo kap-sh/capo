@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#CheckpointDurableExecutionResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,5 +48,18 @@ def deserialize_json(data: dict) -> CheckpointDurableExecutionResponse:
     else:
         raise DeserializationError(
             "CheckpointDurableExecutionResponse.new_execution_state required"
+        )
+    return out
+
+
+def redact_sensitive(value: CheckpointDurableExecutionResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "new_execution_state" in value:
+        import capo_lambda.types.checkpoint_updated_execution_state
+
+        out["new_execution_state"] = (
+            capo_lambda.types.checkpoint_updated_execution_state.redact_sensitive(
+                value["new_execution_state"]
+            )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#Oauth2ProviderConfigInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -225,3 +225,80 @@ def deserialize_json(data: dict) -> Oauth2ProviderConfigInput:
         raise DeserializationError(
             "Oauth2ProviderConfigInput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: Oauth2ProviderConfigInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "customOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_input
+
+        out["customOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.custom_oauth2_provider_config_input.redact_sensitive(
+                value["customOauth2ProviderConfig"]
+            )
+        )
+    if "googleOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.google_oauth2_provider_config_input
+
+        out["googleOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.google_oauth2_provider_config_input.redact_sensitive(
+                value["googleOauth2ProviderConfig"]
+            )
+        )
+    if "githubOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.github_oauth2_provider_config_input
+
+        out["githubOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.github_oauth2_provider_config_input.redact_sensitive(
+                value["githubOauth2ProviderConfig"]
+            )
+        )
+    if "slackOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.slack_oauth2_provider_config_input
+
+        out["slackOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.slack_oauth2_provider_config_input.redact_sensitive(
+                value["slackOauth2ProviderConfig"]
+            )
+        )
+    if "salesforceOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.salesforce_oauth2_provider_config_input
+
+        out["salesforceOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.salesforce_oauth2_provider_config_input.redact_sensitive(
+                value["salesforceOauth2ProviderConfig"]
+            )
+        )
+    if "microsoftOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.microsoft_oauth2_provider_config_input
+
+        out["microsoftOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.microsoft_oauth2_provider_config_input.redact_sensitive(
+                value["microsoftOauth2ProviderConfig"]
+            )
+        )
+    if "atlassianOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.atlassian_oauth2_provider_config_input
+
+        out["atlassianOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.atlassian_oauth2_provider_config_input.redact_sensitive(
+                value["atlassianOauth2ProviderConfig"]
+            )
+        )
+    if "linkedinOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.linkedin_oauth2_provider_config_input
+
+        out["linkedinOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.linkedin_oauth2_provider_config_input.redact_sensitive(
+                value["linkedinOauth2ProviderConfig"]
+            )
+        )
+    if "includedOauth2ProviderConfig" in value:
+        import capo_bedrock_agentcore_control.types.included_oauth2_provider_config_input
+
+        out["includedOauth2ProviderConfig"] = (
+            capo_bedrock_agentcore_control.types.included_oauth2_provider_config_input.redact_sensitive(
+                value["includedOauth2ProviderConfig"]
+            )
+        )
+    return out

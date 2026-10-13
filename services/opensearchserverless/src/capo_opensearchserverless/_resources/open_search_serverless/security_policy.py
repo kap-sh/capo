@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class SecurityPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.get_security_policy_request.GetSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -140,7 +143,9 @@ class SecurityPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.update_security_policy_request.UpdateSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -201,7 +206,9 @@ class SecurityPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_security_policy_request.DeleteSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -257,7 +264,9 @@ class SecurityPolicy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityPolicies")
+        )
         input_: capo_opensearchserverless.types.list_security_policies_request.ListSecurityPoliciesRequest = {
             "type": type
         }
@@ -316,7 +325,9 @@ class AsyncSecurityPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.get_security_policy_request.GetSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -381,7 +392,9 @@ class AsyncSecurityPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.update_security_policy_request.UpdateSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -443,7 +456,9 @@ class AsyncSecurityPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSecurityPolicy")
+        )
         input_: capo_opensearchserverless.types.delete_security_policy_request.DeleteSecurityPolicyRequest = {
             "type": type,
             "name": name,
@@ -500,7 +515,9 @@ class AsyncSecurityPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSecurityPolicies")
+        )
         input_: capo_opensearchserverless.types.list_security_policies_request.ListSecurityPoliciesRequest = {
             "type": type
         }

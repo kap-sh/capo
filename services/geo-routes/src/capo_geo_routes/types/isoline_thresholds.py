@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineThresholds``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,5 +51,24 @@ def deserialize_json(data: dict) -> IsolineThresholds:
 
         out["time"] = capo_geo_routes.types.time_threshold_list.deserialize_json(
             data["Time"]
+        )
+    return out
+
+
+def redact_sensitive(value: IsolineThresholds) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "distance" in value:
+        import capo_geo_routes.types.distance_threshold_list
+
+        out["distance"] = (
+            capo_geo_routes.types.distance_threshold_list.redact_sensitive(
+                value["distance"]
+            )
+        )
+    if "time" in value:
+        import capo_geo_routes.types.time_threshold_list
+
+        out["time"] = capo_geo_routes.types.time_threshold_list.redact_sensitive(
+            value["time"]
         )
     return out

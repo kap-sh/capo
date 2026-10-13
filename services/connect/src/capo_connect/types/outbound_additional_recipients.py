@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#OutboundAdditionalRecipients``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> OutboundAdditionalRecipients:
         out["cc_email_addresses"] = (
             capo_connect.types.email_address_recipient_list.deserialize_json(
                 data["CcEmailAddresses"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: OutboundAdditionalRecipients) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "cc_email_addresses" in value:
+        import capo_connect.types.email_address_recipient_list
+
+        out["cc_email_addresses"] = (
+            capo_connect.types.email_address_recipient_list.redact_sensitive(
+                value["cc_email_addresses"]
             )
         )
     return out

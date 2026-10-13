@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.taxsettings#CaseCreationLimitExceededException``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,3 +54,10 @@ class CaseCreationLimitExceededException(ServiceError):
         cls, data: dict, message: str | None = None
     ) -> "CaseCreationLimitExceededException":
         return cls(deserialize_json(data), message)
+
+
+def redact_sensitive(value: CaseCreationLimitExceededException_) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
+    return out

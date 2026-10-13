@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#ListPolicyStoresOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,4 +47,17 @@ def deserialize_aws_json_1_0(data: dict) -> ListPolicyStoresOutput:
         )
     else:
         raise DeserializationError("ListPolicyStoresOutput.policy_stores required")
+    return out
+
+
+def redact_sensitive(value: ListPolicyStoresOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policy_stores" in value:
+        import capo_verifiedpermissions.types.policy_store_list
+
+        out["policy_stores"] = (
+            capo_verifiedpermissions.types.policy_store_list.redact_sensitive(
+                value["policy_stores"]
+            )
+        )
     return out

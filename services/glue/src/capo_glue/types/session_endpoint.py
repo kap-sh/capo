@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.glue#SessionEndpoint``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_aws_json_1_1(data: dict) -> SessionEndpoint:
         raise DeserializationError(
             "SessionEndpoint.auth_token_expiration_time required"
         )
+    return out
+
+
+def redact_sensitive(value: SessionEndpoint) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_token" in value:
+        out["auth_token"] = "*** Sensitive Data Redacted ***"
     return out

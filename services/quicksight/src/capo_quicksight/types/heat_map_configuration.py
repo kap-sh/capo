@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#HeatMapConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -222,5 +222,24 @@ def deserialize_json(data: dict) -> HeatMapConfiguration:
             capo_quicksight.types.visual_interaction_options.deserialize_json(
                 data["Interactions"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: HeatMapConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "field_wells" in value:
+        import capo_quicksight.types.heat_map_field_wells
+
+        out["field_wells"] = (
+            capo_quicksight.types.heat_map_field_wells.redact_sensitive(
+                value["field_wells"]
+            )
+        )
+    if "data_labels" in value:
+        import capo_quicksight.types.data_label_options
+
+        out["data_labels"] = capo_quicksight.types.data_label_options.redact_sensitive(
+            value["data_labels"]
         )
     return out

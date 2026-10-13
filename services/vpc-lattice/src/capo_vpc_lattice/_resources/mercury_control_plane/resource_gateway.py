@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -114,7 +115,9 @@ class ResourceGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.create_resource_gateway_request.CreateResourceGatewayRequest = {
             "name": name
         }
@@ -178,7 +181,9 @@ class ResourceGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceGateway")
+        )
         input_: capo_vpc_lattice.types.get_resource_gateway_request.GetResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -230,7 +235,9 @@ class ResourceGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.update_resource_gateway_request.UpdateResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -280,7 +287,9 @@ class ResourceGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceGateway")
+        )
         input_: capo_vpc_lattice.types.delete_resource_gateway_request.DeleteResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -328,7 +337,9 @@ class ResourceGateway:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceGateways")
+        )
         input_: capo_vpc_lattice.types.list_resource_gateways_request.ListResourceGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -411,7 +422,9 @@ class AsyncResourceGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.create_resource_gateway_request.CreateResourceGatewayRequest = {
             "name": name
         }
@@ -476,7 +489,9 @@ class AsyncResourceGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceGateway")
+        )
         input_: capo_vpc_lattice.types.get_resource_gateway_request.GetResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -529,7 +544,9 @@ class AsyncResourceGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.update_resource_gateway_request.UpdateResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -580,7 +597,9 @@ class AsyncResourceGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceGateway")
+        )
         input_: capo_vpc_lattice.types.delete_resource_gateway_request.DeleteResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -629,7 +648,9 @@ class AsyncResourceGateway:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceGateways")
+        )
         input_: capo_vpc_lattice.types.list_resource_gateways_request.ListResourceGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

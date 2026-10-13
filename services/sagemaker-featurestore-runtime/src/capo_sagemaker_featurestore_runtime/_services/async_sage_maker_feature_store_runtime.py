@@ -26,7 +26,9 @@ from capo_sagemaker_featurestore_runtime._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -136,6 +138,7 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
         config_overrides: Optional[
             AsyncSageMakerFeatureStoreRuntimeClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSageMakerFeatureStoreRuntimeClientConfig = (
             config_overrides or {}
@@ -145,8 +148,10 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -207,7 +212,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.batch_get_record_request.BatchGetRecordRequest = {}
         if identifiers is not None:
             input_["identifiers"] = identifiers
@@ -270,7 +277,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchWriteRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.batch_write_record_request.BatchWriteRecordRequest = {}
         if entries is not None:
             input_["entries"] = entries
@@ -335,7 +344,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.delete_record_request.DeleteRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -407,7 +418,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.get_record_request.GetRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -482,7 +495,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecords")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.list_records_request.ListRecordsRequest = {
             "feature_group_name": feature_group_name
         }
@@ -580,7 +595,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.put_record_request.PutRecordRequest = {
             "feature_group_name": feature_group_name
         }
@@ -659,7 +676,9 @@ class AsyncSageMakerFeatureStoreRuntimeClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecord")
+        )
         input_: capo_sagemaker_featurestore_runtime.types.update_record_request.UpdateRecordRequest = {
             "feature_group_name": feature_group_name
         }

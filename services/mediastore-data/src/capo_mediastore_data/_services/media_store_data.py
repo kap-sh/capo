@@ -24,10 +24,12 @@ from capo_mediastore_data._pagination import resolve_path as _resolve_path
 from capo_mediastore_data._services._aws_config import aws_config
 from capo_mediastore_data._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -127,7 +129,9 @@ class MediaStoreDataClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[MediaStoreDataClientConfig] = None
+        self,
+        config_overrides: Optional[MediaStoreDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MediaStoreDataClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -135,8 +139,10 @@ class MediaStoreDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -187,7 +193,9 @@ class MediaStoreDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteObject")
+        )
         input_: capo_mediastore_data.types.delete_object_request.DeleteObjectRequest = {
             "path": path
         }
@@ -232,7 +240,9 @@ class MediaStoreDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeObject")
+        )
         input_: capo_mediastore_data.types.describe_object_request.DescribeObjectRequest = {
             "path": path
         }
@@ -281,7 +291,19 @@ class MediaStoreDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_mediastore_data.types.get_object_response.GetObjectResponse",
+        ) -> dict[str, Any]:
+            import capo_mediastore_data.types.get_object_response
+
+            return capo_mediastore_data.types.get_object_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetObject", redact_output=_redact_output),
+        )
         input_: capo_mediastore_data.types.get_object_request.GetObjectRequest = {
             "path": path
         }
@@ -337,7 +359,9 @@ class MediaStoreDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListItems")
+        )
         input_: capo_mediastore_data.types.list_items_request.ListItemsRequest = {}
         if path is not None:
             input_["path"] = path
@@ -428,7 +452,18 @@ class MediaStoreDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_mediastore_data.types.put_object_request.PutObjectRequest",
+        ) -> dict[str, Any]:
+            import capo_mediastore_data.types.put_object_request
+
+            return capo_mediastore_data.types.put_object_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutObject", redact_input=_redact_input)
+        )
         input_: capo_mediastore_data.types.put_object_request.PutObjectRequest = {
             "body": ensure_sync_iterator(body),
             "path": path,

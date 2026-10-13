@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_json(
         raise DeserializationError(
             "AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation.feedback required"
         )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyUpdateFromRuleFeedbackAnnotation,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "feedback" in value:
+        out["feedback"] = "*** Sensitive Data Redacted ***"
     return out

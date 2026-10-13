@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#TruckWeight``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,11 @@ def deserialize_json(data: dict) -> TruckWeight:
         out["total"] = float(data["Total"])
     if data.get("Unit") is not None:
         out["unit"] = data["Unit"]
+    return out
+
+
+def redact_sensitive(value: TruckWeight) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "total" in value:
+        out["total"] = "*** Sensitive Data Redacted ***"
     return out

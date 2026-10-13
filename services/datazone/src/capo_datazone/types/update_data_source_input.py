@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#UpdateDataSourceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -143,4 +143,17 @@ def deserialize_json(data: dict) -> UpdateDataSourceInput:
         out["retain_permissions_on_revoke_failure"] = data[
             "retainPermissionsOnRevokeFailure"
         ]
+    return out
+
+
+def redact_sensitive(value: UpdateDataSourceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "asset_forms_input" in value:
+        out["asset_forms_input"] = "*** Sensitive Data Redacted ***"
+    if "schedule" in value:
+        out["schedule"] = "*** Sensitive Data Redacted ***"
     return out

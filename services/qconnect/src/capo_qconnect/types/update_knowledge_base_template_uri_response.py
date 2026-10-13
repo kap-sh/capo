@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#UpdateKnowledgeBaseTemplateUriResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,6 +35,19 @@ def deserialize_json(data: dict) -> UpdateKnowledgeBaseTemplateUriResponse:
         out["knowledge_base"] = (
             capo_qconnect.types.knowledge_base_data.deserialize_json(
                 data["knowledgeBase"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateKnowledgeBaseTemplateUriResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledge_base" in value:
+        import capo_qconnect.types.knowledge_base_data
+
+        out["knowledge_base"] = (
+            capo_qconnect.types.knowledge_base_data.redact_sensitive(
+                value["knowledge_base"]
             )
         )
     return out

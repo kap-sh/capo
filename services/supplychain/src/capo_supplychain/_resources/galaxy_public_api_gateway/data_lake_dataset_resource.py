@@ -7,6 +7,7 @@ import capo_supplychain._auth._sigv4
 from capo_supplychain._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -110,7 +111,9 @@ class DataLakeDatasetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeDataset")
+        )
         input_: capo_supplychain.types.create_data_lake_dataset_request.CreateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -181,7 +184,9 @@ class DataLakeDatasetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeDataset")
+        )
         input_: capo_supplychain.types.get_data_lake_dataset_request.GetDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -248,7 +253,9 @@ class DataLakeDatasetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeDataset")
+        )
         input_: capo_supplychain.types.update_data_lake_dataset_request.UpdateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -313,7 +320,9 @@ class DataLakeDatasetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeDataset")
+        )
         input_: capo_supplychain.types.delete_data_lake_dataset_request.DeleteDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -382,7 +391,9 @@ class DataLakeDatasetResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakeDatasets")
+        )
         input_: capo_supplychain.types.list_data_lake_datasets_request.ListDataLakeDatasetsRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -468,7 +479,9 @@ class AsyncDataLakeDatasetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateDataLakeDataset")
+        )
         input_: capo_supplychain.types.create_data_lake_dataset_request.CreateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -540,7 +553,9 @@ class AsyncDataLakeDatasetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDataLakeDataset")
+        )
         input_: capo_supplychain.types.get_data_lake_dataset_request.GetDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -608,7 +623,9 @@ class AsyncDataLakeDatasetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateDataLakeDataset")
+        )
         input_: capo_supplychain.types.update_data_lake_dataset_request.UpdateDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -674,7 +691,9 @@ class AsyncDataLakeDatasetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataLakeDataset")
+        )
         input_: capo_supplychain.types.delete_data_lake_dataset_request.DeleteDataLakeDatasetRequest = {
             "instance_id": instance_id,
             "namespace": namespace,
@@ -744,7 +763,9 @@ class AsyncDataLakeDatasetResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDataLakeDatasets")
+        )
         input_: capo_supplychain.types.list_data_lake_datasets_request.ListDataLakeDatasetsRequest = {
             "instance_id": instance_id,
             "namespace": namespace,

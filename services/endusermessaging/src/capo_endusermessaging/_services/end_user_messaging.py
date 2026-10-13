@@ -20,10 +20,12 @@ from capo_endusermessaging._auth._zapros_handler import AuthMiddleware
 from capo_endusermessaging._services._aws_config import aws_config
 from capo_endusermessaging._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -190,7 +192,9 @@ class EndUserMessagingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[EndUserMessagingClientConfig] = None
+        self,
+        config_overrides: Optional[EndUserMessagingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: EndUserMessagingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -198,8 +202,10 @@ class EndUserMessagingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -266,7 +272,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.create_brand_profile_input.CreateBrandProfileInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_brand_profile_input
+
+            return (
+                capo_endusermessaging.types.create_brand_profile_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBrandProfile", redact_input=_redact_input),
+        )
         input_: capo_endusermessaging.types.create_brand_profile_input.CreateBrandProfileInput = {
             "brand_profile_name": brand_profile_name
         }
@@ -333,7 +353,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.create_brand_profile_attributes_input.CreateBrandProfileAttributesInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_brand_profile_attributes_input
+
+            return capo_endusermessaging.types.create_brand_profile_attributes_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.create_brand_profile_attributes_output.CreateBrandProfileAttributesOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_brand_profile_attributes_output
+
+            return capo_endusermessaging.types.create_brand_profile_attributes_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBrandProfileAttributes",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.create_brand_profile_attributes_input.CreateBrandProfileAttributesInput = {
             "brand_profile_id": brand_profile_id,
             "attributes": attributes,
@@ -401,7 +446,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.create_brand_profile_from_registration_input.CreateBrandProfileFromRegistrationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_brand_profile_from_registration_input
+
+            return capo_endusermessaging.types.create_brand_profile_from_registration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateBrandProfileFromRegistration", redact_input=_redact_input
+            ),
+        )
         input_: capo_endusermessaging.types.create_brand_profile_from_registration_input.CreateBrandProfileFromRegistrationInput = {
             "registration_id": registration_id,
             "brand_profile_name": brand_profile_name,
@@ -478,7 +537,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.create_notify_code_configuration_input.CreateNotifyCodeConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_notify_code_configuration_input
+
+            return capo_endusermessaging.types.create_notify_code_configuration_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.create_notify_code_configuration_output.CreateNotifyCodeConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_notify_code_configuration_output
+
+            return capo_endusermessaging.types.create_notify_code_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotifyCodeConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.create_notify_code_configuration_input.CreateNotifyCodeConfigurationInput = {
             "notify_code_configuration_name": notify_code_configuration_name
         }
@@ -550,7 +634,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.create_registrations_from_brand_profile_input.CreateRegistrationsFromBrandProfileInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.create_registrations_from_brand_profile_input
+
+            return capo_endusermessaging.types.create_registrations_from_brand_profile_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateRegistrationsFromBrandProfile", redact_input=_redact_input
+            ),
+        )
         input_: capo_endusermessaging.types.create_registrations_from_brand_profile_input.CreateRegistrationsFromBrandProfileInput = {
             "brand_profile_id": brand_profile_id,
             "registration_types": registration_types,
@@ -609,7 +707,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBrandProfile")
+        )
         input_: capo_endusermessaging.types.delete_brand_profile_input.DeleteBrandProfileInput = {
             "brand_profile_id": brand_profile_id
         }
@@ -664,7 +764,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.delete_brand_profile_attribute_input.DeleteBrandProfileAttributeInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.delete_brand_profile_attribute_input
+
+            return capo_endusermessaging.types.delete_brand_profile_attribute_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.delete_brand_profile_attribute_output.DeleteBrandProfileAttributeOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.delete_brand_profile_attribute_output
+
+            return capo_endusermessaging.types.delete_brand_profile_attribute_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DeleteBrandProfileAttribute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.delete_brand_profile_attribute_input.DeleteBrandProfileAttributeInput = {
             "brand_profile_id": brand_profile_id,
             "attribute_name": attribute_name,
@@ -718,7 +843,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotifyCodeConfiguration")
+        )
         input_: capo_endusermessaging.types.delete_notify_code_configuration_input.DeleteNotifyCodeConfigurationInput = {
             "notify_code_configuration_id": notify_code_configuration_id
         }
@@ -770,7 +897,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBrandProfile")
+        )
         input_: capo_endusermessaging.types.get_brand_profile_input.GetBrandProfileInput = {
             "brand_profile_id": brand_profile_id
         }
@@ -824,7 +953,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.get_brand_profile_attribute_input.GetBrandProfileAttributeInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.get_brand_profile_attribute_input
+
+            return capo_endusermessaging.types.get_brand_profile_attribute_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.get_brand_profile_attribute_output.GetBrandProfileAttributeOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.get_brand_profile_attribute_output
+
+            return capo_endusermessaging.types.get_brand_profile_attribute_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetBrandProfileAttribute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.get_brand_profile_attribute_input.GetBrandProfileAttributeInput = {
             "brand_profile_id": brand_profile_id,
             "attribute_name": attribute_name,
@@ -875,7 +1029,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetJob")
+        )
         input_: capo_endusermessaging.types.get_job_input.GetJobInput = {
             "job_id": job_id
         }
@@ -927,7 +1083,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_endusermessaging.types.get_notify_code_configuration_output.GetNotifyCodeConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.get_notify_code_configuration_output
+
+            return capo_endusermessaging.types.get_notify_code_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNotifyCodeConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_endusermessaging.types.get_notify_code_configuration_input.GetNotifyCodeConfigurationInput = {
             "notify_code_configuration_id": notify_code_configuration_id
         }
@@ -985,7 +1155,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_endusermessaging.types.list_brand_profile_attributes_output.ListBrandProfileAttributesOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.list_brand_profile_attributes_output
+
+            return capo_endusermessaging.types.list_brand_profile_attributes_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListBrandProfileAttributes", redact_output=_redact_output
+            ),
+        )
         input_: capo_endusermessaging.types.list_brand_profile_attributes_input.ListBrandProfileAttributesInput = {
             "brand_profile_id": brand_profile_id
         }
@@ -1046,7 +1230,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBrandProfiles")
+        )
         input_: capo_endusermessaging.types.list_brand_profiles_input.ListBrandProfilesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1113,7 +1299,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListJobs")
+        )
         input_: capo_endusermessaging.types.list_jobs_input.ListJobsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1176,7 +1364,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_endusermessaging.types.list_notify_code_configurations_output.ListNotifyCodeConfigurationsOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.list_notify_code_configurations_output
+
+            return capo_endusermessaging.types.list_notify_code_configurations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListNotifyCodeConfigurations", redact_output=_redact_output
+            ),
+        )
         input_: capo_endusermessaging.types.list_notify_code_configurations_input.ListNotifyCodeConfigurationsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1236,7 +1438,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRegistrationsFromBrandProfile")
+        )
         input_: capo_endusermessaging.types.list_registrations_from_brand_profile_input.ListRegistrationsFromBrandProfileInput = {
             "brand_profile_id": brand_profile_id
         }
@@ -1292,7 +1496,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_endusermessaging.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1372,7 +1578,19 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.send_notify_code_verification_input.SendNotifyCodeVerificationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.send_notify_code_verification_input
+
+            return capo_endusermessaging.types.send_notify_code_verification_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendNotifyCodeVerification", redact_input=_redact_input),
+        )
         input_: capo_endusermessaging.types.send_notify_code_verification_input.SendNotifyCodeVerificationInput = {
             "channel": channel,
             "destination_identity": destination_identity,
@@ -1443,7 +1661,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_endusermessaging.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1498,7 +1718,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_endusermessaging.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1558,7 +1780,9 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBrandProfile")
+        )
         input_: capo_endusermessaging.types.update_brand_profile_input.UpdateBrandProfileInput = {
             "brand_profile_id": brand_profile_id
         }
@@ -1631,7 +1855,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.update_brand_profile_attribute_input.UpdateBrandProfileAttributeInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_brand_profile_attribute_input
+
+            return capo_endusermessaging.types.update_brand_profile_attribute_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.update_brand_profile_attribute_output.UpdateBrandProfileAttributeOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_brand_profile_attribute_output
+
+            return capo_endusermessaging.types.update_brand_profile_attribute_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBrandProfileAttribute",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.update_brand_profile_attribute_input.UpdateBrandProfileAttributeInput = {
             "brand_profile_id": brand_profile_id,
             "attribute_name": attribute_name,
@@ -1705,7 +1954,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.update_brand_profile_from_registration_input.UpdateBrandProfileFromRegistrationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_brand_profile_from_registration_input
+
+            return capo_endusermessaging.types.update_brand_profile_from_registration_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBrandProfileFromRegistration", redact_input=_redact_input
+            ),
+        )
         input_: capo_endusermessaging.types.update_brand_profile_from_registration_input.UpdateBrandProfileFromRegistrationInput = {
             "brand_profile_id": brand_profile_id,
             "registration_id": registration_id,
@@ -1780,7 +2043,32 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.update_notify_code_configuration_input.UpdateNotifyCodeConfigurationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_notify_code_configuration_input
+
+            return capo_endusermessaging.types.update_notify_code_configuration_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_endusermessaging.types.update_notify_code_configuration_output.UpdateNotifyCodeConfigurationOutput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_notify_code_configuration_output
+
+            return capo_endusermessaging.types.update_notify_code_configuration_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNotifyCodeConfiguration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_endusermessaging.types.update_notify_code_configuration_input.UpdateNotifyCodeConfigurationInput = {
             "notify_code_configuration_id": notify_code_configuration_id
         }
@@ -1853,7 +2141,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.update_registrations_from_brand_profile_input.UpdateRegistrationsFromBrandProfileInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.update_registrations_from_brand_profile_input
+
+            return capo_endusermessaging.types.update_registrations_from_brand_profile_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateRegistrationsFromBrandProfile", redact_input=_redact_input
+            ),
+        )
         input_: capo_endusermessaging.types.update_registrations_from_brand_profile_input.UpdateRegistrationsFromBrandProfileInput = {
             "brand_profile_id": brand_profile_id,
             "registration_ids": registration_ids,
@@ -1918,7 +2220,21 @@ class EndUserMessagingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_endusermessaging.types.validate_notify_code_verification_input.ValidateNotifyCodeVerificationInput",
+        ) -> dict[str, Any]:
+            import capo_endusermessaging.types.validate_notify_code_verification_input
+
+            return capo_endusermessaging.types.validate_notify_code_verification_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ValidateNotifyCodeVerification", redact_input=_redact_input
+            ),
+        )
         input_: capo_endusermessaging.types.validate_notify_code_verification_input.ValidateNotifyCodeVerificationInput = {
             "destination_identity": destination_identity,
             "code": code,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcampaigns#PutDialRequestBatchRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -39,4 +39,17 @@ def deserialize_json(data: dict) -> PutDialRequestBatchRequest:
         )
     else:
         raise DeserializationError("PutDialRequestBatchRequest.dial_requests required")
+    return out
+
+
+def redact_sensitive(value: PutDialRequestBatchRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "dial_requests" in value:
+        import capo_connectcampaigns.types.dial_request_list
+
+        out["dial_requests"] = (
+            capo_connectcampaigns.types.dial_request_list.redact_sensitive(
+                value["dial_requests"]
+            )
+        )
     return out

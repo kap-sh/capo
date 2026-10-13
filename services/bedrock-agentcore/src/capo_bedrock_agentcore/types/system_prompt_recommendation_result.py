@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#SystemPromptRecommendationResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,11 @@ def deserialize_json(data: dict) -> SystemPromptRecommendationResult:
         out["error_code"] = data["errorCode"]
     if data.get("errorMessage") is not None:
         out["error_message"] = data["errorMessage"]
+    return out
+
+
+def redact_sensitive(value: SystemPromptRecommendationResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommended_system_prompt" in value:
+        out["recommended_system_prompt"] = "*** Sensitive Data Redacted ***"
     return out

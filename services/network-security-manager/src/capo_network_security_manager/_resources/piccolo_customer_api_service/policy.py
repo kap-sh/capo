@@ -8,6 +8,7 @@ import capo_network_security_manager._auth._sigv4
 from capo_network_security_manager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -124,7 +125,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_network_security_manager.types.create_policy_input.CreatePolicyInput = {
             "policy_name": policy_name,
             "priority": priority,
@@ -193,7 +196,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_network_security_manager.types.get_policy_input.GetPolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -272,7 +277,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePolicy")
+        )
         input_: capo_network_security_manager.types.update_policy_input.UpdatePolicyInput = {
             "policy_identifier": policy_identifier,
             "update_token": update_token,
@@ -338,7 +345,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_network_security_manager.types.delete_policy_input.DeletePolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -400,7 +409,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_network_security_manager.types.list_policies_input.ListPoliciesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -465,7 +476,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicySnapshot")
+        )
         input_: capo_network_security_manager.types.create_policy_snapshot_input.CreatePolicySnapshotInput = {
             "policy_identifier": policy_identifier
         }
@@ -531,7 +544,9 @@ class Policy:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicySnapshots")
+        )
         input_: capo_network_security_manager.types.list_policy_snapshots_input.ListPolicySnapshotsInput = {
             "policy_identifier": policy_identifier
         }
@@ -621,7 +636,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicy")
+        )
         input_: capo_network_security_manager.types.create_policy_input.CreatePolicyInput = {
             "policy_name": policy_name,
             "priority": priority,
@@ -691,7 +708,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicy")
+        )
         input_: capo_network_security_manager.types.get_policy_input.GetPolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -771,7 +790,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePolicy")
+        )
         input_: capo_network_security_manager.types.update_policy_input.UpdatePolicyInput = {
             "policy_identifier": policy_identifier,
             "update_token": update_token,
@@ -838,7 +859,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePolicy")
+        )
         input_: capo_network_security_manager.types.delete_policy_input.DeletePolicyInput = {
             "policy_identifier": policy_identifier
         }
@@ -901,7 +924,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicies")
+        )
         input_: capo_network_security_manager.types.list_policies_input.ListPoliciesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -967,7 +992,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePolicySnapshot")
+        )
         input_: capo_network_security_manager.types.create_policy_snapshot_input.CreatePolicySnapshotInput = {
             "policy_identifier": policy_identifier
         }
@@ -1034,7 +1061,9 @@ class AsyncPolicy:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicySnapshots")
+        )
         input_: capo_network_security_manager.types.list_policy_snapshots_input.ListPolicySnapshotsInput = {
             "policy_identifier": policy_identifier
         }

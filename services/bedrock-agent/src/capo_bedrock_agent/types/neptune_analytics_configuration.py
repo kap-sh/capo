@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#NeptuneAnalyticsConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> NeptuneAnalyticsConfiguration:
         raise DeserializationError(
             "NeptuneAnalyticsConfiguration.field_mapping required"
         )
+    return out
+
+
+def redact_sensitive(value: NeptuneAnalyticsConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "graph_arn" in value:
+        out["graph_arn"] = "*** Sensitive Data Redacted ***"
     return out

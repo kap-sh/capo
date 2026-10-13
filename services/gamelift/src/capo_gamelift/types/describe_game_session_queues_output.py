@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#DescribeGameSessionQueuesOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeGameSessionQueuesOutput:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeGameSessionQueuesOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "game_session_queues" in value:
+        import capo_gamelift.types.game_session_queue_list
+
+        out["game_session_queues"] = (
+            capo_gamelift.types.game_session_queue_list.redact_sensitive(
+                value["game_session_queues"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appstream#CreateImportedImageRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -147,4 +147,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateImportedImageRequest:
         )
     if data.get("DryRun") is not None:
         out["dry_run"] = data["DryRun"]
+    return out
+
+
+def redact_sensitive(value: CreateImportedImageRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_catalog_config" in value:
+        import capo_appstream.types.app_catalog_config
+
+        out["app_catalog_config"] = (
+            capo_appstream.types.app_catalog_config.redact_sensitive(
+                value["app_catalog_config"]
+            )
+        )
     return out

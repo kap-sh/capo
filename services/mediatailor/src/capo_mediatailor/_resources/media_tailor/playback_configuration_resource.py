@@ -7,6 +7,7 @@ import capo_mediatailor._auth._sigv4
 from capo_mediatailor._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -165,7 +166,9 @@ class PlaybackConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.put_playback_configuration_request.PutPlaybackConfigurationRequest = {
             "name": name
         }
@@ -255,7 +258,9 @@ class PlaybackConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.get_playback_configuration_request.GetPlaybackConfigurationRequest = {
             "name": name
         }
@@ -297,7 +302,9 @@ class PlaybackConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.delete_playback_configuration_request.DeletePlaybackConfigurationRequest = {
             "name": name
         }
@@ -341,7 +348,9 @@ class PlaybackConfigurationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlaybackConfigurations")
+        )
         input_: capo_mediatailor.types.list_playback_configurations_request.ListPlaybackConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -471,7 +480,9 @@ class AsyncPlaybackConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.put_playback_configuration_request.PutPlaybackConfigurationRequest = {
             "name": name
         }
@@ -562,7 +573,9 @@ class AsyncPlaybackConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.get_playback_configuration_request.GetPlaybackConfigurationRequest = {
             "name": name
         }
@@ -605,7 +618,9 @@ class AsyncPlaybackConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlaybackConfiguration")
+        )
         input_: capo_mediatailor.types.delete_playback_configuration_request.DeletePlaybackConfigurationRequest = {
             "name": name
         }
@@ -650,7 +665,9 @@ class AsyncPlaybackConfigurationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlaybackConfigurations")
+        )
         input_: capo_mediatailor.types.list_playback_configurations_request.ListPlaybackConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#DescribeKeyResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -125,4 +125,23 @@ def deserialize_json(data: dict) -> DescribeKeyResponse:
         import capo_location.types.tag_map
 
         out["tags"] = capo_location.types.tag_map.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: DescribeKeyResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "restrictions" in value:
+        import capo_location.types.api_key_restrictions
+
+        out["restrictions"] = capo_location.types.api_key_restrictions.redact_sensitive(
+            value["restrictions"]
+        )
+    if "create_time" in value:
+        out["create_time"] = "*** Sensitive Data Redacted ***"
+    if "expire_time" in value:
+        out["expire_time"] = "*** Sensitive Data Redacted ***"
+    if "update_time" in value:
+        out["update_time"] = "*** Sensitive Data Redacted ***"
     return out

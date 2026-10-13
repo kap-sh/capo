@@ -8,6 +8,7 @@ import capo_iot_managed_integrations._auth._sigv4
 from capo_iot_managed_integrations._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -107,7 +108,9 @@ class CloudConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.create_cloud_connector_request.CreateCloudConnectorRequest = {
             "name": name,
             "endpoint_config": endpoint_config,
@@ -173,7 +176,9 @@ class CloudConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.get_cloud_connector_request.GetCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -235,7 +240,9 @@ class CloudConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.update_cloud_connector_request.UpdateCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -285,7 +292,9 @@ class CloudConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.delete_cloud_connector_request.DeleteCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -353,7 +362,9 @@ class CloudConnectorResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCloudConnectors")
+        )
         input_: capo_iot_managed_integrations.types.list_cloud_connectors_request.ListCloudConnectorsRequest = {}
         if type is not None:
             input_["type"] = type
@@ -437,7 +448,9 @@ class AsyncCloudConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.create_cloud_connector_request.CreateCloudConnectorRequest = {
             "name": name,
             "endpoint_config": endpoint_config,
@@ -504,7 +517,9 @@ class AsyncCloudConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.get_cloud_connector_request.GetCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -567,7 +582,9 @@ class AsyncCloudConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.update_cloud_connector_request.UpdateCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -618,7 +635,9 @@ class AsyncCloudConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.delete_cloud_connector_request.DeleteCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -687,7 +706,9 @@ class AsyncCloudConnectorResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCloudConnectors")
+        )
         input_: capo_iot_managed_integrations.types.list_cloud_connectors_request.ListCloudConnectorsRequest = {}
         if type is not None:
             input_["type"] = type

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#GetPortalResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -30,5 +30,16 @@ def deserialize_json(data: dict) -> GetPortalResponse:
 
         out["portal"] = capo_workspaces_web.types.portal.deserialize_json(
             data["portal"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetPortalResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "portal" in value:
+        import capo_workspaces_web.types.portal
+
+        out["portal"] = capo_workspaces_web.types.portal.redact_sensitive(
+            value["portal"]
         )
     return out

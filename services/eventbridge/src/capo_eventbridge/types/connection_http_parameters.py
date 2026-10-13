@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#ConnectionHttpParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,35 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionHttpParameters:
         out["body_parameters"] = (
             capo_eventbridge.types.connection_body_parameters_list.deserialize_aws_json_1_1(
                 data["BodyParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ConnectionHttpParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "header_parameters" in value:
+        import capo_eventbridge.types.connection_header_parameters_list
+
+        out["header_parameters"] = (
+            capo_eventbridge.types.connection_header_parameters_list.redact_sensitive(
+                value["header_parameters"]
+            )
+        )
+    if "query_string_parameters" in value:
+        import capo_eventbridge.types.connection_query_string_parameters_list
+
+        out["query_string_parameters"] = (
+            capo_eventbridge.types.connection_query_string_parameters_list.redact_sensitive(
+                value["query_string_parameters"]
+            )
+        )
+    if "body_parameters" in value:
+        import capo_eventbridge.types.connection_body_parameters_list
+
+        out["body_parameters"] = (
+            capo_eventbridge.types.connection_body_parameters_list.redact_sensitive(
+                value["body_parameters"]
             )
         )
     return out

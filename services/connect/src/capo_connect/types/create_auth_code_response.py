@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#CreateAuthCodeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,11 @@ def deserialize_json(data: dict) -> CreateAuthCodeResponse:
         )
     if data.get("EntityId") is not None:
         out["entity_id"] = data["EntityId"]
+    return out
+
+
+def redact_sensitive(value: CreateAuthCodeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_code" in value:
+        out["auth_code"] = "*** Sensitive Data Redacted ***"
     return out

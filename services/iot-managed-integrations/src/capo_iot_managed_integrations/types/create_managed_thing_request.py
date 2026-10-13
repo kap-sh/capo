@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotmanagedintegrations#CreateManagedThingRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -238,4 +238,23 @@ def deserialize_json(data: dict) -> CreateManagedThingRequest:
                 data["MetaData"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CreateManagedThingRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "owner" in value:
+        out["owner"] = "*** Sensitive Data Redacted ***"
+    if "authentication_material" in value:
+        out["authentication_material"] = "*** Sensitive Data Redacted ***"
+    if "serial_number" in value:
+        out["serial_number"] = "*** Sensitive Data Redacted ***"
+    if "brand" in value:
+        out["brand"] = "*** Sensitive Data Redacted ***"
+    if "model" in value:
+        out["model"] = "*** Sensitive Data Redacted ***"
+    if "classification" in value:
+        out["classification"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#SubRegion``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -31,4 +31,13 @@ def deserialize_json(data: dict) -> SubRegion:
         out["code"] = data["Code"]
     if data.get("Name") is not None:
         out["name"] = data["Name"]
+    return out
+
+
+def redact_sensitive(value: SubRegion) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

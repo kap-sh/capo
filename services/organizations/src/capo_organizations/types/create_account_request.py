@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#CreateAccountRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,13 @@ def deserialize_aws_json_1_1(data: dict) -> CreateAccountRequest:
         out["tags"] = capo_organizations.types.tags.deserialize_aws_json_1_1(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateAccountRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
+    if "account_name" in value:
+        out["account_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iam#ServiceSpecificCredential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -161,4 +161,13 @@ def deserialize_query(el: Element) -> ServiceSpecificCredential:
         out["status"] = capo_iam.types.status_type.deserialize_query(child_status)
     else:
         raise DeserializationError("ServiceSpecificCredential.status required")
+    return out
+
+
+def redact_sensitive(value: ServiceSpecificCredential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service_password" in value:
+        out["service_password"] = "*** Sensitive Data Redacted ***"
+    if "service_credential_secret" in value:
+        out["service_credential_secret"] = "*** Sensitive Data Redacted ***"
     return out

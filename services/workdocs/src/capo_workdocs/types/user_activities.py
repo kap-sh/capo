@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#UserActivities``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workdocs.types.activity
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> UserActivities:
             continue
         out.append(capo_workdocs.types.activity.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: UserActivities) -> list[Any]:
+    import capo_workdocs.types.activity
+
+    return [capo_workdocs.types.activity.redact_sensitive(item) for item in value]

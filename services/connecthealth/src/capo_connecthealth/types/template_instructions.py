@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#TemplateInstructions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connecthealth.types.template_section_instruction
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> TemplateInstructions:
             capo_connecthealth.types.template_section_instruction.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: TemplateInstructions) -> list[Any]:
+    import capo_connecthealth.types.template_section_instruction
+
+    return [
+        capo_connecthealth.types.template_section_instruction.redact_sensitive(item)
+        for item in value
+    ]

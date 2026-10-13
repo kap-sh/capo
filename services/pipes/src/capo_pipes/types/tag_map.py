@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#TagMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_pipes.types.tag_key
@@ -26,3 +26,7 @@ def deserialize_json(data: dict) -> TagMap:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: TagMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

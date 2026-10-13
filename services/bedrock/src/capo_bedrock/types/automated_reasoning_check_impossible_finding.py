@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningCheckImpossibleFinding``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,27 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckImpossibleFinding:
         out["logic_warning"] = (
             capo_bedrock.types.automated_reasoning_check_logic_warning.deserialize_json(
                 data["logicWarning"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AutomatedReasoningCheckImpossibleFinding) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "translation" in value:
+        import capo_bedrock.types.automated_reasoning_check_translation
+
+        out["translation"] = (
+            capo_bedrock.types.automated_reasoning_check_translation.redact_sensitive(
+                value["translation"]
+            )
+        )
+    if "logic_warning" in value:
+        import capo_bedrock.types.automated_reasoning_check_logic_warning
+
+        out["logic_warning"] = (
+            capo_bedrock.types.automated_reasoning_check_logic_warning.redact_sensitive(
+                value["logic_warning"]
             )
         )
     return out

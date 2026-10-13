@@ -8,6 +8,7 @@ import capo_route53globalresolver._auth._sigv4
 from capo_route53globalresolver._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -147,7 +148,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.create_firewall_rule_input.CreateFirewallRuleInput = {
             "action": action,
             "name": name,
@@ -219,7 +222,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFirewallRule")
+        )
         input_: capo_route53globalresolver.types.get_firewall_rule_input.GetFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -310,7 +315,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.update_firewall_rule_input.UpdateFirewallRuleInput = {
             "client_token": client_token,
             "firewall_rule_id": firewall_rule_id,
@@ -379,7 +386,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_rule_input.DeleteFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -432,7 +441,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallRules")
+        )
         input_: capo_route53globalresolver.types.list_firewall_rules_input.ListFirewallRulesInput = {
             "dns_view_id": dns_view_id
         }
@@ -484,7 +495,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchCreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_create_firewall_rule_input.BatchCreateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -530,7 +543,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_delete_firewall_rule_input.BatchDeleteFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -576,7 +591,9 @@ class FirewallRule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchUpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_update_firewall_rule_input.BatchUpdateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -679,7 +696,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.create_firewall_rule_input.CreateFirewallRuleInput = {
             "action": action,
             "name": name,
@@ -752,7 +771,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetFirewallRule")
+        )
         input_: capo_route53globalresolver.types.get_firewall_rule_input.GetFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -844,7 +865,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.update_firewall_rule_input.UpdateFirewallRuleInput = {
             "client_token": client_token,
             "firewall_rule_id": firewall_rule_id,
@@ -914,7 +937,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.delete_firewall_rule_input.DeleteFirewallRuleInput = {
             "firewall_rule_id": firewall_rule_id
         }
@@ -968,7 +993,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFirewallRules")
+        )
         input_: capo_route53globalresolver.types.list_firewall_rules_input.ListFirewallRulesInput = {
             "dns_view_id": dns_view_id
         }
@@ -1021,7 +1048,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchCreateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_create_firewall_rule_input.BatchCreateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -1068,7 +1097,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchDeleteFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_delete_firewall_rule_input.BatchDeleteFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }
@@ -1115,7 +1146,9 @@ class AsyncFirewallRule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchUpdateFirewallRule")
+        )
         input_: capo_route53globalresolver.types.batch_update_firewall_rule_input.BatchUpdateFirewallRuleInput = {
             "firewall_rules": firewall_rules
         }

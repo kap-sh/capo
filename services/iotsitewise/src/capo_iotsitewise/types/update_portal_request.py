@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#UpdatePortalRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,13 @@ def deserialize_json(data: dict) -> UpdatePortalRequest:
                 data["portalTypeConfiguration"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdatePortalRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "portal_contact_email" in value:
+        out["portal_contact_email"] = "*** Sensitive Data Redacted ***"
+    if "notification_sender_email" in value:
+        out["notification_sender_email"] = "*** Sensitive Data Redacted ***"
     return out

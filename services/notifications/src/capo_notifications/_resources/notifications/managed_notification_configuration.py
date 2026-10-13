@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -70,7 +71,9 @@ class ManagedNotificationConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationConfiguration")
+        )
         input_: capo_notifications.types.get_managed_notification_configuration_request.GetManagedNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -122,7 +125,9 @@ class ManagedNotificationConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationConfigurations")
+        )
         input_: capo_notifications.types.list_managed_notification_configurations_request.ListManagedNotificationConfigurationsRequest = {}
         if channel_identifier is not None:
             input_["channel_identifier"] = channel_identifier
@@ -179,7 +184,9 @@ class AsyncManagedNotificationConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetManagedNotificationConfiguration")
+        )
         input_: capo_notifications.types.get_managed_notification_configuration_request.GetManagedNotificationConfigurationRequest = {
             "arn": arn
         }
@@ -232,7 +239,9 @@ class AsyncManagedNotificationConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedNotificationConfigurations")
+        )
         input_: capo_notifications.types.list_managed_notification_configurations_request.ListManagedNotificationConfigurationsRequest = {}
         if channel_identifier is not None:
             input_["channel_identifier"] = channel_identifier

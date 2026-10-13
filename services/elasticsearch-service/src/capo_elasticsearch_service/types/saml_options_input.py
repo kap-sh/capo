@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.elasticsearchservice#SAMLOptionsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,11 @@ def deserialize_json(data: dict) -> SAMLOptionsInput:
         out["roles_key"] = data["RolesKey"]
     if data.get("SessionTimeoutMinutes") is not None:
         out["session_timeout_minutes"] = data["SessionTimeoutMinutes"]
+    return out
+
+
+def redact_sensitive(value: SAMLOptionsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "master_user_name" in value:
+        out["master_user_name"] = "*** Sensitive Data Redacted ***"
     return out

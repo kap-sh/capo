@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appconfig#StopExperimentRunRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,6 +62,19 @@ def deserialize_json(data: dict) -> StopExperimentRunRequest:
         out["deployment_parameters"] = (
             capo_appconfig.types.deployment_parameters.deserialize_json(
                 data["DeploymentParameters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: StopExperimentRunRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "deployment_parameters" in value:
+        import capo_appconfig.types.deployment_parameters
+
+        out["deployment_parameters"] = (
+            capo_appconfig.types.deployment_parameters.redact_sensitive(
+                value["deployment_parameters"]
             )
         )
     return out

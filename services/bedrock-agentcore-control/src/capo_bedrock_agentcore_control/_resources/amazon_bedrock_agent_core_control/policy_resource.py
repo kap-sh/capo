@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore_control._auth._signers
 import capo_bedrock_agentcore_control._auth._sigv4
 from capo_bedrock_agentcore_control._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,30 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_policy_request.CreatePolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_policy_request
+
+            return capo_bedrock_agentcore_control.types.create_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_policy_response.CreatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_policy_response
+
+            return capo_bedrock_agentcore_control.types.create_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_policy_request.CreatePolicyRequest = {
             "name": name,
             "definition": definition,
@@ -172,7 +196,19 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_policy_response.GetPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_policy_response
+
+            return capo_bedrock_agentcore_control.types.get_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicy", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_request.GetPolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -240,7 +276,30 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_policy_request.UpdatePolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_policy_request
+
+            return capo_bedrock_agentcore_control.types.update_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_policy_response.UpdatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_policy_response
+
+            return capo_bedrock_agentcore_control.types.update_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_policy_request.UpdatePolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -299,7 +358,19 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_policy_response.DeletePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_policy_response
+
+            return capo_bedrock_agentcore_control.types.delete_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeletePolicy", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_policy_request.DeletePolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -359,7 +430,19 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_policies_response.ListPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_policies_response
+
+            return capo_bedrock_agentcore_control.types.list_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicies", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_policies_request.ListPoliciesRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -414,7 +497,9 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicySummary")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_summary_request.GetPolicySummaryRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -474,7 +559,9 @@ class PolicyResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicySummaries")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_summaries_request.ListPolicySummariesRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -555,7 +642,30 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.create_policy_request.CreatePolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_policy_request
+
+            return capo_bedrock_agentcore_control.types.create_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.create_policy_response.CreatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.create_policy_response
+
+            return capo_bedrock_agentcore_control.types.create_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.create_policy_request.CreatePolicyRequest = {
             "name": name,
             "definition": definition,
@@ -616,7 +726,19 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.get_policy_response.GetPolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.get_policy_response
+
+            return capo_bedrock_agentcore_control.types.get_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPolicy", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_request.GetPolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -685,7 +807,30 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore_control.types.update_policy_request.UpdatePolicyRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_policy_request
+
+            return capo_bedrock_agentcore_control.types.update_policy_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.update_policy_response.UpdatePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.update_policy_response
+
+            return capo_bedrock_agentcore_control.types.update_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdatePolicy", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_bedrock_agentcore_control.types.update_policy_request.UpdatePolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -745,7 +890,19 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.delete_policy_response.DeletePolicyResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.delete_policy_response
+
+            return capo_bedrock_agentcore_control.types.delete_policy_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeletePolicy", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.delete_policy_request.DeletePolicyRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -806,7 +963,19 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_bedrock_agentcore_control.types.list_policies_response.ListPoliciesResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore_control.types.list_policies_response
+
+            return capo_bedrock_agentcore_control.types.list_policies_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListPolicies", redact_output=_redact_output),
+        )
         input_: capo_bedrock_agentcore_control.types.list_policies_request.ListPoliciesRequest = {
             "policy_engine_id": policy_engine_id
         }
@@ -862,7 +1031,9 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPolicySummary")
+        )
         input_: capo_bedrock_agentcore_control.types.get_policy_summary_request.GetPolicySummaryRequest = {
             "policy_engine_id": policy_engine_id,
             "policy_id": policy_id,
@@ -923,7 +1094,9 @@ class AsyncPolicyResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPolicySummaries")
+        )
         input_: capo_bedrock_agentcore_control.types.list_policy_summaries_request.ListPolicySummariesRequest = {
             "policy_engine_id": policy_engine_id
         }

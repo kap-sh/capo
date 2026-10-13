@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#CreateServiceInstanceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,11 @@ def deserialize_aws_json_1_0(data: dict) -> CreateServiceInstanceInput:
         out["tags"] = capo_proton.types.tag_list.deserialize_aws_json_1_0(data["tags"])
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateServiceInstanceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "spec" in value:
+        out["spec"] = "*** Sensitive Data Redacted ***"
     return out

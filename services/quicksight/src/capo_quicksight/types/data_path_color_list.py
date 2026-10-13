@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#DataPathColorList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.data_path_color
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> DataPathColorList:
             continue
         out.append(capo_quicksight.types.data_path_color.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: DataPathColorList) -> list[Any]:
+    import capo_quicksight.types.data_path_color
+
+    return [
+        capo_quicksight.types.data_path_color.redact_sensitive(item) for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.billingconductor#AccountAssociationsListElement``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,4 +48,13 @@ def deserialize_json(data: dict) -> AccountAssociationsListElement:
         out["account_name"] = data["AccountName"]
     if data.get("AccountEmail") is not None:
         out["account_email"] = data["AccountEmail"]
+    return out
+
+
+def redact_sensitive(value: AccountAssociationsListElement) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "account_name" in value:
+        out["account_name"] = "*** Sensitive Data Redacted ***"
+    if "account_email" in value:
+        out["account_email"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#SelfServiceConversationHistory``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -56,4 +56,13 @@ def deserialize_json(data: dict) -> SelfServiceConversationHistory:
         out["timestamp"] = capo_qconnect.types._prelude.timestamp.deserialize_json(
             data["timestamp"]
         )
+    return out
+
+
+def redact_sensitive(value: SelfServiceConversationHistory) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_transcript" in value:
+        out["input_transcript"] = "*** Sensitive Data Redacted ***"
+    if "bot_response" in value:
+        out["bot_response"] = "*** Sensitive Data Redacted ***"
     return out

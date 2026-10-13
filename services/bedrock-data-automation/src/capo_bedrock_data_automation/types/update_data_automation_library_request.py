@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#UpdateDataAutomationLibraryRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> UpdateDataAutomationLibraryRequest:
         out["library_description"] = data["libraryDescription"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateDataAutomationLibraryRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "library_description" in value:
+        out["library_description"] = "*** Sensitive Data Redacted ***"
     return out

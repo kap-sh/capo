@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudwatchomni#CreateIntegrationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,17 @@ def deserialize_cbor(data: dict) -> CreateIntegrationInput:
         out["tags"] = capo_cloudwatchomni.types.tag_map.deserialize_cbor(data["tags"])
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: CreateIntegrationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "credential" in value:
+        import capo_cloudwatchomni.types.integration_credential
+
+        out["credential"] = (
+            capo_cloudwatchomni.types.integration_credential.redact_sensitive(
+                value["credential"]
+            )
+        )
     return out

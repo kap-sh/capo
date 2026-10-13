@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#McpLambdaTargetConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -48,4 +48,17 @@ def deserialize_json(data: dict) -> McpLambdaTargetConfiguration:
         )
     else:
         raise DeserializationError("McpLambdaTargetConfiguration.tool_schema required")
+    return out
+
+
+def redact_sensitive(value: McpLambdaTargetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tool_schema" in value:
+        import capo_bedrock_agentcore_control.types.tool_schema
+
+        out["tool_schema"] = (
+            capo_bedrock_agentcore_control.types.tool_schema.redact_sensitive(
+                value["tool_schema"]
+            )
+        )
     return out

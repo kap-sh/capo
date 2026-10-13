@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicSearchFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,4 +60,11 @@ def deserialize_json(data: dict) -> TopicSearchFilter:
         out["value"] = data["Value"]
     else:
         raise DeserializationError("TopicSearchFilter.value required")
+    return out
+
+
+def redact_sensitive(value: TopicSearchFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

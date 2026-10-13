@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#InvocationLogsConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,6 +71,19 @@ def deserialize_json(data: dict) -> InvocationLogsConfig:
         out["request_metadata_filters"] = (
             capo_bedrock.types.request_metadata_filters.deserialize_json(
                 data["requestMetadataFilters"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: InvocationLogsConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "request_metadata_filters" in value:
+        import capo_bedrock.types.request_metadata_filters
+
+        out["request_metadata_filters"] = (
+            capo_bedrock.types.request_metadata_filters.redact_sensitive(
+                value["request_metadata_filters"]
             )
         )
     return out

@@ -19,10 +19,12 @@ from capo_license_manager._auth._zapros_handler import AuthMiddleware
 from capo_license_manager._services._aws_config import aws_config
 from capo_license_manager._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -277,7 +279,9 @@ class LicenseManagerClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[LicenseManagerClientConfig] = None
+        self,
+        config_overrides: Optional[LicenseManagerClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: LicenseManagerClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -285,8 +289,10 @@ class LicenseManagerClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -341,7 +347,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptGrant")
+        )
         input_: capo_license_manager.types.accept_grant_request.AcceptGrantRequest = {
             "grant_arn": grant_arn
         }
@@ -393,7 +401,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckInLicense")
+        )
         input_: capo_license_manager.types.check_in_license_request.CheckInLicenseRequest = {
             "license_consumption_token": license_consumption_token
         }
@@ -460,7 +470,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckoutBorrowLicense")
+        )
         input_: capo_license_manager.types.checkout_borrow_license_request.CheckoutBorrowLicenseRequest = {
             "license_arn": license_arn,
             "entitlements": entitlements,
@@ -531,7 +543,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CheckoutLicense")
+        )
         input_: capo_license_manager.types.checkout_license_request.CheckoutLicenseRequest = {
             "product_sku": product_sku,
             "checkout_type": checkout_type,
@@ -600,7 +614,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGrant")
+        )
         input_: capo_license_manager.types.create_grant_request.CreateGrantRequest = {
             "client_token": client_token,
             "grant_name": grant_name,
@@ -674,7 +690,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateGrantVersion")
+        )
         input_: capo_license_manager.types.create_grant_version_request.CreateGrantVersionRequest = {
             "client_token": client_token,
             "grant_arn": grant_arn,
@@ -760,7 +778,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicense")
+        )
         input_: capo_license_manager.types.create_license_request.CreateLicenseRequest = {
             "license_name": license_name,
             "product_name": product_name,
@@ -837,7 +857,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseAssetGroup")
+        )
         input_: capo_license_manager.types.create_license_asset_group_request.CreateLicenseAssetGroupRequest = {
             "name": name,
             "license_asset_group_configurations": license_asset_group_configurations,
@@ -904,7 +926,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseAssetRuleset")
+        )
         input_: capo_license_manager.types.create_license_asset_ruleset_request.CreateLicenseAssetRulesetRequest = {
             "name": name,
             "rules": rules,
@@ -984,7 +1008,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseConfiguration")
+        )
         input_: capo_license_manager.types.create_license_configuration_request.CreateLicenseConfigurationRequest = {
             "name": name,
             "license_counting_type": license_counting_type,
@@ -1053,7 +1079,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseConversionTaskForResource")
+        )
         input_: capo_license_manager.types.create_license_conversion_task_for_resource_request.CreateLicenseConversionTaskForResourceRequest = {
             "resource_arn": resource_arn,
             "source_license_context": source_license_context,
@@ -1117,7 +1145,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseManagerReportGenerator")
+        )
         input_: capo_license_manager.types.create_license_manager_report_generator_request.CreateLicenseManagerReportGeneratorRequest = {
             "report_generator_name": report_generator_name,
             "type": type,
@@ -1201,7 +1231,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLicenseVersion")
+        )
         input_: capo_license_manager.types.create_license_version_request.CreateLicenseVersionRequest = {
             "license_arn": license_arn,
             "license_name": license_name,
@@ -1278,7 +1310,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateToken")
+        )
         input_: capo_license_manager.types.create_token_request.CreateTokenRequest = {
             "license_arn": license_arn,
             "client_token": client_token,
@@ -1340,7 +1374,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteGrant")
+        )
         input_: capo_license_manager.types.delete_grant_request.DeleteGrantRequest = {
             "grant_arn": grant_arn,
             "version": version,
@@ -1395,7 +1431,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicense")
+        )
         input_: capo_license_manager.types.delete_license_request.DeleteLicenseRequest = {
             "license_arn": license_arn,
             "source_version": source_version,
@@ -1444,7 +1482,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseAssetGroup")
+        )
         input_: capo_license_manager.types.delete_license_asset_group_request.DeleteLicenseAssetGroupRequest = {
             "license_asset_group_arn": license_asset_group_arn
         }
@@ -1492,7 +1532,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseAssetRuleset")
+        )
         input_: capo_license_manager.types.delete_license_asset_ruleset_request.DeleteLicenseAssetRulesetRequest = {
             "license_asset_ruleset_arn": license_asset_ruleset_arn
         }
@@ -1539,7 +1581,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseConfiguration")
+        )
         input_: capo_license_manager.types.delete_license_configuration_request.DeleteLicenseConfigurationRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -1589,7 +1633,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseManagerReportGenerator")
+        )
         input_: capo_license_manager.types.delete_license_manager_report_generator_request.DeleteLicenseManagerReportGeneratorRequest = {
             "license_manager_report_generator_arn": license_manager_report_generator_arn
         }
@@ -1638,7 +1684,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteToken")
+        )
         input_: capo_license_manager.types.delete_token_request.DeleteTokenRequest = {
             "token_id": token_id
         }
@@ -1689,7 +1737,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExtendLicenseConsumption")
+        )
         input_: capo_license_manager.types.extend_license_consumption_request.ExtendLicenseConsumptionRequest = {
             "license_consumption_token": license_consumption_token
         }
@@ -1742,7 +1792,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessToken")
+        )
         input_: capo_license_manager.types.get_access_token_request.GetAccessTokenRequest = {
             "token": token
         }
@@ -1795,7 +1847,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetGrant")
+        )
         input_: capo_license_manager.types.get_grant_request.GetGrantRequest = {
             "grant_arn": grant_arn
         }
@@ -1847,7 +1901,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicense")
+        )
         input_: capo_license_manager.types.get_license_request.GetLicenseRequest = {
             "license_arn": license_arn
         }
@@ -1897,7 +1953,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseAssetGroup")
+        )
         input_: capo_license_manager.types.get_license_asset_group_request.GetLicenseAssetGroupRequest = {
             "license_asset_group_arn": license_asset_group_arn
         }
@@ -1945,7 +2003,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseAssetRuleset")
+        )
         input_: capo_license_manager.types.get_license_asset_ruleset_request.GetLicenseAssetRulesetRequest = {
             "license_asset_ruleset_arn": license_asset_ruleset_arn
         }
@@ -1992,7 +2052,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseConfiguration")
+        )
         input_: capo_license_manager.types.get_license_configuration_request.GetLicenseConfigurationRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -2039,7 +2101,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseConversionTask")
+        )
         input_: capo_license_manager.types.get_license_conversion_task_request.GetLicenseConversionTaskRequest = {
             "license_conversion_task_id": license_conversion_task_id
         }
@@ -2089,7 +2153,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseManagerReportGenerator")
+        )
         input_: capo_license_manager.types.get_license_manager_report_generator_request.GetLicenseManagerReportGeneratorRequest = {
             "license_manager_report_generator_arn": license_manager_report_generator_arn
         }
@@ -2139,7 +2205,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLicenseUsage")
+        )
         input_: capo_license_manager.types.get_license_usage_request.GetLicenseUsageRequest = {
             "license_arn": license_arn
         }
@@ -2179,7 +2247,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceSettings")
+        )
         input_: capo_license_manager.types.get_service_settings_request.GetServiceSettingsRequest = {}
 
         response = execute_pipeline(
@@ -2233,7 +2303,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAssetsForLicenseAssetGroup")
+        )
         input_: capo_license_manager.types.list_assets_for_license_asset_group_request.ListAssetsForLicenseAssetGroupRequest = {
             "license_asset_group_arn": license_asset_group_arn,
             "asset_type": asset_type,
@@ -2292,7 +2364,10 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListAssociationsForLicenseConfiguration"),
+        )
         input_: capo_license_manager.types.list_associations_for_license_configuration_request.ListAssociationsForLicenseConfigurationRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -2353,7 +2428,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDistributedGrants")
+        )
         input_: capo_license_manager.types.list_distributed_grants_request.ListDistributedGrantsRequest = {}
         if grant_arns is not None:
             input_["grant_arns"] = grant_arns
@@ -2412,7 +2489,10 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListFailuresForLicenseConfigurationOperations"),
+        )
         input_: capo_license_manager.types.list_failures_for_license_configuration_operations_request.ListFailuresForLicenseConfigurationOperationsRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -2470,7 +2550,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseAssetGroups")
+        )
         input_: capo_license_manager.types.list_license_asset_groups_request.ListLicenseAssetGroupsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2532,7 +2614,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseAssetRulesets")
+        )
         input_: capo_license_manager.types.list_license_asset_rulesets_request.ListLicenseAssetRulesetsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2598,7 +2682,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseConfigurations")
+        )
         input_: capo_license_manager.types.list_license_configurations_request.ListLicenseConfigurationsRequest = {}
         if license_configuration_arns is not None:
             input_["license_configuration_arns"] = license_configuration_arns
@@ -2662,7 +2748,10 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListLicenseConfigurationsForOrganization"),
+        )
         input_: capo_license_manager.types.list_license_configurations_for_organization_request.ListLicenseConfigurationsForOrganizationRequest = {}
         if license_configuration_arns is not None:
             input_["license_configuration_arns"] = license_configuration_arns
@@ -2721,7 +2810,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseConversionTasks")
+        )
         input_: capo_license_manager.types.list_license_conversion_tasks_request.ListLicenseConversionTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2781,7 +2872,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseManagerReportGenerators")
+        )
         input_: capo_license_manager.types.list_license_manager_report_generators_request.ListLicenseManagerReportGeneratorsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2841,7 +2934,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenses")
+        )
         input_: capo_license_manager.types.list_licenses_request.ListLicensesRequest = {}
         if license_arns is not None:
             input_["license_arns"] = license_arns
@@ -2900,7 +2995,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseSpecificationsForResource")
+        )
         input_: capo_license_manager.types.list_license_specifications_for_resource_request.ListLicenseSpecificationsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2957,7 +3054,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseVersions")
+        )
         input_: capo_license_manager.types.list_license_versions_request.ListLicenseVersionsRequest = {
             "license_arn": license_arn
         }
@@ -3018,7 +3117,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceivedGrants")
+        )
         input_: capo_license_manager.types.list_received_grants_request.ListReceivedGrantsRequest = {}
         if grant_arns is not None:
             input_["grant_arns"] = grant_arns
@@ -3081,7 +3182,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceivedGrantsForOrganization")
+        )
         input_: capo_license_manager.types.list_received_grants_for_organization_request.ListReceivedGrantsForOrganizationRequest = {
             "license_arn": license_arn
         }
@@ -3144,7 +3247,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceivedLicenses")
+        )
         input_: capo_license_manager.types.list_received_licenses_request.ListReceivedLicensesRequest = {}
         if license_arns is not None:
             input_["license_arns"] = license_arns
@@ -3205,7 +3310,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReceivedLicensesForOrganization")
+        )
         input_: capo_license_manager.types.list_received_licenses_for_organization_request.ListReceivedLicensesForOrganizationRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3266,7 +3373,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceInventory")
+        )
         input_: capo_license_manager.types.list_resource_inventory_request.ListResourceInventoryRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3318,7 +3427,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_license_manager.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3373,7 +3484,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTokens")
+        )
         input_: capo_license_manager.types.list_tokens_request.ListTokensRequest = {}
         if token_ids is not None:
             input_["token_ids"] = token_ids
@@ -3435,7 +3548,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUsageForLicenseConfiguration")
+        )
         input_: capo_license_manager.types.list_usage_for_license_configuration_request.ListUsageForLicenseConfigurationRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -3490,7 +3605,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectGrant")
+        )
         input_: capo_license_manager.types.reject_grant_request.RejectGrantRequest = {
             "grant_arn": grant_arn
         }
@@ -3540,7 +3657,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_license_manager.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -3591,7 +3710,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_license_manager.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -3664,7 +3785,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLicenseAssetGroup")
+        )
         input_: capo_license_manager.types.update_license_asset_group_request.UpdateLicenseAssetGroupRequest = {
             "associated_license_asset_ruleset_ar_ns": associated_license_asset_ruleset_ar_ns,
             "license_asset_group_arn": license_asset_group_arn,
@@ -3738,7 +3861,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLicenseAssetRuleset")
+        )
         input_: capo_license_manager.types.update_license_asset_ruleset_request.UpdateLicenseAssetRulesetRequest = {
             "rules": rules,
             "license_asset_ruleset_arn": license_asset_ruleset_arn,
@@ -3821,7 +3946,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLicenseConfiguration")
+        )
         input_: capo_license_manager.types.update_license_configuration_request.UpdateLicenseConfigurationRequest = {
             "license_configuration_arn": license_configuration_arn
         }
@@ -3901,7 +4028,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLicenseManagerReportGenerator")
+        )
         input_: capo_license_manager.types.update_license_manager_report_generator_request.UpdateLicenseManagerReportGeneratorRequest = {
             "license_manager_report_generator_arn": license_manager_report_generator_arn,
             "report_generator_name": report_generator_name,
@@ -3966,7 +4095,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLicenseSpecificationsForResource")
+        )
         input_: capo_license_manager.types.update_license_specifications_for_resource_request.UpdateLicenseSpecificationsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -4033,7 +4164,9 @@ class LicenseManagerClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceSettings")
+        )
         input_: capo_license_manager.types.update_service_settings_request.UpdateServiceSettingsRequest = {}
         if s3_bucket_arn is not None:
             input_["s3_bucket_arn"] = s3_bucket_arn

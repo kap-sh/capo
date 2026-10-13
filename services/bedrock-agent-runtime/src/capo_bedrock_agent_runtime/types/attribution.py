@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#Attribution``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> Attribution:
 
         out["citations"] = capo_bedrock_agent_runtime.types.citations.deserialize_json(
             data["citations"]
+        )
+    return out
+
+
+def redact_sensitive(value: Attribution) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "citations" in value:
+        import capo_bedrock_agent_runtime.types.citations
+
+        out["citations"] = capo_bedrock_agent_runtime.types.citations.redact_sensitive(
+            value["citations"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codepipeline#Job``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -54,4 +54,13 @@ def deserialize_aws_json_1_1(data: dict) -> Job:
         out["nonce"] = data["nonce"]
     if data.get("accountId") is not None:
         out["account_id"] = data["accountId"]
+    return out
+
+
+def redact_sensitive(value: Job) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "data" in value:
+        import capo_codepipeline.types.job_data
+
+        out["data"] = capo_codepipeline.types.job_data.redact_sensitive(value["data"])
     return out

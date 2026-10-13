@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRunBatch")
+        )
         input_: capo_omics.types.start_run_batch_request.StartRunBatchRequest = {
             "request_id": request_id,
             "default_run_setting": default_run_setting,
@@ -145,7 +148,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBatch")
+        )
         input_: capo_omics.types.get_batch_request.GetBatchRequest = {
             "batch_id": batch_id
         }
@@ -193,7 +198,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBatch")
+        )
         input_: capo_omics.types.delete_batch_request.DeleteBatchRequest = {
             "batch_id": batch_id
         }
@@ -246,7 +253,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatch")
+        )
         input_: capo_omics.types.list_batch_request.ListBatchRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -304,7 +313,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelRunBatch")
+        )
         input_: capo_omics.types.cancel_run_batch_request.CancelRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -354,7 +365,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunBatch")
+        )
         input_: capo_omics.types.delete_run_batch_request.DeleteRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -416,7 +429,9 @@ class RunBatchResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunsInBatch")
+        )
         input_: capo_omics.types.list_runs_in_batch_request.ListRunsInBatchRequest = {
             "batch_id": batch_id
         }
@@ -490,7 +505,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRunBatch")
+        )
         input_: capo_omics.types.start_run_batch_request.StartRunBatchRequest = {
             "request_id": request_id,
             "default_run_setting": default_run_setting,
@@ -545,7 +562,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBatch")
+        )
         input_: capo_omics.types.get_batch_request.GetBatchRequest = {
             "batch_id": batch_id
         }
@@ -594,7 +613,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteBatch")
+        )
         input_: capo_omics.types.delete_batch_request.DeleteBatchRequest = {
             "batch_id": batch_id
         }
@@ -650,7 +671,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListBatch")
+        )
         input_: capo_omics.types.list_batch_request.ListBatchRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -709,7 +732,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelRunBatch")
+        )
         input_: capo_omics.types.cancel_run_batch_request.CancelRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -760,7 +785,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRunBatch")
+        )
         input_: capo_omics.types.delete_run_batch_request.DeleteRunBatchRequest = {
             "batch_id": batch_id
         }
@@ -823,7 +850,9 @@ class AsyncRunBatchResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRunsInBatch")
+        )
         input_: capo_omics.types.list_runs_in_batch_request.ListRunsInBatchRequest = {
             "batch_id": batch_id
         }

@@ -21,10 +21,12 @@ from capo_keyspacesstreams._pagination import resolve_path as _resolve_path
 from capo_keyspacesstreams._services._aws_config import aws_config
 from capo_keyspacesstreams._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -120,7 +122,9 @@ class KeyspacesStreamsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[KeyspacesStreamsClientConfig] = None
+        self,
+        config_overrides: Optional[KeyspacesStreamsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: KeyspacesStreamsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -128,8 +132,10 @@ class KeyspacesStreamsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -181,7 +187,9 @@ class KeyspacesStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecords")
+        )
         input_: capo_keyspacesstreams.types.get_records_input.GetRecordsInput = {
             "shard_iterator": shard_iterator
         }
@@ -238,7 +246,9 @@ class KeyspacesStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetShardIterator")
+        )
         input_: capo_keyspacesstreams.types.get_shard_iterator_input.GetShardIteratorInput = {
             "stream_arn": stream_arn,
             "shard_id": shard_id,
@@ -299,7 +309,9 @@ class KeyspacesStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStream")
+        )
         input_: capo_keyspacesstreams.types.get_stream_input.GetStreamInput = {
             "stream_arn": stream_arn
         }
@@ -391,7 +403,9 @@ class KeyspacesStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_keyspacesstreams.types.list_streams_input.ListStreamsInput = {}
         if keyspace_name is not None:
             input_["keyspace_name"] = keyspace_name

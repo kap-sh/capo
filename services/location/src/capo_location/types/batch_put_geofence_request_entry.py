@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#BatchPutGeofenceRequestEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -59,4 +59,17 @@ def deserialize_json(data: dict) -> BatchPutGeofenceRequestEntry:
         out["geofence_properties"] = capo_location.types.property_map.deserialize_json(
             data["GeofenceProperties"]
         )
+    return out
+
+
+def redact_sensitive(value: BatchPutGeofenceRequestEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "geometry" in value:
+        import capo_location.types.geofence_geometry
+
+        out["geometry"] = capo_location.types.geofence_geometry.redact_sensitive(
+            value["geometry"]
+        )
+    if "geofence_properties" in value:
+        out["geofence_properties"] = "*** Sensitive Data Redacted ***"
     return out

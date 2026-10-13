@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#CalculateRouteSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -82,4 +82,15 @@ def deserialize_json(data: dict) -> CalculateRouteSummary:
         out["distance_unit"] = data["DistanceUnit"]
     else:
         raise DeserializationError("CalculateRouteSummary.distance_unit required")
+    return out
+
+
+def redact_sensitive(value: CalculateRouteSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "route_b_box" in value:
+        out["route_b_box"] = "*** Sensitive Data Redacted ***"
+    if "distance" in value:
+        out["distance"] = "*** Sensitive Data Redacted ***"
+    if "duration_seconds" in value:
+        out["duration_seconds"] = "*** Sensitive Data Redacted ***"
     return out

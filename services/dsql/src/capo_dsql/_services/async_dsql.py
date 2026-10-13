@@ -30,7 +30,9 @@ from capo_dsql._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 from capo_dsql.errors import ServiceError, WaiterTimeoutError
@@ -160,7 +162,9 @@ class AsyncDSQLClient:
         self.stream = AsyncStream(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncDSQLClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncDSQLClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDSQLClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -168,8 +172,10 @@ class AsyncDSQLClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -225,7 +231,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_dsql.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -279,7 +287,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_dsql.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -333,7 +343,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_dsql.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -408,7 +420,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCluster")
+        )
         input_: capo_dsql.types.create_cluster_input.CreateClusterInput = {}
         if deletion_protection_enabled is not None:
             input_["deletion_protection_enabled"] = deletion_protection_enabled
@@ -476,7 +490,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCluster")
+        )
         input_: capo_dsql.types.get_cluster_input.GetClusterInput = {
             "identifier": identifier
         }
@@ -589,7 +605,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCluster")
+        )
         input_: capo_dsql.types.update_cluster_input.UpdateClusterInput = {
             "identifier": identifier
         }
@@ -654,7 +672,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCluster")
+        )
         input_: capo_dsql.types.delete_cluster_input.DeleteClusterInput = {
             "identifier": identifier
         }
@@ -712,7 +732,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListClusters")
+        )
         input_: capo_dsql.types.list_clusters_input.ListClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -788,7 +810,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteClusterPolicy")
+        )
         input_: capo_dsql.types.delete_cluster_policy_input.DeleteClusterPolicyInput = {
             "identifier": identifier
         }
@@ -841,7 +865,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetClusterPolicy")
+        )
         input_: capo_dsql.types.get_cluster_policy_input.GetClusterPolicyInput = {
             "identifier": identifier
         }
@@ -894,7 +920,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetVpcEndpointServiceName")
+        )
         input_: capo_dsql.types.get_vpc_endpoint_service_name_input.GetVpcEndpointServiceNameInput = {
             "identifier": identifier
         }
@@ -953,7 +981,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutClusterPolicy")
+        )
         input_: capo_dsql.types.put_cluster_policy_input.PutClusterPolicyInput = {
             "identifier": identifier,
             "policy": policy,
@@ -1023,7 +1053,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateStream")
+        )
         input_: capo_dsql.types.create_stream_input.CreateStreamInput = {
             "cluster_identifier": cluster_identifier,
             "target_definition": target_definition,
@@ -1081,7 +1113,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStream")
+        )
         input_: capo_dsql.types.get_stream_input.GetStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -1182,7 +1216,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStream")
+        )
         input_: capo_dsql.types.delete_stream_input.DeleteStreamInput = {
             "cluster_identifier": cluster_identifier,
             "stream_identifier": stream_identifier,
@@ -1238,7 +1274,9 @@ class AsyncDSQLClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_dsql.types.list_streams_input.ListStreamsInput = {
             "cluster_identifier": cluster_identifier
         }

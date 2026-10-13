@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#AgenticRetrieveAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,6 +79,27 @@ def deserialize_json(data: dict) -> AgenticRetrieveAction:
         out["memory_retrieve"] = (
             capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details.deserialize_json(
                 data["memoryRetrieve"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AgenticRetrieveAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "retrieve" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_action_details
+
+        out["retrieve"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_action_details.redact_sensitive(
+                value["retrieve"]
+            )
+        )
+    if "memory_retrieve" in value:
+        import capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details
+
+        out["memory_retrieve"] = (
+            capo_bedrock_agent_runtime.types.agentic_retrieve_memory_retrieve_details.redact_sensitive(
+                value["memory_retrieve"]
             )
         )
     return out

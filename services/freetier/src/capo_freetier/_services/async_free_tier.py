@@ -24,7 +24,9 @@ from capo_freetier._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -119,7 +121,9 @@ class AsyncFreeTierClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncFreeTierClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncFreeTierClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncFreeTierClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -127,8 +131,10 @@ class AsyncFreeTierClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -187,7 +193,9 @@ class AsyncFreeTierClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountActivity")
+        )
         input_: capo_freetier.types.get_account_activity_request.GetAccountActivityRequest = {
             "activity_id": activity_id
         }
@@ -248,7 +256,9 @@ class AsyncFreeTierClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccountPlanState")
+        )
         input_: capo_freetier.types.get_account_plan_state_request.GetAccountPlanStateRequest = {}
 
         response = await aexecute_pipeline(
@@ -298,7 +308,9 @@ class AsyncFreeTierClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetFreeTierUsage")
+        )
         input_: capo_freetier.types.get_free_tier_usage_request.GetFreeTierUsageRequest = {}
         if filter is not None:
             input_["filter"] = filter
@@ -390,7 +402,9 @@ class AsyncFreeTierClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountActivities")
+        )
         input_: capo_freetier.types.list_account_activities_request.ListAccountActivitiesRequest = {}
         if filter_activity_statuses is not None:
             input_["filter_activity_statuses"] = filter_activity_statuses
@@ -495,7 +509,9 @@ class AsyncFreeTierClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpgradeAccountPlan")
+        )
         input_: capo_freetier.types.upgrade_account_plan_request.UpgradeAccountPlanRequest = {
             "account_plan_type": account_plan_type
         }

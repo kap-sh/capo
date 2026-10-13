@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#Phrase``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_json(data: dict) -> Phrase:
         raise DeserializationError("Phrase.text required")
     if data.get("displayAsText") is not None:
         out["display_as_text"] = data["displayAsText"]
+    return out
+
+
+def redact_sensitive(value: Phrase) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "display_as_text" in value:
+        out["display_as_text"] = "*** Sensitive Data Redacted ***"
     return out

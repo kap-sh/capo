@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connectcases#CreateCaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,5 +79,16 @@ def deserialize_json(data: dict) -> CreateCaseRequest:
 
         out["tags"] = capo_connectcases.types.mutable_tags.deserialize_json(
             data["tags"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateCaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "performed_by" in value:
+        import capo_connectcases.types.user_union
+
+        out["performed_by"] = capo_connectcases.types.user_union.redact_sensitive(
+            value["performed_by"]
         )
     return out

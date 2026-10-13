@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridge#ConnectionQueryStringParameter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -42,4 +42,11 @@ def deserialize_aws_json_1_1(data: dict) -> ConnectionQueryStringParameter:
         out["is_value_secret"] = data["IsValueSecret"]
     else:
         out["is_value_secret"] = False
+    return out
+
+
+def redact_sensitive(value: ConnectionQueryStringParameter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

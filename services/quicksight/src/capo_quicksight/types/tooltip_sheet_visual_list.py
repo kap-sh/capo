@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TooltipSheetVisualList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.visual
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> TooltipSheetVisualList:
             continue
         out.append(capo_quicksight.types.visual.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TooltipSheetVisualList) -> list[Any]:
+    import capo_quicksight.types.visual
+
+    return [capo_quicksight.types.visual.redact_sensitive(item) for item in value]

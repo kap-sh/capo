@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#FleetLaunchTemplateConfigRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,6 +61,19 @@ def deserialize_ec2_query(el: Element) -> FleetLaunchTemplateConfigRequest:
         out["overrides"] = (
             capo_ec2.types.fleet_launch_template_overrides_list_request.deserialize_ec2_query(
                 child_overrides
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: FleetLaunchTemplateConfigRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "launch_template_specification" in value:
+        import capo_ec2.types.fleet_launch_template_specification_request
+
+        out["launch_template_specification"] = (
+            capo_ec2.types.fleet_launch_template_specification_request.redact_sensitive(
+                value["launch_template_specification"]
             )
         )
     return out

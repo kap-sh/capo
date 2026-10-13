@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.novaact#ActError``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,4 +34,11 @@ def deserialize_json(data: dict) -> ActError:
         raise DeserializationError("ActError.message required")
     if data.get("type") is not None:
         out["type"] = data["type"]
+    return out
+
+
+def redact_sensitive(value: ActError) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "message" in value:
+        out["message"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningPolicyBuildResultAssets``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -208,3 +208,74 @@ def deserialize_json(data: dict) -> AutomatedReasoningPolicyBuildResultAssets:
         raise DeserializationError(
             "AutomatedReasoningPolicyBuildResultAssets: no recognized variant key"
         )
+
+
+def redact_sensitive(
+    value: AutomatedReasoningPolicyBuildResultAssets,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "policyDefinition" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition
+
+        out["policyDefinition"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition.redact_sensitive(
+                value["policyDefinition"]
+            )
+        )
+    if "qualityReport" in value:
+        import capo_bedrock.types.automated_reasoning_policy_definition_quality_report
+
+        out["qualityReport"] = (
+            capo_bedrock.types.automated_reasoning_policy_definition_quality_report.redact_sensitive(
+                value["qualityReport"]
+            )
+        )
+    if "buildLog" in value:
+        import capo_bedrock.types.automated_reasoning_policy_build_log
+
+        out["buildLog"] = (
+            capo_bedrock.types.automated_reasoning_policy_build_log.redact_sensitive(
+                value["buildLog"]
+            )
+        )
+    if "generatedTestCases" in value:
+        import capo_bedrock.types.automated_reasoning_policy_generated_test_cases
+
+        out["generatedTestCases"] = (
+            capo_bedrock.types.automated_reasoning_policy_generated_test_cases.redact_sensitive(
+                value["generatedTestCases"]
+            )
+        )
+    if "policyScenarios" in value:
+        import capo_bedrock.types.automated_reasoning_policy_scenarios
+
+        out["policyScenarios"] = (
+            capo_bedrock.types.automated_reasoning_policy_scenarios.redact_sensitive(
+                value["policyScenarios"]
+            )
+        )
+    if "assetManifest" in value:
+        import capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest
+
+        out["assetManifest"] = (
+            capo_bedrock.types.automated_reasoning_policy_build_result_asset_manifest.redact_sensitive(
+                value["assetManifest"]
+            )
+        )
+    if "document" in value:
+        import capo_bedrock.types.automated_reasoning_policy_source_document
+
+        out["document"] = (
+            capo_bedrock.types.automated_reasoning_policy_source_document.redact_sensitive(
+                value["document"]
+            )
+        )
+    if "fidelityReport" in value:
+        import capo_bedrock.types.automated_reasoning_policy_fidelity_report
+
+        out["fidelityReport"] = (
+            capo_bedrock.types.automated_reasoning_policy_fidelity_report.redact_sensitive(
+                value["fidelityReport"]
+            )
+        )
+    return out

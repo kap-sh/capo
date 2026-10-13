@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#CalculateRouteMatrixRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -243,6 +243,75 @@ def deserialize_json(data: dict) -> CalculateRouteMatrixRequest:
         out["travel_mode_options"] = (
             capo_geo_routes.types.route_matrix_travel_mode_options.deserialize_json(
                 data["TravelModeOptions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CalculateRouteMatrixRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "allow" in value:
+        out["allow"] = "*** Sensitive Data Redacted ***"
+    if "avoid" in value:
+        import capo_geo_routes.types.route_matrix_avoidance_options
+
+        out["avoid"] = (
+            capo_geo_routes.types.route_matrix_avoidance_options.redact_sensitive(
+                value["avoid"]
+            )
+        )
+    if "depart_now" in value:
+        out["depart_now"] = "*** Sensitive Data Redacted ***"
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "destinations" in value:
+        import capo_geo_routes.types.route_matrix_destination_list
+
+        out["destinations"] = (
+            capo_geo_routes.types.route_matrix_destination_list.redact_sensitive(
+                value["destinations"]
+            )
+        )
+    if "exclude" in value:
+        import capo_geo_routes.types.route_matrix_exclusion_options
+
+        out["exclude"] = (
+            capo_geo_routes.types.route_matrix_exclusion_options.redact_sensitive(
+                value["exclude"]
+            )
+        )
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "origins" in value:
+        import capo_geo_routes.types.route_matrix_origin_list
+
+        out["origins"] = (
+            capo_geo_routes.types.route_matrix_origin_list.redact_sensitive(
+                value["origins"]
+            )
+        )
+    if "routing_boundary" in value:
+        import capo_geo_routes.types.route_matrix_boundary
+
+        out["routing_boundary"] = (
+            capo_geo_routes.types.route_matrix_boundary.redact_sensitive(
+                value["routing_boundary"]
+            )
+        )
+    if "traffic" in value:
+        import capo_geo_routes.types.route_matrix_traffic_options
+
+        out["traffic"] = (
+            capo_geo_routes.types.route_matrix_traffic_options.redact_sensitive(
+                value["traffic"]
+            )
+        )
+    if "travel_mode_options" in value:
+        import capo_geo_routes.types.route_matrix_travel_mode_options
+
+        out["travel_mode_options"] = (
+            capo_geo_routes.types.route_matrix_travel_mode_options.redact_sensitive(
+                value["travel_mode_options"]
             )
         )
     return out

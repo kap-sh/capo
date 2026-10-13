@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mpa#ListApprovalTeamsResponseApprovalTeams``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mpa.types.list_approval_teams_response_approval_team
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> ListApprovalTeamsResponseApprovalTeams:
             )
         )
     return out
+
+
+def redact_sensitive(value: ListApprovalTeamsResponseApprovalTeams) -> list[Any]:
+    import capo_mpa.types.list_approval_teams_response_approval_team
+
+    return [
+        capo_mpa.types.list_approval_teams_response_approval_team.redact_sensitive(item)
+        for item in value
+    ]

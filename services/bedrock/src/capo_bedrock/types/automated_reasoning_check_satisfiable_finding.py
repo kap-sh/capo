@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#AutomatedReasoningCheckSatisfiableFinding``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,6 +99,45 @@ def deserialize_json(data: dict) -> AutomatedReasoningCheckSatisfiableFinding:
         out["logic_warning"] = (
             capo_bedrock.types.automated_reasoning_check_logic_warning.deserialize_json(
                 data["logicWarning"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AutomatedReasoningCheckSatisfiableFinding,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "translation" in value:
+        import capo_bedrock.types.automated_reasoning_check_translation
+
+        out["translation"] = (
+            capo_bedrock.types.automated_reasoning_check_translation.redact_sensitive(
+                value["translation"]
+            )
+        )
+    if "claims_true_scenario" in value:
+        import capo_bedrock.types.automated_reasoning_check_scenario
+
+        out["claims_true_scenario"] = (
+            capo_bedrock.types.automated_reasoning_check_scenario.redact_sensitive(
+                value["claims_true_scenario"]
+            )
+        )
+    if "claims_false_scenario" in value:
+        import capo_bedrock.types.automated_reasoning_check_scenario
+
+        out["claims_false_scenario"] = (
+            capo_bedrock.types.automated_reasoning_check_scenario.redact_sensitive(
+                value["claims_false_scenario"]
+            )
+        )
+    if "logic_warning" in value:
+        import capo_bedrock.types.automated_reasoning_check_logic_warning
+
+        out["logic_warning"] = (
+            capo_bedrock.types.automated_reasoning_check_logic_warning.redact_sensitive(
+                value["logic_warning"]
             )
         )
     return out

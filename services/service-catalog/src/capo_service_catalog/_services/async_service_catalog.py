@@ -25,7 +25,9 @@ from capo_service_catalog._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -368,7 +370,9 @@ class AsyncServiceCatalogClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncServiceCatalogClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncServiceCatalogClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncServiceCatalogClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -376,8 +380,10 @@ class AsyncServiceCatalogClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -437,7 +443,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptPortfolioShare")
+        )
         input_: capo_service_catalog.types.accept_portfolio_share_input.AcceptPortfolioShareInput = {
             "portfolio_id": portfolio_id
         }
@@ -490,7 +498,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateBudgetWithResource")
+        )
         input_: capo_service_catalog.types.associate_budget_with_resource_input.AssociateBudgetWithResourceInput = {
             "budget_name": budget_name,
             "resource_id": resource_id,
@@ -545,7 +555,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociatePrincipalWithPortfolio")
+        )
         input_: capo_service_catalog.types.associate_principal_with_portfolio_input.AssociatePrincipalWithPortfolioInput = {
             "portfolio_id": portfolio_id,
             "principal_arn": principal_arn,
@@ -603,7 +615,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateProductWithPortfolio")
+        )
         input_: capo_service_catalog.types.associate_product_with_portfolio_input.AssociateProductWithPortfolioInput = {
             "product_id": product_id,
             "portfolio_id": portfolio_id,
@@ -667,7 +681,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateServiceActionWithProvisioningArtifact"),
+        )
         input_: capo_service_catalog.types.associate_service_action_with_provisioning_artifact_input.AssociateServiceActionWithProvisioningArtifactInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -725,7 +742,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateTagOptionWithResource")
+        )
         input_: capo_service_catalog.types.associate_tag_option_with_resource_input.AssociateTagOptionWithResourceInput = {
             "resource_id": resource_id,
             "tag_option_id": tag_option_id,
@@ -774,7 +793,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchAssociateServiceActionWithProvisioningArtifact"),
+        )
         input_: capo_service_catalog.types.batch_associate_service_action_with_provisioning_artifact_input.BatchAssociateServiceActionWithProvisioningArtifactInput = {
             "service_action_associations": service_action_associations
         }
@@ -824,7 +846,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDisassociateServiceActionFromProvisioningArtifact"),
+        )
         input_: capo_service_catalog.types.batch_disassociate_service_action_from_provisioning_artifact_input.BatchDisassociateServiceActionFromProvisioningArtifactInput = {
             "service_action_associations": service_action_associations
         }
@@ -891,7 +916,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CopyProduct")
+        )
         input_: capo_service_catalog.types.copy_product_input.CopyProductInput = {
             "source_product_arn": source_product_arn,
             "idempotency_token": idempotency_token,
@@ -967,7 +994,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConstraint")
+        )
         input_: capo_service_catalog.types.create_constraint_input.CreateConstraintInput = {
             "portfolio_id": portfolio_id,
             "product_id": product_id,
@@ -1035,7 +1064,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePortfolio")
+        )
         input_: capo_service_catalog.types.create_portfolio_input.CreatePortfolioInput = {
             "display_name": display_name,
             "provider_name": provider_name,
@@ -1107,7 +1138,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePortfolioShare")
+        )
         input_: capo_service_catalog.types.create_portfolio_share_input.CreatePortfolioShareInput = {
             "portfolio_id": portfolio_id
         }
@@ -1203,7 +1236,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProduct")
+        )
         input_: capo_service_catalog.types.create_product_input.CreateProductInput = {
             "name": name,
             "owner": owner,
@@ -1298,7 +1333,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProvisionedProductPlan")
+        )
         input_: capo_service_catalog.types.create_provisioned_product_plan_input.CreateProvisionedProductPlanInput = {
             "plan_name": plan_name,
             "plan_type": plan_type,
@@ -1367,7 +1404,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProvisioningArtifact")
+        )
         input_: capo_service_catalog.types.create_provisioning_artifact_input.CreateProvisioningArtifactInput = {
             "product_id": product_id,
             "parameters": parameters,
@@ -1430,7 +1469,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceAction")
+        )
         input_: capo_service_catalog.types.create_service_action_input.CreateServiceActionInput = {
             "name": name,
             "definition_type": definition_type,
@@ -1485,7 +1526,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTagOption")
+        )
         input_: capo_service_catalog.types.create_tag_option_input.CreateTagOptionInput = {
             "key": key,
             "value": value,
@@ -1535,7 +1578,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConstraint")
+        )
         input_: capo_service_catalog.types.delete_constraint_input.DeleteConstraintInput = {
             "id": id
         }
@@ -1588,7 +1633,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePortfolio")
+        )
         input_: capo_service_catalog.types.delete_portfolio_input.DeletePortfolioInput = {
             "id": id
         }
@@ -1647,7 +1694,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePortfolioShare")
+        )
         input_: capo_service_catalog.types.delete_portfolio_share_input.DeletePortfolioShareInput = {
             "portfolio_id": portfolio_id
         }
@@ -1704,7 +1753,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProduct")
+        )
         input_: capo_service_catalog.types.delete_product_input.DeleteProductInput = {
             "id": id
         }
@@ -1759,7 +1810,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisionedProductPlan")
+        )
         input_: capo_service_catalog.types.delete_provisioned_product_plan_input.DeleteProvisionedProductPlanInput = {
             "plan_id": plan_id
         }
@@ -1815,7 +1868,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningArtifact")
+        )
         input_: capo_service_catalog.types.delete_provisioning_artifact_input.DeleteProvisioningArtifactInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -1872,7 +1927,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceAction")
+        )
         input_: capo_service_catalog.types.delete_service_action_input.DeleteServiceActionInput = {
             "id": id
         }
@@ -1923,7 +1980,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTagOption")
+        )
         input_: capo_service_catalog.types.delete_tag_option_input.DeleteTagOptionInput = {
             "id": id
         }
@@ -1973,7 +2032,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConstraint")
+        )
         input_: capo_service_catalog.types.describe_constraint_input.DescribeConstraintInput = {
             "id": id
         }
@@ -2023,7 +2084,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCopyProductStatus")
+        )
         input_: capo_service_catalog.types.describe_copy_product_status_input.DescribeCopyProductStatusInput = {
             "copy_product_token": copy_product_token
         }
@@ -2073,7 +2136,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePortfolio")
+        )
         input_: capo_service_catalog.types.describe_portfolio_input.DescribePortfolioInput = {
             "id": id
         }
@@ -2128,7 +2193,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePortfolioShares")
+        )
         input_: capo_service_catalog.types.describe_portfolio_shares_input.DescribePortfolioSharesInput = {
             "portfolio_id": portfolio_id,
             "type": type,
@@ -2204,7 +2271,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePortfolioShareStatus")
+        )
         input_: capo_service_catalog.types.describe_portfolio_share_status_input.DescribePortfolioShareStatusInput = {
             "portfolio_share_token": portfolio_share_token
         }
@@ -2257,7 +2326,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProduct")
+        )
         input_: capo_service_catalog.types.describe_product_input.DescribeProductInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -2316,7 +2387,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProductAsAdmin")
+        )
         input_: capo_service_catalog.types.describe_product_as_admin_input.DescribeProductAsAdminInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -2371,7 +2444,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProductView")
+        )
         input_: capo_service_catalog.types.describe_product_view_input.DescribeProductViewInput = {
             "id": id
         }
@@ -2426,7 +2501,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisionedProduct")
+        )
         input_: capo_service_catalog.types.describe_provisioned_product_input.DescribeProvisionedProductInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -2483,7 +2560,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisionedProductPlan")
+        )
         input_: capo_service_catalog.types.describe_provisioned_product_plan_input.DescribeProvisionedProductPlanInput = {
             "plan_id": plan_id
         }
@@ -2554,7 +2633,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisioningArtifact")
+        )
         input_: capo_service_catalog.types.describe_provisioning_artifact_input.DescribeProvisioningArtifactInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -2633,7 +2714,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeProvisioningParameters")
+        )
         input_: capo_service_catalog.types.describe_provisioning_parameters_input.DescribeProvisioningParametersInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -2697,7 +2780,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecord")
+        )
         input_: capo_service_catalog.types.describe_record_input.DescribeRecordInput = {
             "id": id
         }
@@ -2751,7 +2836,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeServiceAction")
+        )
         input_: capo_service_catalog.types.describe_service_action_input.DescribeServiceActionInput = {
             "id": id
         }
@@ -2804,7 +2891,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeServiceActionExecutionParameters"),
+        )
         input_: capo_service_catalog.types.describe_service_action_execution_parameters_input.DescribeServiceActionExecutionParametersInput = {
             "provisioned_product_id": provisioned_product_id,
             "service_action_id": service_action_id,
@@ -2854,7 +2944,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTagOption")
+        )
         input_: capo_service_catalog.types.describe_tag_option_input.DescribeTagOptionInput = {
             "id": id
         }
@@ -2894,7 +2986,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisableAWSOrganizationsAccess")
+        )
         input_: capo_service_catalog.types.disable_aws_organizations_access_input.DisableAWSOrganizationsAccessInput = {}
 
         response = await aexecute_pipeline(
@@ -2938,7 +3032,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateBudgetFromResource")
+        )
         input_: capo_service_catalog.types.disassociate_budget_from_resource_input.DisassociateBudgetFromResourceInput = {
             "budget_name": budget_name,
             "resource_id": resource_id,
@@ -2994,7 +3090,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociatePrincipalFromPortfolio")
+        )
         input_: capo_service_catalog.types.disassociate_principal_from_portfolio_input.DisassociatePrincipalFromPortfolioInput = {
             "portfolio_id": portfolio_id,
             "principal_arn": principal_arn,
@@ -3051,7 +3149,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateProductFromPortfolio")
+        )
         input_: capo_service_catalog.types.disassociate_product_from_portfolio_input.DisassociateProductFromPortfolioInput = {
             "product_id": product_id,
             "portfolio_id": portfolio_id,
@@ -3111,7 +3211,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisassociateServiceActionFromProvisioningArtifact"),
+        )
         input_: capo_service_catalog.types.disassociate_service_action_from_provisioning_artifact_input.DisassociateServiceActionFromProvisioningArtifactInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -3165,7 +3268,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateTagOptionFromResource")
+        )
         input_: capo_service_catalog.types.disassociate_tag_option_from_resource_input.DisassociateTagOptionFromResourceInput = {
             "resource_id": resource_id,
             "tag_option_id": tag_option_id,
@@ -3206,7 +3311,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableAWSOrganizationsAccess")
+        )
         input_: capo_service_catalog.types.enable_aws_organizations_access_input.EnableAWSOrganizationsAccessInput = {}
 
         response = await aexecute_pipeline(
@@ -3256,7 +3363,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteProvisionedProductPlan")
+        )
         input_: capo_service_catalog.types.execute_provisioned_product_plan_input.ExecuteProvisionedProductPlanInput = {
             "plan_id": plan_id,
             "idempotency_token": idempotency_token,
@@ -3317,7 +3426,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteProvisionedProductServiceAction")
+        )
         input_: capo_service_catalog.types.execute_provisioned_product_service_action_input.ExecuteProvisionedProductServiceActionInput = {
             "provisioned_product_id": provisioned_product_id,
             "service_action_id": service_action_id,
@@ -3362,7 +3473,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAWSOrganizationsAccessStatus")
+        )
         input_: capo_service_catalog.types.get_aws_organizations_access_status_input.GetAWSOrganizationsAccessStatusInput = {}
 
         response = await aexecute_pipeline(
@@ -3421,7 +3534,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProvisionedProductOutputs")
+        )
         input_: capo_service_catalog.types.get_provisioned_product_outputs_input.GetProvisionedProductOutputsInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -3523,7 +3638,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ImportAsProvisionedProduct")
+        )
         input_: capo_service_catalog.types.import_as_provisioned_product_input.ImportAsProvisionedProductInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -3586,7 +3703,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAcceptedPortfolioShares")
+        )
         input_: capo_service_catalog.types.list_accepted_portfolio_shares_input.ListAcceptedPortfolioSharesInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -3674,7 +3793,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBudgetsForResource")
+        )
         input_: capo_service_catalog.types.list_budgets_for_resource_input.ListBudgetsForResourceInput = {
             "resource_id": resource_id
         }
@@ -3760,7 +3881,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConstraintsForPortfolio")
+        )
         input_: capo_service_catalog.types.list_constraints_for_portfolio_input.ListConstraintsForPortfolioInput = {
             "portfolio_id": portfolio_id
         }
@@ -3848,7 +3971,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLaunchPaths")
+        )
         input_: capo_service_catalog.types.list_launch_paths_input.ListLaunchPathsInput = {
             "product_id": product_id
         }
@@ -3935,7 +4060,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOrganizationPortfolioAccess")
+        )
         input_: capo_service_catalog.types.list_organization_portfolio_access_input.ListOrganizationPortfolioAccessInput = {
             "portfolio_id": portfolio_id,
             "organization_node_type": organization_node_type,
@@ -4026,7 +4153,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPortfolioAccess")
+        )
         input_: capo_service_catalog.types.list_portfolio_access_input.ListPortfolioAccessInput = {
             "portfolio_id": portfolio_id
         }
@@ -4115,7 +4244,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPortfolios")
+        )
         input_: capo_service_catalog.types.list_portfolios_input.ListPortfoliosInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -4199,7 +4330,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPortfoliosForProduct")
+        )
         input_: capo_service_catalog.types.list_portfolios_for_product_input.ListPortfoliosForProductInput = {
             "product_id": product_id
         }
@@ -4285,7 +4418,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrincipalsForPortfolio")
+        )
         input_: capo_service_catalog.types.list_principals_for_portfolio_input.ListPrincipalsForPortfolioInput = {
             "portfolio_id": portfolio_id
         }
@@ -4373,7 +4508,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisionedProductPlans")
+        )
         input_: capo_service_catalog.types.list_provisioned_product_plans_input.ListProvisionedProductPlansInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -4430,7 +4567,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisioningArtifacts")
+        )
         input_: capo_service_catalog.types.list_provisioning_artifacts_input.ListProvisioningArtifactsInput = {
             "product_id": product_id
         }
@@ -4485,7 +4624,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListProvisioningArtifactsForServiceAction"),
+        )
         input_: capo_service_catalog.types.list_provisioning_artifacts_for_service_action_input.ListProvisioningArtifactsForServiceActionInput = {
             "service_action_id": service_action_id
         }
@@ -4576,7 +4718,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecordHistory")
+        )
         input_: capo_service_catalog.types.list_record_history_input.ListRecordHistoryInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -4638,7 +4782,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourcesForTagOption")
+        )
         input_: capo_service_catalog.types.list_resources_for_tag_option_input.ListResourcesForTagOptionInput = {
             "tag_option_id": tag_option_id
         }
@@ -4719,7 +4865,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceActions")
+        )
         input_: capo_service_catalog.types.list_service_actions_input.ListServiceActionsInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -4801,7 +4949,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceActionsForProvisioningArtifact"),
+        )
         input_: capo_service_catalog.types.list_service_actions_for_provisioning_artifact_input.ListServiceActionsForProvisioningArtifactInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -4888,7 +5039,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListStackInstancesForProvisionedProduct"),
+        )
         input_: capo_service_catalog.types.list_stack_instances_for_provisioned_product_input.ListStackInstancesForProvisionedProductInput = {
             "provisioned_product_id": provisioned_product_id
         }
@@ -4945,7 +5099,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagOptions")
+        )
         input_: capo_service_catalog.types.list_tag_options_input.ListTagOptionsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5035,7 +5191,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("NotifyProvisionProductEngineWorkflowResult"),
+        )
         input_: capo_service_catalog.types.notify_provision_product_engine_workflow_result_input.NotifyProvisionProductEngineWorkflowResultInput = {
             "workflow_token": workflow_token,
             "record_id": record_id,
@@ -5099,7 +5258,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("NotifyTerminateProvisionedProductEngineWorkflowResult"),
+        )
         input_: capo_service_catalog.types.notify_terminate_provisioned_product_engine_workflow_result_input.NotifyTerminateProvisionedProductEngineWorkflowResultInput = {
             "workflow_token": workflow_token,
             "record_id": record_id,
@@ -5163,7 +5325,10 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("NotifyUpdateProvisionedProductEngineWorkflowResult"),
+        )
         input_: capo_service_catalog.types.notify_update_provisioned_product_engine_workflow_result_input.NotifyUpdateProvisionedProductEngineWorkflowResultInput = {
             "workflow_token": workflow_token,
             "record_id": record_id,
@@ -5254,7 +5419,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ProvisionProduct")
+        )
         input_: capo_service_catalog.types.provision_product_input.ProvisionProductInput = {
             "provisioned_product_name": provisioned_product_name,
             "provision_token": provision_token,
@@ -5329,7 +5496,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectPortfolioShare")
+        )
         input_: capo_service_catalog.types.reject_portfolio_share_input.RejectPortfolioShareInput = {
             "portfolio_id": portfolio_id
         }
@@ -5387,7 +5556,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ScanProvisionedProducts")
+        )
         input_: capo_service_catalog.types.scan_provisioned_products_input.ScanProvisionedProductsInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -5455,7 +5626,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchProducts")
+        )
         input_: capo_service_catalog.types.search_products_input.SearchProductsInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -5567,7 +5740,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchProductsAsAdmin")
+        )
         input_: capo_service_catalog.types.search_products_as_admin_input.SearchProductsAsAdminInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -5684,7 +5859,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SearchProvisionedProducts")
+        )
         input_: capo_service_catalog.types.search_provisioned_products_input.SearchProvisionedProductsInput = {}
         if accept_language is not None:
             input_["accept_language"] = accept_language
@@ -5795,7 +5972,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TerminateProvisionedProduct")
+        )
         input_: capo_service_catalog.types.terminate_provisioned_product_input.TerminateProvisionedProductInput = {
             "terminate_token": terminate_token
         }
@@ -5862,7 +6041,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConstraint")
+        )
         input_: capo_service_catalog.types.update_constraint_input.UpdateConstraintInput = {
             "id": id
         }
@@ -5935,7 +6116,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePortfolio")
+        )
         input_: capo_service_catalog.types.update_portfolio_input.UpdatePortfolioInput = {
             "id": id
         }
@@ -6011,7 +6194,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePortfolioShare")
+        )
         input_: capo_service_catalog.types.update_portfolio_share_input.UpdatePortfolioShareInput = {
             "portfolio_id": portfolio_id
         }
@@ -6107,7 +6292,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProduct")
+        )
         input_: capo_service_catalog.types.update_product_input.UpdateProductInput = {
             "id": id
         }
@@ -6212,7 +6399,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedProduct")
+        )
         input_: capo_service_catalog.types.update_provisioned_product_input.UpdateProvisionedProductInput = {
             "update_token": update_token
         }
@@ -6290,7 +6479,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisionedProductProperties")
+        )
         input_: capo_service_catalog.types.update_provisioned_product_properties_input.UpdateProvisionedProductPropertiesInput = {
             "provisioned_product_id": provisioned_product_id,
             "provisioned_product_properties": provisioned_product_properties,
@@ -6361,7 +6552,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProvisioningArtifact")
+        )
         input_: capo_service_catalog.types.update_provisioning_artifact_input.UpdateProvisioningArtifactInput = {
             "product_id": product_id,
             "provisioning_artifact_id": provisioning_artifact_id,
@@ -6433,7 +6626,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceAction")
+        )
         input_: capo_service_catalog.types.update_service_action_input.UpdateServiceActionInput = {
             "id": id
         }
@@ -6496,7 +6691,9 @@ class AsyncServiceCatalogClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTagOption")
+        )
         input_: capo_service_catalog.types.update_tag_option_input.UpdateTagOptionInput = {
             "id": id
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Resource``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -356,5 +356,18 @@ def deserialize_json(data: dict) -> Resource:
 
         out["model_details"] = capo_guardduty.types.model_details.deserialize_json(
             data["modelDetails"]
+        )
+    return out
+
+
+def redact_sensitive(value: Resource) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instance_details" in value:
+        import capo_guardduty.types.instance_details
+
+        out["instance_details"] = (
+            capo_guardduty.types.instance_details.redact_sensitive(
+                value["instance_details"]
+            )
         )
     return out

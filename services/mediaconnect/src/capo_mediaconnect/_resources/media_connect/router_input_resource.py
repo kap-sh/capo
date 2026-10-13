@@ -8,6 +8,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -131,7 +132,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRouterInput")
+        )
         input_: capo_mediaconnect.types.create_router_input_request.CreateRouterInputRequest = {
             "name": name,
             "configuration": configuration,
@@ -201,7 +204,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInput")
+        )
         input_: capo_mediaconnect.types.get_router_input_request.GetRouterInputRequest = {
             "arn": arn
         }
@@ -280,7 +285,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRouterInput")
+        )
         input_: capo_mediaconnect.types.update_router_input_request.UpdateRouterInputRequest = {
             "arn": arn
         }
@@ -349,7 +356,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouterInput")
+        )
         input_: capo_mediaconnect.types.delete_router_input_request.DeleteRouterInputRequest = {
             "arn": arn
         }
@@ -402,7 +411,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRouterInputs")
+        )
         input_: capo_mediaconnect.types.list_router_inputs_request.ListRouterInputsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -454,7 +465,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInputSourceMetadata")
+        )
         input_: capo_mediaconnect.types.get_router_input_source_metadata_request.GetRouterInputSourceMetadataRequest = {
             "arn": arn
         }
@@ -502,7 +515,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInputThumbnail")
+        )
         input_: capo_mediaconnect.types.get_router_input_thumbnail_request.GetRouterInputThumbnailRequest = {
             "arn": arn
         }
@@ -551,7 +566,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestartRouterInput")
+        )
         input_: capo_mediaconnect.types.restart_router_input_request.RestartRouterInputRequest = {
             "arn": arn
         }
@@ -600,7 +617,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRouterInput")
+        )
         input_: capo_mediaconnect.types.start_router_input_request.StartRouterInputRequest = {
             "arn": arn
         }
@@ -649,7 +668,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopRouterInput")
+        )
         input_: capo_mediaconnect.types.stop_router_input_request.StopRouterInputRequest = {
             "arn": arn
         }
@@ -696,7 +717,9 @@ class RouterInputResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterInput")
+        )
         input_: capo_mediaconnect.types.batch_get_router_input_request.BatchGetRouterInputRequest = {
             "arns": arns
         }
@@ -783,7 +806,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateRouterInput")
+        )
         input_: capo_mediaconnect.types.create_router_input_request.CreateRouterInputRequest = {
             "name": name,
             "configuration": configuration,
@@ -854,7 +879,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInput")
+        )
         input_: capo_mediaconnect.types.get_router_input_request.GetRouterInputRequest = {
             "arn": arn
         }
@@ -934,7 +961,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateRouterInput")
+        )
         input_: capo_mediaconnect.types.update_router_input_request.UpdateRouterInputRequest = {
             "arn": arn
         }
@@ -1004,7 +1033,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteRouterInput")
+        )
         input_: capo_mediaconnect.types.delete_router_input_request.DeleteRouterInputRequest = {
             "arn": arn
         }
@@ -1058,7 +1089,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListRouterInputs")
+        )
         input_: capo_mediaconnect.types.list_router_inputs_request.ListRouterInputsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1111,7 +1144,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInputSourceMetadata")
+        )
         input_: capo_mediaconnect.types.get_router_input_source_metadata_request.GetRouterInputSourceMetadataRequest = {
             "arn": arn
         }
@@ -1160,7 +1195,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetRouterInputThumbnail")
+        )
         input_: capo_mediaconnect.types.get_router_input_thumbnail_request.GetRouterInputThumbnailRequest = {
             "arn": arn
         }
@@ -1210,7 +1247,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RestartRouterInput")
+        )
         input_: capo_mediaconnect.types.restart_router_input_request.RestartRouterInputRequest = {
             "arn": arn
         }
@@ -1260,7 +1299,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartRouterInput")
+        )
         input_: capo_mediaconnect.types.start_router_input_request.StartRouterInputRequest = {
             "arn": arn
         }
@@ -1310,7 +1351,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopRouterInput")
+        )
         input_: capo_mediaconnect.types.stop_router_input_request.StopRouterInputRequest = {
             "arn": arn
         }
@@ -1358,7 +1401,9 @@ class AsyncRouterInputResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetRouterInput")
+        )
         input_: capo_mediaconnect.types.batch_get_router_input_request.BatchGetRouterInputRequest = {
             "arns": arns
         }

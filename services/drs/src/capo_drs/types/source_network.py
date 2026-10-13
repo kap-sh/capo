@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.drs#SourceNetwork``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -110,4 +110,15 @@ def deserialize_json(data: dict) -> SourceNetwork:
         )
     if data.get("launchedVpcID") is not None:
         out["launched_vpc_id"] = data["launchedVpcID"]
+    return out
+
+
+def redact_sensitive(value: SourceNetwork) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tags" in value:
+        out["tags"] = "*** Sensitive Data Redacted ***"
+    if "replication_status_details" in value:
+        out["replication_status_details"] = "*** Sensitive Data Redacted ***"
+    if "cfn_stack_name" in value:
+        out["cfn_stack_name"] = "*** Sensitive Data Redacted ***"
     return out

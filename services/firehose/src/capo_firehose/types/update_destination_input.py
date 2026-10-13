@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#UpdateDestinationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -260,6 +260,35 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateDestinationInput:
         out["iceberg_destination_update"] = (
             capo_firehose.types.iceberg_destination_update.deserialize_aws_json_1_1(
                 data["IcebergDestinationUpdate"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateDestinationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "redshift_destination_update" in value:
+        import capo_firehose.types.redshift_destination_update
+
+        out["redshift_destination_update"] = (
+            capo_firehose.types.redshift_destination_update.redact_sensitive(
+                value["redshift_destination_update"]
+            )
+        )
+    if "http_endpoint_destination_update" in value:
+        import capo_firehose.types.http_endpoint_destination_update
+
+        out["http_endpoint_destination_update"] = (
+            capo_firehose.types.http_endpoint_destination_update.redact_sensitive(
+                value["http_endpoint_destination_update"]
+            )
+        )
+    if "snowflake_destination_update" in value:
+        import capo_firehose.types.snowflake_destination_update
+
+        out["snowflake_destination_update"] = (
+            capo_firehose.types.snowflake_destination_update.redact_sensitive(
+                value["snowflake_destination_update"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#ViewList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_resource_explorer_2.types.view
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> ViewList:
             continue
         out.append(capo_resource_explorer_2.types.view.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: ViewList) -> list[Any]:
+    import capo_resource_explorer_2.types.view
+
+    return [
+        capo_resource_explorer_2.types.view.redact_sensitive(item) for item in value
+    ]

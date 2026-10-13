@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#KubernetesApiCallAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,4 +107,17 @@ def deserialize_json(data: dict) -> KubernetesApiCallAction:
         out["status_code"] = data["statusCode"]
     if data.get("parameters") is not None:
         out["parameters"] = data["parameters"]
+    return out
+
+
+def redact_sensitive(value: KubernetesApiCallAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "remote_ip_details" in value:
+        import capo_guardduty.types.remote_ip_details
+
+        out["remote_ip_details"] = (
+            capo_guardduty.types.remote_ip_details.redact_sensitive(
+                value["remote_ip_details"]
+            )
+        )
     return out

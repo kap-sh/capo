@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#FunctionSchema``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,14 @@ def deserialize_json(data: dict) -> FunctionSchema:
         }
     else:
         raise DeserializationError("FunctionSchema: no recognized variant key")
+
+
+def redact_sensitive(value: FunctionSchema) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "functions" in value:
+        import capo_bedrock_agent_runtime.types.functions
+
+        out["functions"] = capo_bedrock_agent_runtime.types.functions.redact_sensitive(
+            value["functions"]
+        )
+    return out

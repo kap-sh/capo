@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mailmanager#RuleConditions``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_mailmanager.types.rule_condition
@@ -27,3 +27,11 @@ def deserialize_aws_json_1_0(data: list) -> RuleConditions:
             continue
         out.append(capo_mailmanager.types.rule_condition.deserialize_aws_json_1_0(item))
     return out
+
+
+def redact_sensitive(value: RuleConditions) -> list[Any]:
+    import capo_mailmanager.types.rule_condition
+
+    return [
+        capo_mailmanager.types.rule_condition.redact_sensitive(item) for item in value
+    ]

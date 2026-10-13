@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_lambda_microvms._auth._signers
 import capo_lambda_microvms._auth._sigv4
 from capo_lambda_microvms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -105,7 +106,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovmImage")
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_input.GetMicrovmImageInput = {
             "image_identifier": image_identifier
         }
@@ -153,7 +156,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMicrovmImage")
+        )
         input_: capo_lambda_microvms.types.delete_microvm_image_input.DeleteMicrovmImageInput = {
             "image_identifier": image_identifier
         }
@@ -205,7 +210,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovmImages")
+        )
         input_: capo_lambda_microvms.types.list_microvm_images_request.ListMicrovmImagesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -259,7 +266,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMicrovmImageVersion")
+        )
         input_: capo_lambda_microvms.types.delete_microvm_image_version_input.DeleteMicrovmImageVersionInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -311,7 +320,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovmImageBuild")
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_build_input.GetMicrovmImageBuildInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -362,7 +373,19 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.get_microvm_image_version_output.GetMicrovmImageVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.get_microvm_image_version_output
+
+            return capo_lambda_microvms.types.get_microvm_image_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMicrovmImageVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_version_input.GetMicrovmImageVersionInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -414,7 +437,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedMicrovmImageVersions")
+        )
         input_: capo_lambda_microvms.types.list_managed_microvm_image_versions_input.ListManagedMicrovmImageVersionsInput = {
             "image_identifier": image_identifier
         }
@@ -481,7 +506,9 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovmImageBuilds")
+        )
         input_: capo_lambda_microvms.types.list_microvm_image_builds_input.ListMicrovmImageBuildsInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -543,7 +570,19 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.list_microvm_image_versions_output.ListMicrovmImageVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.list_microvm_image_versions_output
+
+            return capo_lambda_microvms.types.list_microvm_image_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListMicrovmImageVersions", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.list_microvm_image_versions_input.ListMicrovmImageVersionsInput = {
             "image_identifier": image_identifier
         }
@@ -633,7 +672,32 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda_microvms.types.update_microvm_image_request.UpdateMicrovmImageRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_request
+
+            return capo_lambda_microvms.types.update_microvm_image_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda_microvms.types.update_microvm_image_response.UpdateMicrovmImageResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_response
+
+            return capo_lambda_microvms.types.update_microvm_image_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMicrovmImage",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda_microvms.types.update_microvm_image_request.UpdateMicrovmImageRequest = {
             "base_image_arn": base_image_arn,
             "build_role_arn": build_role_arn,
@@ -709,7 +773,19 @@ class MicrovmImage:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.update_microvm_image_version_response.UpdateMicrovmImageVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_version_response
+
+            return capo_lambda_microvms.types.update_microvm_image_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMicrovmImageVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.update_microvm_image_version_request.UpdateMicrovmImageVersionRequest = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -764,7 +840,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovmImage")
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_input.GetMicrovmImageInput = {
             "image_identifier": image_identifier
         }
@@ -813,7 +891,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMicrovmImage")
+        )
         input_: capo_lambda_microvms.types.delete_microvm_image_input.DeleteMicrovmImageInput = {
             "image_identifier": image_identifier
         }
@@ -866,7 +946,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovmImages")
+        )
         input_: capo_lambda_microvms.types.list_microvm_images_request.ListMicrovmImagesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -921,7 +1003,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMicrovmImageVersion")
+        )
         input_: capo_lambda_microvms.types.delete_microvm_image_version_input.DeleteMicrovmImageVersionInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -974,7 +1058,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMicrovmImageBuild")
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_build_input.GetMicrovmImageBuildInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -1026,7 +1112,19 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.get_microvm_image_version_output.GetMicrovmImageVersionOutput",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.get_microvm_image_version_output
+
+            return capo_lambda_microvms.types.get_microvm_image_version_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMicrovmImageVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.get_microvm_image_version_input.GetMicrovmImageVersionInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -1079,7 +1177,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListManagedMicrovmImageVersions")
+        )
         input_: capo_lambda_microvms.types.list_managed_microvm_image_versions_input.ListManagedMicrovmImageVersionsInput = {
             "image_identifier": image_identifier
         }
@@ -1147,7 +1247,9 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMicrovmImageBuilds")
+        )
         input_: capo_lambda_microvms.types.list_microvm_image_builds_input.ListMicrovmImageBuildsInput = {
             "image_identifier": image_identifier,
             "image_version": image_version,
@@ -1210,7 +1312,19 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.list_microvm_image_versions_output.ListMicrovmImageVersionsOutput",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.list_microvm_image_versions_output
+
+            return capo_lambda_microvms.types.list_microvm_image_versions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListMicrovmImageVersions", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.list_microvm_image_versions_input.ListMicrovmImageVersionsInput = {
             "image_identifier": image_identifier
         }
@@ -1301,7 +1415,32 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_lambda_microvms.types.update_microvm_image_request.UpdateMicrovmImageRequest",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_request
+
+            return capo_lambda_microvms.types.update_microvm_image_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_lambda_microvms.types.update_microvm_image_response.UpdateMicrovmImageResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_response
+
+            return capo_lambda_microvms.types.update_microvm_image_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMicrovmImage",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_lambda_microvms.types.update_microvm_image_request.UpdateMicrovmImageRequest = {
             "base_image_arn": base_image_arn,
             "build_role_arn": build_role_arn,
@@ -1378,7 +1517,19 @@ class AsyncMicrovmImage:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_lambda_microvms.types.update_microvm_image_version_response.UpdateMicrovmImageVersionResponse",
+        ) -> dict[str, Any]:
+            import capo_lambda_microvms.types.update_microvm_image_version_response
+
+            return capo_lambda_microvms.types.update_microvm_image_version_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMicrovmImageVersion", redact_output=_redact_output),
+        )
         input_: capo_lambda_microvms.types.update_microvm_image_version_request.UpdateMicrovmImageVersionRequest = {
             "image_identifier": image_identifier,
             "image_version": image_version,

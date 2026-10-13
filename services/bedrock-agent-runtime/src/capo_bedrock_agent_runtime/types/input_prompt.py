@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InputPrompt``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -42,3 +42,10 @@ def deserialize_json(data: dict) -> InputPrompt:
         }
     else:
         raise DeserializationError("InputPrompt: no recognized variant key")
+
+
+def redact_sensitive(value: InputPrompt) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "textPrompt" in value:
+        out["textPrompt"] = "*** Sensitive Data Redacted ***"
+    return out

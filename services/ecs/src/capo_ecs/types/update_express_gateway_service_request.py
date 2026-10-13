@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#UpdateExpressGatewayServiceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -150,4 +150,17 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateExpressGatewayServiceRequest:
         )
     if data.get("taskDefinitionArn") is not None:
         out["task_definition_arn"] = data["taskDefinitionArn"]
+    return out
+
+
+def redact_sensitive(value: UpdateExpressGatewayServiceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_container" in value:
+        import capo_ecs.types.express_gateway_container
+
+        out["primary_container"] = (
+            capo_ecs.types.express_gateway_container.redact_sensitive(
+                value["primary_container"]
+            )
+        )
     return out

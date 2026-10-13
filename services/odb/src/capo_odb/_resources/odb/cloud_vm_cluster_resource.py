@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -120,7 +121,9 @@ class CloudVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudVmCluster")
+        )
         input_: capo_odb.types.create_cloud_vm_cluster_input.CreateCloudVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "cpu_core_count": cpu_core_count,
@@ -202,7 +205,17 @@ class CloudVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_vm_cluster_output.GetCloudVmClusterOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_vm_cluster_output
+
+            return capo_odb.types.get_cloud_vm_cluster_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudVmCluster", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_cloud_vm_cluster_input.GetCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -249,7 +262,9 @@ class CloudVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_vm_cluster_input.DeleteCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -302,7 +317,17 @@ class CloudVmClusterResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_vm_clusters_output.ListCloudVmClustersOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_vm_clusters_output
+
+            return capo_odb.types.list_cloud_vm_clusters_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCloudVmClusters", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_cloud_vm_clusters_input.ListCloudVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -405,7 +430,9 @@ class AsyncCloudVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCloudVmCluster")
+        )
         input_: capo_odb.types.create_cloud_vm_cluster_input.CreateCloudVmClusterInput = {
             "cloud_exadata_infrastructure_id": cloud_exadata_infrastructure_id,
             "cpu_core_count": cpu_core_count,
@@ -488,7 +515,17 @@ class AsyncCloudVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.get_cloud_vm_cluster_output.GetCloudVmClusterOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.get_cloud_vm_cluster_output
+
+            return capo_odb.types.get_cloud_vm_cluster_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCloudVmCluster", redact_output=_redact_output),
+        )
         input_: capo_odb.types.get_cloud_vm_cluster_input.GetCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -536,7 +573,9 @@ class AsyncCloudVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCloudVmCluster")
+        )
         input_: capo_odb.types.delete_cloud_vm_cluster_input.DeleteCloudVmClusterInput = {
             "cloud_vm_cluster_id": cloud_vm_cluster_id
         }
@@ -590,7 +629,17 @@ class AsyncCloudVmClusterResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_odb.types.list_cloud_vm_clusters_output.ListCloudVmClustersOutput",
+        ) -> dict[str, Any]:
+            import capo_odb.types.list_cloud_vm_clusters_output
+
+            return capo_odb.types.list_cloud_vm_clusters_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCloudVmClusters", redact_output=_redact_output),
+        )
         input_: capo_odb.types.list_cloud_vm_clusters_input.ListCloudVmClustersInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

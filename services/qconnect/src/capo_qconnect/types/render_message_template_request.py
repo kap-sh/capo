@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#RenderMessageTemplateRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_json(data: dict) -> RenderMessageTemplateRequest:
         )
     else:
         raise DeserializationError("RenderMessageTemplateRequest.attributes required")
+    return out
+
+
+def redact_sensitive(value: RenderMessageTemplateRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attributes" in value:
+        import capo_qconnect.types.message_template_attributes
+
+        out["attributes"] = (
+            capo_qconnect.types.message_template_attributes.redact_sensitive(
+                value["attributes"]
+            )
+        )
     return out

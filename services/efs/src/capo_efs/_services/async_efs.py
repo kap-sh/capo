@@ -24,7 +24,9 @@ from capo_efs._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -187,7 +189,9 @@ class AsyncEFSClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncEFSClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncEFSClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncEFSClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -195,8 +199,10 @@ class AsyncEFSClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -260,7 +266,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessPoint")
+        )
         input_: capo_efs.types.create_access_point_request.CreateAccessPointRequest = {
             "client_token": client_token,
             "file_system_id": file_system_id,
@@ -341,7 +349,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFileSystem")
+        )
         input_: capo_efs.types.create_file_system_request.CreateFileSystemRequest = {
             "creation_token": creation_token
         }
@@ -433,7 +443,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMountTarget")
+        )
         input_: capo_efs.types.create_mount_target_request.CreateMountTargetRequest = {
             "file_system_id": file_system_id,
             "subnet_id": subnet_id,
@@ -498,7 +510,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationConfiguration")
+        )
         input_: capo_efs.types.create_replication_configuration_request.CreateReplicationConfigurationRequest = {
             "source_file_system_id": source_file_system_id,
             "destinations": destinations,
@@ -551,7 +565,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTags")
+        )
         input_: capo_efs.types.create_tags_request.CreateTagsRequest = {
             "file_system_id": file_system_id,
             "tags": tags,
@@ -596,7 +612,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessPoint")
+        )
         input_: capo_efs.types.delete_access_point_request.DeleteAccessPointRequest = {
             "access_point_id": access_point_id
         }
@@ -647,7 +665,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileSystem")
+        )
         input_: capo_efs.types.delete_file_system_request.DeleteFileSystemRequest = {
             "file_system_id": file_system_id
         }
@@ -692,7 +712,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFileSystemPolicy")
+        )
         input_: capo_efs.types.delete_file_system_policy_request.DeleteFileSystemPolicyRequest = {
             "file_system_id": file_system_id
         }
@@ -743,7 +765,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMountTarget")
+        )
         input_: capo_efs.types.delete_mount_target_request.DeleteMountTargetRequest = {
             "mount_target_id": mount_target_id
         }
@@ -790,7 +814,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfiguration")
+        )
         input_: capo_efs.types.delete_replication_configuration_request.DeleteReplicationConfigurationRequest = {
             "source_file_system_id": source_file_system_id
         }
@@ -844,7 +870,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTags")
+        )
         input_: capo_efs.types.delete_tags_request.DeleteTagsRequest = {
             "file_system_id": file_system_id,
             "tag_keys": tag_keys,
@@ -900,7 +928,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccessPoints")
+        )
         input_: capo_efs.types.describe_access_points_request.DescribeAccessPointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -981,7 +1011,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountPreferences")
+        )
         input_: capo_efs.types.describe_account_preferences_request.DescribeAccountPreferencesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1031,7 +1063,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBackupPolicy")
+        )
         input_: capo_efs.types.describe_backup_policy_request.DescribeBackupPolicyRequest = {
             "file_system_id": file_system_id
         }
@@ -1078,7 +1112,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFileSystemPolicy")
+        )
         input_: capo_efs.types.describe_file_system_policy_request.DescribeFileSystemPolicyRequest = {
             "file_system_id": file_system_id
         }
@@ -1130,7 +1166,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFileSystems")
+        )
         input_: capo_efs.types.describe_file_systems_request.DescribeFileSystemsRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -1213,7 +1251,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLifecycleConfiguration")
+        )
         input_: capo_efs.types.describe_lifecycle_configuration_request.DescribeLifecycleConfigurationRequest = {
             "file_system_id": file_system_id
         }
@@ -1279,7 +1319,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMountTargets")
+        )
         input_: capo_efs.types.describe_mount_targets_request.DescribeMountTargetsRequest = {}
         if max_items is not None:
             input_["max_items"] = max_items
@@ -1373,7 +1415,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMountTargetSecurityGroups")
+        )
         input_: capo_efs.types.describe_mount_target_security_groups_request.DescribeMountTargetSecurityGroupsRequest = {
             "mount_target_id": mount_target_id
         }
@@ -1425,7 +1469,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationConfigurations")
+        )
         input_: capo_efs.types.describe_replication_configurations_request.DescribeReplicationConfigurationsRequest = {}
         if file_system_id is not None:
             input_["file_system_id"] = file_system_id
@@ -1508,7 +1554,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_efs.types.describe_tags_request.DescribeTagsRequest = {
             "file_system_id": file_system_id
         }
@@ -1586,7 +1634,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_efs.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_id": resource_id
         }
@@ -1668,7 +1718,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyMountTargetSecurityGroups")
+        )
         input_: capo_efs.types.modify_mount_target_security_groups_request.ModifyMountTargetSecurityGroupsRequest = {
             "mount_target_id": mount_target_id
         }
@@ -1717,7 +1769,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAccountPreferences")
+        )
         input_: capo_efs.types.put_account_preferences_request.PutAccountPreferencesRequest = {
             "resource_id_type": resource_id_type
         }
@@ -1767,7 +1821,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutBackupPolicy")
+        )
         input_: capo_efs.types.put_backup_policy_request.PutBackupPolicyRequest = {
             "file_system_id": file_system_id,
             "backup_policy": backup_policy,
@@ -1822,7 +1878,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutFileSystemPolicy")
+        )
         input_: capo_efs.types.put_file_system_policy_request.PutFileSystemPolicyRequest = {
             "file_system_id": file_system_id,
             "policy": policy,
@@ -1882,7 +1940,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutLifecycleConfiguration")
+        )
         input_: capo_efs.types.put_lifecycle_configuration_request.PutLifecycleConfigurationRequest = {
             "file_system_id": file_system_id,
             "lifecycle_policies": lifecycle_policies,
@@ -1930,7 +1990,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_efs.types.tag_resource_request.TagResourceRequest = {
             "resource_id": resource_id,
             "tags": tags,
@@ -1978,7 +2040,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_efs.types.untag_resource_request.UntagResourceRequest = {
             "resource_id": resource_id,
             "tag_keys": tag_keys,
@@ -2037,7 +2101,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFileSystem")
+        )
         input_: capo_efs.types.update_file_system_request.UpdateFileSystemRequest = {
             "file_system_id": file_system_id
         }
@@ -2096,7 +2162,9 @@ class AsyncEFSClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFileSystemProtection")
+        )
         input_: capo_efs.types.update_file_system_protection_request.UpdateFileSystemProtectionRequest = {
             "file_system_id": file_system_id
         }

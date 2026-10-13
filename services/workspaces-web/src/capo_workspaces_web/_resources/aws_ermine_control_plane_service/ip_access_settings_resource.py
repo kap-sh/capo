@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -106,7 +107,19 @@ class IpAccessSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_ip_access_settings_request
+
+            return capo_workspaces_web.types.create_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIpAccessSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest = {
             "ip_rules": ip_rules
         }
@@ -166,7 +179,19 @@ class IpAccessSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_ip_access_settings_response.GetIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_ip_access_settings_response
+
+            return capo_workspaces_web.types.get_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_ip_access_settings_request.GetIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -227,7 +252,32 @@ class IpAccessSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_request
+
+            return capo_workspaces_web.types.update_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_ip_access_settings_response.UpdateIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_response
+
+            return capo_workspaces_web.types.update_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateIpAccessSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -283,7 +333,9 @@ class IpAccessSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIpAccessSettings")
+        )
         input_: capo_workspaces_web.types.delete_ip_access_settings_request.DeleteIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -335,7 +387,19 @@ class IpAccessSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_ip_access_settings_response.ListIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_ip_access_settings_response
+
+            return capo_workspaces_web.types.list_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_ip_access_settings_request.ListIpAccessSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -413,7 +477,19 @@ class AsyncIpAccessSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_ip_access_settings_request
+
+            return capo_workspaces_web.types.create_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateIpAccessSettings", redact_input=_redact_input),
+        )
         input_: capo_workspaces_web.types.create_ip_access_settings_request.CreateIpAccessSettingsRequest = {
             "ip_rules": ip_rules
         }
@@ -474,7 +550,19 @@ class AsyncIpAccessSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.get_ip_access_settings_response.GetIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.get_ip_access_settings_response
+
+            return capo_workspaces_web.types.get_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.get_ip_access_settings_request.GetIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -536,7 +624,32 @@ class AsyncIpAccessSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_request
+
+            return capo_workspaces_web.types.update_ip_access_settings_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_workspaces_web.types.update_ip_access_settings_response.UpdateIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.update_ip_access_settings_response
+
+            return capo_workspaces_web.types.update_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateIpAccessSettings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_workspaces_web.types.update_ip_access_settings_request.UpdateIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -593,7 +706,9 @@ class AsyncIpAccessSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIpAccessSettings")
+        )
         input_: capo_workspaces_web.types.delete_ip_access_settings_request.DeleteIpAccessSettingsRequest = {
             "ip_access_settings_arn": ip_access_settings_arn
         }
@@ -646,7 +761,19 @@ class AsyncIpAccessSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_workspaces_web.types.list_ip_access_settings_response.ListIpAccessSettingsResponse",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.list_ip_access_settings_response
+
+            return capo_workspaces_web.types.list_ip_access_settings_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListIpAccessSettings", redact_output=_redact_output),
+        )
         input_: capo_workspaces_web.types.list_ip_access_settings_request.ListIpAccessSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

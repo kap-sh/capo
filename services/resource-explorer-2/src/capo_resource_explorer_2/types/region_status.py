@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.resourceexplorer2#RegionStatus``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,16 @@ def deserialize_json(data: dict) -> RegionStatus:
 
         out["view"] = capo_resource_explorer_2.types.view_status.deserialize_json(
             data["View"]
+        )
+    return out
+
+
+def redact_sensitive(value: RegionStatus) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "view" in value:
+        import capo_resource_explorer_2.types.view_status
+
+        out["view"] = capo_resource_explorer_2.types.view_status.redact_sensitive(
+            value["view"]
         )
     return out

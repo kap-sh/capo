@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#PromptConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,11 @@ def deserialize_json(data: dict) -> PromptConfiguration:
         out["foundation_model"] = data["foundationModel"]
     if data.get("additionalModelRequestFields") is not None:
         out["additional_model_request_fields"] = data["additionalModelRequestFields"]
+    return out
+
+
+def redact_sensitive(value: PromptConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "base_prompt_template" in value:
+        out["base_prompt_template"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CodeInterpreterSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -120,4 +120,11 @@ def deserialize_json(data: dict) -> CodeInterpreterSummary:
                 data["lastUpdatedAt"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: CodeInterpreterSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

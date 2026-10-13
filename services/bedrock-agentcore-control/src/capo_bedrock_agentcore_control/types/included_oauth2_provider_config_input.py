@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#IncludedOauth2ProviderConfigInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -107,4 +107,11 @@ def deserialize_json(data: dict) -> IncludedOauth2ProviderConfigInput:
         out["authorization_endpoint"] = data["authorizationEndpoint"]
     if data.get("tokenEndpoint") is not None:
         out["token_endpoint"] = data["tokenEndpoint"]
+    return out
+
+
+def redact_sensitive(value: IncludedOauth2ProviderConfigInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "client_secret" in value:
+        out["client_secret"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#ParsedQueryComponent``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,13 @@ def deserialize_json(data: dict) -> ParsedQueryComponent:
         out["value"] = data["Value"]
     if data.get("QueryComponent") is not None:
         out["query_component"] = data["QueryComponent"]
+    return out
+
+
+def redact_sensitive(value: ParsedQueryComponent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
+    if "query_component" in value:
+        out["query_component"] = "*** Sensitive Data Redacted ***"
     return out

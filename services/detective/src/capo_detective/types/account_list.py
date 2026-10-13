@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.detective#AccountList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_detective.types.account
@@ -27,3 +27,9 @@ def deserialize_json(data: list) -> AccountList:
             continue
         out.append(capo_detective.types.account.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: AccountList) -> list[Any]:
+    import capo_detective.types.account
+
+    return [capo_detective.types.account.redact_sensitive(item) for item in value]

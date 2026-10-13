@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#MatchmakingTicketList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_gamelift.types.matchmaking_ticket
@@ -31,3 +31,11 @@ def deserialize_aws_json_1_1(data: list) -> MatchmakingTicketList:
             capo_gamelift.types.matchmaking_ticket.deserialize_aws_json_1_1(item)
         )
     return out
+
+
+def redact_sensitive(value: MatchmakingTicketList) -> list[Any]:
+    import capo_gamelift.types.matchmaking_ticket
+
+    return [
+        capo_gamelift.types.matchmaking_ticket.redact_sensitive(item) for item in value
+    ]

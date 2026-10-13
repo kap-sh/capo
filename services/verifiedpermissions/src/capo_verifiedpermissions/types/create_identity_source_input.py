@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#CreateIdentitySourceInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -66,4 +66,19 @@ def deserialize_aws_json_1_0(data: dict) -> CreateIdentitySourceInput:
         raise DeserializationError("CreateIdentitySourceInput.configuration required")
     if data.get("principalEntityType") is not None:
         out["principal_entity_type"] = data["principalEntityType"]
+    return out
+
+
+def redact_sensitive(value: CreateIdentitySourceInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_verifiedpermissions.types.configuration
+
+        out["configuration"] = (
+            capo_verifiedpermissions.types.configuration.redact_sensitive(
+                value["configuration"]
+            )
+        )
+    if "principal_entity_type" in value:
+        out["principal_entity_type"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#Emv2000Attributes``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -72,4 +72,11 @@ def deserialize_json(data: dict) -> Emv2000Attributes:
         raise DeserializationError(
             "Emv2000Attributes.application_transaction_counter required"
         )
+    return out
+
+
+def redact_sensitive(value: Emv2000Attributes) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "primary_account_number" in value:
+        out["primary_account_number"] = "*** Sensitive Data Redacted ***"
     return out

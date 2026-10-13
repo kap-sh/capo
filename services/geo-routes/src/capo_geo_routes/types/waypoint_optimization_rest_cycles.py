@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationRestCycles``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -60,5 +60,26 @@ def deserialize_json(data: dict) -> WaypointOptimizationRestCycles:
     else:
         raise DeserializationError(
             "WaypointOptimizationRestCycles.short_cycle required"
+        )
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationRestCycles) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "long_cycle" in value:
+        import capo_geo_routes.types.waypoint_optimization_rest_cycle_durations
+
+        out["long_cycle"] = (
+            capo_geo_routes.types.waypoint_optimization_rest_cycle_durations.redact_sensitive(
+                value["long_cycle"]
+            )
+        )
+    if "short_cycle" in value:
+        import capo_geo_routes.types.waypoint_optimization_rest_cycle_durations
+
+        out["short_cycle"] = (
+            capo_geo_routes.types.waypoint_optimization_rest_cycle_durations.redact_sensitive(
+                value["short_cycle"]
+            )
         )
     return out

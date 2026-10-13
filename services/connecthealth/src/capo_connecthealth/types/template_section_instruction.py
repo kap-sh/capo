@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#TemplateSectionInstruction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_json(data: dict) -> TemplateSectionInstruction:
         raise DeserializationError(
             "TemplateSectionInstruction.section_instruction required"
         )
+    return out
+
+
+def redact_sensitive(value: TemplateSectionInstruction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "section_header" in value:
+        out["section_header"] = "*** Sensitive Data Redacted ***"
+    if "section_instruction" in value:
+        out["section_instruction"] = "*** Sensitive Data Redacted ***"
     return out

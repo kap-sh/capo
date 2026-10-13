@@ -25,7 +25,9 @@ from capo_sfn._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -224,7 +226,9 @@ class AsyncSFNClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncSFNClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncSFNClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncSFNClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -232,8 +236,10 @@ class AsyncSFNClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -295,7 +301,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateActivity")
+        )
         input_: capo_sfn.types.create_activity_input.CreateActivityInput = {
             "name": name
         }
@@ -383,7 +391,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.create_state_machine_input.CreateStateMachineInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.create_state_machine_input
+
+            return capo_sfn.types.create_state_machine_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateStateMachine", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.create_state_machine_input.CreateStateMachineInput = {
             "name": name,
             "definition": definition,
@@ -457,7 +475,19 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.create_state_machine_alias_input.CreateStateMachineAliasInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.create_state_machine_alias_input
+
+            return capo_sfn.types.create_state_machine_alias_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateStateMachineAlias", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.create_state_machine_alias_input.CreateStateMachineAliasInput = {
             "name": name,
             "routing_configuration": routing_configuration,
@@ -504,7 +534,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteActivity")
+        )
         input_: capo_sfn.types.delete_activity_input.DeleteActivityInput = {
             "activity_arn": activity_arn
         }
@@ -549,7 +581,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStateMachine")
+        )
         input_: capo_sfn.types.delete_state_machine_input.DeleteStateMachineInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -598,7 +632,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStateMachineAlias")
+        )
         input_: capo_sfn.types.delete_state_machine_alias_input.DeleteStateMachineAliasInput = {
             "state_machine_alias_arn": state_machine_alias_arn
         }
@@ -644,7 +680,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStateMachineVersion")
+        )
         input_: capo_sfn.types.delete_state_machine_version_input.DeleteStateMachineVersionInput = {
             "state_machine_version_arn": state_machine_version_arn
         }
@@ -689,7 +727,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeActivity")
+        )
         input_: capo_sfn.types.describe_activity_input.DescribeActivityInput = {
             "activity_arn": activity_arn
         }
@@ -739,7 +779,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.describe_execution_output.DescribeExecutionOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.describe_execution_output
+
+            return capo_sfn.types.describe_execution_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeExecution", redact_output=_redact_output),
+        )
         input_: capo_sfn.types.describe_execution_input.DescribeExecutionInput = {
             "execution_arn": execution_arn
         }
@@ -786,7 +836,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMapRun")
+        )
         input_: capo_sfn.types.describe_map_run_input.DescribeMapRunInput = {
             "map_run_arn": map_run_arn
         }
@@ -836,7 +888,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.describe_state_machine_output.DescribeStateMachineOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.describe_state_machine_output
+
+            return capo_sfn.types.describe_state_machine_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeStateMachine", redact_output=_redact_output),
+        )
         input_: capo_sfn.types.describe_state_machine_input.DescribeStateMachineInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -884,7 +946,19 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.describe_state_machine_alias_output.DescribeStateMachineAliasOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.describe_state_machine_alias_output
+
+            return capo_sfn.types.describe_state_machine_alias_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeStateMachineAlias", redact_output=_redact_output),
+        )
         input_: capo_sfn.types.describe_state_machine_alias_input.DescribeStateMachineAliasInput = {
             "state_machine_alias_arn": state_machine_alias_arn
         }
@@ -934,7 +1008,21 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.describe_state_machine_for_execution_output.DescribeStateMachineForExecutionOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.describe_state_machine_for_execution_output
+
+            return capo_sfn.types.describe_state_machine_for_execution_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeStateMachineForExecution", redact_output=_redact_output
+            ),
+        )
         input_: capo_sfn.types.describe_state_machine_for_execution_input.DescribeStateMachineForExecutionInput = {
             "execution_arn": execution_arn
         }
@@ -987,7 +1075,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.get_activity_task_output.GetActivityTaskOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.get_activity_task_output
+
+            return capo_sfn.types.get_activity_task_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetActivityTask", redact_output=_redact_output),
+        )
         input_: capo_sfn.types.get_activity_task_input.GetActivityTaskInput = {
             "activity_arn": activity_arn
         }
@@ -1048,7 +1146,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_sfn.types.get_execution_history_output.GetExecutionHistoryOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.get_execution_history_output
+
+            return capo_sfn.types.get_execution_history_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetExecutionHistory", redact_output=_redact_output),
+        )
         input_: capo_sfn.types.get_execution_history_input.GetExecutionHistoryInput = {
             "execution_arn": execution_arn
         }
@@ -1131,7 +1239,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListActivities")
+        )
         input_: capo_sfn.types.list_activities_input.ListActivitiesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1219,7 +1329,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListExecutions")
+        )
         input_: capo_sfn.types.list_executions_input.ListExecutionsInput = {}
         if state_machine_arn is not None:
             input_["state_machine_arn"] = state_machine_arn
@@ -1314,7 +1426,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMapRuns")
+        )
         input_: capo_sfn.types.list_map_runs_input.ListMapRunsInput = {
             "execution_arn": execution_arn
         }
@@ -1395,7 +1509,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStateMachineAliases")
+        )
         input_: capo_sfn.types.list_state_machine_aliases_input.ListStateMachineAliasesInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -1445,7 +1561,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStateMachines")
+        )
         input_: capo_sfn.types.list_state_machines_input.ListStateMachinesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1518,7 +1636,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStateMachineVersions")
+        )
         input_: capo_sfn.types.list_state_machine_versions_input.ListStateMachineVersionsInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -1567,7 +1687,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_sfn.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -1622,7 +1744,19 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.publish_state_machine_version_input.PublishStateMachineVersionInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.publish_state_machine_version_input
+
+            return capo_sfn.types.publish_state_machine_version_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PublishStateMachineVersion", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.publish_state_machine_version_input.PublishStateMachineVersionInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -1676,7 +1810,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RedriveExecution")
+        )
         input_: capo_sfn.types.redrive_execution_input.RedriveExecutionInput = {
             "execution_arn": execution_arn
         }
@@ -1732,7 +1868,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.send_task_failure_input.SendTaskFailureInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.send_task_failure_input
+
+            return capo_sfn.types.send_task_failure_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendTaskFailure", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.send_task_failure_input.SendTaskFailureInput = {
             "task_token": task_token
         }
@@ -1782,7 +1928,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendTaskHeartbeat")
+        )
         input_: capo_sfn.types.send_task_heartbeat_input.SendTaskHeartbeatInput = {
             "task_token": task_token
         }
@@ -1834,7 +1982,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.send_task_success_input.SendTaskSuccessInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.send_task_success_input
+
+            return capo_sfn.types.send_task_success_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendTaskSuccess", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.send_task_success_input.SendTaskSuccessInput = {
             "task_token": task_token,
             "output": output,
@@ -1895,7 +2053,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.start_execution_input.StartExecutionInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.start_execution_input
+
+            return capo_sfn.types.start_execution_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartExecution", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.start_execution_input.StartExecutionInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -1961,7 +2129,28 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.start_sync_execution_input.StartSyncExecutionInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.start_sync_execution_input
+
+            return capo_sfn.types.start_sync_execution_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_sfn.types.start_sync_execution_output.StartSyncExecutionOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.start_sync_execution_output
+
+            return capo_sfn.types.start_sync_execution_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartSyncExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sfn.types.start_sync_execution_input.StartSyncExecutionInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -2022,7 +2211,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.stop_execution_input.StopExecutionInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.stop_execution_input
+
+            return capo_sfn.types.stop_execution_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopExecution", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.stop_execution_input.StopExecutionInput = {
             "execution_arn": execution_arn
         }
@@ -2074,7 +2273,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_sfn.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2144,7 +2345,26 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.test_state_input.TestStateInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.test_state_input
+
+            return capo_sfn.types.test_state_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_sfn.types.test_state_output.TestStateOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.test_state_output
+
+            return capo_sfn.types.test_state_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "TestState", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_sfn.types.test_state_input.TestStateInput = {
             "definition": definition
         }
@@ -2209,7 +2429,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_sfn.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2268,7 +2490,9 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMapRun")
+        )
         input_: capo_sfn.types.update_map_run_input.UpdateMapRunInput = {
             "map_run_arn": map_run_arn
         }
@@ -2352,7 +2576,17 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.update_state_machine_input.UpdateStateMachineInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.update_state_machine_input
+
+            return capo_sfn.types.update_state_machine_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateStateMachine", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.update_state_machine_input.UpdateStateMachineInput = {
             "state_machine_arn": state_machine_arn
         }
@@ -2424,7 +2658,19 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.update_state_machine_alias_input.UpdateStateMachineAliasInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.update_state_machine_alias_input
+
+            return capo_sfn.types.update_state_machine_alias_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateStateMachineAlias", redact_input=_redact_input),
+        )
         input_: capo_sfn.types.update_state_machine_alias_input.UpdateStateMachineAliasInput = {
             "state_machine_alias_arn": state_machine_alias_arn
         }
@@ -2482,7 +2728,34 @@ class AsyncSFNClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_sfn.types.validate_state_machine_definition_input.ValidateStateMachineDefinitionInput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.validate_state_machine_definition_input
+
+            return (
+                capo_sfn.types.validate_state_machine_definition_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_sfn.types.validate_state_machine_definition_output.ValidateStateMachineDefinitionOutput",
+        ) -> dict[str, Any]:
+            import capo_sfn.types.validate_state_machine_definition_output
+
+            return capo_sfn.types.validate_state_machine_definition_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ValidateStateMachineDefinition",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_sfn.types.validate_state_machine_definition_input.ValidateStateMachineDefinitionInput = {
             "definition": definition
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connecthealth#GetPatientInsightsJobResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -233,5 +233,40 @@ def deserialize_json(data: dict) -> GetPatientInsightsJobResponse:
     else:
         raise DeserializationError(
             "GetPatientInsightsJobResponse.output_data_config required"
+        )
+    return out
+
+
+def redact_sensitive(value: GetPatientInsightsJobResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "patient_context" in value:
+        import capo_connecthealth.types.patient_insights_patient_context
+
+        out["patient_context"] = (
+            capo_connecthealth.types.patient_insights_patient_context.redact_sensitive(
+                value["patient_context"]
+            )
+        )
+    if "encounter_context" in value:
+        import capo_connecthealth.types.patient_insights_encounter_context
+
+        out["encounter_context"] = (
+            capo_connecthealth.types.patient_insights_encounter_context.redact_sensitive(
+                value["encounter_context"]
+            )
+        )
+    if "user_context" in value:
+        import capo_connecthealth.types.user_context
+
+        out["user_context"] = capo_connecthealth.types.user_context.redact_sensitive(
+            value["user_context"]
+        )
+    if "input_data_config" in value:
+        import capo_connecthealth.types.input_data_config
+
+        out["input_data_config"] = (
+            capo_connecthealth.types.input_data_config.redact_sensitive(
+                value["input_data_config"]
+            )
         )
     return out

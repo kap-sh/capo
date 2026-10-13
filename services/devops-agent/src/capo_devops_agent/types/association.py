@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#Association``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,6 +128,19 @@ def deserialize_json(data: dict) -> Association:
         out["capabilities"] = (
             capo_devops_agent.types.association_capabilities.deserialize_json(
                 data["capabilities"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Association) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "configuration" in value:
+        import capo_devops_agent.types.service_configuration
+
+        out["configuration"] = (
+            capo_devops_agent.types.service_configuration.redact_sensitive(
+                value["configuration"]
             )
         )
     return out

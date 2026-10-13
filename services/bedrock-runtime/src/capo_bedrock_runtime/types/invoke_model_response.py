@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#InvokeModelResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -45,4 +45,11 @@ def deserialize_json(data: dict) -> InvokeModelResponse:
         out["body"] = capo_bedrock_runtime.types.body.deserialize_json(data["body"])
     else:
         raise DeserializationError("InvokeModelResponse.body required")
+    return out
+
+
+def redact_sensitive(value: InvokeModelResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "body" in value:
+        out["body"] = "*** Sensitive Data Redacted ***"
     return out

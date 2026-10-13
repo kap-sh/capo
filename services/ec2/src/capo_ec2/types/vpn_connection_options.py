@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#VpnConnectionOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -177,5 +177,16 @@ def deserialize_ec2_query(el: Element) -> VpnConnectionOptions:
             capo_ec2.types.vpn_tunnel_bandwidth.deserialize_ec2_query(
                 child_tunnel_bandwidth
             )
+        )
+    return out
+
+
+def redact_sensitive(value: VpnConnectionOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tunnel_options" in value:
+        import capo_ec2.types.tunnel_options_list
+
+        out["tunnel_options"] = capo_ec2.types.tunnel_options_list.redact_sensitive(
+            value["tunnel_options"]
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#DescribeTaskResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -124,4 +124,17 @@ def deserialize_json(data: dict) -> DescribeTaskResponse:
         )
     else:
         raise DeserializationError("DescribeTaskResponse.updated_at required")
+    return out
+
+
+def redact_sensitive(value: DescribeTaskResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "task_configuration" in value:
+        import capo_iotsitewise.types.task_configuration
+
+        out["task_configuration"] = (
+            capo_iotsitewise.types.task_configuration.redact_sensitive(
+                value["task_configuration"]
+            )
+        )
     return out

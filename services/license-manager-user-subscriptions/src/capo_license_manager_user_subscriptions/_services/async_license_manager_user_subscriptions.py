@@ -26,7 +26,9 @@ from capo_license_manager_user_subscriptions._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -162,6 +164,7 @@ class AsyncLicenseManagerUserSubscriptionsClient:
         config_overrides: Optional[
             AsyncLicenseManagerUserSubscriptionsClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncLicenseManagerUserSubscriptionsClientConfig = (
             config_overrides or {}
@@ -171,8 +174,10 @@ class AsyncLicenseManagerUserSubscriptionsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -240,7 +245,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.associate_user_request.AssociateUserRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.associate_user_request
+
+            return capo_license_manager_user_subscriptions.types.associate_user_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssociateUser", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.associate_user_request.AssociateUserRequest = {
             "username": username,
             "instance_id": instance_id,
@@ -304,7 +321,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.create_license_server_endpoint_request.CreateLicenseServerEndpointRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.create_license_server_endpoint_request
+
+            return capo_license_manager_user_subscriptions.types.create_license_server_endpoint_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateLicenseServerEndpoint", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.create_license_server_endpoint_request.CreateLicenseServerEndpointRequest = {
             "identity_provider_arn": identity_provider_arn,
             "license_server_settings": license_server_settings,
@@ -361,7 +390,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseServerEndpoint")
+        )
         input_: capo_license_manager_user_subscriptions.types.delete_license_server_endpoint_request.DeleteLicenseServerEndpointRequest = {
             "license_server_endpoint_arn": license_server_endpoint_arn,
             "server_type": server_type,
@@ -422,7 +453,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterIdentityProvider")
+        )
         input_: capo_license_manager_user_subscriptions.types.deregister_identity_provider_request.DeregisterIdentityProviderRequest = {}
         if identity_provider is not None:
             input_["identity_provider"] = identity_provider
@@ -490,7 +523,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateUser")
+        )
         input_: capo_license_manager_user_subscriptions.types.disassociate_user_request.DisassociateUserRequest = {}
         if username is not None:
             input_["username"] = username
@@ -558,7 +593,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdentityProviders")
+        )
         input_: capo_license_manager_user_subscriptions.types.list_identity_providers_request.ListIdentityProvidersRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -651,7 +688,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListInstances")
+        )
         input_: capo_license_manager_user_subscriptions.types.list_instances_request.ListInstancesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -743,7 +782,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLicenseServerEndpoints")
+        )
         input_: capo_license_manager_user_subscriptions.types.list_license_server_endpoints_request.ListLicenseServerEndpointsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -840,7 +881,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProductSubscriptions")
+        )
         input_: capo_license_manager_user_subscriptions.types.list_product_subscriptions_request.ListProductSubscriptionsRequest = {
             "identity_provider": identity_provider
         }
@@ -929,7 +972,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_license_manager_user_subscriptions.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.list_tags_for_resource_response
+
+            return capo_license_manager_user_subscriptions.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_license_manager_user_subscriptions.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -993,7 +1048,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListUserAssociations")
+        )
         input_: capo_license_manager_user_subscriptions.types.list_user_associations_request.ListUserAssociationsRequest = {
             "instance_id": instance_id,
             "identity_provider": identity_provider,
@@ -1095,7 +1152,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.register_identity_provider_request.RegisterIdentityProviderRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.register_identity_provider_request
+
+            return capo_license_manager_user_subscriptions.types.register_identity_provider_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("RegisterIdentityProvider", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.register_identity_provider_request.RegisterIdentityProviderRequest = {
             "identity_provider": identity_provider,
             "product": product,
@@ -1162,7 +1231,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.start_product_subscription_request.StartProductSubscriptionRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.start_product_subscription_request
+
+            return capo_license_manager_user_subscriptions.types.start_product_subscription_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartProductSubscription", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.start_product_subscription_request.StartProductSubscriptionRequest = {
             "username": username,
             "identity_provider": identity_provider,
@@ -1232,7 +1313,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopProductSubscription")
+        )
         input_: capo_license_manager_user_subscriptions.types.stop_product_subscription_request.StopProductSubscriptionRequest = {}
         if username is not None:
             input_["username"] = username
@@ -1290,7 +1373,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.tag_resource_request
+
+            return capo_license_manager_user_subscriptions.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1340,7 +1435,19 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_license_manager_user_subscriptions.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_license_manager_user_subscriptions.types.untag_resource_request
+
+            return capo_license_manager_user_subscriptions.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_license_manager_user_subscriptions.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1399,7 +1506,9 @@ class AsyncLicenseManagerUserSubscriptionsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdentityProviderSettings")
+        )
         input_: capo_license_manager_user_subscriptions.types.update_identity_provider_settings_request.UpdateIdentityProviderSettingsRequest = {
             "update_settings": update_settings
         }

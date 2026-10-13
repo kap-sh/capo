@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CustomInstruction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> CustomInstruction:
         out["inline_custom_instruction"] = (
             capo_quicksight.types.inline_custom_instruction.deserialize_json(
                 data["InlineCustomInstruction"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CustomInstruction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_custom_instruction" in value:
+        import capo_quicksight.types.inline_custom_instruction
+
+        out["inline_custom_instruction"] = (
+            capo_quicksight.types.inline_custom_instruction.redact_sensitive(
+                value["inline_custom_instruction"]
             )
         )
     return out

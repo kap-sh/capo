@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeInlineAgentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -356,6 +356,59 @@ def deserialize_json(data: dict) -> InvokeInlineAgentRequest:
         out["custom_orchestration"] = (
             capo_bedrock_agent_runtime.types.custom_orchestration.deserialize_json(
                 data["customOrchestration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: InvokeInlineAgentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "instruction" in value:
+        out["instruction"] = "*** Sensitive Data Redacted ***"
+    if "action_groups" in value:
+        import capo_bedrock_agent_runtime.types.agent_action_groups
+
+        out["action_groups"] = (
+            capo_bedrock_agent_runtime.types.agent_action_groups.redact_sensitive(
+                value["action_groups"]
+            )
+        )
+    if "knowledge_bases" in value:
+        import capo_bedrock_agent_runtime.types.knowledge_bases
+
+        out["knowledge_bases"] = (
+            capo_bedrock_agent_runtime.types.knowledge_bases.redact_sensitive(
+                value["knowledge_bases"]
+            )
+        )
+    if "prompt_override_configuration" in value:
+        out["prompt_override_configuration"] = "*** Sensitive Data Redacted ***"
+    if "collaborator_configurations" in value:
+        import capo_bedrock_agent_runtime.types.collaborator_configurations
+
+        out["collaborator_configurations"] = (
+            capo_bedrock_agent_runtime.types.collaborator_configurations.redact_sensitive(
+                value["collaborator_configurations"]
+            )
+        )
+    if "agent_name" in value:
+        out["agent_name"] = "*** Sensitive Data Redacted ***"
+    if "input_text" in value:
+        out["input_text"] = "*** Sensitive Data Redacted ***"
+    if "inline_session_state" in value:
+        import capo_bedrock_agent_runtime.types.inline_session_state
+
+        out["inline_session_state"] = (
+            capo_bedrock_agent_runtime.types.inline_session_state.redact_sensitive(
+                value["inline_session_state"]
+            )
+        )
+    if "collaborators" in value:
+        import capo_bedrock_agent_runtime.types.collaborators
+
+        out["collaborators"] = (
+            capo_bedrock_agent_runtime.types.collaborators.redact_sensitive(
+                value["collaborators"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#OAuthCustomParameters``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.o_auth_custom_parameters_key
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> OAuthCustomParameters:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: OAuthCustomParameters) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

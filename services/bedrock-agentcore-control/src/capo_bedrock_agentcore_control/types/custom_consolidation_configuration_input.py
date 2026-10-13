@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#CustomConsolidationConfigurationInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -125,3 +125,40 @@ def deserialize_json(data: dict) -> CustomConsolidationConfigurationInput:
         raise DeserializationError(
             "CustomConsolidationConfigurationInput: no recognized variant key"
         )
+
+
+def redact_sensitive(value: CustomConsolidationConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "semanticConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input
+
+        out["semanticConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.semantic_override_consolidation_configuration_input.redact_sensitive(
+                value["semanticConsolidationOverride"]
+            )
+        )
+    if "summaryConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.summary_override_consolidation_configuration_input
+
+        out["summaryConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.summary_override_consolidation_configuration_input.redact_sensitive(
+                value["summaryConsolidationOverride"]
+            )
+        )
+    if "userPreferenceConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.user_preference_override_consolidation_configuration_input
+
+        out["userPreferenceConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.user_preference_override_consolidation_configuration_input.redact_sensitive(
+                value["userPreferenceConsolidationOverride"]
+            )
+        )
+    if "episodicConsolidationOverride" in value:
+        import capo_bedrock_agentcore_control.types.episodic_override_consolidation_configuration_input
+
+        out["episodicConsolidationOverride"] = (
+            capo_bedrock_agentcore_control.types.episodic_override_consolidation_configuration_input.redact_sensitive(
+                value["episodicConsolidationOverride"]
+            )
+        )
+    return out

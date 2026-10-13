@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.mgn#TerminateTargetInstancesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> TerminateTargetInstancesResponse:
         import capo_mgn.types.job
 
         out["job"] = capo_mgn.types.job.deserialize_json(data["job"])
+    return out
+
+
+def redact_sensitive(value: TerminateTargetInstancesResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job" in value:
+        import capo_mgn.types.job
+
+        out["job"] = capo_mgn.types.job.redact_sensitive(value["job"])
     return out

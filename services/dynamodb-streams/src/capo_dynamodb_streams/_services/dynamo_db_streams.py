@@ -19,10 +19,12 @@ from capo_dynamodb_streams._auth._zapros_handler import AuthMiddleware
 from capo_dynamodb_streams._services._aws_config import aws_config
 from capo_dynamodb_streams._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -118,7 +120,9 @@ class DynamoDBStreamsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[DynamoDBStreamsClientConfig] = None
+        self,
+        config_overrides: Optional[DynamoDBStreamsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: DynamoDBStreamsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -126,8 +130,10 @@ class DynamoDBStreamsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -189,7 +195,9 @@ class DynamoDBStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeStream")
+        )
         input_: capo_dynamodb_streams.types.describe_stream_input.DescribeStreamInput = {
             "stream_arn": stream_arn
         }
@@ -246,7 +254,9 @@ class DynamoDBStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRecords")
+        )
         input_: capo_dynamodb_streams.types.get_records_input.GetRecordsInput = {
             "shard_iterator": shard_iterator
         }
@@ -307,7 +317,9 @@ class DynamoDBStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetShardIterator")
+        )
         input_: capo_dynamodb_streams.types.get_shard_iterator_input.GetShardIteratorInput = {
             "stream_arn": stream_arn,
             "shard_id": shard_id,
@@ -369,7 +381,9 @@ class DynamoDBStreamsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStreams")
+        )
         input_: capo_dynamodb_streams.types.list_streams_input.ListStreamsInput = {}
         if table_name is not None:
             input_["table_name"] = table_name

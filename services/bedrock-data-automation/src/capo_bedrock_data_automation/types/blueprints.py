@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#Blueprints``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_data_automation.types.blueprint_summary
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> Blueprints:
             capo_bedrock_data_automation.types.blueprint_summary.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: Blueprints) -> list[Any]:
+    import capo_bedrock_data_automation.types.blueprint_summary
+
+    return [
+        capo_bedrock_data_automation.types.blueprint_summary.redact_sensitive(item)
+        for item in value
+    ]

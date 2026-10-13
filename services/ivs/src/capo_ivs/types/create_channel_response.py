@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#CreateChannelResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,5 +41,20 @@ def deserialize_json(data: dict) -> CreateChannelResponse:
 
         out["stream_key"] = capo_ivs.types.stream_key.deserialize_json(
             data["streamKey"]
+        )
+    return out
+
+
+def redact_sensitive(value: CreateChannelResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel" in value:
+        import capo_ivs.types.channel
+
+        out["channel"] = capo_ivs.types.channel.redact_sensitive(value["channel"])
+    if "stream_key" in value:
+        import capo_ivs.types.stream_key
+
+        out["stream_key"] = capo_ivs.types.stream_key.redact_sensitive(
+            value["stream_key"]
         )
     return out

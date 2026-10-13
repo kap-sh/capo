@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#SalesforceDataSourceConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -61,6 +61,19 @@ def deserialize_json(data: dict) -> SalesforceDataSourceConfiguration:
         out["crawler_configuration"] = (
             capo_bedrock_agent.types.salesforce_crawler_configuration.deserialize_json(
                 data["crawlerConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SalesforceDataSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "crawler_configuration" in value:
+        import capo_bedrock_agent.types.salesforce_crawler_configuration
+
+        out["crawler_configuration"] = (
+            capo_bedrock_agent.types.salesforce_crawler_configuration.redact_sensitive(
+                value["crawler_configuration"]
             )
         )
     return out

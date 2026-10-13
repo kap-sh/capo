@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sagemaker#UpdateWorkforceRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,5 +102,16 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateWorkforceRequest:
             capo_sagemaker.types.workforce_ip_address_type.deserialize_aws_json_1_1(
                 data["IpAddressType"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateWorkforceRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "oidc_config" in value:
+        import capo_sagemaker.types.oidc_config
+
+        out["oidc_config"] = capo_sagemaker.types.oidc_config.redact_sensitive(
+            value["oidc_config"]
         )
     return out

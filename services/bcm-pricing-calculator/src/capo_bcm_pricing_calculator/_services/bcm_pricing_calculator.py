@@ -32,10 +32,12 @@ from capo_bcm_pricing_calculator._resources.awsbcm_pricing_calculator.workload_e
 from capo_bcm_pricing_calculator._services._aws_config import aws_config
 from capo_bcm_pricing_calculator._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -228,7 +230,9 @@ class BCMPricingCalculatorClient:
         self.workload_estimate = WorkloadEstimate(self)
 
     def operation_options(
-        self, config_overrides: Optional[BCMPricingCalculatorClientConfig] = None
+        self,
+        config_overrides: Optional[BCMPricingCalculatorClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BCMPricingCalculatorClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -236,8 +240,10 @@ class BCMPricingCalculatorClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -281,7 +287,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPreferences")
+        )
         input_: capo_bcm_pricing_calculator.types.get_preferences_request.GetPreferencesRequest = {}
 
         response = execute_pipeline(
@@ -326,7 +334,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_bcm_pricing_calculator.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -376,7 +386,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_bcm_pricing_calculator.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -426,7 +438,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_bcm_pricing_calculator.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "tag_keys": tag_keys,
@@ -485,7 +499,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePreferences")
+        )
         input_: capo_bcm_pricing_calculator.types.update_preferences_request.UpdatePreferencesRequest = {}
         if management_account_rate_type_selections is not None:
             input_["management_account_rate_type_selections"] = (
@@ -552,7 +568,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_estimate_request.CreateBillEstimateRequest = {
             "bill_scenario_id": bill_scenario_id,
             "name": name,
@@ -606,7 +624,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_estimate_request.GetBillEstimateRequest = {
             "identifier": identifier
         }
@@ -661,7 +681,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_estimate_request.UpdateBillEstimateRequest = {
             "identifier": identifier
         }
@@ -713,7 +735,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBillEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_estimate_request.DeleteBillEstimateRequest = {
             "identifier": identifier
         }
@@ -778,7 +802,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimates_request.ListBillEstimatesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -879,7 +905,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillEstimateCommitments")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimate_commitments_request.ListBillEstimateCommitmentsRequest = {
             "bill_estimate_id": bill_estimate_id
         }
@@ -966,7 +994,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBillEstimateInputCommitmentModifications"),
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimate_input_commitment_modifications_request.ListBillEstimateInputCommitmentModificationsRequest = {
             "bill_estimate_id": bill_estimate_id
         }
@@ -1057,7 +1088,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBillEstimateInputUsageModifications"),
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimate_input_usage_modifications_request.ListBillEstimateInputUsageModificationsRequest = {
             "bill_estimate_id": bill_estimate_id
         }
@@ -1154,7 +1188,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillEstimateLineItems")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_estimate_line_items_request.ListBillEstimateLineItemsRequest = {
             "bill_estimate_id": bill_estimate_id
         }
@@ -1254,7 +1290,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.create_bill_scenario_request.CreateBillScenarioRequest = {
             "name": name
         }
@@ -1313,7 +1351,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.get_bill_scenario_request.GetBillScenarioRequest = {
             "identifier": identifier
         }
@@ -1376,7 +1416,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.update_bill_scenario_request.UpdateBillScenarioRequest = {
             "identifier": identifier
         }
@@ -1434,7 +1476,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBillScenario")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_bill_scenario_request.DeleteBillScenarioRequest = {
             "identifier": identifier
         }
@@ -1499,7 +1543,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillScenarios")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_scenarios_request.ListBillScenariosRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -1600,7 +1646,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListBillScenarioCommitmentModifications"),
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_scenario_commitment_modifications_request.ListBillScenarioCommitmentModificationsRequest = {
             "bill_scenario_id": bill_scenario_id
         }
@@ -1686,7 +1735,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchCreateBillScenarioCommitmentModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_create_bill_scenario_commitment_modification_request.BatchCreateBillScenarioCommitmentModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "commitment_modifications": commitment_modifications,
@@ -1741,7 +1793,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteBillScenarioCommitmentModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_delete_bill_scenario_commitment_modification_request.BatchDeleteBillScenarioCommitmentModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "ids": ids,
@@ -1793,7 +1848,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateBillScenarioCommitmentModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_update_bill_scenario_commitment_modification_request.BatchUpdateBillScenarioCommitmentModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "commitment_modifications": commitment_modifications,
@@ -1854,7 +1912,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBillScenarioUsageModifications")
+        )
         input_: capo_bcm_pricing_calculator.types.list_bill_scenario_usage_modifications_request.ListBillScenarioUsageModificationsRequest = {
             "bill_scenario_id": bill_scenario_id
         }
@@ -1947,7 +2007,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchCreateBillScenarioUsageModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_create_bill_scenario_usage_modification_request.BatchCreateBillScenarioUsageModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "usage_modifications": usage_modifications,
@@ -2003,7 +2066,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchDeleteBillScenarioUsageModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_delete_bill_scenario_usage_modification_request.BatchDeleteBillScenarioUsageModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "ids": ids,
@@ -2056,7 +2122,10 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchUpdateBillScenarioUsageModification"),
+        )
         input_: capo_bcm_pricing_calculator.types.batch_update_bill_scenario_usage_modification_request.BatchUpdateBillScenarioUsageModificationRequest = {
             "bill_scenario_id": bill_scenario_id,
             "usage_modifications": usage_modifications,
@@ -2116,7 +2185,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.create_workload_estimate_request.CreateWorkloadEstimateRequest = {
             "name": name
         }
@@ -2171,7 +2242,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.get_workload_estimate_request.GetWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -2226,7 +2299,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.update_workload_estimate_request.UpdateWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -2277,7 +2352,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWorkloadEstimate")
+        )
         input_: capo_bcm_pricing_calculator.types.delete_workload_estimate_request.DeleteWorkloadEstimateRequest = {
             "identifier": identifier
         }
@@ -2342,7 +2419,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloadEstimates")
+        )
         input_: capo_bcm_pricing_calculator.types.list_workload_estimates_request.ListWorkloadEstimatesRequest = {}
         if created_at_filter is not None:
             input_["created_at_filter"] = created_at_filter
@@ -2447,7 +2526,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListWorkloadEstimateUsage")
+        )
         input_: capo_bcm_pricing_calculator.types.list_workload_estimate_usage_request.ListWorkloadEstimateUsageRequest = {
             "workload_estimate_id": workload_estimate_id
         }
@@ -2540,7 +2621,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchCreateWorkloadEstimateUsage")
+        )
         input_: capo_bcm_pricing_calculator.types.batch_create_workload_estimate_usage_request.BatchCreateWorkloadEstimateUsageRequest = {
             "workload_estimate_id": workload_estimate_id,
             "usage": usage,
@@ -2595,7 +2678,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteWorkloadEstimateUsage")
+        )
         input_: capo_bcm_pricing_calculator.types.batch_delete_workload_estimate_usage_request.BatchDeleteWorkloadEstimateUsageRequest = {
             "workload_estimate_id": workload_estimate_id,
             "ids": ids,
@@ -2647,7 +2732,9 @@ class BCMPricingCalculatorClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateWorkloadEstimateUsage")
+        )
         input_: capo_bcm_pricing_calculator.types.batch_update_workload_estimate_usage_request.BatchUpdateWorkloadEstimateUsageRequest = {
             "workload_estimate_id": workload_estimate_id,
             "usage": usage,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesinstances#BlockDeviceMappings``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workspaces_instances.types.block_device_mapping_request
@@ -37,3 +37,14 @@ def deserialize_aws_json_1_0(data: list) -> BlockDeviceMappings:
             )
         )
     return out
+
+
+def redact_sensitive(value: BlockDeviceMappings) -> list[Any]:
+    import capo_workspaces_instances.types.block_device_mapping_request
+
+    return [
+        capo_workspaces_instances.types.block_device_mapping_request.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#UpdateMembershipRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,4 +95,19 @@ def deserialize_json(data: dict) -> UpdateMembershipRequest:
         )
     if data.get("undoMembershipCancellation") is not None:
         out["undo_membership_cancellation"] = data["undoMembershipCancellation"]
+    return out
+
+
+def redact_sensitive(value: UpdateMembershipRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "membership_name" in value:
+        out["membership_name"] = "*** Sensitive Data Redacted ***"
+    if "incident_response_team" in value:
+        import capo_security_ir.types.incident_response_team
+
+        out["incident_response_team"] = (
+            capo_security_ir.types.incident_response_team.redact_sensitive(
+                value["incident_response_team"]
+            )
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#BatchUpdateMemoryRecordsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,4 +43,17 @@ def deserialize_json(data: dict) -> BatchUpdateMemoryRecordsInput:
         )
     else:
         raise DeserializationError("BatchUpdateMemoryRecordsInput.records required")
+    return out
+
+
+def redact_sensitive(value: BatchUpdateMemoryRecordsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "records" in value:
+        import capo_bedrock_agentcore.types.memory_records_update_input_list
+
+        out["records"] = (
+            capo_bedrock_agentcore.types.memory_records_update_input_list.redact_sensitive(
+                value["records"]
+            )
+        )
     return out

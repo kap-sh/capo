@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.frauddetector#UpdateRuleVersionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -100,4 +100,11 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateRuleVersionRequest:
         out["tags"] = capo_frauddetector.types.tag_list.deserialize_aws_json_1_1(
             data["tags"]
         )
+    return out
+
+
+def redact_sensitive(value: UpdateRuleVersionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "expression" in value:
+        out["expression"] = "*** Sensitive Data Redacted ***"
     return out

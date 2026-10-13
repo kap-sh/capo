@@ -21,10 +21,12 @@ from capo_personalize._pagination import resolve_path as _resolve_path
 from capo_personalize._services._aws_config import aws_config
 from capo_personalize._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -291,7 +293,9 @@ class PersonalizeClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[PersonalizeClientConfig] = None
+        self,
+        config_overrides: Optional[PersonalizeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PersonalizeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -299,8 +303,10 @@ class PersonalizeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -382,7 +388,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_batch_inference_job_request.CreateBatchInferenceJobRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_batch_inference_job_request
+
+            return capo_personalize.types.create_batch_inference_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBatchInferenceJob", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_batch_inference_job_request.CreateBatchInferenceJobRequest = {
             "job_name": job_name,
             "solution_version_arn": solution_version_arn,
@@ -462,7 +480,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_batch_segment_job_request.CreateBatchSegmentJobRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_batch_segment_job_request
+
+            return capo_personalize.types.create_batch_segment_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBatchSegmentJob", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_batch_segment_job_request.CreateBatchSegmentJobRequest = {
             "job_name": job_name,
             "solution_version_arn": solution_version_arn,
@@ -532,7 +562,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_campaign_request.CreateCampaignRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_campaign_request
+
+            return capo_personalize.types.create_campaign_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCampaign", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_campaign_request.CreateCampaignRequest = {
             "name": name,
             "solution_version_arn": solution_version_arn,
@@ -595,7 +637,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_data_deletion_job_request.CreateDataDeletionJobRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_data_deletion_job_request
+
+            return capo_personalize.types.create_data_deletion_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataDeletionJob", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_data_deletion_job_request.CreateDataDeletionJobRequest = {
             "job_name": job_name,
             "dataset_group_arn": dataset_group_arn,
@@ -656,7 +710,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_dataset_request.CreateDatasetRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_dataset_request
+
+            return capo_personalize.types.create_dataset_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDataset", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_dataset_request.CreateDatasetRequest = {
             "name": name,
             "schema_arn": schema_arn,
@@ -721,7 +787,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_dataset_export_job_request.CreateDatasetExportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_dataset_export_job_request
+
+            return capo_personalize.types.create_dataset_export_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDatasetExportJob", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_dataset_export_job_request.CreateDatasetExportJobRequest = {
             "job_name": job_name,
             "dataset_arn": dataset_arn,
@@ -782,7 +860,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_dataset_group_request.CreateDatasetGroupRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_dataset_group_request
+
+            return capo_personalize.types.create_dataset_group_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDatasetGroup", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_dataset_group_request.CreateDatasetGroupRequest = {
             "name": name
         }
@@ -852,7 +942,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_dataset_import_job_request.CreateDatasetImportJobRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_dataset_import_job_request
+
+            return capo_personalize.types.create_dataset_import_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDatasetImportJob", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_dataset_import_job_request.CreateDatasetImportJobRequest = {
             "job_name": job_name,
             "dataset_arn": dataset_arn,
@@ -916,7 +1018,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_event_tracker_request.CreateEventTrackerRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_event_tracker_request
+
+            return capo_personalize.types.create_event_tracker_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEventTracker", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_event_tracker_request.CreateEventTrackerRequest = {
             "name": name,
             "dataset_group_arn": dataset_group_arn,
@@ -972,7 +1086,17 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_filter_request.CreateFilterRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_filter_request
+
+            return capo_personalize.types.create_filter_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateFilter", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_filter_request.CreateFilterRequest = {
             "name": name,
             "dataset_group_arn": dataset_group_arn,
@@ -1029,7 +1153,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMetricAttribution")
+        )
         input_: capo_personalize.types.create_metric_attribution_request.CreateMetricAttributionRequest = {
             "name": name,
             "dataset_group_arn": dataset_group_arn,
@@ -1090,7 +1216,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_recommender_request.CreateRecommenderRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_recommender_request
+
+            return capo_personalize.types.create_recommender_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateRecommender", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_recommender_request.CreateRecommenderRequest = {
             "name": name,
             "dataset_group_arn": dataset_group_arn,
@@ -1145,7 +1283,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateSchema")
+        )
         input_: capo_personalize.types.create_schema_request.CreateSchemaRequest = {
             "name": name,
             "schema": schema,
@@ -1222,7 +1362,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_solution_request.CreateSolutionRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_solution_request
+
+            return capo_personalize.types.create_solution_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSolution", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_solution_request.CreateSolutionRequest = {
             "name": name,
             "dataset_group_arn": dataset_group_arn,
@@ -1295,7 +1447,21 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.create_solution_version_request.CreateSolutionVersionRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.create_solution_version_request
+
+            return (
+                capo_personalize.types.create_solution_version_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSolutionVersion", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.create_solution_version_request.CreateSolutionVersionRequest = {
             "solution_arn": solution_arn
         }
@@ -1344,7 +1510,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCampaign")
+        )
         input_: capo_personalize.types.delete_campaign_request.DeleteCampaignRequest = {
             "campaign_arn": campaign_arn
         }
@@ -1387,7 +1555,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataset")
+        )
         input_: capo_personalize.types.delete_dataset_request.DeleteDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1430,7 +1600,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDatasetGroup")
+        )
         input_: capo_personalize.types.delete_dataset_group_request.DeleteDatasetGroupRequest = {
             "dataset_group_arn": dataset_group_arn
         }
@@ -1473,7 +1645,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventTracker")
+        )
         input_: capo_personalize.types.delete_event_tracker_request.DeleteEventTrackerRequest = {
             "event_tracker_arn": event_tracker_arn
         }
@@ -1516,7 +1690,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFilter")
+        )
         input_: capo_personalize.types.delete_filter_request.DeleteFilterRequest = {
             "filter_arn": filter_arn
         }
@@ -1559,7 +1735,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMetricAttribution")
+        )
         input_: capo_personalize.types.delete_metric_attribution_request.DeleteMetricAttributionRequest = {
             "metric_attribution_arn": metric_attribution_arn
         }
@@ -1602,7 +1780,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRecommender")
+        )
         input_: capo_personalize.types.delete_recommender_request.DeleteRecommenderRequest = {
             "recommender_arn": recommender_arn
         }
@@ -1645,7 +1825,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSchema")
+        )
         input_: capo_personalize.types.delete_schema_request.DeleteSchemaRequest = {
             "schema_arn": schema_arn
         }
@@ -1688,7 +1870,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSolution")
+        )
         input_: capo_personalize.types.delete_solution_request.DeleteSolutionRequest = {
             "solution_arn": solution_arn
         }
@@ -1732,7 +1916,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAlgorithm")
+        )
         input_: capo_personalize.types.describe_algorithm_request.DescribeAlgorithmRequest = {
             "algorithm_arn": algorithm_arn
         }
@@ -1776,7 +1962,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBatchInferenceJob")
+        )
         input_: capo_personalize.types.describe_batch_inference_job_request.DescribeBatchInferenceJobRequest = {
             "batch_inference_job_arn": batch_inference_job_arn
         }
@@ -1820,7 +2008,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBatchSegmentJob")
+        )
         input_: capo_personalize.types.describe_batch_segment_job_request.DescribeBatchSegmentJobRequest = {
             "batch_segment_job_arn": batch_segment_job_arn
         }
@@ -1864,7 +2054,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCampaign")
+        )
         input_: capo_personalize.types.describe_campaign_request.DescribeCampaignRequest = {
             "campaign_arn": campaign_arn
         }
@@ -1908,7 +2100,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataDeletionJob")
+        )
         input_: capo_personalize.types.describe_data_deletion_job_request.DescribeDataDeletionJobRequest = {
             "data_deletion_job_arn": data_deletion_job_arn
         }
@@ -1952,7 +2146,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataset")
+        )
         input_: capo_personalize.types.describe_dataset_request.DescribeDatasetRequest = {
             "dataset_arn": dataset_arn
         }
@@ -1996,7 +2192,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetExportJob")
+        )
         input_: capo_personalize.types.describe_dataset_export_job_request.DescribeDatasetExportJobRequest = {
             "dataset_export_job_arn": dataset_export_job_arn
         }
@@ -2040,7 +2238,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetGroup")
+        )
         input_: capo_personalize.types.describe_dataset_group_request.DescribeDatasetGroupRequest = {
             "dataset_group_arn": dataset_group_arn
         }
@@ -2084,7 +2284,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDatasetImportJob")
+        )
         input_: capo_personalize.types.describe_dataset_import_job_request.DescribeDatasetImportJobRequest = {
             "dataset_import_job_arn": dataset_import_job_arn
         }
@@ -2128,7 +2330,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventTracker")
+        )
         input_: capo_personalize.types.describe_event_tracker_request.DescribeEventTrackerRequest = {
             "event_tracker_arn": event_tracker_arn
         }
@@ -2172,7 +2376,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFeatureTransformation")
+        )
         input_: capo_personalize.types.describe_feature_transformation_request.DescribeFeatureTransformationRequest = {
             "feature_transformation_arn": feature_transformation_arn
         }
@@ -2216,7 +2422,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_personalize.types.describe_filter_response.DescribeFilterResponse",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.describe_filter_response
+
+            return capo_personalize.types.describe_filter_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFilter", redact_output=_redact_output),
+        )
         input_: capo_personalize.types.describe_filter_request.DescribeFilterRequest = {
             "filter_arn": filter_arn
         }
@@ -2260,7 +2478,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetricAttribution")
+        )
         input_: capo_personalize.types.describe_metric_attribution_request.DescribeMetricAttributionRequest = {
             "metric_attribution_arn": metric_attribution_arn
         }
@@ -2304,7 +2524,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecipe")
+        )
         input_: capo_personalize.types.describe_recipe_request.DescribeRecipeRequest = {
             "recipe_arn": recipe_arn
         }
@@ -2348,7 +2570,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecommender")
+        )
         input_: capo_personalize.types.describe_recommender_request.DescribeRecommenderRequest = {
             "recommender_arn": recommender_arn
         }
@@ -2392,7 +2616,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchema")
+        )
         input_: capo_personalize.types.describe_schema_request.DescribeSchemaRequest = {
             "schema_arn": schema_arn
         }
@@ -2436,7 +2662,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSolution")
+        )
         input_: capo_personalize.types.describe_solution_request.DescribeSolutionRequest = {
             "solution_arn": solution_arn
         }
@@ -2480,7 +2708,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSolutionVersion")
+        )
         input_: capo_personalize.types.describe_solution_version_request.DescribeSolutionVersionRequest = {
             "solution_version_arn": solution_version_arn
         }
@@ -2525,7 +2755,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSolutionMetrics")
+        )
         input_: capo_personalize.types.get_solution_metrics_request.GetSolutionMetricsRequest = {
             "solution_version_arn": solution_version_arn
         }
@@ -2573,7 +2805,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchInferenceJobs")
+        )
         input_: capo_personalize.types.list_batch_inference_jobs_request.ListBatchInferenceJobsRequest = {}
         if solution_version_arn is not None:
             input_["solution_version_arn"] = solution_version_arn
@@ -2648,7 +2882,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBatchSegmentJobs")
+        )
         input_: capo_personalize.types.list_batch_segment_jobs_request.ListBatchSegmentJobsRequest = {}
         if solution_version_arn is not None:
             input_["solution_version_arn"] = solution_version_arn
@@ -2723,7 +2959,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCampaigns")
+        )
         input_: capo_personalize.types.list_campaigns_request.ListCampaignsRequest = {}
         if solution_arn is not None:
             input_["solution_arn"] = solution_arn
@@ -2798,7 +3036,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDataDeletionJobs")
+        )
         input_: capo_personalize.types.list_data_deletion_jobs_request.ListDataDeletionJobsRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -2850,7 +3090,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetExportJobs")
+        )
         input_: capo_personalize.types.list_dataset_export_jobs_request.ListDatasetExportJobsRequest = {}
         if dataset_arn is not None:
             input_["dataset_arn"] = dataset_arn
@@ -2924,7 +3166,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetGroups")
+        )
         input_: capo_personalize.types.list_dataset_groups_request.ListDatasetGroupsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2995,7 +3239,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasetImportJobs")
+        )
         input_: capo_personalize.types.list_dataset_import_jobs_request.ListDatasetImportJobsRequest = {}
         if dataset_arn is not None:
             input_["dataset_arn"] = dataset_arn
@@ -3070,7 +3316,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDatasets")
+        )
         input_: capo_personalize.types.list_datasets_request.ListDatasetsRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3147,7 +3395,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventTrackers")
+        )
         input_: capo_personalize.types.list_event_trackers_request.ListEventTrackersRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3222,7 +3472,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFilters")
+        )
         input_: capo_personalize.types.list_filters_request.ListFiltersRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3297,7 +3549,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetricAttributionMetrics")
+        )
         input_: capo_personalize.types.list_metric_attribution_metrics_request.ListMetricAttributionMetricsRequest = {}
         if metric_attribution_arn is not None:
             input_["metric_attribution_arn"] = metric_attribution_arn
@@ -3372,7 +3626,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMetricAttributions")
+        )
         input_: capo_personalize.types.list_metric_attributions_request.ListMetricAttributionsRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3451,7 +3707,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecipes")
+        )
         input_: capo_personalize.types.list_recipes_request.ListRecipesRequest = {}
         if recipe_provider is not None:
             input_["recipe_provider"] = recipe_provider
@@ -3532,7 +3790,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRecommenders")
+        )
         input_: capo_personalize.types.list_recommenders_request.ListRecommendersRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3604,7 +3864,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_personalize.types.list_schemas_request.ListSchemasRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3675,7 +3937,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolutions")
+        )
         input_: capo_personalize.types.list_solutions_request.ListSolutionsRequest = {}
         if dataset_group_arn is not None:
             input_["dataset_group_arn"] = dataset_group_arn
@@ -3751,7 +4015,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolutionVersions")
+        )
         input_: capo_personalize.types.list_solution_versions_request.ListSolutionVersionsRequest = {}
         if solution_arn is not None:
             input_["solution_arn"] = solution_arn
@@ -3823,7 +4089,21 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_personalize.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.list_tags_for_resource_response
+
+            return (
+                capo_personalize.types.list_tags_for_resource_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_personalize.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -3868,7 +4148,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRecommender")
+        )
         input_: capo_personalize.types.start_recommender_request.StartRecommenderRequest = {
             "recommender_arn": recommender_arn
         }
@@ -3913,7 +4195,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopRecommender")
+        )
         input_: capo_personalize.types.stop_recommender_request.StopRecommenderRequest = {
             "recommender_arn": recommender_arn
         }
@@ -3956,7 +4240,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSolutionVersionCreation")
+        )
         input_: capo_personalize.types.stop_solution_version_creation_request.StopSolutionVersionCreationRequest = {
             "solution_version_arn": solution_version_arn
         }
@@ -4005,7 +4291,17 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.tag_resource_request
+
+            return capo_personalize.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -4054,7 +4350,19 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_personalize.types.untag_resource_request.UntagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_personalize.types.untag_resource_request
+
+            return capo_personalize.types.untag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UntagResource", redact_input=_redact_input),
+        )
         input_: capo_personalize.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -4110,7 +4418,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCampaign")
+        )
         input_: capo_personalize.types.update_campaign_request.UpdateCampaignRequest = {
             "campaign_arn": campaign_arn
         }
@@ -4163,7 +4473,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDataset")
+        )
         input_: capo_personalize.types.update_dataset_request.UpdateDatasetRequest = {
             "dataset_arn": dataset_arn,
             "schema_arn": schema_arn,
@@ -4222,7 +4534,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMetricAttribution")
+        )
         input_: capo_personalize.types.update_metric_attribution_request.UpdateMetricAttributionRequest = {}
         if add_metrics is not None:
             input_["add_metrics"] = add_metrics
@@ -4275,7 +4589,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRecommender")
+        )
         input_: capo_personalize.types.update_recommender_request.UpdateRecommenderRequest = {
             "recommender_arn": recommender_arn,
             "recommender_config": recommender_config,
@@ -4334,7 +4650,9 @@ class PersonalizeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSolution")
+        )
         input_: capo_personalize.types.update_solution_request.UpdateSolutionRequest = {
             "solution_arn": solution_arn
         }

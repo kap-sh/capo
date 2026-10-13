@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#DataSourceRunActivity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -148,4 +148,15 @@ def deserialize_json(data: dict) -> DataSourceRunActivity:
         )
     else:
         raise DeserializationError("DataSourceRunActivity.updated_at required")
+    return out
+
+
+def redact_sensitive(value: DataSourceRunActivity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "database" in value:
+        out["database"] = "*** Sensitive Data Redacted ***"
+    if "technical_name" in value:
+        out["technical_name"] = "*** Sensitive Data Redacted ***"
+    if "technical_description" in value:
+        out["technical_description"] = "*** Sensitive Data Redacted ***"
     return out

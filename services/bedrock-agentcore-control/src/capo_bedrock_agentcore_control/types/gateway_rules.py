@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#GatewayRules``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.gateway_rule_detail
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> GatewayRules:
             )
         )
     return out
+
+
+def redact_sensitive(value: GatewayRules) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.gateway_rule_detail
+
+    return [
+        capo_bedrock_agentcore_control.types.gateway_rule_detail.redact_sensitive(item)
+        for item in value
+    ]

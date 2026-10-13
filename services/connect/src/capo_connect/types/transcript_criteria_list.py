@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#TranscriptCriteriaList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_connect.types.transcript_criteria
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> TranscriptCriteriaList:
             continue
         out.append(capo_connect.types.transcript_criteria.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: TranscriptCriteriaList) -> list[Any]:
+    import capo_connect.types.transcript_criteria
+
+    return [
+        capo_connect.types.transcript_criteria.redact_sensitive(item) for item in value
+    ]

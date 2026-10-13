@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmessaging#ChannelModerator``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,5 +72,22 @@ def deserialize_json(data: dict) -> ChannelModerator:
 
         out["created_by"] = capo_chime_sdk_messaging.types.identity.deserialize_json(
             data["CreatedBy"]
+        )
+    return out
+
+
+def redact_sensitive(value: ChannelModerator) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "moderator" in value:
+        import capo_chime_sdk_messaging.types.identity
+
+        out["moderator"] = capo_chime_sdk_messaging.types.identity.redact_sensitive(
+            value["moderator"]
+        )
+    if "created_by" in value:
+        import capo_chime_sdk_messaging.types.identity
+
+        out["created_by"] = capo_chime_sdk_messaging.types.identity.redact_sensitive(
+            value["created_by"]
         )
     return out

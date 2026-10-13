@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_odb._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -116,7 +117,9 @@ class OdbNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateOdbNetwork")
+        )
         input_: capo_odb.types.create_odb_network_input.CreateOdbNetworkInput = {
             "display_name": display_name,
             "client_subnet_cidr": client_subnet_cidr,
@@ -197,7 +200,9 @@ class OdbNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOdbNetwork")
+        )
         input_: capo_odb.types.get_odb_network_input.GetOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -285,7 +290,9 @@ class OdbNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateOdbNetwork")
+        )
         input_: capo_odb.types.update_odb_network_input.UpdateOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -362,7 +369,9 @@ class OdbNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOdbNetwork")
+        )
         input_: capo_odb.types.delete_odb_network_input.DeleteOdbNetworkInput = {
             "odb_network_id": odb_network_id,
             "delete_associated_resources": delete_associated_resources,
@@ -411,7 +420,9 @@ class OdbNetworkResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOdbNetworks")
+        )
         input_: capo_odb.types.list_odb_networks_input.ListOdbNetworksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -509,7 +520,9 @@ class AsyncOdbNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateOdbNetwork")
+        )
         input_: capo_odb.types.create_odb_network_input.CreateOdbNetworkInput = {
             "display_name": display_name,
             "client_subnet_cidr": client_subnet_cidr,
@@ -591,7 +604,9 @@ class AsyncOdbNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetOdbNetwork")
+        )
         input_: capo_odb.types.get_odb_network_input.GetOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -680,7 +695,9 @@ class AsyncOdbNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateOdbNetwork")
+        )
         input_: capo_odb.types.update_odb_network_input.UpdateOdbNetworkInput = {
             "odb_network_id": odb_network_id
         }
@@ -758,7 +775,9 @@ class AsyncOdbNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteOdbNetwork")
+        )
         input_: capo_odb.types.delete_odb_network_input.DeleteOdbNetworkInput = {
             "odb_network_id": odb_network_id,
             "delete_associated_resources": delete_associated_resources,
@@ -808,7 +827,9 @@ class AsyncOdbNetworkResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListOdbNetworks")
+        )
         input_: capo_odb.types.list_odb_networks_input.ListOdbNetworksInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

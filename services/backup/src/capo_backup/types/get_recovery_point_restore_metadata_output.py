@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#GetRecoveryPointRestoreMetadataOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,11 @@ def deserialize_json(data: dict) -> GetRecoveryPointRestoreMetadataOutput:
         )
     if data.get("ResourceType") is not None:
         out["resource_type"] = data["ResourceType"]
+    return out
+
+
+def redact_sensitive(value: GetRecoveryPointRestoreMetadataOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "restore_metadata" in value:
+        out["restore_metadata"] = "*** Sensitive Data Redacted ***"
     return out

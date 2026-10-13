@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#IngestPayloadType``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -65,3 +65,18 @@ def deserialize_json(data: dict) -> IngestPayloadType:
         }
     else:
         raise DeserializationError("IngestPayloadType: no recognized variant key")
+
+
+def redact_sensitive(value: IngestPayloadType) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "conversational" in value:
+        import capo_bedrock_agentcore.types.conversational
+
+        out["conversational"] = (
+            capo_bedrock_agentcore.types.conversational.redact_sensitive(
+                value["conversational"]
+            )
+        )
+    if "json" in value:
+        out["json"] = "*** Sensitive Data Redacted ***"
+    return out

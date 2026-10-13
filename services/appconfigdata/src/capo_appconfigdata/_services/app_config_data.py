@@ -22,10 +22,12 @@ from capo_appconfigdata._resources.app_config_data.configuration_session import 
 from capo_appconfigdata._services._aws_config import aws_config
 from capo_appconfigdata._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -115,7 +117,9 @@ class AppConfigDataClient:
         self.configuration_session = ConfigurationSession(self)
 
     def operation_options(
-        self, config_overrides: Optional[AppConfigDataClientConfig] = None
+        self,
+        config_overrides: Optional[AppConfigDataClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: AppConfigDataClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -123,8 +127,10 @@ class AppConfigDataClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -176,7 +182,19 @@ class AppConfigDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_appconfigdata.types.get_latest_configuration_response.GetLatestConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_appconfigdata.types.get_latest_configuration_response
+
+            return capo_appconfigdata.types.get_latest_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetLatestConfiguration", redact_output=_redact_output),
+        )
         input_: capo_appconfigdata.types.get_latest_configuration_request.GetLatestConfigurationRequest = {
             "configuration_token": configuration_token
         }
@@ -230,7 +248,9 @@ class AppConfigDataClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartConfigurationSession")
+        )
         input_: capo_appconfigdata.types.start_configuration_session_request.StartConfigurationSessionRequest = {
             "application_identifier": application_identifier,
             "environment_identifier": environment_identifier,

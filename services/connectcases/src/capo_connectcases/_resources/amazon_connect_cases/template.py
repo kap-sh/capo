@@ -7,6 +7,7 @@ import capo_connectcases._auth._sigv4
 from capo_connectcases._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -112,7 +113,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_connectcases.types.create_template_request.CreateTemplateRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -174,7 +177,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_connectcases.types.get_template_request.GetTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -252,7 +257,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_connectcases.types.update_template_request.UpdateTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -317,7 +324,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_connectcases.types.delete_template_request.DeleteTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -373,7 +382,9 @@ class Template:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_connectcases.types.list_templates_request.ListTemplatesRequest = {
             "domain_id": domain_id
         }
@@ -460,7 +471,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_connectcases.types.create_template_request.CreateTemplateRequest = {
             "domain_id": domain_id,
             "name": name,
@@ -523,7 +536,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_connectcases.types.get_template_request.GetTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -602,7 +617,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_connectcases.types.update_template_request.UpdateTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -668,7 +685,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_connectcases.types.delete_template_request.DeleteTemplateRequest = {
             "domain_id": domain_id,
             "template_id": template_id,
@@ -725,7 +744,9 @@ class AsyncTemplate:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_connectcases.types.list_templates_request.ListTemplatesRequest = {
             "domain_id": domain_id
         }

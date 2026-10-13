@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#PipeTargetEcsTaskParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -194,4 +194,47 @@ def deserialize_json(data: dict) -> PipeTargetEcsTaskParameters:
         import capo_pipes.types.tag_list
 
         out["tags"] = capo_pipes.types.tag_list.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: PipeTargetEcsTaskParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "network_configuration" in value:
+        import capo_pipes.types.network_configuration
+
+        out["network_configuration"] = (
+            capo_pipes.types.network_configuration.redact_sensitive(
+                value["network_configuration"]
+            )
+        )
+    if "capacity_provider_strategy" in value:
+        import capo_pipes.types.capacity_provider_strategy
+
+        out["capacity_provider_strategy"] = (
+            capo_pipes.types.capacity_provider_strategy.redact_sensitive(
+                value["capacity_provider_strategy"]
+            )
+        )
+    if "placement_constraints" in value:
+        import capo_pipes.types.placement_constraints
+
+        out["placement_constraints"] = (
+            capo_pipes.types.placement_constraints.redact_sensitive(
+                value["placement_constraints"]
+            )
+        )
+    if "placement_strategy" in value:
+        import capo_pipes.types.placement_strategies
+
+        out["placement_strategy"] = (
+            capo_pipes.types.placement_strategies.redact_sensitive(
+                value["placement_strategy"]
+            )
+        )
+    if "reference_id" in value:
+        out["reference_id"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        import capo_pipes.types.tag_list
+
+        out["tags"] = capo_pipes.types.tag_list.redact_sensitive(value["tags"])
     return out

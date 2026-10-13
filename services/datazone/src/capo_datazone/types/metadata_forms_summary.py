@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#MetadataFormsSummary``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_datazone.types.metadata_form_summary
@@ -29,3 +29,12 @@ def deserialize_json(data: list) -> MetadataFormsSummary:
             continue
         out.append(capo_datazone.types.metadata_form_summary.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: MetadataFormsSummary) -> list[Any]:
+    import capo_datazone.types.metadata_form_summary
+
+    return [
+        capo_datazone.types.metadata_form_summary.redact_sensitive(item)
+        for item in value
+    ]

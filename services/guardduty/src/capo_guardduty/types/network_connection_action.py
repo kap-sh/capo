@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#NetworkConnectionAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,6 +122,27 @@ def deserialize_json(data: dict) -> NetworkConnectionAction:
         out["remote_port_details"] = (
             capo_guardduty.types.remote_port_details.deserialize_json(
                 data["remotePortDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: NetworkConnectionAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "local_ip_details" in value:
+        import capo_guardduty.types.local_ip_details
+
+        out["local_ip_details"] = (
+            capo_guardduty.types.local_ip_details.redact_sensitive(
+                value["local_ip_details"]
+            )
+        )
+    if "remote_ip_details" in value:
+        import capo_guardduty.types.remote_ip_details
+
+        out["remote_ip_details"] = (
+            capo_guardduty.types.remote_ip_details.redact_sensitive(
+                value["remote_ip_details"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityir#CaseAttachmentsList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_security_ir.types.case_attachment_attributes
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> CaseAttachmentsList:
             capo_security_ir.types.case_attachment_attributes.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: CaseAttachmentsList) -> list[Any]:
+    import capo_security_ir.types.case_attachment_attributes
+
+    return [
+        capo_security_ir.types.case_attachment_attributes.redact_sensitive(item)
+        for item in value
+    ]

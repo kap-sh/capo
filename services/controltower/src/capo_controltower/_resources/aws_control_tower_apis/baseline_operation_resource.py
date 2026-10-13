@@ -7,6 +7,7 @@ import capo_controltower._auth._sigv4
 from capo_controltower._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -65,7 +66,9 @@ class BaselineOperationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBaselineOperation")
+        )
         input_: capo_controltower.types.get_baseline_operation_input.GetBaselineOperationInput = {
             "operation_identifier": operation_identifier
         }
@@ -118,7 +121,9 @@ class AsyncBaselineOperationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetBaselineOperation")
+        )
         input_: capo_controltower.types.get_baseline_operation_input.GetBaselineOperationInput = {
             "operation_identifier": operation_identifier
         }

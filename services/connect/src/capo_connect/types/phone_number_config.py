@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#PhoneNumberConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,11 @@ def deserialize_json(data: dict) -> PhoneNumberConfig:
         raise DeserializationError("PhoneNumberConfig.phone_type required")
     if data.get("PhoneNumber") is not None:
         out["phone_number"] = data["PhoneNumber"]
+    return out
+
+
+def redact_sensitive(value: PhoneNumberConfig) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

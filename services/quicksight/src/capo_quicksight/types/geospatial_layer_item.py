@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeospatialLayerItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -162,6 +162,27 @@ def deserialize_json(data: dict) -> GeospatialLayerItem:
         out["actions"] = (
             capo_quicksight.types.layer_custom_action_list.deserialize_json(
                 data["Actions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GeospatialLayerItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "join_definition" in value:
+        import capo_quicksight.types.geospatial_layer_join_definition
+
+        out["join_definition"] = (
+            capo_quicksight.types.geospatial_layer_join_definition.redact_sensitive(
+                value["join_definition"]
+            )
+        )
+    if "actions" in value:
+        import capo_quicksight.types.layer_custom_action_list
+
+        out["actions"] = (
+            capo_quicksight.types.layer_custom_action_list.redact_sensitive(
+                value["actions"]
             )
         )
     return out

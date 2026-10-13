@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteLeg``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -199,6 +199,69 @@ def deserialize_json(data: dict) -> RouteLeg:
         out["transit_leg_details"] = (
             capo_geo_routes.types.route_transit_leg_details.deserialize_json(
                 data["TransitLegDetails"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: RouteLeg) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ferry_leg_details" in value:
+        import capo_geo_routes.types.route_ferry_leg_details
+
+        out["ferry_leg_details"] = (
+            capo_geo_routes.types.route_ferry_leg_details.redact_sensitive(
+                value["ferry_leg_details"]
+            )
+        )
+    if "geometry" in value:
+        import capo_geo_routes.types.route_leg_geometry
+
+        out["geometry"] = capo_geo_routes.types.route_leg_geometry.redact_sensitive(
+            value["geometry"]
+        )
+    if "pedestrian_leg_details" in value:
+        import capo_geo_routes.types.route_pedestrian_leg_details
+
+        out["pedestrian_leg_details"] = (
+            capo_geo_routes.types.route_pedestrian_leg_details.redact_sensitive(
+                value["pedestrian_leg_details"]
+            )
+        )
+    if "travel_mode" in value:
+        out["travel_mode"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
+    if "vehicle_leg_details" in value:
+        import capo_geo_routes.types.route_vehicle_leg_details
+
+        out["vehicle_leg_details"] = (
+            capo_geo_routes.types.route_vehicle_leg_details.redact_sensitive(
+                value["vehicle_leg_details"]
+            )
+        )
+    if "rental_leg_details" in value:
+        import capo_geo_routes.types.route_rental_leg_details
+
+        out["rental_leg_details"] = (
+            capo_geo_routes.types.route_rental_leg_details.redact_sensitive(
+                value["rental_leg_details"]
+            )
+        )
+    if "taxi_leg_details" in value:
+        import capo_geo_routes.types.route_taxi_leg_details
+
+        out["taxi_leg_details"] = (
+            capo_geo_routes.types.route_taxi_leg_details.redact_sensitive(
+                value["taxi_leg_details"]
+            )
+        )
+    if "transit_leg_details" in value:
+        import capo_geo_routes.types.route_transit_leg_details
+
+        out["transit_leg_details"] = (
+            capo_geo_routes.types.route_transit_leg_details.redact_sensitive(
+                value["transit_leg_details"]
             )
         )
     return out

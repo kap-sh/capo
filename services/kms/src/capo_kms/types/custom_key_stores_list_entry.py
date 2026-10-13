@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.kms#CustomKeyStoresListEntry``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -151,6 +151,19 @@ def deserialize_aws_json_1_1(data: dict) -> CustomKeyStoresListEntry:
         out["xks_proxy_configuration"] = (
             capo_kms.types.xks_proxy_configuration_type.deserialize_aws_json_1_1(
                 data["XksProxyConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CustomKeyStoresListEntry) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "xks_proxy_configuration" in value:
+        import capo_kms.types.xks_proxy_configuration_type
+
+        out["xks_proxy_configuration"] = (
+            capo_kms.types.xks_proxy_configuration_type.redact_sensitive(
+                value["xks_proxy_configuration"]
             )
         )
     return out

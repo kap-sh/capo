@@ -56,10 +56,12 @@ from capo_vpc_lattice._resources.mercury_control_plane.target_group import Targe
 from capo_vpc_lattice._services._aws_config import aws_config
 from capo_vpc_lattice._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -383,7 +385,9 @@ class VPCLatticeClient:
         self.target_group = TargetGroup(self)
 
     def operation_options(
-        self, config_overrides: Optional[VPCLatticeClientConfig] = None
+        self,
+        config_overrides: Optional[VPCLatticeClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: VPCLatticeClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -391,8 +395,10 @@ class VPCLatticeClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -450,7 +456,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchUpdateRule")
+        )
         input_: capo_vpc_lattice.types.batch_update_rule_request.BatchUpdateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -499,7 +507,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAuthPolicy")
+        )
         input_: capo_vpc_lattice.types.delete_auth_policy_request.DeleteAuthPolicyRequest = {
             "resource_identifier": resource_identifier
         }
@@ -546,7 +556,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_vpc_lattice.types.delete_resource_policy_request.DeleteResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -593,7 +605,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAuthPolicy")
+        )
         input_: capo_vpc_lattice.types.get_auth_policy_request.GetAuthPolicyRequest = {
             "resource_identifier": resource_identifier
         }
@@ -642,7 +656,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_vpc_lattice.types.get_resource_policy_request.GetResourcePolicyRequest = {
             "resource_arn": resource_arn
         }
@@ -692,7 +708,10 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListServiceNetworkVpcEndpointAssociations"),
+        )
         input_: capo_vpc_lattice.types.list_service_network_vpc_endpoint_associations_request.ListServiceNetworkVpcEndpointAssociationsRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -765,7 +784,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_vpc_lattice.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -814,7 +835,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAuthPolicy")
+        )
         input_: capo_vpc_lattice.types.put_auth_policy_request.PutAuthPolicyRequest = {
             "resource_identifier": resource_identifier,
             "policy": policy,
@@ -866,7 +889,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_vpc_lattice.types.put_resource_policy_request.PutResourcePolicyRequest = {
             "resource_arn": resource_arn,
             "policy": policy,
@@ -916,7 +941,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_vpc_lattice.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -965,7 +992,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_vpc_lattice.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1026,7 +1055,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.create_access_log_subscription_request.CreateAccessLogSubscriptionRequest = {
             "resource_identifier": resource_identifier,
             "destination_arn": destination_arn,
@@ -1081,7 +1112,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.get_access_log_subscription_request.GetAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -1131,7 +1164,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.update_access_log_subscription_request.UpdateAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier,
             "destination_arn": destination_arn,
@@ -1179,7 +1214,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccessLogSubscription")
+        )
         input_: capo_vpc_lattice.types.delete_access_log_subscription_request.DeleteAccessLogSubscriptionRequest = {
             "access_log_subscription_identifier": access_log_subscription_identifier
         }
@@ -1229,7 +1266,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccessLogSubscriptions")
+        )
         input_: capo_vpc_lattice.types.list_access_log_subscriptions_request.ListAccessLogSubscriptionsRequest = {
             "resource_identifier": resource_identifier
         }
@@ -1310,7 +1349,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDomainVerification")
+        )
         input_: capo_vpc_lattice.types.start_domain_verification_request.StartDomainVerificationRequest = {
             "domain_name": domain_name
         }
@@ -1362,7 +1403,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDomainVerification")
+        )
         input_: capo_vpc_lattice.types.get_domain_verification_request.GetDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -1409,7 +1452,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDomainVerification")
+        )
         input_: capo_vpc_lattice.types.delete_domain_verification_request.DeleteDomainVerificationRequest = {
             "domain_verification_identifier": domain_verification_identifier
         }
@@ -1458,7 +1503,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDomainVerifications")
+        )
         input_: capo_vpc_lattice.types.list_domain_verifications_request.ListDomainVerificationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1544,7 +1591,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateListener")
+        )
         input_: capo_vpc_lattice.types.create_listener_request.CreateListenerRequest = {
             "service_identifier": service_identifier,
             "name": name,
@@ -1603,7 +1652,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetListener")
+        )
         input_: capo_vpc_lattice.types.get_listener_request.GetListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -1657,7 +1708,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateListener")
+        )
         input_: capo_vpc_lattice.types.update_listener_request.UpdateListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -1709,7 +1762,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteListener")
+        )
         input_: capo_vpc_lattice.types.delete_listener_request.DeleteListenerRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -1761,7 +1816,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListListeners")
+        )
         input_: capo_vpc_lattice.types.list_listeners_request.ListListenersRequest = {
             "service_identifier": service_identifier
         }
@@ -1877,7 +1934,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.create_resource_configuration_request.CreateResourceConfigurationRequest = {
             "name": name,
             "type": type,
@@ -1954,7 +2013,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.get_resource_configuration_request.GetResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -2014,7 +2075,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.update_resource_configuration_request.UpdateResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -2072,7 +2135,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.delete_resource_configuration_request.DeleteResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -2132,7 +2197,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceConfigurations")
+        )
         input_: capo_vpc_lattice.types.list_resource_configurations_request.ListResourceConfigurationsRequest = {}
         if resource_gateway_identifier is not None:
             input_["resource_gateway_identifier"] = resource_gateway_identifier
@@ -2222,7 +2289,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceEndpointAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_resource_endpoint_association_request.DeleteResourceEndpointAssociationRequest = {
             "resource_endpoint_association_identifier": resource_endpoint_association_identifier
         }
@@ -2284,7 +2353,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceEndpointAssociations")
+        )
         input_: capo_vpc_lattice.types.list_resource_endpoint_associations_request.ListResourceEndpointAssociationsRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -2406,7 +2477,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.create_resource_gateway_request.CreateResourceGatewayRequest = {
             "name": name
         }
@@ -2470,7 +2543,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceGateway")
+        )
         input_: capo_vpc_lattice.types.get_resource_gateway_request.GetResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -2522,7 +2597,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateResourceGateway")
+        )
         input_: capo_vpc_lattice.types.update_resource_gateway_request.UpdateResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -2572,7 +2649,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceGateway")
+        )
         input_: capo_vpc_lattice.types.delete_resource_gateway_request.DeleteResourceGatewayRequest = {
             "resource_gateway_identifier": resource_gateway_identifier
         }
@@ -2620,7 +2699,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceGateways")
+        )
         input_: capo_vpc_lattice.types.list_resource_gateways_request.ListResourceGatewaysRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2708,7 +2789,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRule")
+        )
         input_: capo_vpc_lattice.types.create_rule_request.CreateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -2769,7 +2852,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRule")
+        )
         input_: capo_vpc_lattice.types.get_rule_request.GetRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -2830,7 +2915,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRule")
+        )
         input_: capo_vpc_lattice.types.update_rule_request.UpdateRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -2890,7 +2977,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRule")
+        )
         input_: capo_vpc_lattice.types.delete_rule_request.DeleteRuleRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -2945,7 +3034,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRules")
+        )
         input_: capo_vpc_lattice.types.list_rules_request.ListRulesRequest = {
             "service_identifier": service_identifier,
             "listener_identifier": listener_identifier,
@@ -3044,7 +3135,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateService")
+        )
         input_: capo_vpc_lattice.types.create_service_request.CreateServiceRequest = {
             "name": name
         }
@@ -3104,7 +3197,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetService")
+        )
         input_: capo_vpc_lattice.types.get_service_request.GetServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -3163,7 +3258,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateService")
+        )
         input_: capo_vpc_lattice.types.update_service_request.UpdateServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -3217,7 +3314,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteService")
+        )
         input_: capo_vpc_lattice.types.delete_service_request.DeleteServiceRequest = {
             "service_identifier": service_identifier
         }
@@ -3265,7 +3364,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServices")
+        )
         input_: capo_vpc_lattice.types.list_services_request.ListServicesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3349,7 +3450,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.create_service_network_request.CreateServiceNetworkRequest = {
             "name": name
         }
@@ -3407,7 +3510,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.get_service_network_request.GetServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -3457,7 +3562,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.update_service_network_request.UpdateServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier,
             "auth_type": auth_type,
@@ -3506,7 +3613,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetwork")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_request.DeleteServiceNetworkRequest = {
             "service_network_identifier": service_network_identifier
         }
@@ -3554,7 +3663,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworks")
+        )
         input_: capo_vpc_lattice.types.list_service_networks_request.ListServiceNetworksRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -3638,7 +3749,10 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateServiceNetworkResourceAssociation"),
+        )
         input_: capo_vpc_lattice.types.create_service_network_resource_association_request.CreateServiceNetworkResourceAssociationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier,
             "service_network_identifier": service_network_identifier,
@@ -3693,7 +3807,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkResourceAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_resource_association_request.GetServiceNetworkResourceAssociationRequest = {
             "service_network_resource_association_identifier": service_network_resource_association_identifier
         }
@@ -3741,7 +3857,10 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteServiceNetworkResourceAssociation"),
+        )
         input_: capo_vpc_lattice.types.delete_service_network_resource_association_request.DeleteServiceNetworkResourceAssociationRequest = {
             "service_network_resource_association_identifier": service_network_resource_association_identifier
         }
@@ -3799,7 +3918,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkResourceAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_resource_associations_request.ListServiceNetworkResourceAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier
@@ -3897,7 +4018,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_service_association_request.CreateServiceNetworkServiceAssociationRequest = {
             "service_identifier": service_identifier,
             "service_network_identifier": service_network_identifier,
@@ -3950,7 +4073,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_service_association_request.GetServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -3998,7 +4123,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkServiceAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_service_association_request.DeleteServiceNetworkServiceAssociationRequest = {
             "service_network_service_association_identifier": service_network_service_association_identifier
         }
@@ -4054,7 +4181,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkServiceAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_service_associations_request.ListServiceNetworkServiceAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier
@@ -4154,7 +4283,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.create_service_network_vpc_association_request.CreateServiceNetworkVpcAssociationRequest = {
             "service_network_identifier": service_network_identifier,
             "vpc_identifier": vpc_identifier,
@@ -4213,7 +4344,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.get_service_network_vpc_association_request.GetServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -4269,7 +4402,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.update_service_network_vpc_association_request.UpdateServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -4323,7 +4458,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteServiceNetworkVpcAssociation")
+        )
         input_: capo_vpc_lattice.types.delete_service_network_vpc_association_request.DeleteServiceNetworkVpcAssociationRequest = {
             "service_network_vpc_association_identifier": service_network_vpc_association_identifier
         }
@@ -4377,7 +4514,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListServiceNetworkVpcAssociations")
+        )
         input_: capo_vpc_lattice.types.list_service_network_vpc_associations_request.ListServiceNetworkVpcAssociationsRequest = {}
         if service_network_identifier is not None:
             input_["service_network_identifier"] = service_network_identifier
@@ -4473,7 +4612,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.create_target_group_request.CreateTargetGroupRequest = {
             "name": name,
             "type": type,
@@ -4528,7 +4669,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTargetGroup")
+        )
         input_: capo_vpc_lattice.types.get_target_group_request.GetTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -4581,7 +4724,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateTargetGroup")
+        )
         input_: capo_vpc_lattice.types.update_target_group_request.UpdateTargetGroupRequest = {
             "target_group_identifier": target_group_identifier,
             "health_check": health_check,
@@ -4631,7 +4776,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteTargetGroup")
+        )
         input_: capo_vpc_lattice.types.delete_target_group_request.DeleteTargetGroupRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -4685,7 +4832,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargetGroups")
+        )
         input_: capo_vpc_lattice.types.list_target_groups_request.ListTargetGroupsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4768,7 +4917,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterTargets")
+        )
         input_: capo_vpc_lattice.types.deregister_targets_request.DeregisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,
@@ -4822,7 +4973,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTargets")
+        )
         input_: capo_vpc_lattice.types.list_targets_request.ListTargetsRequest = {
             "target_group_identifier": target_group_identifier
         }
@@ -4904,7 +5057,9 @@ class VPCLatticeClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterTargets")
+        )
         input_: capo_vpc_lattice.types.register_targets_request.RegisterTargetsRequest = {
             "target_group_identifier": target_group_identifier,
             "targets": targets,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CreateMultipartUploadRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -146,4 +146,15 @@ def serialize_xml(
 
 def deserialize_xml(el: Element) -> CreateMultipartUploadRequest:
     out: CreateMultipartUploadRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: CreateMultipartUploadRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sse_customer_key" in value:
+        out["sse_customer_key"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#AIGuardrailSensitiveInformationPolicyConfig``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,29 @@ def deserialize_json(data: dict) -> AIGuardrailSensitiveInformationPolicyConfig:
         out["regexes_config"] = (
             capo_qconnect.types.guardrail_regexes_config.deserialize_json(
                 data["regexesConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(
+    value: AIGuardrailSensitiveInformationPolicyConfig,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pii_entities_config" in value:
+        import capo_qconnect.types.guardrail_pii_entities_config
+
+        out["pii_entities_config"] = (
+            capo_qconnect.types.guardrail_pii_entities_config.redact_sensitive(
+                value["pii_entities_config"]
+            )
+        )
+    if "regexes_config" in value:
+        import capo_qconnect.types.guardrail_regexes_config
+
+        out["regexes_config"] = (
+            capo_qconnect.types.guardrail_regexes_config.redact_sensitive(
+                value["regexes_config"]
             )
         )
     return out

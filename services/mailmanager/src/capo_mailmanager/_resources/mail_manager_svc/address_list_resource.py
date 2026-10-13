@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_mailmanager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -84,7 +85,9 @@ class AddressListResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddressList")
+        )
         input_: capo_mailmanager.types.create_address_list_request.CreateAddressListRequest = {
             "address_list_name": address_list_name
         }
@@ -135,7 +138,9 @@ class AddressListResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddressList")
+        )
         input_: capo_mailmanager.types.get_address_list_request.GetAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -183,7 +188,9 @@ class AddressListResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddressList")
+        )
         input_: capo_mailmanager.types.delete_address_list_request.DeleteAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -232,7 +239,9 @@ class AddressListResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddressLists")
+        )
         input_: capo_mailmanager.types.list_address_lists_request.ListAddressListsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -295,7 +304,9 @@ class AsyncAddressListResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAddressList")
+        )
         input_: capo_mailmanager.types.create_address_list_request.CreateAddressListRequest = {
             "address_list_name": address_list_name
         }
@@ -347,7 +358,9 @@ class AsyncAddressListResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAddressList")
+        )
         input_: capo_mailmanager.types.get_address_list_request.GetAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -396,7 +409,9 @@ class AsyncAddressListResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAddressList")
+        )
         input_: capo_mailmanager.types.delete_address_list_request.DeleteAddressListRequest = {
             "address_list_id": address_list_id
         }
@@ -446,7 +461,9 @@ class AsyncAddressListResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAddressLists")
+        )
         input_: capo_mailmanager.types.list_address_lists_request.ListAddressListsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

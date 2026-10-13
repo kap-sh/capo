@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateViewContentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -54,4 +54,15 @@ def deserialize_json(data: dict) -> UpdateViewContentRequest:
         )
     else:
         raise DeserializationError("UpdateViewContentRequest.content required")
+    return out
+
+
+def redact_sensitive(value: UpdateViewContentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_connect.types.view_input_content
+
+        out["content"] = capo_connect.types.view_input_content.redact_sensitive(
+            value["content"]
+        )
     return out

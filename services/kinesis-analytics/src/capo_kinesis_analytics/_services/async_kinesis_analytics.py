@@ -22,7 +22,9 @@ from capo_kinesis_analytics._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -166,7 +168,9 @@ class AsyncKinesisAnalyticsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncKinesisAnalyticsClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncKinesisAnalyticsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncKinesisAnalyticsClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -174,8 +178,10 @@ class AsyncKinesisAnalyticsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -233,7 +239,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddApplicationCloudWatchLoggingOption")
+        )
         input_: capo_kinesis_analytics.types.add_application_cloud_watch_logging_option_request.AddApplicationCloudWatchLoggingOptionRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -288,7 +296,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddApplicationInput")
+        )
         input_: capo_kinesis_analytics.types.add_application_input_request.AddApplicationInputRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -344,7 +354,10 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AddApplicationInputProcessingConfiguration"),
+        )
         input_: capo_kinesis_analytics.types.add_application_input_processing_configuration_request.AddApplicationInputProcessingConfigurationRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -399,7 +412,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddApplicationOutput")
+        )
         input_: capo_kinesis_analytics.types.add_application_output_request.AddApplicationOutputRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -453,7 +468,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddApplicationReferenceDataSource")
+        )
         input_: capo_kinesis_analytics.types.add_application_reference_data_source_request.AddApplicationReferenceDataSourceRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -522,7 +539,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_kinesis_analytics.types.create_application_request.CreateApplicationRequest = {
             "application_name": application_name
         }
@@ -583,7 +602,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_kinesis_analytics.types.delete_application_request.DeleteApplicationRequest = {
             "application_name": application_name,
             "create_timestamp": create_timestamp,
@@ -636,7 +657,10 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteApplicationCloudWatchLoggingOption"),
+        )
         input_: capo_kinesis_analytics.types.delete_application_cloud_watch_logging_option_request.DeleteApplicationCloudWatchLoggingOptionRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -690,7 +714,10 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteApplicationInputProcessingConfiguration"),
+        )
         input_: capo_kinesis_analytics.types.delete_application_input_processing_configuration_request.DeleteApplicationInputProcessingConfigurationRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -744,7 +771,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationOutput")
+        )
         input_: capo_kinesis_analytics.types.delete_application_output_request.DeleteApplicationOutputRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -798,7 +827,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteApplicationReferenceDataSource")
+        )
         input_: capo_kinesis_analytics.types.delete_application_reference_data_source_request.DeleteApplicationReferenceDataSourceRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,
@@ -845,7 +876,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplication")
+        )
         input_: capo_kinesis_analytics.types.describe_application_request.DescribeApplicationRequest = {
             "application_name": application_name
         }
@@ -908,7 +941,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DiscoverInputSchema")
+        )
         input_: capo_kinesis_analytics.types.discover_input_schema_request.DiscoverInputSchemaRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -967,7 +1002,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_kinesis_analytics.types.list_applications_request.ListApplicationsRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -1017,7 +1054,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_kinesis_analytics.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1067,7 +1106,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartApplication")
+        )
         input_: capo_kinesis_analytics.types.start_application_request.StartApplicationRequest = {
             "application_name": application_name,
             "input_configurations": input_configurations,
@@ -1116,7 +1157,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopApplication")
+        )
         input_: capo_kinesis_analytics.types.stop_application_request.StopApplicationRequest = {
             "application_name": application_name
         }
@@ -1166,7 +1209,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_kinesis_analytics.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1217,7 +1262,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_kinesis_analytics.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1271,7 +1318,9 @@ class AsyncKinesisAnalyticsClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateApplication")
+        )
         input_: capo_kinesis_analytics.types.update_application_request.UpdateApplicationRequest = {
             "application_name": application_name,
             "current_application_version_id": current_application_version_id,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#ImportSnapshotRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -123,5 +123,16 @@ def deserialize_ec2_query(el: Element) -> ImportSnapshotRequest:
             capo_ec2.types.tag_specification_list.deserialize_ec2_query(
                 child_tag_specifications
             )
+        )
+    return out
+
+
+def redact_sensitive(value: ImportSnapshotRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "disk_container" in value:
+        import capo_ec2.types.snapshot_disk_container
+
+        out["disk_container"] = capo_ec2.types.snapshot_disk_container.redact_sensitive(
+            value["disk_container"]
         )
     return out

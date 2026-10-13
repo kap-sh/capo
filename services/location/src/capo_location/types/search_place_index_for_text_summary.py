@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#SearchPlaceIndexForTextSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,6 +135,35 @@ def deserialize_json(data: dict) -> SearchPlaceIndexForTextSummary:
         out["filter_categories"] = (
             capo_location.types.filter_place_category_list.deserialize_json(
                 data["FilterCategories"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: SearchPlaceIndexForTextSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
+    if "bias_position" in value:
+        out["bias_position"] = "*** Sensitive Data Redacted ***"
+    if "filter_b_box" in value:
+        out["filter_b_box"] = "*** Sensitive Data Redacted ***"
+    if "filter_countries" in value:
+        import capo_location.types.country_code_list
+
+        out["filter_countries"] = (
+            capo_location.types.country_code_list.redact_sensitive(
+                value["filter_countries"]
+            )
+        )
+    if "result_b_box" in value:
+        out["result_b_box"] = "*** Sensitive Data Redacted ***"
+    if "filter_categories" in value:
+        import capo_location.types.filter_place_category_list
+
+        out["filter_categories"] = (
+            capo_location.types.filter_place_category_list.redact_sensitive(
+                value["filter_categories"]
             )
         )
     return out

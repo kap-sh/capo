@@ -25,7 +25,9 @@ from capo_geo_places._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -158,7 +160,9 @@ class AsyncGeoPlacesClient:
         self.provider_resource = AsyncProviderResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[AsyncGeoPlacesClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncGeoPlacesClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncGeoPlacesClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -166,8 +170,10 @@ class AsyncGeoPlacesClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -248,7 +254,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.autocomplete_request.AutocompleteRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.autocomplete_request
+
+            return capo_geo_places.types.autocomplete_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.autocomplete_response.AutocompleteResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.autocomplete_response
+
+            return capo_geo_places.types.autocomplete_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Autocomplete", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.autocomplete_request.AutocompleteRequest = {
             "query_text": query_text
         }
@@ -352,7 +377,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.geocode_request.GeocodeRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.geocode_request
+
+            return capo_geo_places.types.geocode_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.geocode_response.GeocodeResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.geocode_response
+
+            return capo_geo_places.types.geocode_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Geocode", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.geocode_request.GeocodeRequest = {}
         if query_text is not None:
             input_["query_text"] = query_text
@@ -443,7 +487,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.get_place_request.GetPlaceRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.get_place_request
+
+            return capo_geo_places.types.get_place_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.get_place_response.GetPlaceResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.get_place_response
+
+            return capo_geo_places.types.get_place_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetPlace", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.get_place_request.GetPlaceRequest = {
             "place_id": place_id
         }
@@ -534,7 +597,32 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.reverse_geocode_request.ReverseGeocodeRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.reverse_geocode_request
+
+            return capo_geo_places.types.reverse_geocode_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_geo_places.types.reverse_geocode_response.ReverseGeocodeResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.reverse_geocode_response
+
+            return capo_geo_places.types.reverse_geocode_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ReverseGeocode",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_geo_places.types.reverse_geocode_request.ReverseGeocodeRequest = {
             "query_position": query_position
         }
@@ -629,7 +717,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.search_nearby_request.SearchNearbyRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.search_nearby_request
+
+            return capo_geo_places.types.search_nearby_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.search_nearby_response.SearchNearbyResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.search_nearby_response
+
+            return capo_geo_places.types.search_nearby_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchNearby", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.search_nearby_request.SearchNearbyRequest = {
             "query_position": query_position
         }
@@ -730,7 +837,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.search_text_request.SearchTextRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.search_text_request
+
+            return capo_geo_places.types.search_text_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.search_text_response.SearchTextResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.search_text_response
+
+            return capo_geo_places.types.search_text_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "SearchText", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.search_text_request.SearchTextRequest = {}
         if query_text is not None:
             input_["query_text"] = query_text
@@ -827,7 +953,26 @@ class AsyncGeoPlacesClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_geo_places.types.suggest_request.SuggestRequest",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.suggest_request
+
+            return capo_geo_places.types.suggest_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_geo_places.types.suggest_response.SuggestResponse",
+        ) -> dict[str, Any]:
+            import capo_geo_places.types.suggest_response
+
+            return capo_geo_places.types.suggest_response.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "Suggest", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_geo_places.types.suggest_request.SuggestRequest = {
             "query_text": query_text
         }

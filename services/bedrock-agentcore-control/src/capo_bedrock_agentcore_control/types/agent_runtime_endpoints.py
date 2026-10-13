@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#AgentRuntimeEndpoints``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.agent_runtime_endpoint
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> AgentRuntimeEndpoints:
             )
         )
     return out
+
+
+def redact_sensitive(value: AgentRuntimeEndpoints) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.agent_runtime_endpoint
+
+    return [
+        capo_bedrock_agentcore_control.types.agent_runtime_endpoint.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

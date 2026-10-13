@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.socialmessaging#WabaPhoneNumberSetupFinalizationList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_socialmessaging.types.waba_phone_number_setup_finalization
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> WabaPhoneNumberSetupFinalizationList:
             )
         )
     return out
+
+
+def redact_sensitive(value: WabaPhoneNumberSetupFinalizationList) -> list[Any]:
+    import capo_socialmessaging.types.waba_phone_number_setup_finalization
+
+    return [
+        capo_socialmessaging.types.waba_phone_number_setup_finalization.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

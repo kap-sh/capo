@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iot#GetThingConnectivityDataResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,4 +128,21 @@ def deserialize_json(data: dict) -> GetThingConnectivityDataResponse:
         out["session_expiry"] = data["sessionExpiry"]
     if data.get("clientId") is not None:
         out["client_id"] = data["clientId"]
+    return out
+
+
+def redact_sensitive(value: GetThingConnectivityDataResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "thing_name" in value:
+        out["thing_name"] = "*** Sensitive Data Redacted ***"
+    if "source_ip" in value:
+        out["source_ip"] = "*** Sensitive Data Redacted ***"
+    if "source_port" in value:
+        out["source_port"] = "*** Sensitive Data Redacted ***"
+    if "target_ip" in value:
+        out["target_ip"] = "*** Sensitive Data Redacted ***"
+    if "target_port" in value:
+        out["target_port"] = "*** Sensitive Data Redacted ***"
+    if "vpc_endpoint_id" in value:
+        out["vpc_endpoint_id"] = "*** Sensitive Data Redacted ***"
     return out

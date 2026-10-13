@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -121,7 +122,32 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_request
+
+            return capo_redshift_serverless.types.create_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.create_namespace_response.CreateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_response
+
+            return capo_redshift_serverless.types.create_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -190,7 +216,21 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.get_namespace_response.GetNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.get_namespace_response
+
+            return (
+                capo_redshift_serverless.types.get_namespace_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.get_namespace_request.GetNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -282,7 +322,32 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_request
+
+            return capo_redshift_serverless.types.update_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.update_namespace_response.UpdateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_response
+
+            return capo_redshift_serverless.types.update_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -360,7 +425,19 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.delete_namespace_response.DeleteNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.delete_namespace_response
+
+            return capo_redshift_serverless.types.delete_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.delete_namespace_request.DeleteNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -412,7 +489,19 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.list_namespaces_response.ListNamespacesResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.list_namespaces_response
+
+            return capo_redshift_serverless.types.list_namespaces_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNamespaces", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.list_namespaces_request.ListNamespacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -477,7 +566,9 @@ class NamespaceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLakehouseConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_lakehouse_configuration_request.UpdateLakehouseConfigurationRequest = {
             "namespace_name": namespace_name
         }
@@ -573,7 +664,32 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_request
+
+            return capo_redshift_serverless.types.create_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.create_namespace_response.CreateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.create_namespace_response
+
+            return capo_redshift_serverless.types.create_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.create_namespace_request.CreateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -643,7 +759,21 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.get_namespace_response.GetNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.get_namespace_response
+
+            return (
+                capo_redshift_serverless.types.get_namespace_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.get_namespace_request.GetNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -736,7 +866,32 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_request
+
+            return capo_redshift_serverless.types.update_namespace_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_redshift_serverless.types.update_namespace_response.UpdateNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.update_namespace_response
+
+            return capo_redshift_serverless.types.update_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateNamespace",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_redshift_serverless.types.update_namespace_request.UpdateNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -815,7 +970,19 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.delete_namespace_response.DeleteNamespaceResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.delete_namespace_response
+
+            return capo_redshift_serverless.types.delete_namespace_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteNamespace", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.delete_namespace_request.DeleteNamespaceRequest = {
             "namespace_name": namespace_name
         }
@@ -868,7 +1035,19 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_redshift_serverless.types.list_namespaces_response.ListNamespacesResponse",
+        ) -> dict[str, Any]:
+            import capo_redshift_serverless.types.list_namespaces_response
+
+            return capo_redshift_serverless.types.list_namespaces_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListNamespaces", redact_output=_redact_output),
+        )
         input_: capo_redshift_serverless.types.list_namespaces_request.ListNamespacesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -934,7 +1113,9 @@ class AsyncNamespaceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateLakehouseConfiguration")
+        )
         input_: capo_redshift_serverless.types.update_lakehouse_configuration_request.UpdateLakehouseConfigurationRequest = {
             "namespace_name": namespace_name
         }

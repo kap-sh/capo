@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Template``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -84,5 +84,16 @@ def deserialize_json(data: dict) -> Template:
 
         out["created_time"] = capo_quicksight.types.timestamp.deserialize_json(
             data["CreatedTime"]
+        )
+    return out
+
+
+def redact_sensitive(value: Template) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "version" in value:
+        import capo_quicksight.types.template_version
+
+        out["version"] = capo_quicksight.types.template_version.redact_sensitive(
+            value["version"]
         )
     return out

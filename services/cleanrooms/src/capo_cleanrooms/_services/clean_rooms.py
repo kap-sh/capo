@@ -51,10 +51,12 @@ from capo_cleanrooms._resources.aws_bastion_control_plane_service_lambda.privacy
 from capo_cleanrooms._services._aws_config import aws_config
 from capo_cleanrooms._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -475,7 +477,9 @@ class CleanRoomsClient:
         self.privacy_budget_template_resource = PrivacyBudgetTemplateResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[CleanRoomsClientConfig] = None
+        self,
+        config_overrides: Optional[CleanRoomsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CleanRoomsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -483,8 +487,10 @@ class CleanRoomsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -536,7 +542,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_cleanrooms.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -582,7 +590,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_cleanrooms.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -629,7 +639,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_cleanrooms.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -704,7 +716,36 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_input
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_analysis_template_output.CreateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.create_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAnalysisTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_analysis_template_input.CreateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -768,7 +809,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_analysis_template_output.GetAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_analysis_template_output
+
+            return capo_cleanrooms.types.get_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_analysis_template_input.GetAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -822,7 +875,21 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_analysis_template_output.UpdateAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_analysis_template_output
+
+            return (
+                capo_cleanrooms.types.update_analysis_template_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateAnalysisTemplate", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_analysis_template_input.UpdateAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -874,7 +941,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAnalysisTemplate")
+        )
         input_: capo_cleanrooms.types.delete_analysis_template_input.DeleteAnalysisTemplateInput = {
             "membership_identifier": membership_identifier,
             "analysis_template_identifier": analysis_template_identifier,
@@ -928,7 +997,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_analysis_templates_input.ListAnalysisTemplatesInput = {
             "membership_identifier": membership_identifier
         }
@@ -1023,7 +1094,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCollaboration")
+        )
         input_: capo_cleanrooms.types.create_collaboration_input.CreateCollaborationInput = {
             "members": members,
             "name": name,
@@ -1095,7 +1168,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaboration")
+        )
         input_: capo_cleanrooms.types.get_collaboration_input.GetCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1153,7 +1228,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCollaboration")
+        )
         input_: capo_cleanrooms.types.update_collaboration_input.UpdateCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1205,7 +1282,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCollaboration")
+        )
         input_: capo_cleanrooms.types.delete_collaboration_input.DeleteCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1259,7 +1338,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborations")
+        )
         input_: capo_cleanrooms.types.list_collaborations_input.ListCollaborationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1312,7 +1393,21 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.BatchGetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.batch_get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.batch_get_collaboration_analysis_template_input.BatchGetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arns": analysis_template_arns,
@@ -1362,7 +1457,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSchema")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_input.BatchGetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "names": names,
@@ -1412,7 +1509,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_analysis_rule_input.BatchGetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "schema_analysis_rule_requests": schema_analysis_rule_requests,
@@ -1464,7 +1563,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.create_collaboration_change_request_input.CreateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "changes": changes,
@@ -1515,7 +1616,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMember")
+        )
         input_: capo_cleanrooms.types.delete_member_input.DeleteMemberInput = {
             "collaboration_identifier": collaboration_identifier,
             "account_id": account_id,
@@ -1565,7 +1668,21 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_collaboration_analysis_template_output.GetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.get_collaboration_analysis_template_input.GetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arn": analysis_template_arn,
@@ -1615,7 +1732,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.get_collaboration_change_request_input.GetCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,
@@ -1665,7 +1784,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.get_collaboration_configured_audience_model_association_input.GetCollaborationConfiguredAudienceModelAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
@@ -1715,7 +1837,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaborationIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_collaboration_id_namespace_association_input.GetCollaborationIdNamespaceAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "id_namespace_association_identifier": id_namespace_association_identifier,
@@ -1765,7 +1889,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCollaborationPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_collaboration_privacy_budget_template_input.GetCollaborationPrivacyBudgetTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -1815,7 +1941,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchema")
+        )
         input_: capo_cleanrooms.types.get_schema_input.GetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -1867,7 +1995,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_schema_analysis_rule_input.GetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -1922,7 +2052,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborationAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_collaboration_analysis_templates_input.ListCollaborationAnalysisTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1983,7 +2115,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborationChangeRequests")
+        )
         input_: capo_cleanrooms.types.list_collaboration_change_requests_input.ListCollaborationChangeRequestsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2073,7 +2207,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_configured_audience_model_associations_input.ListCollaborationConfiguredAudienceModelAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2158,7 +2295,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationIdNamespaceAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_id_namespace_associations_input.ListCollaborationIdNamespaceAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2248,7 +2388,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCollaborationPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budgets_input.ListCollaborationPrivacyBudgetsInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -2341,7 +2483,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationPrivacyBudgetTemplates"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budget_templates_input.ListCollaborationPrivacyBudgetTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2425,7 +2570,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMembers")
+        )
         input_: capo_cleanrooms.types.list_members_input.ListMembersInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2484,7 +2631,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_cleanrooms.types.list_schemas_input.ListSchemasInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2542,7 +2691,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.update_collaboration_change_request_input.UpdateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,
@@ -2605,7 +2756,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.create_configured_audience_model_association_input.CreateConfiguredAudienceModelAssociationInput = {
             "membership_identifier": membership_identifier,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -2661,7 +2815,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_audience_model_association_input.GetConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -2719,7 +2875,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.update_configured_audience_model_association_input.UpdateConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -2773,7 +2932,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.delete_configured_audience_model_association_input.DeleteConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -2827,7 +2989,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_configured_audience_model_associations_input.ListConfiguredAudienceModelAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -2919,7 +3084,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_input.CreateConfiguredTableAssociationInput = {
             "name": name,
             "membership_identifier": membership_identifier,
@@ -2975,7 +3142,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_input.GetConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -3032,7 +3201,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_input.UpdateConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -3087,7 +3258,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAssociation")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_input.DeleteConfiguredTableAssociationInput = {
             "configured_table_association_identifier": configured_table_association_identifier,
             "membership_identifier": membership_identifier,
@@ -3141,7 +3314,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTableAssociations")
+        )
         input_: capo_cleanrooms.types.list_configured_table_associations_input.ListConfiguredTableAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -3199,7 +3374,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.create_configured_table_association_analysis_rule_input.CreateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -3254,7 +3432,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.delete_configured_table_association_analysis_rule_input.DeleteConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -3307,7 +3488,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.get_configured_table_association_analysis_rule_input.GetConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -3363,7 +3547,10 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredTableAssociationAnalysisRule"),
+        )
         input_: capo_cleanrooms.types.update_configured_table_association_analysis_rule_input.UpdateConfiguredTableAssociationAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "configured_table_association_identifier": configured_table_association_identifier,
@@ -3431,7 +3618,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.create_configured_table_input.CreateConfiguredTableInput = {
             "name": name,
             "table_reference": table_reference,
@@ -3487,7 +3676,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTable")
+        )
         input_: capo_cleanrooms.types.get_configured_table_input.GetConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -3557,7 +3748,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTable")
+        )
         input_: capo_cleanrooms.types.update_configured_table_input.UpdateConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -3617,7 +3810,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTable")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_input.DeleteConfiguredTableInput = {
             "configured_table_identifier": configured_table_identifier
         }
@@ -3669,7 +3864,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfiguredTables")
+        )
         input_: capo_cleanrooms.types.list_configured_tables_input.ListConfiguredTablesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3724,7 +3921,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_configured_table_analysis_rule_input.CreateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -3776,7 +3975,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_configured_table_analysis_rule_input.DeleteConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -3826,7 +4027,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_configured_table_analysis_rule_input.GetConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -3880,7 +4083,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConfiguredTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_configured_table_analysis_rule_input.UpdateConfiguredTableAnalysisRuleInput = {
             "configured_table_identifier": configured_table_identifier,
             "analysis_rule_type": analysis_rule_type,
@@ -3943,7 +4148,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.create_id_mapping_table_input.CreateIdMappingTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -4000,7 +4207,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdMappingTable")
+        )
         input_: capo_cleanrooms.types.get_id_mapping_table_input.GetIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4056,7 +4265,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.update_id_mapping_table_input.UpdateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4110,7 +4321,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdMappingTable")
+        )
         input_: capo_cleanrooms.types.delete_id_mapping_table_input.DeleteIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4166,7 +4379,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdMappingTables")
+        )
         input_: capo_cleanrooms.types.list_id_mapping_tables_input.ListIdMappingTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -4250,7 +4465,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PopulateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.populate_id_mapping_table_input.PopulateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4316,7 +4533,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.create_id_namespace_association_input.CreateIdNamespaceAssociationInput = {
             "membership_identifier": membership_identifier,
             "input_reference_config": input_reference_config,
@@ -4373,7 +4592,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_id_namespace_association_input.GetIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -4435,7 +4656,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.update_id_namespace_association_input.UpdateIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -4491,7 +4714,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.delete_id_namespace_association_input.DeleteIdNamespaceAssociationInput = {
             "id_namespace_association_identifier": id_namespace_association_identifier,
             "membership_identifier": membership_identifier,
@@ -4545,7 +4770,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIdNamespaceAssociations")
+        )
         input_: capo_cleanrooms.types.list_id_namespace_associations_input.ListIdNamespaceAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -4637,7 +4864,36 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_input
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.create_intermediate_table_output.CreateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.create_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.create_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateIntermediateTable",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_input.CreateIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -4698,7 +4954,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_intermediate_table_output.GetIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_intermediate_table_output
+
+            return capo_cleanrooms.types.get_intermediate_table_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_input.GetIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4758,7 +5026,21 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_intermediate_table_output.UpdateIntermediateTableOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_intermediate_table_output
+
+            return (
+                capo_cleanrooms.types.update_intermediate_table_output.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateIntermediateTable", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_input.UpdateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -4815,7 +5097,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTable")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_input.DeleteIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -4869,7 +5153,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTables")
+        )
         input_: capo_cleanrooms.types.list_intermediate_tables_input.ListIntermediateTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -4953,7 +5239,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.create_intermediate_table_analysis_rule_input.CreateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -5008,7 +5296,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.delete_intermediate_table_analysis_rule_input.DeleteIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -5061,7 +5351,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_intermediate_table_analysis_rule_input.GetIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -5118,7 +5410,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListIntermediateTableVersions")
+        )
         input_: capo_cleanrooms.types.list_intermediate_table_versions_input.ListIntermediateTableVersionsInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -5211,7 +5505,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.populate_intermediate_table_input
+
+            return capo_cleanrooms.types.populate_intermediate_table_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PopulateIntermediateTable", redact_input=_redact_input),
+        )
         input_: capo_cleanrooms.types.populate_intermediate_table_input.PopulateIntermediateTableInput = {
             "intermediate_table_identifier": intermediate_table_identifier,
             "membership_identifier": membership_identifier,
@@ -5272,7 +5578,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateIntermediateTableAnalysisRule")
+        )
         input_: capo_cleanrooms.types.update_intermediate_table_analysis_rule_input.UpdateIntermediateTableAnalysisRuleInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_identifier": intermediate_table_identifier,
@@ -5346,7 +5654,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMembership")
+        )
         input_: capo_cleanrooms.types.create_membership_input.CreateMembershipInput = {
             "collaboration_identifier": collaboration_identifier,
             "query_log_status": query_log_status,
@@ -5408,7 +5718,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMembership")
+        )
         input_: capo_cleanrooms.types.get_membership_input.GetMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -5476,7 +5788,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateMembership")
+        )
         input_: capo_cleanrooms.types.update_membership_input.UpdateMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -5538,7 +5852,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMembership")
+        )
         input_: capo_cleanrooms.types.delete_membership_input.DeleteMembershipInput = {
             "membership_identifier": membership_identifier
         }
@@ -5592,7 +5908,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMemberships")
+        )
         input_: capo_cleanrooms.types.list_memberships_input.ListMembershipsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5648,7 +5966,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisallowIntermediateTable")
+        )
         input_: capo_cleanrooms.types.disallow_intermediate_table_input.DisallowIntermediateTableInput = {
             "membership_identifier": membership_identifier,
             "intermediate_table_name": intermediate_table_name,
@@ -5700,7 +6020,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.get_analysis_log_export_input.GetAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_log_export_identifier": analysis_log_export_identifier,
@@ -5750,7 +6072,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_job_output.GetProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_job_output
+
+            return capo_cleanrooms.types.get_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_job_input.GetProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -5800,7 +6134,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_protected_query_output.GetProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_protected_query_output
+
+            return capo_cleanrooms.types.get_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.get_protected_query_input.GetProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,
@@ -5860,7 +6206,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAnalysisLogExports")
+        )
         input_: capo_cleanrooms.types.list_analysis_log_exports_input.ListAnalysisLogExportsInput = {
             "membership_identifier": membership_identifier
         }
@@ -5958,7 +6306,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_privacy_budgets_input.ListPrivacyBudgetsInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -6053,7 +6403,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtectedJobs")
+        )
         input_: capo_cleanrooms.types.list_protected_jobs_input.ListProtectedJobsInput = {
             "membership_identifier": membership_identifier
         }
@@ -6147,7 +6499,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProtectedQueries")
+        )
         input_: capo_cleanrooms.types.list_protected_queries_input.ListProtectedQueriesInput = {
             "membership_identifier": membership_identifier
         }
@@ -6235,7 +6589,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PreviewPrivacyImpact")
+        )
         input_: capo_cleanrooms.types.preview_privacy_impact_input.PreviewPrivacyImpactInput = {
             "membership_identifier": membership_identifier,
             "parameters": parameters,
@@ -6290,7 +6646,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartAnalysisLogExport")
+        )
         input_: capo_cleanrooms.types.start_analysis_log_export_input.StartAnalysisLogExportInput = {
             "membership_identifier": membership_identifier,
             "analysis_id": analysis_id,
@@ -6357,7 +6715,32 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_input
+
+            return capo_cleanrooms.types.start_protected_job_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_job_output.StartProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_job_output
+
+            return capo_cleanrooms.types.start_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_job_input.StartProtectedJobInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -6429,7 +6812,32 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_input
+
+            return capo_cleanrooms.types.start_protected_query_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_cleanrooms.types.start_protected_query_output.StartProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.start_protected_query_output
+
+            return capo_cleanrooms.types.start_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartProtectedQuery",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_cleanrooms.types.start_protected_query_input.StartProtectedQueryInput = {
             "type": type,
             "membership_identifier": membership_identifier,
@@ -6489,7 +6897,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_job_output.UpdateProtectedJobOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_job_output
+
+            return capo_cleanrooms.types.update_protected_job_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedJob", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_job_input.UpdateProtectedJobInput = {
             "membership_identifier": membership_identifier,
             "protected_job_identifier": protected_job_identifier,
@@ -6545,7 +6965,19 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.update_protected_query_output.UpdateProtectedQueryOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.update_protected_query_output
+
+            return capo_cleanrooms.types.update_protected_query_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateProtectedQuery", redact_output=_redact_output),
+        )
         input_: capo_cleanrooms.types.update_protected_query_input.UpdateProtectedQueryInput = {
             "membership_identifier": membership_identifier,
             "protected_query_identifier": protected_query_identifier,
@@ -6606,7 +7038,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.create_privacy_budget_template_input.CreatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -6661,7 +7095,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_privacy_budget_template_input.GetPrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -6718,7 +7154,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdatePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.update_privacy_budget_template_input.UpdatePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -6771,7 +7209,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.delete_privacy_budget_template_input.DeletePrivacyBudgetTemplateInput = {
             "membership_identifier": membership_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -6825,7 +7265,9 @@ class CleanRoomsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPrivacyBudgetTemplates")
+        )
         input_: capo_cleanrooms.types.list_privacy_budget_templates_input.ListPrivacyBudgetTemplatesInput = {
             "membership_identifier": membership_identifier
         }

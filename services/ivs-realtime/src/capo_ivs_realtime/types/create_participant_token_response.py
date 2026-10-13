@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#CreateParticipantTokenResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,6 +37,19 @@ def deserialize_json(data: dict) -> CreateParticipantTokenResponse:
         out["participant_token"] = (
             capo_ivs_realtime.types.participant_token.deserialize_json(
                 data["participantToken"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateParticipantTokenResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "participant_token" in value:
+        import capo_ivs_realtime.types.participant_token
+
+        out["participant_token"] = (
+            capo_ivs_realtime.types.participant_token.redact_sensitive(
+                value["participant_token"]
             )
         )
     return out

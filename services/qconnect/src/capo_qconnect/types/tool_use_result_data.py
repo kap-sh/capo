@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ToolUseResultData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,13 @@ def deserialize_json(data: dict) -> ToolUseResultData:
         raise DeserializationError("ToolUseResultData.tool_result required")
     if data.get("inputSchema") is not None:
         out["input_schema"] = data["inputSchema"]
+    return out
+
+
+def redact_sensitive(value: ToolUseResultData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "tool_result" in value:
+        out["tool_result"] = "*** Sensitive Data Redacted ***"
+    if "input_schema" in value:
+        out["input_schema"] = "*** Sensitive Data Redacted ***"
     return out

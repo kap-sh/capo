@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_opensearchserverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -76,7 +77,9 @@ class Index:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_opensearchserverless.types.create_index_request.CreateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -126,7 +129,9 @@ class Index:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIndex")
+        )
         input_: capo_opensearchserverless.types.get_index_request.GetIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -178,7 +183,9 @@ class Index:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_opensearchserverless.types.update_index_request.UpdateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -228,7 +235,9 @@ class Index:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_opensearchserverless.types.delete_index_request.DeleteIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -287,7 +296,9 @@ class AsyncIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIndex")
+        )
         input_: capo_opensearchserverless.types.create_index_request.CreateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -338,7 +349,9 @@ class AsyncIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIndex")
+        )
         input_: capo_opensearchserverless.types.get_index_request.GetIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -391,7 +404,9 @@ class AsyncIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIndex")
+        )
         input_: capo_opensearchserverless.types.update_index_request.UpdateIndexRequest = {
             "id": id,
             "index_name": index_name,
@@ -442,7 +457,9 @@ class AsyncIndex:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIndex")
+        )
         input_: capo_opensearchserverless.types.delete_index_request.DeleteIndexRequest = {
             "id": id,
             "index_name": index_name,

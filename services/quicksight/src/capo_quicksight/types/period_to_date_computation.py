@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PeriodToDateComputation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -87,5 +87,22 @@ def deserialize_json(data: dict) -> PeriodToDateComputation:
             capo_quicksight.types.time_granularity.deserialize_json(
                 data["PeriodTimeGranularity"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: PeriodToDateComputation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time" in value:
+        import capo_quicksight.types.dimension_field
+
+        out["time"] = capo_quicksight.types.dimension_field.redact_sensitive(
+            value["time"]
+        )
+    if "value" in value:
+        import capo_quicksight.types.measure_field
+
+        out["value"] = capo_quicksight.types.measure_field.redact_sensitive(
+            value["value"]
         )
     return out

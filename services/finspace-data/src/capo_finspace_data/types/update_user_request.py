@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#UpdateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,13 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
         out["api_access_principal_arn"] = data["apiAccessPrincipalArn"]
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: UpdateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
     return out

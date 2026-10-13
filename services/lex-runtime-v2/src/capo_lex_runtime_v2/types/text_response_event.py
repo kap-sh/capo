@@ -1,7 +1,7 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#TextResponseEvent``."""
 
 import json
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,15 @@ def deserialize_event_json(message: Message) -> TextResponseEvent:
     out: TextResponseEvent = {}  # type: ignore[typeddict-item]
     if payload:
         out = deserialize_json(json.loads(payload))
+    return out
+
+
+def redact_sensitive(value: TextResponseEvent) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_lex_runtime_v2.types.messages
+
+        out["messages"] = capo_lex_runtime_v2.types.messages.redact_sensitive(
+            value["messages"]
+        )
     return out

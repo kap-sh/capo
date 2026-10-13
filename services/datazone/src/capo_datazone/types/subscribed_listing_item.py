@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#SubscribedListingItem``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -67,3 +67,24 @@ def deserialize_json(data: dict) -> SubscribedListingItem:
         }
     else:
         raise DeserializationError("SubscribedListingItem: no recognized variant key")
+
+
+def redact_sensitive(value: SubscribedListingItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "assetListing" in value:
+        import capo_datazone.types.subscribed_asset_listing
+
+        out["assetListing"] = (
+            capo_datazone.types.subscribed_asset_listing.redact_sensitive(
+                value["assetListing"]
+            )
+        )
+    if "productListing" in value:
+        import capo_datazone.types.subscribed_product_listing
+
+        out["productListing"] = (
+            capo_datazone.types.subscribed_product_listing.redact_sensitive(
+                value["productListing"]
+            )
+        )
+    return out

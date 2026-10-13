@@ -8,6 +8,7 @@ import capo_scheduler._auth._sigv4
 from capo_scheduler._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -82,7 +83,9 @@ class ScheduleGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduleGroup")
+        )
         input_: capo_scheduler.types.create_schedule_group_input.CreateScheduleGroupInput = {
             "name": name
         }
@@ -133,7 +136,9 @@ class ScheduleGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScheduleGroup")
+        )
         input_: capo_scheduler.types.get_schedule_group_input.GetScheduleGroupInput = {
             "name": name
         }
@@ -182,7 +187,9 @@ class ScheduleGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduleGroup")
+        )
         input_: capo_scheduler.types.delete_schedule_group_input.DeleteScheduleGroupInput = {
             "name": name
         }
@@ -236,7 +243,9 @@ class ScheduleGroup:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduleGroups")
+        )
         input_: capo_scheduler.types.list_schedule_groups_input.ListScheduleGroupsInput = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix
@@ -297,7 +306,9 @@ class AsyncScheduleGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScheduleGroup")
+        )
         input_: capo_scheduler.types.create_schedule_group_input.CreateScheduleGroupInput = {
             "name": name
         }
@@ -349,7 +360,9 @@ class AsyncScheduleGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScheduleGroup")
+        )
         input_: capo_scheduler.types.get_schedule_group_input.GetScheduleGroupInput = {
             "name": name
         }
@@ -399,7 +412,9 @@ class AsyncScheduleGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScheduleGroup")
+        )
         input_: capo_scheduler.types.delete_schedule_group_input.DeleteScheduleGroupInput = {
             "name": name
         }
@@ -454,7 +469,9 @@ class AsyncScheduleGroup:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScheduleGroups")
+        )
         input_: capo_scheduler.types.list_schedule_groups_input.ListScheduleGroupsInput = {}
         if name_prefix is not None:
             input_["name_prefix"] = name_prefix

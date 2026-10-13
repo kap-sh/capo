@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#ResultData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -75,4 +75,19 @@ def deserialize_json(data: dict) -> ResultData:
         out["data"] = capo_qconnect.types.data_summary.deserialize_json(data["data"])
     if data.get("type") is not None:
         out["type"] = data["type"]
+    return out
+
+
+def redact_sensitive(value: ResultData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "document" in value:
+        import capo_qconnect.types.document
+
+        out["document"] = capo_qconnect.types.document.redact_sensitive(
+            value["document"]
+        )
+    if "data" in value:
+        import capo_qconnect.types.data_summary
+
+        out["data"] = capo_qconnect.types.data_summary.redact_sensitive(value["data"])
     return out

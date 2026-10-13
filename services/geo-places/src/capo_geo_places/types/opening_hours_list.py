@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#OpeningHoursList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_places.types.opening_hours
@@ -27,3 +27,11 @@ def deserialize_json(data: list) -> OpeningHoursList:
             continue
         out.append(capo_geo_places.types.opening_hours.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: OpeningHoursList) -> list[Any]:
+    import capo_geo_places.types.opening_hours
+
+    return [
+        capo_geo_places.types.opening_hours.redact_sensitive(item) for item in value
+    ]

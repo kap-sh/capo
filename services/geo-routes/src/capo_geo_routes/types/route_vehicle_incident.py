@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteVehicleIncident``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -82,4 +82,19 @@ def deserialize_json(data: dict) -> RouteVehicleIncident:
                 data["Type"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: RouteVehicleIncident) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "end_time" in value:
+        out["end_time"] = "*** Sensitive Data Redacted ***"
+    if "severity" in value:
+        out["severity"] = "*** Sensitive Data Redacted ***"
+    if "start_time" in value:
+        out["start_time"] = "*** Sensitive Data Redacted ***"
+    if "type" in value:
+        out["type"] = "*** Sensitive Data Redacted ***"
     return out

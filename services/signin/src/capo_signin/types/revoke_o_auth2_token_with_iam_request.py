@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.signin#RevokeOAuth2TokenWithIAMRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -28,4 +28,11 @@ def deserialize_json(data: dict) -> RevokeOAuth2TokenWithIAMRequest:
         out["token"] = data["token"]
     else:
         raise DeserializationError("RevokeOAuth2TokenWithIAMRequest.token required")
+    return out
+
+
+def redact_sensitive(value: RevokeOAuth2TokenWithIAMRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token" in value:
+        out["token"] = "*** Sensitive Data Redacted ***"
     return out

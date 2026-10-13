@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#WaypointOptimizationAvoidanceOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,4 +86,31 @@ def deserialize_json(data: dict) -> WaypointOptimizationAvoidanceOptions:
         out["tunnels"] = data["Tunnels"]
     if data.get("UTurns") is not None:
         out["u_turns"] = data["UTurns"]
+    return out
+
+
+def redact_sensitive(value: WaypointOptimizationAvoidanceOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "areas" in value:
+        import capo_geo_routes.types.waypoint_optimization_avoidance_area_list
+
+        out["areas"] = (
+            capo_geo_routes.types.waypoint_optimization_avoidance_area_list.redact_sensitive(
+                value["areas"]
+            )
+        )
+    if "car_shuttle_trains" in value:
+        out["car_shuttle_trains"] = "*** Sensitive Data Redacted ***"
+    if "controlled_access_highways" in value:
+        out["controlled_access_highways"] = "*** Sensitive Data Redacted ***"
+    if "dirt_roads" in value:
+        out["dirt_roads"] = "*** Sensitive Data Redacted ***"
+    if "ferries" in value:
+        out["ferries"] = "*** Sensitive Data Redacted ***"
+    if "toll_roads" in value:
+        out["toll_roads"] = "*** Sensitive Data Redacted ***"
+    if "tunnels" in value:
+        out["tunnels"] = "*** Sensitive Data Redacted ***"
+    if "u_turns" in value:
+        out["u_turns"] = "*** Sensitive Data Redacted ***"
     return out

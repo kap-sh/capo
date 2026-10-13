@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#PostalCodeDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -92,5 +92,28 @@ def deserialize_json(data: dict) -> PostalCodeDetails:
 
         out["usps_zip_plus4"] = capo_geo_places.types.usps_zip_plus4.deserialize_json(
             data["UspsZipPlus4"]
+        )
+    return out
+
+
+def redact_sensitive(value: PostalCodeDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "postal_code" in value:
+        out["postal_code"] = "*** Sensitive Data Redacted ***"
+    if "postal_authority" in value:
+        out["postal_authority"] = "*** Sensitive Data Redacted ***"
+    if "postal_code_type" in value:
+        out["postal_code_type"] = "*** Sensitive Data Redacted ***"
+    if "usps_zip" in value:
+        import capo_geo_places.types.usps_zip
+
+        out["usps_zip"] = capo_geo_places.types.usps_zip.redact_sensitive(
+            value["usps_zip"]
+        )
+    if "usps_zip_plus4" in value:
+        import capo_geo_places.types.usps_zip_plus4
+
+        out["usps_zip_plus4"] = capo_geo_places.types.usps_zip_plus4.redact_sensitive(
+            value["usps_zip_plus4"]
         )
     return out

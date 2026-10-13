@@ -24,7 +24,9 @@ from capo_elastic_load_balancing._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -189,7 +191,9 @@ class AsyncElasticLoadBalancingClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncElasticLoadBalancingClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncElasticLoadBalancingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncElasticLoadBalancingClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -197,8 +201,10 @@ class AsyncElasticLoadBalancingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -258,7 +264,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTags")
+        )
         input_: capo_elastic_load_balancing.types.add_tags_input.AddTagsInput = {
             "load_balancer_names": load_balancer_names,
             "tags": tags,
@@ -313,7 +321,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplySecurityGroupsToLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.apply_security_groups_to_load_balancer_input.ApplySecurityGroupsToLoadBalancerInput = {
             "load_balancer_name": load_balancer_name,
             "security_groups": security_groups,
@@ -369,7 +379,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AttachLoadBalancerToSubnets")
+        )
         input_: capo_elastic_load_balancing.types.attach_load_balancer_to_subnets_input.AttachLoadBalancerToSubnetsInput = {
             "load_balancer_name": load_balancer_name,
             "subnets": subnets,
@@ -422,7 +434,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ConfigureHealthCheck")
+        )
         input_: capo_elastic_load_balancing.types.configure_health_check_input.ConfigureHealthCheckInput = {
             "load_balancer_name": load_balancer_name,
             "health_check": health_check,
@@ -480,7 +494,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAppCookieStickinessPolicy")
+        )
         input_: capo_elastic_load_balancing.types.create_app_cookie_stickiness_policy_input.CreateAppCookieStickinessPolicyInput = {
             "load_balancer_name": load_balancer_name,
             "policy_name": policy_name,
@@ -541,7 +557,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLBCookieStickinessPolicy")
+        )
         input_: capo_elastic_load_balancing.types.create_lb_cookie_stickiness_policy_input.CreateLBCookieStickinessPolicyInput = {
             "load_balancer_name": load_balancer_name,
             "policy_name": policy_name,
@@ -639,7 +657,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.create_access_point_input.CreateAccessPointInput = {
             "load_balancer_name": load_balancer_name,
             "listeners": listeners,
@@ -710,7 +730,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancerListeners")
+        )
         input_: capo_elastic_load_balancing.types.create_load_balancer_listener_input.CreateLoadBalancerListenerInput = {
             "load_balancer_name": load_balancer_name,
             "listeners": listeners,
@@ -781,7 +803,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoadBalancerPolicy")
+        )
         input_: capo_elastic_load_balancing.types.create_load_balancer_policy_input.CreateLoadBalancerPolicyInput = {
             "load_balancer_name": load_balancer_name,
             "policy_name": policy_name,
@@ -834,7 +858,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.delete_access_point_input.DeleteAccessPointInput = {
             "load_balancer_name": load_balancer_name
         }
@@ -886,7 +912,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancerListeners")
+        )
         input_: capo_elastic_load_balancing.types.delete_load_balancer_listener_input.DeleteLoadBalancerListenerInput = {
             "load_balancer_name": load_balancer_name,
             "load_balancer_ports": load_balancer_ports,
@@ -940,7 +968,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoadBalancerPolicy")
+        )
         input_: capo_elastic_load_balancing.types.delete_load_balancer_policy_input.DeleteLoadBalancerPolicyInput = {
             "load_balancer_name": load_balancer_name,
             "policy_name": policy_name,
@@ -994,7 +1024,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterInstancesFromLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.deregister_end_points_input.DeregisterEndPointsInput = {
             "load_balancer_name": load_balancer_name,
             "instances": instances,
@@ -1042,7 +1074,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountLimits")
+        )
         input_: capo_elastic_load_balancing.types.describe_account_limits_input.DescribeAccountLimitsInput = {}
         if marker is not None:
             input_["marker"] = marker
@@ -1099,7 +1133,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceHealth")
+        )
         input_: capo_elastic_load_balancing.types.describe_end_point_state_input.DescribeEndPointStateInput = {
             "load_balancer_name": load_balancer_name
         }
@@ -1152,7 +1188,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancerAttributes")
+        )
         input_: capo_elastic_load_balancing.types.describe_load_balancer_attributes_input.DescribeLoadBalancerAttributesInput = {
             "load_balancer_name": load_balancer_name
         }
@@ -1209,7 +1247,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancerPolicies")
+        )
         input_: capo_elastic_load_balancing.types.describe_load_balancer_policies_input.DescribeLoadBalancerPoliciesInput = {}
         if load_balancer_name is not None:
             input_["load_balancer_name"] = load_balancer_name
@@ -1263,7 +1303,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancerPolicyTypes")
+        )
         input_: capo_elastic_load_balancing.types.describe_load_balancer_policy_types_input.DescribeLoadBalancerPolicyTypesInput = {}
         if policy_type_names is not None:
             input_["policy_type_names"] = policy_type_names
@@ -1322,7 +1364,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeLoadBalancers")
+        )
         input_: capo_elastic_load_balancing.types.describe_access_points_input.DescribeAccessPointsInput = {}
         if load_balancer_names is not None:
             input_["load_balancer_names"] = load_balancer_names
@@ -1403,7 +1447,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTags")
+        )
         input_: capo_elastic_load_balancing.types.describe_tags_input.DescribeTagsInput = {
             "load_balancer_names": load_balancer_names
         }
@@ -1456,7 +1502,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetachLoadBalancerFromSubnets")
+        )
         input_: capo_elastic_load_balancing.types.detach_load_balancer_from_subnets_input.DetachLoadBalancerFromSubnetsInput = {
             "load_balancer_name": load_balancer_name,
             "subnets": subnets,
@@ -1510,7 +1558,10 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisableAvailabilityZonesForLoadBalancer"),
+        )
         input_: capo_elastic_load_balancing.types.remove_availability_zones_input.RemoveAvailabilityZonesInput = {
             "load_balancer_name": load_balancer_name,
             "availability_zones": availability_zones,
@@ -1563,7 +1614,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("EnableAvailabilityZonesForLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.add_availability_zones_input.AddAvailabilityZonesInput = {
             "load_balancer_name": load_balancer_name,
             "availability_zones": availability_zones,
@@ -1622,7 +1675,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyLoadBalancerAttributes")
+        )
         input_: capo_elastic_load_balancing.types.modify_load_balancer_attributes_input.ModifyLoadBalancerAttributesInput = {
             "load_balancer_name": load_balancer_name,
             "load_balancer_attributes": load_balancer_attributes,
@@ -1676,7 +1731,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterInstancesWithLoadBalancer")
+        )
         input_: capo_elastic_load_balancing.types.register_end_points_input.RegisterEndPointsInput = {
             "load_balancer_name": load_balancer_name,
             "instances": instances,
@@ -1729,7 +1786,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTags")
+        )
         input_: capo_elastic_load_balancing.types.remove_tags_input.RemoveTagsInput = {
             "load_balancer_names": load_balancer_names,
             "tags": tags,
@@ -1788,7 +1847,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetLoadBalancerListenerSSLCertificate")
+        )
         input_: capo_elastic_load_balancing.types.set_load_balancer_listener_ssl_certificate_input.SetLoadBalancerListenerSSLCertificateInput = {
             "load_balancer_name": load_balancer_name,
             "load_balancer_port": load_balancer_port,
@@ -1846,7 +1907,10 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SetLoadBalancerPoliciesForBackendServer"),
+        )
         input_: capo_elastic_load_balancing.types.set_load_balancer_policies_for_backend_server_input.SetLoadBalancerPoliciesForBackendServerInput = {
             "load_balancer_name": load_balancer_name,
             "instance_port": instance_port,
@@ -1905,7 +1969,9 @@ class AsyncElasticLoadBalancingClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SetLoadBalancerPoliciesOfListener")
+        )
         input_: capo_elastic_load_balancing.types.set_load_balancer_policies_of_listener_input.SetLoadBalancerPoliciesOfListenerInput = {
             "load_balancer_name": load_balancer_name,
             "load_balancer_port": load_balancer_port,

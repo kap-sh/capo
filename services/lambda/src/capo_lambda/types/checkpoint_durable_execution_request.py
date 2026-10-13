@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#CheckpointDurableExecutionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,15 @@ def deserialize_json(data: dict) -> CheckpointDurableExecutionRequest:
         )
     if data.get("ClientToken") is not None:
         out["client_token"] = data["ClientToken"]
+    return out
+
+
+def redact_sensitive(value: CheckpointDurableExecutionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "updates" in value:
+        import capo_lambda.types.operation_updates
+
+        out["updates"] = capo_lambda.types.operation_updates.redact_sensitive(
+            value["updates"]
+        )
     return out

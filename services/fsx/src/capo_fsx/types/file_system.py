@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#FileSystem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -325,5 +325,26 @@ def deserialize_aws_json_1_1(data: dict) -> FileSystem:
 
         out["network_type"] = capo_fsx.types.network_type.deserialize_aws_json_1_1(
             data["NetworkType"]
+        )
+    return out
+
+
+def redact_sensitive(value: FileSystem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "administrative_actions" in value:
+        import capo_fsx.types.administrative_actions
+
+        out["administrative_actions"] = (
+            capo_fsx.types.administrative_actions.redact_sensitive(
+                value["administrative_actions"]
+            )
+        )
+    if "ontap_configuration" in value:
+        import capo_fsx.types.ontap_file_system_configuration
+
+        out["ontap_configuration"] = (
+            capo_fsx.types.ontap_file_system_configuration.redact_sensitive(
+                value["ontap_configuration"]
+            )
         )
     return out

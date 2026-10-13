@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#Filter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -187,6 +187,35 @@ def deserialize_json(data: dict) -> Filter:
         out["hierarchy_filter"] = (
             capo_quicksight.types.hierarchy_filter.deserialize_json(
                 data["HierarchyFilter"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: Filter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "time_equality_filter" in value:
+        import capo_quicksight.types.time_equality_filter
+
+        out["time_equality_filter"] = (
+            capo_quicksight.types.time_equality_filter.redact_sensitive(
+                value["time_equality_filter"]
+            )
+        )
+    if "time_range_filter" in value:
+        import capo_quicksight.types.time_range_filter
+
+        out["time_range_filter"] = (
+            capo_quicksight.types.time_range_filter.redact_sensitive(
+                value["time_range_filter"]
+            )
+        )
+    if "hierarchy_filter" in value:
+        import capo_quicksight.types.hierarchy_filter
+
+        out["hierarchy_filter"] = (
+            capo_quicksight.types.hierarchy_filter.redact_sensitive(
+                value["hierarchy_filter"]
             )
         )
     return out

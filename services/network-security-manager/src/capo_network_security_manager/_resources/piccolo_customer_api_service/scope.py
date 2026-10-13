@@ -8,6 +8,7 @@ import capo_network_security_manager._auth._sigv4
 from capo_network_security_manager._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -113,7 +114,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScope")
+        )
         input_: capo_network_security_manager.types.create_scope_input.CreateScopeInput = {
             "scope_name": scope_name,
             "scope_configuration": scope_configuration,
@@ -176,7 +179,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScope")
+        )
         input_: capo_network_security_manager.types.get_scope_input.GetScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -247,7 +252,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScope")
+        )
         input_: capo_network_security_manager.types.update_scope_input.UpdateScopeInput = {
             "scope_identifier": scope_identifier,
             "update_token": update_token,
@@ -307,7 +314,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScope")
+        )
         input_: capo_network_security_manager.types.delete_scope_input.DeleteScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -369,7 +378,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScopes")
+        )
         input_: capo_network_security_manager.types.list_scopes_input.ListScopesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -434,7 +445,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScopeSnapshot")
+        )
         input_: capo_network_security_manager.types.create_scope_snapshot_input.CreateScopeSnapshotInput = {
             "scope_identifier": scope_identifier
         }
@@ -500,7 +513,9 @@ class Scope:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScopeSnapshots")
+        )
         input_: capo_network_security_manager.types.list_scope_snapshots_input.ListScopeSnapshotsInput = {
             "scope_identifier": scope_identifier
         }
@@ -582,7 +597,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScope")
+        )
         input_: capo_network_security_manager.types.create_scope_input.CreateScopeInput = {
             "scope_name": scope_name,
             "scope_configuration": scope_configuration,
@@ -646,7 +663,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetScope")
+        )
         input_: capo_network_security_manager.types.get_scope_input.GetScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -718,7 +737,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateScope")
+        )
         input_: capo_network_security_manager.types.update_scope_input.UpdateScopeInput = {
             "scope_identifier": scope_identifier,
             "update_token": update_token,
@@ -779,7 +800,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteScope")
+        )
         input_: capo_network_security_manager.types.delete_scope_input.DeleteScopeInput = {
             "scope_identifier": scope_identifier
         }
@@ -842,7 +865,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScopes")
+        )
         input_: capo_network_security_manager.types.list_scopes_input.ListScopesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -908,7 +933,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateScopeSnapshot")
+        )
         input_: capo_network_security_manager.types.create_scope_snapshot_input.CreateScopeSnapshotInput = {
             "scope_identifier": scope_identifier
         }
@@ -975,7 +1002,9 @@ class AsyncScope:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListScopeSnapshots")
+        )
         input_: capo_network_security_manager.types.list_scope_snapshots_input.ListScopeSnapshotsInput = {
             "scope_identifier": scope_identifier
         }

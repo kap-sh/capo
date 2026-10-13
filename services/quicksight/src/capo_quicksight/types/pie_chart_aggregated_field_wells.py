@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#PieChartAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -69,6 +69,31 @@ def deserialize_json(data: dict) -> PieChartAggregatedFieldWells:
         out["small_multiples"] = (
             capo_quicksight.types.small_multiples_dimension_field_list.deserialize_json(
                 data["SmallMultiples"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PieChartAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "category" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["category"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["category"]
+        )
+    if "values" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["values"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["values"]
+        )
+    if "small_multiples" in value:
+        import capo_quicksight.types.small_multiples_dimension_field_list
+
+        out["small_multiples"] = (
+            capo_quicksight.types.small_multiples_dimension_field_list.redact_sensitive(
+                value["small_multiples"]
             )
         )
     return out

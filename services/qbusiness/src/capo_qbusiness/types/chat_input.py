@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#ChatInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,3 +29,10 @@ class ChatInput(TypedDict, closed=True):
     """<p>A token that you provide to identify the chat input.</p>"""
     input_stream: NotRequired["capo_qbusiness.types.chat_input_stream.ChatInputStream"]
     """<p>The streaming input for the <code>Chat</code> API.</p>"""
+
+
+def redact_sensitive(value: ChatInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "input_stream" in value:
+        out["input_stream"] = "*** Streaming Data Redacted ***"
+    return out

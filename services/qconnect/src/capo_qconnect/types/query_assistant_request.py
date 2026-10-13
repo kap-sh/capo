@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#QueryAssistantRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,17 @@ def deserialize_json(data: dict) -> QueryAssistantRequest:
         out["override_knowledge_base_search_type"] = data[
             "overrideKnowledgeBaseSearchType"
         ]
+    return out
+
+
+def redact_sensitive(value: QueryAssistantRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "query_text" in value:
+        out["query_text"] = "*** Sensitive Data Redacted ***"
+    if "query_input_data" in value:
+        import capo_qconnect.types.query_input_data
+
+        out["query_input_data"] = capo_qconnect.types.query_input_data.redact_sensitive(
+            value["query_input_data"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cleanroomsml#ProtectedQueryInputParameters``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -78,4 +78,11 @@ def deserialize_json(data: dict) -> ProtectedQueryInputParameters:
         )
     else:
         out["result_format"] = "CSV"
+    return out
+
+
+def redact_sensitive(value: ProtectedQueryInputParameters) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sql_parameters" in value:
+        out["sql_parameters"] = "*** Sensitive Data Redacted ***"
     return out

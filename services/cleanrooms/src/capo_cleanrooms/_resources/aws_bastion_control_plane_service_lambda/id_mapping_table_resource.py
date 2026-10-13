@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -99,7 +100,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.create_id_mapping_table_input.CreateIdMappingTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -156,7 +159,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdMappingTable")
+        )
         input_: capo_cleanrooms.types.get_id_mapping_table_input.GetIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -212,7 +217,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.update_id_mapping_table_input.UpdateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -266,7 +273,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdMappingTable")
+        )
         input_: capo_cleanrooms.types.delete_id_mapping_table_input.DeleteIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -322,7 +331,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdMappingTables")
+        )
         input_: capo_cleanrooms.types.list_id_mapping_tables_input.ListIdMappingTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -379,7 +390,9 @@ class IdMappingTableResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PopulateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.populate_id_mapping_table_input.PopulateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -449,7 +462,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.create_id_mapping_table_input.CreateIdMappingTableInput = {
             "membership_identifier": membership_identifier,
             "name": name,
@@ -507,7 +522,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetIdMappingTable")
+        )
         input_: capo_cleanrooms.types.get_id_mapping_table_input.GetIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -564,7 +581,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.update_id_mapping_table_input.UpdateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -619,7 +638,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteIdMappingTable")
+        )
         input_: capo_cleanrooms.types.delete_id_mapping_table_input.DeleteIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,
@@ -676,7 +697,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListIdMappingTables")
+        )
         input_: capo_cleanrooms.types.list_id_mapping_tables_input.ListIdMappingTablesInput = {
             "membership_identifier": membership_identifier
         }
@@ -734,7 +757,9 @@ class AsyncIdMappingTableResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PopulateIdMappingTable")
+        )
         input_: capo_cleanrooms.types.populate_id_mapping_table_input.PopulateIdMappingTableInput = {
             "id_mapping_table_identifier": id_mapping_table_identifier,
             "membership_identifier": membership_identifier,

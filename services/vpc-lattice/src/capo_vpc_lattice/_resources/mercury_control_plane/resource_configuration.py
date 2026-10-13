@@ -8,6 +8,7 @@ import capo_vpc_lattice._auth._sigv4
 from capo_vpc_lattice._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -130,7 +131,9 @@ class ResourceConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.create_resource_configuration_request.CreateResourceConfigurationRequest = {
             "name": name,
             "type": type,
@@ -207,7 +210,9 @@ class ResourceConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.get_resource_configuration_request.GetResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -267,7 +272,9 @@ class ResourceConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.update_resource_configuration_request.UpdateResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -325,7 +332,9 @@ class ResourceConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.delete_resource_configuration_request.DeleteResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -385,7 +394,9 @@ class ResourceConfiguration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceConfigurations")
+        )
         input_: capo_vpc_lattice.types.list_resource_configurations_request.ListResourceConfigurationsRequest = {}
         if resource_gateway_identifier is not None:
             input_["resource_gateway_identifier"] = resource_gateway_identifier
@@ -490,7 +501,9 @@ class AsyncResourceConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.create_resource_configuration_request.CreateResourceConfigurationRequest = {
             "name": name,
             "type": type,
@@ -568,7 +581,9 @@ class AsyncResourceConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.get_resource_configuration_request.GetResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -629,7 +644,9 @@ class AsyncResourceConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.update_resource_configuration_request.UpdateResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -688,7 +705,9 @@ class AsyncResourceConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteResourceConfiguration")
+        )
         input_: capo_vpc_lattice.types.delete_resource_configuration_request.DeleteResourceConfigurationRequest = {
             "resource_configuration_identifier": resource_configuration_identifier
         }
@@ -749,7 +768,9 @@ class AsyncResourceConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListResourceConfigurations")
+        )
         input_: capo_vpc_lattice.types.list_resource_configurations_request.ListResourceConfigurationsRequest = {}
         if resource_gateway_identifier is not None:
             input_["resource_gateway_identifier"] = resource_gateway_identifier

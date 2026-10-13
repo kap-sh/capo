@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#IntegerValueWhenUnsetConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,11 @@ def deserialize_json(data: dict) -> IntegerValueWhenUnsetConfiguration:
         )
     if data.get("CustomValue") is not None:
         out["custom_value"] = data["CustomValue"]
+    return out
+
+
+def redact_sensitive(value: IntegerValueWhenUnsetConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_value" in value:
+        out["custom_value"] = "*** Sensitive Data Redacted ***"
     return out

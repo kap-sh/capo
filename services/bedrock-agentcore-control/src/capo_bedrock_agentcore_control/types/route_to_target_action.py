@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#RouteToTargetAction``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,24 @@ def deserialize_json(data: dict) -> RouteToTargetAction:
         }
     else:
         raise DeserializationError("RouteToTargetAction: no recognized variant key")
+
+
+def redact_sensitive(value: RouteToTargetAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "staticRoute" in value:
+        import capo_bedrock_agentcore_control.types.static_route
+
+        out["staticRoute"] = (
+            capo_bedrock_agentcore_control.types.static_route.redact_sensitive(
+                value["staticRoute"]
+            )
+        )
+    if "weightedRoute" in value:
+        import capo_bedrock_agentcore_control.types.weighted_route
+
+        out["weightedRoute"] = (
+            capo_bedrock_agentcore_control.types.weighted_route.redact_sensitive(
+                value["weightedRoute"]
+            )
+        )
+    return out

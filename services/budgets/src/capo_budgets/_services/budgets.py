@@ -21,10 +21,12 @@ from capo_budgets._pagination import resolve_path as _resolve_path
 from capo_budgets._services._aws_config import aws_config
 from capo_budgets._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -183,7 +185,9 @@ class BudgetsClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[BudgetsClientConfig] = None
+        self,
+        config_overrides: Optional[BudgetsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: BudgetsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -191,8 +195,10 @@ class BudgetsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -259,7 +265,17 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.create_budget_request.CreateBudgetRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.create_budget_request
+
+            return capo_budgets.types.create_budget_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBudget", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.create_budget_request.CreateBudgetRequest = {
             "account_id": account_id,
             "budget": budget,
@@ -328,7 +344,19 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.create_budget_action_request.CreateBudgetActionRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.create_budget_action_request
+
+            return capo_budgets.types.create_budget_action_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateBudgetAction", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.create_budget_action_request.CreateBudgetActionRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -393,7 +421,19 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.create_notification_request.CreateNotificationRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.create_notification_request
+
+            return capo_budgets.types.create_notification_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNotification", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.create_notification_request.CreateNotificationRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -451,7 +491,17 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.create_subscriber_request.CreateSubscriberRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.create_subscriber_request
+
+            return capo_budgets.types.create_subscriber_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSubscriber", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.create_subscriber_request.CreateSubscriberRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -503,7 +553,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBudget")
+        )
         input_: capo_budgets.types.delete_budget_request.DeleteBudgetRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -554,7 +606,19 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.delete_budget_action_response.DeleteBudgetActionResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.delete_budget_action_response
+
+            return capo_budgets.types.delete_budget_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteBudgetAction", redact_output=_redact_output),
+        )
         input_: capo_budgets.types.delete_budget_action_request.DeleteBudgetActionRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -607,7 +671,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotification")
+        )
         input_: capo_budgets.types.delete_notification_request.DeleteNotificationRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -662,7 +728,17 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.delete_subscriber_request.DeleteSubscriberRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.delete_subscriber_request
+
+            return capo_budgets.types.delete_subscriber_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteSubscriber", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.delete_subscriber_request.DeleteSubscriberRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -718,7 +794,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBudget")
+        )
         input_: capo_budgets.types.describe_budget_request.DescribeBudgetRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -770,7 +848,19 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.describe_budget_action_response.DescribeBudgetActionResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.describe_budget_action_response
+
+            return capo_budgets.types.describe_budget_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeBudgetAction", redact_output=_redact_output),
+        )
         input_: capo_budgets.types.describe_budget_action_request.DescribeBudgetActionRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -825,7 +915,21 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.describe_budget_action_histories_response.DescribeBudgetActionHistoriesResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.describe_budget_action_histories_response
+
+            return capo_budgets.types.describe_budget_action_histories_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeBudgetActionHistories", redact_output=_redact_output
+            ),
+        )
         input_: capo_budgets.types.describe_budget_action_histories_request.DescribeBudgetActionHistoriesRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -908,7 +1012,21 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.describe_budget_actions_for_account_response.DescribeBudgetActionsForAccountResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.describe_budget_actions_for_account_response
+
+            return capo_budgets.types.describe_budget_actions_for_account_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeBudgetActionsForAccount", redact_output=_redact_output
+            ),
+        )
         input_: capo_budgets.types.describe_budget_actions_for_account_request.DescribeBudgetActionsForAccountRequest = {
             "account_id": account_id
         }
@@ -983,7 +1101,21 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.describe_budget_actions_for_budget_response.DescribeBudgetActionsForBudgetResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.describe_budget_actions_for_budget_response
+
+            return capo_budgets.types.describe_budget_actions_for_budget_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeBudgetActionsForBudget", redact_output=_redact_output
+            ),
+        )
         input_: capo_budgets.types.describe_budget_actions_for_budget_request.DescribeBudgetActionsForBudgetRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1066,7 +1198,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBudgetNotificationsForAccount")
+        )
         input_: capo_budgets.types.describe_budget_notifications_for_account_request.DescribeBudgetNotificationsForAccountRequest = {
             "account_id": account_id
         }
@@ -1149,7 +1283,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBudgetPerformanceHistory")
+        )
         input_: capo_budgets.types.describe_budget_performance_history_request.DescribeBudgetPerformanceHistoryRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1240,7 +1376,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeBudgets")
+        )
         input_: capo_budgets.types.describe_budgets_request.DescribeBudgetsRequest = {
             "account_id": account_id
         }
@@ -1330,7 +1468,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNotificationsForBudget")
+        )
         input_: capo_budgets.types.describe_notifications_for_budget_request.DescribeNotificationsForBudgetRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1417,7 +1557,21 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_budgets.types.describe_subscribers_for_notification_response.DescribeSubscribersForNotificationResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.describe_subscribers_for_notification_response
+
+            return capo_budgets.types.describe_subscribers_for_notification_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeSubscribersForNotification", redact_output=_redact_output
+            ),
+        )
         input_: capo_budgets.types.describe_subscribers_for_notification_request.DescribeSubscribersForNotificationRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1504,7 +1658,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExecuteBudgetAction")
+        )
         input_: capo_budgets.types.execute_budget_action_request.ExecuteBudgetActionRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1556,7 +1712,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_budgets.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1606,7 +1764,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_budgets.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tags": resource_tags,
@@ -1656,7 +1816,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_budgets.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "resource_tag_keys": resource_tag_keys,
@@ -1708,7 +1870,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateBudget")
+        )
         input_: capo_budgets.types.update_budget_request.UpdateBudgetRequest = {
             "account_id": account_id,
             "new_budget": new_budget,
@@ -1773,7 +1937,32 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.update_budget_action_request.UpdateBudgetActionRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.update_budget_action_request
+
+            return capo_budgets.types.update_budget_action_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_budgets.types.update_budget_action_response.UpdateBudgetActionResponse",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.update_budget_action_response
+
+            return capo_budgets.types.update_budget_action_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateBudgetAction",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_budgets.types.update_budget_action_request.UpdateBudgetActionRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1841,7 +2030,9 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotification")
+        )
         input_: capo_budgets.types.update_notification_request.UpdateNotificationRequest = {
             "account_id": account_id,
             "budget_name": budget_name,
@@ -1900,7 +2091,17 @@ class BudgetsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_budgets.types.update_subscriber_request.UpdateSubscriberRequest",
+        ) -> dict[str, Any]:
+            import capo_budgets.types.update_subscriber_request
+
+            return capo_budgets.types.update_subscriber_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSubscriber", redact_input=_redact_input),
+        )
         input_: capo_budgets.types.update_subscriber_request.UpdateSubscriberRequest = {
             "account_id": account_id,
             "budget_name": budget_name,

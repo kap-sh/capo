@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#MessageTemplateVersionSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,11 @@ def deserialize_json(data: dict) -> MessageTemplateVersionSummary:
         raise DeserializationError(
             "MessageTemplateVersionSummary.version_number required"
         )
+    return out
+
+
+def redact_sensitive(value: MessageTemplateVersionSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channel" in value:
+        out["channel"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GuardrailTopicPolicy``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -48,5 +48,22 @@ def deserialize_json(data: dict) -> GuardrailTopicPolicy:
 
         out["tier"] = capo_bedrock.types.guardrail_topics_tier.deserialize_json(
             data["tier"]
+        )
+    return out
+
+
+def redact_sensitive(value: GuardrailTopicPolicy) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "topics" in value:
+        import capo_bedrock.types.guardrail_topics
+
+        out["topics"] = capo_bedrock.types.guardrail_topics.redact_sensitive(
+            value["topics"]
+        )
+    if "tier" in value:
+        import capo_bedrock.types.guardrail_topics_tier
+
+        out["tier"] = capo_bedrock.types.guardrail_topics_tier.redact_sensitive(
+            value["tier"]
         )
     return out

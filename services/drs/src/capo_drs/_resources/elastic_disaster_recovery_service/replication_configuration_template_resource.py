@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_drs._auth._signers
 import capo_drs._auth._sigv4
 from capo_drs._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -117,7 +118,32 @@ class ReplicationConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_replication_configuration_template_request
+
+            return capo_drs.types.create_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest = {
             "staging_area_subnet_id": staging_area_subnet_id,
             "replication_servers_security_groups_i_ds": replication_servers_security_groups_i_ds,
@@ -242,7 +268,32 @@ class ReplicationConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_replication_configuration_template_request
+
+            return capo_drs.types.update_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -329,7 +380,9 @@ class ReplicationConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_replication_configuration_template_request.DeleteReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -384,7 +437,22 @@ class ReplicationConfigurationTemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_replication_configuration_templates_response.DescribeReplicationConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_replication_configuration_templates_response
+
+            return capo_drs.types.describe_replication_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeReplicationConfigurationTemplates",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.describe_replication_configuration_templates_request.DescribeReplicationConfigurationTemplatesRequest = {}
         if replication_configuration_template_i_ds is not None:
             input_["replication_configuration_template_i_ds"] = (
@@ -482,7 +550,32 @@ class AsyncReplicationConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.create_replication_configuration_template_request
+
+            return capo_drs.types.create_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.create_replication_configuration_template_request.CreateReplicationConfigurationTemplateRequest = {
             "staging_area_subnet_id": staging_area_subnet_id,
             "replication_servers_security_groups_i_ds": replication_servers_security_groups_i_ds,
@@ -608,7 +701,32 @@ class AsyncReplicationConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest",
+        ) -> dict[str, Any]:
+            import capo_drs.types.update_replication_configuration_template_request
+
+            return capo_drs.types.update_replication_configuration_template_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_drs.types.replication_configuration_template.ReplicationConfigurationTemplate",
+        ) -> dict[str, Any]:
+            import capo_drs.types.replication_configuration_template
+
+            return capo_drs.types.replication_configuration_template.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateReplicationConfigurationTemplate",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.update_replication_configuration_template_request.UpdateReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -696,7 +814,9 @@ class AsyncReplicationConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfigurationTemplate")
+        )
         input_: capo_drs.types.delete_replication_configuration_template_request.DeleteReplicationConfigurationTemplateRequest = {
             "replication_configuration_template_id": replication_configuration_template_id
         }
@@ -752,7 +872,22 @@ class AsyncReplicationConfigurationTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_drs.types.describe_replication_configuration_templates_response.DescribeReplicationConfigurationTemplatesResponse",
+        ) -> dict[str, Any]:
+            import capo_drs.types.describe_replication_configuration_templates_response
+
+            return capo_drs.types.describe_replication_configuration_templates_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeReplicationConfigurationTemplates",
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_drs.types.describe_replication_configuration_templates_request.DescribeReplicationConfigurationTemplatesRequest = {}
         if replication_configuration_template_i_ds is not None:
             input_["replication_configuration_template_i_ds"] = (

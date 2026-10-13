@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#CreateAppInstanceUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,5 +102,22 @@ def deserialize_json(data: dict) -> CreateAppInstanceUserRequest:
             capo_chime_sdk_identity.types.expiration_settings.deserialize_json(
                 data["ExpirationSettings"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: CreateAppInstanceUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_instance_user_id" in value:
+        out["app_instance_user_id"] = "*** Sensitive Data Redacted ***"
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "metadata" in value:
+        out["metadata"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        import capo_chime_sdk_identity.types.tag_list
+
+        out["tags"] = capo_chime_sdk_identity.types.tag_list.redact_sensitive(
+            value["tags"]
         )
     return out

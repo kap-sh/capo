@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AdminAccountSummaryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_network_security_manager.types.admin_account_summary
@@ -37,3 +37,12 @@ def deserialize_json(data: list) -> AdminAccountSummaryList:
             )
         )
     return out
+
+
+def redact_sensitive(value: AdminAccountSummaryList) -> list[Any]:
+    import capo_network_security_manager.types.admin_account_summary
+
+    return [
+        capo_network_security_manager.types.admin_account_summary.redact_sensitive(item)
+        for item in value
+    ]

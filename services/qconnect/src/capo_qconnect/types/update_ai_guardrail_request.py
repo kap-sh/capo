@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#UpdateAIGuardrailRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -178,6 +178,57 @@ def deserialize_json(data: dict) -> UpdateAIGuardrailRequest:
         out["contextual_grounding_policy_config"] = (
             capo_qconnect.types.ai_guardrail_contextual_grounding_policy_config.deserialize_json(
                 data["contextualGroundingPolicyConfig"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateAIGuardrailRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "blocked_input_messaging" in value:
+        out["blocked_input_messaging"] = "*** Sensitive Data Redacted ***"
+    if "blocked_outputs_messaging" in value:
+        out["blocked_outputs_messaging"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "topic_policy_config" in value:
+        import capo_qconnect.types.ai_guardrail_topic_policy_config
+
+        out["topic_policy_config"] = (
+            capo_qconnect.types.ai_guardrail_topic_policy_config.redact_sensitive(
+                value["topic_policy_config"]
+            )
+        )
+    if "content_policy_config" in value:
+        import capo_qconnect.types.ai_guardrail_content_policy_config
+
+        out["content_policy_config"] = (
+            capo_qconnect.types.ai_guardrail_content_policy_config.redact_sensitive(
+                value["content_policy_config"]
+            )
+        )
+    if "word_policy_config" in value:
+        import capo_qconnect.types.ai_guardrail_word_policy_config
+
+        out["word_policy_config"] = (
+            capo_qconnect.types.ai_guardrail_word_policy_config.redact_sensitive(
+                value["word_policy_config"]
+            )
+        )
+    if "sensitive_information_policy_config" in value:
+        import capo_qconnect.types.ai_guardrail_sensitive_information_policy_config
+
+        out["sensitive_information_policy_config"] = (
+            capo_qconnect.types.ai_guardrail_sensitive_information_policy_config.redact_sensitive(
+                value["sensitive_information_policy_config"]
+            )
+        )
+    if "contextual_grounding_policy_config" in value:
+        import capo_qconnect.types.ai_guardrail_contextual_grounding_policy_config
+
+        out["contextual_grounding_policy_config"] = (
+            capo_qconnect.types.ai_guardrail_contextual_grounding_policy_config.redact_sensitive(
+                value["contextual_grounding_policy_config"]
             )
         )
     return out

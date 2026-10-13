@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotwireless#SidewalkUpdateAccount``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def deserialize_json(data: dict) -> SidewalkUpdateAccount:
     out: SidewalkUpdateAccount = {}  # type: ignore[typeddict-item]
     if data.get("AppServerPrivateKey") is not None:
         out["app_server_private_key"] = data["AppServerPrivateKey"]
+    return out
+
+
+def redact_sensitive(value: SidewalkUpdateAccount) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "app_server_private_key" in value:
+        out["app_server_private_key"] = "*** Sensitive Data Redacted ***"
     return out

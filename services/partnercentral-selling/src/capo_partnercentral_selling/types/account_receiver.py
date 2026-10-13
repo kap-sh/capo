@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralselling#AccountReceiver``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_aws_json_1_0(data: dict) -> AccountReceiver:
         out["aws_account_id"] = data["AwsAccountId"]
     else:
         raise DeserializationError("AccountReceiver.aws_account_id required")
+    return out
+
+
+def redact_sensitive(value: AccountReceiver) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "alias" in value:
+        out["alias"] = "*** Sensitive Data Redacted ***"
+    if "aws_account_id" in value:
+        out["aws_account_id"] = "*** Sensitive Data Redacted ***"
     return out

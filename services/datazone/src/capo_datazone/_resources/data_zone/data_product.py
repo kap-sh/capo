@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_datazone._auth._signers
 import capo_datazone._auth._sigv4
 from capo_datazone._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -103,7 +104,32 @@ class DataProduct:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_input.CreateDataProductInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_input
+
+            return capo_datazone.types.create_data_product_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_output.CreateDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_output
+
+            return capo_datazone.types.create_data_product_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProduct",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_input.CreateDataProductInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -168,7 +194,17 @@ class DataProduct:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_product_output.GetDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_product_output
+
+            return capo_datazone.types.get_data_product_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProduct", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_product_input.GetDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -222,7 +258,9 @@ class DataProduct:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataProduct")
+        )
         input_: capo_datazone.types.delete_data_product_input.DeleteDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -294,7 +332,34 @@ class DataProduct:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_input
+
+            return (
+                capo_datazone.types.create_data_product_revision_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_revision_output.CreateDataProductRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_output
+
+            return capo_datazone.types.create_data_product_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProductRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -385,7 +450,32 @@ class AsyncDataProduct:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_input.CreateDataProductInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_input
+
+            return capo_datazone.types.create_data_product_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_output.CreateDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_output
+
+            return capo_datazone.types.create_data_product_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProduct",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_input.CreateDataProductInput = {
             "domain_identifier": domain_identifier,
             "name": name,
@@ -451,7 +541,17 @@ class AsyncDataProduct:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_datazone.types.get_data_product_output.GetDataProductOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.get_data_product_output
+
+            return capo_datazone.types.get_data_product_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDataProduct", redact_output=_redact_output),
+        )
         input_: capo_datazone.types.get_data_product_input.GetDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -506,7 +606,9 @@ class AsyncDataProduct:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDataProduct")
+        )
         input_: capo_datazone.types.delete_data_product_input.DeleteDataProductInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,
@@ -579,7 +681,34 @@ class AsyncDataProduct:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_input
+
+            return (
+                capo_datazone.types.create_data_product_revision_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_datazone.types.create_data_product_revision_output.CreateDataProductRevisionOutput",
+        ) -> dict[str, Any]:
+            import capo_datazone.types.create_data_product_revision_output
+
+            return capo_datazone.types.create_data_product_revision_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataProductRevision",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_datazone.types.create_data_product_revision_input.CreateDataProductRevisionInput = {
             "domain_identifier": domain_identifier,
             "identifier": identifier,

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#GrafanaServiceDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -64,5 +64,20 @@ def deserialize_json(data: dict) -> GrafanaServiceDetails:
     else:
         raise DeserializationError(
             "GrafanaServiceDetails.authorization_config required"
+        )
+    return out
+
+
+def redact_sensitive(value: GrafanaServiceDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "authorization_config" in value:
+        import capo_devops_agent.types.mcp_server_authorization_config
+
+        out["authorization_config"] = (
+            capo_devops_agent.types.mcp_server_authorization_config.redact_sensitive(
+                value["authorization_config"]
+            )
         )
     return out

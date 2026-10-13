@@ -8,6 +8,7 @@ import capo_scheduler._auth._sigv4
 from capo_scheduler._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -121,7 +122,9 @@ class Schedule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSchedule")
+        )
         input_: capo_scheduler.types.create_schedule_input.CreateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -193,7 +196,9 @@ class Schedule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchedule")
+        )
         input_: capo_scheduler.types.get_schedule_input.GetScheduleInput = {
             "name": name
         }
@@ -272,7 +277,9 @@ class Schedule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSchedule")
+        )
         input_: capo_scheduler.types.update_schedule_input.UpdateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -347,7 +354,9 @@ class Schedule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSchedule")
+        )
         input_: capo_scheduler.types.delete_schedule_input.DeleteScheduleInput = {
             "name": name
         }
@@ -408,7 +417,9 @@ class Schedule:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchedules")
+        )
         input_: capo_scheduler.types.list_schedules_input.ListSchedulesInput = {}
         if group_name is not None:
             input_["group_name"] = group_name
@@ -500,7 +511,9 @@ class AsyncSchedule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateSchedule")
+        )
         input_: capo_scheduler.types.create_schedule_input.CreateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -573,7 +586,9 @@ class AsyncSchedule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchedule")
+        )
         input_: capo_scheduler.types.get_schedule_input.GetScheduleInput = {
             "name": name
         }
@@ -653,7 +668,9 @@ class AsyncSchedule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateSchedule")
+        )
         input_: capo_scheduler.types.update_schedule_input.UpdateScheduleInput = {
             "name": name,
             "schedule_expression": schedule_expression,
@@ -729,7 +746,9 @@ class AsyncSchedule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteSchedule")
+        )
         input_: capo_scheduler.types.delete_schedule_input.DeleteScheduleInput = {
             "name": name
         }
@@ -791,7 +810,9 @@ class AsyncSchedule:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchedules")
+        )
         input_: capo_scheduler.types.list_schedules_input.ListSchedulesInput = {}
         if group_name is not None:
             input_["group_name"] = group_name

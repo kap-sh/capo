@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#UpdateDomainRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,13 @@ def deserialize_aws_json_1_0(data: dict) -> UpdateDomainRequest:
         raise DeserializationError(
             "UpdateDomainRequest.server_side_encryption_configuration required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdateDomainRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

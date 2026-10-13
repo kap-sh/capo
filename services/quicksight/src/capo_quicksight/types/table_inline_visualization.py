@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TableInlineVisualization``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,5 +49,16 @@ def deserialize_json(data: dict) -> TableInlineVisualization:
 
         out["sparklines"] = capo_quicksight.types.sparklines_options.deserialize_json(
             data["Sparklines"]
+        )
+    return out
+
+
+def redact_sensitive(value: TableInlineVisualization) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "sparklines" in value:
+        import capo_quicksight.types.sparklines_options
+
+        out["sparklines"] = capo_quicksight.types.sparklines_options.redact_sensitive(
+            value["sparklines"]
         )
     return out

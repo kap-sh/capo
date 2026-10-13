@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#IngestKnowledgeBaseDocumentsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,18 @@ def deserialize_json(data: dict) -> IngestKnowledgeBaseDocumentsRequest:
     else:
         raise DeserializationError(
             "IngestKnowledgeBaseDocumentsRequest.documents required"
+        )
+    return out
+
+
+def redact_sensitive(value: IngestKnowledgeBaseDocumentsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "documents" in value:
+        import capo_bedrock_agent.types.knowledge_base_documents
+
+        out["documents"] = (
+            capo_bedrock_agent.types.knowledge_base_documents.redact_sensitive(
+                value["documents"]
+            )
         )
     return out

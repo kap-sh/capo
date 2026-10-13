@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#CreateKnowledgeBaseRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -163,4 +163,11 @@ def deserialize_json(data: dict) -> CreateKnowledgeBaseRequest:
         import capo_quicksight.types.tag_list
 
         out["tags"] = capo_quicksight.types.tag_list.deserialize_json(data["Tags"])
+    return out
+
+
+def redact_sensitive(value: CreateKnowledgeBaseRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "knowledge_base_configuration" in value:
+        out["knowledge_base_configuration"] = "*** Sensitive Data Redacted ***"
     return out

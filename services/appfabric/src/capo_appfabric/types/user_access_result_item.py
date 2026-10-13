@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appfabric#UserAccessResultItem``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -122,4 +122,19 @@ def deserialize_json(data: dict) -> UserAccessResultItem:
         out["task_error"] = capo_appfabric.types.task_error.deserialize_json(
             data["taskError"]
         )
+    return out
+
+
+def redact_sensitive(value: UserAccessResultItem) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "email" in value:
+        out["email"] = "*** Sensitive Data Redacted ***"
+    if "user_id" in value:
+        out["user_id"] = "*** Sensitive Data Redacted ***"
+    if "user_full_name" in value:
+        out["user_full_name"] = "*** Sensitive Data Redacted ***"
+    if "user_first_name" in value:
+        out["user_first_name"] = "*** Sensitive Data Redacted ***"
+    if "user_last_name" in value:
+        out["user_last_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CreateSessionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,13 @@ def serialize_xml(value: CreateSessionRequest, parent: Element, tag: str) -> Non
 
 def deserialize_xml(el: Element) -> CreateSessionRequest:
     out: CreateSessionRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: CreateSessionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
     return out

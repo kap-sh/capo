@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.s3#CreateSessionOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,4 +53,19 @@ def deserialize_xml(el: Element) -> CreateSessionOutput:
         )
     else:
         raise DeserializationError("CreateSessionOutput.credentials required")
+    return out
+
+
+def redact_sensitive(value: CreateSessionOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ssekms_key_id" in value:
+        out["ssekms_key_id"] = "*** Sensitive Data Redacted ***"
+    if "ssekms_encryption_context" in value:
+        out["ssekms_encryption_context"] = "*** Sensitive Data Redacted ***"
+    if "credentials" in value:
+        import capo_s3.types.session_credentials
+
+        out["credentials"] = capo_s3.types.session_credentials.redact_sensitive(
+            value["credentials"]
+        )
     return out

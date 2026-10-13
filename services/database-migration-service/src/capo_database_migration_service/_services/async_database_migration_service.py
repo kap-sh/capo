@@ -24,7 +24,9 @@ from capo_database_migration_service._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -404,6 +406,7 @@ class AsyncDatabaseMigrationServiceClient:
     def operation_options(
         self,
         config_overrides: Optional[AsyncDatabaseMigrationServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncDatabaseMigrationServiceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -411,8 +414,10 @@ class AsyncDatabaseMigrationServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -471,7 +476,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AddTagsToResource")
+        )
         input_: capo_database_migration_service.types.add_tags_to_resource_message.AddTagsToResourceMessage = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -520,7 +527,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ApplyPendingMaintenanceAction")
+        )
         input_: capo_database_migration_service.types.apply_pending_maintenance_action_message.ApplyPendingMaintenanceActionMessage = {
             "replication_instance_arn": replication_instance_arn,
             "apply_action": apply_action,
@@ -570,7 +579,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchStartRecommendations")
+        )
         input_: capo_database_migration_service.types.batch_start_recommendations_request.BatchStartRecommendationsRequest = {}
         if data is not None:
             input_["data"] = data
@@ -624,7 +635,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMetadataModelConversion")
+        )
         input_: capo_database_migration_service.types.cancel_metadata_model_conversion_message.CancelMetadataModelConversionMessage = {
             "migration_project_identifier": migration_project_identifier,
             "request_identifier": request_identifier,
@@ -679,7 +692,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelMetadataModelCreation")
+        )
         input_: capo_database_migration_service.types.cancel_metadata_model_creation_message.CancelMetadataModelCreationMessage = {
             "migration_project_identifier": migration_project_identifier,
             "request_identifier": request_identifier,
@@ -726,7 +741,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CancelReplicationTaskAssessmentRun")
+        )
         input_: capo_database_migration_service.types.cancel_replication_task_assessment_run_message.CancelReplicationTaskAssessmentRunMessage = {
             "replication_task_assessment_run_arn": replication_task_assessment_run_arn
         }
@@ -804,7 +821,32 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_database_migration_service.types.create_data_migration_message.CreateDataMigrationMessage",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.create_data_migration_message
+
+            return capo_database_migration_service.types.create_data_migration_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_database_migration_service.types.create_data_migration_response.CreateDataMigrationResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.create_data_migration_response
+
+            return capo_database_migration_service.types.create_data_migration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateDataMigration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_database_migration_service.types.create_data_migration_message.CreateDataMigrationMessage = {
             "migration_project_identifier": migration_project_identifier,
             "data_migration_type": data_migration_type,
@@ -889,7 +931,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateDataProvider")
+        )
         input_: capo_database_migration_service.types.create_data_provider_message.CreateDataProviderMessage = {
             "engine": engine,
             "settings": settings,
@@ -1082,7 +1126,32 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_database_migration_service.types.create_endpoint_message.CreateEndpointMessage",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.create_endpoint_message
+
+            return capo_database_migration_service.types.create_endpoint_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_database_migration_service.types.create_endpoint_response.CreateEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.create_endpoint_response
+
+            return capo_database_migration_service.types.create_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_database_migration_service.types.create_endpoint_message.CreateEndpointMessage = {
             "endpoint_identifier": endpoint_identifier,
             "endpoint_type": endpoint_type,
@@ -1221,7 +1290,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventSubscription")
+        )
         input_: capo_database_migration_service.types.create_event_subscription_message.CreateEventSubscriptionMessage = {
             "subscription_name": subscription_name,
             "sns_topic_arn": sns_topic_arn,
@@ -1288,7 +1359,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleetAdvisorCollector")
+        )
         input_: capo_database_migration_service.types.create_fleet_advisor_collector_request.CreateFleetAdvisorCollectorRequest = {
             "collector_name": collector_name,
             "service_access_role_arn": service_access_role_arn,
@@ -1382,7 +1455,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateInstanceProfile")
+        )
         input_: capo_database_migration_service.types.create_instance_profile_message.CreateInstanceProfileMessage = {}
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
@@ -1476,7 +1551,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMigrationProject")
+        )
         input_: capo_database_migration_service.types.create_migration_project_message.CreateMigrationProjectMessage = {
             "source_data_provider_descriptors": source_data_provider_descriptors,
             "target_data_provider_descriptors": target_data_provider_descriptors,
@@ -1565,7 +1642,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationConfig")
+        )
         input_: capo_database_migration_service.types.create_replication_config_message.CreateReplicationConfigMessage = {
             "replication_config_identifier": replication_config_identifier,
             "source_endpoint_arn": source_endpoint_arn,
@@ -1697,7 +1776,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationInstance")
+        )
         input_: capo_database_migration_service.types.create_replication_instance_message.CreateReplicationInstanceMessage = {
             "replication_instance_identifier": replication_instance_identifier,
             "replication_instance_class": replication_instance_class,
@@ -1793,7 +1874,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationSubnetGroup")
+        )
         input_: capo_database_migration_service.types.create_replication_subnet_group_message.CreateReplicationSubnetGroupMessage = {
             "replication_subnet_group_identifier": replication_subnet_group_identifier,
             "replication_subnet_group_description": replication_subnet_group_description,
@@ -1888,7 +1971,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReplicationTask")
+        )
         input_: capo_database_migration_service.types.create_replication_task_message.CreateReplicationTaskMessage = {
             "replication_task_identifier": replication_task_identifier,
             "source_endpoint_arn": source_endpoint_arn,
@@ -1958,7 +2043,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCertificate")
+        )
         input_: capo_database_migration_service.types.delete_certificate_message.DeleteCertificateMessage = {
             "certificate_arn": certificate_arn
         }
@@ -2012,7 +2099,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnection")
+        )
         input_: capo_database_migration_service.types.delete_connection_message.DeleteConnectionMessage = {
             "endpoint_arn": endpoint_arn,
             "replication_instance_arn": replication_instance_arn,
@@ -2059,7 +2148,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.delete_data_migration_response.DeleteDataMigrationResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.delete_data_migration_response
+
+            return capo_database_migration_service.types.delete_data_migration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteDataMigration", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.delete_data_migration_message.DeleteDataMigrationMessage = {
             "data_migration_identifier": data_migration_identifier
         }
@@ -2112,7 +2213,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDataProvider")
+        )
         input_: capo_database_migration_service.types.delete_data_provider_message.DeleteDataProviderMessage = {
             "data_provider_identifier": data_provider_identifier
         }
@@ -2164,7 +2267,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.delete_endpoint_response.DeleteEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.delete_endpoint_response
+
+            return capo_database_migration_service.types.delete_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEndpoint", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.delete_endpoint_message.DeleteEndpointMessage = {
             "endpoint_arn": endpoint_arn
         }
@@ -2210,7 +2325,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventSubscription")
+        )
         input_: capo_database_migration_service.types.delete_event_subscription_message.DeleteEventSubscriptionMessage = {
             "subscription_name": subscription_name
         }
@@ -2254,7 +2371,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleetAdvisorCollector")
+        )
         input_: capo_database_migration_service.types.delete_collector_request.DeleteCollectorRequest = {
             "collector_referenced_id": collector_referenced_id
         }
@@ -2300,7 +2419,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleetAdvisorDatabases")
+        )
         input_: capo_database_migration_service.types.delete_fleet_advisor_databases_request.DeleteFleetAdvisorDatabasesRequest = {
             "database_ids": database_ids
         }
@@ -2353,7 +2474,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteInstanceProfile")
+        )
         input_: capo_database_migration_service.types.delete_instance_profile_message.DeleteInstanceProfileMessage = {
             "instance_profile_identifier": instance_profile_identifier
         }
@@ -2406,7 +2529,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMigrationProject")
+        )
         input_: capo_database_migration_service.types.delete_migration_project_message.DeleteMigrationProjectMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -2452,7 +2577,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationConfig")
+        )
         input_: capo_database_migration_service.types.delete_replication_config_message.DeleteReplicationConfigMessage = {
             "replication_config_arn": replication_config_arn
         }
@@ -2505,7 +2632,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationInstance")
+        )
         input_: capo_database_migration_service.types.delete_replication_instance_message.DeleteReplicationInstanceMessage = {
             "replication_instance_arn": replication_instance_arn
         }
@@ -2557,7 +2686,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationSubnetGroup")
+        )
         input_: capo_database_migration_service.types.delete_replication_subnet_group_message.DeleteReplicationSubnetGroupMessage = {
             "replication_subnet_group_identifier": replication_subnet_group_identifier
         }
@@ -2608,7 +2739,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationTask")
+        )
         input_: capo_database_migration_service.types.delete_replication_task_message.DeleteReplicationTaskMessage = {
             "replication_task_arn": replication_task_arn
         }
@@ -2654,7 +2787,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReplicationTaskAssessmentRun")
+        )
         input_: capo_database_migration_service.types.delete_replication_task_assessment_run_message.DeleteReplicationTaskAssessmentRunMessage = {
             "replication_task_assessment_run_arn": replication_task_assessment_run_arn
         }
@@ -2699,7 +2834,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAccountAttributes")
+        )
         input_: capo_database_migration_service.types.describe_account_attributes_message.DescribeAccountAttributesMessage = {}
 
         response = await aexecute_pipeline(
@@ -2771,7 +2908,10 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeApplicableIndividualAssessments"),
+        )
         input_: capo_database_migration_service.types.describe_applicable_individual_assessments_message.DescribeApplicableIndividualAssessmentsMessage = {}
         if replication_task_arn is not None:
             input_["replication_task_arn"] = replication_task_arn
@@ -2888,7 +3028,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCertificates")
+        )
         input_: capo_database_migration_service.types.describe_certificates_message.DescribeCertificatesMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -2975,7 +3117,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConnections")
+        )
         input_: capo_database_migration_service.types.describe_connections_message.DescribeConnectionsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3054,7 +3198,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConversionConfiguration")
+        )
         input_: capo_database_migration_service.types.describe_conversion_configuration_message.DescribeConversionConfigurationMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -3116,7 +3262,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.describe_data_migrations_response.DescribeDataMigrationsResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.describe_data_migrations_response
+
+            return capo_database_migration_service.types.describe_data_migrations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeDataMigrations", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.describe_data_migrations_message.DescribeDataMigrationsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3219,7 +3377,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDataProviders")
+        )
         input_: capo_database_migration_service.types.describe_data_providers_message.DescribeDataProvidersMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3306,7 +3466,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.describe_endpoints_response.DescribeEndpointsResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.describe_endpoints_response
+
+            return capo_database_migration_service.types.describe_endpoints_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeEndpoints", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.describe_endpoints_message.DescribeEndpointsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3384,7 +3556,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointSettings")
+        )
         input_: capo_database_migration_service.types.describe_endpoint_settings_message.DescribeEndpointSettingsMessage = {
             "engine_name": engine_name
         }
@@ -3468,7 +3642,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEndpointTypes")
+        )
         input_: capo_database_migration_service.types.describe_endpoint_types_message.DescribeEndpointTypesMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -3544,7 +3720,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEngineVersions")
+        )
         input_: capo_database_migration_service.types.describe_engine_versions_message.DescribeEngineVersionsMessage = {}
         if max_records is not None:
             input_["max_records"] = max_records
@@ -3616,7 +3794,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventCategories")
+        )
         input_: capo_database_migration_service.types.describe_event_categories_message.DescribeEventCategoriesMessage = {}
         if source_type is not None:
             input_["source_type"] = source_type
@@ -3693,7 +3873,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEvents")
+        )
         input_: capo_database_migration_service.types.describe_events_message.DescribeEventsMessage = {}
         if source_identifier is not None:
             input_["source_identifier"] = source_identifier
@@ -3814,7 +3996,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeEventSubscriptions")
+        )
         input_: capo_database_migration_service.types.describe_event_subscriptions_message.DescribeEventSubscriptionsMessage = {}
         if subscription_name is not None:
             input_["subscription_name"] = subscription_name
@@ -3908,7 +4092,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeExtensionPackAssociations")
+        )
         input_: capo_database_migration_service.types.describe_extension_pack_associations_message.DescribeExtensionPackAssociationsMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -3995,7 +4181,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetAdvisorCollectors")
+        )
         input_: capo_database_migration_service.types.describe_fleet_advisor_collectors_request.DescribeFleetAdvisorCollectorsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4080,7 +4268,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetAdvisorDatabases")
+        )
         input_: capo_database_migration_service.types.describe_fleet_advisor_databases_request.DescribeFleetAdvisorDatabasesRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4161,7 +4351,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetAdvisorLsaAnalysis")
+        )
         input_: capo_database_migration_service.types.describe_fleet_advisor_lsa_analysis_request.DescribeFleetAdvisorLsaAnalysisRequest = {}
         if max_records is not None:
             input_["max_records"] = max_records
@@ -4240,7 +4432,10 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeFleetAdvisorSchemaObjectSummary"),
+        )
         input_: capo_database_migration_service.types.describe_fleet_advisor_schema_object_summary_request.DescribeFleetAdvisorSchemaObjectSummaryRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4325,7 +4520,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeFleetAdvisorSchemas")
+        )
         input_: capo_database_migration_service.types.describe_fleet_advisor_schemas_request.DescribeFleetAdvisorSchemasRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4416,7 +4613,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeInstanceProfiles")
+        )
         input_: capo_database_migration_service.types.describe_instance_profiles_message.DescribeInstanceProfilesMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -4500,7 +4699,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModel")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_message.DescribeMetadataModelMessage = {
             "selection_rules": selection_rules,
             "migration_project_identifier": migration_project_identifier,
@@ -4562,7 +4763,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelAssessments")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_assessments_message.DescribeMetadataModelAssessmentsMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -4656,7 +4859,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelChildren")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_children_message.DescribeMetadataModelChildrenMessage = {
             "selection_rules": selection_rules,
             "migration_project_identifier": migration_project_identifier,
@@ -4751,7 +4956,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelConversions")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_conversions_message.DescribeMetadataModelConversionsMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -4845,7 +5052,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelCreations")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_creations_message.DescribeMetadataModelCreationsMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -4940,7 +5149,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelExportsAsScript")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_exports_as_script_message.DescribeMetadataModelExportsAsScriptMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -5033,7 +5244,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelExportsToTarget")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_exports_to_target_message.DescribeMetadataModelExportsToTargetMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -5126,7 +5339,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMetadataModelImports")
+        )
         input_: capo_database_migration_service.types.describe_metadata_model_imports_message.DescribeMetadataModelImportsMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -5219,7 +5434,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeMigrationProjects")
+        )
         input_: capo_database_migration_service.types.describe_migration_projects_message.DescribeMigrationProjectsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5301,7 +5518,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrderableReplicationInstances")
+        )
         input_: capo_database_migration_service.types.describe_orderable_replication_instances_message.DescribeOrderableReplicationInstancesMessage = {}
         if max_records is not None:
             input_["max_records"] = max_records
@@ -5380,7 +5599,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePendingMaintenanceActions")
+        )
         input_: capo_database_migration_service.types.describe_pending_maintenance_actions_message.DescribePendingMaintenanceActionsMessage = {}
         if replication_instance_arn is not None:
             input_["replication_instance_arn"] = replication_instance_arn
@@ -5470,7 +5691,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecommendationLimitations")
+        )
         input_: capo_database_migration_service.types.describe_recommendation_limitations_request.DescribeRecommendationLimitationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5556,7 +5779,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRecommendations")
+        )
         input_: capo_database_migration_service.types.describe_recommendations_request.DescribeRecommendationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5638,7 +5863,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRefreshSchemasStatus")
+        )
         input_: capo_database_migration_service.types.describe_refresh_schemas_status_message.DescribeRefreshSchemasStatusMessage = {
             "endpoint_arn": endpoint_arn
         }
@@ -5690,7 +5917,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationConfigs")
+        )
         input_: capo_database_migration_service.types.describe_replication_configs_message.DescribeReplicationConfigsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5777,7 +6006,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationInstances")
+        )
         input_: capo_database_migration_service.types.describe_replication_instances_message.DescribeReplicationInstancesMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5857,7 +6088,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationInstanceTaskLogs")
+        )
         input_: capo_database_migration_service.types.describe_replication_instance_task_logs_message.DescribeReplicationInstanceTaskLogsMessage = {
             "replication_instance_arn": replication_instance_arn
         }
@@ -5936,7 +6169,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplications")
+        )
         input_: capo_database_migration_service.types.describe_replications_message.DescribeReplicationsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6023,7 +6258,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationSubnetGroups")
+        )
         input_: capo_database_migration_service.types.describe_replication_subnet_groups_message.DescribeReplicationSubnetGroupsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6107,7 +6344,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationTableStatistics")
+        )
         input_: capo_database_migration_service.types.describe_replication_table_statistics_message.DescribeReplicationTableStatisticsMessage = {
             "replication_config_arn": replication_config_arn
         }
@@ -6192,7 +6431,21 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.describe_replication_task_assessment_results_response.DescribeReplicationTaskAssessmentResultsResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.describe_replication_task_assessment_results_response
+
+            return capo_database_migration_service.types.describe_replication_task_assessment_results_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeReplicationTaskAssessmentResults", redact_output=_redact_output
+            ),
+        )
         input_: capo_database_migration_service.types.describe_replication_task_assessment_results_message.DescribeReplicationTaskAssessmentResultsMessage = {}
         if replication_task_arn is not None:
             input_["replication_task_arn"] = replication_task_arn
@@ -6273,7 +6526,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationTaskAssessmentRuns")
+        )
         input_: capo_database_migration_service.types.describe_replication_task_assessment_runs_message.DescribeReplicationTaskAssessmentRunsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6354,7 +6609,10 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeReplicationTaskIndividualAssessments"),
+        )
         input_: capo_database_migration_service.types.describe_replication_task_individual_assessments_message.DescribeReplicationTaskIndividualAssessmentsMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6445,7 +6703,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeReplicationTasks")
+        )
         input_: capo_database_migration_service.types.describe_replication_tasks_message.DescribeReplicationTasksMessage = {}
         if filters is not None:
             input_["filters"] = filters
@@ -6537,7 +6797,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeSchemas")
+        )
         input_: capo_database_migration_service.types.describe_schemas_message.DescribeSchemasMessage = {
             "endpoint_arn": endpoint_arn
         }
@@ -6626,7 +6888,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTableStatistics")
+        )
         input_: capo_database_migration_service.types.describe_table_statistics_message.DescribeTableStatisticsMessage = {
             "replication_task_arn": replication_task_arn
         }
@@ -6719,7 +6983,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ExportMetadataModelAssessment")
+        )
         input_: capo_database_migration_service.types.export_metadata_model_assessment_message.ExportMetadataModelAssessmentMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -6778,7 +7044,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetTargetSelectionRules")
+        )
         input_: capo_database_migration_service.types.get_target_selection_rules_message.GetTargetSelectionRulesMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -6846,7 +7114,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_database_migration_service.types.import_certificate_message.ImportCertificateMessage",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.import_certificate_message
+
+            return capo_database_migration_service.types.import_certificate_message.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportCertificate", redact_input=_redact_input),
+        )
         input_: capo_database_migration_service.types.import_certificate_message.ImportCertificateMessage = {
             "certificate_identifier": certificate_identifier
         }
@@ -6911,7 +7191,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_database_migration_service.types.list_tags_for_resource_message.ListTagsForResourceMessage = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -6966,7 +7248,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyConversionConfiguration")
+        )
         input_: capo_database_migration_service.types.modify_conversion_configuration_message.ModifyConversionConfigurationMessage = {
             "migration_project_identifier": migration_project_identifier,
             "conversion_configuration": conversion_configuration,
@@ -7045,7 +7329,32 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_database_migration_service.types.modify_data_migration_message.ModifyDataMigrationMessage",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.modify_data_migration_message
+
+            return capo_database_migration_service.types.modify_data_migration_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_database_migration_service.types.modify_data_migration_response.ModifyDataMigrationResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.modify_data_migration_response
+
+            return capo_database_migration_service.types.modify_data_migration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyDataMigration",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_database_migration_service.types.modify_data_migration_message.ModifyDataMigrationMessage = {
             "data_migration_identifier": data_migration_identifier
         }
@@ -7136,7 +7445,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyDataProvider")
+        )
         input_: capo_database_migration_service.types.modify_data_provider_message.ModifyDataProviderMessage = {
             "data_provider_identifier": data_provider_identifier
         }
@@ -7333,7 +7644,32 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_database_migration_service.types.modify_endpoint_message.ModifyEndpointMessage",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.modify_endpoint_message
+
+            return capo_database_migration_service.types.modify_endpoint_message.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_database_migration_service.types.modify_endpoint_response.ModifyEndpointResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.modify_endpoint_response
+
+            return capo_database_migration_service.types.modify_endpoint_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ModifyEndpoint",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_database_migration_service.types.modify_endpoint_message.ModifyEndpointMessage = {
             "endpoint_arn": endpoint_arn
         }
@@ -7468,7 +7804,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyEventSubscription")
+        )
         input_: capo_database_migration_service.types.modify_event_subscription_message.ModifyEventSubscriptionMessage = {
             "subscription_name": subscription_name
         }
@@ -7564,7 +7902,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyInstanceProfile")
+        )
         input_: capo_database_migration_service.types.modify_instance_profile_message.ModifyInstanceProfileMessage = {
             "instance_profile_identifier": instance_profile_identifier
         }
@@ -7663,7 +8003,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyMigrationProject")
+        )
         input_: capo_database_migration_service.types.modify_migration_project_message.ModifyMigrationProjectMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -7764,7 +8106,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReplicationConfig")
+        )
         input_: capo_database_migration_service.types.modify_replication_config_message.ModifyReplicationConfigMessage = {
             "replication_config_arn": replication_config_arn
         }
@@ -7884,7 +8228,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReplicationInstance")
+        )
         input_: capo_database_migration_service.types.modify_replication_instance_message.ModifyReplicationInstanceMessage = {
             "replication_instance_arn": replication_instance_arn
         }
@@ -7971,7 +8317,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReplicationSubnetGroup")
+        )
         input_: capo_database_migration_service.types.modify_replication_subnet_group_message.ModifyReplicationSubnetGroupMessage = {
             "replication_subnet_group_identifier": replication_subnet_group_identifier,
             "subnet_ids": subnet_ids,
@@ -8055,7 +8403,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ModifyReplicationTask")
+        )
         input_: capo_database_migration_service.types.modify_replication_task_message.ModifyReplicationTaskMessage = {
             "replication_task_arn": replication_task_arn
         }
@@ -8121,7 +8471,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("MoveReplicationTask")
+        )
         input_: capo_database_migration_service.types.move_replication_task_message.MoveReplicationTaskMessage = {
             "replication_task_arn": replication_task_arn,
             "target_replication_instance_arn": target_replication_instance_arn,
@@ -8175,7 +8527,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RebootReplicationInstance")
+        )
         input_: capo_database_migration_service.types.reboot_replication_instance_message.RebootReplicationInstanceMessage = {
             "replication_instance_arn": replication_instance_arn
         }
@@ -8234,7 +8588,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RefreshSchemas")
+        )
         input_: capo_database_migration_service.types.refresh_schemas_message.RefreshSchemasMessage = {
             "endpoint_arn": endpoint_arn,
             "replication_instance_arn": replication_instance_arn,
@@ -8286,7 +8642,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReloadReplicationTables")
+        )
         input_: capo_database_migration_service.types.reload_replication_tables_message.ReloadReplicationTablesMessage = {
             "replication_config_arn": replication_config_arn,
             "tables_to_reload": tables_to_reload,
@@ -8340,7 +8698,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ReloadTables")
+        )
         input_: capo_database_migration_service.types.reload_tables_message.ReloadTablesMessage = {
             "replication_task_arn": replication_task_arn,
             "tables_to_reload": tables_to_reload,
@@ -8396,7 +8756,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveTagsFromResource")
+        )
         input_: capo_database_migration_service.types.remove_tags_from_resource_message.RemoveTagsFromResourceMessage = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -8438,7 +8800,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RunFleetAdvisorLsaAnalysis")
+        )
 
         response = await aexecute_pipeline(
             AsyncOperationRequest(input=None, options=options_),
@@ -8485,7 +8849,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.start_data_migration_response.StartDataMigrationResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.start_data_migration_response
+
+            return capo_database_migration_service.types.start_data_migration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDataMigration", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.start_data_migration_message.StartDataMigrationMessage = {
             "data_migration_identifier": data_migration_identifier,
             "start_type": start_type,
@@ -8543,7 +8919,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExtensionPackAssociation")
+        )
         input_: capo_database_migration_service.types.start_extension_pack_association_message.StartExtensionPackAssociationMessage = {
             "migration_project_identifier": migration_project_identifier
         }
@@ -8602,7 +8980,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelAssessment")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_assessment_message.StartMetadataModelAssessmentMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8662,7 +9042,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelConversion")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_conversion_message.StartMetadataModelConversionMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8722,7 +9104,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelCreation")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_creation_message.StartMetadataModelCreationMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8790,7 +9174,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelExportAsScript")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_export_as_script_message.StartMetadataModelExportAsScriptMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8857,7 +9243,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelExportToTarget")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_export_to_target_message.StartMetadataModelExportToTargetMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8925,7 +9313,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartMetadataModelImport")
+        )
         input_: capo_database_migration_service.types.start_metadata_model_import_message.StartMetadataModelImportMessage = {
             "migration_project_identifier": migration_project_identifier,
             "selection_rules": selection_rules,
@@ -8975,7 +9365,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRecommendations")
+        )
         input_: capo_database_migration_service.types.start_recommendations_request.StartRecommendationsRequest = {
             "database_id": database_id,
             "settings": settings,
@@ -9040,7 +9432,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplication")
+        )
         input_: capo_database_migration_service.types.start_replication_message.StartReplicationMessage = {
             "replication_config_arn": replication_config_arn,
             "start_replication_type": start_replication_type,
@@ -9117,7 +9511,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplicationTask")
+        )
         input_: capo_database_migration_service.types.start_replication_task_message.StartReplicationTaskMessage = {
             "replication_task_arn": replication_task_arn,
             "start_replication_task_type": start_replication_task_type,
@@ -9169,7 +9565,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplicationTaskAssessment")
+        )
         input_: capo_database_migration_service.types.start_replication_task_assessment_message.StartReplicationTaskAssessmentMessage = {
             "replication_task_arn": replication_task_arn
         }
@@ -9252,7 +9650,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartReplicationTaskAssessmentRun")
+        )
         input_: capo_database_migration_service.types.start_replication_task_assessment_run_message.StartReplicationTaskAssessmentRunMessage = {
             "replication_task_arn": replication_task_arn,
             "service_access_role_arn": service_access_role_arn,
@@ -9313,7 +9713,19 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_database_migration_service.types.stop_data_migration_response.StopDataMigrationResponse",
+        ) -> dict[str, Any]:
+            import capo_database_migration_service.types.stop_data_migration_response
+
+            return capo_database_migration_service.types.stop_data_migration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StopDataMigration", redact_output=_redact_output),
+        )
         input_: capo_database_migration_service.types.stop_data_migration_message.StopDataMigrationMessage = {
             "data_migration_identifier": data_migration_identifier
         }
@@ -9359,7 +9771,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopReplication")
+        )
         input_: capo_database_migration_service.types.stop_replication_message.StopReplicationMessage = {
             "replication_config_arn": replication_config_arn
         }
@@ -9410,7 +9824,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopReplicationTask")
+        )
         input_: capo_database_migration_service.types.stop_replication_task_message.StopReplicationTaskMessage = {
             "replication_task_arn": replication_task_arn
         }
@@ -9466,7 +9882,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TestConnection")
+        )
         input_: capo_database_migration_service.types.test_connection_message.TestConnectionMessage = {
             "replication_instance_arn": replication_instance_arn,
             "endpoint_arn": endpoint_arn,
@@ -9514,7 +9932,9 @@ class AsyncDatabaseMigrationServiceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateSubscriptionsToEventBridge")
+        )
         input_: capo_database_migration_service.types.update_subscriptions_to_event_bridge_message.UpdateSubscriptionsToEventBridgeMessage = {}
         if force_move is not None:
             input_["force_move"] = force_move

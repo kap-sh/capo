@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#IngestPayloadList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore.types.ingest_payload_type
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> IngestPayloadList:
             capo_bedrock_agentcore.types.ingest_payload_type.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: IngestPayloadList) -> list[Any]:
+    import capo_bedrock_agentcore.types.ingest_payload_type
+
+    return [
+        capo_bedrock_agentcore.types.ingest_payload_type.redact_sensitive(item)
+        for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotfleetwise#SignalFetchInformation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,4 +81,23 @@ def deserialize_aws_json_1_0(data: dict) -> SignalFetchInformation:
         )
     else:
         raise DeserializationError("SignalFetchInformation.actions required")
+    return out
+
+
+def redact_sensitive(value: SignalFetchInformation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "signal_fetch_config" in value:
+        import capo_iotfleetwise.types.signal_fetch_config
+
+        out["signal_fetch_config"] = (
+            capo_iotfleetwise.types.signal_fetch_config.redact_sensitive(
+                value["signal_fetch_config"]
+            )
+        )
+    if "actions" in value:
+        import capo_iotfleetwise.types.event_expression_list
+
+        out["actions"] = capo_iotfleetwise.types.event_expression_list.redact_sensitive(
+            value["actions"]
+        )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wisdom#QueryRecommendationTriggerData``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_json(data: dict) -> QueryRecommendationTriggerData:
     out: QueryRecommendationTriggerData = {}  # type: ignore[typeddict-item]
     if data.get("text") is not None:
         out["text"] = data["text"]
+    return out
+
+
+def redact_sensitive(value: QueryRecommendationTriggerData) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text" in value:
+        out["text"] = "*** Sensitive Data Redacted ***"
     return out

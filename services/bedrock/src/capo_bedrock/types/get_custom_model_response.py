@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#GetCustomModelResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -259,4 +259,17 @@ def deserialize_json(data: dict) -> GetCustomModelResponse:
         )
     if data.get("failureMessage") is not None:
         out["failure_message"] = data["failureMessage"]
+    return out
+
+
+def redact_sensitive(value: GetCustomModelResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "training_data_config" in value:
+        import capo_bedrock.types.training_data_config
+
+        out["training_data_config"] = (
+            capo_bedrock.types.training_data_config.redact_sensitive(
+                value["training_data_config"]
+            )
+        )
     return out

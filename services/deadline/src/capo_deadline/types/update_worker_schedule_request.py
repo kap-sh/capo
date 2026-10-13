@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#UpdateWorkerScheduleRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,6 +46,19 @@ def deserialize_json(data: dict) -> UpdateWorkerScheduleRequest:
         out["updated_session_actions"] = (
             capo_deadline.types.updated_session_actions.deserialize_json(
                 data["updatedSessionActions"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateWorkerScheduleRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "updated_session_actions" in value:
+        import capo_deadline.types.updated_session_actions
+
+        out["updated_session_actions"] = (
+            capo_deadline.types.updated_session_actions.redact_sensitive(
+                value["updated_session_actions"]
             )
         )
     return out

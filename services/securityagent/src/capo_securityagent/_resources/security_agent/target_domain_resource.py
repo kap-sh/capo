@@ -7,6 +7,7 @@ import capo_securityagent._auth._sigv4
 from capo_securityagent._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -80,7 +81,9 @@ class TargetDomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTargetDomain")
+        )
         input_: capo_securityagent.types.create_target_domain_input.CreateTargetDomainInput = {
             "target_domain_name": target_domain_name,
             "verification_method": verification_method,
@@ -129,7 +132,9 @@ class TargetDomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTargetDomain")
+        )
         input_: capo_securityagent.types.update_target_domain_input.UpdateTargetDomainInput = {
             "target_domain_id": target_domain_id,
             "verification_method": verification_method,
@@ -174,7 +179,9 @@ class TargetDomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTargetDomain")
+        )
         input_: capo_securityagent.types.delete_target_domain_input.DeleteTargetDomainInput = {
             "target_domain_id": target_domain_id
         }
@@ -218,7 +225,9 @@ class TargetDomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargetDomains")
+        )
         input_: capo_securityagent.types.list_target_domains_input.ListTargetDomainsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -262,7 +271,9 @@ class TargetDomainResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetTargetDomains")
+        )
         input_: capo_securityagent.types.batch_get_target_domains_input.BatchGetTargetDomainsInput = {
             "target_domain_ids": target_domain_ids
         }
@@ -316,7 +327,9 @@ class AsyncTargetDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTargetDomain")
+        )
         input_: capo_securityagent.types.create_target_domain_input.CreateTargetDomainInput = {
             "target_domain_name": target_domain_name,
             "verification_method": verification_method,
@@ -366,7 +379,9 @@ class AsyncTargetDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTargetDomain")
+        )
         input_: capo_securityagent.types.update_target_domain_input.UpdateTargetDomainInput = {
             "target_domain_id": target_domain_id,
             "verification_method": verification_method,
@@ -412,7 +427,9 @@ class AsyncTargetDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTargetDomain")
+        )
         input_: capo_securityagent.types.delete_target_domain_input.DeleteTargetDomainInput = {
             "target_domain_id": target_domain_id
         }
@@ -457,7 +474,9 @@ class AsyncTargetDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTargetDomains")
+        )
         input_: capo_securityagent.types.list_target_domains_input.ListTargetDomainsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -502,7 +521,9 @@ class AsyncTargetDomainResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetTargetDomains")
+        )
         input_: capo_securityagent.types.batch_get_target_domains_input.BatchGetTargetDomainsInput = {
             "target_domain_ids": target_domain_ids
         }

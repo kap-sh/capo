@@ -24,7 +24,9 @@ from capo_repostspace._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -160,7 +162,9 @@ class AsyncrepostspaceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncrepostspaceClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncrepostspaceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncrepostspaceClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -168,8 +172,10 @@ class AsyncrepostspaceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -234,7 +240,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAddChannelRoleToAccessors")
+        )
         input_: capo_repostspace.types.batch_add_channel_role_to_accessors_input.BatchAddChannelRoleToAccessorsInput = {
             "space_id": space_id,
             "channel_id": channel_id,
@@ -294,7 +302,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchAddRole")
+        )
         input_: capo_repostspace.types.batch_add_role_input.BatchAddRoleInput = {
             "space_id": space_id,
             "accessor_ids": accessor_ids,
@@ -355,7 +365,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRemoveChannelRoleFromAccessors")
+        )
         input_: capo_repostspace.types.batch_remove_channel_role_from_accessors_input.BatchRemoveChannelRoleFromAccessorsInput = {
             "space_id": space_id,
             "channel_id": channel_id,
@@ -415,7 +427,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchRemoveRole")
+        )
         input_: capo_repostspace.types.batch_remove_role_input.BatchRemoveRoleInput = {
             "space_id": space_id,
             "accessor_ids": accessor_ids,
@@ -478,7 +492,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.create_channel_input.CreateChannelInput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.create_channel_input
+
+            return capo_repostspace.types.create_channel_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateChannel", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.create_channel_input.CreateChannelInput = {
             "space_id": space_id,
             "channel_name": channel_name,
@@ -549,7 +573,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.create_space_input.CreateSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.create_space_input
+
+            return capo_repostspace.types.create_space_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateSpace", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.create_space_input.CreateSpaceInput = {
             "name": name,
             "subdomain": subdomain,
@@ -607,7 +641,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSpace")
+        )
         input_: capo_repostspace.types.delete_space_input.DeleteSpaceInput = {
             "space_id": space_id
         }
@@ -655,7 +691,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterAdmin")
+        )
         input_: capo_repostspace.types.deregister_admin_input.DeregisterAdminInput = {
             "space_id": space_id,
             "admin_id": admin_id,
@@ -711,7 +749,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_repostspace.types.get_channel_output.GetChannelOutput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.get_channel_output
+
+            return capo_repostspace.types.get_channel_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetChannel", redact_output=_redact_output),
+        )
         input_: capo_repostspace.types.get_channel_input.GetChannelInput = {
             "space_id": space_id,
             "channel_id": channel_id,
@@ -760,7 +808,16 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_repostspace.types.get_space_output.GetSpaceOutput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.get_space_output
+
+            return capo_repostspace.types.get_space_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSpace", redact_output=_redact_output)
+        )
         input_: capo_repostspace.types.get_space_input.GetSpaceInput = {
             "space_id": space_id
         }
@@ -818,7 +875,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_repostspace.types.list_channels_output.ListChannelsOutput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.list_channels_output
+
+            return capo_repostspace.types.list_channels_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListChannels", redact_output=_redact_output),
+        )
         input_: capo_repostspace.types.list_channels_input.ListChannelsInput = {
             "space_id": space_id
         }
@@ -898,7 +965,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_repostspace.types.list_spaces_output.ListSpacesOutput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.list_spaces_output
+
+            return capo_repostspace.types.list_spaces_output.redact_sensitive(output)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSpaces", redact_output=_redact_output),
+        )
         input_: capo_repostspace.types.list_spaces_input.ListSpacesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -971,7 +1048,21 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_repostspace.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.list_tags_for_resource_response
+
+            return (
+                capo_repostspace.types.list_tags_for_resource_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_repostspace.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1019,7 +1110,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterAdmin")
+        )
         input_: capo_repostspace.types.register_admin_input.RegisterAdminInput = {
             "space_id": space_id,
             "admin_id": admin_id,
@@ -1072,7 +1165,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.send_invites_input.SendInvitesInput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.send_invites_input
+
+            return capo_repostspace.types.send_invites_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendInvites", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.send_invites_input.SendInvitesInput = {
             "space_id": space_id,
             "accessor_ids": accessor_ids,
@@ -1125,7 +1228,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.tag_resource_request
+
+            return capo_repostspace.types.tag_resource_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1176,7 +1289,9 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_repostspace.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1239,7 +1354,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.update_channel_input.UpdateChannelInput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.update_channel_input
+
+            return capo_repostspace.types.update_channel_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateChannel", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.update_channel_input.UpdateChannelInput = {
             "space_id": space_id,
             "channel_id": channel_id,
@@ -1302,7 +1427,17 @@ class AsyncrepostspaceClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_repostspace.types.update_space_input.UpdateSpaceInput",
+        ) -> dict[str, Any]:
+            import capo_repostspace.types.update_space_input
+
+            return capo_repostspace.types.update_space_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateSpace", redact_input=_redact_input),
+        )
         input_: capo_repostspace.types.update_space_input.UpdateSpaceInput = {
             "space_id": space_id
         }

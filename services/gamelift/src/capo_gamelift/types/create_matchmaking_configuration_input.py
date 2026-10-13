@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gamelift#CreateMatchmakingConfigurationInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -195,4 +195,21 @@ def deserialize_aws_json_1_1(data: dict) -> CreateMatchmakingConfigurationInput:
         out["tags"] = capo_gamelift.types.tag_list.deserialize_aws_json_1_1(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateMatchmakingConfigurationInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "custom_event_data" in value:
+        out["custom_event_data"] = "*** Sensitive Data Redacted ***"
+    if "game_properties" in value:
+        import capo_gamelift.types.game_property_list
+
+        out["game_properties"] = (
+            capo_gamelift.types.game_property_list.redact_sensitive(
+                value["game_properties"]
+            )
+        )
+    if "game_session_data" in value:
+        out["game_session_data"] = "*** Sensitive Data Redacted ***"
     return out

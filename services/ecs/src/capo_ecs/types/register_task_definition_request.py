@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ecs#RegisterTaskDefinitionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -272,4 +272,17 @@ def deserialize_aws_json_1_1(data: dict) -> RegisterTaskDefinitionRequest:
         )
     if data.get("enableFaultInjection") is not None:
         out["enable_fault_injection"] = data["enableFaultInjection"]
+    return out
+
+
+def redact_sensitive(value: RegisterTaskDefinitionRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "container_definitions" in value:
+        import capo_ecs.types.container_definitions
+
+        out["container_definitions"] = (
+            capo_ecs.types.container_definitions.redact_sensitive(
+                value["container_definitions"]
+            )
+        )
     return out

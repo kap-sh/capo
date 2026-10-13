@@ -51,10 +51,12 @@ from capo_partnercentral_selling._resources.aws_partner_central_selling.solution
 from capo_partnercentral_selling._services._aws_config import aws_config
 from capo_partnercentral_selling._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -317,7 +319,9 @@ class PartnerCentralSellingClient:
         self.solution = Solution(self)
 
     def operation_options(
-        self, config_overrides: Optional[PartnerCentralSellingClientConfig] = None
+        self,
+        config_overrides: Optional[PartnerCentralSellingClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: PartnerCentralSellingClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -325,8 +329,10 @@ class PartnerCentralSellingClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -385,7 +391,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_context_request.CreateEngagementContextRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_context_request
+
+            return capo_partnercentral_selling.types.create_engagement_context_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagementContext", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_context_request.CreateEngagementContextRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -436,7 +454,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSellingSystemSettings")
+        )
         input_: capo_partnercentral_selling.types.get_selling_system_settings_request.GetSellingSystemSettingsRequest = {
             "catalog": catalog
         }
@@ -483,7 +503,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_partnercentral_selling.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -534,7 +556,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutSellingSystemSettings")
+        )
         input_: capo_partnercentral_selling.types.put_selling_system_settings_request.PutSellingSystemSettingsRequest = {
             "catalog": catalog
         }
@@ -588,7 +612,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_partnercentral_selling.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -639,7 +665,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_partnercentral_selling.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -699,7 +727,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.update_engagement_context_request.UpdateEngagementContextRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.update_engagement_context_request
+
+            return capo_partnercentral_selling.types.update_engagement_context_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateEngagementContext", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.update_engagement_context_request.UpdateEngagementContextRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -767,7 +807,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_request
+
+            return capo_partnercentral_selling.types.create_engagement_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagement", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_request.CreateEngagementRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -823,7 +875,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_response.GetEngagementResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_response
+
+            return capo_partnercentral_selling.types.get_engagement_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagement", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_request.GetEngagementRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -900,7 +964,32 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_request
+
+            return capo_partnercentral_selling.types.list_engagements_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagements_response.ListEngagementsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagements_response
+
+            return capo_partnercentral_selling.types.list_engagements_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagements",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagements_request.ListEngagementsRequest = {
             "catalog": catalog
         }
@@ -1020,7 +1109,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_members_response.ListEngagementMembersResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_members_response
+
+            return capo_partnercentral_selling.types.list_engagement_members_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementMembers", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_members_request.ListEngagementMembersRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1109,7 +1210,10 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartEngagementByAcceptingInvitationTask"),
+        )
         input_: capo_partnercentral_selling.types.start_engagement_by_accepting_invitation_task_request.StartEngagementByAcceptingInvitationTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -1184,7 +1288,10 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListEngagementByAcceptingInvitationTasks"),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_by_accepting_invitation_tasks_request.ListEngagementByAcceptingInvitationTasksRequest = {
             "catalog": catalog
         }
@@ -1299,7 +1406,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartEngagementFromOpportunityTask")
+        )
         input_: capo_partnercentral_selling.types.start_engagement_from_opportunity_task_request.StartEngagementFromOpportunityTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -1375,7 +1484,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEngagementFromOpportunityTasks")
+        )
         input_: capo_partnercentral_selling.types.list_engagement_from_opportunity_tasks_request.ListEngagementFromOpportunityTasksRequest = {
             "catalog": catalog
         }
@@ -1487,7 +1598,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_engagement_invitation_request
+
+            return capo_partnercentral_selling.types.create_engagement_invitation_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateEngagementInvitation", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_engagement_invitation_request.CreateEngagementInvitationRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -1539,7 +1662,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_engagement_invitation_response.GetEngagementInvitationResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_engagement_invitation_response
+
+            return capo_partnercentral_selling.types.get_engagement_invitation_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetEngagementInvitation", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_engagement_invitation_request.GetEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1615,7 +1750,32 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_request
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_invitations_response.ListEngagementInvitationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_invitations_response
+
+            return capo_partnercentral_selling.types.list_engagement_invitations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementInvitations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_invitations_request.ListEngagementInvitationsRequest = {
             "catalog": catalog,
             "participant_type": participant_type,
@@ -1725,7 +1885,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AcceptEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.accept_engagement_invitation_request.AcceptEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1778,7 +1940,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RejectEngagementInvitation")
+        )
         input_: capo_partnercentral_selling.types.reject_engagement_invitation_request.RejectEngagementInvitationRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1873,7 +2037,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.create_opportunity_request
+
+            return capo_partnercentral_selling.types.create_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.create_opportunity_request.CreateOpportunityRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -1947,7 +2123,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_opportunity_response.GetOpportunityResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_opportunity_response
+
+            return capo_partnercentral_selling.types.get_opportunity_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOpportunity", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_opportunity_request.GetOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -2032,7 +2220,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.update_opportunity_request
+
+            return capo_partnercentral_selling.types.update_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.update_opportunity_request.UpdateOpportunityRequest = {
             "catalog": catalog,
             "last_modified_date": last_modified_date,
@@ -2137,7 +2337,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_opportunities_response.ListOpportunitiesResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_opportunities_response
+
+            return capo_partnercentral_selling.types.list_opportunities_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListOpportunities", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.list_opportunities_request.ListOpportunitiesRequest = {
             "catalog": catalog
         }
@@ -2263,7 +2475,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.assign_opportunity_request
+
+            return capo_partnercentral_selling.types.assign_opportunity_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("AssignOpportunity", redact_input=_redact_input),
+        )
         input_: capo_partnercentral_selling.types.assign_opportunity_request.AssignOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -2316,7 +2540,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.associate_opportunity_request.AssociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -2370,7 +2596,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateOpportunity")
+        )
         input_: capo_partnercentral_selling.types.disassociate_opportunity_request.DisassociateOpportunityRequest = {
             "catalog": catalog,
             "opportunity_identifier": opportunity_identifier,
@@ -2422,7 +2650,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_aws_opportunity_summary_response.GetAwsOpportunitySummaryResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_aws_opportunity_summary_response
+
+            return capo_partnercentral_selling.types.get_aws_opportunity_summary_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAwsOpportunitySummary", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_aws_opportunity_summary_request.GetAwsOpportunitySummaryRequest = {
             "catalog": catalog,
             "related_opportunity_identifier": related_opportunity_identifier,
@@ -2476,7 +2716,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SubmitOpportunity")
+        )
         input_: capo_partnercentral_selling.types.submit_opportunity_request.SubmitOpportunityRequest = {
             "catalog": catalog,
             "identifier": identifier,
@@ -2537,7 +2779,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartOpportunityFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.start_opportunity_from_engagement_task_request.StartOpportunityFromEngagementTaskRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -2616,7 +2860,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOpportunityFromEngagementTasks")
+        )
         input_: capo_partnercentral_selling.types.list_opportunity_from_engagement_tasks_request.ListOpportunityFromEngagementTasksRequest = {
             "catalog": catalog
         }
@@ -2733,7 +2979,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.start_prospecting_from_engagement_task_request.StartProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "identifiers": identifiers,
@@ -2785,7 +3033,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetProspectingFromEngagementTask")
+        )
         input_: capo_partnercentral_selling.types.get_prospecting_from_engagement_task_request.GetProspectingFromEngagementTaskRequest = {
             "catalog": catalog,
             "task_identifier": task_identifier,
@@ -2858,7 +3108,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProspectingFromEngagementTasks")
+        )
         input_: capo_partnercentral_selling.types.list_prospecting_from_engagement_tasks_request.ListProspectingFromEngagementTasksRequest = {
             "catalog": catalog
         }
@@ -2976,7 +3228,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshot")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_request.CreateResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -3040,7 +3294,19 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.get_resource_snapshot_response.GetResourceSnapshotResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.get_resource_snapshot_response
+
+            return capo_partnercentral_selling.types.get_resource_snapshot_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetResourceSnapshot", redact_output=_redact_output),
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_request.GetResourceSnapshotRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -3115,7 +3381,32 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_request
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_engagement_resource_associations_response.ListEngagementResourceAssociationsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_engagement_resource_associations_response
+
+            return capo_partnercentral_selling.types.list_engagement_resource_associations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListEngagementResourceAssociations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_engagement_resource_associations_request.ListEngagementResourceAssociationsRequest = {
             "catalog": catalog
         }
@@ -3241,7 +3532,32 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_request
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_selling.types.list_resource_snapshots_response.ListResourceSnapshotsResponse",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_selling.types.list_resource_snapshots_response
+
+            return capo_partnercentral_selling.types.list_resource_snapshots_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListResourceSnapshots",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshots_request.ListResourceSnapshotsRequest = {
             "catalog": catalog,
             "engagement_identifier": engagement_identifier,
@@ -3360,7 +3676,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.create_resource_snapshot_job_request.CreateResourceSnapshotJobRequest = {
             "catalog": catalog,
             "client_token": client_token,
@@ -3416,7 +3734,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.get_resource_snapshot_job_request.GetResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -3465,7 +3785,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.delete_resource_snapshot_job_request.DeleteResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -3531,7 +3853,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceSnapshotJobs")
+        )
         input_: capo_partnercentral_selling.types.list_resource_snapshot_jobs_request.ListResourceSnapshotJobsRequest = {
             "catalog": catalog
         }
@@ -3625,7 +3949,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.start_resource_snapshot_job_request.StartResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -3673,7 +3999,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopResourceSnapshotJob")
+        )
         input_: capo_partnercentral_selling.types.stop_resource_snapshot_job_request.StopResourceSnapshotJobRequest = {
             "catalog": catalog,
             "resource_snapshot_job_identifier": resource_snapshot_job_identifier,
@@ -3747,7 +4075,9 @@ class PartnerCentralSellingClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSolutions")
+        )
         input_: capo_partnercentral_selling.types.list_solutions_request.ListSolutionsRequest = {
             "catalog": catalog
         }

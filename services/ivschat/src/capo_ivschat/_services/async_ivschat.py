@@ -24,7 +24,9 @@ from capo_ivschat._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -160,7 +162,9 @@ class AsyncivschatClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncivschatClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncivschatClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncivschatClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -168,8 +172,10 @@ class AsyncivschatClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -236,7 +242,30 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ivschat.types.create_chat_token_request.CreateChatTokenRequest",
+        ) -> dict[str, Any]:
+            import capo_ivschat.types.create_chat_token_request
+
+            return capo_ivschat.types.create_chat_token_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_ivschat.types.create_chat_token_response.CreateChatTokenResponse",
+        ) -> dict[str, Any]:
+            import capo_ivschat.types.create_chat_token_response
+
+            return capo_ivschat.types.create_chat_token_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateChatToken",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_ivschat.types.create_chat_token_request.CreateChatTokenRequest = {
             "room_identifier": room_identifier,
             "user_id": user_id,
@@ -298,7 +327,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateLoggingConfiguration")
+        )
         input_: capo_ivschat.types.create_logging_configuration_request.CreateLoggingConfigurationRequest = {
             "destination_configuration": destination_configuration
         }
@@ -369,7 +400,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRoom")
+        )
         input_: capo_ivschat.types.create_room_request.CreateRoomRequest = {}
         if name is not None:
             input_["name"] = name
@@ -427,7 +460,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteLoggingConfiguration")
+        )
         input_: capo_ivschat.types.delete_logging_configuration_request.DeleteLoggingConfigurationRequest = {
             "identifier": identifier
         }
@@ -479,7 +514,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteMessage")
+        )
         input_: capo_ivschat.types.delete_message_request.DeleteMessageRequest = {
             "room_identifier": room_identifier,
             "id": id,
@@ -527,7 +564,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRoom")
+        )
         input_: capo_ivschat.types.delete_room_request.DeleteRoomRequest = {
             "identifier": identifier
         }
@@ -579,7 +618,17 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_ivschat.types.disconnect_user_request.DisconnectUserRequest",
+        ) -> dict[str, Any]:
+            import capo_ivschat.types.disconnect_user_request
+
+            return capo_ivschat.types.disconnect_user_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DisconnectUser", redact_input=_redact_input),
+        )
         input_: capo_ivschat.types.disconnect_user_request.DisconnectUserRequest = {
             "room_identifier": room_identifier,
             "user_id": user_id,
@@ -628,7 +677,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLoggingConfiguration")
+        )
         input_: capo_ivschat.types.get_logging_configuration_request.GetLoggingConfigurationRequest = {
             "identifier": identifier
         }
@@ -674,7 +725,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRoom")
+        )
         input_: capo_ivschat.types.get_room_request.GetRoomRequest = {
             "identifier": identifier
         }
@@ -725,7 +778,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListLoggingConfigurations")
+        )
         input_: capo_ivschat.types.list_logging_configurations_request.ListLoggingConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -812,7 +867,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRooms")
+        )
         input_: capo_ivschat.types.list_rooms_request.ListRoomsRequest = {}
         if name is not None:
             input_["name"] = name
@@ -903,7 +960,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_ivschat.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -957,7 +1016,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SendEvent")
+        )
         input_: capo_ivschat.types.send_event_request.SendEventRequest = {
             "room_identifier": room_identifier,
             "event_name": event_name,
@@ -1008,7 +1069,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_ivschat.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1057,7 +1120,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_ivschat.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1114,7 +1179,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateLoggingConfiguration")
+        )
         input_: capo_ivschat.types.update_logging_configuration_request.UpdateLoggingConfigurationRequest = {
             "identifier": identifier
         }
@@ -1183,7 +1250,9 @@ class AsyncivschatClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRoom")
+        )
         input_: capo_ivschat.types.update_room_request.UpdateRoomRequest = {
             "identifier": identifier
         }

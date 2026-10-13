@@ -7,6 +7,7 @@ import capo_launch_wizard._auth._sigv4
 from capo_launch_wizard._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -73,7 +74,9 @@ class Workload:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkload")
+        )
         input_: capo_launch_wizard.types.get_workload_input.GetWorkloadInput = {
             "workload_name": workload_name
         }
@@ -126,7 +129,9 @@ class Workload:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloads")
+        )
         input_: capo_launch_wizard.types.list_workloads_input.ListWorkloadsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -184,7 +189,9 @@ class AsyncWorkload:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetWorkload")
+        )
         input_: capo_launch_wizard.types.get_workload_input.GetWorkloadInput = {
             "workload_name": workload_name
         }
@@ -238,7 +245,9 @@ class AsyncWorkload:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListWorkloads")
+        )
         input_: capo_launch_wizard.types.list_workloads_input.ListWorkloadsInput = {}
         if max_results is not None:
             input_["max_results"] = max_results

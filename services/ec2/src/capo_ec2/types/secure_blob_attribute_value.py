@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ec2#SecureBlobAttributeValue``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,11 @@ def deserialize_ec2_query(el: Element) -> SecureBlobAttributeValue:
         import capo_ec2.types.secure_blob
 
         out["value"] = capo_ec2.types.secure_blob.deserialize_ec2_query(child_value)
+    return out
+
+
+def redact_sensitive(value: SecureBlobAttributeValue) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

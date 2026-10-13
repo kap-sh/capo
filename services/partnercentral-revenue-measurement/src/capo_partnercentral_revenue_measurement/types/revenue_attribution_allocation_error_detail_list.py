@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralrevenuemeasurement#RevenueAttributionAllocationErrorDetailList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_error_detail
@@ -37,3 +37,14 @@ def deserialize_cbor(data: list) -> RevenueAttributionAllocationErrorDetailList:
             )
         )
     return out
+
+
+def redact_sensitive(value: RevenueAttributionAllocationErrorDetailList) -> list[Any]:
+    import capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_error_detail
+
+    return [
+        capo_partnercentral_revenue_measurement.types.revenue_attribution_allocation_error_detail.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

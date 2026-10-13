@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.verifiedpermissions#EntityAttributes``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_verifiedpermissions.types.attribute_value
@@ -35,3 +35,12 @@ def deserialize_aws_json_1_0(data: dict) -> EntityAttributes:
             )
         )
     return out
+
+
+def redact_sensitive(value: EntityAttributes) -> dict[str, Any]:
+    import capo_verifiedpermissions.types.attribute_value
+
+    return {
+        key: capo_verifiedpermissions.types.attribute_value.redact_sensitive(item)
+        for key, item in value.items()
+    }

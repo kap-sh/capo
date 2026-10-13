@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#UpdateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -108,4 +108,15 @@ def deserialize_json(data: dict) -> UpdateUserRequest:
                 data["GrantPoweruserPrivileges"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UpdateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
+    if "given_name" in value:
+        out["given_name"] = "*** Sensitive Data Redacted ***"
+    if "surname" in value:
+        out["surname"] = "*** Sensitive Data Redacted ***"
     return out

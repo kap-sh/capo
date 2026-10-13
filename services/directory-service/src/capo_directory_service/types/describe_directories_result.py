@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#DescribeDirectoriesResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,17 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeDirectoriesResult:
         )
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: DescribeDirectoriesResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "directory_descriptions" in value:
+        import capo_directory_service.types.directory_descriptions
+
+        out["directory_descriptions"] = (
+            capo_directory_service.types.directory_descriptions.redact_sensitive(
+                value["directory_descriptions"]
+            )
+        )
     return out

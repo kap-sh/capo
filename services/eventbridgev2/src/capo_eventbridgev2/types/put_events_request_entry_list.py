@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PutEventsRequestEntryList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_eventbridgev2.types.put_events_request_entry
@@ -33,3 +33,12 @@ def deserialize_cbor(data: list) -> PutEventsRequestEntryList:
             capo_eventbridgev2.types.put_events_request_entry.deserialize_cbor(item)
         )
     return out
+
+
+def redact_sensitive(value: PutEventsRequestEntryList) -> list[Any]:
+    import capo_eventbridgev2.types.put_events_request_entry
+
+    return [
+        capo_eventbridgev2.types.put_events_request_entry.redact_sensitive(item)
+        for item in value
+    ]

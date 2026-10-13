@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#DescribePipeResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -223,4 +223,39 @@ def deserialize_json(data: dict) -> DescribePipeResponse:
         )
     if data.get("KmsKeyIdentifier") is not None:
         out["kms_key_identifier"] = data["KmsKeyIdentifier"]
+    return out
+
+
+def redact_sensitive(value: DescribePipeResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "source_parameters" in value:
+        import capo_pipes.types.pipe_source_parameters
+
+        out["source_parameters"] = (
+            capo_pipes.types.pipe_source_parameters.redact_sensitive(
+                value["source_parameters"]
+            )
+        )
+    if "enrichment_parameters" in value:
+        import capo_pipes.types.pipe_enrichment_parameters
+
+        out["enrichment_parameters"] = (
+            capo_pipes.types.pipe_enrichment_parameters.redact_sensitive(
+                value["enrichment_parameters"]
+            )
+        )
+    if "target_parameters" in value:
+        import capo_pipes.types.pipe_target_parameters
+
+        out["target_parameters"] = (
+            capo_pipes.types.pipe_target_parameters.redact_sensitive(
+                value["target_parameters"]
+            )
+        )
+    if "tags" in value:
+        import capo_pipes.types.tag_map
+
+        out["tags"] = capo_pipes.types.tag_map.redact_sensitive(value["tags"])
     return out

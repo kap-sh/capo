@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#HttpEndpointCommonAttribute``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -44,4 +44,13 @@ def deserialize_aws_json_1_1(data: dict) -> HttpEndpointCommonAttribute:
         raise DeserializationError(
             "HttpEndpointCommonAttribute.attribute_value required"
         )
+    return out
+
+
+def redact_sensitive(value: HttpEndpointCommonAttribute) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "attribute_name" in value:
+        out["attribute_name"] = "*** Sensitive Data Redacted ***"
+    if "attribute_value" in value:
+        out["attribute_value"] = "*** Sensitive Data Redacted ***"
     return out

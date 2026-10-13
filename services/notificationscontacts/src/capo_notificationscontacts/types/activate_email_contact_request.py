@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.notificationscontacts#ActivateEmailContactRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -24,4 +24,11 @@ def serialize_json(value: ActivateEmailContactRequest) -> dict:
 
 def deserialize_json(data: dict) -> ActivateEmailContactRequest:
     out: ActivateEmailContactRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ActivateEmailContactRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
     return out

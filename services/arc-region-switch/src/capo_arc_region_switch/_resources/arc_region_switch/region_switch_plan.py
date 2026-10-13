@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_arc_region_switch._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -115,7 +116,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePlan")
+        )
         input_: capo_arc_region_switch.types.create_plan_request.CreatePlanRequest = {
             "workflows": workflows,
             "execution_role": execution_role,
@@ -178,7 +181,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPlan")
+        )
         input_: capo_arc_region_switch.types.get_plan_request.GetPlanRequest = {
             "arn": arn
         }
@@ -243,7 +248,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePlan")
+        )
         input_: capo_arc_region_switch.types.update_plan_request.UpdatePlanRequest = {
             "arn": arn,
             "workflows": workflows,
@@ -301,7 +308,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlan")
+        )
         input_: capo_arc_region_switch.types.delete_plan_request.DeletePlanRequest = {
             "arn": arn
         }
@@ -349,7 +358,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlans")
+        )
         input_: capo_arc_region_switch.types.list_plans_request.ListPlansRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -395,7 +406,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_arc_region_switch.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -441,7 +454,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_arc_region_switch.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -488,7 +503,9 @@ class RegionSwitchPlan:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_arc_region_switch.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "resource_tag_keys": resource_tag_keys,
@@ -566,7 +583,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreatePlan")
+        )
         input_: capo_arc_region_switch.types.create_plan_request.CreatePlanRequest = {
             "workflows": workflows,
             "execution_role": execution_role,
@@ -630,7 +649,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetPlan")
+        )
         input_: capo_arc_region_switch.types.get_plan_request.GetPlanRequest = {
             "arn": arn
         }
@@ -696,7 +717,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdatePlan")
+        )
         input_: capo_arc_region_switch.types.update_plan_request.UpdatePlanRequest = {
             "arn": arn,
             "workflows": workflows,
@@ -755,7 +778,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePlan")
+        )
         input_: capo_arc_region_switch.types.delete_plan_request.DeletePlanRequest = {
             "arn": arn
         }
@@ -804,7 +829,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPlans")
+        )
         input_: capo_arc_region_switch.types.list_plans_request.ListPlansRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -851,7 +878,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_arc_region_switch.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "arn": arn
         }
@@ -898,7 +927,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_arc_region_switch.types.tag_resource_request.TagResourceRequest = {
             "arn": arn,
             "tags": tags,
@@ -946,7 +977,9 @@ class AsyncRegionSwitchPlan:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_arc_region_switch.types.untag_resource_request.UntagResourceRequest = {
             "arn": arn,
             "resource_tag_keys": resource_tag_keys,

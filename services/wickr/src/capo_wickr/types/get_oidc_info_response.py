@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.wickr#GetOidcInfoResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -47,5 +47,16 @@ def deserialize_json(data: dict) -> GetOidcInfoResponse:
 
         out["token_info"] = capo_wickr.types.oidc_token_info.deserialize_json(
             data["tokenInfo"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetOidcInfoResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "openid_connect_info" in value:
+        import capo_wickr.types.oidc_config_info
+
+        out["openid_connect_info"] = capo_wickr.types.oidc_config_info.redact_sensitive(
+            value["openid_connect_info"]
         )
     return out

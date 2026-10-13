@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#InvokeInlineAgentResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -17,3 +17,10 @@ class InvokeInlineAgentResponse(TypedDict, closed=True):
     """<p> The MIME type of the input data in the request. The default value is application/json. </p>"""
     session_id: "capo_bedrock_agent_runtime.types.session_id.SessionId"
     """<p> The unique identifier of the session with the agent. </p>"""
+
+
+def redact_sensitive(value: InvokeInlineAgentResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "completion" in value:
+        out["completion"] = "*** Streaming Data Redacted ***"
+    return out

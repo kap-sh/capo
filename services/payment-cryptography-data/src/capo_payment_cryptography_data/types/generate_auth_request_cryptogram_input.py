@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#GenerateAuthRequestCryptogramInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -85,5 +85,20 @@ def deserialize_json(data: dict) -> GenerateAuthRequestCryptogramInput:
     else:
         raise DeserializationError(
             "GenerateAuthRequestCryptogramInput.session_key_derivation_attributes required"
+        )
+    return out
+
+
+def redact_sensitive(value: GenerateAuthRequestCryptogramInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "transaction_data" in value:
+        out["transaction_data"] = "*** Sensitive Data Redacted ***"
+    if "session_key_derivation_attributes" in value:
+        import capo_payment_cryptography_data.types.session_key_derivation
+
+        out["session_key_derivation_attributes"] = (
+            capo_payment_cryptography_data.types.session_key_derivation.redact_sensitive(
+                value["session_key_derivation_attributes"]
+            )
         )
     return out

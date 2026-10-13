@@ -22,10 +22,12 @@ from capo_textract._pagination import resolve_path as _resolve_path
 from capo_textract._services._aws_config import aws_config
 from capo_textract._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -182,7 +184,9 @@ class TextractClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[TextractClientConfig] = None
+        self,
+        config_overrides: Optional[TextractClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: TextractClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -190,8 +194,10 @@ class TextractClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -263,7 +269,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AnalyzeDocument")
+        )
         input_: capo_textract.types.analyze_document_request.AnalyzeDocumentRequest = {
             "document": document,
             "feature_types": feature_types,
@@ -318,7 +326,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AnalyzeExpense")
+        )
         input_: capo_textract.types.analyze_expense_request.AnalyzeExpenseRequest = {
             "document": document
         }
@@ -369,7 +379,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AnalyzeID")
+        )
         input_: capo_textract.types.analyze_id_request.AnalyzeIDRequest = {
             "document_pages": document_pages
         }
@@ -435,7 +447,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAdapter")
+        )
         input_: capo_textract.types.create_adapter_request.CreateAdapterRequest = {
             "adapter_name": adapter_name,
             "feature_types": feature_types,
@@ -511,7 +525,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateAdapterVersion")
+        )
         input_: capo_textract.types.create_adapter_version_request.CreateAdapterVersionRequest = {
             "adapter_id": adapter_id,
             "dataset_config": dataset_config,
@@ -570,7 +586,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAdapter")
+        )
         input_: capo_textract.types.delete_adapter_request.DeleteAdapterRequest = {
             "adapter_id": adapter_id
         }
@@ -622,7 +640,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAdapterVersion")
+        )
         input_: capo_textract.types.delete_adapter_version_request.DeleteAdapterVersionRequest = {
             "adapter_id": adapter_id,
             "adapter_version": adapter_version,
@@ -674,7 +694,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DetectDocumentText")
+        )
         input_: capo_textract.types.detect_document_text_request.DetectDocumentTextRequest = {
             "document": document
         }
@@ -723,7 +745,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdapter")
+        )
         input_: capo_textract.types.get_adapter_request.GetAdapterRequest = {
             "adapter_id": adapter_id
         }
@@ -774,7 +798,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAdapterVersion")
+        )
         input_: capo_textract.types.get_adapter_version_request.GetAdapterVersionRequest = {
             "adapter_id": adapter_id,
             "adapter_version": adapter_version,
@@ -833,7 +859,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentAnalysis")
+        )
         input_: capo_textract.types.get_document_analysis_request.GetDocumentAnalysisRequest = {
             "job_id": job_id
         }
@@ -893,7 +921,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDocumentTextDetection")
+        )
         input_: capo_textract.types.get_document_text_detection_request.GetDocumentTextDetectionRequest = {
             "job_id": job_id
         }
@@ -953,7 +983,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetExpenseAnalysis")
+        )
         input_: capo_textract.types.get_expense_analysis_request.GetExpenseAnalysisRequest = {
             "job_id": job_id
         }
@@ -1013,7 +1045,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLendingAnalysis")
+        )
         input_: capo_textract.types.get_lending_analysis_request.GetLendingAnalysisRequest = {
             "job_id": job_id
         }
@@ -1067,7 +1101,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetLendingAnalysisSummary")
+        )
         input_: capo_textract.types.get_lending_analysis_summary_request.GetLendingAnalysisSummaryRequest = {
             "job_id": job_id
         }
@@ -1123,7 +1159,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdapters")
+        )
         input_: capo_textract.types.list_adapters_request.ListAdaptersRequest = {}
         if after_creation_time is not None:
             input_["after_creation_time"] = after_creation_time
@@ -1217,7 +1255,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAdapterVersions")
+        )
         input_: capo_textract.types.list_adapter_versions_request.ListAdapterVersionsRequest = {}
         if adapter_id is not None:
             input_["adapter_id"] = adapter_id
@@ -1305,7 +1345,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_textract.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -1384,7 +1426,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDocumentAnalysis")
+        )
         input_: capo_textract.types.start_document_analysis_request.StartDocumentAnalysisRequest = {
             "document_location": document_location,
             "feature_types": feature_types,
@@ -1469,7 +1513,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartDocumentTextDetection")
+        )
         input_: capo_textract.types.start_document_text_detection_request.StartDocumentTextDetectionRequest = {
             "document_location": document_location
         }
@@ -1549,7 +1595,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartExpenseAnalysis")
+        )
         input_: capo_textract.types.start_expense_analysis_request.StartExpenseAnalysisRequest = {
             "document_location": document_location
         }
@@ -1626,7 +1674,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartLendingAnalysis")
+        )
         input_: capo_textract.types.start_lending_analysis_request.StartLendingAnalysisRequest = {
             "document_location": document_location
         }
@@ -1688,7 +1738,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_textract.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -1740,7 +1792,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_textract.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -1799,7 +1853,9 @@ class TextractClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAdapter")
+        )
         input_: capo_textract.types.update_adapter_request.UpdateAdapterRequest = {
             "adapter_id": adapter_id
         }

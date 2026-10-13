@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#CountTokensInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -63,3 +63,24 @@ def deserialize_json(data: dict) -> CountTokensInput:
         }
     else:
         raise DeserializationError("CountTokensInput: no recognized variant key")
+
+
+def redact_sensitive(value: CountTokensInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "invokeModel" in value:
+        import capo_bedrock_runtime.types.invoke_model_tokens_request
+
+        out["invokeModel"] = (
+            capo_bedrock_runtime.types.invoke_model_tokens_request.redact_sensitive(
+                value["invokeModel"]
+            )
+        )
+    if "converse" in value:
+        import capo_bedrock_runtime.types.converse_tokens_request
+
+        out["converse"] = (
+            capo_bedrock_runtime.types.converse_tokens_request.redact_sensitive(
+                value["converse"]
+            )
+        )
+    return out

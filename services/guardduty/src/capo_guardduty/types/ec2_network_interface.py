@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.guardduty#Ec2NetworkInterface``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -88,4 +88,17 @@ def deserialize_json(data: dict) -> Ec2NetworkInterface:
         out["sub_net_id"] = data["subNetId"]
     if data.get("vpcId") is not None:
         out["vpc_id"] = data["vpcId"]
+    return out
+
+
+def redact_sensitive(value: Ec2NetworkInterface) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "private_ip_addresses" in value:
+        import capo_guardduty.types.private_ip_addresses
+
+        out["private_ip_addresses"] = (
+            capo_guardduty.types.private_ip_addresses.redact_sensitive(
+                value["private_ip_addresses"]
+            )
+        )
     return out

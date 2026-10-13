@@ -19,10 +19,12 @@ from capo_marketplace_commerce_analytics._auth._zapros_handler import AuthMiddle
 from capo_marketplace_commerce_analytics._services._aws_config import aws_config
 from capo_marketplace_commerce_analytics._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -117,6 +119,7 @@ class MarketplaceCommerceAnalyticsClient:
     def operation_options(
         self,
         config_overrides: Optional[MarketplaceCommerceAnalyticsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: MarketplaceCommerceAnalyticsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -124,8 +127,10 @@ class MarketplaceCommerceAnalyticsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -190,7 +195,9 @@ class MarketplaceCommerceAnalyticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GenerateDataSet")
+        )
         input_: capo_marketplace_commerce_analytics.types.generate_data_set_request.GenerateDataSetRequest = {
             "data_set_type": data_set_type,
             "data_set_publication_date": data_set_publication_date,
@@ -257,7 +264,9 @@ class MarketplaceCommerceAnalyticsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSupportDataExport")
+        )
         input_: capo_marketplace_commerce_analytics.types.start_support_data_export_request.StartSupportDataExportRequest = {
             "data_set_type": data_set_type,
             "from_date": from_date,

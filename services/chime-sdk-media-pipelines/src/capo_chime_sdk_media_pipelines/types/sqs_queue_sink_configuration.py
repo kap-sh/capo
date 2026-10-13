@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#SqsQueueSinkConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -25,4 +25,11 @@ def deserialize_json(data: dict) -> SqsQueueSinkConfiguration:
     out: SqsQueueSinkConfiguration = {}  # type: ignore[typeddict-item]
     if data.get("InsightsTarget") is not None:
         out["insights_target"] = data["InsightsTarget"]
+    return out
+
+
+def redact_sensitive(value: SqsQueueSinkConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "insights_target" in value:
+        out["insights_target"] = "*** Sensitive Data Redacted ***"
     return out

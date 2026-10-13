@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DeleteCustomMetadataRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def serialize_json(value: DeleteCustomMetadataRequest) -> dict:
 
 def deserialize_json(data: dict) -> DeleteCustomMetadataRequest:
     out: DeleteCustomMetadataRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: DeleteCustomMetadataRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "authentication_token" in value:
+        out["authentication_token"] = "*** Sensitive Data Redacted ***"
     return out

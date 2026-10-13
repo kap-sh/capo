@@ -79,10 +79,12 @@ from capo_iot_managed_integrations._resources.iot_managed_integrations.schema_ve
 from capo_iot_managed_integrations._services._aws_config import aws_config
 from capo_iot_managed_integrations._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -449,7 +451,9 @@ class IoTManagedIntegrationsClient:
         self.schema_version_resource = SchemaVersionResource(self)
 
     def operation_options(
-        self, config_overrides: Optional[IoTManagedIntegrationsClientConfig] = None
+        self,
+        config_overrides: Optional[IoTManagedIntegrationsClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: IoTManagedIntegrationsClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -457,8 +461,10 @@ class IoTManagedIntegrationsClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -504,7 +510,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomEndpoint")
+        )
         input_: capo_iot_managed_integrations.types.get_custom_endpoint_request.GetCustomEndpointRequest = {}
 
         response = execute_pipeline(
@@ -548,7 +556,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_tags_for_resource_response.ListTagsForResourceResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_tags_for_resource_response
+
+            return capo_iot_managed_integrations.types.list_tags_for_resource_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListTagsForResource", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -591,7 +611,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterCustomEndpoint")
+        )
         input_: capo_iot_managed_integrations.types.register_custom_endpoint_request.RegisterCustomEndpointRequest = {}
 
         response = execute_pipeline(
@@ -684,7 +706,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.send_connector_event_request.SendConnectorEventRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.send_connector_event_request
+
+            return capo_iot_managed_integrations.types.send_connector_event_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendConnectorEvent", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.send_connector_event_request.SendConnectorEventRequest = {
             "connector_id": connector_id,
             "operation": operation,
@@ -754,7 +788,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.tag_resource_request.TagResourceRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.tag_resource_request
+
+            return capo_iot_managed_integrations.types.tag_resource_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("TagResource", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -804,7 +850,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_iot_managed_integrations.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -873,7 +921,32 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_request
+
+            return capo_iot_managed_integrations.types.create_account_association_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_account_association_response.CreateAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_account_association_response
+
+            return capo_iot_managed_integrations.types.create_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateAccountAssociation",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_account_association_request.CreateAccountAssociationRequest = {
             "connector_destination_id": connector_destination_id
         }
@@ -932,7 +1005,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_account_association_response.GetAccountAssociationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_account_association_response
+
+            return capo_iot_managed_integrations.types.get_account_association_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAccountAssociation", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_account_association_request.GetAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -987,7 +1072,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.update_account_association_request.UpdateAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -1037,7 +1124,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.delete_account_association_request.DeleteAccountAssociationRequest = {
             "account_association_id": account_association_id
         }
@@ -1094,7 +1183,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAccountAssociations")
+        )
         input_: capo_iot_managed_integrations.types.list_account_associations_request.ListAccountAssociationsRequest = {}
         if connector_destination_id is not None:
             input_["connector_destination_id"] = connector_destination_id
@@ -1176,7 +1267,21 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.start_account_association_refresh_response.StartAccountAssociationRefreshResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_account_association_refresh_response
+
+            return capo_iot_managed_integrations.types.start_account_association_refresh_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartAccountAssociationRefresh", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.start_account_association_refresh_request.StartAccountAssociationRefreshRequest = {
             "account_association_id": account_association_id
         }
@@ -1248,7 +1353,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.create_cloud_connector_request.CreateCloudConnectorRequest = {
             "name": name,
             "endpoint_config": endpoint_config,
@@ -1314,7 +1421,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.get_cloud_connector_request.GetCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -1376,7 +1485,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.update_cloud_connector_request.UpdateCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -1426,7 +1537,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCloudConnector")
+        )
         input_: capo_iot_managed_integrations.types.delete_cloud_connector_request.DeleteCloudConnectorRequest = {
             "identifier": identifier
         }
@@ -1494,7 +1607,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCloudConnectors")
+        )
         input_: capo_iot_managed_integrations.types.list_cloud_connectors_request.ListCloudConnectorsRequest = {}
         if type is not None:
             input_["type"] = type
@@ -1604,7 +1719,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.create_connector_destination_request.CreateConnectorDestinationRequest = {
             "cloud_connector_id": cloud_connector_id,
             "auth_config": auth_config,
@@ -1663,7 +1780,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.get_connector_destination_request.GetConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -1728,7 +1847,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.update_connector_destination_request.UpdateConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -1783,7 +1904,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnectorDestination")
+        )
         input_: capo_iot_managed_integrations.types.delete_connector_destination_request.DeleteConnectorDestinationRequest = {
             "identifier": identifier
         }
@@ -1839,7 +1962,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectorDestinations")
+        )
         input_: capo_iot_managed_integrations.types.list_connector_destinations_request.ListConnectorDestinationsRequest = {}
         if cloud_connector_id is not None:
             input_["cloud_connector_id"] = cloud_connector_id
@@ -1929,7 +2054,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_credential_locker_request
+
+            return capo_iot_managed_integrations.types.create_credential_locker_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateCredentialLocker", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_credential_locker_request.CreateCredentialLockerRequest = {}
         if name is not None:
             input_["name"] = name
@@ -1982,7 +2119,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_credential_locker_response.GetCredentialLockerResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_credential_locker_response
+
+            return capo_iot_managed_integrations.types.get_credential_locker_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetCredentialLocker", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_credential_locker_request.GetCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -2028,7 +2177,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteCredentialLocker")
+        )
         input_: capo_iot_managed_integrations.types.delete_credential_locker_request.DeleteCredentialLockerRequest = {
             "identifier": identifier
         }
@@ -2081,7 +2232,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_credential_lockers_response.ListCredentialLockersResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_credential_lockers_response
+
+            return capo_iot_managed_integrations.types.list_credential_lockers_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListCredentialLockers", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_credential_lockers_request.ListCredentialLockersRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2171,7 +2334,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_destination_request.CreateDestinationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_destination_request
+
+            return capo_iot_managed_integrations.types.create_destination_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateDestination", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_destination_request.CreateDestinationRequest = {
             "delivery_destination_arn": delivery_destination_arn,
             "delivery_destination_type": delivery_destination_type,
@@ -2226,7 +2401,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDestination")
+        )
         input_: capo_iot_managed_integrations.types.delete_destination_request.DeleteDestinationRequest = {
             "name": name
         }
@@ -2273,7 +2450,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_destination_response.GetDestinationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_destination_response
+
+            return capo_iot_managed_integrations.types.get_destination_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDestination", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_destination_request.GetDestinationRequest = {
             "name": name
         }
@@ -2325,7 +2514,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDestinations")
+        )
         input_: capo_iot_managed_integrations.types.list_destinations_request.ListDestinationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2413,7 +2604,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDestination")
+        )
         input_: capo_iot_managed_integrations.types.update_destination_request.UpdateDestinationRequest = {
             "name": name
         }
@@ -2513,7 +2706,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.start_device_discovery_request
+
+            return capo_iot_managed_integrations.types.start_device_discovery_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartDeviceDiscovery", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.start_device_discovery_request.StartDeviceDiscoveryRequest = {
             "discovery_type": discovery_type
         }
@@ -2586,7 +2791,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_device_discovery_response.GetDeviceDiscoveryResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_device_discovery_response
+
+            return capo_iot_managed_integrations.types.get_device_discovery_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetDeviceDiscovery", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_device_discovery_request.GetDeviceDiscoveryRequest = {
             "identifier": identifier
         }
@@ -2648,7 +2865,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDeviceDiscoveries")
+        )
         input_: capo_iot_managed_integrations.types.list_device_discoveries_request.ListDeviceDiscoveriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2744,7 +2963,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_discovered_devices_response.ListDiscoveredDevicesResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_discovered_devices_response
+
+            return capo_iot_managed_integrations.types.list_discovered_devices_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListDiscoveredDevices", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_discovered_devices_request.ListDiscoveredDevicesRequest = {
             "identifier": identifier
         }
@@ -2833,7 +3064,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.create_event_log_configuration_request.CreateEventLogConfigurationRequest = {
             "resource_type": resource_type,
             "event_log_level": event_log_level,
@@ -2884,7 +3117,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_event_log_configuration_request.DeleteEventLogConfigurationRequest = {
             "id": id
         }
@@ -2931,7 +3166,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_event_log_configuration_request.GetEventLogConfigurationRequest = {
             "id": id
         }
@@ -2983,7 +3220,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListEventLogConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_event_log_configurations_request.ListEventLogConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -3057,7 +3296,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateEventLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_event_log_configuration_request.UpdateEventLogConfigurationRequest = {
             "id": id,
             "event_log_level": event_log_level,
@@ -3100,7 +3341,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_hub_configuration_request.GetHubConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -3146,7 +3389,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutHubConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.put_hub_configuration_request.PutHubConfigurationRequest = {
             "hub_token_timer_expiry_setting_in_seconds": hub_token_timer_expiry_setting_in_seconds
         }
@@ -3189,7 +3434,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDefaultEncryptionConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_default_encryption_configuration_request.GetDefaultEncryptionConfigurationRequest = {}
 
         response = execute_pipeline(
@@ -3240,7 +3487,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDefaultEncryptionConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.put_default_encryption_configuration_request.PutDefaultEncryptionConfigurationRequest = {
             "encryption_type": encryption_type
         }
@@ -3290,7 +3539,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.deregister_account_association_request.DeregisterAccountAssociationRequest = {
             "managed_thing_id": managed_thing_id,
             "account_association_id": account_association_id,
@@ -3351,7 +3602,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedThingAccountAssociations")
+        )
         input_: capo_iot_managed_integrations.types.list_managed_thing_account_associations_request.ListManagedThingAccountAssociationsRequest = {}
         if managed_thing_id is not None:
             input_["managed_thing_id"] = managed_thing_id
@@ -3442,7 +3695,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterAccountAssociation")
+        )
         input_: capo_iot_managed_integrations.types.register_account_association_request.RegisterAccountAssociationRequest = {
             "managed_thing_id": managed_thing_id,
             "account_association_id": account_association_id,
@@ -3503,7 +3758,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.send_managed_thing_command_request
+
+            return capo_iot_managed_integrations.types.send_managed_thing_command_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("SendManagedThingCommand", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.send_managed_thing_command_request.SendManagedThingCommandRequest = {
             "managed_thing_id": managed_thing_id,
             "endpoints": endpoints,
@@ -3608,7 +3875,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_managed_thing_request
+
+            return capo_iot_managed_integrations.types.create_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_managed_thing_request.CreateManagedThingRequest = {
             "role": role,
             "authentication_material": authentication_material,
@@ -3690,7 +3969,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_response.GetManagedThingResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThing", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_request.GetManagedThingRequest = {
             "identifier": identifier
         }
@@ -3782,7 +4073,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.update_managed_thing_request
+
+            return capo_iot_managed_integrations.types.update_managed_thing_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateManagedThing", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.update_managed_thing_request.UpdateManagedThingRequest = {
             "identifier": identifier
         }
@@ -3860,7 +4163,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteManagedThing")
+        )
         input_: capo_iot_managed_integrations.types.delete_managed_thing_request.DeleteManagedThingRequest = {
             "identifier": identifier
         }
@@ -3950,7 +4255,32 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_request
+
+            return capo_iot_managed_integrations.types.list_managed_things_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_managed_things_response.ListManagedThingsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_managed_things_response
+
+            return capo_iot_managed_integrations.types.list_managed_things_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListManagedThings",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.list_managed_things_request.ListManagedThingsRequest = {}
         if owner_filter is not None:
             input_["owner_filter"] = owner_filter
@@ -4080,7 +4410,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCapabilities")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_capabilities_request.GetManagedThingCapabilitiesRequest = {
             "identifier": identifier
         }
@@ -4134,7 +4466,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedThingCertificate")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_certificate_request.GetManagedThingCertificateRequest = {
             "identifier": identifier
         }
@@ -4183,7 +4517,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedThingConnectivityData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_connectivity_data_request.GetManagedThingConnectivityDataRequest = {
             "identifier": identifier
         }
@@ -4232,7 +4568,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetManagedThingMetaData")
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_meta_data_request.GetManagedThingMetaDataRequest = {
             "identifier": identifier
         }
@@ -4297,7 +4635,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListManagedThingSchemas")
+        )
         input_: capo_iot_managed_integrations.types.list_managed_thing_schemas_request.ListManagedThingSchemasRequest = {
             "identifier": identifier
         }
@@ -4389,7 +4729,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_managed_thing_state_response.GetManagedThingStateResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_managed_thing_state_response
+
+            return capo_iot_managed_integrations.types.get_managed_thing_state_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetManagedThingState", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_managed_thing_state_request.GetManagedThingStateRequest = {
             "managed_thing_id": managed_thing_id
         }
@@ -4444,7 +4796,21 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_notification_configuration_request
+
+            return capo_iot_managed_integrations.types.create_notification_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateNotificationConfiguration", redact_input=_redact_input
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_notification_configuration_request.CreateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,
@@ -4495,7 +4861,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_notification_configuration_request.DeleteNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -4542,7 +4910,21 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_notification_configuration_response.GetNotificationConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_notification_configuration_response
+
+            return capo_iot_managed_integrations.types.get_notification_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetNotificationConfiguration", redact_output=_redact_output
+            ),
+        )
         input_: capo_iot_managed_integrations.types.get_notification_configuration_request.GetNotificationConfigurationRequest = {
             "event_type": event_type
         }
@@ -4594,7 +4976,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNotificationConfigurations")
+        )
         input_: capo_iot_managed_integrations.types.list_notification_configurations_request.ListNotificationConfigurationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -4668,7 +5052,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateNotificationConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.update_notification_configuration_request.UpdateNotificationConfigurationRequest = {
             "event_type": event_type,
             "destination_name": destination_name,
@@ -4730,7 +5116,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_ota_task_configuration_request
+
+            return capo_iot_managed_integrations.types.create_ota_task_configuration_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOtaTaskConfiguration", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_ota_task_configuration_request.CreateOtaTaskConfigurationRequest = {}
         if description is not None:
             input_["description"] = description
@@ -4782,7 +5180,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOtaTaskConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.delete_ota_task_configuration_request.DeleteOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -4829,7 +5229,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_ota_task_configuration_response.GetOtaTaskConfigurationResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_ota_task_configuration_response
+
+            return capo_iot_managed_integrations.types.get_ota_task_configuration_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOtaTaskConfiguration", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_ota_task_configuration_request.GetOtaTaskConfigurationRequest = {
             "identifier": identifier
         }
@@ -4881,7 +5293,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.list_ota_task_configurations_response.ListOtaTaskConfigurationsResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.list_ota_task_configurations_response
+
+            return capo_iot_managed_integrations.types.list_ota_task_configurations_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListOtaTaskConfigurations", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.list_ota_task_configurations_request.ListOtaTaskConfigurationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -4993,7 +5417,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_ota_task_request.CreateOtaTaskRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_ota_task_request
+
+            return capo_iot_managed_integrations.types.create_ota_task_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateOtaTask", redact_input=_redact_input),
+        )
         input_: capo_iot_managed_integrations.types.create_ota_task_request.CreateOtaTaskRequest = {
             "s3_url": s3_url,
             "ota_type": ota_type,
@@ -5062,7 +5498,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_ota_task_response.GetOtaTaskResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_ota_task_response
+
+            return capo_iot_managed_integrations.types.get_ota_task_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOtaTask", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_ota_task_request.GetOtaTaskRequest = {
             "identifier": identifier
         }
@@ -5115,7 +5563,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateOtaTask")
+        )
         input_: capo_iot_managed_integrations.types.update_ota_task_request.UpdateOtaTaskRequest = {
             "identifier": identifier
         }
@@ -5165,7 +5615,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOtaTask")
+        )
         input_: capo_iot_managed_integrations.types.delete_ota_task_request.DeleteOtaTaskRequest = {
             "identifier": identifier
         }
@@ -5218,7 +5670,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOtaTasks")
+        )
         input_: capo_iot_managed_integrations.types.list_ota_tasks_request.ListOtaTasksRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5302,7 +5756,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListOtaTaskExecutions")
+        )
         input_: capo_iot_managed_integrations.types.list_ota_task_executions_request.ListOtaTaskExecutionsRequest = {
             "identifier": identifier
         }
@@ -5401,7 +5857,32 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_request
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.create_provisioning_profile_response.CreateProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.create_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.create_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateProvisioningProfile",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_iot_managed_integrations.types.create_provisioning_profile_request.CreateProvisioningProfileRequest = {
             "provisioning_type": provisioning_type
         }
@@ -5461,7 +5942,19 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_iot_managed_integrations.types.get_provisioning_profile_response.GetProvisioningProfileResponse",
+        ) -> dict[str, Any]:
+            import capo_iot_managed_integrations.types.get_provisioning_profile_response
+
+            return capo_iot_managed_integrations.types.get_provisioning_profile_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetProvisioningProfile", redact_output=_redact_output),
+        )
         input_: capo_iot_managed_integrations.types.get_provisioning_profile_request.GetProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -5509,7 +6002,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProvisioningProfile")
+        )
         input_: capo_iot_managed_integrations.types.delete_provisioning_profile_request.DeleteProvisioningProfileRequest = {
             "identifier": identifier
         }
@@ -5563,7 +6058,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProvisioningProfiles")
+        )
         input_: capo_iot_managed_integrations.types.list_provisioning_profiles_request.ListProvisioningProfilesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5637,7 +6134,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRuntimeLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.get_runtime_log_configuration_request.GetRuntimeLogConfigurationRequest = {
             "managed_thing_id": managed_thing_id
         }
@@ -5684,7 +6183,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRuntimeLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.put_runtime_log_configuration_request.PutRuntimeLogConfigurationRequest = {
             "managed_thing_id": managed_thing_id,
             "runtime_log_configurations": runtime_log_configurations,
@@ -5730,7 +6231,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ResetRuntimeLogConfiguration")
+        )
         input_: capo_iot_managed_integrations.types.reset_runtime_log_configuration_request.ResetRuntimeLogConfigurationRequest = {
             "managed_thing_id": managed_thing_id
         }
@@ -5796,7 +6299,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetSchemaVersion")
+        )
         input_: capo_iot_managed_integrations.types.get_schema_version_request.GetSchemaVersionRequest = {
             "type": type,
             "schema_versioned_id": schema_versioned_id,
@@ -5882,7 +6387,9 @@ class IoTManagedIntegrationsClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSchemaVersions")
+        )
         input_: capo_iot_managed_integrations.types.list_schema_versions_request.ListSchemaVersionsRequest = {
             "type": type
         }

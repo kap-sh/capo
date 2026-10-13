@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloud9#DescribeEnvironmentsResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -34,5 +34,16 @@ def deserialize_aws_json_1_1(data: dict) -> DescribeEnvironmentsResult:
             capo_cloud9.types.environment_list.deserialize_aws_json_1_1(
                 data["environments"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: DescribeEnvironmentsResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "environments" in value:
+        import capo_cloud9.types.environment_list
+
+        out["environments"] = capo_cloud9.types.environment_list.redact_sensitive(
+            value["environments"]
         )
     return out

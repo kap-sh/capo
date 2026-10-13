@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.appflow#ServiceNowConnectorProfileCredentials``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -51,6 +51,21 @@ def deserialize_json(data: dict) -> ServiceNowConnectorProfileCredentials:
         out["o_auth2_credentials"] = (
             capo_appflow.types.o_auth2_credentials.deserialize_json(
                 data["oAuth2Credentials"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ServiceNowConnectorProfileCredentials) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "o_auth2_credentials" in value:
+        import capo_appflow.types.o_auth2_credentials
+
+        out["o_auth2_credentials"] = (
+            capo_appflow.types.o_auth2_credentials.redact_sensitive(
+                value["o_auth2_credentials"]
             )
         )
     return out

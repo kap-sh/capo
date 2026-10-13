@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sns#CreateSMSSandboxPhoneNumberInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,11 @@ def deserialize_query(el: Element) -> CreateSMSSandboxPhoneNumberInput:
         out["language_code"] = capo_sns.types.language_code_string.deserialize_query(
             child_language_code
         )
+    return out
+
+
+def redact_sensitive(value: CreateSMSSandboxPhoneNumberInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "phone_number" in value:
+        out["phone_number"] = "*** Sensitive Data Redacted ***"
     return out

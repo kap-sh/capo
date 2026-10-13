@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#ListAppInstanceAdminsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -27,4 +27,11 @@ def serialize_json(value: ListAppInstanceAdminsRequest) -> dict:
 
 def deserialize_json(data: dict) -> ListAppInstanceAdminsRequest:
     out: ListAppInstanceAdminsRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListAppInstanceAdminsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "next_token" in value:
+        out["next_token"] = "*** Sensitive Data Redacted ***"
     return out

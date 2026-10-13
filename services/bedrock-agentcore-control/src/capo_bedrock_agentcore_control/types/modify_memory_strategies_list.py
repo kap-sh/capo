@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcorecontrol#ModifyMemoryStrategiesList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_bedrock_agentcore_control.types.modify_memory_strategy_input
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> ModifyMemoryStrategiesList:
             )
         )
     return out
+
+
+def redact_sensitive(value: ModifyMemoryStrategiesList) -> list[Any]:
+    import capo_bedrock_agentcore_control.types.modify_memory_strategy_input
+
+    return [
+        capo_bedrock_agentcore_control.types.modify_memory_strategy_input.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

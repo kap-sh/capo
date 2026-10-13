@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.securityagent#SelfManagedInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -41,4 +41,11 @@ def deserialize_json(data: dict) -> SelfManagedInput:
         )
     if data.get("certificate") is not None:
         out["certificate"] = data["certificate"]
+    return out
+
+
+def redact_sensitive(value: SelfManagedInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "certificate" in value:
+        out["certificate"] = "*** Sensitive Data Redacted ***"
     return out

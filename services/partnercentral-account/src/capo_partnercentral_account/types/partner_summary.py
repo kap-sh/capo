@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#PartnerSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -72,4 +72,11 @@ def deserialize_aws_json_1_0(data: dict) -> PartnerSummary:
         )
     else:
         raise DeserializationError("PartnerSummary.created_at required")
+    return out
+
+
+def redact_sensitive(value: PartnerSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "legal_name" in value:
+        out["legal_name"] = "*** Sensitive Data Redacted ***"
     return out

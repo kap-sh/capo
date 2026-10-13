@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#ModifyDBProxyTargetGroupRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,4 +67,17 @@ def deserialize_query(el: Element) -> ModifyDBProxyTargetGroupRequest:
     child_new_name = el.find("NewName")
     if child_new_name is not None:
         out["new_name"] = str(child_new_name.text or "")
+    return out
+
+
+def redact_sensitive(value: ModifyDBProxyTargetGroupRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "connection_pool_config" in value:
+        import capo_rds.types.connection_pool_configuration
+
+        out["connection_pool_config"] = (
+            capo_rds.types.connection_pool_configuration.redact_sensitive(
+                value["connection_pool_config"]
+            )
+        )
     return out

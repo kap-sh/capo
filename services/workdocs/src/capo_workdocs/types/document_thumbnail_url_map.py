@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#DocumentThumbnailUrlMap``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_workdocs.types.document_thumbnail_type
@@ -31,3 +31,7 @@ def deserialize_json(data: dict) -> DocumentThumbnailUrlMap:
             continue
         out[capo_workdocs.types.document_thumbnail_type.deserialize_json(key)] = value
     return out
+
+
+def redact_sensitive(value: DocumentThumbnailUrlMap) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

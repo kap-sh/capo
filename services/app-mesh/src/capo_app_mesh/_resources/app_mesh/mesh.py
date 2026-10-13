@@ -8,6 +8,7 @@ import capo_app_mesh._auth._sigv4
 from capo_app_mesh._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -85,7 +86,9 @@ class Mesh:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMesh")
+        )
         input_: capo_app_mesh.types.create_mesh_input.CreateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -142,7 +145,9 @@ class Mesh:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeMesh")
+        )
         input_: capo_app_mesh.types.describe_mesh_input.DescribeMeshInput = {
             "mesh_name": mesh_name
         }
@@ -197,7 +202,9 @@ class Mesh:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMesh")
+        )
         input_: capo_app_mesh.types.update_mesh_input.UpdateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -251,7 +258,9 @@ class Mesh:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMesh")
+        )
         input_: capo_app_mesh.types.delete_mesh_input.DeleteMeshInput = {
             "mesh_name": mesh_name
         }
@@ -301,7 +310,9 @@ class Mesh:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMeshes")
+        )
         input_: capo_app_mesh.types.list_meshes_input.ListMeshesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -365,7 +376,9 @@ class AsyncMesh:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateMesh")
+        )
         input_: capo_app_mesh.types.create_mesh_input.CreateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -423,7 +436,9 @@ class AsyncMesh:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeMesh")
+        )
         input_: capo_app_mesh.types.describe_mesh_input.DescribeMeshInput = {
             "mesh_name": mesh_name
         }
@@ -479,7 +494,9 @@ class AsyncMesh:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateMesh")
+        )
         input_: capo_app_mesh.types.update_mesh_input.UpdateMeshInput = {
             "mesh_name": mesh_name
         }
@@ -534,7 +551,9 @@ class AsyncMesh:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMesh")
+        )
         input_: capo_app_mesh.types.delete_mesh_input.DeleteMeshInput = {
             "mesh_name": mesh_name
         }
@@ -585,7 +604,9 @@ class AsyncMesh:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMeshes")
+        )
         input_: capo_app_mesh.types.list_meshes_input.ListMeshesInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

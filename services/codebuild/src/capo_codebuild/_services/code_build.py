@@ -21,10 +21,12 @@ from capo_codebuild._pagination import resolve_path as _resolve_path
 from capo_codebuild._services._aws_config import aws_config
 from capo_codebuild._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -298,7 +300,9 @@ class CodeBuildClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[CodeBuildClientConfig] = None
+        self,
+        config_overrides: Optional[CodeBuildClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: CodeBuildClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -306,8 +310,10 @@ class CodeBuildClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -356,7 +362,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchDeleteBuilds")
+        )
         input_: capo_codebuild.types.batch_delete_builds_input.BatchDeleteBuildsInput = {
             "ids": ids
         }
@@ -401,7 +409,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetBuildBatches")
+        )
         input_: capo_codebuild.types.batch_get_build_batches_input.BatchGetBuildBatchesInput = {
             "ids": ids
         }
@@ -444,7 +454,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetBuilds")
+        )
         input_: capo_codebuild.types.batch_get_builds_input.BatchGetBuildsInput = {
             "ids": ids
         }
@@ -489,7 +501,19 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_codebuild.types.batch_get_command_executions_output.BatchGetCommandExecutionsOutput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.batch_get_command_executions_output
+
+            return capo_codebuild.types.batch_get_command_executions_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("BatchGetCommandExecutions", redact_output=_redact_output),
+        )
         input_: capo_codebuild.types.batch_get_command_executions_input.BatchGetCommandExecutionsInput = {
             "sandbox_id": sandbox_id,
             "command_execution_ids": command_execution_ids,
@@ -533,7 +557,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetFleets")
+        )
         input_: capo_codebuild.types.batch_get_fleets_input.BatchGetFleetsInput = {
             "names": names
         }
@@ -576,7 +602,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetProjects")
+        )
         input_: capo_codebuild.types.batch_get_projects_input.BatchGetProjectsInput = {
             "names": names
         }
@@ -621,7 +649,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetReportGroups")
+        )
         input_: capo_codebuild.types.batch_get_report_groups_input.BatchGetReportGroupsInput = {
             "report_group_arns": report_group_arns
         }
@@ -664,7 +694,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetReports")
+        )
         input_: capo_codebuild.types.batch_get_reports_input.BatchGetReportsInput = {
             "report_arns": report_arns
         }
@@ -707,7 +739,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetSandboxes")
+        )
         input_: capo_codebuild.types.batch_get_sandboxes_input.BatchGetSandboxesInput = {
             "ids": ids
         }
@@ -785,7 +819,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateFleet")
+        )
         input_: capo_codebuild.types.create_fleet_input.CreateFleetInput = {
             "name": name,
             "base_capacity": base_capacity,
@@ -915,7 +951,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateProject")
+        )
         input_: capo_codebuild.types.create_project_input.CreateProjectInput = {
             "name": name,
             "source": source,
@@ -1004,7 +1042,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateReportGroup")
+        )
         input_: capo_codebuild.types.create_report_group_input.CreateReportGroupInput = {
             "name": name,
             "type": type,
@@ -1076,7 +1116,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateWebhook")
+        )
         input_: capo_codebuild.types.create_webhook_input.CreateWebhookInput = {
             "project_name": project_name
         }
@@ -1131,7 +1173,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteBuildBatch")
+        )
         input_: capo_codebuild.types.delete_build_batch_input.DeleteBuildBatchInput = {
             "id": id
         }
@@ -1174,7 +1218,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteFleet")
+        )
         input_: capo_codebuild.types.delete_fleet_input.DeleteFleetInput = {"arn": arn}
 
         response = execute_pipeline(
@@ -1215,7 +1261,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteProject")
+        )
         input_: capo_codebuild.types.delete_project_input.DeleteProjectInput = {
             "name": name
         }
@@ -1258,7 +1306,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReport")
+        )
         input_: capo_codebuild.types.delete_report_input.DeleteReportInput = {
             "arn": arn
         }
@@ -1303,7 +1353,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteReportGroup")
+        )
         input_: capo_codebuild.types.delete_report_group_input.DeleteReportGroupInput = {
             "arn": arn
         }
@@ -1350,7 +1402,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourcePolicy")
+        )
         input_: capo_codebuild.types.delete_resource_policy_input.DeleteResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -1394,7 +1448,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteSourceCredentials")
+        )
         input_: capo_codebuild.types.delete_source_credentials_input.DeleteSourceCredentialsInput = {
             "arn": arn
         }
@@ -1439,7 +1495,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteWebhook")
+        )
         input_: capo_codebuild.types.delete_webhook_input.DeleteWebhookInput = {
             "project_name": project_name
         }
@@ -1502,7 +1560,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeCodeCoverages")
+        )
         input_: capo_codebuild.types.describe_code_coverages_input.DescribeCodeCoveragesInput = {
             "report_arn": report_arn
         }
@@ -1603,7 +1663,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeTestCases")
+        )
         input_: capo_codebuild.types.describe_test_cases_input.DescribeTestCasesInput = {
             "report_arn": report_arn
         }
@@ -1682,7 +1744,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetReportGroupTrend")
+        )
         input_: capo_codebuild.types.get_report_group_trend_input.GetReportGroupTrendInput = {
             "report_group_arn": report_group_arn,
             "trend_field": trend_field,
@@ -1729,7 +1793,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourcePolicy")
+        )
         input_: capo_codebuild.types.get_resource_policy_input.GetResourcePolicyInput = {
             "resource_arn": resource_arn
         }
@@ -1786,7 +1852,21 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.import_source_credentials_input.ImportSourceCredentialsInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.import_source_credentials_input
+
+            return (
+                capo_codebuild.types.import_source_credentials_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ImportSourceCredentials", redact_input=_redact_input),
+        )
         input_: capo_codebuild.types.import_source_credentials_input.ImportSourceCredentialsInput = {
             "token": token,
             "server_type": server_type,
@@ -1836,7 +1916,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("InvalidateProjectCache")
+        )
         input_: capo_codebuild.types.invalidate_project_cache_input.InvalidateProjectCacheInput = {
             "project_name": project_name
         }
@@ -1889,7 +1971,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuildBatches")
+        )
         input_: capo_codebuild.types.list_build_batches_input.ListBuildBatchesInput = {}
         if filter is not None:
             input_["filter"] = filter
@@ -1982,7 +2066,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuildBatchesForProject")
+        )
         input_: capo_codebuild.types.list_build_batches_for_project_input.ListBuildBatchesForProjectInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -2070,7 +2156,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuilds")
+        )
         input_: capo_codebuild.types.list_builds_input.ListBuildsInput = {}
         if sort_order is not None:
             input_["sort_order"] = sort_order
@@ -2147,7 +2235,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListBuildsForProject")
+        )
         input_: capo_codebuild.types.list_builds_for_project_input.ListBuildsForProjectInput = {
             "project_name": project_name
         }
@@ -2230,7 +2320,32 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.list_command_executions_for_sandbox_input.ListCommandExecutionsForSandboxInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.list_command_executions_for_sandbox_input
+
+            return capo_codebuild.types.list_command_executions_for_sandbox_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_codebuild.types.list_command_executions_for_sandbox_output.ListCommandExecutionsForSandboxOutput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.list_command_executions_for_sandbox_output
+
+            return capo_codebuild.types.list_command_executions_for_sandbox_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListCommandExecutionsForSandbox",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_codebuild.types.list_command_executions_for_sandbox_input.ListCommandExecutionsForSandboxInput = {
             "sandbox_id": sandbox_id
         }
@@ -2301,7 +2416,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListCuratedEnvironmentImages")
+        )
         input_: capo_codebuild.types.list_curated_environment_images_input.ListCuratedEnvironmentImagesInput = {}
 
         response = execute_pipeline(
@@ -2354,7 +2471,16 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.list_fleets_input.ListFleetsInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.list_fleets_input
+
+            return capo_codebuild.types.list_fleets_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListFleets", redact_input=_redact_input)
+        )
         input_: capo_codebuild.types.list_fleets_input.ListFleetsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -2442,7 +2568,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListProjects")
+        )
         input_: capo_codebuild.types.list_projects_input.ListProjectsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -2528,7 +2656,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportGroups")
+        )
         input_: capo_codebuild.types.list_report_groups_input.ListReportGroupsInput = {}
         if sort_order is not None:
             input_["sort_order"] = sort_order
@@ -2614,7 +2744,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReports")
+        )
         input_: capo_codebuild.types.list_reports_input.ListReportsInput = {}
         if sort_order is not None:
             input_["sort_order"] = sort_order
@@ -2701,7 +2833,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListReportsForReportGroup")
+        )
         input_: capo_codebuild.types.list_reports_for_report_group_input.ListReportsForReportGroupInput = {
             "report_group_arn": report_group_arn
         }
@@ -2787,7 +2921,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSandboxes")
+        )
         input_: capo_codebuild.types.list_sandboxes_input.ListSandboxesInput = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2870,7 +3006,21 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.list_sandboxes_for_project_input.ListSandboxesForProjectInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.list_sandboxes_for_project_input
+
+            return (
+                capo_codebuild.types.list_sandboxes_for_project_input.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("ListSandboxesForProject", redact_input=_redact_input),
+        )
         input_: capo_codebuild.types.list_sandboxes_for_project_input.ListSandboxesForProjectInput = {
             "project_name": project_name
         }
@@ -2960,7 +3110,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSharedProjects")
+        )
         input_: capo_codebuild.types.list_shared_projects_input.ListSharedProjectsInput = {}
         if sort_by is not None:
             input_["sort_by"] = sort_by
@@ -3050,7 +3202,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSharedReportGroups")
+        )
         input_: capo_codebuild.types.list_shared_report_groups_input.ListSharedReportGroupsInput = {}
         if sort_order is not None:
             input_["sort_order"] = sort_order
@@ -3122,7 +3276,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListSourceCredentials")
+        )
         input_: capo_codebuild.types.list_source_credentials_input.ListSourceCredentialsInput = {}
 
         response = execute_pipeline(
@@ -3166,7 +3322,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourcePolicy")
+        )
         input_: capo_codebuild.types.put_resource_policy_input.PutResourcePolicyInput = {
             "policy": policy,
             "resource_arn": resource_arn,
@@ -3214,7 +3372,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryBuild")
+        )
         input_: capo_codebuild.types.retry_build_input.RetryBuildInput = {}
         if id is not None:
             input_["id"] = id
@@ -3266,7 +3426,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RetryBuildBatch")
+        )
         input_: capo_codebuild.types.retry_build_batch_input.RetryBuildBatchInput = {}
         if id is not None:
             input_["id"] = id
@@ -3437,7 +3599,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBuild")
+        )
         input_: capo_codebuild.types.start_build_input.StartBuildInput = {
             "project_name": project_name
         }
@@ -3663,7 +3827,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartBuildBatch")
+        )
         input_: capo_codebuild.types.start_build_batch_input.StartBuildBatchInput = {
             "project_name": project_name
         }
@@ -3781,7 +3947,32 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.start_command_execution_input.StartCommandExecutionInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.start_command_execution_input
+
+            return capo_codebuild.types.start_command_execution_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_codebuild.types.start_command_execution_output.StartCommandExecutionOutput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.start_command_execution_output
+
+            return capo_codebuild.types.start_command_execution_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartCommandExecution",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_codebuild.types.start_command_execution_input.StartCommandExecutionInput = {
             "sandbox_id": sandbox_id,
             "command": command,
@@ -3835,7 +4026,17 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_codebuild.types.start_sandbox_input.StartSandboxInput",
+        ) -> dict[str, Any]:
+            import capo_codebuild.types.start_sandbox_input
+
+            return capo_codebuild.types.start_sandbox_input.redact_sensitive(input_)
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("StartSandbox", redact_input=_redact_input),
+        )
         input_: capo_codebuild.types.start_sandbox_input.StartSandboxInput = {}
         if project_name is not None:
             input_["project_name"] = project_name
@@ -3881,7 +4082,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartSandboxConnection")
+        )
         input_: capo_codebuild.types.start_sandbox_connection_input.StartSandboxConnectionInput = {
             "sandbox_id": sandbox_id
         }
@@ -3925,7 +4128,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBuild")
+        )
         input_: capo_codebuild.types.stop_build_input.StopBuildInput = {"id": id}
 
         response = execute_pipeline(
@@ -3967,7 +4172,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopBuildBatch")
+        )
         input_: capo_codebuild.types.stop_build_batch_input.StopBuildBatchInput = {
             "id": id
         }
@@ -4011,7 +4218,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopSandbox")
+        )
         input_: capo_codebuild.types.stop_sandbox_input.StopSandboxInput = {"id": id}
 
         response = execute_pipeline(
@@ -4091,7 +4300,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateFleet")
+        )
         input_: capo_codebuild.types.update_fleet_input.UpdateFleetInput = {"arn": arn}
         if base_capacity is not None:
             input_["base_capacity"] = base_capacity
@@ -4226,7 +4437,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProject")
+        )
         input_: capo_codebuild.types.update_project_input.UpdateProjectInput = {
             "name": name
         }
@@ -4317,7 +4530,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateProjectVisibility")
+        )
         input_: capo_codebuild.types.update_project_visibility_input.UpdateProjectVisibilityInput = {
             "project_arn": project_arn,
             "project_visibility": project_visibility,
@@ -4370,7 +4585,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateReportGroup")
+        )
         input_: capo_codebuild.types.update_report_group_input.UpdateReportGroupInput = {
             "arn": arn
         }
@@ -4435,7 +4652,9 @@ class CodeBuildClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateWebhook")
+        )
         input_: capo_codebuild.types.update_webhook_input.UpdateWebhookInput = {
             "project_name": project_name
         }

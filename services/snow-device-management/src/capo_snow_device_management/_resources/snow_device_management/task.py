@@ -8,6 +8,7 @@ import capo_snow_device_management._auth._sigv4
 from capo_snow_device_management._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class Task:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTask")
+        )
         input_: capo_snow_device_management.types.create_task_input.CreateTaskInput = {
             "targets": targets,
             "command": command,
@@ -149,7 +152,9 @@ class Task:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeTask")
+        )
         input_: capo_snow_device_management.types.describe_task_input.DescribeTaskInput = {
             "task_id": task_id
         }
@@ -205,7 +210,9 @@ class Task:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_snow_device_management.types.list_tasks_input.ListTasksInput = {}
         if state is not None:
             input_["state"] = state
@@ -256,7 +263,9 @@ class Task:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTask")
+        )
         input_: capo_snow_device_management.types.cancel_task_input.CancelTaskInput = {
             "task_id": task_id
         }
@@ -322,7 +331,9 @@ class AsyncTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTask")
+        )
         input_: capo_snow_device_management.types.create_task_input.CreateTaskInput = {
             "targets": targets,
             "command": command,
@@ -378,7 +389,9 @@ class AsyncTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeTask")
+        )
         input_: capo_snow_device_management.types.describe_task_input.DescribeTaskInput = {
             "task_id": task_id
         }
@@ -435,7 +448,9 @@ class AsyncTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTasks")
+        )
         input_: capo_snow_device_management.types.list_tasks_input.ListTasksInput = {}
         if state is not None:
             input_["state"] = state
@@ -487,7 +502,9 @@ class AsyncTask:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CancelTask")
+        )
         input_: capo_snow_device_management.types.cancel_task_input.CancelTaskInput = {
             "task_id": task_id
         }

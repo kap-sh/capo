@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_workspaces_web._auth._signers
 import capo_workspaces_web._auth._sigv4
 from capo_workspaces_web._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -86,7 +87,21 @@ class UserAccessLoggingSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_access_logging_settings_request
+
+            return capo_workspaces_web.types.create_user_access_logging_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateUserAccessLoggingSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest = {
             "kinesis_stream_arn": kinesis_stream_arn
         }
@@ -138,7 +153,9 @@ class UserAccessLoggingSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.get_user_access_logging_settings_request.GetUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -193,7 +210,9 @@ class UserAccessLoggingSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.update_user_access_logging_settings_request.UpdateUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -245,7 +264,9 @@ class UserAccessLoggingSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_access_logging_settings_request.DeleteUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -297,7 +318,9 @@ class UserAccessLoggingSettingsResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.list_user_access_logging_settings_request.ListUserAccessLoggingSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -359,7 +382,21 @@ class AsyncUserAccessLoggingSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest",
+        ) -> dict[str, Any]:
+            import capo_workspaces_web.types.create_user_access_logging_settings_request
+
+            return capo_workspaces_web.types.create_user_access_logging_settings_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateUserAccessLoggingSettings", redact_input=_redact_input
+            ),
+        )
         input_: capo_workspaces_web.types.create_user_access_logging_settings_request.CreateUserAccessLoggingSettingsRequest = {
             "kinesis_stream_arn": kinesis_stream_arn
         }
@@ -412,7 +449,9 @@ class AsyncUserAccessLoggingSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.get_user_access_logging_settings_request.GetUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -468,7 +507,9 @@ class AsyncUserAccessLoggingSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.update_user_access_logging_settings_request.UpdateUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -521,7 +562,9 @@ class AsyncUserAccessLoggingSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.delete_user_access_logging_settings_request.DeleteUserAccessLoggingSettingsRequest = {
             "user_access_logging_settings_arn": user_access_logging_settings_arn
         }
@@ -574,7 +617,9 @@ class AsyncUserAccessLoggingSettingsResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUserAccessLoggingSettings")
+        )
         input_: capo_workspaces_web.types.list_user_access_logging_settings_request.ListUserAccessLoggingSettingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.transfer#UpdateConnectorRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -140,5 +140,16 @@ def deserialize_aws_json_1_1(data: dict) -> UpdateConnectorRequest:
             capo_transfer.types.connectors_ip_address_type.deserialize_aws_json_1_1(
                 data["IpAddressType"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: UpdateConnectorRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "as2_config" in value:
+        import capo_transfer.types.as2_connector_config
+
+        out["as2_config"] = capo_transfer.types.as2_connector_config.redact_sensitive(
+            value["as2_config"]
         )
     return out

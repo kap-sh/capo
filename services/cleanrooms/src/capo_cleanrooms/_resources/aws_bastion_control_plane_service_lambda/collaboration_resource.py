@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_cleanrooms._auth._signers
 import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -198,7 +199,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollaboration")
+        )
         input_: capo_cleanrooms.types.create_collaboration_input.CreateCollaborationInput = {
             "members": members,
             "name": name,
@@ -270,7 +273,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaboration")
+        )
         input_: capo_cleanrooms.types.get_collaboration_input.GetCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -328,7 +333,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollaboration")
+        )
         input_: capo_cleanrooms.types.update_collaboration_input.UpdateCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -380,7 +387,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollaboration")
+        )
         input_: capo_cleanrooms.types.delete_collaboration_input.DeleteCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -434,7 +443,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborations")
+        )
         input_: capo_cleanrooms.types.list_collaborations_input.ListCollaborationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -487,7 +498,21 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.BatchGetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.batch_get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.batch_get_collaboration_analysis_template_input.BatchGetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arns": analysis_template_arns,
@@ -537,7 +562,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetSchema")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_input.BatchGetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "names": names,
@@ -587,7 +614,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_analysis_rule_input.BatchGetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "schema_analysis_rule_requests": schema_analysis_rule_requests,
@@ -639,7 +668,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.create_collaboration_change_request_input.CreateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "changes": changes,
@@ -690,7 +721,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMember")
+        )
         input_: capo_cleanrooms.types.delete_member_input.DeleteMemberInput = {
             "collaboration_identifier": collaboration_identifier,
             "account_id": account_id,
@@ -740,7 +773,21 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_collaboration_analysis_template_output.GetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.get_collaboration_analysis_template_input.GetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arn": analysis_template_arn,
@@ -790,7 +837,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.get_collaboration_change_request_input.GetCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,
@@ -840,7 +889,10 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.get_collaboration_configured_audience_model_association_input.GetCollaborationConfiguredAudienceModelAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
@@ -890,7 +942,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_collaboration_id_namespace_association_input.GetCollaborationIdNamespaceAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "id_namespace_association_identifier": id_namespace_association_identifier,
@@ -940,7 +994,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_collaboration_privacy_budget_template_input.GetCollaborationPrivacyBudgetTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -990,7 +1046,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchema")
+        )
         input_: capo_cleanrooms.types.get_schema_input.GetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -1042,7 +1100,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_schema_analysis_rule_input.GetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -1097,7 +1157,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_collaboration_analysis_templates_input.ListCollaborationAnalysisTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1158,7 +1220,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationChangeRequests")
+        )
         input_: capo_cleanrooms.types.list_collaboration_change_requests_input.ListCollaborationChangeRequestsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1217,7 +1281,10 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_configured_audience_model_associations_input.ListCollaborationConfiguredAudienceModelAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1274,7 +1341,10 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationIdNamespaceAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_id_namespace_associations_input.ListCollaborationIdNamespaceAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1337,7 +1407,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budgets_input.ListCollaborationPrivacyBudgetsInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -1397,7 +1469,10 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationPrivacyBudgetTemplates"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budget_templates_input.ListCollaborationPrivacyBudgetTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1454,7 +1529,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMembers")
+        )
         input_: capo_cleanrooms.types.list_members_input.ListMembersInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1513,7 +1590,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_cleanrooms.types.list_schemas_input.ListSchemasInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1571,7 +1650,9 @@ class CollaborationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.update_collaboration_change_request_input.UpdateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,
@@ -1670,7 +1751,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollaboration")
+        )
         input_: capo_cleanrooms.types.create_collaboration_input.CreateCollaborationInput = {
             "members": members,
             "name": name,
@@ -1743,7 +1826,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaboration")
+        )
         input_: capo_cleanrooms.types.get_collaboration_input.GetCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1802,7 +1887,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollaboration")
+        )
         input_: capo_cleanrooms.types.update_collaboration_input.UpdateCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1855,7 +1942,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteCollaboration")
+        )
         input_: capo_cleanrooms.types.delete_collaboration_input.DeleteCollaborationInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -1910,7 +1999,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborations")
+        )
         input_: capo_cleanrooms.types.list_collaborations_input.ListCollaborationsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1964,7 +2055,21 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.BatchGetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.batch_get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.batch_get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchGetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.batch_get_collaboration_analysis_template_input.BatchGetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arns": analysis_template_arns,
@@ -2015,7 +2120,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetSchema")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_input.BatchGetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "names": names,
@@ -2066,7 +2173,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("BatchGetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.batch_get_schema_analysis_rule_input.BatchGetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "schema_analysis_rule_requests": schema_analysis_rule_requests,
@@ -2119,7 +2228,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.create_collaboration_change_request_input.CreateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "changes": changes,
@@ -2171,7 +2282,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMember")
+        )
         input_: capo_cleanrooms.types.delete_member_input.DeleteMemberInput = {
             "collaboration_identifier": collaboration_identifier,
             "account_id": account_id,
@@ -2222,7 +2335,21 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_cleanrooms.types.get_collaboration_analysis_template_output.GetCollaborationAnalysisTemplateOutput",
+        ) -> dict[str, Any]:
+            import capo_cleanrooms.types.get_collaboration_analysis_template_output
+
+            return capo_cleanrooms.types.get_collaboration_analysis_template_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetCollaborationAnalysisTemplate", redact_output=_redact_output
+            ),
+        )
         input_: capo_cleanrooms.types.get_collaboration_analysis_template_input.GetCollaborationAnalysisTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "analysis_template_arn": analysis_template_arn,
@@ -2273,7 +2400,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.get_collaboration_change_request_input.GetCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,
@@ -2324,7 +2453,10 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetCollaborationConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.get_collaboration_configured_audience_model_association_input.GetCollaborationConfiguredAudienceModelAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
@@ -2375,7 +2507,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationIdNamespaceAssociation")
+        )
         input_: capo_cleanrooms.types.get_collaboration_id_namespace_association_input.GetCollaborationIdNamespaceAssociationInput = {
             "collaboration_identifier": collaboration_identifier,
             "id_namespace_association_identifier": id_namespace_association_identifier,
@@ -2426,7 +2560,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetCollaborationPrivacyBudgetTemplate")
+        )
         input_: capo_cleanrooms.types.get_collaboration_privacy_budget_template_input.GetCollaborationPrivacyBudgetTemplateInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_template_identifier": privacy_budget_template_identifier,
@@ -2477,7 +2613,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchema")
+        )
         input_: capo_cleanrooms.types.get_schema_input.GetSchemaInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -2530,7 +2668,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSchemaAnalysisRule")
+        )
         input_: capo_cleanrooms.types.get_schema_analysis_rule_input.GetSchemaAnalysisRuleInput = {
             "collaboration_identifier": collaboration_identifier,
             "name": name,
@@ -2586,7 +2726,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationAnalysisTemplates")
+        )
         input_: capo_cleanrooms.types.list_collaboration_analysis_templates_input.ListCollaborationAnalysisTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2648,7 +2790,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationChangeRequests")
+        )
         input_: capo_cleanrooms.types.list_collaboration_change_requests_input.ListCollaborationChangeRequestsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2708,7 +2852,10 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_configured_audience_model_associations_input.ListCollaborationConfiguredAudienceModelAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2766,7 +2913,10 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationIdNamespaceAssociations"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_id_namespace_associations_input.ListCollaborationIdNamespaceAssociationsInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2830,7 +2980,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListCollaborationPrivacyBudgets")
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budgets_input.ListCollaborationPrivacyBudgetsInput = {
             "collaboration_identifier": collaboration_identifier,
             "privacy_budget_type": privacy_budget_type,
@@ -2891,7 +3043,10 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListCollaborationPrivacyBudgetTemplates"),
+        )
         input_: capo_cleanrooms.types.list_collaboration_privacy_budget_templates_input.ListCollaborationPrivacyBudgetTemplatesInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -2949,7 +3104,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMembers")
+        )
         input_: capo_cleanrooms.types.list_members_input.ListMembersInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -3009,7 +3166,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSchemas")
+        )
         input_: capo_cleanrooms.types.list_schemas_input.ListSchemasInput = {
             "collaboration_identifier": collaboration_identifier
         }
@@ -3068,7 +3227,9 @@ class AsyncCollaborationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateCollaborationChangeRequest")
+        )
         input_: capo_cleanrooms.types.update_collaboration_change_request_input.UpdateCollaborationChangeRequestInput = {
             "collaboration_identifier": collaboration_identifier,
             "change_request_identifier": change_request_identifier,

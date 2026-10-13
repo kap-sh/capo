@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#ToolArguments``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -130,5 +130,18 @@ def deserialize_json(data: dict) -> ToolArguments:
 
         out["runtime"] = capo_bedrock_agentcore.types.language_runtime.deserialize_json(
             data["runtime"]
+        )
+    return out
+
+
+def redact_sensitive(value: ToolArguments) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "content" in value:
+        import capo_bedrock_agentcore.types.input_content_block_list
+
+        out["content"] = (
+            capo_bedrock_agentcore.types.input_content_block_list.redact_sensitive(
+                value["content"]
+            )
         )
     return out

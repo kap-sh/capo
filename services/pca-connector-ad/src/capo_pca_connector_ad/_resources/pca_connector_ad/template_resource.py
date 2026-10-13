@@ -8,6 +8,7 @@ import capo_pca_connector_ad._auth._sigv4
 from capo_pca_connector_ad._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -92,7 +93,9 @@ class TemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_pca_connector_ad.types.create_template_request.CreateTemplateRequest = {
             "connector_arn": connector_arn,
             "name": name,
@@ -146,7 +149,9 @@ class TemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_pca_connector_ad.types.get_template_request.GetTemplateRequest = {
             "template_arn": template_arn
         }
@@ -198,7 +203,9 @@ class TemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_pca_connector_ad.types.update_template_request.UpdateTemplateRequest = {
             "template_arn": template_arn
         }
@@ -250,7 +257,9 @@ class TemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_pca_connector_ad.types.delete_template_request.DeleteTemplateRequest = {
             "template_arn": template_arn
         }
@@ -303,7 +312,9 @@ class TemplateResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_pca_connector_ad.types.list_templates_request.ListTemplatesRequest = {
             "connector_arn": connector_arn
         }
@@ -372,7 +383,9 @@ class AsyncTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateTemplate")
+        )
         input_: capo_pca_connector_ad.types.create_template_request.CreateTemplateRequest = {
             "connector_arn": connector_arn,
             "name": name,
@@ -427,7 +440,9 @@ class AsyncTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetTemplate")
+        )
         input_: capo_pca_connector_ad.types.get_template_request.GetTemplateRequest = {
             "template_arn": template_arn
         }
@@ -480,7 +495,9 @@ class AsyncTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateTemplate")
+        )
         input_: capo_pca_connector_ad.types.update_template_request.UpdateTemplateRequest = {
             "template_arn": template_arn
         }
@@ -533,7 +550,9 @@ class AsyncTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteTemplate")
+        )
         input_: capo_pca_connector_ad.types.delete_template_request.DeleteTemplateRequest = {
             "template_arn": template_arn
         }
@@ -587,7 +606,9 @@ class AsyncTemplateResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListTemplates")
+        )
         input_: capo_pca_connector_ad.types.list_templates_request.ListTemplatesRequest = {
             "connector_arn": connector_arn
         }

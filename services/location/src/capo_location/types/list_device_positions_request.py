@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#ListDevicePositionsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,6 +53,19 @@ def deserialize_json(data: dict) -> ListDevicePositionsRequest:
         out["filter_geometry"] = (
             capo_location.types.tracking_filter_geometry.deserialize_json(
                 data["FilterGeometry"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ListDevicePositionsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter_geometry" in value:
+        import capo_location.types.tracking_filter_geometry
+
+        out["filter_geometry"] = (
+            capo_location.types.tracking_filter_geometry.redact_sensitive(
+                value["filter_geometry"]
             )
         )
     return out

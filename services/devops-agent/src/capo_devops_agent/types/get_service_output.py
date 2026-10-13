@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#GetServiceOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -46,4 +46,15 @@ def deserialize_json(data: dict) -> GetServiceOutput:
         import capo_devops_agent.types.tags
 
         out["tags"] = capo_devops_agent.types.tags.deserialize_json(data["tags"])
+    return out
+
+
+def redact_sensitive(value: GetServiceOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "service" in value:
+        import capo_devops_agent.types.registered_service
+
+        out["service"] = capo_devops_agent.types.registered_service.redact_sensitive(
+            value["service"]
+        )
     return out

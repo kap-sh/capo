@@ -7,6 +7,7 @@ import capo_cleanrooms._auth._sigv4
 from capo_cleanrooms._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -95,7 +96,10 @@ class ConfiguredAudienceModelAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.create_configured_audience_model_association_input.CreateConfiguredAudienceModelAssociationInput = {
             "membership_identifier": membership_identifier,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -151,7 +155,9 @@ class ConfiguredAudienceModelAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_audience_model_association_input.GetConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -209,7 +215,10 @@ class ConfiguredAudienceModelAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.update_configured_audience_model_association_input.UpdateConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -263,7 +272,10 @@ class ConfiguredAudienceModelAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.delete_configured_audience_model_association_input.DeleteConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -317,7 +329,10 @@ class ConfiguredAudienceModelAssociationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_configured_audience_model_associations_input.ListConfiguredAudienceModelAssociationsInput = {
             "membership_identifier": membership_identifier
         }
@@ -388,7 +403,10 @@ class AsyncConfiguredAudienceModelAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.create_configured_audience_model_association_input.CreateConfiguredAudienceModelAssociationInput = {
             "membership_identifier": membership_identifier,
             "configured_audience_model_arn": configured_audience_model_arn,
@@ -445,7 +463,9 @@ class AsyncConfiguredAudienceModelAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredAudienceModelAssociation")
+        )
         input_: capo_cleanrooms.types.get_configured_audience_model_association_input.GetConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -504,7 +524,10 @@ class AsyncConfiguredAudienceModelAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.update_configured_audience_model_association_input.UpdateConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -559,7 +582,10 @@ class AsyncConfiguredAudienceModelAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteConfiguredAudienceModelAssociation"),
+        )
         input_: capo_cleanrooms.types.delete_configured_audience_model_association_input.DeleteConfiguredAudienceModelAssociationInput = {
             "configured_audience_model_association_identifier": configured_audience_model_association_identifier,
             "membership_identifier": membership_identifier,
@@ -614,7 +640,10 @@ class AsyncConfiguredAudienceModelAssociationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListConfiguredAudienceModelAssociations"),
+        )
         input_: capo_cleanrooms.types.list_configured_audience_model_associations_input.ListConfiguredAudienceModelAssociationsInput = {
             "membership_identifier": membership_identifier
         }

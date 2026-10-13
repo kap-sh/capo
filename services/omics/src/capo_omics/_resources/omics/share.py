@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -79,7 +80,9 @@ class Share:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateShare")
+        )
         input_: capo_omics.types.create_share_request.CreateShareRequest = {
             "resource_arn": resource_arn,
             "principal_subscriber": principal_subscriber,
@@ -124,7 +127,9 @@ class Share:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetShare")
+        )
         input_: capo_omics.types.get_share_request.GetShareRequest = {
             "share_id": share_id
         }
@@ -170,7 +175,9 @@ class Share:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptShare")
+        )
         input_: capo_omics.types.accept_share_request.AcceptShareRequest = {
             "share_id": share_id
         }
@@ -216,7 +223,9 @@ class Share:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteShare")
+        )
         input_: capo_omics.types.delete_share_request.DeleteShareRequest = {
             "share_id": share_id
         }
@@ -271,7 +280,9 @@ class Share:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListShares")
+        )
         input_: capo_omics.types.list_shares_request.ListSharesRequest = {
             "resource_owner": resource_owner
         }
@@ -336,7 +347,9 @@ class AsyncShare:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateShare")
+        )
         input_: capo_omics.types.create_share_request.CreateShareRequest = {
             "resource_arn": resource_arn,
             "principal_subscriber": principal_subscriber,
@@ -389,7 +402,9 @@ class AsyncShare:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetShare")
+        )
         input_: capo_omics.types.get_share_request.GetShareRequest = {
             "share_id": share_id
         }
@@ -439,7 +454,9 @@ class AsyncShare:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AcceptShare")
+        )
         input_: capo_omics.types.accept_share_request.AcceptShareRequest = {
             "share_id": share_id
         }
@@ -489,7 +506,9 @@ class AsyncShare:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteShare")
+        )
         input_: capo_omics.types.delete_share_request.DeleteShareRequest = {
             "share_id": share_id
         }
@@ -545,7 +564,9 @@ class AsyncShare:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListShares")
+        )
         input_: capo_omics.types.list_shares_request.ListSharesRequest = {
             "resource_owner": resource_owner
         }

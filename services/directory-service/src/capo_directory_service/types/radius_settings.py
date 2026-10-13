@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.directoryservice#RadiusSettings``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -126,4 +126,11 @@ def deserialize_aws_json_1_1(data: dict) -> RadiusSettings:
         out["use_same_username"] = data["UseSameUsername"]
     else:
         out["use_same_username"] = False
+    return out
+
+
+def redact_sensitive(value: RadiusSettings) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "shared_secret" in value:
+        out["shared_secret"] = "*** Sensitive Data Redacted ***"
     return out

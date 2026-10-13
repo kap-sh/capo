@@ -21,10 +21,12 @@ from capo_config_service._pagination import resolve_path as _resolve_path
 from capo_config_service._services._aws_config import aws_config
 from capo_config_service._services._pipeline import (
     Interceptor,
+    OperationLogging,
     OperationOptions,
     OperationRequest,
     OperationResponse,
     execute_pipeline,
+    log_operation,
     retry,
 )
 
@@ -430,7 +432,9 @@ class ConfigServiceClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[ConfigServiceClientConfig] = None
+        self,
+        config_overrides: Optional[ConfigServiceClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[Interceptor[Any, Any]], OperationOptions]:
         overrides: ConfigServiceClientConfig = config_overrides or {}
         interceptors_: list[Interceptor[Any, Any]] = [
@@ -438,8 +442,10 @@ class ConfigServiceClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aws_config(),
-            retry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(log_operation(operation_logging))
+        interceptors_.append(retry())
         options_: OperationOptions = OperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -492,7 +498,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("AssociateResourceTypes")
+        )
         input_: capo_config_service.types.associate_resource_types_request.AssociateResourceTypesRequest = {
             "configuration_recorder_arn": configuration_recorder_arn,
             "resource_types": resource_types,
@@ -539,7 +547,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetAggregateResourceConfig")
+        )
         input_: capo_config_service.types.batch_get_aggregate_resource_config_request.BatchGetAggregateResourceConfigRequest = {
             "configuration_aggregator_name": configuration_aggregator_name,
             "resource_identifiers": resource_identifiers,
@@ -584,7 +594,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("BatchGetResourceConfig")
+        )
         input_: capo_config_service.types.batch_get_resource_config_request.BatchGetResourceConfigRequest = {
             "resource_keys": resource_keys
         }
@@ -627,7 +639,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteAggregationAuthorization")
+        )
         input_: capo_config_service.types.delete_aggregation_authorization_request.DeleteAggregationAuthorizationRequest = {
             "authorized_account_id": authorized_account_id,
             "authorized_aws_region": authorized_aws_region,
@@ -670,7 +684,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigRule")
+        )
         input_: capo_config_service.types.delete_config_rule_request.DeleteConfigRuleRequest = {
             "config_rule_name": config_rule_name
         }
@@ -711,7 +727,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationAggregator")
+        )
         input_: capo_config_service.types.delete_configuration_aggregator_request.DeleteConfigurationAggregatorRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -753,7 +771,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConfigurationRecorder")
+        )
         input_: capo_config_service.types.delete_configuration_recorder_request.DeleteConfigurationRecorderRequest = {
             "configuration_recorder_name": configuration_recorder_name
         }
@@ -795,7 +815,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConformancePack")
+        )
         input_: capo_config_service.types.delete_conformance_pack_request.DeleteConformancePackRequest = {
             "conformance_pack_name": conformance_pack_name
         }
@@ -837,7 +859,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteConnector")
+        )
         input_: capo_config_service.types.delete_connector_request.DeleteConnectorRequest = {
             "arn": arn
         }
@@ -879,7 +903,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDeliveryChannel")
+        )
         input_: capo_config_service.types.delete_delivery_channel_request.DeleteDeliveryChannelRequest = {
             "delivery_channel_name": delivery_channel_name
         }
@@ -923,7 +949,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteEvaluationResults")
+        )
         input_: capo_config_service.types.delete_evaluation_results_request.DeleteEvaluationResultsRequest = {
             "config_rule_name": config_rule_name
         }
@@ -966,7 +994,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOrganizationConfigRule")
+        )
         input_: capo_config_service.types.delete_organization_config_rule_request.DeleteOrganizationConfigRuleRequest = {
             "organization_config_rule_name": organization_config_rule_name
         }
@@ -1009,7 +1039,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteOrganizationConformancePack")
+        )
         input_: capo_config_service.types.delete_organization_conformance_pack_request.DeleteOrganizationConformancePackRequest = {
             "organization_conformance_pack_name": organization_conformance_pack_name
         }
@@ -1052,7 +1084,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePendingAggregationRequest")
+        )
         input_: capo_config_service.types.delete_pending_aggregation_request_request.DeletePendingAggregationRequestRequest = {
             "requester_account_id": requester_account_id,
             "requester_aws_region": requester_aws_region,
@@ -1101,7 +1135,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRemediationConfiguration")
+        )
         input_: capo_config_service.types.delete_remediation_configuration_request.DeleteRemediationConfigurationRequest = {
             "config_rule_name": config_rule_name
         }
@@ -1148,7 +1184,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRemediationExceptions")
+        )
         input_: capo_config_service.types.delete_remediation_exceptions_request.DeleteRemediationExceptionsRequest = {
             "config_rule_name": config_rule_name,
             "resource_keys": resource_keys,
@@ -1193,7 +1231,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteResourceConfig")
+        )
         input_: capo_config_service.types.delete_resource_config_request.DeleteResourceConfigRequest = {
             "resource_type": resource_type,
             "resource_id": resource_id,
@@ -1236,7 +1276,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteRetentionConfiguration")
+        )
         input_: capo_config_service.types.delete_retention_configuration_request.DeleteRetentionConfigurationRequest = {
             "retention_configuration_name": retention_configuration_name
         }
@@ -1287,7 +1329,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DeleteServiceLinkedConfigurationRecorder"),
+        )
         input_: capo_config_service.types.delete_service_linked_configuration_recorder_request.DeleteServiceLinkedConfigurationRecorderRequest = {}
         if service_principal is not None:
             input_["service_principal"] = service_principal
@@ -1333,7 +1378,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteStoredQuery")
+        )
         input_: capo_config_service.types.delete_stored_query_request.DeleteStoredQueryRequest = {
             "query_name": query_name
         }
@@ -1378,7 +1425,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeliverConfigSnapshot")
+        )
         input_: capo_config_service.types.deliver_config_snapshot_request.DeliverConfigSnapshotRequest = {
             "delivery_channel_name": delivery_channel_name
         }
@@ -1434,7 +1483,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAggregateComplianceByConfigRules"),
+        )
         input_: capo_config_service.types.describe_aggregate_compliance_by_config_rules_request.DescribeAggregateComplianceByConfigRulesRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -1521,7 +1573,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeAggregateComplianceByConformancePacks"),
+        )
         input_: capo_config_service.types.describe_aggregate_compliance_by_conformance_packs_request.DescribeAggregateComplianceByConformancePacksRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -1603,7 +1658,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeAggregationAuthorizations")
+        )
         input_: capo_config_service.types.describe_aggregation_authorizations_request.DescribeAggregationAuthorizationsRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -1679,7 +1736,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComplianceByConfigRule")
+        )
         input_: capo_config_service.types.describe_compliance_by_config_rule_request.DescribeComplianceByConfigRuleRequest = {}
         if config_rule_names is not None:
             input_["config_rule_names"] = config_rule_names
@@ -1768,7 +1827,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeComplianceByResource")
+        )
         input_: capo_config_service.types.describe_compliance_by_resource_request.DescribeComplianceByResourceRequest = {}
         if resource_type is not None:
             input_["resource_type"] = resource_type
@@ -1860,7 +1921,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigRuleEvaluationStatus")
+        )
         input_: capo_config_service.types.describe_config_rule_evaluation_status_request.DescribeConfigRuleEvaluationStatusRequest = {}
         if config_rule_names is not None:
             input_["config_rule_names"] = config_rule_names
@@ -1942,7 +2005,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigRules")
+        )
         input_: capo_config_service.types.describe_config_rules_request.DescribeConfigRulesRequest = {}
         if config_rule_names is not None:
             input_["config_rule_names"] = config_rule_names
@@ -2025,7 +2090,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationAggregators")
+        )
         input_: capo_config_service.types.describe_configuration_aggregators_request.DescribeConfigurationAggregatorsRequest = {}
         if configuration_aggregator_names is not None:
             input_["configuration_aggregator_names"] = configuration_aggregator_names
@@ -2108,7 +2175,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeConfigurationAggregatorSourcesStatus"),
+        )
         input_: capo_config_service.types.describe_configuration_aggregator_sources_status_request.DescribeConfigurationAggregatorSourcesStatusRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -2195,7 +2265,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationRecorders")
+        )
         input_: capo_config_service.types.describe_configuration_recorders_request.DescribeConfigurationRecordersRequest = {}
         if configuration_recorder_names is not None:
             input_["configuration_recorder_names"] = configuration_recorder_names
@@ -2253,7 +2325,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConfigurationRecorderStatus")
+        )
         input_: capo_config_service.types.describe_configuration_recorder_status_request.DescribeConfigurationRecorderStatusRequest = {}
         if configuration_recorder_names is not None:
             input_["configuration_recorder_names"] = configuration_recorder_names
@@ -2314,7 +2388,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConformancePackCompliance")
+        )
         input_: capo_config_service.types.describe_conformance_pack_compliance_request.DescribeConformancePackComplianceRequest = {
             "conformance_pack_name": conformance_pack_name
         }
@@ -2403,7 +2479,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConformancePacks")
+        )
         input_: capo_config_service.types.describe_conformance_packs_request.DescribeConformancePacksRequest = {}
         if conformance_pack_names is not None:
             input_["conformance_pack_names"] = conformance_pack_names
@@ -2487,7 +2565,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeConformancePackStatus")
+        )
         input_: capo_config_service.types.describe_conformance_pack_status_request.DescribeConformancePackStatusRequest = {}
         if conformance_pack_names is not None:
             input_["conformance_pack_names"] = conformance_pack_names
@@ -2563,7 +2643,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeliveryChannels")
+        )
         input_: capo_config_service.types.describe_delivery_channels_request.DescribeDeliveryChannelsRequest = {}
         if delivery_channel_names is not None:
             input_["delivery_channel_names"] = delivery_channel_names
@@ -2608,7 +2690,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeliveryChannelStatus")
+        )
         input_: capo_config_service.types.describe_delivery_channel_status_request.DescribeDeliveryChannelStatusRequest = {}
         if delivery_channel_names is not None:
             input_["delivery_channel_names"] = delivery_channel_names
@@ -2662,7 +2746,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConfigRules")
+        )
         input_: capo_config_service.types.describe_organization_config_rules_request.DescribeOrganizationConfigRulesRequest = {}
         if organization_config_rule_names is not None:
             input_["organization_config_rule_names"] = organization_config_rule_names
@@ -2747,7 +2833,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConfigRuleStatuses")
+        )
         input_: capo_config_service.types.describe_organization_config_rule_statuses_request.DescribeOrganizationConfigRuleStatusesRequest = {}
         if organization_config_rule_names is not None:
             input_["organization_config_rule_names"] = organization_config_rule_names
@@ -2832,7 +2920,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeOrganizationConformancePacks")
+        )
         input_: capo_config_service.types.describe_organization_conformance_packs_request.DescribeOrganizationConformancePacksRequest = {}
         if organization_conformance_pack_names is not None:
             input_["organization_conformance_pack_names"] = (
@@ -2919,7 +3009,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("DescribeOrganizationConformancePackStatuses"),
+        )
         input_: capo_config_service.types.describe_organization_conformance_pack_statuses_request.DescribeOrganizationConformancePackStatusesRequest = {}
         if organization_conformance_pack_names is not None:
             input_["organization_conformance_pack_names"] = (
@@ -3003,7 +3096,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePendingAggregationRequests")
+        )
         input_: capo_config_service.types.describe_pending_aggregation_requests_request.DescribePendingAggregationRequestsRequest = {}
         if limit is not None:
             input_["limit"] = limit
@@ -3070,7 +3165,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRemediationConfigurations")
+        )
         input_: capo_config_service.types.describe_remediation_configurations_request.DescribeRemediationConfigurationsRequest = {
             "config_rule_names": config_rule_names
         }
@@ -3122,7 +3219,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRemediationExceptions")
+        )
         input_: capo_config_service.types.describe_remediation_exceptions_request.DescribeRemediationExceptionsRequest = {
             "config_rule_name": config_rule_name
         }
@@ -3206,7 +3305,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRemediationExecutionStatus")
+        )
         input_: capo_config_service.types.describe_remediation_execution_status_request.DescribeRemediationExecutionStatusRequest = {
             "config_rule_name": config_rule_name
         }
@@ -3288,7 +3389,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeRetentionConfigurations")
+        )
         input_: capo_config_service.types.describe_retention_configurations_request.DescribeRetentionConfigurationsRequest = {}
         if retention_configuration_names is not None:
             input_["retention_configuration_names"] = retention_configuration_names
@@ -3360,7 +3463,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DisassociateResourceTypes")
+        )
         input_: capo_config_service.types.disassociate_resource_types_request.DisassociateResourceTypesRequest = {
             "configuration_recorder_arn": configuration_recorder_arn,
             "resource_types": resource_types,
@@ -3421,7 +3526,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAggregateComplianceDetailsByConfigRule"),
+        )
         input_: capo_config_service.types.get_aggregate_compliance_details_by_config_rule_request.GetAggregateComplianceDetailsByConfigRuleRequest = {
             "configuration_aggregator_name": configuration_aggregator_name,
             "config_rule_name": config_rule_name,
@@ -3523,7 +3631,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAggregateConfigRuleComplianceSummary"),
+        )
         input_: capo_config_service.types.get_aggregate_config_rule_compliance_summary_request.GetAggregateConfigRuleComplianceSummaryRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -3620,7 +3731,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetAggregateConformancePackComplianceSummary"),
+        )
         input_: capo_config_service.types.get_aggregate_conformance_pack_compliance_summary_request.GetAggregateConformancePackComplianceSummaryRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -3717,7 +3831,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAggregateDiscoveredResourceCounts")
+        )
         input_: capo_config_service.types.get_aggregate_discovered_resource_counts_request.GetAggregateDiscoveredResourceCountsRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -3804,7 +3920,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetAggregateResourceConfig")
+        )
         input_: capo_config_service.types.get_aggregate_resource_config_request.GetAggregateResourceConfigRequest = {
             "configuration_aggregator_name": configuration_aggregator_name,
             "resource_identifier": resource_identifier,
@@ -3858,7 +3976,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceDetailsByConfigRule")
+        )
         input_: capo_config_service.types.get_compliance_details_by_config_rule_request.GetComplianceDetailsByConfigRuleRequest = {
             "config_rule_name": config_rule_name
         }
@@ -3950,7 +4070,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceDetailsByResource")
+        )
         input_: capo_config_service.types.get_compliance_details_by_resource_request.GetComplianceDetailsByResourceRequest = {}
         if resource_type is not None:
             input_["resource_type"] = resource_type
@@ -4029,7 +4151,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceSummaryByConfigRule")
+        )
 
         response = execute_pipeline(
             OperationRequest(input=None, options=options_),
@@ -4071,7 +4195,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetComplianceSummaryByResourceType")
+        )
         input_: capo_config_service.types.get_compliance_summary_by_resource_type_request.GetComplianceSummaryByResourceTypeRequest = {}
         if resource_types is not None:
             input_["resource_types"] = resource_types
@@ -4128,7 +4254,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConformancePackComplianceDetails")
+        )
         input_: capo_config_service.types.get_conformance_pack_compliance_details_request.GetConformancePackComplianceDetailsRequest = {
             "conformance_pack_name": conformance_pack_name
         }
@@ -4212,7 +4340,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConformancePackComplianceSummary")
+        )
         input_: capo_config_service.types.get_conformance_pack_compliance_summary_request.GetConformancePackComplianceSummaryRequest = {
             "conformance_pack_names": conformance_pack_names
         }
@@ -4287,7 +4417,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetConnector")
+        )
         input_: capo_config_service.types.get_connector_request.GetConnectorRequest = {
             "arn": arn
         }
@@ -4332,7 +4464,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetCustomRulePolicy")
+        )
         input_: capo_config_service.types.get_custom_rule_policy_request.GetCustomRulePolicyRequest = {}
         if config_rule_name is not None:
             input_["config_rule_name"] = config_rule_name
@@ -4383,7 +4517,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetDiscoveredResourceCounts")
+        )
         input_: capo_config_service.types.get_discovered_resource_counts_request.GetDiscoveredResourceCountsRequest = {}
         if resource_types is not None:
             input_["resource_types"] = resource_types
@@ -4466,7 +4602,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOrganizationConfigRuleDetailedStatus"),
+        )
         input_: capo_config_service.types.get_organization_config_rule_detailed_status_request.GetOrganizationConfigRuleDetailedStatusRequest = {
             "organization_config_rule_name": organization_config_rule_name
         }
@@ -4561,7 +4700,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("GetOrganizationConformancePackDetailedStatus"),
+        )
         input_: capo_config_service.types.get_organization_conformance_pack_detailed_status_request.GetOrganizationConformancePackDetailedStatusRequest = {
             "organization_conformance_pack_name": organization_conformance_pack_name
         }
@@ -4642,7 +4784,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetOrganizationCustomRulePolicy")
+        )
         input_: capo_config_service.types.get_organization_custom_rule_policy_request.GetOrganizationCustomRulePolicyRequest = {
             "organization_config_rule_name": organization_config_rule_name
         }
@@ -4706,7 +4850,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceConfigHistory")
+        )
         input_: capo_config_service.types.get_resource_config_history_request.GetResourceConfigHistoryRequest = {
             "resource_type": resource_type,
             "resource_id": resource_id,
@@ -4795,7 +4941,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetResourceEvaluationSummary")
+        )
         input_: capo_config_service.types.get_resource_evaluation_summary_request.GetResourceEvaluationSummaryRequest = {
             "resource_evaluation_id": resource_evaluation_id
         }
@@ -4839,7 +4987,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetStoredQuery")
+        )
         input_: capo_config_service.types.get_stored_query_request.GetStoredQueryRequest = {
             "query_name": query_name
         }
@@ -4895,7 +5045,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListAggregateDiscoveredResources")
+        )
         input_: capo_config_service.types.list_aggregate_discovered_resources_request.ListAggregateDiscoveredResourcesRequest = {
             "configuration_aggregator_name": configuration_aggregator_name,
             "resource_type": resource_type,
@@ -4982,7 +5134,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConfigurationRecorders")
+        )
         input_: capo_config_service.types.list_configuration_recorders_request.ListConfigurationRecordersRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5070,7 +5224,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConformancePackComplianceScores")
+        )
         input_: capo_config_service.types.list_conformance_pack_compliance_scores_request.ListConformancePackComplianceScoresRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5158,7 +5314,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListConnectors")
+        )
         input_: capo_config_service.types.list_connectors_request.ListConnectorsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -5251,7 +5409,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDiscoveredResources")
+        )
         input_: capo_config_service.types.list_discovered_resources_request.ListDiscoveredResourcesRequest = {
             "resource_type": resource_type
         }
@@ -5349,7 +5509,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListResourceEvaluations")
+        )
         input_: capo_config_service.types.list_resource_evaluations_request.ListResourceEvaluationsRequest = {}
         if filters is not None:
             input_["filters"] = filters
@@ -5426,7 +5588,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListStoredQueries")
+        )
         input_: capo_config_service.types.list_stored_queries_request.ListStoredQueriesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -5497,7 +5661,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_config_service.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -5571,7 +5737,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutAggregationAuthorization")
+        )
         input_: capo_config_service.types.put_aggregation_authorization_request.PutAggregationAuthorizationRequest = {
             "authorized_account_id": authorized_account_id,
             "authorized_aws_region": authorized_aws_region,
@@ -5621,7 +5789,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigRule")
+        )
         input_: capo_config_service.types.put_config_rule_request.PutConfigRuleRequest = {
             "config_rule": config_rule
         }
@@ -5685,7 +5855,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationAggregator")
+        )
         input_: capo_config_service.types.put_configuration_aggregator_request.PutConfigurationAggregatorRequest = {
             "configuration_aggregator_name": configuration_aggregator_name
         }
@@ -5741,7 +5913,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConfigurationRecorder")
+        )
         input_: capo_config_service.types.put_configuration_recorder_request.PutConfigurationRecorderRequest = {
             "configuration_recorder": configuration_recorder
         }
@@ -5816,7 +5990,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConformancePack")
+        )
         input_: capo_config_service.types.put_conformance_pack_request.PutConformancePackRequest = {
             "conformance_pack_name": conformance_pack_name
         }
@@ -5880,7 +6056,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutConnector")
+        )
         input_: capo_config_service.types.put_connector_request.PutConnectorRequest = {
             "connector_configuration": connector_configuration
         }
@@ -5930,7 +6108,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutDeliveryChannel")
+        )
         input_: capo_config_service.types.put_delivery_channel_request.PutDeliveryChannelRequest = {
             "delivery_channel": delivery_channel
         }
@@ -5981,7 +6161,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutEvaluations")
+        )
         input_: capo_config_service.types.put_evaluations_request.PutEvaluationsRequest = {
             "result_token": result_token
         }
@@ -6031,7 +6213,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutExternalEvaluation")
+        )
         input_: capo_config_service.types.put_external_evaluation_request.PutExternalEvaluationRequest = {
             "config_rule_name": config_rule_name,
             "external_evaluation": external_evaluation,
@@ -6100,7 +6284,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutOrganizationConfigRule")
+        )
         input_: capo_config_service.types.put_organization_config_rule_request.PutOrganizationConfigRuleRequest = {
             "organization_config_rule_name": organization_config_rule_name
         }
@@ -6192,7 +6378,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutOrganizationConformancePack")
+        )
         input_: capo_config_service.types.put_organization_conformance_pack_request.PutOrganizationConformancePackRequest = {
             "organization_conformance_pack_name": organization_conformance_pack_name
         }
@@ -6252,7 +6440,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRemediationConfigurations")
+        )
         input_: capo_config_service.types.put_remediation_configurations_request.PutRemediationConfigurationsRequest = {
             "remediation_configurations": remediation_configurations
         }
@@ -6304,7 +6494,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRemediationExceptions")
+        )
         input_: capo_config_service.types.put_remediation_exceptions_request.PutRemediationExceptionsRequest = {
             "config_rule_name": config_rule_name,
             "resource_keys": resource_keys,
@@ -6365,7 +6557,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutResourceConfig")
+        )
         input_: capo_config_service.types.put_resource_config_request.PutResourceConfigRequest = {
             "resource_type": resource_type,
             "schema_version_id": schema_version_id,
@@ -6416,7 +6610,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutRetentionConfiguration")
+        )
         input_: capo_config_service.types.put_retention_configuration_request.PutRetentionConfigurationRequest = {
             "retention_period_in_days": retention_period_in_days
         }
@@ -6464,7 +6660,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutServiceLinkedConfigurationRecorder")
+        )
         input_: capo_config_service.types.put_service_linked_configuration_recorder_request.PutServiceLinkedConfigurationRecorderRequest = {
             "service_principal": service_principal
         }
@@ -6513,7 +6711,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("PutStoredQuery")
+        )
         input_: capo_config_service.types.put_stored_query_request.PutStoredQueryRequest = {
             "stored_query": stored_query
         }
@@ -6566,7 +6766,10 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("PutThirdPartyServiceLinkedConfigurationRecorder"),
+        )
         input_: capo_config_service.types.put_third_party_service_linked_configuration_recorder_request.PutThirdPartyServiceLinkedConfigurationRecorderRequest = {
             "service_principal": service_principal,
             "connector_arn": connector_arn,
@@ -6624,7 +6827,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SelectAggregateResourceConfig")
+        )
         input_: capo_config_service.types.select_aggregate_resource_config_request.SelectAggregateResourceConfigRequest = {
             "expression": expression,
             "configuration_aggregator_name": configuration_aggregator_name,
@@ -6707,7 +6912,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SelectResourceConfig")
+        )
         input_: capo_config_service.types.select_resource_config_request.SelectResourceConfigRequest = {
             "expression": expression
         }
@@ -6782,7 +6989,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartConfigRulesEvaluation")
+        )
         input_: capo_config_service.types.start_config_rules_evaluation_request.StartConfigRulesEvaluationRequest = {}
         if config_rule_names is not None:
             input_["config_rule_names"] = config_rule_names
@@ -6825,7 +7034,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartConfigurationRecorder")
+        )
         input_: capo_config_service.types.start_configuration_recorder_request.StartConfigurationRecorderRequest = {
             "configuration_recorder_name": configuration_recorder_name
         }
@@ -6872,7 +7083,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartRemediationExecution")
+        )
         input_: capo_config_service.types.start_remediation_execution_request.StartRemediationExecutionRequest = {
             "config_rule_name": config_rule_name,
             "resource_keys": resource_keys,
@@ -6931,7 +7144,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StartResourceEvaluation")
+        )
         input_: capo_config_service.types.start_resource_evaluation_request.StartResourceEvaluationRequest = {
             "resource_details": resource_details,
             "evaluation_mode": evaluation_mode,
@@ -6980,7 +7195,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("StopConfigurationRecorder")
+        )
         input_: capo_config_service.types.stop_configuration_recorder_request.StopConfigurationRecorderRequest = {
             "configuration_recorder_name": configuration_recorder_name
         }
@@ -7025,7 +7242,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_config_service.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -7070,7 +7289,9 @@ class ConfigServiceClient:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_config_service.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,

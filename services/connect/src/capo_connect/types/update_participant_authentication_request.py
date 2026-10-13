@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.connect#UpdateParticipantAuthenticationRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,4 +63,15 @@ def deserialize_json(data: dict) -> UpdateParticipantAuthenticationRequest:
         out["error"] = data["Error"]
     if data.get("ErrorDescription") is not None:
         out["error_description"] = data["ErrorDescription"]
+    return out
+
+
+def redact_sensitive(value: UpdateParticipantAuthenticationRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "code" in value:
+        out["code"] = "*** Sensitive Data Redacted ***"
+    if "error" in value:
+        out["error"] = "*** Sensitive Data Redacted ***"
+    if "error_description" in value:
+        out["error_description"] = "*** Sensitive Data Redacted ***"
     return out

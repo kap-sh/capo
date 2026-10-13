@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.geoplaces#OpeningHours``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -81,5 +81,34 @@ def deserialize_json(data: dict) -> OpeningHours:
 
         out["categories"] = capo_geo_places.types.category_list.deserialize_json(
             data["Categories"]
+        )
+    return out
+
+
+def redact_sensitive(value: OpeningHours) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display" in value:
+        import capo_geo_places.types.opening_hours_display_list
+
+        out["display"] = (
+            capo_geo_places.types.opening_hours_display_list.redact_sensitive(
+                value["display"]
+            )
+        )
+    if "open_now" in value:
+        out["open_now"] = "*** Sensitive Data Redacted ***"
+    if "components" in value:
+        import capo_geo_places.types.opening_hours_components_list
+
+        out["components"] = (
+            capo_geo_places.types.opening_hours_components_list.redact_sensitive(
+                value["components"]
+            )
+        )
+    if "categories" in value:
+        import capo_geo_places.types.category_list
+
+        out["categories"] = capo_geo_places.types.category_list.redact_sensitive(
+            value["categories"]
         )
     return out

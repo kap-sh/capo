@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.sso#GetRoleCredentialsResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,5 +32,16 @@ def deserialize_json(data: dict) -> GetRoleCredentialsResponse:
 
         out["role_credentials"] = capo_sso.types.role_credentials.deserialize_json(
             data["roleCredentials"]
+        )
+    return out
+
+
+def redact_sensitive(value: GetRoleCredentialsResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "role_credentials" in value:
+        import capo_sso.types.role_credentials
+
+        out["role_credentials"] = capo_sso.types.role_credentials.redact_sensitive(
+            value["role_credentials"]
         )
     return out

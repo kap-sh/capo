@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -83,7 +84,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateReservation")
+        )
         input_: capo_redshift_serverless.types.create_reservation_request.CreateReservationRequest = {
             "capacity": capacity,
             "offering_id": offering_id,
@@ -135,7 +138,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReservation")
+        )
         input_: capo_redshift_serverless.types.get_reservation_request.GetReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -181,7 +186,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReservationOffering")
+        )
         input_: capo_redshift_serverless.types.get_reservation_offering_request.GetReservationOfferingRequest = {
             "offering_id": offering_id
         }
@@ -230,7 +237,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservationOfferings")
+        )
         input_: capo_redshift_serverless.types.list_reservation_offerings_request.ListReservationOfferingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -281,7 +290,9 @@ class ReservationResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_redshift_serverless.types.list_reservations_request.ListReservationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -342,7 +353,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateReservation")
+        )
         input_: capo_redshift_serverless.types.create_reservation_request.CreateReservationRequest = {
             "capacity": capacity,
             "offering_id": offering_id,
@@ -395,7 +408,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReservation")
+        )
         input_: capo_redshift_serverless.types.get_reservation_request.GetReservationRequest = {
             "reservation_id": reservation_id
         }
@@ -442,7 +457,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetReservationOffering")
+        )
         input_: capo_redshift_serverless.types.get_reservation_offering_request.GetReservationOfferingRequest = {
             "offering_id": offering_id
         }
@@ -492,7 +509,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservationOfferings")
+        )
         input_: capo_redshift_serverless.types.list_reservation_offerings_request.ListReservationOfferingsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -544,7 +563,9 @@ class AsyncReservationResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListReservations")
+        )
         input_: capo_redshift_serverless.types.list_reservations_request.ListReservationsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

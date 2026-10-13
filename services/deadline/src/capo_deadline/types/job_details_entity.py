@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.deadline#JobDetailsEntity``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -139,6 +139,21 @@ def deserialize_json(data: dict) -> JobDetailsEntity:
         out["path_mapping_rules"] = (
             capo_deadline.types.path_mapping_rules.deserialize_json(
                 data["pathMappingRules"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: JobDetailsEntity) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "parameters" in value:
+        out["parameters"] = "*** Sensitive Data Redacted ***"
+    if "path_mapping_rules" in value:
+        import capo_deadline.types.path_mapping_rules
+
+        out["path_mapping_rules"] = (
+            capo_deadline.types.path_mapping_rules.redact_sensitive(
+                value["path_mapping_rules"]
             )
         )
     return out

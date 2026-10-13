@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#ListAutomatedReasoningPolicyTestCasesResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -49,4 +49,19 @@ def deserialize_json(data: dict) -> ListAutomatedReasoningPolicyTestCasesRespons
         )
     if data.get("nextToken") is not None:
         out["next_token"] = data["nextToken"]
+    return out
+
+
+def redact_sensitive(
+    value: ListAutomatedReasoningPolicyTestCasesResponse,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "test_cases" in value:
+        import capo_bedrock.types.automated_reasoning_policy_test_case_list
+
+        out["test_cases"] = (
+            capo_bedrock.types.automated_reasoning_policy_test_case_list.redact_sensitive(
+                value["test_cases"]
+            )
+        )
     return out

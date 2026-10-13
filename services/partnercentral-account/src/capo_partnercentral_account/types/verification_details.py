@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.partnercentralaccount#VerificationDetails``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,16 @@ def deserialize_aws_json_1_0(data: dict) -> VerificationDetails:
         }
     else:
         raise DeserializationError("VerificationDetails: no recognized variant key")
+
+
+def redact_sensitive(value: VerificationDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "BusinessVerificationDetails" in value:
+        import capo_partnercentral_account.types.business_verification_details
+
+        out["BusinessVerificationDetails"] = (
+            capo_partnercentral_account.types.business_verification_details.redact_sensitive(
+                value["BusinessVerificationDetails"]
+            )
+        )
+    return out

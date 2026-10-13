@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from capo_redshift_serverless._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -87,7 +88,9 @@ class UsageLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.create_usage_limit_request.CreateUsageLimitRequest = {
             "resource_arn": resource_arn,
             "usage_type": usage_type,
@@ -139,7 +142,9 @@ class UsageLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUsageLimit")
+        )
         input_: capo_redshift_serverless.types.delete_usage_limit_request.DeleteUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -187,7 +192,9 @@ class UsageLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUsageLimit")
+        )
         input_: capo_redshift_serverless.types.get_usage_limit_request.GetUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -244,7 +251,9 @@ class UsageLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUsageLimits")
+        )
         input_: capo_redshift_serverless.types.list_usage_limits_request.ListUsageLimitsRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -302,7 +311,9 @@ class UsageLimitResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.update_usage_limit_request.UpdateUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -371,7 +382,9 @@ class AsyncUsageLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.create_usage_limit_request.CreateUsageLimitRequest = {
             "resource_arn": resource_arn,
             "usage_type": usage_type,
@@ -424,7 +437,9 @@ class AsyncUsageLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteUsageLimit")
+        )
         input_: capo_redshift_serverless.types.delete_usage_limit_request.DeleteUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -473,7 +488,9 @@ class AsyncUsageLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetUsageLimit")
+        )
         input_: capo_redshift_serverless.types.get_usage_limit_request.GetUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }
@@ -531,7 +548,9 @@ class AsyncUsageLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListUsageLimits")
+        )
         input_: capo_redshift_serverless.types.list_usage_limits_request.ListUsageLimitsRequest = {}
         if resource_arn is not None:
             input_["resource_arn"] = resource_arn
@@ -590,7 +609,9 @@ class AsyncUsageLimitResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateUsageLimit")
+        )
         input_: capo_redshift_serverless.types.update_usage_limit_request.UpdateUsageLimitRequest = {
             "usage_limit_id": usage_limit_id
         }

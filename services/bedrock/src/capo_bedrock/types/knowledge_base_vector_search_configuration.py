@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#KnowledgeBaseVectorSearchConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -94,6 +94,29 @@ def deserialize_json(data: dict) -> KnowledgeBaseVectorSearchConfiguration:
         out["reranking_configuration"] = (
             capo_bedrock.types.vector_search_reranking_configuration.deserialize_json(
                 data["rerankingConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: KnowledgeBaseVectorSearchConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter" in value:
+        out["filter"] = "*** Sensitive Data Redacted ***"
+    if "implicit_filter_configuration" in value:
+        import capo_bedrock.types.implicit_filter_configuration
+
+        out["implicit_filter_configuration"] = (
+            capo_bedrock.types.implicit_filter_configuration.redact_sensitive(
+                value["implicit_filter_configuration"]
+            )
+        )
+    if "reranking_configuration" in value:
+        import capo_bedrock.types.vector_search_reranking_configuration
+
+        out["reranking_configuration"] = (
+            capo_bedrock.types.vector_search_reranking_configuration.redact_sensitive(
+                value["reranking_configuration"]
             )
         )
     return out

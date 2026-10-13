@@ -1,10 +1,11 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_proton._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -111,7 +112,28 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_input.CreateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_input
+
+            return capo_proton.types.create_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_output.CreateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_output
+
+            return capo_proton.types.create_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_input.CreateEnvironmentInput = {
             "name": name,
             "template_name": template_name,
@@ -179,7 +201,17 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_output.GetEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_output
+
+            return capo_proton.types.get_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_environment_input.GetEnvironmentInput = {
             "name": name
         }
@@ -255,7 +287,28 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_input.UpdateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_input
+
+            return capo_proton.types.update_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_output.UpdateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_output
+
+            return capo_proton.types.update_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_input.UpdateEnvironmentInput = {
             "name": name,
             "deployment_type": deployment_type,
@@ -324,7 +377,17 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_output.DeleteEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_output
+
+            return capo_proton.types.delete_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_environment_input.DeleteEnvironmentInput = {
             "name": name
         }
@@ -379,7 +442,17 @@ class EnvironmentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environments_output.ListEnvironmentsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environments_output
+
+            return capo_proton.types.list_environments_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironments", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environments_input.ListEnvironmentsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -466,7 +539,28 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.create_environment_input.CreateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_input
+
+            return capo_proton.types.create_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.create_environment_output.CreateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.create_environment_output
+
+            return capo_proton.types.create_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.create_environment_input.CreateEnvironmentInput = {
             "name": name,
             "template_name": template_name,
@@ -535,7 +629,17 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.get_environment_output.GetEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.get_environment_output
+
+            return capo_proton.types.get_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetEnvironment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.get_environment_input.GetEnvironmentInput = {
             "name": name
         }
@@ -612,7 +716,28 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_proton.types.update_environment_input.UpdateEnvironmentInput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_input
+
+            return capo_proton.types.update_environment_input.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_proton.types.update_environment_output.UpdateEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.update_environment_output
+
+            return capo_proton.types.update_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateEnvironment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_proton.types.update_environment_input.UpdateEnvironmentInput = {
             "name": name,
             "deployment_type": deployment_type,
@@ -682,7 +807,17 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.delete_environment_output.DeleteEnvironmentOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.delete_environment_output
+
+            return capo_proton.types.delete_environment_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DeleteEnvironment", redact_output=_redact_output),
+        )
         input_: capo_proton.types.delete_environment_input.DeleteEnvironmentInput = {
             "name": name
         }
@@ -738,7 +873,17 @@ class AsyncEnvironmentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_proton.types.list_environments_output.ListEnvironmentsOutput",
+        ) -> dict[str, Any]:
+            import capo_proton.types.list_environments_output
+
+            return capo_proton.types.list_environments_output.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("ListEnvironments", redact_output=_redact_output),
+        )
         input_: capo_proton.types.list_environments_input.ListEnvironmentsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

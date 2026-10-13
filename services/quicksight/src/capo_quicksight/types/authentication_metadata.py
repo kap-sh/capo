@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#AuthenticationMetadata``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -160,3 +160,40 @@ def deserialize_json(data: dict) -> AuthenticationMetadata:
         }
     else:
         raise DeserializationError("AuthenticationMetadata: no recognized variant key")
+
+
+def redact_sensitive(value: AuthenticationMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "AuthorizationCodeGrantMetadata" in value:
+        import capo_quicksight.types.authorization_code_grant_metadata
+
+        out["AuthorizationCodeGrantMetadata"] = (
+            capo_quicksight.types.authorization_code_grant_metadata.redact_sensitive(
+                value["AuthorizationCodeGrantMetadata"]
+            )
+        )
+    if "ClientCredentialsGrantMetadata" in value:
+        import capo_quicksight.types.client_credentials_grant_metadata
+
+        out["ClientCredentialsGrantMetadata"] = (
+            capo_quicksight.types.client_credentials_grant_metadata.redact_sensitive(
+                value["ClientCredentialsGrantMetadata"]
+            )
+        )
+    if "BasicAuthConnectionMetadata" in value:
+        import capo_quicksight.types.basic_auth_connection_metadata
+
+        out["BasicAuthConnectionMetadata"] = (
+            capo_quicksight.types.basic_auth_connection_metadata.redact_sensitive(
+                value["BasicAuthConnectionMetadata"]
+            )
+        )
+    if "ApiKeyConnectionMetadata" in value:
+        import capo_quicksight.types.api_key_connection_metadata
+
+        out["ApiKeyConnectionMetadata"] = (
+            capo_quicksight.types.api_key_connection_metadata.redact_sensitive(
+                value["ApiKeyConnectionMetadata"]
+            )
+        )
+    return out

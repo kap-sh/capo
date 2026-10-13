@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workspacesweb#IpRule``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,4 +35,13 @@ def deserialize_json(data: dict) -> IpRule:
         raise DeserializationError("IpRule.ip_range required")
     if data.get("description") is not None:
         out["description"] = data["description"]
+    return out
+
+
+def redact_sensitive(value: IpRule) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "ip_range" in value:
+        out["ip_range"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
     return out

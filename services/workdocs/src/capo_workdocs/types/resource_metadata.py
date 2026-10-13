@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workdocs#ResourceMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -77,4 +77,19 @@ def deserialize_json(data: dict) -> ResourceMetadata:
         out["owner"] = capo_workdocs.types.user_metadata.deserialize_json(data["Owner"])
     if data.get("ParentId") is not None:
         out["parent_id"] = data["ParentId"]
+    return out
+
+
+def redact_sensitive(value: ResourceMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "original_name" in value:
+        out["original_name"] = "*** Sensitive Data Redacted ***"
+    if "owner" in value:
+        import capo_workdocs.types.user_metadata
+
+        out["owner"] = capo_workdocs.types.user_metadata.redact_sensitive(
+            value["owner"]
+        )
     return out

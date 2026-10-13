@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.networksecuritymanager#AdminScope``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -58,6 +58,19 @@ def deserialize_json(data: dict) -> AdminScope:
         out["firewall_type_scope"] = (
             capo_network_security_manager.types.admin_firewall_type_scope.deserialize_json(
                 data["firewallTypeScope"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: AdminScope) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "scope_filter" in value:
+        import capo_network_security_manager.types.admin_scope_filter
+
+        out["scope_filter"] = (
+            capo_network_security_manager.types.admin_scope_filter.redact_sensitive(
+                value["scope_filter"]
             )
         )
     return out

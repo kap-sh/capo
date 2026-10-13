@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.personalizeevents#Action``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -37,4 +37,11 @@ def deserialize_json(data: dict) -> Action:
         raise DeserializationError("Action.action_id required")
     if data.get("properties") is not None:
         out["properties"] = data["properties"]
+    return out
+
+
+def redact_sensitive(value: Action) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "properties" in value:
+        out["properties"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pi#Recommendation``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -40,4 +40,13 @@ def deserialize_aws_json_1_1(data: dict) -> Recommendation:
         out["recommendation_description"] = data["RecommendationDescription"]
     if data.get("RecommendationDetails") is not None:
         out["recommendation_details"] = data["RecommendationDetails"]
+    return out
+
+
+def redact_sensitive(value: Recommendation) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "recommendation_description" in value:
+        out["recommendation_description"] = "*** Sensitive Data Redacted ***"
+    if "recommendation_details" in value:
+        out["recommendation_details"] = "*** Sensitive Data Redacted ***"
     return out

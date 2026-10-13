@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_location._auth._signers
 import capo_location._auth._sigv4
 from capo_location._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,26 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_map_request.CreateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_request
+
+            return capo_location.types.create_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_map_response.CreateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_response
+
+            return capo_location.types.create_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_map_request.CreateMapRequest = {
             "map_name": map_name,
             "configuration": configuration,
@@ -152,7 +172,17 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_map_response.DescribeMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_map_response
+
+            return capo_location.types.describe_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMap", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_map_request.DescribeMapRequest = {
             "map_name": map_name
         }
@@ -209,7 +239,26 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_map_request.UpdateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_request
+
+            return capo_location.types.update_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_map_response.UpdateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_response
+
+            return capo_location.types.update_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_map_request.UpdateMapRequest = {
             "map_name": map_name
         }
@@ -262,7 +311,9 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMap")
+        )
         input_: capo_location.types.delete_map_request.DeleteMapRequest = {
             "map_name": map_name
         }
@@ -310,7 +361,16 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_maps_response.ListMapsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_maps_response
+
+            return capo_location.types.list_maps_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMaps", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_maps_request.ListMapsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -365,7 +425,17 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_glyphs_request
+
+            return capo_location.types.get_map_glyphs_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapGlyphs", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest = {
             "map_name": map_name,
             "font_stack": font_stack,
@@ -420,7 +490,17 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_sprites_request.GetMapSpritesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_sprites_request
+
+            return capo_location.types.get_map_sprites_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapSprites", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_sprites_request.GetMapSpritesRequest = {
             "map_name": map_name,
             "file_name": file_name,
@@ -472,7 +552,21 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_style_descriptor_request
+
+            return (
+                capo_location.types.get_map_style_descriptor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapStyleDescriptor", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest = {
             "map_name": map_name
         }
@@ -529,7 +623,16 @@ class MapResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_tile_request.GetMapTileRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_tile_request
+
+            return capo_location.types.get_map_tile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMapTile", redact_input=_redact_input)
+        )
         input_: capo_location.types.get_map_tile_request.GetMapTileRequest = {
             "map_name": map_name,
             "z": z,
@@ -598,7 +701,26 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.create_map_request.CreateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_request
+
+            return capo_location.types.create_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.create_map_response.CreateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.create_map_response
+
+            return capo_location.types.create_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.create_map_request.CreateMapRequest = {
             "map_name": map_name,
             "configuration": configuration,
@@ -653,7 +775,17 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.describe_map_response.DescribeMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.describe_map_response
+
+            return capo_location.types.describe_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("DescribeMap", redact_output=_redact_output),
+        )
         input_: capo_location.types.describe_map_request.DescribeMapRequest = {
             "map_name": map_name
         }
@@ -711,7 +843,26 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.update_map_request.UpdateMapRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_request
+
+            return capo_location.types.update_map_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_location.types.update_map_response.UpdateMapResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.update_map_response
+
+            return capo_location.types.update_map_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateMap", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_location.types.update_map_request.UpdateMapRequest = {
             "map_name": map_name
         }
@@ -765,7 +916,9 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMap")
+        )
         input_: capo_location.types.delete_map_request.DeleteMapRequest = {
             "map_name": map_name
         }
@@ -814,7 +967,16 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_location.types.list_maps_response.ListMapsResponse",
+        ) -> dict[str, Any]:
+            import capo_location.types.list_maps_response
+
+            return capo_location.types.list_maps_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMaps", redact_output=_redact_output)
+        )
         input_: capo_location.types.list_maps_request.ListMapsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -870,7 +1032,17 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_glyphs_request
+
+            return capo_location.types.get_map_glyphs_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapGlyphs", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_glyphs_request.GetMapGlyphsRequest = {
             "map_name": map_name,
             "font_stack": font_stack,
@@ -926,7 +1098,17 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_sprites_request.GetMapSpritesRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_sprites_request
+
+            return capo_location.types.get_map_sprites_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapSprites", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_sprites_request.GetMapSpritesRequest = {
             "map_name": map_name,
             "file_name": file_name,
@@ -979,7 +1161,21 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_style_descriptor_request
+
+            return (
+                capo_location.types.get_map_style_descriptor_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetMapStyleDescriptor", redact_input=_redact_input),
+        )
         input_: capo_location.types.get_map_style_descriptor_request.GetMapStyleDescriptorRequest = {
             "map_name": map_name
         }
@@ -1037,7 +1233,16 @@ class AsyncMapResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_location.types.get_map_tile_request.GetMapTileRequest",
+        ) -> dict[str, Any]:
+            import capo_location.types.get_map_tile_request
+
+            return capo_location.types.get_map_tile_request.redact_sensitive(input_)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetMapTile", redact_input=_redact_input)
+        )
         input_: capo_location.types.get_map_tile_request.GetMapTileRequest = {
             "map_name": map_name,
             "z": z,

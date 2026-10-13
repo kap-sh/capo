@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockdataautomation#BlueprintSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -101,4 +101,11 @@ def deserialize_json(data: dict) -> BlueprintSummary:
                 data["lastModifiedTime"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: BlueprintSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "blueprint_name" in value:
+        out["blueprint_name"] = "*** Sensitive Data Redacted ***"
     return out

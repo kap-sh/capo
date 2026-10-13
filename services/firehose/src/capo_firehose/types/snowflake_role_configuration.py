@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.firehose#SnowflakeRoleConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_1(data: dict) -> SnowflakeRoleConfiguration:
         out["enabled"] = data["Enabled"]
     if data.get("SnowflakeRole") is not None:
         out["snowflake_role"] = data["SnowflakeRole"]
+    return out
+
+
+def redact_sensitive(value: SnowflakeRoleConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "snowflake_role" in value:
+        out["snowflake_role"] = "*** Sensitive Data Redacted ***"
     return out

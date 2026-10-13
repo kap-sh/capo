@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#TimeThresholdList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_geo_routes.types.duration_seconds
@@ -17,3 +17,7 @@ def serialize_json(value: TimeThresholdList) -> list:
 
 def deserialize_json(data: list) -> TimeThresholdList:
     return [item for item in data if item is not None]
+
+
+def redact_sensitive(value: TimeThresholdList) -> list[Any]:
+    return ["*** Sensitive Data Redacted ***"] * len(value)

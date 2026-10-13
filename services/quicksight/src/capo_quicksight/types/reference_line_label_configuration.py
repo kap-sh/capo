@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#ReferenceLineLabelConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -128,6 +128,19 @@ def deserialize_json(data: dict) -> ReferenceLineLabelConfiguration:
         out["vertical_position"] = (
             capo_quicksight.types.reference_line_label_vertical_position.deserialize_json(
                 data["VerticalPosition"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ReferenceLineLabelConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value_label_configuration" in value:
+        import capo_quicksight.types.reference_line_value_label_configuration
+
+        out["value_label_configuration"] = (
+            capo_quicksight.types.reference_line_value_label_configuration.redact_sensitive(
+                value["value_label_configuration"]
             )
         )
     return out

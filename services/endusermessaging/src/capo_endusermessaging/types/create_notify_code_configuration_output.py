@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.endusermessaging#CreateNotifyCodeConfigurationOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -43,5 +43,18 @@ def deserialize_json(data: dict) -> CreateNotifyCodeConfigurationOutput:
     else:
         raise DeserializationError(
             "CreateNotifyCodeConfigurationOutput.notify_code_configuration required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreateNotifyCodeConfigurationOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "notify_code_configuration" in value:
+        import capo_endusermessaging.types.notify_code_configuration
+
+        out["notify_code_configuration"] = (
+            capo_endusermessaging.types.notify_code_configuration.redact_sensitive(
+                value["notify_code_configuration"]
+            )
         )
     return out

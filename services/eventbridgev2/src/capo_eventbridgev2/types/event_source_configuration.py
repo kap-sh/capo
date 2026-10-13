@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#EventSourceConfiguration``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -68,3 +68,24 @@ def deserialize_cbor(data: dict) -> EventSourceConfiguration:
         raise DeserializationError(
             "EventSourceConfiguration: no recognized variant key"
         )
+
+
+def redact_sensitive(value: EventSourceConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "AwsServiceEventsConfiguration" in value:
+        import capo_eventbridgev2.types.aws_service_events_source_configuration
+
+        out["AwsServiceEventsConfiguration"] = (
+            capo_eventbridgev2.types.aws_service_events_source_configuration.redact_sensitive(
+                value["AwsServiceEventsConfiguration"]
+            )
+        )
+    if "PartnerEventsConfiguration" in value:
+        import capo_eventbridgev2.types.partner_events_source_configuration
+
+        out["PartnerEventsConfiguration"] = (
+            capo_eventbridgev2.types.partner_events_source_configuration.redact_sensitive(
+                value["PartnerEventsConfiguration"]
+            )
+        )
+    return out

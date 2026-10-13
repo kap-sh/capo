@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.voiceid#CreateDomainRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -79,4 +79,17 @@ def deserialize_aws_json_1_0(data: dict) -> CreateDomainRequest:
         out["tags"] = capo_voice_id.types.tag_list.deserialize_aws_json_1_0(
             data["Tags"]
         )
+    return out
+
+
+def redact_sensitive(value: CreateDomainRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "tags" in value:
+        import capo_voice_id.types.tag_list
+
+        out["tags"] = capo_voice_id.types.tag_list.redact_sensitive(value["tags"])
     return out

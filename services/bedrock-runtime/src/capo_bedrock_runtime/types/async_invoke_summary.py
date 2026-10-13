@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#AsyncInvokeSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -137,4 +137,11 @@ def deserialize_json(data: dict) -> AsyncInvokeSummary:
         )
     else:
         raise DeserializationError("AsyncInvokeSummary.output_data_config required")
+    return out
+
+
+def redact_sensitive(value: AsyncInvokeSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "failure_message" in value:
+        out["failure_message"] = "*** Sensitive Data Redacted ***"
     return out

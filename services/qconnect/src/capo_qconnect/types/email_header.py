@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qconnect#EmailHeader``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> EmailHeader:
         out["name"] = data["name"]
     if data.get("value") is not None:
         out["value"] = data["value"]
+    return out
+
+
+def redact_sensitive(value: EmailHeader) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "value" in value:
+        out["value"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#IsolineTruckOptions``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -235,4 +235,61 @@ def deserialize_json(data: dict) -> IsolineTruckOptions:
         out["width"] = data["Width"]
     else:
         out["width"] = 0
+    return out
+
+
+def redact_sensitive(value: IsolineTruckOptions) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "axle_count" in value:
+        out["axle_count"] = "*** Sensitive Data Redacted ***"
+    if "engine_type" in value:
+        out["engine_type"] = "*** Sensitive Data Redacted ***"
+    if "gross_weight" in value:
+        out["gross_weight"] = "*** Sensitive Data Redacted ***"
+    if "hazardous_cargos" in value:
+        import capo_geo_routes.types.isoline_hazardous_cargo_type_list
+
+        out["hazardous_cargos"] = (
+            capo_geo_routes.types.isoline_hazardous_cargo_type_list.redact_sensitive(
+                value["hazardous_cargos"]
+            )
+        )
+    if "height" in value:
+        out["height"] = "*** Sensitive Data Redacted ***"
+    if "height_above_first_axle" in value:
+        out["height_above_first_axle"] = "*** Sensitive Data Redacted ***"
+    if "kpra_length" in value:
+        out["kpra_length"] = "*** Sensitive Data Redacted ***"
+    if "length" in value:
+        out["length"] = "*** Sensitive Data Redacted ***"
+    if "license_plate" in value:
+        out["license_plate"] = "*** Sensitive Data Redacted ***"
+    if "max_speed" in value:
+        out["max_speed"] = "*** Sensitive Data Redacted ***"
+    if "occupancy" in value:
+        out["occupancy"] = "*** Sensitive Data Redacted ***"
+    if "payload_capacity" in value:
+        out["payload_capacity"] = "*** Sensitive Data Redacted ***"
+    if "tire_count" in value:
+        out["tire_count"] = "*** Sensitive Data Redacted ***"
+    if "trailer" in value:
+        import capo_geo_routes.types.isoline_trailer_options
+
+        out["trailer"] = capo_geo_routes.types.isoline_trailer_options.redact_sensitive(
+            value["trailer"]
+        )
+    if "tunnel_restriction_code" in value:
+        out["tunnel_restriction_code"] = "*** Sensitive Data Redacted ***"
+    if "weight_per_axle" in value:
+        out["weight_per_axle"] = "*** Sensitive Data Redacted ***"
+    if "weight_per_axle_group" in value:
+        import capo_geo_routes.types.weight_per_axle_group
+
+        out["weight_per_axle_group"] = (
+            capo_geo_routes.types.weight_per_axle_group.redact_sensitive(
+                value["weight_per_axle_group"]
+            )
+        )
+    if "width" in value:
+        out["width"] = "*** Sensitive Data Redacted ***"
     return out

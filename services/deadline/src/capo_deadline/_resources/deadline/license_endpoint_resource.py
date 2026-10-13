@@ -8,6 +8,7 @@ import capo_deadline._auth._sigv4
 from capo_deadline._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLicenseEndpoint")
+        )
         input_: capo_deadline.types.create_license_endpoint_request.CreateLicenseEndpointRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -148,7 +151,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLicenseEndpoint")
+        )
         input_: capo_deadline.types.get_license_endpoint_request.GetLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -196,7 +201,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseEndpoint")
+        )
         input_: capo_deadline.types.delete_license_endpoint_request.DeleteLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -245,7 +252,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLicenseEndpoints")
+        )
         input_: capo_deadline.types.list_license_endpoints_request.ListLicenseEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -296,7 +305,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMeteredProduct")
+        )
         input_: capo_deadline.types.delete_metered_product_request.DeleteMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,
@@ -350,7 +361,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMeteredProducts")
+        )
         input_: capo_deadline.types.list_metered_products_request.ListMeteredProductsRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -403,7 +416,9 @@ class LicenseEndpointResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMeteredProduct")
+        )
         input_: capo_deadline.types.put_metered_product_request.PutMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,
@@ -466,7 +481,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateLicenseEndpoint")
+        )
         input_: capo_deadline.types.create_license_endpoint_request.CreateLicenseEndpointRequest = {
             "vpc_id": vpc_id,
             "subnet_ids": subnet_ids,
@@ -521,7 +538,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetLicenseEndpoint")
+        )
         input_: capo_deadline.types.get_license_endpoint_request.GetLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -570,7 +589,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteLicenseEndpoint")
+        )
         input_: capo_deadline.types.delete_license_endpoint_request.DeleteLicenseEndpointRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -620,7 +641,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListLicenseEndpoints")
+        )
         input_: capo_deadline.types.list_license_endpoints_request.ListLicenseEndpointsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -672,7 +695,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteMeteredProduct")
+        )
         input_: capo_deadline.types.delete_metered_product_request.DeleteMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,
@@ -727,7 +752,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListMeteredProducts")
+        )
         input_: capo_deadline.types.list_metered_products_request.ListMeteredProductsRequest = {
             "license_endpoint_id": license_endpoint_id
         }
@@ -781,7 +808,9 @@ class AsyncLicenseEndpointResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutMeteredProduct")
+        )
         input_: capo_deadline.types.put_metered_product_request.PutMeteredProductRequest = {
             "license_endpoint_id": license_endpoint_id,
             "product_id": product_id,

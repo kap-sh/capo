@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#SharedColumnSemanticMetadataList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_quicksight.types.shared_column_semantic_metadata
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> SharedColumnSemanticMetadataList:
             capo_quicksight.types.shared_column_semantic_metadata.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: SharedColumnSemanticMetadataList) -> list[Any]:
+    import capo_quicksight.types.shared_column_semantic_metadata
+
+    return [
+        capo_quicksight.types.shared_column_semantic_metadata.redact_sensitive(item)
+        for item in value
+    ]

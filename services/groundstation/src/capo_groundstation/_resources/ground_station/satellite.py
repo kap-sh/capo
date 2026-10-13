@@ -7,6 +7,7 @@ import capo_groundstation._auth._sigv4
 from capo_groundstation._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -68,7 +69,9 @@ class Satellite:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSatellite")
+        )
         input_: capo_groundstation.types.get_satellite_request.GetSatelliteRequest = {
             "satellite_id": satellite_id
         }
@@ -119,7 +122,9 @@ class Satellite:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSatellites")
+        )
         input_: capo_groundstation.types.list_satellites_request.ListSatellitesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -172,7 +177,9 @@ class AsyncSatellite:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetSatellite")
+        )
         input_: capo_groundstation.types.get_satellite_request.GetSatelliteRequest = {
             "satellite_id": satellite_id
         }
@@ -224,7 +231,9 @@ class AsyncSatellite:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListSatellites")
+        )
         input_: capo_groundstation.types.list_satellites_request.ListSatellitesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentruntime#RetrieveAndGenerateResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -83,5 +83,18 @@ def deserialize_json(data: dict) -> RetrieveAndGenerateResponse:
             capo_bedrock_agent_runtime.types.guadrail_action.deserialize_json(
                 data["guardrailAction"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: RetrieveAndGenerateResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "output" in value:
+        out["output"] = "*** Sensitive Data Redacted ***"
+    if "citations" in value:
+        import capo_bedrock_agent_runtime.types.citations
+
+        out["citations"] = capo_bedrock_agent_runtime.types.citations.redact_sensitive(
+            value["citations"]
         )
     return out

@@ -7,6 +7,7 @@ import capo_cleanroomsml._auth._sigv4
 from capo_cleanroomsml._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,9 @@ class ConfiguredModelAlgorithm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_request.CreateConfiguredModelAlgorithmRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -155,7 +158,9 @@ class ConfiguredModelAlgorithm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_request.GetConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -200,7 +205,9 @@ class ConfiguredModelAlgorithm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_request.DeleteConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -247,7 +254,9 @@ class ConfiguredModelAlgorithm:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredModelAlgorithms")
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithms_request.ListConfiguredModelAlgorithmsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -320,7 +329,9 @@ class AsyncConfiguredModelAlgorithm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.create_configured_model_algorithm_request.CreateConfiguredModelAlgorithmRequest = {
             "name": name,
             "role_arn": role_arn,
@@ -378,7 +389,9 @@ class AsyncConfiguredModelAlgorithm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.get_configured_model_algorithm_request.GetConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -424,7 +437,9 @@ class AsyncConfiguredModelAlgorithm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteConfiguredModelAlgorithm")
+        )
         input_: capo_cleanroomsml.types.delete_configured_model_algorithm_request.DeleteConfiguredModelAlgorithmRequest = {
             "configured_model_algorithm_arn": configured_model_algorithm_arn
         }
@@ -472,7 +487,9 @@ class AsyncConfiguredModelAlgorithm:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListConfiguredModelAlgorithms")
+        )
         input_: capo_cleanroomsml.types.list_configured_model_algorithms_request.ListConfiguredModelAlgorithmsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token

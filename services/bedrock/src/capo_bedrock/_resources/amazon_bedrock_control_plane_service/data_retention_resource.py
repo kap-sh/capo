@@ -7,6 +7,7 @@ import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -57,7 +58,9 @@ class DataRetentionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountDataRetention")
+        )
         input_: capo_bedrock.types.get_account_data_retention_request.GetAccountDataRetentionRequest = {}
 
         response = execute_pipeline(
@@ -101,7 +104,9 @@ class DataRetentionResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAccountDataRetention")
+        )
         input_: capo_bedrock.types.put_account_data_retention_request.PutAccountDataRetentionRequest = {
             "mode": mode
         }
@@ -147,7 +152,9 @@ class AsyncDataRetentionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAccountDataRetention")
+        )
         input_: capo_bedrock.types.get_account_data_retention_request.GetAccountDataRetentionRequest = {}
 
         response = await aexecute_pipeline(
@@ -192,7 +199,9 @@ class AsyncDataRetentionResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("PutAccountDataRetention")
+        )
         input_: capo_bedrock.types.put_account_data_retention_request.PutAccountDataRetentionRequest = {
             "mode": mode
         }

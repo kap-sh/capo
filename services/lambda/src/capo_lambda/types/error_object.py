@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lambda#ErrorObject``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -53,5 +53,22 @@ def deserialize_json(data: dict) -> ErrorObject:
 
         out["stack_trace"] = capo_lambda.types.stack_trace_entries.deserialize_json(
             data["StackTrace"]
+        )
+    return out
+
+
+def redact_sensitive(value: ErrorObject) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "error_message" in value:
+        out["error_message"] = "*** Sensitive Data Redacted ***"
+    if "error_type" in value:
+        out["error_type"] = "*** Sensitive Data Redacted ***"
+    if "error_data" in value:
+        out["error_data"] = "*** Sensitive Data Redacted ***"
+    if "stack_trace" in value:
+        import capo_lambda.types.stack_trace_entries
+
+        out["stack_trace"] = capo_lambda.types.stack_trace_entries.redact_sensitive(
+            value["stack_trace"]
         )
     return out

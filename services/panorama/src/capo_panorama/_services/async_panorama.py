@@ -24,7 +24,9 @@ from capo_panorama._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -215,7 +217,9 @@ class AsyncPanoramaClient:
         )
 
     def operation_options(
-        self, config_overrides: Optional[AsyncPanoramaClientConfig] = None
+        self,
+        config_overrides: Optional[AsyncPanoramaClientConfig] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPanoramaClientConfig = config_overrides or {}
         interceptors_: list[AsyncInterceptor[Any, Any]] = [
@@ -223,8 +227,10 @@ class AsyncPanoramaClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -299,7 +305,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateApplicationInstance")
+        )
         input_: capo_panorama.types.create_application_instance_request.CreateApplicationInstanceRequest = {
             "manifest_payload": manifest_payload,
             "default_runtime_context_device": default_runtime_context_device,
@@ -368,7 +376,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateJobForDevices")
+        )
         input_: capo_panorama.types.create_job_for_devices_request.CreateJobForDevicesRequest = {
             "device_ids": device_ids,
             "job_type": job_type,
@@ -432,7 +442,19 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_panorama.types.create_node_from_template_job_request.CreateNodeFromTemplateJobRequest",
+        ) -> dict[str, Any]:
+            import capo_panorama.types.create_node_from_template_job_request
+
+            return capo_panorama.types.create_node_from_template_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateNodeFromTemplateJob", redact_input=_redact_input),
+        )
         input_: capo_panorama.types.create_node_from_template_job_request.CreateNodeFromTemplateJobRequest = {
             "template_type": template_type,
             "output_package_name": output_package_name,
@@ -489,7 +511,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackage")
+        )
         input_: capo_panorama.types.create_package_request.CreatePackageRequest = {
             "package_name": package_name
         }
@@ -546,7 +570,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreatePackageImportJob")
+        )
         input_: capo_panorama.types.create_package_import_job_request.CreatePackageImportJobRequest = {
             "job_type": job_type,
             "input_config": input_config,
@@ -599,7 +625,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeleteDevice")
+        )
         input_: capo_panorama.types.delete_device_request.DeleteDeviceRequest = {
             "device_id": device_id
         }
@@ -649,7 +677,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeletePackage")
+        )
         input_: capo_panorama.types.delete_package_request.DeletePackageRequest = {
             "package_id": package_id
         }
@@ -711,7 +741,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DeregisterPackageVersion")
+        )
         input_: capo_panorama.types.deregister_package_version_request.DeregisterPackageVersionRequest = {
             "package_id": package_id,
             "package_version": package_version,
@@ -765,7 +797,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationInstance")
+        )
         input_: capo_panorama.types.describe_application_instance_request.DescribeApplicationInstanceRequest = {
             "application_instance_id": application_instance_id
         }
@@ -813,7 +847,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeApplicationInstanceDetails")
+        )
         input_: capo_panorama.types.describe_application_instance_details_request.DescribeApplicationInstanceDetailsRequest = {
             "application_instance_id": application_instance_id
         }
@@ -860,7 +896,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDevice")
+        )
         input_: capo_panorama.types.describe_device_request.DescribeDeviceRequest = {
             "device_id": device_id
         }
@@ -908,7 +946,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeDeviceJob")
+        )
         input_: capo_panorama.types.describe_device_job_request.DescribeDeviceJobRequest = {
             "job_id": job_id
         }
@@ -960,7 +1000,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribeNode")
+        )
         input_: capo_panorama.types.describe_node_request.DescribeNodeRequest = {
             "node_id": node_id
         }
@@ -1009,7 +1051,21 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_panorama.types.describe_node_from_template_job_response.DescribeNodeFromTemplateJobResponse",
+        ) -> dict[str, Any]:
+            import capo_panorama.types.describe_node_from_template_job_response
+
+            return capo_panorama.types.describe_node_from_template_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "DescribeNodeFromTemplateJob", redact_output=_redact_output
+            ),
+        )
         input_: capo_panorama.types.describe_node_from_template_job_request.DescribeNodeFromTemplateJobRequest = {
             "job_id": job_id
         }
@@ -1057,7 +1113,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackage")
+        )
         input_: capo_panorama.types.describe_package_request.DescribePackageRequest = {
             "package_id": package_id
         }
@@ -1104,7 +1162,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackageImportJob")
+        )
         input_: capo_panorama.types.describe_package_import_job_request.DescribePackageImportJobRequest = {
             "job_id": job_id
         }
@@ -1162,7 +1222,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("DescribePackageVersion")
+        )
         input_: capo_panorama.types.describe_package_version_request.DescribePackageVersionRequest = {
             "package_id": package_id,
             "package_version": package_version,
@@ -1216,7 +1278,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationInstanceDependencies")
+        )
         input_: capo_panorama.types.list_application_instance_dependencies_request.ListApplicationInstanceDependenciesRequest = {
             "application_instance_id": application_instance_id
         }
@@ -1290,7 +1354,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationInstanceNodeInstances")
+        )
         input_: capo_panorama.types.list_application_instance_node_instances_request.ListApplicationInstanceNodeInstancesRequest = {
             "application_instance_id": application_instance_id
         }
@@ -1368,7 +1434,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListApplicationInstances")
+        )
         input_: capo_panorama.types.list_application_instances_request.ListApplicationInstancesRequest = {}
         if device_id is not None:
             input_["device_id"] = device_id
@@ -1460,7 +1528,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevices")
+        )
         input_: capo_panorama.types.list_devices_request.ListDevicesRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1553,7 +1623,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListDevicesJobs")
+        )
         input_: capo_panorama.types.list_devices_jobs_request.ListDevicesJobsRequest = {}
         if device_id is not None:
             input_["device_id"] = device_id
@@ -1627,7 +1699,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodeFromTemplateJobs")
+        )
         input_: capo_panorama.types.list_node_from_template_jobs_request.ListNodeFromTemplateJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1714,7 +1788,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListNodes")
+        )
         input_: capo_panorama.types.list_nodes_request.ListNodesRequest = {}
         if category is not None:
             input_["category"] = category
@@ -1812,7 +1888,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackageImportJobs")
+        )
         input_: capo_panorama.types.list_package_import_jobs_request.ListPackageImportJobsRequest = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -1883,7 +1961,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListPackages")
+        )
         input_: capo_panorama.types.list_packages_request.ListPackagesRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -1952,7 +2032,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_panorama.types.list_tags_for_resource_request.ListTagsForResourceRequest = {
             "resource_arn": resource_arn
         }
@@ -2008,7 +2090,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ProvisionDevice")
+        )
         input_: capo_panorama.types.provision_device_request.ProvisionDeviceRequest = {
             "name": name
         }
@@ -2073,7 +2157,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RegisterPackageVersion")
+        )
         input_: capo_panorama.types.register_package_version_request.RegisterPackageVersionRequest = {
             "package_id": package_id,
             "package_version": package_version,
@@ -2127,7 +2213,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("RemoveApplicationInstance")
+        )
         input_: capo_panorama.types.remove_application_instance_request.RemoveApplicationInstanceRequest = {
             "application_instance_id": application_instance_id
         }
@@ -2176,7 +2264,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("SignalApplicationInstanceNodeInstances")
+        )
         input_: capo_panorama.types.signal_application_instance_node_instances_request.SignalApplicationInstanceNodeInstancesRequest = {
             "application_instance_id": application_instance_id,
             "node_signals": node_signals,
@@ -2225,7 +2315,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_panorama.types.tag_resource_request.TagResourceRequest = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -2274,7 +2366,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_panorama.types.untag_resource_request.UntagResourceRequest = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -2325,7 +2419,9 @@ class AsyncPanoramaClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateDeviceMetadata")
+        )
         input_: capo_panorama.types.update_device_metadata_request.UpdateDeviceMetadataRequest = {
             "device_id": device_id
         }

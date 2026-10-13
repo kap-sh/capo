@@ -7,6 +7,7 @@ import capo_mediaconnect._auth._sigv4
 from capo_mediaconnect._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -191,7 +192,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFlow")
+        )
         input_: capo_mediaconnect.types.create_flow_request.CreateFlowRequest = {}
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
@@ -267,7 +270,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlow")
+        )
         input_: capo_mediaconnect.types.describe_flow_request.DescribeFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -334,7 +339,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlow")
+        )
         input_: capo_mediaconnect.types.update_flow_request.UpdateFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -394,7 +401,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_mediaconnect.types.delete_flow_request.DeleteFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -442,7 +451,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_mediaconnect.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -496,7 +507,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowMediaStreams")
+        )
         input_: capo_mediaconnect.types.add_flow_media_streams_request.AddFlowMediaStreamsRequest = {
             "flow_arn": flow_arn
         }
@@ -551,7 +564,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowOutputs")
+        )
         input_: capo_mediaconnect.types.add_flow_outputs_request.AddFlowOutputsRequest = {
             "flow_arn": flow_arn
         }
@@ -605,7 +620,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowSources")
+        )
         input_: capo_mediaconnect.types.add_flow_sources_request.AddFlowSourcesRequest = {
             "flow_arn": flow_arn
         }
@@ -659,7 +676,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowVpcInterfaces")
+        )
         input_: capo_mediaconnect.types.add_flow_vpc_interfaces_request.AddFlowVpcInterfacesRequest = {
             "flow_arn": flow_arn
         }
@@ -709,7 +728,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceMetadata")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_metadata_request.DescribeFlowSourceMetadataRequest = {
             "flow_arn": flow_arn
         }
@@ -757,7 +778,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceThumbnail")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_thumbnail_request.DescribeFlowSourceThumbnailRequest = {
             "flow_arn": flow_arn
         }
@@ -810,7 +833,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GrantFlowEntitlements")
+        )
         input_: capo_mediaconnect.types.grant_flow_entitlements_request.GrantFlowEntitlementsRequest = {
             "flow_arn": flow_arn
         }
@@ -862,7 +887,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.remove_flow_media_stream_request.RemoveFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -913,7 +940,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowOutput")
+        )
         input_: capo_mediaconnect.types.remove_flow_output_request.RemoveFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -964,7 +993,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowSource")
+        )
         input_: capo_mediaconnect.types.remove_flow_source_request.RemoveFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,
@@ -1015,7 +1046,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowVpcInterface")
+        )
         input_: capo_mediaconnect.types.remove_flow_vpc_interface_request.RemoveFlowVpcInterfaceRequest = {
             "flow_arn": flow_arn,
             "vpc_interface_name": vpc_interface_name,
@@ -1066,7 +1099,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RevokeFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.revoke_flow_entitlement_request.RevokeFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -1115,7 +1150,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartFlow")
+        )
         input_: capo_mediaconnect.types.start_flow_request.StartFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1163,7 +1200,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFlow")
+        )
         input_: capo_mediaconnect.types.stop_flow_request.StopFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1227,7 +1266,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.update_flow_entitlement_request.UpdateFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -1300,7 +1341,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.update_flow_media_stream_request.UpdateFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -1418,7 +1461,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowOutput")
+        )
         input_: capo_mediaconnect.types.update_flow_output_request.UpdateFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -1569,7 +1614,9 @@ class FlowResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowSource")
+        )
         input_: capo_mediaconnect.types.update_flow_source_request.UpdateFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,
@@ -1719,7 +1766,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateFlow")
+        )
         input_: capo_mediaconnect.types.create_flow_request.CreateFlowRequest = {}
         if availability_zone is not None:
             input_["availability_zone"] = availability_zone
@@ -1796,7 +1845,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlow")
+        )
         input_: capo_mediaconnect.types.describe_flow_request.DescribeFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1864,7 +1915,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlow")
+        )
         input_: capo_mediaconnect.types.update_flow_request.UpdateFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1925,7 +1978,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteFlow")
+        )
         input_: capo_mediaconnect.types.delete_flow_request.DeleteFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -1974,7 +2029,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListFlows")
+        )
         input_: capo_mediaconnect.types.list_flows_request.ListFlowsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -2029,7 +2086,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowMediaStreams")
+        )
         input_: capo_mediaconnect.types.add_flow_media_streams_request.AddFlowMediaStreamsRequest = {
             "flow_arn": flow_arn
         }
@@ -2085,7 +2144,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowOutputs")
+        )
         input_: capo_mediaconnect.types.add_flow_outputs_request.AddFlowOutputsRequest = {
             "flow_arn": flow_arn
         }
@@ -2140,7 +2201,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowSources")
+        )
         input_: capo_mediaconnect.types.add_flow_sources_request.AddFlowSourcesRequest = {
             "flow_arn": flow_arn
         }
@@ -2195,7 +2258,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AddFlowVpcInterfaces")
+        )
         input_: capo_mediaconnect.types.add_flow_vpc_interfaces_request.AddFlowVpcInterfacesRequest = {
             "flow_arn": flow_arn
         }
@@ -2246,7 +2311,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceMetadata")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_metadata_request.DescribeFlowSourceMetadataRequest = {
             "flow_arn": flow_arn
         }
@@ -2295,7 +2362,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeFlowSourceThumbnail")
+        )
         input_: capo_mediaconnect.types.describe_flow_source_thumbnail_request.DescribeFlowSourceThumbnailRequest = {
             "flow_arn": flow_arn
         }
@@ -2349,7 +2418,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GrantFlowEntitlements")
+        )
         input_: capo_mediaconnect.types.grant_flow_entitlements_request.GrantFlowEntitlementsRequest = {
             "flow_arn": flow_arn
         }
@@ -2402,7 +2473,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.remove_flow_media_stream_request.RemoveFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -2454,7 +2527,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowOutput")
+        )
         input_: capo_mediaconnect.types.remove_flow_output_request.RemoveFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -2506,7 +2581,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowSource")
+        )
         input_: capo_mediaconnect.types.remove_flow_source_request.RemoveFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,
@@ -2558,7 +2635,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RemoveFlowVpcInterface")
+        )
         input_: capo_mediaconnect.types.remove_flow_vpc_interface_request.RemoveFlowVpcInterfaceRequest = {
             "flow_arn": flow_arn,
             "vpc_interface_name": vpc_interface_name,
@@ -2610,7 +2689,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("RevokeFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.revoke_flow_entitlement_request.RevokeFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -2660,7 +2741,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StartFlow")
+        )
         input_: capo_mediaconnect.types.start_flow_request.StartFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -2709,7 +2792,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("StopFlow")
+        )
         input_: capo_mediaconnect.types.stop_flow_request.StopFlowRequest = {
             "flow_arn": flow_arn
         }
@@ -2774,7 +2859,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowEntitlement")
+        )
         input_: capo_mediaconnect.types.update_flow_entitlement_request.UpdateFlowEntitlementRequest = {
             "entitlement_arn": entitlement_arn,
             "flow_arn": flow_arn,
@@ -2848,7 +2935,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowMediaStream")
+        )
         input_: capo_mediaconnect.types.update_flow_media_stream_request.UpdateFlowMediaStreamRequest = {
             "flow_arn": flow_arn,
             "media_stream_name": media_stream_name,
@@ -2967,7 +3056,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowOutput")
+        )
         input_: capo_mediaconnect.types.update_flow_output_request.UpdateFlowOutputRequest = {
             "flow_arn": flow_arn,
             "output_arn": output_arn,
@@ -3119,7 +3210,9 @@ class AsyncFlowResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateFlowSource")
+        )
         input_: capo_mediaconnect.types.update_flow_source_request.UpdateFlowSourceRequest = {
             "flow_arn": flow_arn,
             "source_arn": source_arn,

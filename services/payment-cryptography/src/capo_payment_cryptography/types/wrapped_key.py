@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptography#WrappedKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -62,4 +62,11 @@ def deserialize_aws_json_1_0(data: dict) -> WrappedKey:
         out["key_check_value"] = data["KeyCheckValue"]
     if data.get("KeyCheckValueAlgorithm") is not None:
         out["key_check_value_algorithm"] = data["KeyCheckValueAlgorithm"]
+    return out
+
+
+def redact_sensitive(value: WrappedKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "key_material" in value:
+        out["key_material"] = "*** Sensitive Data Redacted ***"
     return out

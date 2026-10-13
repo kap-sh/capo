@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ebs#ListSnapshotBlocksResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -65,4 +65,11 @@ def deserialize_json(data: dict) -> ListSnapshotBlocksResponse:
         out["block_size"] = data["BlockSize"]
     if data.get("NextToken") is not None:
         out["next_token"] = data["NextToken"]
+    return out
+
+
+def redact_sensitive(value: ListSnapshotBlocksResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "blocks" in value:
+        out["blocks"] = "*** Sensitive Data Redacted ***"
     return out

@@ -7,6 +7,7 @@ import capo_notifications._auth._sigv4
 from capo_notifications._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -75,7 +76,9 @@ class Channel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateChannel")
+        )
         input_: capo_notifications.types.associate_channel_request.AssociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -125,7 +128,9 @@ class Channel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateChannel")
+        )
         input_: capo_notifications.types.disassociate_channel_request.DisassociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -177,7 +182,9 @@ class Channel:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_notifications.types.list_channels_request.ListChannelsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }
@@ -238,7 +245,9 @@ class AsyncChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("AssociateChannel")
+        )
         input_: capo_notifications.types.associate_channel_request.AssociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -289,7 +298,9 @@ class AsyncChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DisassociateChannel")
+        )
         input_: capo_notifications.types.disassociate_channel_request.DisassociateChannelRequest = {
             "arn": arn,
             "notification_configuration_arn": notification_configuration_arn,
@@ -342,7 +353,9 @@ class AsyncChannel:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListChannels")
+        )
         input_: capo_notifications.types.list_channels_request.ListChannelsRequest = {
             "notification_configuration_arn": notification_configuration_arn
         }

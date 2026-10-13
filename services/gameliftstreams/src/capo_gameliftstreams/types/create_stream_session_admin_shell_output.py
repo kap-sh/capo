@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.gameliftstreams#CreateStreamSessionAdminShellOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -39,4 +39,11 @@ def deserialize_json(data: dict) -> CreateStreamSessionAdminShellOutput:
         out["stream_url"] = data["StreamUrl"]
     if data.get("TokenValue") is not None:
         out["token_value"] = data["TokenValue"]
+    return out
+
+
+def redact_sensitive(value: CreateStreamSessionAdminShellOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "token_value" in value:
+        out["token_value"] = "*** Sensitive Data Redacted ***"
     return out

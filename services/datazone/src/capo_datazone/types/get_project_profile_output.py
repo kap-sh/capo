@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#GetProjectProfileOutput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -171,4 +171,23 @@ def deserialize_json(data: dict) -> GetProjectProfileOutput:
         )
     if data.get("domainUnitId") is not None:
         out["domain_unit_id"] = data["domainUnitId"]
+    return out
+
+
+def redact_sensitive(value: GetProjectProfileOutput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "project_resource_tags_description" in value:
+        out["project_resource_tags_description"] = "*** Sensitive Data Redacted ***"
+    if "environment_configurations" in value:
+        import capo_datazone.types.environment_configurations_list
+
+        out["environment_configurations"] = (
+            capo_datazone.types.environment_configurations_list.redact_sensitive(
+                value["environment_configurations"]
+            )
+        )
     return out

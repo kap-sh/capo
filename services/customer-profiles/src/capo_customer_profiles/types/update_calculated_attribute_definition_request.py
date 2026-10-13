@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.customerprofiles#UpdateCalculatedAttributeDefinitionRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,15 @@ def deserialize_json(data: dict) -> UpdateCalculatedAttributeDefinitionRequest:
         out["conditions"] = capo_customer_profiles.types.conditions.deserialize_json(
             data["Conditions"]
         )
+    return out
+
+
+def redact_sensitive(
+    value: UpdateCalculatedAttributeDefinitionRequest,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "description" in value:
+        out["description"] = "*** Sensitive Data Redacted ***"
+    if "conditions" in value:
+        out["conditions"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.location#BatchEvaluateGeofencesErrorList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_location.types.batch_evaluate_geofences_error
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> BatchEvaluateGeofencesErrorList:
             capo_location.types.batch_evaluate_geofences_error.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: BatchEvaluateGeofencesErrorList) -> list[Any]:
+    import capo_location.types.batch_evaluate_geofences_error
+
+    return [
+        capo_location.types.batch_evaluate_geofences_error.redact_sensitive(item)
+        for item in value
+    ]

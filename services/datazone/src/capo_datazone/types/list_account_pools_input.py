@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.datazone#ListAccountPoolsInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -38,4 +38,11 @@ def serialize_json(value: ListAccountPoolsInput) -> dict:
 
 def deserialize_json(data: dict) -> ListAccountPoolsInput:
     out: ListAccountPoolsInput = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: ListAccountPoolsInput) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "name" in value:
+        out["name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#RouteTransitDeparture``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -71,4 +71,21 @@ def deserialize_json(data: dict) -> RouteTransitDeparture:
         )
     if data.get("Time") is not None:
         out["time"] = data["Time"]
+    return out
+
+
+def redact_sensitive(value: RouteTransitDeparture) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "delay" in value:
+        out["delay"] = "*** Sensitive Data Redacted ***"
+    if "place" in value:
+        import capo_geo_routes.types.route_transit_place
+
+        out["place"] = capo_geo_routes.types.route_transit_place.redact_sensitive(
+            value["place"]
+        )
+    if "status" in value:
+        out["status"] = "*** Sensitive Data Redacted ***"
+    if "time" in value:
+        out["time"] = "*** Sensitive Data Redacted ***"
     return out

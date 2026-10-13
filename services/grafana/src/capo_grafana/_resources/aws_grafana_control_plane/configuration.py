@@ -7,6 +7,7 @@ import capo_grafana._auth._sigv4
 from capo_grafana._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -65,7 +66,9 @@ class Configuration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.describe_workspace_configuration_request.DescribeWorkspaceConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -119,7 +122,9 @@ class Configuration:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.update_workspace_configuration_request.UpdateWorkspaceConfigurationRequest = {
             "configuration": configuration,
             "workspace_id": workspace_id,
@@ -174,7 +179,9 @@ class AsyncConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DescribeWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.describe_workspace_configuration_request.DescribeWorkspaceConfigurationRequest = {
             "workspace_id": workspace_id
         }
@@ -229,7 +236,9 @@ class AsyncConfiguration:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateWorkspaceConfiguration")
+        )
         input_: capo_grafana.types.update_workspace_configuration_request.UpdateWorkspaceConfigurationRequest = {
             "configuration": configuration,
             "workspace_id": workspace_id,

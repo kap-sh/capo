@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.devopsagent#CustomHeaders``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_devops_agent.types.custom_header_name
@@ -27,3 +27,7 @@ def deserialize_json(data: dict) -> CustomHeaders:
             continue
         out[key] = value
     return out
+
+
+def redact_sensitive(value: CustomHeaders) -> dict[str, Any]:
+    return dict.fromkeys(value, "*** Sensitive Data Redacted ***")

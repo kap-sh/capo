@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 from capo_b2bi._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -98,7 +99,28 @@ class Partnership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_partnership_request.CreatePartnershipRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_request
+
+            return capo_b2bi.types.create_partnership_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_partnership_response.CreatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_response
+
+            return capo_b2bi.types.create_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePartnership",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_partnership_request.CreatePartnershipRequest = {
             "profile_id": profile_id,
             "name": name,
@@ -162,7 +184,17 @@ class Partnership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_partnership_response.GetPartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_partnership_response
+
+            return capo_b2bi.types.get_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_partnership_request.GetPartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -226,7 +258,17 @@ class Partnership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.update_partnership_response.UpdatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_partnership_response
+
+            return capo_b2bi.types.update_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.update_partnership_request.UpdatePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -283,7 +325,9 @@ class Partnership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePartnership")
+        )
         input_: capo_b2bi.types.delete_partnership_request.DeletePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -339,7 +383,9 @@ class Partnership:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPartnerships")
+        )
         input_: capo_b2bi.types.list_partnerships_request.ListPartnershipsRequest = {}
         if profile_id is not None:
             input_["profile_id"] = profile_id
@@ -419,7 +465,28 @@ class AsyncPartnership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_b2bi.types.create_partnership_request.CreatePartnershipRequest",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_request
+
+            return capo_b2bi.types.create_partnership_request.redact_sensitive(input_)
+
+        def _redact_output(
+            output: "capo_b2bi.types.create_partnership_response.CreatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.create_partnership_response
+
+            return capo_b2bi.types.create_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreatePartnership",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_b2bi.types.create_partnership_request.CreatePartnershipRequest = {
             "profile_id": profile_id,
             "name": name,
@@ -484,7 +551,17 @@ class AsyncPartnership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.get_partnership_response.GetPartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.get_partnership_response
+
+            return capo_b2bi.types.get_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetPartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.get_partnership_request.GetPartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -549,7 +626,17 @@ class AsyncPartnership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_b2bi.types.update_partnership_response.UpdatePartnershipResponse",
+        ) -> dict[str, Any]:
+            import capo_b2bi.types.update_partnership_response
+
+            return capo_b2bi.types.update_partnership_response.redact_sensitive(output)
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdatePartnership", redact_output=_redact_output),
+        )
         input_: capo_b2bi.types.update_partnership_request.UpdatePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -607,7 +694,9 @@ class AsyncPartnership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeletePartnership")
+        )
         input_: capo_b2bi.types.delete_partnership_request.DeletePartnershipRequest = {
             "partnership_id": partnership_id
         }
@@ -664,7 +753,9 @@ class AsyncPartnership:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListPartnerships")
+        )
         input_: capo_b2bi.types.list_partnerships_request.ListPartnershipsRequest = {}
         if profile_id is not None:
             input_["profile_id"] = profile_id

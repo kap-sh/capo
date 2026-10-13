@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagent#DocumentMetadata``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -95,6 +95,27 @@ def deserialize_json(data: dict) -> DocumentMetadata:
         out["access_control_list"] = (
             capo_bedrock_agent.types.document_access_control_list.deserialize_json(
                 data["accessControlList"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: DocumentMetadata) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "inline_attributes" in value:
+        import capo_bedrock_agent.types.metadata_attributes
+
+        out["inline_attributes"] = (
+            capo_bedrock_agent.types.metadata_attributes.redact_sensitive(
+                value["inline_attributes"]
+            )
+        )
+    if "access_control_list" in value:
+        import capo_bedrock_agent.types.document_access_control_list
+
+        out["access_control_list"] = (
+            capo_bedrock_agent.types.document_access_control_list.redact_sensitive(
+                value["access_control_list"]
             )
         )
     return out

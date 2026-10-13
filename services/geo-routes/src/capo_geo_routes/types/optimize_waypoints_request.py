@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.georoutes#OptimizeWaypointsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -287,6 +287,75 @@ def deserialize_json(data: dict) -> OptimizeWaypointsRequest:
         out["waypoints"] = (
             capo_geo_routes.types.waypoint_optimization_waypoint_list.deserialize_json(
                 data["Waypoints"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: OptimizeWaypointsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "avoid" in value:
+        import capo_geo_routes.types.waypoint_optimization_avoidance_options
+
+        out["avoid"] = (
+            capo_geo_routes.types.waypoint_optimization_avoidance_options.redact_sensitive(
+                value["avoid"]
+            )
+        )
+    if "clustering" in value:
+        import capo_geo_routes.types.waypoint_optimization_clustering_options
+
+        out["clustering"] = (
+            capo_geo_routes.types.waypoint_optimization_clustering_options.redact_sensitive(
+                value["clustering"]
+            )
+        )
+    if "departure_time" in value:
+        out["departure_time"] = "*** Sensitive Data Redacted ***"
+    if "destination" in value:
+        out["destination"] = "*** Sensitive Data Redacted ***"
+    if "destination_options" in value:
+        import capo_geo_routes.types.waypoint_optimization_destination_options
+
+        out["destination_options"] = (
+            capo_geo_routes.types.waypoint_optimization_destination_options.redact_sensitive(
+                value["destination_options"]
+            )
+        )
+    if "driver" in value:
+        import capo_geo_routes.types.waypoint_optimization_driver_options
+
+        out["driver"] = (
+            capo_geo_routes.types.waypoint_optimization_driver_options.redact_sensitive(
+                value["driver"]
+            )
+        )
+    if "exclude" in value:
+        import capo_geo_routes.types.waypoint_optimization_exclusion_options
+
+        out["exclude"] = (
+            capo_geo_routes.types.waypoint_optimization_exclusion_options.redact_sensitive(
+                value["exclude"]
+            )
+        )
+    if "key" in value:
+        out["key"] = "*** Sensitive Data Redacted ***"
+    if "origin" in value:
+        out["origin"] = "*** Sensitive Data Redacted ***"
+    if "travel_mode_options" in value:
+        import capo_geo_routes.types.waypoint_optimization_travel_mode_options
+
+        out["travel_mode_options"] = (
+            capo_geo_routes.types.waypoint_optimization_travel_mode_options.redact_sensitive(
+                value["travel_mode_options"]
+            )
+        )
+    if "waypoints" in value:
+        import capo_geo_routes.types.waypoint_optimization_waypoint_list
+
+        out["waypoints"] = (
+            capo_geo_routes.types.waypoint_optimization_waypoint_list.redact_sensitive(
+                value["waypoints"]
             )
         )
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.workmail#CreateUserRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -97,4 +97,17 @@ def deserialize_aws_json_1_1(data: dict) -> CreateUserRequest:
         out["hidden_from_global_address_list"] = False
     if data.get("IdentityProviderUserId") is not None:
         out["identity_provider_user_id"] = data["IdentityProviderUserId"]
+    return out
+
+
+def redact_sensitive(value: CreateUserRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "display_name" in value:
+        out["display_name"] = "*** Sensitive Data Redacted ***"
+    if "password" in value:
+        out["password"] = "*** Sensitive Data Redacted ***"
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
     return out

@@ -31,7 +31,9 @@ from capo_partnercentral_revenue_measurement._services._pipeline import (
     AsyncOperationOptions,
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     aexecute_pipeline,
+    alog_operation,
     aretry,
 )
 
@@ -182,6 +184,7 @@ class AsyncPartnerCentralRevenueMeasurementClient:
         config_overrides: Optional[
             AsyncPartnerCentralRevenueMeasurementClientConfig
         ] = None,
+        operation_logging: OperationLogging | None = None,
     ) -> tuple[Iterable[AsyncInterceptor[Any, Any]], AsyncOperationOptions]:
         overrides: AsyncPartnerCentralRevenueMeasurementClientConfig = (
             config_overrides or {}
@@ -191,8 +194,10 @@ class AsyncPartnerCentralRevenueMeasurementClient:
                 "operation_interceptors", self._config.get("operation_interceptors", [])
             ),
             aaws_config(),
-            aretry(),
         ]
+        if operation_logging is not None:
+            interceptors_.append(alog_operation(operation_logging))
+        interceptors_.append(aretry())
         options_: AsyncOperationOptions = AsyncOperationOptions(
             client=self._client,
             retry_max_attempts=overrides.get(
@@ -245,7 +250,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListTagsForResource")
+        )
         input_: capo_partnercentral_revenue_measurement.types.list_tags_for_resource_input.ListTagsForResourceInput = {
             "resource_arn": resource_arn
         }
@@ -296,7 +303,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("TagResource")
+        )
         input_: capo_partnercentral_revenue_measurement.types.tag_resource_input.TagResourceInput = {
             "resource_arn": resource_arn,
             "tags": tags,
@@ -348,7 +357,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UntagResource")
+        )
         input_: capo_partnercentral_revenue_measurement.types.untag_resource_input.UntagResourceInput = {
             "resource_arn": resource_arn,
             "tag_keys": tag_keys,
@@ -416,7 +427,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateMarketplaceRevenueShare")
+        )
         input_: capo_partnercentral_revenue_measurement.types.create_marketplace_revenue_share_input.CreateMarketplaceRevenueShareInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -482,7 +495,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceRevenueShare")
+        )
         input_: capo_partnercentral_revenue_measurement.types.get_marketplace_revenue_share_input.GetMarketplaceRevenueShareInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -565,7 +580,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMarketplaceRevenueShares")
+        )
         input_: capo_partnercentral_revenue_measurement.types.list_marketplace_revenue_shares_input.ListMarketplaceRevenueSharesInput = {
             "catalog": catalog
         }
@@ -698,7 +715,10 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("CreateMarketplaceRevenueShareAllocation"),
+        )
         input_: capo_partnercentral_revenue_measurement.types.create_marketplace_revenue_share_allocation_input.CreateMarketplaceRevenueShareAllocationInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -769,7 +789,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetMarketplaceRevenueShareAllocation")
+        )
         input_: capo_partnercentral_revenue_measurement.types.get_marketplace_revenue_share_allocation_input.GetMarketplaceRevenueShareAllocationInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -862,7 +884,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListMarketplaceRevenueShareAllocations")
+        )
         input_: capo_partnercentral_revenue_measurement.types.list_marketplace_revenue_share_allocations_input.ListMarketplaceRevenueShareAllocationsInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -1018,7 +1042,10 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging("UpdateMarketplaceRevenueShareAllocation"),
+        )
         input_: capo_partnercentral_revenue_measurement.types.update_marketplace_revenue_share_allocation_input.UpdateMarketplaceRevenueShareAllocationInput = {
             "catalog": catalog,
             "product_id": product_id,
@@ -1105,7 +1132,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("CreateRevenueAttribution")
+        )
         input_: capo_partnercentral_revenue_measurement.types.create_revenue_attribution_input.CreateRevenueAttributionInput = {
             "catalog": catalog,
             "name": name,
@@ -1177,7 +1206,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("GetRevenueAttribution")
+        )
         input_: capo_partnercentral_revenue_measurement.types.get_revenue_attribution_input.GetRevenueAttributionInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1246,7 +1277,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("UpdateRevenueAttribution")
+        )
         input_: capo_partnercentral_revenue_measurement.types.update_revenue_attribution_input.UpdateRevenueAttributionInput = {
             "catalog": catalog,
             "identifier": identifier,
@@ -1330,7 +1363,9 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        interceptors_, options_ = self.operation_options(
+            config_overrides, OperationLogging("ListRevenueAttributions")
+        )
         input_: capo_partnercentral_revenue_measurement.types.list_revenue_attributions_input.ListRevenueAttributionsInput = {
             "catalog": catalog
         }
@@ -1450,7 +1485,21 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocation_output.GetRevenueAttributionAllocationOutput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocation_output
+
+            return capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocation_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRevenueAttributionAllocation", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocation_input.GetRevenueAttributionAllocationInput = {
             "catalog": catalog,
             "revenue_attribution_identifier": revenue_attribution_identifier,
@@ -1511,7 +1560,21 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocations_task_output.GetRevenueAttributionAllocationsTaskOutput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocations_task_output
+
+            return capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocations_task_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetRevenueAttributionAllocationsTask", redact_output=_redact_output
+            ),
+        )
         input_: capo_partnercentral_revenue_measurement.types.get_revenue_attribution_allocations_task_input.GetRevenueAttributionAllocationsTaskInput = {
             "catalog": catalog,
             "revenue_attribution_identifier": revenue_attribution_identifier,
@@ -1619,7 +1682,32 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_input.ListRevenueAttributionAllocationsInput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_input
+
+            return capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_output.ListRevenueAttributionAllocationsOutput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_output
+
+            return capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ListRevenueAttributionAllocations",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_partnercentral_revenue_measurement.types.list_revenue_attribution_allocations_input.ListRevenueAttributionAllocationsInput = {
             "catalog": catalog,
             "revenue_attribution_identifier": revenue_attribution_identifier,
@@ -1789,7 +1877,21 @@ class AsyncPartnerCentralRevenueMeasurementClient:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_partnercentral_revenue_measurement.types.start_revenue_attribution_allocations_task_input.StartRevenueAttributionAllocationsTaskInput",
+        ) -> dict[str, Any]:
+            import capo_partnercentral_revenue_measurement.types.start_revenue_attribution_allocations_task_input
+
+            return capo_partnercentral_revenue_measurement.types.start_revenue_attribution_allocations_task_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self.operation_options(
+            config_overrides,
+            OperationLogging(
+                "StartRevenueAttributionAllocationsTask", redact_input=_redact_input
+            ),
+        )
         input_: capo_partnercentral_revenue_measurement.types.start_revenue_attribution_allocations_task_input.StartRevenueAttributionAllocationsTaskInput = {
             "catalog": catalog,
             "revenue_attribution_identifier": revenue_attribution_identifier,

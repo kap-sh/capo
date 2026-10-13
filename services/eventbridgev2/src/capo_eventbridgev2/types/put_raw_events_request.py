@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.eventbridgev2#PutRawEventsRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -86,6 +86,19 @@ def deserialize_cbor(data: dict) -> PutRawEventsRequest:
         out["deduplication_configuration"] = (
             capo_eventbridgev2.types.deduplication_configuration.deserialize_cbor(
                 data["DeduplicationConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: PutRawEventsRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "entries" in value:
+        import capo_eventbridgev2.types.put_raw_events_request_entry_list
+
+        out["entries"] = (
+            capo_eventbridgev2.types.put_raw_events_request_entry_list.redact_sensitive(
+                value["entries"]
             )
         )
     return out

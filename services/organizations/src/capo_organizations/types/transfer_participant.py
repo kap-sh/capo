@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.organizations#TransferParticipant``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_aws_json_1_1(data: dict) -> TransferParticipant:
         out["management_account_id"] = data["ManagementAccountId"]
     if data.get("ManagementAccountEmail") is not None:
         out["management_account_email"] = data["ManagementAccountEmail"]
+    return out
+
+
+def redact_sensitive(value: TransferParticipant) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "management_account_email" in value:
+        out["management_account_email"] = "*** Sensitive Data Redacted ***"
     return out

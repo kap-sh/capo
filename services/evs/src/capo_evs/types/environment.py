@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.evs#Environment``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -258,5 +258,16 @@ def deserialize_aws_json_1_0(data: dict) -> Environment:
 
         out["credentials"] = capo_evs.types.secret_list.deserialize_aws_json_1_0(
             data["credentials"]
+        )
+    return out
+
+
+def redact_sensitive(value: Environment) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "license_info" in value:
+        import capo_evs.types.license_info_list
+
+        out["license_info"] = capo_evs.types.license_info_list.redact_sensitive(
+            value["license_info"]
         )
     return out

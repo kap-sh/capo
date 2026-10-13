@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.proton#NotifyResourceDeploymentStatusChangeInput``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -68,4 +68,19 @@ def deserialize_aws_json_1_0(data: dict) -> NotifyResourceDeploymentStatusChange
         out["deployment_id"] = data["deploymentId"]
     if data.get("statusMessage") is not None:
         out["status_message"] = data["statusMessage"]
+    return out
+
+
+def redact_sensitive(
+    value: NotifyResourceDeploymentStatusChangeInput,
+) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "outputs" in value:
+        import capo_proton.types.outputs_list
+
+        out["outputs"] = capo_proton.types.outputs_list.redact_sensitive(
+            value["outputs"]
+        )
+    if "status_message" in value:
+        out["status_message"] = "*** Sensitive Data Redacted ***"
     return out

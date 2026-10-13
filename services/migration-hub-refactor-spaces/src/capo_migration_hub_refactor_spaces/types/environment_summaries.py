@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.migrationhubrefactorspaces#EnvironmentSummaries``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_migration_hub_refactor_spaces.types.environment_summary
@@ -37,3 +37,14 @@ def deserialize_json(data: list) -> EnvironmentSummaries:
             )
         )
     return out
+
+
+def redact_sensitive(value: EnvironmentSummaries) -> list[Any]:
+    import capo_migration_hub_refactor_spaces.types.environment_summary
+
+    return [
+        capo_migration_hub_refactor_spaces.types.environment_summary.redact_sensitive(
+            item
+        )
+        for item in value
+    ]

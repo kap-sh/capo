@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.cloudfront#DistributionSummary``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -381,4 +381,17 @@ def deserialize_xml(el: Element) -> DistributionSummary:
                 child_connection_function_association
             )
         )
+    return out
+
+
+def redact_sensitive(value: DistributionSummary) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "origins" in value:
+        import capo_cloudfront.types.origins
+
+        out["origins"] = capo_cloudfront.types.origins.redact_sensitive(
+            value["origins"]
+        )
+    if "comment" in value:
+        out["comment"] = "*** Sensitive Data Redacted ***"
     return out

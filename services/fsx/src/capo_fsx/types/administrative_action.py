@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.fsx#AdministrativeAction``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -164,4 +164,27 @@ def deserialize_aws_json_1_1(data: dict) -> AdministrativeAction:
         out["remaining_transfer_bytes"] = data["RemainingTransferBytes"]
     if data.get("Message") is not None:
         out["message"] = data["Message"]
+    return out
+
+
+def redact_sensitive(value: AdministrativeAction) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target_file_system_values" in value:
+        import capo_fsx.types.file_system
+
+        out["target_file_system_values"] = capo_fsx.types.file_system.redact_sensitive(
+            value["target_file_system_values"]
+        )
+    if "target_volume_values" in value:
+        import capo_fsx.types.volume
+
+        out["target_volume_values"] = capo_fsx.types.volume.redact_sensitive(
+            value["target_volume_values"]
+        )
+    if "target_snapshot_values" in value:
+        import capo_fsx.types.snapshot
+
+        out["target_snapshot_values"] = capo_fsx.types.snapshot.redact_sensitive(
+            value["target_snapshot_values"]
+        )
     return out

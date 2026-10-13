@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#RecommendationResult``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 from typing_extensions import TypedDict
 
@@ -66,3 +66,24 @@ def deserialize_json(data: dict) -> RecommendationResult:
         }
     else:
         raise DeserializationError("RecommendationResult: no recognized variant key")
+
+
+def redact_sensitive(value: RecommendationResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "systemPromptRecommendationResult" in value:
+        import capo_bedrock_agentcore.types.system_prompt_recommendation_result
+
+        out["systemPromptRecommendationResult"] = (
+            capo_bedrock_agentcore.types.system_prompt_recommendation_result.redact_sensitive(
+                value["systemPromptRecommendationResult"]
+            )
+        )
+    if "toolDescriptionRecommendationResult" in value:
+        import capo_bedrock_agentcore.types.tool_description_recommendation_result
+
+        out["toolDescriptionRecommendationResult"] = (
+            capo_bedrock_agentcore.types.tool_description_recommendation_result.redact_sensitive(
+                value["toolDescriptionRecommendationResult"]
+            )
+        )
+    return out

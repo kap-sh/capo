@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.finspacedata#UserByPermissionGroup``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -115,4 +115,15 @@ def deserialize_json(data: dict) -> UserByPermissionGroup:
                 data["membershipStatus"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: UserByPermissionGroup) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "first_name" in value:
+        out["first_name"] = "*** Sensitive Data Redacted ***"
+    if "last_name" in value:
+        out["last_name"] = "*** Sensitive Data Redacted ***"
+    if "email_address" in value:
+        out["email_address"] = "*** Sensitive Data Redacted ***"
     return out

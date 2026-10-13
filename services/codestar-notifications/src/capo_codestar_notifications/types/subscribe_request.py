@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.codestarnotifications#SubscribeRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -52,4 +52,15 @@ def deserialize_json(data: dict) -> SubscribeRequest:
         raise DeserializationError("SubscribeRequest.target required")
     if data.get("ClientRequestToken") is not None:
         out["client_request_token"] = data["ClientRequestToken"]
+    return out
+
+
+def redact_sensitive(value: SubscribeRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "target" in value:
+        import capo_codestar_notifications.types.target
+
+        out["target"] = capo_codestar_notifications.types.target.redact_sensitive(
+            value["target"]
+        )
     return out

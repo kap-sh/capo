@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkvoice#ValidateE911AddressResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -67,6 +67,25 @@ def deserialize_json(data: dict) -> ValidateE911AddressResponse:
         out["candidate_address_list"] = (
             capo_chime_sdk_voice.types.candidate_address_list.deserialize_json(
                 data["CandidateAddressList"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: ValidateE911AddressResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "address" in value:
+        import capo_chime_sdk_voice.types.address
+
+        out["address"] = capo_chime_sdk_voice.types.address.redact_sensitive(
+            value["address"]
+        )
+    if "candidate_address_list" in value:
+        import capo_chime_sdk_voice.types.candidate_address_list
+
+        out["candidate_address_list"] = (
+            capo_chime_sdk_voice.types.candidate_address_list.redact_sensitive(
+                value["candidate_address_list"]
             )
         )
     return out

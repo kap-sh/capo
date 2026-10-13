@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#TopicFilter``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -208,5 +208,64 @@ def deserialize_json(data: dict) -> TopicFilter:
 
         out["null_filter"] = capo_quicksight.types.topic_null_filter.deserialize_json(
             data["NullFilter"]
+        )
+    return out
+
+
+def redact_sensitive(value: TopicFilter) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filter_description" in value:
+        out["filter_description"] = "*** Sensitive Data Redacted ***"
+    if "filter_synonyms" in value:
+        import capo_quicksight.types.synonyms
+
+        out["filter_synonyms"] = capo_quicksight.types.synonyms.redact_sensitive(
+            value["filter_synonyms"]
+        )
+    if "category_filter" in value:
+        import capo_quicksight.types.topic_category_filter
+
+        out["category_filter"] = (
+            capo_quicksight.types.topic_category_filter.redact_sensitive(
+                value["category_filter"]
+            )
+        )
+    if "numeric_equality_filter" in value:
+        import capo_quicksight.types.topic_numeric_equality_filter
+
+        out["numeric_equality_filter"] = (
+            capo_quicksight.types.topic_numeric_equality_filter.redact_sensitive(
+                value["numeric_equality_filter"]
+            )
+        )
+    if "numeric_range_filter" in value:
+        import capo_quicksight.types.topic_numeric_range_filter
+
+        out["numeric_range_filter"] = (
+            capo_quicksight.types.topic_numeric_range_filter.redact_sensitive(
+                value["numeric_range_filter"]
+            )
+        )
+    if "date_range_filter" in value:
+        import capo_quicksight.types.topic_date_range_filter
+
+        out["date_range_filter"] = (
+            capo_quicksight.types.topic_date_range_filter.redact_sensitive(
+                value["date_range_filter"]
+            )
+        )
+    if "relative_date_filter" in value:
+        import capo_quicksight.types.topic_relative_date_filter
+
+        out["relative_date_filter"] = (
+            capo_quicksight.types.topic_relative_date_filter.redact_sensitive(
+                value["relative_date_filter"]
+            )
+        )
+    if "null_filter" in value:
+        import capo_quicksight.types.topic_null_filter
+
+        out["null_filter"] = capo_quicksight.types.topic_null_filter.redact_sensitive(
+            value["null_filter"]
         )
     return out

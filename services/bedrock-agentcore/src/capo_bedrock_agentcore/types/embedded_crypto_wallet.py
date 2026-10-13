@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockagentcore#EmbeddedCryptoWallet``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -72,4 +72,17 @@ def deserialize_json(data: dict) -> EmbeddedCryptoWallet:
         out["wallet_address"] = data["walletAddress"]
     if data.get("redirectUrl") is not None:
         out["redirect_url"] = data["redirectUrl"]
+    return out
+
+
+def redact_sensitive(value: EmbeddedCryptoWallet) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "linked_accounts" in value:
+        import capo_bedrock_agentcore.types.linked_account_list
+
+        out["linked_accounts"] = (
+            capo_bedrock_agentcore.types.linked_account_list.redact_sensitive(
+                value["linked_accounts"]
+            )
+        )
     return out

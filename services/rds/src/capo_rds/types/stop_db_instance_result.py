@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.rds#StopDBInstanceResult``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -35,5 +35,16 @@ def deserialize_query(el: Element) -> StopDBInstanceResult:
 
         out["db_instance"] = capo_rds.types.db_instance.deserialize_query(
             child_db_instance
+        )
+    return out
+
+
+def redact_sensitive(value: StopDBInstanceResult) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "db_instance" in value:
+        import capo_rds.types.db_instance
+
+        out["db_instance"] = capo_rds.types.db_instance.redact_sensitive(
+            value["db_instance"]
         )
     return out

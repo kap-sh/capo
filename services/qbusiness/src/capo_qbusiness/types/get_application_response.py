@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.qbusiness#GetApplicationResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -286,6 +286,19 @@ def deserialize_json(data: dict) -> GetApplicationResponse:
         out["quick_sight_configuration"] = (
             capo_qbusiness.types.quick_sight_configuration.deserialize_json(
                 data["quickSightConfiguration"]
+            )
+        )
+    return out
+
+
+def redact_sensitive(value: GetApplicationResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "encryption_configuration" in value:
+        import capo_qbusiness.types.encryption_configuration
+
+        out["encryption_configuration"] = (
+            capo_qbusiness.types.encryption_configuration.redact_sensitive(
+                value["encryption_configuration"]
             )
         )
     return out

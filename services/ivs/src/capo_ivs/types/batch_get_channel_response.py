@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivs#BatchGetChannelResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -55,4 +55,13 @@ def deserialize_json(data: dict) -> BatchGetChannelResponse:
         import capo_ivs.types.batch_errors
 
         out["errors"] = capo_ivs.types.batch_errors.deserialize_json(data["errors"])
+    return out
+
+
+def redact_sensitive(value: BatchGetChannelResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "channels" in value:
+        import capo_ivs.types.channels
+
+        out["channels"] = capo_ivs.types.channels.redact_sensitive(value["channels"])
     return out

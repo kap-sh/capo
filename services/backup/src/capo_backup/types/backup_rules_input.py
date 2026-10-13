@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.backup#BackupRulesInput``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_backup.types.backup_rule_input
@@ -29,3 +29,11 @@ def deserialize_json(data: list) -> BackupRulesInput:
             continue
         out.append(capo_backup.types.backup_rule_input.deserialize_json(item))
     return out
+
+
+def redact_sensitive(value: BackupRulesInput) -> list[Any]:
+    import capo_backup.types.backup_rule_input
+
+    return [
+        capo_backup.types.backup_rule_input.redact_sensitive(item) for item in value
+    ]

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrockruntime#OutputFormat``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -58,4 +58,11 @@ def deserialize_json(data: dict) -> OutputFormat:
         )
     else:
         raise DeserializationError("OutputFormat.structure required")
+    return out
+
+
+def redact_sensitive(value: OutputFormat) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "structure" in value:
+        out["structure"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.iotsitewise#ComputeNodeExecutionDetails``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -154,4 +154,11 @@ def deserialize_json(data: dict) -> ComputeNodeExecutionDetails:
         out["execution_mounts"] = capo_iotsitewise.types.mount_list.deserialize_json(
             data["executionMounts"]
         )
+    return out
+
+
+def redact_sensitive(value: ComputeNodeExecutionDetails) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "execution_environment_variables" in value:
+        out["execution_environment_variables"] = "*** Sensitive Data Redacted ***"
     return out

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkmediapipelines#KinesisVideoStreamPoolConfiguration``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -135,4 +135,11 @@ def deserialize_json(data: dict) -> KinesisVideoStreamPoolConfiguration:
                 data["UpdatedTimestamp"]
             )
         )
+    return out
+
+
+def redact_sensitive(value: KinesisVideoStreamPoolConfiguration) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "pool_arn" in value:
+        out["pool_arn"] = "*** Sensitive Data Redacted ***"
     return out

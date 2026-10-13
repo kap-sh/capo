@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.inspector2#UpdateGitLabSelfManagedIntegrationDetail``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -30,4 +30,11 @@ def deserialize_json(data: dict) -> UpdateGitLabSelfManagedIntegrationDetail:
         raise DeserializationError(
             "UpdateGitLabSelfManagedIntegrationDetail.auth_code required"
         )
+    return out
+
+
+def redact_sensitive(value: UpdateGitLabSelfManagedIntegrationDetail) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "auth_code" in value:
+        out["auth_code"] = "*** Sensitive Data Redacted ***"
     return out

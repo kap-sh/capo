@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock_agentcore._auth._signers
 import capo_bedrock_agentcore._auth._sigv4
 from capo_bedrock_agentcore._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -94,7 +95,36 @@ class ProcessPaymentResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_request
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.process_payment_response.ProcessPaymentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_response
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ProcessPayment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,
@@ -179,7 +209,36 @@ class AsyncProcessPaymentResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_request
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock_agentcore.types.process_payment_response.ProcessPaymentResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock_agentcore.types.process_payment_response
+
+            return (
+                capo_bedrock_agentcore.types.process_payment_response.redact_sensitive(
+                    output
+                )
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "ProcessPayment",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock_agentcore.types.process_payment_request.ProcessPaymentRequest = {
             "payment_manager_arn": payment_manager_arn,
             "payment_session_id": payment_session_id,

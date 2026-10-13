@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#CreatePhoneNumberOrderRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -59,5 +59,18 @@ def deserialize_json(data: dict) -> CreatePhoneNumberOrderRequest:
     else:
         raise DeserializationError(
             "CreatePhoneNumberOrderRequest.e164_phone_numbers required"
+        )
+    return out
+
+
+def redact_sensitive(value: CreatePhoneNumberOrderRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "e164_phone_numbers" in value:
+        import capo_chime.types.e164_phone_number_list
+
+        out["e164_phone_numbers"] = (
+            capo_chime.types.e164_phone_number_list.redact_sensitive(
+                value["e164_phone_numbers"]
+            )
         )
     return out

@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_resource_explorer_2._auth._signers
 import capo_resource_explorer_2._auth._sigv4
 from capo_resource_explorer_2._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -93,7 +94,30 @@ class CfnView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_view_input.CreateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_input
+
+            return capo_resource_explorer_2.types.create_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.create_view_output.CreateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_output
+
+            return capo_resource_explorer_2.types.create_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.create_view_input.CreateViewInput = {
             "view_name": view_name
         }
@@ -152,7 +176,18 @@ class CfnView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_view_output.GetViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_view_output
+
+            return capo_resource_explorer_2.types.get_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetView", redact_output=_redact_output)
+        )
         input_: capo_resource_explorer_2.types.get_view_input.GetViewInput = {
             "view_arn": view_arn
         }
@@ -208,7 +243,30 @@ class CfnView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.update_view_input.UpdateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_input
+
+            return capo_resource_explorer_2.types.update_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.update_view_output.UpdateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_output
+
+            return capo_resource_explorer_2.types.update_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.update_view_input.UpdateViewInput = {
             "view_arn": view_arn
         }
@@ -260,7 +318,9 @@ class CfnView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteView")
+        )
         input_: capo_resource_explorer_2.types.delete_view_input.DeleteViewInput = {
             "view_arn": view_arn
         }
@@ -308,7 +368,9 @@ class CfnView:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListViews")
+        )
         input_: capo_resource_explorer_2.types.list_views_input.ListViewsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token
@@ -379,7 +441,30 @@ class AsyncCfnView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.create_view_input.CreateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_input
+
+            return capo_resource_explorer_2.types.create_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.create_view_output.CreateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.create_view_output
+
+            return capo_resource_explorer_2.types.create_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "CreateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.create_view_input.CreateViewInput = {
             "view_name": view_name
         }
@@ -439,7 +524,18 @@ class AsyncCfnView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.get_view_output.GetViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.get_view_output
+
+            return capo_resource_explorer_2.types.get_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetView", redact_output=_redact_output)
+        )
         input_: capo_resource_explorer_2.types.get_view_input.GetViewInput = {
             "view_arn": view_arn
         }
@@ -496,7 +592,30 @@ class AsyncCfnView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_resource_explorer_2.types.update_view_input.UpdateViewInput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_input
+
+            return capo_resource_explorer_2.types.update_view_input.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_resource_explorer_2.types.update_view_output.UpdateViewOutput",
+        ) -> dict[str, Any]:
+            import capo_resource_explorer_2.types.update_view_output
+
+            return capo_resource_explorer_2.types.update_view_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "UpdateView", redact_input=_redact_input, redact_output=_redact_output
+            ),
+        )
         input_: capo_resource_explorer_2.types.update_view_input.UpdateViewInput = {
             "view_arn": view_arn
         }
@@ -549,7 +668,9 @@ class AsyncCfnView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteView")
+        )
         input_: capo_resource_explorer_2.types.delete_view_input.DeleteViewInput = {
             "view_arn": view_arn
         }
@@ -598,7 +719,9 @@ class AsyncCfnView:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListViews")
+        )
         input_: capo_resource_explorer_2.types.list_views_input.ListViewsInput = {}
         if next_token is not None:
             input_["next_token"] = next_token

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.marketplacedeployment#PutDeploymentParameterRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -99,4 +99,17 @@ def deserialize_json(data: dict) -> PutDeploymentParameterRequest:
         )
     if data.get("clientToken") is not None:
         out["client_token"] = data["clientToken"]
+    return out
+
+
+def redact_sensitive(value: PutDeploymentParameterRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "deployment_parameter" in value:
+        import capo_marketplace_deployment.types.deployment_parameter_input
+
+        out["deployment_parameter"] = (
+            capo_marketplace_deployment.types.deployment_parameter_input.redact_sensitive(
+                value["deployment_parameter"]
+            )
+        )
     return out

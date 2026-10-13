@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chime#UpdatePhoneNumberRequestItemList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime.types.update_phone_number_request_item
@@ -33,3 +33,12 @@ def deserialize_json(data: list) -> UpdatePhoneNumberRequestItemList:
             capo_chime.types.update_phone_number_request_item.deserialize_json(item)
         )
     return out
+
+
+def redact_sensitive(value: UpdatePhoneNumberRequestItemList) -> list[Any]:
+    import capo_chime.types.update_phone_number_request_item
+
+    return [
+        capo_chime.types.update_phone_number_request_item.redact_sensitive(item)
+        for item in value
+    ]

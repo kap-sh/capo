@@ -1,13 +1,14 @@
 from __future__ import annotations
 
 import uuid
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_bedrock._auth._signers
 import capo_bedrock._auth._sigv4
 from capo_bedrock._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,34 @@ class EvaluationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_request
+
+            return (
+                capo_bedrock.types.batch_delete_evaluation_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.batch_delete_evaluation_job_response.BatchDeleteEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_response
+
+            return capo_bedrock.types.batch_delete_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDeleteEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -173,7 +201,19 @@ class EvaluationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_evaluation_job_request
+
+            return capo_bedrock.types.create_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest = {
             "job_name": job_name,
             "role_arn": role_arn,
@@ -235,7 +275,32 @@ class EvaluationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_request
+
+            return capo_bedrock.types.get_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.get_evaluation_job_response.GetEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_response
+
+            return capo_bedrock.types.get_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -305,7 +370,9 @@ class EvaluationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEvaluationJobs")
+        )
         input_: capo_bedrock.types.list_evaluation_jobs_request.ListEvaluationJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -369,7 +436,19 @@ class EvaluationJobResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.stop_evaluation_job_request
+
+            return capo_bedrock.types.stop_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -429,7 +508,34 @@ class AsyncEvaluationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_request
+
+            return (
+                capo_bedrock.types.batch_delete_evaluation_job_request.redact_sensitive(
+                    input_
+                )
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.batch_delete_evaluation_job_response.BatchDeleteEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.batch_delete_evaluation_job_response
+
+            return capo_bedrock.types.batch_delete_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "BatchDeleteEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.batch_delete_evaluation_job_request.BatchDeleteEvaluationJobRequest = {
             "job_identifiers": job_identifiers
         }
@@ -507,7 +613,19 @@ class AsyncEvaluationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.create_evaluation_job_request
+
+            return capo_bedrock.types.create_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.create_evaluation_job_request.CreateEvaluationJobRequest = {
             "job_name": job_name,
             "role_arn": role_arn,
@@ -570,7 +688,32 @@ class AsyncEvaluationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_request
+
+            return capo_bedrock.types.get_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        def _redact_output(
+            output: "capo_bedrock.types.get_evaluation_job_response.GetEvaluationJobResponse",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.get_evaluation_job_response
+
+            return capo_bedrock.types.get_evaluation_job_response.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging(
+                "GetEvaluationJob",
+                redact_input=_redact_input,
+                redact_output=_redact_output,
+            ),
+        )
         input_: capo_bedrock.types.get_evaluation_job_request.GetEvaluationJobRequest = {
             "job_identifier": job_identifier
         }
@@ -641,7 +784,9 @@ class AsyncEvaluationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEvaluationJobs")
+        )
         input_: capo_bedrock.types.list_evaluation_jobs_request.ListEvaluationJobsRequest = {}
         if creation_time_after is not None:
             input_["creation_time_after"] = creation_time_after
@@ -706,7 +851,19 @@ class AsyncEvaluationJobResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest",
+        ) -> dict[str, Any]:
+            import capo_bedrock.types.stop_evaluation_job_request
+
+            return capo_bedrock.types.stop_evaluation_job_request.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("StopEvaluationJob", redact_input=_redact_input),
+        )
         input_: capo_bedrock.types.stop_evaluation_job_request.StopEvaluationJobRequest = {
             "job_identifier": job_identifier
         }

@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.machinelearning#RedshiftDataSpec``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -102,4 +102,17 @@ def deserialize_aws_json_1_1(data: dict) -> RedshiftDataSpec:
         out["data_schema"] = data["DataSchema"]
     if data.get("DataSchemaUri") is not None:
         out["data_schema_uri"] = data["DataSchemaUri"]
+    return out
+
+
+def redact_sensitive(value: RedshiftDataSpec) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "database_credentials" in value:
+        import capo_machine_learning.types.redshift_database_credentials
+
+        out["database_credentials"] = (
+            capo_machine_learning.types.redshift_database_credentials.redact_sensitive(
+                value["database_credentials"]
+            )
+        )
     return out

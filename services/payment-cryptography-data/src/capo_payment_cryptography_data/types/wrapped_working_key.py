@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.paymentcryptographydata#WrappedWorkingKey``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -50,4 +50,11 @@ def deserialize_json(data: dict) -> WrappedWorkingKey:
         raise DeserializationError(
             "WrappedWorkingKey.wrapped_key_material_format required"
         )
+    return out
+
+
+def redact_sensitive(value: WrappedWorkingKey) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "wrapped_key_material" in value:
+        out["wrapped_key_material"] = "*** Sensitive Data Redacted ***"
     return out

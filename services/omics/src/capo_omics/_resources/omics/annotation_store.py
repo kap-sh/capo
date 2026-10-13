@@ -7,6 +7,7 @@ import capo_omics._auth._sigv4
 from capo_omics._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -96,7 +97,9 @@ class AnnotationStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStore")
+        )
         input_: capo_omics.types.create_annotation_store_request.CreateAnnotationStoreRequest = {
             "store_format": store_format
         }
@@ -154,7 +157,9 @@ class AnnotationStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStore")
+        )
         input_: capo_omics.types.get_annotation_store_request.GetAnnotationStoreRequest = {
             "name": name
         }
@@ -203,7 +208,9 @@ class AnnotationStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStore")
+        )
         input_: capo_omics.types.update_annotation_store_request.UpdateAnnotationStoreRequest = {
             "name": name
         }
@@ -255,7 +262,9 @@ class AnnotationStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStore")
+        )
         input_: capo_omics.types.delete_annotation_store_request.DeleteAnnotationStoreRequest = {
             "name": name
         }
@@ -314,7 +323,9 @@ class AnnotationStore:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStores")
+        )
         input_: capo_omics.types.list_annotation_stores_request.ListAnnotationStoresRequest = {}
         if ids is not None:
             input_["ids"] = ids
@@ -389,7 +400,9 @@ class AsyncAnnotationStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateAnnotationStore")
+        )
         input_: capo_omics.types.create_annotation_store_request.CreateAnnotationStoreRequest = {
             "store_format": store_format
         }
@@ -448,7 +461,9 @@ class AsyncAnnotationStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetAnnotationStore")
+        )
         input_: capo_omics.types.get_annotation_store_request.GetAnnotationStoreRequest = {
             "name": name
         }
@@ -498,7 +513,9 @@ class AsyncAnnotationStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("UpdateAnnotationStore")
+        )
         input_: capo_omics.types.update_annotation_store_request.UpdateAnnotationStoreRequest = {
             "name": name
         }
@@ -551,7 +568,9 @@ class AsyncAnnotationStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteAnnotationStore")
+        )
         input_: capo_omics.types.delete_annotation_store_request.DeleteAnnotationStoreRequest = {
             "name": name
         }
@@ -611,7 +630,9 @@ class AsyncAnnotationStore:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListAnnotationStores")
+        )
         input_: capo_omics.types.list_annotation_stores_request.ListAnnotationStoresRequest = {}
         if ids is not None:
             input_["ids"] = ids

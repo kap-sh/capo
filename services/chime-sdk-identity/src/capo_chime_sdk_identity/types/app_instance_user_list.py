@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.chimesdkidentity#AppInstanceUserList``."""
 
-from typing import TYPE_CHECKING, TypeAlias
+from typing import TYPE_CHECKING, Any, TypeAlias
 
 if TYPE_CHECKING:
     import capo_chime_sdk_identity.types.app_instance_user_summary
@@ -35,3 +35,12 @@ def deserialize_json(data: list) -> AppInstanceUserList:
             )
         )
     return out
+
+
+def redact_sensitive(value: AppInstanceUserList) -> list[Any]:
+    import capo_chime_sdk_identity.types.app_instance_user_summary
+
+    return [
+        capo_chime_sdk_identity.types.app_instance_user_summary.redact_sensitive(item)
+        for item in value
+    ]

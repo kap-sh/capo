@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.bedrock#StopEvaluationJobRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -23,4 +23,11 @@ def serialize_json(value: StopEvaluationJobRequest) -> dict:
 
 def deserialize_json(data: dict) -> StopEvaluationJobRequest:
     out: StopEvaluationJobRequest = {}  # type: ignore[typeddict-item]
+    return out
+
+
+def redact_sensitive(value: StopEvaluationJobRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "job_identifier" in value:
+        out["job_identifier"] = "*** Sensitive Data Redacted ***"
     return out

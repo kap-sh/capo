@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.pipes#FilterCriteria``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -29,4 +29,13 @@ def deserialize_json(data: dict) -> FilterCriteria:
         import capo_pipes.types.filter_list
 
         out["filters"] = capo_pipes.types.filter_list.deserialize_json(data["Filters"])
+    return out
+
+
+def redact_sensitive(value: FilterCriteria) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "filters" in value:
+        import capo_pipes.types.filter_list
+
+        out["filters"] = capo_pipes.types.filter_list.redact_sensitive(value["filters"])
     return out

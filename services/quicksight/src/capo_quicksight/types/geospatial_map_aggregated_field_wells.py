@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.quicksight#GeospatialMapAggregatedFieldWells``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -63,5 +63,28 @@ def deserialize_json(data: dict) -> GeospatialMapAggregatedFieldWells:
 
         out["colors"] = capo_quicksight.types.dimension_field_list.deserialize_json(
             data["Colors"]
+        )
+    return out
+
+
+def redact_sensitive(value: GeospatialMapAggregatedFieldWells) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "geospatial" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["geospatial"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["geospatial"]
+        )
+    if "values" in value:
+        import capo_quicksight.types.measure_field_list
+
+        out["values"] = capo_quicksight.types.measure_field_list.redact_sensitive(
+            value["values"]
+        )
+    if "colors" in value:
+        import capo_quicksight.types.dimension_field_list
+
+        out["colors"] = capo_quicksight.types.dimension_field_list.redact_sensitive(
+            value["colors"]
         )
     return out

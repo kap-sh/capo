@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.comprehend#BatchDetectTargetedSentimentRequest``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import TypedDict
 
@@ -64,4 +64,11 @@ def deserialize_aws_json_1_1(data: dict) -> BatchDetectTargetedSentimentRequest:
         raise DeserializationError(
             "BatchDetectTargetedSentimentRequest.language_code required"
         )
+    return out
+
+
+def redact_sensitive(value: BatchDetectTargetedSentimentRequest) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "text_list" in value:
+        out["text_list"] = "*** Sensitive Data Redacted ***"
     return out

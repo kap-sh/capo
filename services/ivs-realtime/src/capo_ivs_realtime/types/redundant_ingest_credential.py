@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.ivsrealtime#RedundantIngestCredential``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -32,4 +32,11 @@ def deserialize_json(data: dict) -> RedundantIngestCredential:
         out["participant_id"] = data["participantId"]
     if data.get("streamKey") is not None:
         out["stream_key"] = data["streamKey"]
+    return out
+
+
+def redact_sensitive(value: RedundantIngestCredential) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "stream_key" in value:
+        out["stream_key"] = "*** Sensitive Data Redacted ***"
     return out

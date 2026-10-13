@@ -1,6 +1,6 @@
 """Generated from Smithy shape ``com.amazonaws.lexruntimev2#RecognizeTextResponse``."""
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from typing_extensions import NotRequired, TypedDict
 
@@ -113,5 +113,22 @@ def deserialize_json(data: dict) -> RecognizeTextResponse:
             capo_lex_runtime_v2.types.recognized_bot_member.deserialize_json(
                 data["recognizedBotMember"]
             )
+        )
+    return out
+
+
+def redact_sensitive(value: RecognizeTextResponse) -> dict[str, Any]:
+    out: dict[str, Any] = dict(value)
+    if "messages" in value:
+        import capo_lex_runtime_v2.types.messages
+
+        out["messages"] = capo_lex_runtime_v2.types.messages.redact_sensitive(
+            value["messages"]
+        )
+    if "session_state" in value:
+        import capo_lex_runtime_v2.types.session_state
+
+        out["session_state"] = capo_lex_runtime_v2.types.session_state.redact_sensitive(
+            value["session_state"]
         )
     return out

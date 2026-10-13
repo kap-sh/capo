@@ -7,6 +7,7 @@ import capo_braket._auth._sigv4
 from capo_braket._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -66,7 +67,9 @@ class DeviceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDevice")
+        )
         input_: capo_braket.types.get_device_request.GetDeviceRequest = {
             "device_arn": device_arn
         }
@@ -116,7 +119,9 @@ class DeviceResource:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchDevices")
+        )
         input_: capo_braket.types.search_devices_request.SearchDevicesRequest = {
             "filters": filters
         }
@@ -173,7 +178,9 @@ class AsyncDeviceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetDevice")
+        )
         input_: capo_braket.types.get_device_request.GetDeviceRequest = {
             "device_arn": device_arn
         }
@@ -224,7 +231,9 @@ class AsyncDeviceResource:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("SearchDevices")
+        )
         input_: capo_braket.types.search_devices_request.SearchDevicesRequest = {
             "filters": filters
         }

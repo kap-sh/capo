@@ -1,12 +1,13 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Any, Optional
 
 import capo_launch_wizard._auth._signers
 import capo_launch_wizard._auth._sigv4
 from capo_launch_wizard._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -101,7 +102,19 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.create_deployment_input
+
+            return capo_launch_wizard.types.create_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,
@@ -158,7 +171,19 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_launch_wizard.types.get_deployment_output.GetDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.get_deployment_output
+
+            return capo_launch_wizard.types.get_deployment_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeployment", redact_output=_redact_output),
+        )
         input_: capo_launch_wizard.types.get_deployment_input.GetDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -226,7 +251,19 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.update_deployment_input
+
+            return capo_launch_wizard.types.update_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_id": deployment_id,
             "specifications": specifications,
@@ -286,7 +323,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_launch_wizard.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -343,7 +382,9 @@ class Deployment:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_launch_wizard.types.list_deployments_input.ListDeploymentsInput = {}
         if filters is not None:
             input_["filters"] = filters
@@ -417,7 +458,19 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.create_deployment_input
+
+            return capo_launch_wizard.types.create_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("CreateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.create_deployment_input.CreateDeploymentInput = {
             "workload_name": workload_name,
             "deployment_pattern_name": deployment_pattern_name,
@@ -475,7 +528,19 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_output(
+            output: "capo_launch_wizard.types.get_deployment_output.GetDeploymentOutput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.get_deployment_output
+
+            return capo_launch_wizard.types.get_deployment_output.redact_sensitive(
+                output
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("GetDeployment", redact_output=_redact_output),
+        )
         input_: capo_launch_wizard.types.get_deployment_input.GetDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -544,7 +609,19 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        def _redact_input(
+            input_: "capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput",
+        ) -> dict[str, Any]:
+            import capo_launch_wizard.types.update_deployment_input
+
+            return capo_launch_wizard.types.update_deployment_input.redact_sensitive(
+                input_
+            )
+
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides,
+            OperationLogging("UpdateDeployment", redact_input=_redact_input),
+        )
         input_: capo_launch_wizard.types.update_deployment_input.UpdateDeploymentInput = {
             "deployment_id": deployment_id,
             "specifications": specifications,
@@ -605,7 +682,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteDeployment")
+        )
         input_: capo_launch_wizard.types.delete_deployment_input.DeleteDeploymentInput = {
             "deployment_id": deployment_id
         }
@@ -663,7 +742,9 @@ class AsyncDeployment:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListDeployments")
+        )
         input_: capo_launch_wizard.types.list_deployments_input.ListDeploymentsInput = {}
         if filters is not None:
             input_["filters"] = filters

@@ -7,6 +7,7 @@ import capo_account_access._auth._sigv4
 from capo_account_access._services._pipeline import (
     AsyncOperationRequest,
     AsyncOperationResponse,
+    OperationLogging,
     OperationRequest,
     OperationResponse,
     aexecute_pipeline,
@@ -88,7 +89,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_account_access.types.create_application_request.CreateApplicationRequest = {
             "identity_source": identity_source
         }
@@ -137,7 +140,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_account_access.types.get_application_request.GetApplicationRequest = {
             "application_arn": application_arn
         }
@@ -185,7 +190,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_account_access.types.delete_application_request.DeleteApplicationRequest = {
             "application_arn": application_arn
         }
@@ -235,7 +242,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_account_access.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -288,7 +297,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_account_access.types.create_entitlement_request.CreateEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement": entitlement,
@@ -339,7 +350,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_account_access.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -389,7 +402,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEntitlement")
+        )
         input_: capo_account_access.types.get_entitlement_request.GetEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -445,7 +460,9 @@ class Application:
             )
             return OperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEntitlements")
+        )
         input_: capo_account_access.types.list_entitlements_request.ListEntitlementsRequest = {
             "application_arn": application_arn,
             "filter": filter,
@@ -506,7 +523,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateApplication")
+        )
         input_: capo_account_access.types.create_application_request.CreateApplicationRequest = {
             "identity_source": identity_source
         }
@@ -556,7 +575,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetApplication")
+        )
         input_: capo_account_access.types.get_application_request.GetApplicationRequest = {
             "application_arn": application_arn
         }
@@ -605,7 +626,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteApplication")
+        )
         input_: capo_account_access.types.delete_application_request.DeleteApplicationRequest = {
             "application_arn": application_arn
         }
@@ -656,7 +679,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListApplications")
+        )
         input_: capo_account_access.types.list_applications_request.ListApplicationsRequest = {}
         if max_results is not None:
             input_["max_results"] = max_results
@@ -710,7 +735,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("CreateEntitlement")
+        )
         input_: capo_account_access.types.create_entitlement_request.CreateEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement": entitlement,
@@ -762,7 +789,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("DeleteEntitlement")
+        )
         input_: capo_account_access.types.delete_entitlement_request.DeleteEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -813,7 +842,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("GetEntitlement")
+        )
         input_: capo_account_access.types.get_entitlement_request.GetEntitlementRequest = {
             "application_arn": application_arn,
             "entitlement_id": entitlement_id,
@@ -870,7 +901,9 @@ class AsyncApplication:
             )
             return AsyncOperationResponse(output=output, response=http_response)
 
-        interceptors_, options_ = self._service.operation_options(config_overrides)
+        interceptors_, options_ = self._service.operation_options(
+            config_overrides, OperationLogging("ListEntitlements")
+        )
         input_: capo_account_access.types.list_entitlements_request.ListEntitlementsRequest = {
             "application_arn": application_arn,
             "filter": filter,
